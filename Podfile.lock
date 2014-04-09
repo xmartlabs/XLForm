@@ -1,0 +1,66 @@
+PODS:
+  - AFNetworking (2.2.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.0):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.0)
+  - AFNetworking/Security (2.2.0)
+  - AFNetworking/Serialization (2.2.0)
+  - AFNetworking/UIKit (2.2.0):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - MRProgress (0.4.1):
+    - MRProgress/ActivityIndicator
+    - MRProgress/Blur
+    - MRProgress/Circular
+    - MRProgress/Helper
+    - MRProgress/Icons
+    - MRProgress/MessageInterceptor
+    - MRProgress/NavigationBarProgress
+    - MRProgress/Overlay
+    - MRProgress/Stopable
+    - MRProgress/WeakProxy
+  - MRProgress/ActivityIndicator (0.4.1):
+    - MRProgress/Stopable
+  - MRProgress/Blur (0.4.1):
+    - MRProgress/Helper
+  - MRProgress/Circular (0.4.1):
+    - MRProgress/Helper
+    - MRProgress/Stopable
+  - MRProgress/Helper (0.4.1)
+  - MRProgress/Icons (0.4.1)
+  - MRProgress/MessageInterceptor (0.4.1)
+  - MRProgress/NavigationBarProgress (0.4.1):
+    - MRProgress/MessageInterceptor
+  - MRProgress/Overlay (0.4.1):
+    - MRProgress/ActivityIndicator
+    - MRProgress/Blur
+    - MRProgress/Circular
+    - MRProgress/Helper
+    - MRProgress/Icons
+  - MRProgress/Stopable (0.4.1):
+    - MRProgress/Helper
+  - MRProgress/WeakProxy (0.4.1)
+  - XLDataLoader (1.0.0):
+    - AFNetworking (~> 2.0)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.0)
+  - MRProgress (~> 0.2)
+  - XLDataLoader (~> 1.0)
+
+SPEC CHECKSUMS:
+  AFNetworking: e8cfd8f3fe3bfe19124a0cc63f4d45752d892a56
+  MRProgress: 6530ce71278dd7ecfb5e3c3e37df03a323690936
+  XLDataLoader: 05925b09fb2110b50a98d5fd9500823f5035b4ea
+
+COCOAPODS: 0.31.1
