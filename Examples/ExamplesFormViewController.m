@@ -68,7 +68,7 @@ NSString * const kMultivalued = @"Multivalued";
     
     
     // TextFieldAndTextView
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kTextFieldAndTextView rowType:XLFormRowDescriptorTypeButton title:@"Text Fields Examles"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kTextFieldAndTextView rowType:XLFormRowDescriptorTypeButton title:@"Text Fields Examples"];
     row.buttonViewController = [InputsFormViewController class];
     [section addFormRow:row];
     

@@ -170,7 +170,8 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     [self.formViewController textViewDidEndEditing:textView];
 }
 
-
-
+-(void)textViewDidChange:(UITextView *)textView{
+    self.rowDescriptor.value = self.textView.text;
+}
 
 @end

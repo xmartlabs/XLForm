@@ -52,6 +52,8 @@
         [self.contentView addConstraints:[self layoutConstraints]];
         [self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
         [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+        
+        [self.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return self;
 }
@@ -249,6 +251,14 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    [self textFieldDidChange:textField];
+    [self.formViewController textFieldDidEndEditing:textField];
+}
+
+
+#pragma mark - Helper
+
+- (void)textFieldDidChange:(UITextField *)textField{
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber]){
         self.rowDescriptor.value =  @([self.textField.text doubleValue]);
     }
@@ -258,7 +268,6 @@
     else{
         self.rowDescriptor.value = self.textField.text;
     }
-    [self.formViewController textFieldDidEndEditing:textField];
 }
 
 @end
