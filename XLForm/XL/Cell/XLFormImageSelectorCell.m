@@ -106,7 +106,14 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 
 -(void)addLayoutConstraints
 {
-    NSDictionary *uiComponents = @{ @"image" : self.imageView };
+    NSDictionary *uiComponents = @{ @"image" : self.imageView,
+                                    @"text"  : self.textLabel};
+    
+    NSDictionary *metrics = @{@"margin":@5.0};
+    
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
+    
     
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
                                                                 attribute:NSLayoutAttributeTop
