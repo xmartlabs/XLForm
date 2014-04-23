@@ -458,6 +458,7 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
     [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL *stop) {
         [cell setValue:value forKeyPath:keyPath];
     }];
+    [cell setNeedsUpdateConstraints];
     [cell setNeedsLayout];
 }
 
