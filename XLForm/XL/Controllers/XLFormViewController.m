@@ -459,6 +459,7 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
         [cell setValue:value forKeyPath:keyPath];
     }];
     [cell setNeedsUpdateConstraints];
+    [cell setNeedsLayout];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
