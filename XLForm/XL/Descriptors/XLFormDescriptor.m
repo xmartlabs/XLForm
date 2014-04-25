@@ -61,6 +61,21 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
     [self insertObject:formSection inFormSectionsAtIndex:[self.formSections count]];
 }
 
+-(void)addFormSection:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
+{
+    if (self.formSections.count >= index) {
+        [self insertObject:formSection inFormSectionsAtIndex:index];
+    }
+}
+
+-(void)addFormSection:(XLFormSectionDescriptor *)formSection afterSection:(XLFormSectionDescriptor *)afterSection
+{
+    NSUInteger index = [self.formSections indexOfObject:afterSection];
+    if (index != NSNotFound) {
+        [self insertObject:formSection inFormSectionsAtIndex:[self.formSections indexOfObject:afterSection]+1];
+    }
+}
+
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow
 {
     NSIndexPath * afterIndexPath = [self indexPathOfFormRow:afterRow];
