@@ -129,6 +129,11 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
     tv.delegate = self;
     self.view = tv;
     self.tableView = tv;
+    
+    UITapGestureRecognizer *tableTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.tableView addGestureRecognizer:tableTap];
+    UITapGestureRecognizer *navTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.navigationController.navigationBar addGestureRecognizer:navTap];
 }
 
 - (void)viewDidLoad
@@ -309,6 +314,10 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
 
 -(void)showServerErrorMessage:(NSError *)error
 {
+}
+
+- (void)hideKeyboard {
+    [self.tableView endEditing:YES];
 }
 
 #pragma mark - Properties
