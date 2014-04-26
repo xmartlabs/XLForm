@@ -46,9 +46,9 @@
 -(void)forceReload;
 
 // method called after a successful data load, if overrited by subclass don't forget to call super method (delegate is called from there).
--(void)successulDataLoad;
+-(void)successfulDataLoad;
 // method called after a failure on data load, if overrited by subclass don't forget to call super method (delegate is called from there).
--(void)unsuccessulDataLoadWithError:(NSError *)error;
+-(void)unsuccessfulDataLoadWithError:(NSError *)error;
 
 // call for obtain the related fetched
 -(NSDictionary *)fetchedData;

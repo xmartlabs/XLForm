@@ -71,14 +71,14 @@
                 NSMutableDictionary * newUserInfo = [error.userInfo mutableCopy];
                 [newUserInfo setObject:responseObject forKey:AFNetworkingTaskDidCompleteSerializedResponseKey];
                 NSError * newError = [NSError errorWithDomain:error.domain code:error.code userInfo:newUserInfo];
-                [weakSelf unsuccessulDataLoadWithError:newError];
+                [weakSelf unsuccessfulDataLoadWithError:newError];
             }
             else{
-                [weakSelf unsuccessulDataLoadWithError:error];
+                [weakSelf unsuccessfulDataLoadWithError:error];
             }
         } else {
             [weakSelf setData:(NSDictionary *)responseObject];
-            [weakSelf successulDataLoad];
+            [weakSelf successfulDataLoad];
         }
     };
     if (self.isMultiPartRequest) {
@@ -105,14 +105,14 @@
 }
 
 
--(void)successulDataLoad
+-(void)successfulDataLoad
 {
     if (self.delegate){
         [self.delegate dataLoaderDidLoadData:self];
     }
 }
 
--(void)unsuccessulDataLoadWithError:(NSError *)error
+-(void)unsuccessfulDataLoadWithError:(NSError *)error
 {
     if (self.delegate){
         [self.delegate dataLoaderDidFailLoadData:self withError:error];
