@@ -65,8 +65,8 @@
 -(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController
 {
     if (_cell) return _cell;
-    NSAssert(self.cellClass || formController.cellClassesForRowDescriptorTypes[self.rowType], @"Not defined XLFormRowDescriptorType");
-    _cell =  self.cellClass ? [[self.cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil] : [[formController.cellClassesForRowDescriptorTypes[self.rowType] alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
+    NSAssert(self.cellClass || [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType], @"Not defined XLFormRowDescriptorType");
+    _cell =  self.cellClass ? [[self.cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil] : [[[XLFormViewController cellClassesForRowDescriptorTypes][self.rowType] alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
     [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
         [_cell setValue:value forKeyPath:keyPath];
     }];

@@ -45,14 +45,34 @@ NSString * const kMultivalued = @"Multivalued";
 
 @implementation ExamplesFormViewController
 
-- (id)init
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
+}
+
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self initializeForm];
+}
+
+
+#pragma mark - Helper
+
+-(void)initializeForm
 {
     XLFormDescriptor * form;
     XLFormSectionDescriptor * section;
     XLFormRowDescriptor * row;
     
-    form = [XLFormDescriptor formDescriptorWithTitle:@"Examples"];
-
+    form = [XLFormDescriptor formDescriptor];
+    
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Real examples"];
     [form addFormSection:section];
     
@@ -61,7 +81,7 @@ NSString * const kMultivalued = @"Multivalued";
     row.buttonViewController = [NativeEventNavigationViewController class];
     [section addFormRow:row];
     
-
+    
     section = [XLFormSectionDescriptor formSectionWithTitle:@"This form is actually an example"];
     section.footerTitle = @"ExamplesFormViewController.h, Select an option to view another example";
     [form addFormSection:section];
@@ -93,9 +113,9 @@ NSString * const kMultivalued = @"Multivalued";
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivalued rowType:XLFormRowDescriptorTypeButton title:@"MultiValued Sections"];
     row.buttonViewController = [MultiValuedFormViewController class];
     [section addFormRow:row];
-
     
-    return [super initWithForm:form formMode:XLFormModeCreate showCancelButton:NO showSaveButton:NO showDeleteButton:NO deleteButtonCaption:nil];
+    self.form = form;
+
 }
 
 

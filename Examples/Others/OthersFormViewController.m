@@ -35,6 +35,17 @@ NSString *const kSwitchCheck = @"switchBool";
 
 - (id)init
 {
+    self = [super init];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
+}
+
+
+
+-(void)initializeForm
+{
     XLFormDescriptor * form = [XLFormDescriptor formDescriptorWithTitle:@"Other Cells"];
     XLFormSectionDescriptor * section;
     
@@ -48,10 +59,11 @@ NSString *const kSwitchCheck = @"switchBool";
     
     // check
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kSwitchCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"]];
-
-
-    return [super initWithForm:form];
+    self.form = form;
 }
+
+
+
 
 
 @end

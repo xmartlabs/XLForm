@@ -54,10 +54,9 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
 @synthesize saveButton = _saveButton;
 
 
-
 -(id)init
 {
-    return [self initWithForm:nil];
+    return [self initWithStyle:UITableViewStyleGrouped];
 }
 
 -(id)initWithForm:(XLFormDescriptor *)form
@@ -79,8 +78,6 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
         _showCancelButton = showCancelButton;
         _showSaveButton = showSaveButton;
         _showDeleteButton = showDeleteButton;
-        _tableViewStyle = style;
-        _showNetworkReachability = YES;
         _deleteButtonCaption = deleteButtonCaption;
     }
     return self;
@@ -91,44 +88,27 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
 {
     self = [super initWithStyle:style];
     if (self) {
-        _cellClassesForRowDescriptorTypes = [@{XLFormRowDescriptorTypeText:[XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypeName: [XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypePhone:[XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypeURL:[XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypeEmail: [XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypeTwitter: [XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypeAccount: [XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypePassword: [XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
-                                               XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
-                                               XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
-                                               XLFormRowDescriptorTypeSelectorAlertView: [XLFormSelectorCell class],
-                                               XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
-                                               XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
-                                               XLFormRowDescriptorTypeBooleanSwitch : [XLFormSwitchCell class],
-                                               XLFormRowDescriptorTypeBooleanCheck : [XLFormCheckCell class],
-                                               XLFormRowDescriptorTypeDate: [XLFormDateCell class],
-                                               XLFormRowDescriptorTypeTime: [XLFormDateCell class],
-                                               XLFormRowDescriptorTypeDateTime : [XLFormDateCell class],
-                                               XLFormRowDescriptorTypeDateInline: [XLFormDateCell class],
-                                               XLFormRowDescriptorTypeTimeInline: [XLFormDateCell class],
-                                               XLFormRowDescriptorTypeDateTimeInline: [XLFormDateCell class],
-                                               XLFormRowDescriptorTypeDatePicker : [XLFormDatePickerCell class],
-                                               XLFormRowDescriptorTypeSelectorLeftRight : [XLFormLeftRightSelectorCell class],
-                                               XLFormRowDescriptorTypeImage: [XLFormImageSelectorCell class]
-                                            } mutableCopy];
+        [self defaultInitialize];
+        _tableViewStyle = style;
     }
     return self;
 }
 
--(void)loadView
+-(void)awakeFromNib
 {
-    UITableView * tv = [[UITableView alloc]initWithFrame:CGRectZero style:self.tableViewStyle];
-    tv.dataSource = self;
-    tv.delegate = self;
-    self.view = tv;
-    self.tableView = tv;
+    [super awakeFromNib];
+    [self defaultInitialize];
+}
+
+-(void)defaultInitialize
+{
+    _form = nil;
+    _formMode = XLFormModeCreate;
+    _showCancelButton = NO;
+    _showSaveButton = NO;
+    _showDeleteButton = NO;
+    _showNetworkReachability = YES;
+    _deleteButtonCaption = nil;
 }
 
 - (void)viewDidLoad
@@ -148,10 +128,12 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
         [deleteButtonDescriptor.cellConfig setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
         [section addFormRow:deleteButtonDescriptor];
     }
-    self.title = self.form.title;
-    self.form.delegate = self;
+    if (self.form.title){
+        self.title = self.form.title;
+    }
     [self.tableView setEditing:YES animated:NO];
     self.tableView.allowsSelectionDuringEditing = YES;
+    self.form.delegate = self;
     self.clearsSelectionOnViewWillAppear = NO;
 }
 
@@ -204,6 +186,45 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
     [super didReceiveMemoryWarning];
     _progressView = nil;
     _formDataManager = nil;
+}
+
+#pragma mark - CellClasses
+
++(NSMutableDictionary *)cellClassesForRowDescriptorTypes
+{
+    static NSMutableDictionary * _cellClassesForRowDescriptorTypes;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _cellClassesForRowDescriptorTypes = [@{XLFormRowDescriptorTypeText:[XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeName: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypePhone:[XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeURL:[XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeEmail: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeTwitter: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeAccount: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypePassword: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeSelectorAlertView: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
+                                               XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
+                                               XLFormRowDescriptorTypeBooleanSwitch : [XLFormSwitchCell class],
+                                               XLFormRowDescriptorTypeBooleanCheck : [XLFormCheckCell class],
+                                               XLFormRowDescriptorTypeDate: [XLFormDateCell class],
+                                               XLFormRowDescriptorTypeTime: [XLFormDateCell class],
+                                               XLFormRowDescriptorTypeDateTime : [XLFormDateCell class],
+                                               XLFormRowDescriptorTypeDateInline: [XLFormDateCell class],
+                                               XLFormRowDescriptorTypeTimeInline: [XLFormDateCell class],
+                                               XLFormRowDescriptorTypeDateTimeInline: [XLFormDateCell class],
+                                               XLFormRowDescriptorTypeDatePicker : [XLFormDatePickerCell class],
+                                               XLFormRowDescriptorTypeSelectorLeftRight : [XLFormLeftRightSelectorCell class],
+                                               XLFormRowDescriptorTypeImage: [XLFormImageSelectorCell class]
+                                               } mutableCopy];
+    });
+    return _cellClassesForRowDescriptorTypes;
 }
 
 
@@ -386,11 +407,6 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
 
 #pragma mark - Helpers
 
-- (Class)cellClassForRowDescriptorType:(NSString *)rowDescriptorType
-{
-    return self.cellClassesForRowDescriptorTypes[rowDescriptorType] ?: self.cellClassesForRowDescriptorTypes[XLFormRowDescriptorTypeText];
-}
-
 -(void)setActivityIndicatorMode:(MRProgressOverlayViewMode)mode
 {
     self.progressView.mode = mode;
@@ -504,7 +520,7 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
-    Class cellClass = rowDescriptor.cellClass ?: [self cellClassForRowDescriptorType:rowDescriptor.rowType];
+    Class cellClass = rowDescriptor.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][rowDescriptor.rowType];
     if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescription:)]){
         return [cellClass formDescriptorCellHeightForRowDescription:rowDescriptor];
     }
@@ -587,11 +603,13 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
         {
             if (buttonIndex == actionSheet.destructiveButtonIndex) {
                 [self.tableView endEditing:YES];
-                _formMode = XLFormModeDelete;
-                self.formDataManager = [self createFormDataManager];
-                [self configureDataManager:self.formDataManager];
-                self.formDataManager.delegate = self;
-                [self.formDataManager forceReload];
+                if ([self respondsToSelector:@selector(configureDataManager:)]){
+                    _formMode = XLFormModeDelete;
+                    self.formDataManager = [self createFormDataManager];
+                    [self configureDataManager:self.formDataManager];
+                    self.formDataManager.delegate = self;
+                    [self.formDataManager forceReload];
+                }
             }
             break;
         }
