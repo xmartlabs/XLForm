@@ -41,61 +41,65 @@ NSString *const kDateTime = @"dateTime";
 
 - (id)init
 {
-    XLFormDescriptor * form;
-    XLFormSectionDescriptor * section;
-    XLFormRowDescriptor * row;
-    
-    form = [XLFormDescriptor formDescriptorWithTitle:@"Dates"];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Inline Dates"];
-    [form addFormSection:section];
-    
-    // Date
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateInline rowType:XLFormRowDescriptorTypeDateInline title:@"Date"];
-    row.value = [NSDate new];
-    [section addFormRow:row];
-    
-    // DateTime
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kTimeInline rowType:XLFormRowDescriptorTypeTimeInline title:@"Time"];
-    row.value = [NSDate new];
-    [section addFormRow:row];
-    
-    // Time
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTimeInline rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Date Time"];
-    row.value = [NSDate new];
-    [section addFormRow:row];
-    
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Dates"];
-    [form addFormSection:section];
-    
-    // Date
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDate rowType:XLFormRowDescriptorTypeDate title:@"Date"];
-    row.value = [NSDate new];
-    [section addFormRow:row];
-    
-    // DateTime
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kTime rowType:XLFormRowDescriptorTypeTime title:@"Time"];
-    row.value = [NSDate new];
-    [section addFormRow:row];
-    
-    // Time
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTime rowType:XLFormRowDescriptorTypeDateTime title:@"Date Time"];
-    row.value = [NSDate new];
-    [section addFormRow:row];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled Dates"];
-    section.footerTitle = @"DatesFormViewController.h";
-    [form addFormSection:section];
-    
-    // Date
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDate rowType:XLFormRowDescriptorTypeDate title:@"Date"];
-    row.disabled = YES;
-    row.required = YES;
-    row.value = [NSDate new];
-    [section addFormRow:row];
-
-    return [super initWithForm:form];
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self){
+        XLFormDescriptor * form;
+        XLFormSectionDescriptor * section;
+        XLFormRowDescriptor * row;
+        
+        form = [XLFormDescriptor formDescriptorWithTitle:@"Dates"];
+        
+        section = [XLFormSectionDescriptor formSectionWithTitle:@"Inline Dates"];
+        [form addFormSection:section];
+        
+        // Date
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateInline rowType:XLFormRowDescriptorTypeDateInline title:@"Date"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        // DateTime
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kTimeInline rowType:XLFormRowDescriptorTypeTimeInline title:@"Time"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        // Time
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTimeInline rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Date Time"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        
+        section = [XLFormSectionDescriptor formSectionWithTitle:@"Dates"];
+        [form addFormSection:section];
+        
+        // Date
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kDate rowType:XLFormRowDescriptorTypeDate title:@"Date"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        // DateTime
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kTime rowType:XLFormRowDescriptorTypeTime title:@"Time"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        // Time
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTime rowType:XLFormRowDescriptorTypeDateTime title:@"Date Time"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled Dates"];
+        section.footerTitle = @"DatesFormViewController.h";
+        [form addFormSection:section];
+        
+        // Date
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kDate rowType:XLFormRowDescriptorTypeDate title:@"Date"];
+        row.disabled = YES;
+        row.required = YES;
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        self.form = form;
+    }
+    return self;
 }
 
 

@@ -51,6 +51,11 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
     return self;
 }
 
++(XLFormDescriptor *)formDescriptor
+{
+    return [self formDescriptorWithTitle:nil];
+}
+
 +(XLFormDescriptor *)formDescriptorWithTitle:(NSString *)title
 {
     return [[XLFormDescriptor alloc] initWithTitle:title];

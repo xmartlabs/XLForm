@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, XLFormErrorCode)
 @property (weak) id<XLFormDescriptorDelegate> delegate;
 
 -(id)initWithTitle:(NSString *)title;
++(XLFormDescriptor *)formDescriptor;
 +(XLFormDescriptor *)formDescriptorWithTitle:(NSString *)title;
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection;

@@ -96,7 +96,6 @@ typedef NS_ENUM(NSUInteger, XLFormMode)
 @property (readonly) UIBarButtonItem * cancelButton;
 @property (readonly) UIBarButtonItem * saveButton;
 @property (nonatomic) BOOL showNetworkReachability; //Default YES
-@property (nonatomic) NSMutableDictionary *cellClassesForRowDescriptorTypes;
 
 -(id)initWithForm:(XLFormDescriptor *)form;
 -(id)initWithForm:(XLFormDescriptor *)form formMode:(XLFormMode)mode showCancelButton:(BOOL)showCancelButton showSaveButton:(BOOL)showSaveButton showDeleteButton:(BOOL)showDeleteButton deleteButtonCaption:(NSString *)deleteButtoncaption;
@@ -106,6 +105,8 @@ typedef NS_ENUM(NSUInteger, XLFormMode)
 -(void)savePressed:(UIBarButtonItem *)saveButton;
 
 -(NSArray *)formValidationErrors;
+
++(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
 
 @end
 

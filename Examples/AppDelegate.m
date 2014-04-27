@@ -40,10 +40,9 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    ExamplesFormViewController * simpleFormViewController = [[ExamplesFormViewController alloc] init];
-    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:simpleFormViewController];
-    
-    [self.window setRootViewController:navController];
+    // load the initial form form Storybiard
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"iPhoneStoryboard" bundle:nil];
+    [self.window setRootViewController:[storyboard instantiateInitialViewController]];
     [self.window makeKeyAndVisible];
     return YES;
 }
