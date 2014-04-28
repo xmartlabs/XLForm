@@ -232,12 +232,12 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
 
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 -(void)formRowHasBeenRemovedAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 -(void)formSectionHasBeenRemovedAtIndex:(NSUInteger)index
