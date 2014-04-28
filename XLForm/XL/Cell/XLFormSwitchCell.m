@@ -36,7 +36,6 @@
 - (void)configure
 {
     [super configure];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryView = [[UISwitch alloc] init];
     [self.switchControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
@@ -60,6 +59,13 @@
 - (void)valueChanged
 {
     self.rowDescriptor.value = @(self.switchControl.on);
+}
+
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
+{
+    self.rowDescriptor.value = [NSNumber numberWithBool:![self.rowDescriptor.value boolValue]];
+    [self.switchControl setOn:[self.rowDescriptor.value boolValue] animated:YES];
+    [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
 }
 
 @end
