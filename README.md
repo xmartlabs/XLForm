@@ -155,6 +155,10 @@ static NSString *const XLFormRowDescriptorTypeTextView = @"textView";
 ```
 Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `UITextAutocapitalizationTypeSentences` and `UIKeyboardTypeAlphabet`.
 
+```objc
+static NSString *const XLFormRowDescriptorTypeCustom = @"custom";
+```
+Will be represented by your own `Custom cell`. must always set cellClass or a exception will be thrown.
 
 
 ####Selector Rows
