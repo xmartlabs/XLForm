@@ -84,4 +84,5 @@ static NSString *const XLFormRowDescriptorTypeBooleanCheck = @"booleanCheck";
 static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 static NSString *const XLFormRowDescriptorTypeButton = @"button";
 static NSString *const XLFormRowDescriptorTypeImage = @"image";
+static NSString *const XLFormRowDescriptorTypeCustom = @"custom";
 

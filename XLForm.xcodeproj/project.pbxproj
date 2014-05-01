@@ -54,6 +54,7 @@
 		28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DBB04018D76FDC00FB8A8B /* MultivaluedFormViewController.m */; };
 		28E093EB18F4C28200E218ED /* XLFormRightDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E093EA18F4C28200E218ED /* XLFormRightDetailCell.m */; };
 		2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DF43B7BBF44F72A4493E8E /* libPods.a */; };
+		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,8 @@
 		28E093E918F4C28200E218ED /* XLFormRightDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormRightDetailCell.h; path = XLForm/XL/Helpers/Views/XLFormRightDetailCell.h; sourceTree = SOURCE_ROOT; };
 		28E093EA18F4C28200E218ED /* XLFormRightDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormRightDetailCell.m; path = XLForm/XL/Helpers/Views/XLFormRightDetailCell.m; sourceTree = SOURCE_ROOT; };
 		72E6DF463B884AB3934DD04A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/XLFormCustomCell.h; sourceTree = "<group>"; };
+		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/XLFormCustomCell.m; sourceTree = "<group>"; };
 		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -232,6 +235,8 @@
 			children = (
 				2843EB5018D4CFC700F13E2B /* OthersFormViewController.h */,
 				2843EB5118D4CFC700F13E2B /* OthersFormViewController.m */,
+				D51B8B2A19126664008C0478 /* XLFormCustomCell.h */,
+				D51B8B2B19126664008C0478 /* XLFormCustomCell.m */,
 			);
 			name = Others;
 			sourceTree = "<group>";
@@ -584,6 +589,7 @@
 				2850C68518D11FDA002B7D0A /* XLFormTextFieldCell.m in Sources */,
 				2850C60C18D0F706002B7D0A /* AppDelegate.m in Sources */,
 				2850C60818D0F706002B7D0A /* main.m in Sources */,
+				D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */,
 				2807DC7118DC84B200A4B0B9 /* XLFormRightImageButton.m in Sources */,
 				2829624718DF790F00002E09 /* XLFormDateCell.m in Sources */,
 				2843EB5E18D736BC00F13E2B /* XLFormCheckCell.m in Sources */,
