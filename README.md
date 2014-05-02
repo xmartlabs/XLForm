@@ -324,7 +324,6 @@ if you subclassed `XLFormBaseCell` also add these two methods:
 
 Once custom cell has been created you have to let `XLFormRowDescriptor` know about this class either setting the cellClass property i.e `customRowDescriptor.cellClass = [XLFormCustomCell class]` or before `XLFormViewController` initialized add your custom cell to cellClassesForRowDescriptorTypes dictionary i.e `[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];`
 
-#import "XLFormCustomCell.h"
 
 Multivalued Sections
 ------------------------
