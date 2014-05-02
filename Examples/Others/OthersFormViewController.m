@@ -26,9 +26,11 @@
 // THE SOFTWARE.
 
 #import "OthersFormViewController.h"
+#import "XLFormCustomCell.h"
 
 NSString *const kSwitchBool = @"switchBool";
 NSString *const kSwitchCheck = @"switchBool";
+NSString *const kCustom = @"custom";
 
 @implementation OthersFormViewController
 
@@ -59,6 +61,15 @@ NSString *const kSwitchCheck = @"switchBool";
     
     // check
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kSwitchCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"]];
+
+    // custom cell
+    XLFormRowDescriptor *customRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kCustom rowType:@"XLFormRowDescriptorTypeCustom"];
+    
+    // Must set custom cell or add custom cell to cellClassesForRowDescriptorTypes dictionary before XLFormViewController loaded
+    customRowDescriptor.cellClass = [XLFormCustomCell class];
+
+    [section addFormRow:customRowDescriptor];
+
     self.form = form;
 }
 

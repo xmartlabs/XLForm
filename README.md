@@ -290,6 +290,42 @@ We can also simulate other types of Boolean rows using any of the Selector Row T
 
 
 
+### How to create a custom cell
+To create a custom cell we have two options: subclass `XLFormBaseCell` class or conforn to @protocol `XLFormDescriptorCell`. In your implementation add the following optional methods that required:
+```objc
+// sets the height of the cell
++(CGFloat)formDescriptorCellHeightForRowDescription:(XLFormRowDescriptor *)rowDescriptor;
+
+// called when cell wants to become active
+-(BOOL)formDescriptorCellBecomeFirstResponder;
+
+// called when cell requested to loss first responder 
+-(BOOL)formDescriptorCellResignFirstResponder;
+
+// called when cell been selected
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;
+
+// called to validate cell, either return error or nil if everything fine
+-(NSError *)formDescriptorCellLocalValidation;
+
+// http parameter name used for network request
+-(NSString *)formDescriptorHttpParameterName;
+
+```
+
+if you subclassed `XLFormBaseCell` also add these two methods:
+```objc
+// initialise all objects such as Arrays, UIControls etc...
+- (void)configure;
+
+// called when cell has been updated by user. values are stored in rowDescriptor
+- (void)update;
+```
+
+Once custom cell has been created you have to let `XLFormRowDescriptor` know about this class either setting the cellClass property i.e `customRowDescriptor.cellClass = [XLFormCustomCell class]` or before `XLFormViewController` initialized add your custom cell to cellClassesForRowDescriptorTypes dictionary i.e `[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];`
+
+#import "XLFormCustomCell.h"
+
 Multivalued Sections
 ------------------------
 
