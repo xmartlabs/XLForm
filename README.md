@@ -289,11 +289,30 @@ static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 We can also simulate other types of Boolean rows using any of the Selector Row Types introduced in the Selector Rows section.
 
 
+####Step Counter Rows
+
+XLForms supports counting using UIStepper control:
+
+![Screenshot of native Calendar Event Example](Examples/Others/XLForm-stepCounter.gif)
+
+
+```objc
+static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
+```
 
 ### How to create a custom cell
-To create a custom cell we have two options: subclass `XLFormBaseCell` class or conforn to @protocol `XLFormDescriptorCell`. In your implementation add the following optional methods that required:
+To create a custom cell we have two options: subclass `XLFormBaseCell` class or conform to @protocol `XLFormDescriptorCell` within your existing cell. In your implementation add the following required methods:
 ```objc
-// sets the height of the cell
+// initialise all objects such as Arrays, UIControls etc...
+- (void)configure;
+
+// update cell when it about to be presented
+- (void)update;
+```
+
+Add optional methods to create custom behaviour
+```objc
+// height of the cell
 +(CGFloat)formDescriptorCellHeightForRowDescription:(XLFormRowDescriptor *)rowDescriptor;
 
 // called when cell wants to become active
@@ -305,7 +324,7 @@ To create a custom cell we have two options: subclass `XLFormBaseCell` class or 
 // called when cell been selected
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;
 
-// called to validate cell, either return error or nil if everything fine
+// called to validate cell, return error or nil if there no error
 -(NSError *)formDescriptorCellLocalValidation;
 
 // http parameter name used for network request
@@ -313,14 +332,6 @@ To create a custom cell we have two options: subclass `XLFormBaseCell` class or 
 
 ```
 
-if you subclassed `XLFormBaseCell` also add these two methods:
-```objc
-// initialise all objects such as Arrays, UIControls etc...
-- (void)configure;
-
-// called when cell has been updated by user. values are stored in rowDescriptor
-- (void)update;
-```
 
 Once custom cell has been created you have to let `XLFormRowDescriptor` know about this class either setting the cellClass property i.e `customRowDescriptor.cellClass = [XLFormCustomCell class]` or before `XLFormViewController` initialized add your custom cell to cellClassesForRowDescriptorTypes dictionary i.e `[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];`
 
