@@ -415,6 +415,7 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
 
 -(void)showActivityIndicator
 {
+    [self.tableView endEditing:YES];
     self.progressView.mode = MRProgressOverlayViewModeIndeterminate;
     [self.progressView show:YES];
 }
