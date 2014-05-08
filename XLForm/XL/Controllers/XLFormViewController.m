@@ -221,7 +221,8 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
                                                XLFormRowDescriptorTypeDateTimeInline: [XLFormDateCell class],
                                                XLFormRowDescriptorTypeDatePicker : [XLFormDatePickerCell class],
                                                XLFormRowDescriptorTypeSelectorLeftRight : [XLFormLeftRightSelectorCell class],
-                                               XLFormRowDescriptorTypeImage: [XLFormImageSelectorCell class]
+                                               XLFormRowDescriptorTypeImage: [XLFormImageSelectorCell class],
+                                               XLFormRowDescriptorTypeStepCounter: [XLFormStepCounterCell class]
                                                } mutableCopy];
     });
     return _cellClassesForRowDescriptorTypes;

@@ -56,6 +56,7 @@
 #import "XLFormLeftRightSelectorCell.h"
 #import "XLFormDateCell.h"
 #import "XLFormImageSelectorCell.h"
+#import "XLFormStepCounterCell.h"
 
 
 static NSString *const XLFormRowDescriptorTypeText = @"text";
@@ -84,4 +85,5 @@ static NSString *const XLFormRowDescriptorTypeBooleanCheck = @"booleanCheck";
 static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 static NSString *const XLFormRowDescriptorTypeButton = @"button";
 static NSString *const XLFormRowDescriptorTypeImage = @"image";
+static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 

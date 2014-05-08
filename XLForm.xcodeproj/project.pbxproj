@@ -55,6 +55,7 @@
 		28E093EB18F4C28200E218ED /* XLFormRightDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E093EA18F4C28200E218ED /* XLFormRightDetailCell.m */; };
 		2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DF43B7BBF44F72A4493E8E /* libPods.a */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
+		D55C39BE191BCA460090B6B4 /* XLFormStepCounterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +156,8 @@
 		72E6DF463B884AB3934DD04A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/XLFormCustomCell.h; sourceTree = "<group>"; };
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/XLFormCustomCell.m; sourceTree = "<group>"; };
+		D55C39BC191BCA460090B6B4 /* XLFormStepCounterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormStepCounterCell.h; sourceTree = "<group>"; };
+		D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormStepCounterCell.m; sourceTree = "<group>"; };
 		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -376,6 +379,8 @@
 		2850C62D18D0F9A6002B7D0A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				D55C39BC191BCA460090B6B4 /* XLFormStepCounterCell.h */,
+				D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */,
 				2850C68618D12122002B7D0A /* XLFormSelectorCell.h */,
 				2850C68718D12122002B7D0A /* XLFormSelectorCell.m */,
 				2850C68318D11FDA002B7D0A /* XLFormTextFieldCell.h */,
@@ -605,6 +610,7 @@
 				2850C67818D0FDBF002B7D0A /* XLFormButtonCell.m in Sources */,
 				2843EB4E18D4CCD700F13E2B /* XLFormSwitchCell.m in Sources */,
 				2850C67218D0F9A6002B7D0A /* XLFormViewController.m in Sources */,
+				D55C39BE191BCA460090B6B4 /* XLFormStepCounterCell.m in Sources */,
 				282C5EFF18D3A31C00A5D47C /* XLFormRowDescriptor.m in Sources */,
 				282D974318D1271B00DEE3C5 /* XLFormOptionsViewController.m in Sources */,
 				28E093EB18F4C28200E218ED /* XLFormRightDetailCell.m in Sources */,
