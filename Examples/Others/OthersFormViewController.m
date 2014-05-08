@@ -30,10 +30,10 @@
 
 NSString *const kSwitchBool = @"switchBool";
 NSString *const kSwitchCheck = @"switchBool";
+NSString *const kStepCounter = @"stepCounter";
 NSString *const kCustom = @"custom";
 
 @implementation OthersFormViewController
-
 
 - (id)init
 {
@@ -43,8 +43,6 @@ NSString *const kCustom = @"custom";
     }
     return self;
 }
-
-
 
 -(void)initializeForm
 {
@@ -62,6 +60,10 @@ NSString *const kCustom = @"custom";
     // check
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kSwitchCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"]];
 
+    // step counter
+    [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"]];
+ 
+    
     // custom cell
     XLFormRowDescriptor *customRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kCustom rowType:@"XLFormRowDescriptorTypeCustom"];
     
@@ -72,9 +74,6 @@ NSString *const kCustom = @"custom";
 
     self.form = form;
 }
-
-
-
 
 
 @end

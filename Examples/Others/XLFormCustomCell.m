@@ -14,7 +14,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.textLabel.text = @"am a custom cell select me!";
         
     }
     return self;
@@ -23,19 +22,24 @@
 - (void)configure
 {
     //override
+    UIFont *labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    UIFontDescriptor *fontDesc = [labelFont fontDescriptor];
+    UIFontDescriptor *fontBoldDesc = [fontDesc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
+    self.textLabel.font = [UIFont fontWithDescriptor:fontBoldDesc size:0.0f];
 }
 
 - (void)update
 {
     // override
+    self.textLabel.text = @"Am a custom cell, select me!";
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
     // custom code here
     // i.e new behaviour when cell has been selected
-    self.textLabel.text = @"can do any custom behaviour";
-    self.rowDescriptor.value = @"can do any custom behaviour";
+    self.textLabel.text = @"I can do any custom behaviour...";
+    self.rowDescriptor.value = self.textLabel.text;
 }
 
 /*
