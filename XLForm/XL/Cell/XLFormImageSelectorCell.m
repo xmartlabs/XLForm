@@ -84,6 +84,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
                                                 NSLog(@"Failed to download image");
                                             }];
     }
+    [self.textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
 }
 
 
@@ -223,7 +224,6 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 {
     if (_textLabel) return _textLabel;
     _textLabel = [UILabel autolayoutView];
-    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
     return _textLabel;
 }
 

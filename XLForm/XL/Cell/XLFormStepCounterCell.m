@@ -45,12 +45,6 @@
 {
     [super configure];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-
-    UIFont *labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    UIFontDescriptor *fontDesc = [labelFont fontDescriptor];
-    UIFontDescriptor *fontBoldDesc = [fontDesc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
-    self.textLabel.font = [UIFont fontWithDescriptor:fontBoldDesc size:0.0f];
-
     UIStepper *stepperControl = [[UIStepper alloc] initWithFrame:CGRectMake(25,
                                                                             0,
                                                                             0,
@@ -63,7 +57,7 @@
                                                                           CGRectGetHeight(stepperControl.frame))];
     
     currentStepValue.textAlignment = NSTextAlignmentCenter;
-    currentStepValue.font = [UIFont fontWithDescriptor:fontBoldDesc size:0.0f];
+    currentStepValue.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     currentStepValue.textColor = stepperControl.tintColor;
 
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0,
@@ -81,6 +75,7 @@
 {
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
 }
  

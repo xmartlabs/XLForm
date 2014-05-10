@@ -53,19 +53,14 @@
 -(void)update
 {
     [super update];
-    
     self.accessoryType = self.rowDescriptor.disabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     [self.textLabel setText:self.rowDescriptor.title];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
-    
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
-    UIFont * labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    UIFontDescriptor * fontDesc = [labelFont fontDescriptor];
-    UIFontDescriptor * fontBoldDesc = [fontDesc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
-    self.textLabel.font = [UIFont fontWithDescriptor:fontBoldDesc size:0];
-    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     
 }
 

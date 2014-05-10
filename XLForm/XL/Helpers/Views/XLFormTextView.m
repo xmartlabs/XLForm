@@ -29,8 +29,8 @@
 #import "XLFormTextView.h"
 
 @interface XLFormTextView()
-
-@property (nonatomic, retain) UILabel *placeHolderLabel;
+//
+//@property (nonatomic, retain) UILabel *placeHolderLabel;
 
 @end
 
@@ -85,6 +85,7 @@
             [self addSubview:_placeHolderLabel];
         }
         _placeHolderLabel.text = self.placeholder;
+        _placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         [_placeHolderLabel sizeToFit];
         [self sendSubviewToBack:_placeHolderLabel];
     }

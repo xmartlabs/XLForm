@@ -83,10 +83,6 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 {
     if (_label) return _label;
     _label = [UILabel autolayoutView];
-    UIFont * labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    UIFontDescriptor * fontDesc = [labelFont fontDescriptor];
-    UIFontDescriptor * fontBoldDesc = [fontDesc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
-    [_label setFont:[UIFont fontWithDescriptor:fontBoldDesc size:0.0f]];
     [_label setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
     return _label;
 }
@@ -95,7 +91,6 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 {
     if (_textView) return _textView;
     _textView = [XLFormTextView autolayoutView];
-    _textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     return _textView;
 }
 
@@ -111,11 +106,9 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 {
     [super update];
     self.textView.delegate = self;
-    UIFont * labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    UIFontDescriptor * fontDesc = [labelFont fontDescriptor];
-    UIFontDescriptor * fontBoldDesc = [fontDesc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
-    self.label.font = [UIFont fontWithDescriptor:fontBoldDesc size:0.0f];
-    self.textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
+    self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textView.placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.keyboardType = UIKeyboardTypeAlphabet;
     self.textView.text = self.rowDescriptor.value;
     self.label.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);

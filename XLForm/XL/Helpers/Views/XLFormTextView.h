@@ -34,4 +34,6 @@
 @property (nonatomic) NSString *placeholder;
 @property (nonatomic) UIColor *placeholderColor;
 
+@property (readonly) UILabel *placeHolderLabel;
+
 @end
