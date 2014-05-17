@@ -56,12 +56,14 @@ NSString * const kMultivalued = @"Multivalued";
 }
 
 
--(void)awakeFromNib
+-(id)initWithCoder:(NSCoder *)aDecoder
 {
-    [super awakeFromNib];
-    [self initializeForm];
+    self = [super initWithCoder:aDecoder];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
 }
-
 
 #pragma mark - Helper
 

@@ -94,10 +94,13 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
     return self;
 }
 
--(void)awakeFromNib
+-(id)initWithCoder:(NSCoder *)aDecoder
 {
-    [super awakeFromNib];
-    [self defaultInitialize];
+    self = [super initWithCoder:aDecoder];
+    if (self){
+        [self defaultInitialize];
+    }
+    return self;
 }
 
 -(void)defaultInitialize
