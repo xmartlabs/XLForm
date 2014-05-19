@@ -122,15 +122,19 @@
     return self.rowDescriptor.selectorOptions;
 }
 
-
 -(BOOL)optionsViewControllerOptions:(id<XLSelectorTableViewControllerProtocol>)optionsViewController isOptionSelected:(id)option
 {
-    return [self.rowDescriptor.value isEqual:option];
+    return [self.rowDescriptor.value isEqual:option] || [self.rowDescriptor.value isEqual:[option formValue]];
 }
 
 - (void)optionsViewController:(XLFormOptionsViewController *)optionsViewController didSelectOption:(id)selectedValue atIndex:(NSIndexPath *)indexPath
 {
-    self.rowDescriptor.value = selectedValue;
+    if ([[selectedValue formValue] isKindOfClass:[NSString class]] || [[selectedValue formValue] isKindOfClass:[NSNumber class]]){
+        self.rowDescriptor.value = selectedValue;
+    }
+    else {
+        self.rowDescriptor.value = [selectedValue formValue];
+    }
     [self.formViewController.navigationController popViewControllerAnimated:YES];
 }
 
