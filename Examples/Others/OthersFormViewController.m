@@ -32,6 +32,7 @@ NSString *const kSwitchBool = @"switchBool";
 NSString *const kSwitchCheck = @"switchBool";
 NSString *const kStepCounter = @"stepCounter";
 NSString *const kCustom = @"custom";
+NSString *const kButton = @"button";
 
 @implementation OthersFormViewController
 
@@ -66,13 +67,34 @@ NSString *const kCustom = @"custom";
     
     // custom cell
     XLFormRowDescriptor *customRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kCustom rowType:@"XLFormRowDescriptorTypeCustom"];
-    
     // Must set custom cell or add custom cell to cellClassesForRowDescriptorTypes dictionary before XLFormViewController loaded
     customRowDescriptor.cellClass = [XLFormCustomCell class];
-
     [section addFormRow:customRowDescriptor];
+    
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Buttons"];
+    section.footerTitle = @"Button will show a message when Switch is ON";
+    [form addFormSection:section];
+    
+    // Button
+    [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"]];
 
     self.form = form;
+}
+
+
+
+-(void)didSelectFormRow:(XLFormRowDescriptor *)formRow
+{
+    [super didSelectFormRow:formRow];
+    
+    if ([formRow.tag isEqual:kButton]){
+        if ([[self.form formRowWithTag:kSwitchBool].value boolValue]){
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil) message:@"Button has checked the switch value..." delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            [alertView show];
+        }
+        [self deselectFormRow:formRow];
+    }
 }
 
 

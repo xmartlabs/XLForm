@@ -411,6 +411,14 @@ NSString * const kDeleteButtonTag = @"DeleteButtonTag";
 
 #pragma mark - Helpers
 
+-(void)deselectFormRow:(XLFormRowDescriptor *)row
+{
+    NSIndexPath * indexPath = [self.form indexPathOfFormRow:row];
+    if (indexPath){
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
 -(void)setActivityIndicatorMode:(MRProgressOverlayViewMode)mode
 {
     self.progressView.mode = mode;

@@ -65,6 +65,7 @@ typedef NS_ENUM(NSUInteger, XLFormMode)
 
 -(AFHTTPSessionManager *)sessionManager;
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow;
+-(void)deselectFormRow:(XLFormRowDescriptor *)row;
 -(NSDictionary *)httpParameters;
 
 -(XLFormDataManager *)formDataManager;
