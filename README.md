@@ -18,8 +18,9 @@ What XLForm does
 ----------------
 
  * Loads a form based on a declarative form definition.
- * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on *Dynamic Forms* section of this readme.
- * Supports multivalued sections. For further details see *Multivalued Sections* section bellow.  
+ * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](https://github.com/xmartlabs/XLForm#dynamic-forms---how-to-change-the-form-dynamically-at-runtime ""Dynamic Forms") section of this readme.
+ * Supports multivalued sections. For further details see [*Multivalued Sections*](https://github.com/xmartlabs/XLForm#multivalued-sections "Multivalued Sections") section bellow.
+ * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-cell).   
  * Shows the *Cancel* and *Done* buttons. The form view controller (XLFormViewCotnroller instance or any subclass of it) must be contained on a UINavigationController.
  * Validates the form data based on form definition and shows error messages.
  * Serializes form data using `AFNetworking 2.0`. 
@@ -301,7 +302,9 @@ static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 ```
 
 ### How to create a custom cell
-To create a custom cell we have two options: subclass `XLFormBaseCell` class or conform to @protocol `XLFormDescriptorCell` within your existing cell. In your implementation add the following required methods:
+
+To create a custom cell you should conform to @protocol `XLFormDescriptorCell` within your custom `UITableViewCell`. You can also sublass the convenience class `XLFormBaseCell` which conforms to `XLFormDescriptorCell`. In your implementation add the following required methods:
+
 ```objc
 // initialise all objects such as Arrays, UIControls etc...
 - (void)configure;
@@ -311,6 +314,7 @@ To create a custom cell we have two options: subclass `XLFormBaseCell` class or 
 ```
 
 Add optional methods to create custom behaviour
+
 ```objc
 // height of the cell
 +(CGFloat)formDescriptorCellHeightForRowDescription:(XLFormRowDescriptor *)rowDescriptor;
@@ -339,8 +343,8 @@ Once custom cell has been created you have to let `XLFormRowDescriptor` know abo
 Multivalued Sections
 ------------------------
 
-Any XLFormSectionDescriptor could be set up to support multivalued rows. Multivalued Sections let the user enter multiple values (of the same type) for a field by adding or removing rows. 
-The most interesting part of multivalued XLFormSectionDescriptor is that it supports all the types of rows that were shown on the *Rows* section.   
+Any `XLFormSectionDescriptor` could be set up to support multivalued rows. Multivalued Sections let the user enter multiple values (of the same type) for a field by adding or removing rows. 
+The most interesting part of multivalued `XLFormSectionDescriptor` is that it supports all the types of rows that were shown on the [*Rows*](https://github.com/xmartlabs/XLForm#rows "Rows") section.   
 
 ![Screenshot of Multivalued Section Example](Examples/MultiValuedSections/XLForm-MultiValuedSections.gif)
 
@@ -627,7 +631,7 @@ Installation
 The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm'`.
+`pod 'XLForm', '~> 1.0.0' `.
 2. Run the command `pod install` from the Podfile folder directory.
 
 
@@ -640,8 +644,22 @@ Requirements
 
 Release Notes
 --------------
+Version 1.0.1
 
-Version 1.0
+* Added storyboard example.
+* Added button `XLFormRowDescriptorTypeButton` example.
+* Documented how to add a custom row.
+* Fixed issues: [#2](https://github.com/xmartlabs/XLForm/issues/2 "#2"), [#3](https://github.com/xmartlabs/XLForm/issues/3 "#3"), [#27](https://github.com/xmartlabs/XLForm/issues/27 "#27"), [#38](https://github.com/xmartlabs/XLForm/issues/38 "#38").
+* Fixed crash caused by inline date rows. [#6](https://github.com/xmartlabs/XLForm/issues/6 "#6")
+* Fixed ipad issue *invalid cell layout*. [#10](https://github.com/xmartlabs/XLForm/issues/10 "#10")
+* New convenience methods to insert sections dinamically. [#13](https://github.com/xmartlabs/XLForm/pull/13 "#13")
+* Change default label style to `UIFontTextStyleBody`. [#18](https://github.com/xmartlabs/XLForm/issues/18 "#18")
+* Added step counter row, `XLFormRowDescriptorTypeStepCounter`.
+* Added `initWithCoder` initializer to `XLFormViewController`. [#32](https://github.com/xmartlabs/XLForm/issues/32 "#32").
+* Added a convenience method to deselect a `XLFormRowDescriptor`. `-(void)deselectFormRow:(XLFormRowDescriptor *)row;`. [#33](https://github.com/xmartlabs/XLForm/issues/33 "#33").
+
+
+Version 1.0.0
 
 * Initial release
 
