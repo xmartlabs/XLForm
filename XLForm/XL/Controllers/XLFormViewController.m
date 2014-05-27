@@ -46,7 +46,7 @@
 
 -(id)initWithForm:(XLFormDescriptor *)form
 {
-    self = [self init];
+    self = [self initWithStyle:UITableViewStyleGrouped];
     if (self){
         self.form = form;
     }
