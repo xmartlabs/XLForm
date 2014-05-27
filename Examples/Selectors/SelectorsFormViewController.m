@@ -2,8 +2,6 @@
 //  SelectorsFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -25,6 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "DynamicSelectorsFormViewController.h"
 #import "SelectorsFormViewController.h"
 
 NSString *const kSelectorPush = @"selectorPush";
@@ -34,6 +33,8 @@ NSString *const kSelectorLeftRight = @"selectorLeftRight";
 NSString *const kSelectorPushDisabled = @"selectorPushDisabled";
 NSString *const kSelectorActionSheetDisabled = @"selectorActionSheetDisabled";
 NSString *const kSelectorLeftRightDisabled = @"selectorLeftRightDisabled";
+
+NSString *const kDynamicSelectors = @"dynamicSelectors";
 
 
 @implementation SelectorsFormViewController
@@ -132,6 +133,11 @@ NSString *const kSelectorLeftRightDisabled = @"selectorLeftRightDisabled";
     [section addFormRow:row];
 
     
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Dynamic Selectors"];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDynamicSelectors rowType:XLFormRowDescriptorTypeButton title:@"Dynamic Selectors"];
+    row.buttonViewController = [DynamicSelectorsFormViewController class];
+    [section addFormRow:row];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled & Required Selectors"];
     [form addFormSection:section];

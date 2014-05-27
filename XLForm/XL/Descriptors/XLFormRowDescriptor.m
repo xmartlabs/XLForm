@@ -2,8 +2,6 @@
 //  XLFormRowDescriptor.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -119,10 +117,7 @@
     // =====================================
     // properties used for dynamic selectors
     // =====================================
-    rowDescriptorCopy.selectorLocalDataLoader = self.selectorLocalDataLoader;
-    rowDescriptorCopy.selectorRemoteDataLoader = self.selectorRemoteDataLoader;
-    rowDescriptorCopy.selectorSupportRefreshControl = self.selectorSupportRefreshControl;
-    rowDescriptorCopy.selectorLoadingPagingEnabled = self.selectorLoadingPagingEnabled;
+    rowDescriptorCopy.selectorControllerClass = [self.selectorControllerClass copy];
     
     return rowDescriptorCopy;
 }
@@ -144,26 +139,6 @@
                                                        rightOptions:rightOptions];
 }
 
-+(XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(id)leftValue
-                                                          httpParameterKey:(NSString *)httpParameterKey
-                                                      rightLocalDataLoader:(XLLocalDataLoader *)rightLocalDataLoader
-{
-    return [self formLeftRightSelectorOptionWithLeftValue:leftValue
-                                         httpParameterKey:httpParameterKey
-                                     rightLocalDataLoader:rightLocalDataLoader
-                                    rightRemoteDataLoader:nil];
-}
-
-+(XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(id)leftValue
-                                                          httpParameterKey:(NSString *)httpParameterKey
-                                                      rightLocalDataLoader:(XLLocalDataLoader *)rightLocalDataLoader
-                                                     rightRemoteDataLoader:(XLRemoteDataLoader *)rightRemoteDataLoader
-{
-    return [[XLFormLeftRightSelectorOption alloc] initWithLeftValue:leftValue
-                                                   httpParameterKey:httpParameterKey
-                                               rightLocalDataLoader:rightLocalDataLoader
-                                              rightRemoteDataLoader:rightRemoteDataLoader];
-}
 
 -(id)initWithLeftValue:(NSString *)leftValue httpParameterKey:(NSString *)httpParameterKey rightOptions:(NSArray *)rightOptions
 {
@@ -173,23 +148,6 @@
         _leftValue = leftValue;
         _rightOptions = rightOptions;
         _httpParameterKey = httpParameterKey;
-        _selectorSupportRefreshControl = NO;
-        _selectorLoadingPagingEnabled = NO;
-    }
-    return self;
-}
-
--(id)initWithLeftValue:(NSString *)leftValue httpParameterKey:(NSString *)httpParameterKey rightLocalDataLoader:(XLLocalDataLoader *)rightLocalDataLoader rightRemoteDataLoader:(XLRemoteDataLoader *)rightRemoteDataLoader
-{
-    self = [super init];
-    if (self){
-        _selectorTitle = nil;
-        _leftValue = leftValue;
-        _httpParameterKey = httpParameterKey;
-        _rightLocalDataLoader = rightLocalDataLoader;
-        _rightRemoteDataLoader = rightRemoteDataLoader;
-        _selectorSupportRefreshControl = (rightRemoteDataLoader != nil);
-        _selectorLoadingPagingEnabled = (rightRemoteDataLoader != nil);
     }
     return self;
 }

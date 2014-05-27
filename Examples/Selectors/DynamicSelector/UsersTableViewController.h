@@ -1,8 +1,6 @@
 //
-//  XLFormImageSelectorCell.h
+//  UsersTableViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
-//
-//  Created by Martin Barreto on 31/3/14.
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
@@ -25,14 +23,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormBaseCell.h"
+#import "XLFormRowDescriptor.h"
+#import "XLTableViewController.h"
 
-NSString *const kFormImageSelectorCellDefaultImage;
-NSString *const kFormImageSelectorCellImageRequest;
-
-@interface XLFormImageSelectorCell : XLFormBaseCell
-
-@property (nonatomic, readonly) UIImageView * imageView;
-@property (nonatomic, readonly) UILabel * textLabel;
+@interface UsersTableViewController : XLTableViewController <XLFormRowDescriptorViewController>
 
 @end

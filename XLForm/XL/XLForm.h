@@ -2,8 +2,6 @@
 //  XLForm.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 10/1/13.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -41,7 +39,7 @@
 //Controllers
 #import "XLFormOptionsViewController.h"
 #import "XLFormViewController.h"
-#import "XLFormSelectorTableViewController.h"
+
 
 //Cells
 #import "XLFormBaseCell.h"
@@ -55,7 +53,6 @@
 #import "XLFormDatePickerCell.h"
 #import "XLFormLeftRightSelectorCell.h"
 #import "XLFormDateCell.h"
-#import "XLFormImageSelectorCell.h"
 #import "XLFormStepCounterCell.h"
 
 

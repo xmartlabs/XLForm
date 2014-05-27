@@ -2,8 +2,6 @@
 //  OthersFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -77,7 +75,9 @@ NSString *const kButton = @"button";
     [form addFormSection:section];
     
     // Button
-    [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"]];
+    XLFormRowDescriptor * buttonRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"];
+    [buttonRow.cellConfigAtConfigure setObject:self.view.tintColor forKey:@"textLabel.textColor"];
+    [section addFormRow:buttonRow];
 
     self.form = form;
 }

@@ -2,7 +2,6 @@
 //  XLFormTests.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )Tests
 //
-//  Created by Martin Barreto on 3/12/14.
 //  Copyright (c) 2014 Xmartlabs. All rights reserved.
 //
 

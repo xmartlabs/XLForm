@@ -2,8 +2,6 @@
 //  XLFormSelectorCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -30,7 +28,7 @@
 #import "XLFormRowDescriptor.h"
 #import "XLFormSelectorCell.h"
 
-@interface XLFormSelectorCell() <XLFormOptionsViewControllerDelegate, UIActionSheetDelegate>
+@interface XLFormSelectorCell() <UIActionSheetDelegate>
 
 @end
 
@@ -68,17 +66,16 @@
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush]){
         if (self.rowDescriptor.selectorOptions){
-            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithDelegate:self multipleSelection:NO style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
-            optionsViewController.tag = self.rowDescriptor.tag;
+            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithOptions:self.rowDescriptor.selectorOptions multipleSelection:NO style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+            optionsViewController.rowDescriptor = self.rowDescriptor;
             optionsViewController.title = self.rowDescriptor.selectorTitle;
             [controller.navigationController pushViewController:optionsViewController animated:YES];
         }
         else{
-            XLFormSelectorTableViewController * selectorViewController = [[XLFormSelectorTableViewController alloc] initWithDelegate:self localDataLoader:self.rowDescriptor.selectorLocalDataLoader remoteDataLoader:self.rowDescriptor.selectorRemoteDataLoader];
-            selectorViewController.tag = self.rowDescriptor.tag;
+            Class selectorClass = self.rowDescriptor.selectorControllerClass;
+            UIViewController<XLFormRowDescriptorViewController> *selectorViewController = [[selectorClass alloc] init];
+            selectorViewController.rowDescriptor = self.rowDescriptor;
             selectorViewController.title = self.rowDescriptor.selectorTitle;
-            selectorViewController.supportRefreshControl = self.rowDescriptor.selectorSupportRefreshControl;
-            selectorViewController.loadingPagingEnabled = self.rowDescriptor.selectorLoadingPagingEnabled;
             [controller.navigationController pushViewController:selectorViewController animated:YES];
         }
     }
@@ -113,25 +110,6 @@
         
     }
     return nil;
-}
-
-#pragma mark - XLFormOptionsViewControllerDelegate
-
--(NSArray *)optionsViewControllerOptions:(XLFormOptionsViewController *)optionsViewController
-{
-    return self.rowDescriptor.selectorOptions;
-}
-
-
--(BOOL)optionsViewControllerOptions:(id<XLSelectorTableViewControllerProtocol>)optionsViewController isOptionSelected:(id)option
-{
-    return [self.rowDescriptor.value isEqual:option];
-}
-
-- (void)optionsViewController:(XLFormOptionsViewController *)optionsViewController didSelectOption:(id)selectedValue atIndex:(NSIndexPath *)indexPath
-{
-    self.rowDescriptor.value = selectedValue;
-    [self.formViewController.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - UIActionSheetDelegate

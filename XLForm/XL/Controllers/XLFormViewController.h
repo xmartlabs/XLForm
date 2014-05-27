@@ -2,8 +2,6 @@
 //  XLFormViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -26,22 +24,10 @@
 // THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
-
-#import <MRProgress/MRProgress.h>
-#import "XLFormDataManager.h"
 #import "XLFormOptionsViewController.h"
 #import "XLFormDescriptor.h"
 #import "XLFormSectionDescriptor.h"
 #import "XLFormDescriptorDelegate.h"
-
-NSString * const kDeleteButtonTag;
-
-typedef NS_ENUM(NSUInteger, XLFormMode)
-{
-    XLFormModeCreate = 0,
-    XLFormModeEdit,
-    XLFormModeDelete
-};
 
 
 @class XLFormViewController;
@@ -49,71 +35,29 @@ typedef NS_ENUM(NSUInteger, XLFormMode)
 @class XLFormSectionDescriptor;
 @class XLFormDescriptor;
 
-@protocol XLFormViewControllerPresenting <NSObject>
-
-@required
-
--(void)formViewControllerDidFinish:(XLFormViewController *)formViewController;
-
-@end
-
-
 @protocol XLFormViewControllerDelegate <NSObject>
 
 @optional
 
-
--(AFHTTPSessionManager *)sessionManager;
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow;
 -(void)deselectFormRow:(XLFormRowDescriptor *)row;
 -(NSDictionary *)httpParameters;
-
--(XLFormDataManager *)formDataManager;
--(void)configureDataManager:(XLFormDataManager *)dataManager;
-
--(void)showActivityIndicator;
--(void)hideActivityIndicator;
--(void)setActivityIndicatorMode:(MRProgressOverlayViewMode)mode;
 
 -(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)section;
 
 -(NSArray *)formValidationErrors;
 -(void)showFormValidationError:(NSError *)error;
--(void)showServerError:(NSError *)error;
 
 
 @end
 
-@interface XLFormViewController : UITableViewController<XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, XLFormViewControllerDelegate, XLDataLoaderDelegate>
-
-@property (weak) id<XLFormViewControllerPresenting> delegate;
+@interface XLFormViewController : UITableViewController<XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, XLFormViewControllerDelegate>
 
 @property XLFormDescriptor * form;
-@property XLFormMode formMode;
-@property BOOL showCancelButton;
-@property BOOL showSaveButton;
-@property BOOL showDeleteButton;
-@property NSString * deleteButtonCaption;
-@property (readonly) UIBarButtonItem * cancelButton;
-@property (readonly) UIBarButtonItem * saveButton;
-@property (nonatomic) BOOL showNetworkReachability; //Default YES
-
 -(id)initWithForm:(XLFormDescriptor *)form;
--(id)initWithForm:(XLFormDescriptor *)form formMode:(XLFormMode)mode showCancelButton:(BOOL)showCancelButton showSaveButton:(BOOL)showSaveButton showDeleteButton:(BOOL)showDeleteButton deleteButtonCaption:(NSString *)deleteButtoncaption;
--(id)initWithForm:(XLFormDescriptor *)form formMode:(XLFormMode)mode showCancelButton:(BOOL)showCancelButton showSaveButton:(BOOL)showSaveButton showDeleteButton:(BOOL)showDeleteButton deleteButtonCaption:(NSString *)deleteButtoncaption tableStyle:(UITableViewStyle)style;
-
--(void)cancelPressed:(UIBarButtonItem *)cancelButton;
--(void)savePressed:(UIBarButtonItem *)saveButton;
 
 -(NSArray *)formValidationErrors;
 
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
-
-@end
-
-@interface XLFormViewController()
-
-@property (nonatomic)  XLFormDataManager * formDataManager;
--(XLFormDataManager *)createFormDataManager;
 
 @end

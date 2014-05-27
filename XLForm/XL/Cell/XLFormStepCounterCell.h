@@ -2,8 +2,6 @@
 //  XLFormStepCounterCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Shams Ahmed on 01/05/2014.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //

@@ -2,8 +2,6 @@
 //  NativeEventNavigationViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -154,10 +152,11 @@
         
         
         self.form = form;
-        self.formMode = XLFormModeCreate;
-        self.showCancelButton = YES;
-        self.showSaveButton = YES;
-        self.showDeleteButton = YES;
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelPressed:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(savePressed:)];
+        
+        
+        //self.showDeleteButton = YES;
     }
     return self;
 }
@@ -223,6 +222,22 @@
             dateEndCell.detailTextLabel.attributedText = strikeThroughText;
         }
     }
+}
+
+-(IBAction)cancelPressed:(UIBarButtonItem * __unused)button
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+-(IBAction)savePressed:(UIBarButtonItem * __unused)button
+{
+    NSArray * validationErrors = [self formValidationErrors];
+    if (validationErrors.count > 0){
+        [self showFormValidationError:[validationErrors firstObject]];
+        return;
+    }
+    [self.tableView endEditing:YES];
 }
 
 
