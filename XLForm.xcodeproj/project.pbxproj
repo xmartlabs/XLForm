@@ -45,9 +45,7 @@
 		2850C68518D11FDA002B7D0A /* XLFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C68418D11FDA002B7D0A /* XLFormTextFieldCell.m */; };
 		2850C68818D12122002B7D0A /* XLFormSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C68718D12122002B7D0A /* XLFormSelectorCell.m */; };
 		28A7661F193248BD00D69546 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A7661E193248BD00D69546 /* CoreData.framework */; };
-		28A766231932513300D69546 /* NetworkingFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766221932513300D69546 /* NetworkingFormViewController.m */; };
 		28A76625193251E500D69546 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A76624193251E500D69546 /* AppDelegate.m */; };
-		28A766281932887900D69546 /* XLFormDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766271932887900D69546 /* XLFormDataManager.m */; };
 		28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A7662D1932E98A00D69546 /* HTTPSessionManager.m */; };
 		28A7663B1932EA1F00D69546 /* UserLocalDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766361932EA1F00D69546 /* UserLocalDataLoader.m */; };
 		28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766381932EA1F00D69546 /* UserRemoteDataLoader.m */; };
@@ -147,11 +145,7 @@
 		2850C68718D12122002B7D0A /* XLFormSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormSelectorCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		28A5D2B018D81873008F0D24 /* XLFormDescriptorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormDescriptorCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		28A7661E193248BD00D69546 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		28A766211932513300D69546 /* NetworkingFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkingFormViewController.h; path = Examples/Helpers/AFNetworking/NetworkingFormViewController.h; sourceTree = SOURCE_ROOT; };
-		28A766221932513300D69546 /* NetworkingFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NetworkingFormViewController.m; path = Examples/Helpers/AFNetworking/NetworkingFormViewController.m; sourceTree = SOURCE_ROOT; };
 		28A76624193251E500D69546 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Examples/AppDelegate.m; sourceTree = "<group>"; };
-		28A766261932887900D69546 /* XLFormDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormDataManager.h; path = Examples/Helpers/AFNetworking/XLFormDataManager.h; sourceTree = SOURCE_ROOT; };
-		28A766271932887900D69546 /* XLFormDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormDataManager.m; path = Examples/Helpers/AFNetworking/XLFormDataManager.m; sourceTree = SOURCE_ROOT; };
 		28A7662C1932E98A00D69546 /* HTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPSessionManager.h; path = Examples/Selectors/Helpers/HTTPSessionManager.h; sourceTree = "<group>"; };
 		28A7662D1932E98A00D69546 /* HTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPSessionManager.m; path = Examples/Selectors/Helpers/HTTPSessionManager.m; sourceTree = "<group>"; };
 		28A766351932EA1F00D69546 /* UserLocalDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocalDataLoader.h; sourceTree = "<group>"; };
@@ -378,7 +372,6 @@
 			isa = PBXGroup;
 			children = (
 				28A76624193251E500D69546 /* AppDelegate.m */,
-				28A7662019324E6700D69546 /* Helpers */,
 				28A8083C190D903D009D77F8 /* StoryboardExample */,
 				28468E9218EA52CA00DBB015 /* RealExamples */,
 				2843EB5F18D76B2D00F13E2B /* MultiValuedSections */,
@@ -436,18 +429,6 @@
 			path = XL/Cell;
 			sourceTree = "<group>";
 		};
-		2850C64B18D0F9A6002B7D0A /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				28A766211932513300D69546 /* NetworkingFormViewController.h */,
-				28A766221932513300D69546 /* NetworkingFormViewController.m */,
-				28A766261932887900D69546 /* XLFormDataManager.h */,
-				28A766271932887900D69546 /* XLFormDataManager.m */,
-			);
-			name = AFNetworking;
-			path = XLForm/XL/Network;
-			sourceTree = "<group>";
-		};
 		2850C64E18D0F9A6002B7D0A /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,14 +451,6 @@
 				2850C67B18D0FE3A002B7D0A /* UIView+XLFormAdditions.m */,
 				2843EB5718D5050500F13E2B /* NSObject+XLFormAdditions.h */,
 				2843EB5818D5050500F13E2B /* NSObject+XLFormAdditions.m */,
-			);
-			name = Helpers;
-			sourceTree = "<group>";
-		};
-		28A7662019324E6700D69546 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				2850C64B18D0F9A6002B7D0A /* AFNetworking */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -722,11 +695,9 @@
 				2843EB5618D4F7B700F13E2B /* DatesFormViewController.m in Sources */,
 				2843EB5918D5050500F13E2B /* NSObject+XLFormAdditions.m in Sources */,
 				28468EA118ECAE1200DBB015 /* XLFormTextView.m in Sources */,
-				28A766231932513300D69546 /* NetworkingFormViewController.m in Sources */,
 				28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */,
 				282C5F0018D3A31C00A5D47C /* XLFormSectionDescriptor.m in Sources */,
 				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,
-				28A766281932887900D69546 /* XLFormDataManager.m in Sources */,
 				2850C67818D0FDBF002B7D0A /* XLFormButtonCell.m in Sources */,
 				2843EB4E18D4CCD700F13E2B /* XLFormSwitchCell.m in Sources */,
 				2850C67218D0F9A6002B7D0A /* XLFormViewController.m in Sources */,

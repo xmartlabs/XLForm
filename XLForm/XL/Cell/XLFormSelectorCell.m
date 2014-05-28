@@ -28,7 +28,9 @@
 #import "XLFormRowDescriptor.h"
 #import "XLFormSelectorCell.h"
 
-@interface XLFormSelectorCell() <UIActionSheetDelegate>
+@interface XLFormSelectorCell() <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+
+@property (nonatomic) UIPickerView * pickerView;
 
 @end
 
@@ -39,6 +41,35 @@
 -(NSString *)valueDisplayText
 {
     return (self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText);
+}
+
+
+-(UIView *)inputView
+{
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
+        return self.pickerView;
+    }
+    return [super inputView];
+}
+
+- (BOOL)canBecomeFirstResponder
+{
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
+        return YES;
+    }
+    return [super canBecomeFirstResponder];
+}
+
+#pragma mark - Properties
+
+-(UIPickerView *)pickerView
+{
+    if (_pickerView) return _pickerView;
+    _pickerView = [[UIPickerView alloc] init];
+    _pickerView.delegate = self;
+    _pickerView.dataSource = self;
+    [_pickerView selectRow:[self selectedIndex] inComponent:0 animated:NO];
+    return _pickerView;
 }
 
 #pragma mark - XLFormDescriptorCell
@@ -99,6 +130,10 @@
         [alertView show];
         [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
     }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
+        [self becomeFirstResponder];
+        [controller.tableView selectRowAtIndexPath:nil animated:YES scrollPosition:UITableViewScrollPositionNone];
+    }
 
 }
 
@@ -148,5 +183,49 @@
         }
     }
 }
+
+#pragma mark - UIPickerViewDelegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
+        self.rowDescriptor.value = [self.rowDescriptor.selectorOptions objectAtIndex:row];
+        self.detailTextLabel.text = [self valueDisplayText];
+        [self setNeedsLayout];
+    }
+}
+
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.rowDescriptor.selectorOptions.count;
+}
+
+
+#pragma mark - helpers
+
+-(NSInteger)selectedIndex
+{
+    if (self.rowDescriptor.value){
+        for (id option in self.rowDescriptor.selectorOptions){
+            if ([[option valueData] isEqual:[self.rowDescriptor.value valueData]]){
+                return [self.rowDescriptor.selectorOptions indexOfObject:option];
+            }
+        }
+    }
+    return -1;
+}
+
 
 @end

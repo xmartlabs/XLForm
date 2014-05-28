@@ -23,7 +23,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormDataManager.h"
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormViewController.h"
 #import "UIView+XLFormAdditions.h"
@@ -158,6 +157,7 @@
                                                XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorAlertView: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeSelectorPickerView: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
                                                XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
                                                XLFormRowDescriptorTypeBooleanSwitch : [XLFormSwitchCell class],

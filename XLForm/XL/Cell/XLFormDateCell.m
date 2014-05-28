@@ -62,16 +62,6 @@
     return YES;
 }
 
--(BOOL)canResignFirstResponder
-{
-    return YES;
-}
-
--(BOOL)becomeFirstResponder
-{
-    return [super becomeFirstResponder];
-}
-
 -(BOOL)resignFirstResponder
 {
     self.detailTextLabel.textColor = _beforeChangeColor;
