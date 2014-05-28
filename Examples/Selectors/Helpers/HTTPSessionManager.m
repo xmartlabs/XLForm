@@ -1,8 +1,6 @@
 //
-//  XLFormImageSelectorCell.h
+//  HTTPSessionManager.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
-//
-//  Created by Martin Barreto on 31/3/14.
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
@@ -25,14 +23,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormBaseCell.h"
+#import "HTTPSessionManager.h"
 
-NSString *const kFormImageSelectorCellDefaultImage;
-NSString *const kFormImageSelectorCellImageRequest;
+@implementation HTTPSessionManager
 
-@interface XLFormImageSelectorCell : XLFormBaseCell
+// Server Base URL
+static NSString * const APIBaseURLString = @"http://obscure-refuge-3149.herokuapp.com";
 
-@property (nonatomic, readonly) UIImageView * imageView;
-@property (nonatomic, readonly) UILabel * textLabel;
++ (instancetype)sharedClient {
+    static HTTPSessionManager *_sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedClient = [[HTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:APIBaseURLString]];
+        [_sharedClient.reachabilityManager startMonitoring];
+        _sharedClient.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    });
+    
+    return _sharedClient;
+}
 
 @end

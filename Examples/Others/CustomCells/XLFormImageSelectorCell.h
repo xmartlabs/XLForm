@@ -1,8 +1,6 @@
 //
-//  XLFormDataManager.h
+//  XLFormImageSelectorCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
-//
-//  Created by Martin Barreto on 31/3/14.
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
@@ -25,34 +23,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <AFNetworking/AFNetworking.h>
-#import <XLDataLoader/XLDataLoader.h>
-#import <Foundation/Foundation.h>
+#import "XLFormBaseCell.h"
 
-@interface XLFormDataManager : XLDataLoader
+NSString *const kFormImageSelectorCellDefaultImage;
+NSString *const kFormImageSelectorCellImageRequest;
 
-@property (weak) id<XLDataLoaderDelegate> delegate;
-@property (weak) AFHTTPSessionManager * sessionManager;
-@property NSDictionary * parameters;
-@property NSArray * multipartParameters;
-@property NSString * urlString;
-@property NSString * httpMethod;
+@interface XLFormImageSelectorCell : XLFormBaseCell
 
-@property BOOL isMultiPartRequest;
-
--(id)init;
--(id)initWithMultipartRequest:(BOOL)isMultipartRequest;
-
--(void)forceReload;
-
-// method called after a successful data load, if overrited by subclass don't forget to call super method (delegate is called from there).
--(void)successfulDataLoad;
-// method called after a failure on data load, if overrited by subclass don't forget to call super method (delegate is called from there).
--(void)unsuccessfulDataLoadWithError:(NSError *)error;
-
-// call for obtain the related fetched
--(NSDictionary *)fetchedData;
-
-//-(NSURLSessionDataTask *)prepareURLSessionTask;
+@property (nonatomic, readonly) UIImageView * imageView;
+@property (nonatomic, readonly) UILabel * textLabel;
 
 @end

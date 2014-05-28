@@ -2,8 +2,6 @@
 //  XLFormRowDescriptor.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -27,8 +25,6 @@
 
 
 #import "XLFormBaseCell.h"
-#import <XLDataLoader/XLLocalDataLoader.h>
-#import <XLDataLoader/XLRemoteDataLoader.h>
 #import <Foundation/Foundation.h>
 
 
@@ -80,11 +76,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 // =====================================
 // properties used for dynamic selectors
 // =====================================
-@property XLLocalDataLoader * selectorLocalDataLoader;
-@property XLRemoteDataLoader * selectorRemoteDataLoader;
-@property BOOL selectorSupportRefreshControl;
-@property BOOL selectorLoadingPagingEnabled;
-
+@property Class selectorControllerClass;
 
 @property id leftRightSelectorLeftOptionSelected;
 
@@ -99,28 +91,16 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (readonly) id leftValue;
 @property (readonly) NSArray *  rightOptions;
 @property (readonly) NSString * httpParameterKey;
-@property (readonly) XLLocalDataLoader * rightLocalDataLoader;
-@property (readonly) XLRemoteDataLoader * rightRemoteDataLoader;
+@property Class rightSelectorControllerClass;
 
 @property NSString * noValueDisplayText;
 @property NSString * selectorTitle;
-
-@property BOOL selectorSupportRefreshControl;
-@property BOOL selectorLoadingPagingEnabled;
 
 
 +(XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(id)leftValue
                                                                 httpParameterKey:(NSString *)httpParameterKey
                                                                     rightOptions:(NSArray *)rightOptions;
 
-+(XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(id)leftValue
-                                                                httpParameterKey:(NSString *)httpParameterKey
-                                                                 rightLocalDataLoader:(XLLocalDataLoader *)rightLocalDataLoader;
-
-+(XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(id)leftValue
-                                                                    httpParameterKey:(NSString *)httpParameterKey
-                                                                 rightLocalDataLoader:(XLLocalDataLoader *)rightLocalDataLoader
-                                                                rightRemoteDataLoader:(XLRemoteDataLoader *)rightRemoteDataLoader;
 
 @end
 
@@ -133,5 +113,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 -(id)formValue;
 
 @end
+
+
 
 

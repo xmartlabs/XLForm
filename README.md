@@ -21,13 +21,7 @@ What XLForm does
  * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](https://github.com/xmartlabs/XLForm#dynamic-forms---how-to-change-the-form-dynamically-at-runtime ""Dynamic Forms") section of this readme.
  * Supports multivalued sections. For further details see [*Multivalued Sections*](https://github.com/xmartlabs/XLForm#multivalued-sections "Multivalued Sections") section bellow.
  * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-cell).   
- * Shows the *Cancel* and *Done* buttons. The form view controller (XLFormViewCotnroller instance or any subclass of it) must be contained on a UINavigationController.
  * Validates the form data based on form definition and shows error messages.
- * Serializes form data using `AFNetworking 2.0`. 
- * Shows *no internet connection* message using [AFNetworking](https://github.com/AFNetworking/AFNetworking "AFNetworking") network reachability support.
- * Shows asynchronous indicator when a server request is happening using [MRProgress](https://github.com/mrackwitz/MRProgress "MRProgress").
- * Has support for Create and Edit modes.
- * Supports core data objects and dynamic selectors using [XLDataLoader](https://github.com/xmartlabs/XLDataLoader "XLDataLoader").
  * Changes the firstResponder among `UITextField`s and `UITextView`s when keyboard return button is pressed.
 
 
@@ -191,10 +185,10 @@ XLForm follows the following rules to display an object:
 3. Otherwise it return nil. That means you should conforms the protocol `:)`.
 
 
-XLForm follows the following rules to get the object HTTP parameter value:
+XLForm follows the following rules to get the option value:
 
-1. If the object is a `NSString`, `NSNumber` or `NSDate` it uses the object itself as the HTTP parameter value. 
-2. If the object conforms to protocol `XLFormOptionObject`, XLForm gets the http parameter value from `formValue` method.
+1. If the object is a `NSString`, `NSNumber` or `NSDate` it uses the object itself as the option value. 
+2. If the object conforms to protocol `XLFormOptionObject`, XLForm gets the option value from `formValue` method.
 3. Otherwise it return nil. That means you should conforms the protocol :).
 
  
@@ -387,68 +381,41 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescrip
 
 
 
-Request Parameters
+Form Values
 ------------------------
 
-XLForm uses AFNetworking to make HTTP requests to the server. It uses `POST`, `PUT` and `DELETE` to create, update, delete an entity respectively. 
 
-HTTP parameters of the request are created from the `XLFormDescriptor` instance. 
+A `NSDictionary` is created from the `XLFormDescriptor` instance. 
 
-`XLForm` adds an HTTP parameter for each multivalued section containing an `NSArray` with the instance values of the `XLFormRowDescriptor`s contained in the section. 
-For instance, if we have a section with the tag property equal to `tags` and the following values on the contained rows: 'family', 'male', 'female', 'client', the generated parameter will be `tags: ['family', 'male', 'female', 'client']`
+`XLForm` adds a dictionary item for each multivalued section containing an `NSArray` with the instance values of the `XLFormRowDescriptor`s contained in the section. 
+For instance, if we have a section with the tag property equal to `tags` and the following values on the contained rows: 'family', 'male', 'female', 'client', the generated value will be `tags: ['family', 'male', 'female', 'client']`
 
-It also adds a parameter for each `XLFormRowDescriptor` instance not contained in a multivalued section, the name of the parameter is the value of the `tag` property.
-
-
-In same cases the value of the HTTP parameter may differ from the value of `XLFormRowDescriptor` instance. This is usually the case of selectors row, the selected value could be a core data object or any other object. In this cases XLForm need to know how to get the value and the description of the selected object.
+It also adds a value for each `XLFormRowDescriptor` instance not contained in a multivalued section, the dictionary key is the value of `XLFormRowDescriptor` `tag` property.
 
 
-`AFNetworking` is in charge of parameters serialization.  
+In same cases the form value may differ from the value of `XLFormRowDescriptor` instance. This is usually the case of selectors row, the selected value could be a core data object or any other object. In this cases XLForm need to know how to get the value and the description of the selected object.
 
+XLForm follows the following rules to get `XLFormRowDescriptor` value:
 
-How to make HTTP requests to create, update, delete the entity represented by the Form
------------------------------------------
+1. If the object is a `NSString`, `NSNumber` or `NSDate`, the value is the object itself 
+2. If the object conforms to protocol `XLFormOptionObject`, XLForm gets the value from `formValue` method.
+3. Otherwise it return nil. That means you should conforms the protocol :).
 
-Your `XLFormViewController` concrete class should implement ```-(void)configureDataManager:(XLFormDataManager *)dataManager;``` in order to configure the data necessary to make the HTTP request. ```-(void)configureDataManager:(XLFormDataManager *)dataManager;``` is part of `XLFormViewControllerDelegate` protocol.
-
-This is an example of how we can implement this method:
+ 
+This is the protocol declaration: 
 
 ```objc
--(void)configureDataManager:(XLFormDataManager *)dataManager
-{
-    Customer *customer;
-    if (self.customerObjectID) {
-        customer = [Customer objectWithID:self.customerObjectID inContext:[AppDelegate managedObjectContext]];
-    }
-    switch (self.formMode) {
-        case XLFormModeCreate:
-            dataManager.sessionManager = [LynkosHttpSessionManager sharedClient];
-            dataManager.urlString = self.contactDataType == XLContactDataTypeCompany ? @"customers/createcorporate" : @"customers/create";
-            dataManager.parameters = self.httpParameters;
-            dataManager.httpMethod = @"POST";
-            break;
-        case XLFormModeEdit:
-            dataManager.sessionManager = [LynkosHttpSessionManager sharedClient];
-            dataManager.urlString = [NSString stringWithFormat:@"customers/%@/%@", customer.customerId, (customer.isCompany ? @"updatecorporate" : @"update")];
-            dataManager.parameters = self.httpParameters;
-            dataManager.httpMethod = @"PUT";
-            break;
-        case XLFormModeDelete:
-            dataManager.sessionManager = [LynkosHttpSessionManager sharedClient];
-            dataManager.urlString = [NSString stringWithFormat:@"customers/%@/delete", customer.customerId];
-            dataManager.parameters = nil;
-            dataManager.httpMethod = @"DELETE";
-            break;
-        default:
-            break;
-    }
-}
+@protocol XLFormOptionObject <NSObject>
+
+@required
+-(NSString *)formDisplayText;
+-(id)formValue;
+
+@end
 ```
 
-A real example will be added on the example application soon.
 
-
-Selector Rows with remote data loaders
+Selector Rows with custom selector view controller
 --------------------------------------------
 
 This section will be documented soon. 
@@ -527,26 +494,6 @@ You can also change the way the error messages are shown overriding:
 ```objc
 -(void)showFormValidationError:(NSError *)error;
 ```
-
-XLForm also serializes and sends the form through an `HTTP` message to the app backend. Basically it makes the `POST`, `PUT` or `DELETE` request with the serialized data. The HTTP `response` of the request could result in a error, in that case the framework calls ```-(void)showServerErrorMessage:(NSError *)error``` method. You should override it if you want to show a custom message.
-
-For Instance:
-
-```objc
--(void)showServerErrorMessage:(NSError *)error
-{
-    if (error.userInfo[AFNetworkingTaskDidCompleteSerializedResponseKey])
-    {
-        id responseData = error.userInfo[AFNetworkingTaskDidCompleteSerializedResponseKey];
-        if ([responseData isKindOfClass:[NSDictionary class]]){
-            NSDictionary * data = (NSDictionary *)responseData;
-            if ([data objectForKey:@"code"]){
-            	// do something useful
-            }
-        }
-    }
-} 
-```
    
 
 Additional configuration of Rows
@@ -576,46 +523,6 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 [section addFormRow:row];
 ```
 
-
-
-
-Advanced Functionality
----------------------------
-
-#### How to show "no internet connection" network reachability message
-
-![Screenshot of no internet connection message](Examples/Resources/network_reachability.png)
-
-1. Set `XLFormViewController` `showNetworkReachability` property to `YES`.
-2. Implement the method:
-
- ```objc
- (AFHTTPSessionManager *)sessionManager;
- ``` 
- 
- which is a method of `XLFormViewControllerDelegate` protocol.
-
-#### How to show the Delete button at the end of the table view
-
-![Screenshot of Delete Button](Examples/Resources/buttons.png)
-
-Delete Button will appear only if `formMode` is passed as `XLFormModeEdit` and `showDeleteButton` is passed as `YES`.
-
-We should invoke the `XLFormViewController` using these parameter values.
-
-```objc
--(id)initWithForm:(XLFormDescriptor *)form formMode:(XLFormMode)mode showCancelButton:(BOOL)showCancelButton showSaveButton:(BOOL)showSaveButton showDeleteButton:(BOOL)showDeleteButton deleteButtonCaption:(NSString *)deleteButtonCaption;
-```
-
-We can also change the delete button caption setting the deleteButtonCaption accordingly.
-
-
-#### How to show the Cancel and Done button
-
-
-To show the *Cancel* and *Done* buttons the `XLFormViewController` instance must be contained in a `UINavigatorViewController`. In addition to that we has to pass the `XLFormViewController`s `showCancelButton` and `showSaveButton` parameters to `YES`.
-
-XLForm will create a `UIBarButtonItem` for each one.
 
 #### How to assign the first responder on form appearance
 

@@ -2,8 +2,6 @@
 //  XLFormLeftRightSelectorCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -30,7 +28,7 @@
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormLeftRightSelectorCell.h"
 
-@interface XLFormLeftRightSelectorCell() <UIActionSheetDelegate, XLFormOptionsViewControllerDelegate>
+@interface XLFormLeftRightSelectorCell() <UIActionSheetDelegate>
 
 @end
 
@@ -160,17 +158,17 @@
     if (self.rowDescriptor.leftRightSelectorLeftOptionSelected){
         XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
         if (option.rightOptions){
-            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithDelegate:self multipleSelection:NO style:UITableViewStyleGrouped];
-            optionsViewController.tag = self.rowDescriptor.tag;
+            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithOptions:option.rightOptions multipleSelection:NO style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
             optionsViewController.title = option.selectorTitle;
+            optionsViewController.rowDescriptor = self.rowDescriptor;
             [controller.navigationController pushViewController:optionsViewController animated:YES];
         }
         else{
-            XLFormSelectorTableViewController * selectorViewController = [[XLFormSelectorTableViewController alloc] initWithDelegate:self localDataLoader:option.rightLocalDataLoader remoteDataLoader:option.rightRemoteDataLoader];
-            selectorViewController.tag = self.rowDescriptor.tag;
-            selectorViewController.title = option.selectorTitle;
-            selectorViewController.supportRefreshControl = option.selectorSupportRefreshControl;
-            selectorViewController.loadingPagingEnabled = option.selectorLoadingPagingEnabled;
+            XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
+            Class selectorClass =  option.rightSelectorControllerClass;
+            UIViewController<XLFormRowDescriptorViewController> *selectorViewController = [[selectorClass alloc] init];
+            selectorViewController.rowDescriptor = self.rowDescriptor;
+            selectorViewController.title = self.rowDescriptor.selectorTitle;
             [controller.navigationController pushViewController:selectorViewController animated:YES];
         }
     }
@@ -222,24 +220,5 @@
     }
 }
 
-
-#pragma mark - XLFormOptionsViewControllerDelegate
-
-
--(BOOL)optionsViewControllerOptions:(XLFormOptionsViewController *)optionsViewController isOptionSelected:(id)option
-{
-    return [self.rowDescriptor.value isEqual:option];
-}
-
-- (NSArray *)optionsViewControllerOptions:(XLFormOptionsViewController *)optionsViewController
-{
-    return  [[self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected] rightOptions];
-}
-
-- (void)optionsViewController:(XLFormOptionsViewController *)optionsViewController didSelectOption:(id)selectedOption atIndex:(NSIndexPath *)indexpath
-{
-    self.rowDescriptor.value = selectedOption;
-    [self.formViewController.navigationController popViewControllerAnimated:YES];
-}
 
 @end

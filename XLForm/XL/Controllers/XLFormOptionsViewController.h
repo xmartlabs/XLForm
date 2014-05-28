@@ -2,8 +2,6 @@
 //  XLFormOptionsViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -26,61 +24,30 @@
 // THE SOFTWARE.
 
 
-#import <UIKit/UIKit.h>
+//@class XLFormOptionsViewController;
 
-@class XLFormOptionsViewController;
 
-@protocol XLSelectorTableViewControllerProtocol <NSObject>
+#import "XLFormRowDescriptor.h"
 
-@property NSString * tag;
-
-@end
-
-@protocol XLFormOptionsViewControllerDelegate <NSObject>
+@protocol XLFormRowDescriptorViewController <NSObject>
 
 @required
--(NSArray *)optionsViewControllerOptions:(XLFormOptionsViewController *)optionsViewController;
 
-@optional
--(void)optionsViewController:(id<XLSelectorTableViewControllerProtocol>)optionsViewController didSelectOption:(id)option atIndex:(NSIndexPath *)indexPath;
--(void)optionsViewController:(id<XLSelectorTableViewControllerProtocol>)optionsViewController didDeselectOption:(id)option atIndex:(NSIndexPath *)indexPah;
--(BOOL)optionsViewControllerOptions:(id<XLSelectorTableViewControllerProtocol>)optionsViewController isOptionSelected:(id)option;
+@property (nonatomic) XLFormRowDescriptor * rowDescriptor;
 
 @end
 
 
-@interface XLFormOptionsViewController : UITableViewController
+@interface XLFormOptionsViewController : UITableViewController<XLFormRowDescriptorViewController>
 
-@property (nonatomic) NSIndexSet * selectedIndexSet;
-@property (nonatomic) NSString * tag;
-@property (readonly) NSString * valueKey;
-@property (readonly) NSString * titleHeaderSection;
-@property (readonly) NSString * titleFooterSection;
+- (id)initWithOptions:(NSArray *)options multipleSelection:(BOOL)multipleSelection
+                style:(UITableViewStyle)style;
 
-- (id)initWithDelegate:(id<XLFormOptionsViewControllerDelegate>)delegate;
 
-- (id)initWithDelegate:(id<XLFormOptionsViewControllerDelegate>)delegate
-     multipleSelection:(BOOL)multipleSelection;
-
-- (id)initWithDelegate:(id<XLFormOptionsViewControllerDelegate>)delegate
-     multipleSelection:(BOOL)multipleSelection
-                 style:(UITableViewStyle)style;
-
-- (id)initWithDelegate:(id<XLFormOptionsViewControllerDelegate>)delegate
-     multipleSelection:(BOOL)multipleSelection
+- (id)initWithOptions:(NSArray *)options multipleSelection:(BOOL)multipleSelection
                  style:(UITableViewStyle)style
     titleHeaderSection:(NSString *)titleHeaderSection
     titleFooterSection:(NSString *)titleFooterSection;
 
-- (void)reloadOptions;
-
-@end
-
-// Protected fields
-@interface XLFormOptionsViewController()
-
-@property NSArray * options;
-@property (weak) id<XLFormOptionsViewControllerDelegate> delegate;
-@property BOOL isMultipleSelection;
 
 @end

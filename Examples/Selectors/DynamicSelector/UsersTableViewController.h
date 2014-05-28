@@ -1,8 +1,6 @@
 //
-//  XLFormSelectorTableViewController.h
+//  UsersTableViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
-//
-//  Created by Martin Barreto on 31/3/14.
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
@@ -25,16 +23,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <XLDataLoader/XLLocalDataLoader.h>
-#import "XLFormOptionsViewController.h"
-
+#import "XLFormRowDescriptor.h"
 #import "XLTableViewController.h"
 
-@interface XLFormSelectorTableViewController : XLTableViewController
-
-@property (weak) id<XLFormOptionsViewControllerDelegate> selectorDelegate;
-@property NSString * tag;
-
--(id)initWithDelegate:(id<XLFormOptionsViewControllerDelegate>)delegate localDataLoader:(XLLocalDataLoader *)localDataLoader remoteDataLoader:(XLRemoteDataLoader *)remoteDataLoader;
+@interface UsersTableViewController : XLTableViewController <XLFormRowDescriptorViewController>
 
 @end

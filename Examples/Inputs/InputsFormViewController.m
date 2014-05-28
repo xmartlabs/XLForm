@@ -2,8 +2,6 @@
 //  InputsFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -45,7 +43,7 @@ NSString *const kNotes = @"notes";
 
 -(id)init
 {
-    XLFormDescriptor * formDescriptor = [XLFormDescriptor formDescriptorWithTitle:@"Simple Form"];
+    XLFormDescriptor * formDescriptor = [XLFormDescriptor formDescriptorWithTitle:@"Text Fields"];
     XLFormSectionDescriptor * section;
     XLFormRowDescriptor * row;
     
@@ -105,8 +103,27 @@ NSString *const kNotes = @"notes";
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kNotes rowType:XLFormRowDescriptorTypeTextView title:@"Notes"];
     [section addFormRow:row];
     
-    return [super initWithForm:formDescriptor formMode:XLFormModeCreate showCancelButton:NO showSaveButton:YES showDeleteButton:NO deleteButtonCaption:@"Remove SingleForm"];
+    return [super initWithForm:formDescriptor];
     
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(savePressed:)];
+}
+
+
+-(IBAction)savePressed:(UIBarButtonItem * __unused)button
+{
+    NSArray * validationErrors = [self formValidationErrors];
+    if (validationErrors.count > 0){
+        [self showFormValidationError:[validationErrors firstObject]];
+        return;
+    }
+    [self.tableView endEditing:YES];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Valid Form", nil) message:@"No errors found" delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+    [alertView show];
 }
 
 @end

@@ -2,8 +2,6 @@
 //  ExamplesFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -90,7 +88,7 @@ NSString * const kMultivalued = @"Multivalued";
     
     
     // TextFieldAndTextView
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kTextFieldAndTextView rowType:XLFormRowDescriptorTypeButton title:@"Text Fields Examples"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kTextFieldAndTextView rowType:XLFormRowDescriptorTypeButton title:@"Text Fields"];
     row.buttonViewController = [InputsFormViewController class];
     [section addFormRow:row];
     

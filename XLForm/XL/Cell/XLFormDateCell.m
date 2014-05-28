@@ -2,8 +2,6 @@
 //  XLFormDateCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Created by Martin Barreto on 31/3/14.
-//
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
 //
 //
@@ -62,16 +60,6 @@
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
-}
-
--(BOOL)canResignFirstResponder
-{
-    return YES;
-}
-
--(BOOL)becomeFirstResponder
-{
-    return [super becomeFirstResponder];
 }
 
 -(BOOL)resignFirstResponder
