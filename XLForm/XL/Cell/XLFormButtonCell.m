@@ -53,15 +53,23 @@
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
+    [self formDescriptorCellDidSelectedWithFormController:controller yieldingNewController:nil];
+}
+
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller yieldingNewController:(void (^)(XLFormViewController *newController))newControllerBlock
+{
     if (self.rowDescriptor.buttonViewController){
+        id theNewController = [[self.rowDescriptor.buttonViewController alloc] init];
+        if ( newControllerBlock ) {
+            newControllerBlock( theNewController );
+        }
         if (controller.navigationController == nil || [self.rowDescriptor.buttonViewController isSubclassOfClass:[UINavigationController class]] || self.rowDescriptor.buttonViewControllerPresentationMode == XLFormPresentationModePresent){
-            [controller presentViewController:[[self.rowDescriptor.buttonViewController alloc] init] animated:YES completion:nil];
+            [controller presentViewController:theNewController animated:YES completion:nil];
         }
         else{
-            [controller.navigationController pushViewController:[[self.rowDescriptor.buttonViewController alloc] init] animated:YES];
+            [controller.navigationController pushViewController:theNewController animated:YES];
         }
     }
 }
-
 
 @end
