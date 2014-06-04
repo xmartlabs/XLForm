@@ -54,6 +54,7 @@
 #import "XLFormLeftRightSelectorCell.h"
 #import "XLFormDateCell.h"
 #import "XLFormStepCounterCell.h"
+#import "XLFormSegmentedCell.h"
 
 
 static NSString *const XLFormRowDescriptorTypeText = @"text";
@@ -72,6 +73,7 @@ static NSString *const XLFormRowDescriptorTypeSelectorActionSheet = @"selectorAc
 static NSString *const XLFormRowDescriptorTypeSelectorAlertView = @"selectorAlertView";
 static NSString *const XLFormRowDescriptorTypeSelectorPickerView = @"selectorPickerView";
 static NSString *const XLFormRowDescriptorTypeSelectorLeftRight = @"selectorLeftRight";
+static NSString *const XLFormRowDescriptorTypeSegmentedControl = @"segmentedControl";
 static NSString *const XLFormRowDescriptorTypeDateInline = @"dateInline";
 static NSString *const XLFormRowDescriptorTypeDateTimeInline = @"datetimeInline";
 static NSString *const XLFormRowDescriptorTypeTimeInline = @"timeInline";
