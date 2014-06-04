@@ -224,7 +224,7 @@
             }
         }
     }
-    return NSNotFound;
+    return -1;
 }
 
 
