@@ -29,6 +29,7 @@
 NSString *const kSwitchBool = @"switchBool";
 NSString *const kSwitchCheck = @"switchBool";
 NSString *const kStepCounter = @"stepCounter";
+NSString *const kSegmentedControl = @"segmentedControl";
 NSString *const kCustom = @"custom";
 NSString *const kButton = @"button";
 
@@ -61,7 +62,12 @@ NSString *const kButton = @"button";
 
     // step counter
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"]];
- 
+    
+    // Segmented Control
+    XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:kSegmentedControl rowType:XLFormRowDescriptorTypeSegmentedControl title:@"Fruits"];
+    row.selectorOptions = @[@"Apple", @"Orange", @"Pear"];
+    row.value = @"Pear";
+    [section addFormRow:row];
     
     // custom cell
     XLFormRowDescriptor *customRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kCustom rowType:@"XLFormRowDescriptorTypeCustom"];
@@ -83,7 +89,6 @@ NSString *const kButton = @"button";
 }
 
 
-
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow
 {
     [super didSelectFormRow:formRow];
@@ -96,6 +101,5 @@ NSString *const kButton = @"button";
         [self deselectFormRow:formRow];
     }
 }
-
 
 @end
