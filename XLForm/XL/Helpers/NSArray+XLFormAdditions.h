@@ -1,5 +1,5 @@
 //
-//  XLFormOptionsViewController.h
+//  NSArray+XLFormAdditions.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,29 +23,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <Foundation/Foundation.h>
 
-//@class XLFormOptionsViewController;
+@interface NSArray (XLFormAdditions)
 
-
-#import "XLFormRowDescriptor.h"
-
-@protocol XLFormRowDescriptorViewController <NSObject>
-
-@required
-
-@property (nonatomic) XLFormRowDescriptor * rowDescriptor;
-
-@end
-
-
-@interface XLFormOptionsViewController : UITableViewController<XLFormRowDescriptorViewController>
-
-- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style;
-
-
-- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style
-    titleHeaderSection:(NSString *)titleHeaderSection
-    titleFooterSection:(NSString *)titleFooterSection;
-
+-(NSInteger)formIndexForItem:(id)item;
 
 @end

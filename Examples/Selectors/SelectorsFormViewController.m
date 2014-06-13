@@ -34,6 +34,7 @@ NSString *const kSelectorPushDisabled = @"selectorPushDisabled";
 NSString *const kSelectorActionSheetDisabled = @"selectorActionSheetDisabled";
 NSString *const kSelectorLeftRightDisabled = @"selectorLeftRightDisabled";
 NSString *const kSelectorPickerView = @"selectorPickerView";
+NSString *const kMultipleSelector = @"multipleSelector";
 NSString *const kDynamicSelectors = @"dynamicSelectors";
 
 
@@ -142,6 +143,18 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"];
     [section addFormRow:row];
     
+    
+    // --------- MultipleSelector
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Multiple Selectors"];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelector rowType:XLFormRowDescriptorTypeMultipleSelector title:@"Multiple Selector"];
+    row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
+    row.value = @[@"Option 1", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
+    [section addFormRow:row];
+    
+    // --------- Dynamic Selectors
+    
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Dynamic Selectors"];
     [form addFormSection:section];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kDynamicSelectors rowType:XLFormRowDescriptorTypeButton title:@"Dynamic Selectors"];
@@ -157,13 +170,15 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     row.disabled = YES;
     [section addFormRow:row];
 
-    // Disabled Selector Action Sheet
+    // --------- Disabled Selector Action Sheet
+    
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheetDisabled rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Selector Sheet"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"];
     row.disabled = YES;
     [section addFormRow:row];
     
-    // Disabled Selector Left Right
+    // --------- Disabled Selector Left Right
+    
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorLeftRightDisabled rowType:XLFormRowDescriptorTypeSelectorLeftRight title:@"Selector Left Right"];
     row.leftRightSelectorLeftOptionSelected = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Right Option 4"];

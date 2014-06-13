@@ -158,6 +158,7 @@
                                                XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorAlertView: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorPickerView: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeMultipleSelector: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSegmentedControl: [XLFormSegmentedCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
                                                XLFormRowDescriptorTypeButton: [XLFormButtonCell class],

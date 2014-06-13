@@ -27,6 +27,7 @@
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormRowDescriptor.h"
 #import "XLFormSelectorCell.h"
+#import "NSArray+XLFormAdditions.h"
 
 @interface XLFormSelectorCell() <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -40,6 +41,19 @@
 
 -(NSString *)valueDisplayText
 {
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]){
+        if (!self.rowDescriptor.value || [self.rowDescriptor.value count] == 0){
+            return self.rowDescriptor.noValueDisplayText;
+        }
+        NSMutableArray * descriptionArray = [NSMutableArray arrayWithCapacity:[self.rowDescriptor.value count]];
+        for (id option in self.rowDescriptor.selectorOptions) {
+            NSArray * selectedValues = self.rowDescriptor.value;
+            if ([selectedValues formIndexForItem:option] != NSNotFound){
+                [descriptionArray addObject:[option displayText]];
+            }
+        }
+        return [descriptionArray componentsJoinedByString:@", "];
+    }
     return (self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText);
 }
 
@@ -97,7 +111,7 @@
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush]){
         if (self.rowDescriptor.selectorOptions){
-            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithOptions:self.rowDescriptor.selectorOptions multipleSelection:NO style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithOptions:self.rowDescriptor.selectorOptions style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
             optionsViewController.rowDescriptor = self.rowDescriptor;
             optionsViewController.title = self.rowDescriptor.selectorTitle;
             [controller.navigationController pushViewController:optionsViewController animated:YES];
@@ -109,6 +123,14 @@
             selectorViewController.title = self.rowDescriptor.selectorTitle;
             [controller.navigationController pushViewController:selectorViewController animated:YES];
         }
+    }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector])
+    {
+        NSAssert(self.rowDescriptor.selectorOptions, @"selectorOptions property shopuld not be nil");
+        XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithOptions:self.rowDescriptor.selectorOptions style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+        optionsViewController.rowDescriptor = self.rowDescriptor;
+        optionsViewController.title = self.rowDescriptor.selectorTitle;
+        [controller.navigationController pushViewController:optionsViewController animated:YES];
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorActionSheet]){
         UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
@@ -134,7 +156,6 @@
         [self becomeFirstResponder];
         [controller.tableView selectRowAtIndexPath:nil animated:YES scrollPosition:UITableViewScrollPositionNone];
     }
-
 }
 
 

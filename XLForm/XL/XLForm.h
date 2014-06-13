@@ -72,6 +72,7 @@ static NSString *const XLFormRowDescriptorTypeSelectorPush = @"selectorPush";
 static NSString *const XLFormRowDescriptorTypeSelectorActionSheet = @"selectorActionSheet";
 static NSString *const XLFormRowDescriptorTypeSelectorAlertView = @"selectorAlertView";
 static NSString *const XLFormRowDescriptorTypeSelectorPickerView = @"selectorPickerView";
+static NSString *const XLFormRowDescriptorTypeMultipleSelector = @"multipleSelector";
 static NSString *const XLFormRowDescriptorTypeSelectorLeftRight = @"selectorLeftRight";
 static NSString *const XLFormRowDescriptorTypeSegmentedControl = @"segmentedControl";
 static NSString *const XLFormRowDescriptorTypeDateInline = @"dateInline";
