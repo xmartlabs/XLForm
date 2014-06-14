@@ -207,6 +207,11 @@
 
 #pragma mark - XLFormViewControllerDelegate
 
+-(NSDictionary *)formValues
+{
+    return [self.form formValues];
+}
+
 -(NSDictionary *)httpParameters
 {
     return [self.form httpParameters:self];
