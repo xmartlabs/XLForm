@@ -70,7 +70,9 @@ typedef NS_ENUM(NSInteger, XLFormErrorCode)
 
 -(NSIndexPath *)indexPathOfFormRow:(XLFormRowDescriptor *)formRow;
 
+-(NSDictionary *)formValues;
 -(NSDictionary *)httpParameters:(XLFormViewController *)formViewController;
+
 -(NSArray *)localValidationErrors:(XLFormViewController *)formViewController;
 - (void)setFirstResponder:(XLFormViewController *)formViewController;
 

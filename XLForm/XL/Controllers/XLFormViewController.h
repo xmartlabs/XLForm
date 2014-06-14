@@ -41,6 +41,7 @@
 
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow;
 -(void)deselectFormRow:(XLFormRowDescriptor *)row;
+-(NSDictionary *)formValues;
 -(NSDictionary *)httpParameters;
 
 -(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)section;
