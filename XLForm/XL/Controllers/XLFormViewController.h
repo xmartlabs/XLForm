@@ -40,25 +40,28 @@
 @optional
 
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow;
--(void)deselectFormRow:(XLFormRowDescriptor *)row;
+-(void)deselectFormRow:(XLFormRowDescriptor *)formRow;
+
 -(NSDictionary *)formValues;
 -(NSDictionary *)httpParameters;
 
--(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)section;
+-(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)formSection;
 
 -(NSArray *)formValidationErrors;
 -(void)showFormValidationError:(NSError *)error;
 
+-(UITableViewRowAnimation)insertRowAnimationForRow:(XLFormRowDescriptor *)formRow;
+-(UITableViewRowAnimation)deleteRowAnimationForRow:(XLFormRowDescriptor *)formRow;
+-(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
+-(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
 
 @end
 
 @interface XLFormViewController : UITableViewController<XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, XLFormViewControllerDelegate>
 
 @property XLFormDescriptor * form;
+
 -(id)initWithForm:(XLFormDescriptor *)form;
-
--(NSArray *)formValidationErrors;
-
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
 
 @end

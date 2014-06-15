@@ -183,25 +183,25 @@
 
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:[self insertRowAnimationForRow:formRow]];
 }
 
--(void)formRowHasBeenRemovedAtIndexPath:(NSIndexPath *)indexPath
+-(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:[self deleteRowAnimationForRow:formRow]];
 }
 
--(void)formSectionHasBeenRemovedAtIndex:(NSUInteger)index
+-(void)formSectionHasBeenRemoved:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[self deleteRowAnimationForSection:formSection]];
 }
 
 -(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[self insertRowAnimationForSection:formSection]];
 }
 
--(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue
+-(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
 {
 }
 
@@ -225,7 +225,28 @@
     }
 }
 
+-(UITableViewRowAnimation)insertRowAnimationForRow:(XLFormRowDescriptor *)formRow
+{
+    if (formRow.sectionDescriptor.isMultivaluedSection){
+        return YES;
+    }
+    return UITableViewRowAnimationFade;
+}
 
+-(UITableViewRowAnimation)deleteRowAnimationForRow:(XLFormRowDescriptor *)formRow
+{
+    return UITableViewRowAnimationFade;
+}
+
+-(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection
+{
+    return UITableViewRowAnimationAutomatic;
+}
+
+-(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection
+{
+    return UITableViewRowAnimationAutomatic;
+}
 
 #pragma mark - Methods
 
@@ -249,9 +270,9 @@
 
 #pragma mark - Helpers
 
--(void)deselectFormRow:(XLFormRowDescriptor *)row
+-(void)deselectFormRow:(XLFormRowDescriptor *)formRow
 {
-    NSIndexPath * indexPath = [self.form indexPathOfFormRow:row];
+    NSIndexPath * indexPath = [self.form indexPathOfFormRow:formRow];
     if (indexPath){
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -321,7 +342,7 @@
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert){
         XLFormSectionDescriptor * multivaluedFormSection = [self.form formSectionAtIndex:indexPath.section];
-        XLFormRowDescriptor * formRowDescriptor = [multivaluedFormSection newMultivaluedFormRowDescriptor];
+        XLFormRowDescriptor * formRowDescriptor = [self respondsToSelector:@selector(formRowFormMultivaluedFormSection:)] ? [self formRowFormMultivaluedFormSection:multivaluedFormSection] : [multivaluedFormSection newMultivaluedFormRowDescriptor];
         [multivaluedFormSection addFormRow:formRowDescriptor];
         self.tableView.editing = NO;
         self.tableView.editing = YES;
@@ -411,10 +432,9 @@
 
 #pragma mark - UITextViewDelegate
 
--(void)textViewDidEndEditing:(UITextView *)textView{
-    
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
 }
-
 
 #pragma mark - UIScrollViewDelegate
 
