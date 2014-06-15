@@ -14,6 +14,8 @@
 		282C5EFF18D3A31C00A5D47C /* XLFormRowDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C5EFB18D3A31C00A5D47C /* XLFormRowDescriptor.m */; };
 		282C5F0018D3A31C00A5D47C /* XLFormSectionDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C5EFD18D3A31C00A5D47C /* XLFormSectionDescriptor.m */; };
 		282D974318D1271B00DEE3C5 /* XLFormOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282D974218D1271B00DEE3C5 /* XLFormOptionsViewController.m */; };
+		283B59A8194D53DE000828CD /* XLFormInlineSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59A7194D53DE000828CD /* XLFormInlineSelectorCell.m */; };
+		283B59AC194D6117000828CD /* XLFormPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59AB194D6117000828CD /* XLFormPickerCell.m */; };
 		2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB4618D4915800F13E2B /* ExamplesFormViewController.m */; };
 		2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB4A18D496F600F13E2B /* SelectorsFormViewController.m */; };
 		2843EB4E18D4CCD700F13E2B /* XLFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB4D18D4CCD700F13E2B /* XLFormSwitchCell.m */; };
@@ -93,6 +95,11 @@
 		282D974118D1271B00DEE3C5 /* XLFormOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormOptionsViewController.h; path = XL/Controllers/XLFormOptionsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		282D974218D1271B00DEE3C5 /* XLFormOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormOptionsViewController.m; path = XL/Controllers/XLFormOptionsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		283B59A4194D4BBF000828CD /* XLFormRowDescriptorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormRowDescriptorViewController.h; path = XL/Controllers/XLFormRowDescriptorViewController.h; sourceTree = "<group>"; };
+		283B59A6194D53DE000828CD /* XLFormInlineSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormInlineSelectorCell.h; sourceTree = "<group>"; };
+		283B59A7194D53DE000828CD /* XLFormInlineSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormInlineSelectorCell.m; sourceTree = "<group>"; };
+		283B59A9194D5DE2000828CD /* XLFormInlineRowDescriptorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormInlineRowDescriptorCell.h; sourceTree = "<group>"; };
+		283B59AA194D6117000828CD /* XLFormPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormPickerCell.h; sourceTree = "<group>"; };
+		283B59AB194D6117000828CD /* XLFormPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormPickerCell.m; sourceTree = "<group>"; };
 		2843EB4518D4915800F13E2B /* ExamplesFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = ExamplesFormViewController.h; path = Examples/ExamplesFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2843EB4618D4915800F13E2B /* ExamplesFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExamplesFormViewController.m; path = Examples/ExamplesFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2843EB4918D496F600F13E2B /* SelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SelectorsFormViewController.h; path = Examples/Selectors/SelectorsFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -434,6 +441,11 @@
 				2829624618DF790F00002E09 /* XLFormDateCell.m */,
 				3C3360B1193E43D800BA9C4A /* XLFormSegmentedCell.h */,
 				3C3360B2193E43D800BA9C4A /* XLFormSegmentedCell.m */,
+				283B59A6194D53DE000828CD /* XLFormInlineSelectorCell.h */,
+				283B59A7194D53DE000828CD /* XLFormInlineSelectorCell.m */,
+				283B59A9194D5DE2000828CD /* XLFormInlineRowDescriptorCell.h */,
+				283B59AA194D6117000828CD /* XLFormPickerCell.h */,
+				283B59AB194D6117000828CD /* XLFormPickerCell.m */,
 			);
 			name = Cell;
 			path = XL/Cell;
@@ -722,12 +734,14 @@
 				28E093EB18F4C28200E218ED /* XLFormRightDetailCell.m in Sources */,
 				2850C67518D0FD4B002B7D0A /* XLFormDatePickerCell.m in Sources */,
 				2850C65E18D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m in Sources */,
+				283B59A8194D53DE000828CD /* XLFormInlineSelectorCell.m in Sources */,
 				28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */,
 				2843EB5218D4CFC700F13E2B /* OthersFormViewController.m in Sources */,
 				28C7ECC218E1F3C1009E3C46 /* XLFormOptionsObject.m in Sources */,
 				2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */,
 				28468EA418EF41D300DBB015 /* InputsFormViewController.m in Sources */,
 				28A76625193251E500D69546 /* AppDelegate.m in Sources */,
+				283B59AC194D6117000828CD /* XLFormPickerCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

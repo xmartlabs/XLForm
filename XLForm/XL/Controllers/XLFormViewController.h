@@ -63,5 +63,6 @@
 
 -(id)initWithForm:(XLFormDescriptor *)form;
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
++(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes;
 
 @end
