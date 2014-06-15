@@ -40,6 +40,8 @@
 #import "XLFormOptionsViewController.h"
 #import "XLFormViewController.h"
 
+//Protocols
+#import "XLFormRowDescriptorViewController.h"
 
 //Cells
 #import "XLFormBaseCell.h"

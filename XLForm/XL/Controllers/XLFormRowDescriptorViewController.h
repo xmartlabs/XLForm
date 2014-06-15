@@ -1,5 +1,5 @@
 //
-//  XLFormOptionsViewController.h
+//  XLFormRowDescriptorViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -24,18 +24,14 @@
 // THE SOFTWARE.
 
 
-
-#import "XLFormRowDescriptorViewController.h"
 #import "XLFormRowDescriptor.h"
+#import <Foundation/Foundation.h>
 
-@interface XLFormOptionsViewController : UITableViewController<XLFormRowDescriptorViewController>
+@protocol XLFormRowDescriptorViewController <NSObject>
 
-- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style;
+@required
 
-
-- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style
-    titleHeaderSection:(NSString *)titleHeaderSection
-    titleFooterSection:(NSString *)titleFooterSection;
-
+@property (nonatomic) XLFormRowDescriptor * rowDescriptor;
 
 @end
+

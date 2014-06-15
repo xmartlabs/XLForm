@@ -92,6 +92,7 @@
 		282C5EFD18D3A31C00A5D47C /* XLFormSectionDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormSectionDescriptor.m; path = XL/Descriptors/XLFormSectionDescriptor.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		282D974118D1271B00DEE3C5 /* XLFormOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormOptionsViewController.h; path = XL/Controllers/XLFormOptionsViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		282D974218D1271B00DEE3C5 /* XLFormOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormOptionsViewController.m; path = XL/Controllers/XLFormOptionsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		283B59A4194D4BBF000828CD /* XLFormRowDescriptorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormRowDescriptorViewController.h; path = XL/Controllers/XLFormRowDescriptorViewController.h; sourceTree = "<group>"; };
 		2843EB4518D4915800F13E2B /* ExamplesFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = ExamplesFormViewController.h; path = Examples/ExamplesFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2843EB4618D4915800F13E2B /* ExamplesFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExamplesFormViewController.m; path = Examples/ExamplesFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2843EB4918D496F600F13E2B /* SelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SelectorsFormViewController.h; path = Examples/Selectors/SelectorsFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -247,6 +248,7 @@
 				2850C65C18D0F9A6002B7D0A /* XLFormViewController.m */,
 				282D974118D1271B00DEE3C5 /* XLFormOptionsViewController.h */,
 				282D974218D1271B00DEE3C5 /* XLFormOptionsViewController.m */,
+				283B59A4194D4BBF000828CD /* XLFormRowDescriptorViewController.h */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
