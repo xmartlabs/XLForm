@@ -44,7 +44,7 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
     if (self){
         _formSections = [NSMutableArray array];
         _title = title;
-        [self addObserver:self forKeyPath:@"formSections" options:0 context:0];
+        [self addObserver:self forKeyPath:@"formSections" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     }
     return self;
 }
@@ -286,7 +286,8 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         }
         else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
             NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            [self.delegate formSectionHasBeenRemovedAtIndex:indexSet.firstIndex];
+            XLFormSectionDescriptor * removedSection = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
+            [self.delegate formSectionHasBeenRemoved:removedSection atIndex:indexSet.firstIndex];
         }
     }
     else if ([keyPath isEqualToString:@"formRows"]){
@@ -298,8 +299,9 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         }
         else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
             NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+            XLFormRowDescriptor * removedRow = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
             NSUInteger sectionIndex = [self.formSections indexOfObject:object];
-            [self.delegate formRowHasBeenRemovedAtIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
+            [self.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
         }
 
     }
@@ -336,7 +338,7 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
 
 - (void)insertObject:(XLFormSectionDescriptor *)formSection inFormSectionsAtIndex:(NSUInteger)index {
     formSection.formDescriptor = self;
-    [formSection addObserver:self forKeyPath:@"formRows" options:0 context:0];
+    [formSection addObserver:self forKeyPath:@"formRows" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     [self.formSections insertObject:formSection atIndex:index];
 }
 
