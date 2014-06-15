@@ -34,8 +34,10 @@ NSString *const kSelectorPushDisabled = @"selectorPushDisabled";
 NSString *const kSelectorActionSheetDisabled = @"selectorActionSheetDisabled";
 NSString *const kSelectorLeftRightDisabled = @"selectorLeftRightDisabled";
 NSString *const kSelectorPickerView = @"selectorPickerView";
+NSString *const kSelectorPickerViewInline = @"selectorPickerViewInline";
 NSString *const kMultipleSelector = @"multipleSelector";
 NSString *const kDynamicSelectors = @"dynamicSelectors";
+NSString *const kPickerView = @"pickerView";
 
 
 @implementation SelectorsFormViewController
@@ -53,7 +55,7 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     
     
     // Selector Push
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPush rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector Push"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPush rowType:XLFormRowDescriptorTypeSelectorPush title:@"Push"];
     row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],
                                                  [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
                                                  [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
@@ -65,7 +67,7 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     
     
     // Selector Action Sheet
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheet rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Selector Sheet"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheet rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Sheet"];
     row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],
                                                  [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
                                                  [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
@@ -79,7 +81,7 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     
     
     // Selector Alert View
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorAlertView rowType:XLFormRowDescriptorTypeSelectorAlertView title:@"Selector Alert View"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorAlertView rowType:XLFormRowDescriptorTypeSelectorAlertView title:@"Alert View"];
     row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],
                                                         [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
                                                         [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
@@ -92,7 +94,7 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     
     
     // Selector Left Right
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorLeftRight rowType:XLFormRowDescriptorTypeSelectorLeftRight title:@"Selector Left Right"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorLeftRight rowType:XLFormRowDescriptorTypeSelectorLeftRight title:@"Left Right"];
     row.leftRightSelectorLeftOptionSelected = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
     
     NSArray * rightOptions =  @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Right Option 1"],
@@ -133,7 +135,7 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Right Option 4"];
     [section addFormRow:row];
 
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPickerView rowType:XLFormRowDescriptorTypeSelectorPickerView title:@"Selector Picker View"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPickerView rowType:XLFormRowDescriptorTypeSelectorPickerView title:@"Picker View"];
     row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],
                           [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
                           [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
@@ -143,6 +145,27 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"];
     [section addFormRow:row];
     
+    
+    
+    // --------- Fixed Controls
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Fixed Controls"];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPickerView rowType:XLFormRowDescriptorTypePicker];
+    row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
+    row.value = @"Option 1";
+    [section addFormRow:row];
+    
+    
+    
+    // --------- Inline Selectors
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Inline Selectors"];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelector rowType:XLFormRowDescriptorTypeSelectorPickerViewInline title:@"Inline Picker View"];
+    row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
+    row.value = @"Option 6";
+    [section addFormRow:row];
     
     // --------- MultipleSelector
     
@@ -165,25 +188,26 @@ NSString *const kDynamicSelectors = @"dynamicSelectors";
     [form addFormSection:section];
     
     // Disabled Selector Push
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPushDisabled rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector Push"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPushDisabled rowType:XLFormRowDescriptorTypeSelectorPush title:@"Push"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
     row.disabled = YES;
     [section addFormRow:row];
 
     // --------- Disabled Selector Action Sheet
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheetDisabled rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Selector Sheet"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheetDisabled rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Sheet"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"];
     row.disabled = YES;
     [section addFormRow:row];
     
     // --------- Disabled Selector Left Right
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorLeftRightDisabled rowType:XLFormRowDescriptorTypeSelectorLeftRight title:@"Selector Left Right"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorLeftRightDisabled rowType:XLFormRowDescriptorTypeSelectorLeftRight title:@"Left Right"];
     row.leftRightSelectorLeftOptionSelected = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Right Option 4"];
     row.disabled = YES;
     [section addFormRow:row];
+    
 
     return [super initWithForm:form];
 }

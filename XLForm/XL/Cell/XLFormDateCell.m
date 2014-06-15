@@ -105,16 +105,15 @@
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTimeInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTimeInline])
     {
-        NSIndexPath * selectedRowPath = [controller.form indexPathOfFormRow:self.rowDescriptor];
-        NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:(selectedRowPath.row + 1) inSection:selectedRowPath.section];
-        XLFormRowDescriptor * nextFormRow = [controller.form formRowAtIndex:nextRowPath];
-        if ([nextFormRow.rowType isEqualToString:XLFormRowDescriptorTypeDatePicker]){
+        if ([self isFirstResponder]){
             [self resignFirstResponder];
         }
         else{
             [self becomeFirstResponder];
             _beforeChangeColor = self.detailTextLabel.textColor;
             self.detailTextLabel.textColor = self.formViewController.view.tintColor;
+            NSIndexPath * selectedRowPath = [controller.form indexPathOfFormRow:self.rowDescriptor];
+            NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:(selectedRowPath.row + 1) inSection:selectedRowPath.section];
             XLFormSectionDescriptor * formSection = [controller.form.formSections objectAtIndex:nextRowPath.section];
             XLFormRowDescriptor * datePickerRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeDatePicker];
             XLFormDatePickerCell * datePickerCell = (XLFormDatePickerCell *)[datePickerRowDescriptor cellForFormController:controller];

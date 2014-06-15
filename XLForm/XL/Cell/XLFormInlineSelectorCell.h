@@ -1,5 +1,5 @@
 //
-//  XLFormOptionsViewController.h
+//  XLFormInlineSelectorCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,19 +23,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "XLFormBaseCell.h"
 
-
-#import "XLFormRowDescriptorViewController.h"
-#import "XLFormRowDescriptor.h"
-
-@interface XLFormOptionsViewController : UITableViewController<XLFormRowDescriptorViewController>
-
-- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style;
-
-
-- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style
-    titleHeaderSection:(NSString *)titleHeaderSection
-    titleFooterSection:(NSString *)titleFooterSection;
-
+@interface XLFormInlineSelectorCell : XLFormBaseCell
 
 @end

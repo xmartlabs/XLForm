@@ -158,6 +158,7 @@
                                                XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorAlertView: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorPickerView: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeSelectorPickerViewInline: [XLFormInlineSelectorCell class],
                                                XLFormRowDescriptorTypeMultipleSelector: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSegmentedControl: [XLFormSegmentedCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
@@ -171,6 +172,7 @@
                                                XLFormRowDescriptorTypeTimeInline: [XLFormDateCell class],
                                                XLFormRowDescriptorTypeDateTimeInline: [XLFormDateCell class],
                                                XLFormRowDescriptorTypeDatePicker : [XLFormDatePickerCell class],
+                                               XLFormRowDescriptorTypePicker : [XLFormPickerCell class],
                                                XLFormRowDescriptorTypeSelectorLeftRight : [XLFormLeftRightSelectorCell class],
                                                XLFormRowDescriptorTypeStepCounter: [XLFormStepCounterCell class]
                                                } mutableCopy];
@@ -178,6 +180,24 @@
     return _cellClassesForRowDescriptorTypes;
 }
 
+#pragma mark - inlineRowDescriptorTypes
+
++(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes
+{
+    static NSMutableDictionary * _inlineRowDescriptorTypesForRowDescriptorTypes;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _inlineRowDescriptorTypesForRowDescriptorTypes = [
+  @{XLFormRowDescriptorTypeSelectorPickerViewInline: XLFormRowDescriptorTypePicker,
+    XLFormRowDescriptorTypeDateInline: XLFormRowDescriptorTypeDatePicker,
+    XLFormRowDescriptorTypeDateTimeInline: XLFormRowDescriptorTypeDatePicker,
+    XLFormRowDescriptorTypeTimeInline: XLFormRowDescriptorTypeDatePicker
+                                                            } mutableCopy];
+    });
+    return _inlineRowDescriptorTypesForRowDescriptorTypes;
+
+}
 
 #pragma mark - XLFormDescriptorDelegate
 
@@ -444,7 +464,7 @@
     UIView * firstResponder = [self.tableView findFirstResponder];
     if ([firstResponder conformsToProtocol:@protocol(XLFormDescriptorCell)]){
         id<XLFormDescriptorCell> cell = (id<XLFormDescriptorCell>)firstResponder;
-        if ([cell.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateInline] || [cell.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTimeInline] || [cell.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTimeInline]){
+        if ([[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes].allKeys containsObject:cell.rowDescriptor.rowType]){
             return;
         }
     }
