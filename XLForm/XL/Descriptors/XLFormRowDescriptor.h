@@ -64,6 +64,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 // =================================
 @property Class buttonViewController;
 @property XLFormPresentationMode buttonViewControllerPresentationMode;
+@property NSString * buttonSegue;
 
 
 // ===========================

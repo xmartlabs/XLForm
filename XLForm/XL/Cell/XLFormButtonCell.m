@@ -45,8 +45,8 @@
 {
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
-    self.textLabel.textAlignment = self.rowDescriptor.buttonViewController ? NSTextAlignmentLeft : NSTextAlignmentCenter;
-    self.accessoryType = self.rowDescriptor.buttonViewController ? UITableViewCellAccessoryDisclosureIndicator: UITableViewCellAccessoryNone;
+    self.textLabel.textAlignment = self.rowDescriptor.buttonViewController || self.rowDescriptor.buttonSegue ? NSTextAlignmentLeft : NSTextAlignmentCenter;
+    self.accessoryType = self.rowDescriptor.buttonViewController || self.rowDescriptor.buttonSegue ? UITableViewCellAccessoryDisclosureIndicator: UITableViewCellAccessoryNone;
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
@@ -60,6 +60,8 @@
         else{
             [controller.navigationController pushViewController:[[self.rowDescriptor.buttonViewController alloc] init] animated:YES];
         }
+    } else if (self.rowDescriptor.buttonSegue) {
+        [controller performSegueWithIdentifier:self.rowDescriptor.buttonSegue sender:self.rowDescriptor];
     }
 }
 
