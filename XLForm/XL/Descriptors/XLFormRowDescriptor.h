@@ -39,11 +39,12 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @interface XLFormRowDescriptor : NSObject
 
-@property (nonatomic) Class cellClass;
-@property (nonatomic, readwrite) NSString *tag;
-@property (nonatomic, readonly) NSString *rowType;
-@property (nonatomic) NSString *title;
+@property Class cellClass;
+@property (readwrite) NSString *tag;
+@property (readonly) NSString *rowType;
+@property NSString *title;
 @property (nonatomic) id value;
+@property Class valueTransformer;
 @property UITableViewCellStyle cellStype;
 
 @property (nonatomic) NSMutableDictionary *cellConfig;
@@ -71,7 +72,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 // ===========================
 @property NSString * noValueDisplayText;
 @property NSString * selectorTitle;
-@property (nonatomic, readwrite) NSArray * selectorOptions;
+@property NSArray * selectorOptions;
 
 // =====================================
 // properties used for dynamic selectors

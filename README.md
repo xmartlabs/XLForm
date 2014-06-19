@@ -43,7 +43,7 @@ A form definition is a `XLFormDescriptor` instance that contains one or more sec
 #####Let's see part of the iOS 7 Calendar Event Form definition.
 
 
-```
+```objc
 XLFormDescriptor * form;
 XLFormSectionDescriptor * section;
 XLFormRowDescriptor * row;
@@ -83,7 +83,7 @@ XLForm will load the table-view form from the previously explained definition. T
 That means that we are able to make changes on the table-view form adding or removing section definitions or row  definitions to the form definition on runtime and you will never need to care again about `NSIndexPath`, `UITableViewDelegate`, `UITableViewDataSource` or other complexities.
 
 
-**To see more complex form definitions take a look at the example application in the Examples folder of this repository. You can also run the examples on your own device if you wish.** XLForm has no dependencies over other pods, anyway the examples  project make use of some cocoapods to show advanced XLForm features most of them related with extensibility.
+**To see more complex form definitions take a look at the example application in the Examples folder of this repository. You can also run the examples on your own device if you wish.** XLForm **has no** dependencies over other pods, anyway the examples  project makes use of some cocoapods to show advanced XLForm features.
 
 How to run XLForm examples
 ---------------------------------
@@ -164,7 +164,7 @@ Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `U
 
 ####Selector Rows
 
-Selector rows allow us to select a value or values from a list. This list of values could be fetched from a server endpoint, Core Data `NSFetchResult` or just a `NSArray`. XLForm supports 4 types of selectors out of the box:
+Selector rows allow us to select a value or values from a list. XLForm supports 8 types of selectors out of the box:
 
 ![Screenshot of native Calendar Event Example](Examples/Selectors/XLForm-Selectors.gif)
 
@@ -183,6 +183,22 @@ static NSString *const XLFormRowDescriptorTypeSelectorAlertView = @"selectorAler
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeSelectorLeftRight = @"selectorLeftRight";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeSelectorPickerView = @"selectorPickerView";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeSelectorPickerViewInline = @"selectorPickerViewInline";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeSelectorSegmentedControl = @"selectorSegmentedControl";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeMultipleSelector = @"multipleSelector";
 ```
 
 
@@ -535,6 +551,7 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 
 FAQ
 -------
+
 #### How to assign the first responder on form appearance
 
 Assign the first responder when the form is shown is as simple as setting the property `assignFirstResponderOnShow` to `YES`. By default the value of the property is `NO`.
@@ -561,11 +578,46 @@ You may have to update the cell to see the UI changes if the row is already pres
 You should do the same as *How to set the default value to a row.*.
 
 
-#### How to set the options to a selector row.
+#### How to set up the options to a selector row.
 
-Setting a NSArray to `selectorOptions` property of `XLFormRowDescriptor`
-`
+XLForm has several types of selectors rows. Almost all of them need to know which are the values to be selected. For a particular `XLFormRowDescriptor` instance you spefify these values setting a `NSArray` instance to `selectorOptions` property.
 
+```objc
+@property NSArray * selectorOptions;
+```
+
+#### How to get form values
+
+If you want to get the raw form values you should call `formValues` method of `XLFormDescriptor`. Doing that you will get a dictionary containing all the form values. 
+`tag` property value of each row is used as dictionary key. Only `XLFormROwDescriptor` values for non nil `tag` values are added to the dictionary.
+
+You may be interested in the form values to use it as enpoint parameter. In this case `httpParameters` would be useful.
+
+If you need something different, you can iterate over each row...
+
+```objc
+ NSMutableDictionary * result = [NSMutableDictionary dictionary];
+ for (XLFormSectionDescriptor * section in self.form.formSections) {
+     if (!section.isMultivaluedSection){
+         for (XLFormRowDescriptor * row in section.formRows) {
+             if (row.tag && ![row.tag isEqualToString:@""]){
+                 [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
+             }
+         }
+     }
+     else{
+         NSMutableArray * multiValuedValuesArray = [NSMutableArray new];
+         for (XLFormRowDescriptor * row in section.formRows) {
+             if (row.value){
+                 [multiValuedValuesArray addObject:row.value];
+             }
+         }
+         [result setObject:multiValuedValuesArray forKey:section.multiValuedTag];
+     }
+ }
+ return result;
+```
+ 
 
 
 Installation
@@ -589,7 +641,7 @@ To use xmartlabs master branch.....
 
 `pod 'XLForm', :git => 'https://github.com/xmartlabs/XLForm.git'`
 
-You can change the repository URL to your forked version url if you wish.
+You can replace the repository URL for your forked version url if you wish.
 
 
 Requirements

@@ -1,5 +1,5 @@
 //
-//  DynamicSelectorsFormViewController.m
+//  CustomSelectorsFormViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,38 +23,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "UsersTableViewController.h"
-#import "DynamicSelectorsFormViewController.h"
+#import "XLFormViewController.h"
 
-NSString *const kSelectorUser = @"selectorUser";
-
-@implementation DynamicSelectorsFormViewController
-
-
--(id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        XLFormDescriptor * form = [XLFormDescriptor formDescriptorWithTitle:@"Selectors"];
-        XLFormSectionDescriptor * section;
-        XLFormRowDescriptor * row;
-        
-        // Basic Information
-        section = [XLFormSectionDescriptor formSectionWithTitle:@"Dynamic Selectors"];
-        section.footerTitle = @"DynamicSelectorsFormViewController.h";
-        [form addFormSection:section];
-        
-        
-        // Selector Push
-        row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUser rowType:XLFormRowDescriptorTypeSelectorPush title:@"User"];
-        row.selectorControllerClass = [UsersTableViewController class];
-        [section addFormRow:row];
-        
-        self.form = form;
-        
-    }
-    return self;
-}
-
+@interface CustomSelectorsFormViewController : XLFormViewController
 
 @end

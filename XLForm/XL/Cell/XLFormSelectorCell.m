@@ -54,7 +54,15 @@
         }
         return [descriptionArray componentsJoinedByString:@", "];
     }
-    return (self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText);
+    if (!self.rowDescriptor.value){
+        return self.rowDescriptor.noValueDisplayText;
+    }
+    if (self.rowDescriptor.valueTransformer){
+        NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+        NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+        return [valueTransformer transformedValue:self.rowDescriptor.value];
+    }
+    return [self.rowDescriptor.value displayText];
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  DynamicSelectorsFormViewController.m
+//  CLLocationValueTrasformer.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,38 +23,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "UsersTableViewController.h"
-#import "DynamicSelectorsFormViewController.h"
+#import <MapKit/MapKit.h>
+#import "CLLocationValueTrasformer.h"
 
-NSString *const kSelectorUser = @"selectorUser";
+@implementation CLLocationValueTrasformer
 
-@implementation DynamicSelectorsFormViewController
-
-
--(id)initWithStyle:(UITableViewStyle)style
++ (Class)transformedValueClass
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        XLFormDescriptor * form = [XLFormDescriptor formDescriptorWithTitle:@"Selectors"];
-        XLFormSectionDescriptor * section;
-        XLFormRowDescriptor * row;
-        
-        // Basic Information
-        section = [XLFormSectionDescriptor formSectionWithTitle:@"Dynamic Selectors"];
-        section.footerTitle = @"DynamicSelectorsFormViewController.h";
-        [form addFormSection:section];
-        
-        
-        // Selector Push
-        row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUser rowType:XLFormRowDescriptorTypeSelectorPush title:@"User"];
-        row.selectorControllerClass = [UsersTableViewController class];
-        [section addFormRow:row];
-        
-        self.form = form;
-        
-    }
-    return self;
+    return [NSString class];
 }
 
++ (BOOL)allowsReverseTransformation
+{
+    return NO;
+}
+
+- (id)transformedValue:(id)value
+{
+    if (!value) return nil;
+    CLLocation * location = (CLLocation *)value;
+    return [NSString stringWithFormat:@"%0.4f, %0.4f", location.coordinate.latitude, location.coordinate.longitude];
+}
 
 @end

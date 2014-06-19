@@ -1,5 +1,5 @@
 //
-//  DynamicSelectorsFormViewController.m
+//  CustomSelectorsFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,31 +23,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "UsersTableViewController.h"
-#import "DynamicSelectorsFormViewController.h"
+#import <MapKit/MapKit.h>
+#import "CLLocationValueTrasformer.h"
+#import "MapViewController.h"
 
-NSString *const kSelectorUser = @"selectorUser";
+#import "CustomSelectorsFormViewController.h"
 
-@implementation DynamicSelectorsFormViewController
+NSString *const kSelectorMap = @"selectorMap";
 
+@implementation CustomSelectorsFormViewController
 
 -(id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        XLFormDescriptor * form = [XLFormDescriptor formDescriptorWithTitle:@"Selectors"];
+        XLFormDescriptor * form = [XLFormDescriptor formDescriptorWithTitle:@"Custom Selectors"];
         XLFormSectionDescriptor * section;
         XLFormRowDescriptor * row;
         
         // Basic Information
-        section = [XLFormSectionDescriptor formSectionWithTitle:@"Dynamic Selectors"];
-        section.footerTitle = @"DynamicSelectorsFormViewController.h";
+        section = [XLFormSectionDescriptor formSection];
+        section.footerTitle = @"CustomSelectorsFormViewController.h";
         [form addFormSection:section];
         
         
         // Selector Push
-        row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUser rowType:XLFormRowDescriptorTypeSelectorPush title:@"User"];
-        row.selectorControllerClass = [UsersTableViewController class];
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorMap rowType:XLFormRowDescriptorTypeSelectorPush title:@"Coordinate"];
+        row.selectorControllerClass = [MapViewController class];
+        row.valueTransformer = [CLLocationValueTrasformer class];
+        row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
         [section addFormRow:row];
         
         self.form = form;
@@ -55,6 +59,5 @@ NSString *const kSelectorUser = @"selectorUser";
     }
     return self;
 }
-
 
 @end
