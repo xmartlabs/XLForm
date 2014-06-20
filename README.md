@@ -20,7 +20,7 @@ What XLForm does
  * Loads a form based on a declarative [*form definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-form "form definition").
  * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](https://github.com/xmartlabs/XLForm#dynamic-forms---how-to-change-the-form-dynamically-at-runtime "Dynamic Forms") section of this readme.
  * Supports multivalued sections. For further details see [*Multivalued Sections*](https://github.com/xmartlabs/XLForm#multivalued-sections "Multivalued Sections") section bellow.
- * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-cell).
+ * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-row).
  * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](https://github.com/xmartlabs/XLForm#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
  * Provides several inline selectors such as date picker and picker inline selectos and brings a way to create custom inline selectors.
  * Validates the form data based on form definition and shows error messages.
@@ -320,44 +320,6 @@ XLForms supports counting using UIStepper control:
 static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 ```
 
-### How to create a custom cell
-
-To create a custom cell you should conform to @protocol `XLFormDescriptorCell` within your custom `UITableViewCell`. You can also sublass the convenience class `XLFormBaseCell` which conforms to `XLFormDescriptorCell`. In your implementation add the following required methods:
-
-```objc
-// initialise all objects such as Arrays, UIControls etc...
-- (void)configure;
-
-// update cell when it about to be presented
-- (void)update;
-```
-
-Add optional methods to create custom behaviour
-
-```
-// height of the cell
-+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
-
-// called when cell wants to become active
--(BOOL)formDescriptorCellBecomeFirstResponder;
-
-// called when cell requested to loss first responder 
--(BOOL)formDescriptorCellResignFirstResponder;
-
-// called when cell been selected
--(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;
-
-// called to validate cell, return error or nil if there no error
--(NSError *)formDescriptorCellLocalValidation;
-
-// http parameter name used for network request
--(NSString *)formDescriptorHttpParameterName;
-
-```
-
-
-Once custom cell has been created you have to let `XLFormRowDescriptor` know about this class either setting the cellClass property i.e `customRowDescriptor.cellClass = [XLFormCustomCell class]` or before `XLFormViewController` initialized add your custom cell to cellClassesForRowDescriptorTypes dictionary i.e `[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];`
-
 
 Multivalued Sections
 ------------------------
@@ -378,7 +340,7 @@ To create a multivalued section we should set `YES` to the `isMultivaluedSection
 
 We have also to set up the `multiValuedTag` property. `multiValuedTag` will be used to create the HTTP parameter key for the collection of values (rows added to the section).
 
-```
+```objc
 XLFormDescriptor * form;
 XLFormSectionDescriptor * section;
 XLFormRowDescriptor * row;
@@ -409,24 +371,29 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescrip
 Form Values
 ------------------------
 
+#### formValues
 
-A `NSDictionary` is created from the `XLFormDescriptor` instance. 
+You can get all form values invoking `-(NSDictionary *)formValues;` to either `XLFormViewController` instance or `XLFormDescriptor` instance.
 
-`XLForm` adds a dictionary item for each multivalued section containing an `NSArray` with the instance values of the `XLFormRowDescriptor`s contained in the section. 
+The returned `NSDictionary` is created following this rules: 
+
+`XLForm` adds a value for each `XLFormRowDescriptor` instance not contained in a multivalued section, the dictionary key is the value of `XLFormRowDescriptor` `tag` property.
+
+It also adds a dictionary item for each multivalued section containing an `NSArray` with the instance values of the `XLFormRowDescriptor`s contained in the section. 
 For instance, if we have a section with the tag property equal to `tags` and the following values on the contained rows: 'family', 'male', 'female', 'client', the generated value will be `tags: ['family', 'male', 'female', 'client']`
 
-It also adds a value for each `XLFormRowDescriptor` instance not contained in a multivalued section, the dictionary key is the value of `XLFormRowDescriptor` `tag` property.
 
+#### httpParameters
 
-In same cases the form value may differ from the value of `XLFormRowDescriptor` instance. This is usually the case of selectors row, the selected value could be a core data object or any other object. In this cases XLForm need to know how to get the value and the description of the selected object.
+In same cases the form value we need may differ from the value of `XLFormRowDescriptor` instance. This is usually the case of selectors row and when we need to send the form values to some endpoint, the selected value could be a core data object or any other object. In this cases XLForm need to know how to get the value and the description of the selected object.
 
-XLForm follows the following rules to get `XLFormRowDescriptor` value:
+When using `-(NSDictionary *)httpParameters` method, `XLForm` follows the following rules to get `XLFormRowDescriptor` value:
 
 1. If the object is a `NSString`, `NSNumber` or `NSDate`, the value is the object itself 
 2. If the object conforms to protocol `XLFormOptionObject`, XLForm gets the value from `formValue` method.
-3. Otherwise it return nil. That means you should conforms the protocol :).
+3. Otherwise it return nil.
 
- 
+
 This is the protocol declaration: 
 
 ```objc
@@ -438,6 +405,46 @@ This is the protocol declaration:
 
 @end
 ```
+
+
+How to create a Custom Row
+-------------------------------
+
+To create a custom cell you should conform to @protocol `XLFormDescriptorCell` within your custom `UITableViewCell`. You can also sublass the convenience class `XLFormBaseCell` which conforms to `XLFormDescriptorCell`. In your implementation add the following required methods:
+
+```objc
+// initialise all objects such as Arrays, UIControls etc...
+- (void)configure;
+
+// update cell when it about to be presented
+- (void)update;
+```
+
+Add optional methods to create custom behaviour
+
+```objc
+// height of the cell
++(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
+
+// called when cell wants to become active
+-(BOOL)formDescriptorCellBecomeFirstResponder;
+
+// called when cell requested to loss first responder 
+-(BOOL)formDescriptorCellResignFirstResponder;
+
+// called when cell been selected
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;
+
+// called to validate cell, return error or nil if there no error
+-(NSError *)formDescriptorCellLocalValidation;
+
+// http parameter name used for network request
+-(NSString *)formDescriptorHttpParameterName;
+
+```
+
+Once custom cell has been created you have to let `XLFormRowDescriptor` know about this class either setting the cellClass property i.e `customRowDescriptor.cellClass = [XLFormCustomCell class]` or before `XLFormViewController` initialized add your custom cell to cellClassesForRowDescriptorTypes dictionary i.e `[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];`
+
 
 
 Custom Selectors - Selector Row with a custom selector view controller
@@ -484,12 +491,16 @@ The developer is responsible for update its views with the `rowDescriptor` value
 
 
 
-### Another example
+#### Another example
 
 
 ![Screenshot of Dynamic Custom Selector](Examples/Selectors/DynamicSelector/XLForm-dynamic-custom-selector.gif)
 
 
+```objc
+row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUser rowType:XLFormRowDescriptorTypeSelectorPush title:@"User"];
+row.selectorControllerClass = [UsersTableViewController class];
+```
 
 You can find the details of these examples within the example repository folder, `Examples/Selectors/CustomSelectors/` and  `Examples/Selectors/DynamicSelector`.
 
