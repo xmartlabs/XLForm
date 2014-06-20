@@ -21,7 +21,7 @@ What XLForm does
  * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](https://github.com/xmartlabs/XLForm#dynamic-forms---how-to-change-the-form-dynamically-at-runtime "Dynamic Forms") section of this readme.
  * Supports multivalued sections. For further details see [*Multivalued Sections*](https://github.com/xmartlabs/XLForm#multivalued-sections "Multivalued Sections") section bellow.
  * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-cell).
- * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](https://github.com/xmartlabs/XLForm#custom-selectors "Custom Selectors") section out.
+ * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](https://github.com/xmartlabs/XLForm#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
  * Provides several inline selectors such as date picker and picker inline selectos and brings a way to create custom inline selectors.
  * Validates the form data based on form definition and shows error messages.
  * Changes the firstResponder among `UITextField`s and `UITextView`s when keyboard return button is pressed.
@@ -584,9 +584,9 @@ The main difference between `cellConfig` and `cellConfigAtConfigure` is the time
 For instance if you want to set up the placeholder you can do the following:
 
 ```objc
-	row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-	[row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
-	[section addFormRow:row];
+row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
+[row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
+[section addFormRow:row];
 ```
 
 Let's see how to change the color of the cell label: 
