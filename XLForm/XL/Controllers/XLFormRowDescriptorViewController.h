@@ -30,7 +30,6 @@
 @protocol XLFormRowDescriptorViewController <NSObject>
 
 @required
-
 @property (nonatomic) XLFormRowDescriptor * rowDescriptor;
 
 @end

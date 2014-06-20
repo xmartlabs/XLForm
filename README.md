@@ -17,11 +17,11 @@ XLForm provides a very powerful DSL used to create a form. It keeps track of thi
 What XLForm does
 ----------------
 
- * Loads a form based on a declarative form definition.
- * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](https://github.com/xmartlabs/XLForm#dynamic-forms---how-to-change-the-form-dynamically-at-runtime ""Dynamic Forms") section of this readme.
+ * Loads a form based on a declarative [*form definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-form "form definition").
+ * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](https://github.com/xmartlabs/XLForm#dynamic-forms---how-to-change-the-form-dynamically-at-runtime "Dynamic Forms") section of this readme.
  * Supports multivalued sections. For further details see [*Multivalued Sections*](https://github.com/xmartlabs/XLForm#multivalued-sections "Multivalued Sections") section bellow.
  * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-cell).
- * Supports custom selectors. For firther details of how to define your own selectors check [*Custom selectors*](https://github.com/xmartlabs/XLForm#custom-sections "Custom Selectors") section out.
+ * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](https://github.com/xmartlabs/XLForm#custom-selectors "Custom Selectors") section out.
  * Provides several inline selectors such as date picker and picker inline selectos and brings a way to create custom inline selectors.
  * Validates the form data based on form definition and shows error messages.
  * Changes the firstResponder among `UITextField`s and `UITextView`s when keyboard return button is pressed.
@@ -76,7 +76,6 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"all-day" rowType:XLFormRow
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
 row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
 [section addFormRow:row];
-
 ```
 
 XLForm will load the table-view form from the previously explained definition. The most interesting part is that it will update the table-view form based on the form definition modifications.
@@ -335,7 +334,7 @@ To create a custom cell you should conform to @protocol `XLFormDescriptorCell` w
 
 Add optional methods to create custom behaviour
 
-```objc
+```
 // height of the cell
 +(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
 
@@ -379,7 +378,7 @@ To create a multivalued section we should set `YES` to the `isMultivaluedSection
 
 We have also to set up the `multiValuedTag` property. `multiValuedTag` will be used to create the HTTP parameter key for the collection of values (rows added to the section).
 
-```objc
+```
 XLFormDescriptor * form;
 XLFormSectionDescriptor * section;
 XLFormRowDescriptor * row;
@@ -441,10 +440,59 @@ This is the protocol declaration:
 ```
 
 
-Selector Rows with custom selector view controller
+Custom Selectors - Selector Row with a custom selector view controller
 --------------------------------------------
 
-This section will be documented soon. 
+Almost always the basic selector which allows the user to select one or multiple items from a pushed view controller is enough for owr needs, but sometimes we need more flexibility to bring a better user experience to the user or do something not supported by default.
+
+Let's say your app user neets to select a map coordinate or it needs to select a value fetched from a server endpoint. How do we do that easily?
+
+
+![Screenshot of Map Custom Selector](Examples/Selectors/CustomSelectors/XLFormRowViewController/XLForm-map-custom-selector.gif)
+
+
+Define the previous selector row is as simple as ...
+
+```objc
+row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorMap rowType:XLFormRowDescriptorTypeSelectorPush title:@"Coordinate"];
+// set up the selector controller class 
+row.selectorControllerClass = [MapViewController class];
+// Set up a NSValueTransformer to convert CLLocation to NSString, it's used to show the select value description (text).  
+row.valueTransformer = [CLLocationValueTrasformer class];
+// Set up the default value
+row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
+```
+
+
+`selectorControllerClass` controller class should conform to `XLFormRowDescriptorViewController` protocol. 
+
+In the example above, `MapViewController` conforms to `XLFormRowDescriptorViewController`.
+
+```objc
+@protocol XLFormRowDescriptorViewController <NSObject>
+
+@required
+@property (nonatomic) XLFormRowDescriptor * rowDescriptor;
+
+@end
+```
+
+XLForm sets up `rowDescriptor` property using the `XLFormRowDescriptor` instance that belongs to the selector row. 
+
+The developer is responsible for update its views with the `rowDescriptor` value as well as set the selected value to `rowDescriptor` from within the custom selector view controller.
+
+
+
+
+### Another example
+
+
+![Screenshot of Dynamic Custom Selector](Examples/Selectors/DynamicSelector/XLForm-dynamic-custom-selector.gif)
+
+
+
+You can find the details of these examples within the example repository folder, `Examples/Selectors/CustomSelectors/` and  `Examples/Selectors/DynamicSelector`.
+
 
 
 Dynamic Forms - How to change the form dynamically at runtime
@@ -466,11 +514,11 @@ Usually you may want to change the form when some value change or some row or se
 
 @required
 
--(void)formSectionHasBeenRemovedAtIndex:(NSUInteger)index;
--(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)sectionDescriptor atIndex:(NSUInteger)index;
--(void)formRowHasBeenRemovedAtIndexPath:(NSIndexPath *)indexPath;
--(void)formRowHasBeenAdded:(XLFormRowDescriptor *)rowDescriptor atIndexPath:(NSIndexPath *)indexPath;
--(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue;
+-(void)formSectionHasBeenRemoved:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+-(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+-(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
+-(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
+-(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
 
 @end
 ```
