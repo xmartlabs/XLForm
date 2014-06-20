@@ -45,6 +45,7 @@
     self.textLabel.text = self.rowDescriptor.title;
     self.switchControl.on = [self.rowDescriptor.value boolValue];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.switchControl.enabled = !self.rowDescriptor.disabled;
 }
 
 - (UISwitch *)switchControl
