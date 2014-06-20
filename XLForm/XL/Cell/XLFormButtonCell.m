@@ -48,6 +48,8 @@
     self.textLabel.textAlignment = self.rowDescriptor.buttonViewController || self.rowDescriptor.buttonSegue ? NSTextAlignmentLeft : NSTextAlignmentCenter;
     self.accessoryType = self.rowDescriptor.buttonViewController || self.rowDescriptor.buttonSegue ? UITableViewCellAccessoryDisclosureIndicator: UITableViewCellAccessoryNone;
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+    self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
 }
 
 
