@@ -159,8 +159,8 @@
                                                XLFormRowDescriptorTypeSelectorAlertView: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorPickerView: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorPickerViewInline: [XLFormInlineSelectorCell class],
+                                               XLFormRowDescriptorTypeSelectorSegmentedControl: [XLFormSegmentedCell class],
                                                XLFormRowDescriptorTypeMultipleSelector: [XLFormSelectorCell class],
-                                               XLFormRowDescriptorTypeSegmentedControl: [XLFormSegmentedCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
                                                XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
                                                XLFormRowDescriptorTypeBooleanSwitch : [XLFormSwitchCell class],
@@ -298,6 +298,14 @@
     }
 }
 
+-(void)reloadFormRow:(XLFormRowDescriptor *)formRow
+{
+    NSIndexPath * indexPath = [self.form indexPathOfFormRow:formRow];
+    if (indexPath){
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+}
+
 -(NSIndexPath *)nextIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.tableView numberOfRowsInSection:indexPath.section] > (indexPath.row + 1)){
@@ -389,8 +397,8 @@
 {
     XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
     Class cellClass = rowDescriptor.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][rowDescriptor.rowType];
-    if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescription:)]){
-        return [cellClass formDescriptorCellHeightForRowDescription:rowDescriptor];
+    if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
+        return [cellClass formDescriptorCellHeightForRowDescriptor:rowDescriptor];
     }
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }

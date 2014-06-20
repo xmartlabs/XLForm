@@ -1,5 +1,5 @@
 //
-//  XLFormDatePickerCell.m
+//  CLLocationValueTrasformer.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,55 +23,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "UIView+XLFormAdditions.h"
+#import <MapKit/MapKit.h>
+#import "CLLocationValueTrasformer.h"
 
-#import "XLFormDatePickerCell.h"
+@implementation CLLocationValueTrasformer
 
-@implementation XLFormDatePickerCell
-
-@synthesize datePicker = _datePicker;
-
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
++ (Class)transformedValueClass
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self.contentView addSubview:self.datePicker];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.datePicker attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    }
-    return self;
+    return [NSString class];
 }
 
--(BOOL)canResignFirstResponder
++ (BOOL)allowsReverseTransformation
 {
-    return YES;
+    return NO;
 }
 
-#pragma mark - Properties
-
--(UIDatePicker *)datePicker
+- (id)transformedValue:(id)value
 {
-    if (_datePicker) return _datePicker;
-    _datePicker = [UIDatePicker autolayoutView];
-    return _datePicker;
-}
-
-#pragma mark - XLFormDescriptorCell
-
--(void)configure
-{
-    [super configure];
-}
-
--(void)update
-{
-    [super update];
-}
-
-
-+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    return 216.0f;
+    if (!value) return nil;
+    CLLocation * location = (CLLocation *)value;
+    return [NSString stringWithFormat:@"%0.4f, %0.4f", location.coordinate.latitude, location.coordinate.longitude];
 }
 
 @end

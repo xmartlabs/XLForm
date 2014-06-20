@@ -1,5 +1,5 @@
 //
-//  XLFormDatePickerCell.m
+//  CustomSelectorsFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,55 +23,41 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "UIView+XLFormAdditions.h"
+#import <MapKit/MapKit.h>
+#import "CLLocationValueTrasformer.h"
+#import "MapViewController.h"
 
-#import "XLFormDatePickerCell.h"
+#import "CustomSelectorsFormViewController.h"
 
-@implementation XLFormDatePickerCell
+NSString *const kSelectorMap = @"selectorMap";
 
-@synthesize datePicker = _datePicker;
+@implementation CustomSelectorsFormViewController
 
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+-(id)initWithStyle:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithStyle:style];
     if (self) {
-        [self.contentView addSubview:self.datePicker];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.datePicker attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        XLFormDescriptor * form = [XLFormDescriptor formDescriptorWithTitle:@"Custom Selectors"];
+        XLFormSectionDescriptor * section;
+        XLFormRowDescriptor * row;
+        
+        // Basic Information
+        section = [XLFormSectionDescriptor formSection];
+        section.footerTitle = @"CustomSelectorsFormViewController.h";
+        [form addFormSection:section];
+        
+        
+        // Selector Push
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorMap rowType:XLFormRowDescriptorTypeSelectorPush title:@"Coordinate"];
+        row.selectorControllerClass = [MapViewController class];
+        row.valueTransformer = [CLLocationValueTrasformer class];
+        row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
+        [section addFormRow:row];
+        
+        self.form = form;
+        
     }
     return self;
-}
-
--(BOOL)canResignFirstResponder
-{
-    return YES;
-}
-
-#pragma mark - Properties
-
--(UIDatePicker *)datePicker
-{
-    if (_datePicker) return _datePicker;
-    _datePicker = [UIDatePicker autolayoutView];
-    return _datePicker;
-}
-
-#pragma mark - XLFormDescriptorCell
-
--(void)configure
-{
-    [super configure];
-}
-
--(void)update
-{
-    [super update];
-}
-
-
-+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    return 216.0f;
 }
 
 @end

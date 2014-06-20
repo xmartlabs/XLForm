@@ -23,6 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "CustomSelectorsFormViewController.h"
 #import "DynamicSelectorsFormViewController.h"
 #import "SelectorsFormViewController.h"
 
@@ -37,6 +38,7 @@ NSString *const kSelectorPickerView = @"selectorPickerView";
 NSString *const kSelectorPickerViewInline = @"selectorPickerViewInline";
 NSString *const kMultipleSelector = @"multipleSelector";
 NSString *const kDynamicSelectors = @"dynamicSelectors";
+NSString *const kCustomSelectors = @"customSelectors";
 NSString *const kPickerView = @"pickerView";
 
 
@@ -184,14 +186,26 @@ NSString *const kPickerView = @"pickerView";
     row.buttonViewController = [DynamicSelectorsFormViewController class];
     [section addFormRow:row];
     
+    // --------- Custom Selectors
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Custom Selectors"];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomSelectors rowType:XLFormRowDescriptorTypeButton title:@"Custom Selectors"];
+    row.buttonViewController = [CustomSelectorsFormViewController class];
+    [section addFormRow:row];
+    
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled & Required Selectors"];
     [form addFormSection:section];
+    
+    
     
     // Disabled Selector Push
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPushDisabled rowType:XLFormRowDescriptorTypeSelectorPush title:@"Push"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
     row.disabled = YES;
     [section addFormRow:row];
+    
+    
 
     // --------- Disabled Selector Action Sheet
     

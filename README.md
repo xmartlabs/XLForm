@@ -6,7 +6,7 @@ Purpose
 
 XLForm is the most flexible and powerful iOS library to create dynamic table-view forms. The goal of the library is to get the same power of hand-made forms but spending 1/10 of the time.
 
-XLForm provides a very powerful DSL used to create a form, validate & serialize the form data. It keeps track of this specification on runtime, updating the UI on the fly.
+XLForm provides a very powerful DSL used to create a form. It keeps track of this specification on runtime, updating the UI on the fly.
 
 #####Let's see the iOS 7 Calendar Event Form created using XLForm
 
@@ -20,7 +20,9 @@ What XLForm does
  * Loads a form based on a declarative form definition.
  * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](https://github.com/xmartlabs/XLForm#dynamic-forms---how-to-change-the-form-dynamically-at-runtime ""Dynamic Forms") section of this readme.
  * Supports multivalued sections. For further details see [*Multivalued Sections*](https://github.com/xmartlabs/XLForm#multivalued-sections "Multivalued Sections") section bellow.
- * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-cell).   
+ * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-cell).
+ * Supports custom selectors. For firther details of how to define your own selectors check [*Custom selectors*](https://github.com/xmartlabs/XLForm#custom-sections "Custom Selectors") section out.
+ * Provides several inline selectors such as date picker and picker inline selectos and brings a way to create custom inline selectors.
  * Validates the form data based on form definition and shows error messages.
  * Changes the firstResponder among `UITextField`s and `UITextView`s when keyboard return button is pressed.
 
@@ -49,7 +51,7 @@ XLFormRowDescriptor * row;
 form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
 
 // First section        
-section = [XLFormSectionDescriptor formSectionWithTitle:nil];
+section = [XLFormSectionDescriptor formSection];
 [form addFormSection:section];
         
 // Title
@@ -63,7 +65,7 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRo
 [section addFormRow:row];
 
 // Second Section
-section = [XLFormSectionDescriptor formSectionWithTitle:nil];
+section = [XLFormSectionDescriptor formSection];
 [form addFormSection:section];
         
 // All-day
@@ -81,7 +83,15 @@ XLForm will load the table-view form from the previously explained definition. T
 That means that we are able to make changes on the table-view form adding or removing section definitions or row  definitions to the form definition on runtime and you will never need to care again about `NSIndexPath`, `UITableViewDelegate`, `UITableViewDataSource` or other complexities.
 
 
-**To see more complex form definitions take a look at the example application in the Examples folder of this repository. You can also run the examples on your own device if you wish.**
+**To see more complex form definitions take a look at the example application in the Examples folder of this repository. You can also run the examples on your own device if you wish.** XLForm **has no** dependencies over other pods, anyway the examples  project makes use of some cocoapods to show advanced XLForm features.
+
+How to run XLForm examples
+---------------------------------
+
+1. Clone the repository `git@github.com:xmartlabs/XLForm.git`. Optionally you can fork the repository and clone it from your own github account, this approach would be better in case you want to contribute.
+2. Install cocoapod dependencies of example project. From the root folder of the cloned XLForm repository run `pod install`.
+3. Open XLForm workspace using XCode and run the project. Enjoy!
+
 
 
 Rows
@@ -154,7 +164,7 @@ Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `U
 
 ####Selector Rows
 
-Selector rows allow us to select a value or values from a list. This list of values could be fetched from a server endpoint, Core Data `NSFetchResult` or just a `NSArray`. XLForm supports 4 types of selectors out of the box:
+Selector rows allow us to select a value or values from a list. XLForm supports 8 types of selectors out of the box:
 
 ![Screenshot of native Calendar Event Example](Examples/Selectors/XLForm-Selectors.gif)
 
@@ -173,6 +183,22 @@ static NSString *const XLFormRowDescriptorTypeSelectorAlertView = @"selectorAler
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeSelectorLeftRight = @"selectorLeftRight";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeSelectorPickerView = @"selectorPickerView";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeSelectorPickerViewInline = @"selectorPickerViewInline";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeSelectorSegmentedControl = @"selectorSegmentedControl";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeMultipleSelector = @"multipleSelector";
 ```
 
 
@@ -311,7 +337,7 @@ Add optional methods to create custom behaviour
 
 ```objc
 // height of the cell
-+(CGFloat)formDescriptorCellHeightForRowDescription:(XLFormRowDescriptor *)rowDescriptor;
++(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
 
 // called when cell wants to become active
 -(BOOL)formDescriptorCellBecomeFirstResponder;
@@ -523,6 +549,8 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 [section addFormRow:row];
 ```
 
+FAQ
+-------
 
 #### How to assign the first responder on form appearance
 
@@ -532,14 +560,88 @@ Assign the first responder when the form is shown is as simple as setting the pr
 @property (nonatomic) BOOL assignFirstResponderOnShow;
 ```
 
+#### How to set a value to a row.
+
+You should set the `value` property of `XLFormRowDescriptor` relevant instance.
+
+```objc
+@property (nonatomic) id value;
+```
+
+You may notice that the `value` property type is `id` and you are the responsable to set a value with the proper type. For instance, you should set a `NSString` value to a `XLFormRowDescriptor` instance of `XLFormRowDescriptorTypeText`. You can see the example
+
+You may have to update the cell to see the UI changes if the row is already presented. 
+`-(void)reloadFormRow:(XLFormRowDescriptor *)formRow` method is provided by `XLFormViewController` to do so.   
+
+#### How to set the default value to a row.
+
+You should do the same as *How to set the default value to a row.*.
+
+
+#### How to set up the options to a selector row.
+
+XLForm has several types of selectors rows. Almost all of them need to know which are the values to be selected. For a particular `XLFormRowDescriptor` instance you spefify these values setting a `NSArray` instance to `selectorOptions` property.
+
+```objc
+@property NSArray * selectorOptions;
+```
+
+#### How to get form values
+
+If you want to get the raw form values you should call `formValues` method of `XLFormDescriptor`. Doing that you will get a dictionary containing all the form values. 
+`tag` property value of each row is used as dictionary key. Only `XLFormROwDescriptor` values for non nil `tag` values are added to the dictionary.
+
+You may be interested in the form values to use it as enpoint parameter. In this case `httpParameters` would be useful.
+
+If you need something different, you can iterate over each row...
+
+```objc
+ NSMutableDictionary * result = [NSMutableDictionary dictionary];
+ for (XLFormSectionDescriptor * section in self.form.formSections) {
+     if (!section.isMultivaluedSection){
+         for (XLFormRowDescriptor * row in section.formRows) {
+             if (row.tag && ![row.tag isEqualToString:@""]){
+                 [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
+             }
+         }
+     }
+     else{
+         NSMutableArray * multiValuedValuesArray = [NSMutableArray new];
+         for (XLFormRowDescriptor * row in section.formRows) {
+             if (row.value){
+                 [multiValuedValuesArray addObject:row.value];
+             }
+         }
+         [result setObject:multiValuedValuesArray forKey:section.multiValuedTag];
+     }
+ }
+ return result;
+```
+ 
+
+
 Installation
 --------------------------
 
 The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 1.0.0' `.
+`pod 'XLForm', '~> 1.0.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
+
+XLForm **has no** dependencies over other pods.
+
+
+### How to use master branch
+
+Often master branch contains most recent features and latest fixes. On the other hand this features was not fully tested and changes on master may occur at any time. For the previous reasons I stongly recommend to fork the repository and manage the updates from master on your own making the proper pull on demand.
+
+
+To use xmartlabs master branch.....
+
+`pod 'XLForm', :git => 'https://github.com/xmartlabs/XLForm.git'`
+
+You can replace the repository URL for your forked version url if you wish.
 
 
 Requirements
@@ -551,7 +653,21 @@ Requirements
 
 Release Notes
 --------------
-Version 1.0.1
+
+Version 2.0.0 (master)
+
+* Added `XLFormRowDescriptorTypeMultipleSelector` row type and example.
+* Added `XLFormRowDescriptorTypeSelectorPickerView` row type and example.
+* Added `XLFormRowDescriptorTypeSelectorPickerViewInline` row type and example.
+* Added generic way to create inline selector rows.
+* Ability to customize row animations.
+* `(NSDictionary *)formValues;` XLFormViewController method added in order to get raw form data.
+* Added `XLFormRowDescriptorTypeSelectorSegmentedControl` row type and example.
+* AFNetworking dependency removed.
+* Added `XLFormRowDescriptorTypeStepCounter` row type and related example.
+
+
+Version 1.0.1 (cocoaPod)
 
 * Added storyboard example.
 * Added button `XLFormRowDescriptorTypeButton` example.
@@ -566,7 +682,7 @@ Version 1.0.1
 * Added a convenience method to deselect a `XLFormRowDescriptor`. `-(void)deselectFormRow:(XLFormRowDescriptor *)row;`. [#33](https://github.com/xmartlabs/XLForm/issues/33 "#33").
 
 
-Version 1.0.0
+Version 1.0.0 (cocoaPod)
 
 * Initial release
 

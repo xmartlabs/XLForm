@@ -1,5 +1,5 @@
 //
-//  XLFormDatePickerCell.m
+//  MapViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,55 +23,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "UIView+XLFormAdditions.h"
+#import "XLForm.h"
 
-#import "XLFormDatePickerCell.h"
+#import <UIKit/UIKit.h>
 
-@implementation XLFormDatePickerCell
-
-@synthesize datePicker = _datePicker;
-
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self.contentView addSubview:self.datePicker];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.datePicker attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-    }
-    return self;
-}
-
--(BOOL)canResignFirstResponder
-{
-    return YES;
-}
-
-#pragma mark - Properties
-
--(UIDatePicker *)datePicker
-{
-    if (_datePicker) return _datePicker;
-    _datePicker = [UIDatePicker autolayoutView];
-    return _datePicker;
-}
-
-#pragma mark - XLFormDescriptorCell
-
--(void)configure
-{
-    [super configure];
-}
-
--(void)update
-{
-    [super update];
-}
-
-
-+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    return 216.0f;
-}
+@interface MapViewController : UIViewController <XLFormRowDescriptorViewController>
 
 @end
