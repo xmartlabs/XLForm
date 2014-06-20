@@ -654,7 +654,7 @@ Requirements
 Release Notes
 --------------
 
-Version 1.1.0 (master)
+Version 2.0.0 (master)
 
 * Added `XLFormRowDescriptorTypeMultipleSelector` row type and example.
 * Added `XLFormRowDescriptorTypeSelectorPickerView` row type and example.
