@@ -627,14 +627,14 @@ You should set the `value` property of `XLFormRowDescriptor` relevant instance.
 @property (nonatomic) id value;
 ```
 
-You may notice that the `value` property type is `id` and you are the responsable to set a value with the proper type. For instance, you should set a `NSString` value to a `XLFormRowDescriptor` instance of `XLFormRowDescriptorTypeText`. You can see the example
+You may notice that the `value` property type is `id` and you are the responsable to set a value with the proper type. For instance, you should set a `NSString` value to a `XLFormRowDescriptor` instance of `XLFormRowDescriptorTypeText`.
 
 You may have to update the cell to see the UI changes if the row is already presented. 
 `-(void)reloadFormRow:(XLFormRowDescriptor *)formRow` method is provided by `XLFormViewController` to do so.   
 
 #### How to set the default value to a row.
 
-You should do the same as *How to set the default value to a row.*.
+You should do the same as [*How to set a value to a row*](https://github.com/xmartlabs/XLForm#how-to-set-a-value-to-a-row "How to set a value to a row").
 
 
 #### How to set up the options to a selector row.
