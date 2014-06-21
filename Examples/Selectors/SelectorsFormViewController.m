@@ -64,7 +64,7 @@ NSString *const kPickerView = @"pickerView";
     if (!value) return nil;
     if ([value isKindOfClass:[NSArray class]]){
         NSArray * array = (NSArray *)value;
-        return [NSString stringWithFormat:@"%i Item%@", array.count, array.count > 1 ? @"s" : @""];
+        return [NSString stringWithFormat:@"%@ Item%@", @(array.count), array.count > 1 ? @"s" : @""];
     }
     if ([value isKindOfClass:[NSString class]])
     {

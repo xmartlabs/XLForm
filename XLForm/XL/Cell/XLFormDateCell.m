@@ -40,14 +40,6 @@
     UIColor * _beforeChangeColor;
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        self.formDatePickerMode = XLFormDateDatePickerModeGetFromRowDescriptor;
-    }
-    return self;
-}
 
 - (UIView *)inputView
 {
@@ -83,6 +75,7 @@
 -(void)configure
 {
     [super configure];
+    self.formDatePickerMode = XLFormDateDatePickerModeGetFromRowDescriptor;
 }
 
 -(void)update

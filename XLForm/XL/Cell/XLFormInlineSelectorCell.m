@@ -34,15 +34,6 @@
 
 @implementation XLFormInlineSelectorCell
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
 - (BOOL)canBecomeFirstResponder
 {
     return YES;

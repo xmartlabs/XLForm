@@ -40,32 +40,7 @@
 @synthesize rightLabel = _rightLabel;
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        UIView * separatorView = [UIView autolayoutView];
-        [separatorView setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-        
-        [self.contentView addSubview:self.leftButton];
-        [self.contentView addSubview:self.rightLabel];
-        [self.contentView addSubview:separatorView];
-        
-        NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView};
-        
-        [self.contentView addConstraint:[self.leftButton layoutConstraintSameHeightOf:self.contentView]];
-        [self.contentView addConstraint:[self.rightLabel layoutConstraintSameHeightOf:self.contentView]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[leftButton]-[separatorView(1)]-[rightLabel]-14-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[separatorView]-8-|" options:0 metrics:nil views:views]];
-        
-    }
-    return self;
-}
-
-
 #pragma mark - Properties
-
 
 -(UIButton *)leftButton
 {
@@ -131,6 +106,20 @@
 -(void)configure
 {
     [super configure];
+    UIView * separatorView = [UIView autolayoutView];
+    [separatorView setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
+    
+    [self.contentView addSubview:self.leftButton];
+    [self.contentView addSubview:self.rightLabel];
+    [self.contentView addSubview:separatorView];
+    
+    NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView};
+    
+    [self.contentView addConstraint:[self.leftButton layoutConstraintSameHeightOf:self.contentView]];
+    [self.contentView addConstraint:[self.rightLabel layoutConstraintSameHeightOf:self.contentView]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[leftButton]-[separatorView(1)]-[rightLabel]-14-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[separatorView]-8-|" options:0 metrics:nil views:views]];
 }
 
 -(void)update
