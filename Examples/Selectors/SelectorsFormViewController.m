@@ -42,6 +42,69 @@ NSString *const kCustomSelectors = @"customSelectors";
 NSString *const kPickerView = @"pickerView";
 
 
+#pragma mark - NSValueTransformer
+
+@interface NSArrayValueTrasformer : NSValueTransformer
+@end
+
+@implementation NSArrayValueTrasformer
+
++ (Class)transformedValueClass
+{
+    return [NSString class];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+    return NO;
+}
+
+- (id)transformedValue:(id)value
+{
+    if (!value) return nil;
+    if ([value isKindOfClass:[NSArray class]]){
+        NSArray * array = (NSArray *)value;
+        return [NSString stringWithFormat:@"%i Item%@", array.count, array.count > 1 ? @"s" : @""];
+    }
+    if ([value isKindOfClass:[NSString class]])
+    {
+        return [NSString stringWithFormat:@"%@ - ;) - Transformed", value];
+    }
+    return nil;
+}
+
+@end
+
+
+@interface ISOLanguageCodesValueTranformer : NSValueTransformer
+@end
+
+@implementation ISOLanguageCodesValueTranformer
+
++ (Class)transformedValueClass
+{
+    return [NSString class];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+    return NO;
+}
+
+- (id)transformedValue:(id)value
+{
+    if (!value) return nil;
+    if ([value isKindOfClass:[NSString class]]){
+        return [[NSLocale currentLocale] displayNameForKey:NSLocaleLanguageCode value:value];
+    }
+    return nil;
+}
+
+@end
+
+
+#pragma mark - SelectorsFormViewController
+
 @implementation SelectorsFormViewController
 
 - (id)init
@@ -177,6 +240,24 @@ NSString *const kPickerView = @"pickerView";
     row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
     row.value = @[@"Option 1", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
     [section addFormRow:row];
+    
+    
+    // Multiple selector with value tranformer
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelector rowType:XLFormRowDescriptorTypeMultipleSelector title:@"Multiple Selector"];
+    row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
+    row.value = @[@"Option 1", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
+    row.valueTransformer = [NSArrayValueTrasformer class];
+    [section addFormRow:row];
+    
+    
+    // Language multiple selector
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelector rowType:XLFormRowDescriptorTypeMultipleSelector title:@"Multiple Selector"];
+    row.selectorOptions = [NSLocale ISOLanguageCodes];
+    row.selectorTitle = @"Languages";
+    row.valueTransformer = [ISOLanguageCodesValueTranformer class];
+    row.value = [NSLocale preferredLanguages];
+    [section addFormRow:row];
+    
     
     // --------- Dynamic Selectors
     

@@ -83,7 +83,7 @@
 {
     XLFormRightDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
     id cellObject =  [self.options objectAtIndex:indexPath.row];
-    cell.textLabel.text = [cellObject displayText];
+    cell.textLabel.text = [self valueDisplayTextForOption:cellObject];
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]){
         cell.accessoryType = ([self selectedValuesContainsOption:cellObject] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
     }
@@ -176,12 +176,27 @@
     return self.selectedValues;
 }
 
--(NSMutableArray *)selectedValuesAddOption:(id)option
+-(NSMutableArray *)selectedValuesAddOption:(id)option 
 {
     NSAssert([self.selectedValues formIndexForItem:option] == NSNotFound, @"XLFormRowDescriptor value must not contain the option");
     NSMutableArray * result = self.selectedValues;
     [result addObject:option];
     return result;
+}
+
+
+
+-(NSString *)valueDisplayTextForOption:(id)option
+{
+    if (self.rowDescriptor.valueTransformer){
+        NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+        NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+        NSString * transformedValue = [valueTransformer transformedValue:option];
+        if (transformedValue){
+            return transformedValue;
+        }
+    }
+    return [option displayText];
 }
 
 
