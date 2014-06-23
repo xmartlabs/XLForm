@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
   s.source_files = 'XLForm/XL/**/*.{h,m}'
   s.requires_arc = true
   s.ios.deployment_target = '7.0'
-  s.ios.frameworks = 'UIKit', 'Foundation'
+  s.ios.frameworks = 'UIKit', 'Foundation', 'CoreGraphics'
   s.resource = 'XLForm/XLForm.bundle'
 end
