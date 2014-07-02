@@ -98,7 +98,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textView.keyboardType = UIKeyboardTypeAlphabet;
+    self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.text = self.rowDescriptor.value;
     [self.textView setEditable:!self.rowDescriptor.disabled];
     self.textView.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];

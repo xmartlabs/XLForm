@@ -106,12 +106,12 @@ Input rows allows the user to enter text values. Basically they use `UITextField
 ```objc
 static NSString *const XLFormRowDescriptorTypeText = @"text";
 ```
-Will be represented by a `UITextField` with `UITextAutocorrectionTypeDefault`, `UITextAutocapitalizationTypeSentences` and `UIKeyboardTypeAlphabet`.   
+Will be represented by a `UITextField` with `UITextAutocorrectionTypeDefault`, `UITextAutocapitalizationTypeSentences` and `UIKeyboardTypeDefault`.   
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeName = @"name";
 ```
-Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITextAutocapitalizationTypeWords` and `UIKeyboardTypeAlphabet`.
+Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITextAutocapitalizationTypeWords` and `UIKeyboardTypeDefault`.
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeURL = @"url";
@@ -126,7 +126,7 @@ Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITex
 ```objc
 static NSString *const XLFormRowDescriptorTypePassword = @"password";
 ```
-Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITextAutocapitalizationTypeNone` and `UIKeyboardTypeAlphabet`.
+Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITextAutocapitalizationTypeNone` and `UIKeyboardTypeASCIICapable`.
 This row type also set the  `secureTextEntry` to `YES` in order to hide what the user types. 
 
 ```objc
@@ -147,7 +147,7 @@ Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITex
 ```objc
 static NSString *const XLFormRowDescriptorTypeAccount = @"account";
 ```
-Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITextAutocapitalizationTypeNone` and `UIKeyboardTypeAlphabet`.
+Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITextAutocapitalizationTypeNone` and `UIKeyboardTypeDefault`.
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeInteger = @"integer";
@@ -157,7 +157,7 @@ Will be represented by a `UITextField` with `UIKeyboardTypeNumberPad`.
 ```objc
 static NSString *const XLFormRowDescriptorTypeTextView = @"textView";
 ```
-Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `UITextAutocapitalizationTypeSentences` and `UIKeyboardTypeAlphabet`.
+Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `UITextAutocapitalizationTypeSentences` and `UIKeyboardTypeDefault`.
 
 
 
@@ -712,6 +712,10 @@ Requirements
 
 Release Notes
 --------------
+
+Version 2.0.1 (master)
+
+* Change `XLFormRowDescriptorTypeText`, `XLFormRowDescriptorTypeName` and `XLFormRowDescriptorTypeTextView` keyboard type to `UIKeyboardTypeDefault`.
 
 Version 2.0.0 (cocoaPod)
 

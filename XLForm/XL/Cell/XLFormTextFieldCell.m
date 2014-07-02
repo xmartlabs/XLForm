@@ -80,12 +80,12 @@
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeText]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.keyboardType = UIKeyboardTypeDefault;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeName]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.keyboardType = UIKeyboardTypeDefault;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeEmail]){
         self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -103,7 +103,7 @@
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePassword]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.keyboardType = UIKeyboardTypeASCIICapable;
         self.textField.secureTextEntry = YES;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePhone]){
@@ -120,7 +120,7 @@
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeAccount]){
-        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.keyboardType = UIKeyboardTypeASCIICapable;
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
