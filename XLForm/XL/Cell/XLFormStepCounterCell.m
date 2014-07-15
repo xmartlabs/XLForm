@@ -74,6 +74,7 @@
     self.textLabel.text = self.rowDescriptor.title;
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
+    [self valueChanged:nil];
 }
  
 - (UIStepper *)stepControl
