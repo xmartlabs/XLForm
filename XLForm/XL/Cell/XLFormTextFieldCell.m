@@ -145,13 +145,6 @@
     return [self.textField resignFirstResponder];
 }
 
--(BOOL)isValidAsEmail:(NSString *)emailString
-{
-    NSString *regexForEmailAddress = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailValidation = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regexForEmailAddress];
-    return [emailValidation evaluateWithObject:emailString];
-}
-
 #pragma mark - Properties
 
 -(UILabel *)textLabel
