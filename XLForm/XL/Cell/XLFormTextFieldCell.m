@@ -225,16 +225,16 @@
 #pragma mark - Helper
 
 - (void)textFieldDidChange:(UITextField *)textField{
-    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber]){
-        self.rowDescriptor.value =  @([self.textField.text doubleValue]);
-    } else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
-        self.rowDescriptor.value = @([self.textField.text integerValue]);
-    } else {
-        if([self.textField.text length] > 0) {
-            self.rowDescriptor.value = self.textField.text;
+    if([self.textField.text length] > 0) {
+        if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber]){
+            self.rowDescriptor.value =  @([self.textField.text doubleValue]);
+        } else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
+            self.rowDescriptor.value = @([self.textField.text integerValue]);
         } else {
-            self.rowDescriptor.value = nil;
+            self.rowDescriptor.value = self.textField.text;
         }
+    } else {
+        self.rowDescriptor.value = nil;
     }
 }
 
