@@ -200,7 +200,7 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         }
     }
     return result;
-
+    
 }
 
 -(NSDictionary *)httpParameters:(XLFormViewController *)formViewController
@@ -241,22 +241,23 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
     return nil;
 }
 
--(NSArray *)localValidationErrors:(XLFormViewController *)formViewController
-{
+-(NSArray *)localValidationErrors:(XLFormViewController *)formViewController {
     NSMutableArray * result = [NSMutableArray array];
     for (XLFormSectionDescriptor * section in self.formSections) {
         for (XLFormRowDescriptor * row in section.formRows) {
-            UITableViewCell<XLFormDescriptorCell> * cell = [row cellForFormController:formViewController];
-            if ([cell respondsToSelector:@selector(formDescriptorCellLocalValidation)]){
-                NSError * error = cell.formDescriptorCellLocalValidation;
+            XLFormValidationStatus* status = [row doValidation];
+            if (status != nil && (![status isValid])) {
+                NSError * error = [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeGen userInfo:@{ NSLocalizedDescriptionKey: status.msg }];
                 if (error){
                     [result addObject:error];
                 }
             }
         }
     }
+    
     return result;
 }
+
 
 - (void)setFirstResponder:(XLFormViewController *)formViewController
 {
@@ -303,7 +304,7 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
             NSUInteger sectionIndex = [self.formSections indexOfObject:object];
             [self.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
         }
-
+        
     }
 }
 

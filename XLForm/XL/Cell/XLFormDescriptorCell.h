@@ -43,7 +43,6 @@
 -(BOOL)formDescriptorCellBecomeFirstResponder;
 -(BOOL)formDescriptorCellResignFirstResponder;
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;
--(NSError *)formDescriptorCellLocalValidation;
 -(NSString *)formDescriptorHttpParameterName;
 
 

@@ -163,20 +163,10 @@
     }
 }
 
-
 -(NSString *)formDescriptorHttpParameterName
 {
     XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
     return option.httpParameterKey;
-}
-
--(NSError *)formDescriptorCellLocalValidation
-{
-    if (self.rowDescriptor.required && self.rowDescriptor.value == nil){
-        return [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeRequired userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"%@ can't be empty", nil), [self.rowDescriptor.leftRightSelectorLeftOptionSelected displayText]]}];
-        
-    }
-    return nil;
 }
 
 

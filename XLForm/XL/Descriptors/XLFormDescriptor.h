@@ -32,9 +32,7 @@ NSString * const XLFormErrorDomain;
 
 typedef NS_ENUM(NSInteger, XLFormErrorCode)
 {
-    XLFormErrorCodeRequired = -999,
-    XLFormErrorCodePasswordsMustMatch = -998,
-    XLFormErrorCodeInvalidEmailAddress = -997
+    XLFormErrorCodeGen = -999,
 };
 
 @class XLFormSectionDescriptor;
