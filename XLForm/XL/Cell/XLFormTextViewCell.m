@@ -111,15 +111,6 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     return 110.f;
 }
 
--(NSError *)formDescriptorCellLocalValidation
-{
-    if (self.rowDescriptor.required && (self.textView.text == nil || [self.textView.text isEqualToString:@""])){
-        return [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeRequired userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"%@ can't be empty", nil), self.rowDescriptor.title] }];
-        
-    }
-    return nil;
-}
-
 -(BOOL)formDescriptorCellBecomeFirstResponder
 {
     return [self.textView becomeFirstResponder];

@@ -24,12 +24,14 @@
 // THE SOFTWARE.
 
 
-#import "XLFormBaseCell.h"
 #import <Foundation/Foundation.h>
-
+#import "XLFormBaseCell.h"
+#import "XLFormValidatorProtocol.h"
+#import "XLFormValidationStatus.h"
 
 @class XLFormViewController;
 @class XLFormSectionDescriptor;
+@protocol XLFormValidatorProtocol;
 
 typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
     XLFormPresentationModeDefault = 0,
@@ -59,6 +61,11 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 +(XLFormRowDescriptor *)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 
 -(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController;
+
+@property NSString *requireMsg;
+-(void) addValidator: (id<XLFormValidatorProtocol>) validator;
+-(void) removeValidator: (id<XLFormValidatorProtocol>) validator;
+-(XLFormValidationStatus *) doValidation;
 
 // ================================
 // properties for Button
@@ -99,8 +106,8 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 
 +(XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(id)leftValue
-                                                                httpParameterKey:(NSString *)httpParameterKey
-                                                                    rightOptions:(NSArray *)rightOptions;
+                                                          httpParameterKey:(NSString *)httpParameterKey
+                                                              rightOptions:(NSArray *)rightOptions;
 
 
 @end

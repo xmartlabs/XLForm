@@ -62,6 +62,9 @@
 #import "XLFormStepCounterCell.h"
 #import "XLFormSegmentedCell.h"
 
+//Validation
+#import "XLFormRegexValidator.h"
+
 
 static NSString *const XLFormRowDescriptorTypeText = @"text";
 static NSString *const XLFormRowDescriptorTypeName = @"name";
