@@ -33,6 +33,7 @@ NSString * const XLFormErrorDomain;
 typedef NS_ENUM(NSInteger, XLFormErrorCode)
 {
     XLFormErrorCodeGen = -999,
+    XLFormErrorCodeRequired = -1000
 };
 
 @class XLFormSectionDescriptor;

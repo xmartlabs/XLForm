@@ -247,7 +247,7 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         for (XLFormRowDescriptor * row in section.formRows) {
             XLFormValidationStatus* status = [row doValidation];
             if (status != nil && (![status isValid])) {
-                NSError * error = [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeGen userInfo:@{ NSLocalizedDescriptionKey: status.msg }];
+                NSError * error = [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeGen userInfo:@{ NSLocalizedDescriptionKey:status.msg }];
                 if (error){
                     [result addObject:error];
                 }
