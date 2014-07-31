@@ -27,6 +27,12 @@
 #import "XLFormStepCounterCell.h"
 #import "XLFormRowDescriptor.h"
 
+@interface XLFormStepCounterCell ()
+
+@property (strong,nonatomic) UIColor *defaultTintColor;
+
+@end
+
 @implementation XLFormStepCounterCell
 
 #pragma mark - XLFormStepCounterCell
@@ -47,6 +53,7 @@
                                                                             0,
                                                                             0)];
     [stepperControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+    self.defaultTintColor = stepperControl.tintColor;
     
     UILabel *currentStepValue = [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                                           0,
@@ -55,7 +62,7 @@
     
     currentStepValue.textAlignment = NSTextAlignmentCenter;
     currentStepValue.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    currentStepValue.textColor = stepperControl.tintColor;
+    currentStepValue.textColor = self.defaultTintColor;
 
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                  0,
@@ -74,6 +81,10 @@
     self.textLabel.text = self.rowDescriptor.title;
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
+    self.stepControl.enabled = !self.rowDescriptor.disabled;
+    [self stepControl].tintColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;
+    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+
     [self valueChanged:nil];
 }
  
