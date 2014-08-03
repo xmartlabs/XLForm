@@ -164,6 +164,16 @@
     else{
         datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     }
+    
+    if (self.minuteInterval)
+        datePicker.minuteInterval = self.minuteInterval;
+    
+    if (self.minimumDate)
+        datePicker.minimumDate = self.minimumDate;
+    
+    if (self.maximumDate)
+        datePicker.maximumDate = self.maximumDate;
+    
 }
 
 #pragma mark - Properties
