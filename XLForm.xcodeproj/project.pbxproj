@@ -71,6 +71,7 @@
 		28E093EB18F4C28200E218ED /* XLFormRightDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E093EA18F4C28200E218ED /* XLFormRightDetailCell.m */; };
 		2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DF43B7BBF44F72A4493E8E /* libPods.a */; };
 		3C3360B3193E43D800BA9C4A /* XLFormSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3360B2193E43D800BA9C4A /* XLFormSegmentedCell.m */; };
+		78C2CC1F198EECBD000DFF42 /* FormattersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C2CC1E198EECBD000DFF42 /* FormattersViewController.m */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 		D55C39BE191BCA460090B6B4 /* XLFormStepCounterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */; };
 /* End PBXBuildFile section */
@@ -206,6 +207,8 @@
 		3C3360B1193E43D800BA9C4A /* XLFormSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSegmentedCell.h; sourceTree = "<group>"; };
 		3C3360B2193E43D800BA9C4A /* XLFormSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSegmentedCell.m; sourceTree = "<group>"; };
 		72E6DF463B884AB3934DD04A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		78C2CC1D198EECBD000DFF42 /* FormattersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormattersViewController.h; sourceTree = "<group>"; };
+		78C2CC1E198EECBD000DFF42 /* FormattersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormattersViewController.m; sourceTree = "<group>"; };
 		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/CustomCells/XLFormCustomCell.h; sourceTree = "<group>"; };
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
 		D55C39BC191BCA460090B6B4 /* XLFormStepCounterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormStepCounterCell.h; sourceTree = "<group>"; };
@@ -441,6 +444,7 @@
 				28A8083C190D903D009D77F8 /* StoryboardExample */,
 				28468E9218EA52CA00DBB015 /* RealExamples */,
 				2843EB5F18D76B2D00F13E2B /* MultiValuedSections */,
+				78C2CC1C198EEC23000DFF42 /* Formatters */,
 				2843EB5318D4F77F00F13E2B /* Dates */,
 				2843EB4F18D4CFA100F13E2B /* Others */,
 				2843EB4818D496CB00F13E2B /* Selectors */,
@@ -613,6 +617,16 @@
 				28A8083D190D9083009D77F8 /* iPhoneStoryboard.storyboard */,
 			);
 			name = StoryboardExample;
+			sourceTree = "<group>";
+		};
+		78C2CC1C198EEC23000DFF42 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				78C2CC1D198EECBD000DFF42 /* FormattersViewController.h */,
+				78C2CC1E198EECBD000DFF42 /* FormattersViewController.m */,
+			);
+			name = Formatters;
+			path = Examples/Formatters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -795,6 +809,7 @@
 				2843EB5218D4CFC700F13E2B /* OthersFormViewController.m in Sources */,
 				28C7ECC218E1F3C1009E3C46 /* XLFormOptionsObject.m in Sources */,
 				28135F9A198961B900005F9B /* XLFormValidationStatus.m in Sources */,
+				78C2CC1F198EECBD000DFF42 /* FormattersViewController.m in Sources */,
 				2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */,
 				28468EA418EF41D300DBB015 /* InputsFormViewController.m in Sources */,
 				28A76625193251E500D69546 /* AppDelegate.m in Sources */,

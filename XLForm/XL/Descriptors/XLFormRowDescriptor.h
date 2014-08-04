@@ -47,6 +47,18 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property NSString *title;
 @property (nonatomic) id value;
 @property Class valueTransformer;
+
+/// if true, the supplied formatter will be used during editing
+@property BOOL useValueFormatterDuringInput;
+
+@property NSFormatter *valueFormatter;
+
+/// returns the display text for the row descriptor, taking into account NSFormatters and default placeholder values
+- (NSString*) displayTextValue;
+
+/// returns the editing text value for the row descriptor, taking into account NSFormatters.
+- (NSString*) editTextValue;
+
 @property UITableViewCellStyle cellStype;
 
 @property (nonatomic) NSMutableDictionary *cellConfig;

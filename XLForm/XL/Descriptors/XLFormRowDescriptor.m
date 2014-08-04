@@ -26,6 +26,8 @@
 #import "XLFormViewController.h"
 #import "XLFormRowDescriptor.h"
 
+#import "NSObject+XLFormAdditions.h"
+
 @interface XLFormRowDescriptor() <NSCopying>
 
 @property UITableViewCell<XLFormDescriptorCell> * cell;
@@ -86,6 +88,52 @@
     if (_cellConfigAtConfigure) return _cellConfigAtConfigure;
     _cellConfigAtConfigure = [NSMutableDictionary dictionary];
     return _cellConfigAtConfigure;
+}
+
+-(NSString*)editTextValue
+{
+    if (self.value) {
+        if (self.valueFormatter) {
+            if (self.useValueFormatterDuringInput) {
+                return [self displayTextValue];
+            }
+            else {
+                // have formatter, but we don't want to use it during editing
+//                id object;
+//                if ([self.valueFormatter getObjectValue:&object forString:[self.value displayText] errorDescription:nil]) {
+//                    return [object description];
+//                }
+//                else {
+                    // formatter failed, default to value's displayText
+                    return [self.value displayText];
+//                }
+                
+            }
+        }
+        else {
+            // have value, but no formatter, use the value's displayText
+            return [self.value displayText];
+        }
+    }
+    else {
+        // placeholder
+        return @"";
+    }
+}
+
+-(NSString*)displayTextValue
+{
+    if (self.value) {
+        if (self.valueFormatter) {
+            return [self.valueFormatter stringForObjectValue:self.value];
+        }
+        else{
+            return [self.value displayText];
+        }
+    }
+    else {
+        return self.noValueDisplayText;
+    }
 }
 
 -(NSString *)description
