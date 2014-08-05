@@ -15,7 +15,7 @@
 @property NSString *msg;
 @property NSString *regex;
 
-- (id) initWithMsg:(NSString*) msg andRegexString:(NSString*) regex;
+- (id)initWithMsg:(NSString*)msg andRegexString:(NSString*)regex;
 + (XLFormRegexValidator *)formRegexValidatorWithMsg:(NSString *)msg regex:(NSString *)regex;
 
 @end

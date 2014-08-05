@@ -38,11 +38,6 @@
 		2850C60618D0F706002B7D0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2850C60418D0F706002B7D0A /* InfoPlist.strings */; };
 		2850C60818D0F706002B7D0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C60718D0F706002B7D0A /* main.m */; };
 		2850C60E18D0F706002B7D0A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2850C60D18D0F706002B7D0A /* Images.xcassets */; };
-		2850C61518D0F707002B7D0A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2850C61418D0F707002B7D0A /* XCTest.framework */; };
-		2850C61618D0F707002B7D0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2850C5FB18D0F706002B7D0A /* Foundation.framework */; };
-		2850C61718D0F707002B7D0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2850C5FF18D0F706002B7D0A /* UIKit.framework */; };
-		2850C61F18D0F707002B7D0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2850C61D18D0F707002B7D0A /* InfoPlist.strings */; };
-		2850C62118D0F707002B7D0A /* XLFormTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C62018D0F707002B7D0A /* XLFormTests.m */; };
 		2850C65E18D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C63118D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m */; };
 		2850C67218D0F9A6002B7D0A /* XLFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C65C18D0F9A6002B7D0A /* XLFormViewController.m */; };
 		2850C67518D0FD4B002B7D0A /* XLFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C67418D0FD4B002B7D0A /* XLFormDatePickerCell.m */; };
@@ -74,16 +69,6 @@
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 		D55C39BE191BCA460090B6B4 /* XLFormStepCounterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		2850C61818D0F707002B7D0A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2850C5F018D0F706002B7D0A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2850C5F718D0F706002B7D0A;
-			remoteInfo = XLForm;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2807DC6F18DC84B200A4B0B9 /* XLFormRightImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormRightImageButton.h; path = XLForm/XL/Helpers/Views/XLFormRightImageButton.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -148,11 +133,7 @@
 		2850C60918D0F706002B7D0A /* XLForm-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XLForm-Prefix.pch"; sourceTree = "<group>"; };
 		2850C60A18D0F706002B7D0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppDelegate.h; path = Examples/AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2850C60D18D0F706002B7D0A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		2850C61318D0F707002B7D0A /* XLFormTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XLFormTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2850C61418D0F707002B7D0A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		2850C61C18D0F707002B7D0A /* XLFormTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XLFormTests-Info.plist"; sourceTree = "<group>"; };
-		2850C61E18D0F707002B7D0A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		2850C62018D0F707002B7D0A /* XLFormTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2850C63018D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormLeftRightSelectorCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2850C63118D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormLeftRightSelectorCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2850C65B18D0F9A6002B7D0A /* XLFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormViewController.h; path = XL/Controllers/XLFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -223,16 +204,6 @@
 				2850C60018D0F706002B7D0A /* UIKit.framework in Frameworks */,
 				2850C5FC18D0F706002B7D0A /* Foundation.framework in Frameworks */,
 				2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2850C61018D0F707002B7D0A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2850C61518D0F707002B7D0A /* XCTest.framework in Frameworks */,
-				2850C61718D0F707002B7D0A /* UIKit.framework in Frameworks */,
-				2850C61618D0F707002B7D0A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,7 +335,6 @@
 			children = (
 				2850C62B18D0F92F002B7D0A /* Examples */,
 				2850C60118D0F706002B7D0A /* XLForm */,
-				2850C61A18D0F707002B7D0A /* XLFormTests */,
 				2850C5FA18D0F706002B7D0A /* Frameworks */,
 				2850C5F918D0F706002B7D0A /* Products */,
 				72E6DF463B884AB3934DD04A /* Pods.xcconfig */,
@@ -375,7 +345,6 @@
 			isa = PBXGroup;
 			children = (
 				2850C5F818D0F706002B7D0A /* XLForm.app */,
-				2850C61318D0F707002B7D0A /* XLFormTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -412,24 +381,6 @@
 				2850C60718D0F706002B7D0A /* main.m */,
 				2850C60918D0F706002B7D0A /* XLForm-Prefix.pch */,
 				28468EA518EF594800DBB015 /* Localizable.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		2850C61A18D0F707002B7D0A /* XLFormTests */ = {
-			isa = PBXGroup;
-			children = (
-				2850C62018D0F707002B7D0A /* XLFormTests.m */,
-				2850C61B18D0F707002B7D0A /* Supporting Files */,
-			);
-			path = XLFormTests;
-			sourceTree = "<group>";
-		};
-		2850C61B18D0F707002B7D0A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				2850C61C18D0F707002B7D0A /* XLFormTests-Info.plist */,
-				2850C61D18D0F707002B7D0A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -637,24 +588,6 @@
 			productReference = 2850C5F818D0F706002B7D0A /* XLForm.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2850C61218D0F707002B7D0A /* XLFormTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2850C62718D0F707002B7D0A /* Build configuration list for PBXNativeTarget "XLFormTests" */;
-			buildPhases = (
-				2850C60F18D0F707002B7D0A /* Sources */,
-				2850C61018D0F707002B7D0A /* Frameworks */,
-				2850C61118D0F707002B7D0A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2850C61918D0F707002B7D0A /* PBXTargetDependency */,
-			);
-			name = XLFormTests;
-			productName = XLFormTests;
-			productReference = 2850C61318D0F707002B7D0A /* XLFormTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -663,11 +596,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Xmartlabs;
-				TargetAttributes = {
-					2850C61218D0F707002B7D0A = {
-						TestTargetID = 2850C5F718D0F706002B7D0A;
-					};
-				};
 			};
 			buildConfigurationList = 2850C5F318D0F706002B7D0A /* Build configuration list for PBXProject "XLForm" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -682,7 +610,6 @@
 			projectRoot = "";
 			targets = (
 				2850C5F718D0F706002B7D0A /* XLForm */,
-				2850C61218D0F707002B7D0A /* XLFormTests */,
 			);
 		};
 /* End PBXProject section */
@@ -697,14 +624,6 @@
 				2850C60618D0F706002B7D0A /* InfoPlist.strings in Resources */,
 				2850C60E18D0F706002B7D0A /* Images.xcassets in Resources */,
 				28A8083E190D9083009D77F8 /* iPhoneStoryboard.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2850C61118D0F707002B7D0A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2850C61F18D0F707002B7D0A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,23 +721,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2850C60F18D0F707002B7D0A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2850C62118D0F707002B7D0A /* XLFormTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2850C61918D0F707002B7D0A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2850C5F718D0F706002B7D0A /* XLForm */;
-			targetProxy = 2850C61818D0F707002B7D0A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		28468EA518EF594800DBB015 /* Localizable.strings */ = {
@@ -833,14 +736,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				2850C60518D0F706002B7D0A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		2850C61D18D0F707002B7D0A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2850C61E18D0F707002B7D0A /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -946,46 +841,6 @@
 			};
 			name = Release;
 		};
-		2850C62818D0F707002B7D0A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/XLForm.app/XLForm";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "XLForm/XLForm-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "XLFormTests/XLFormTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		2850C62918D0F707002B7D0A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/XLForm.app/XLForm";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "XLForm/XLForm-Prefix.pch";
-				INFOPLIST_FILE = "XLFormTests/XLFormTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1003,15 +858,6 @@
 			buildConfigurations = (
 				2850C62518D0F707002B7D0A /* Debug */,
 				2850C62618D0F707002B7D0A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2850C62718D0F707002B7D0A /* Build configuration list for PBXNativeTarget "XLFormTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2850C62818D0F707002B7D0A /* Debug */,
-				2850C62918D0F707002B7D0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -19,3 +19,5 @@ DerivedData
 
 #CocoaPods
 Pods
+Tests/Pods
+Tests/Podfile.lock
