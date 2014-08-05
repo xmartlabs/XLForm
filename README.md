@@ -3,6 +3,8 @@ XLForm
 
 By [XMARTLABS](http://xmartlabs.com).
 
+[![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
+
 Purpose
 --------------
 
