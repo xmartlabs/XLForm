@@ -10,7 +10,7 @@
 
 @implementation XLFormValidationStatus
 
-- (id) initWithMsg:(NSString*) msg andStatus: (BOOL) isValid {
+-(id)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid {
     self = [super init];
     if (self) {
         self.msg = msg;

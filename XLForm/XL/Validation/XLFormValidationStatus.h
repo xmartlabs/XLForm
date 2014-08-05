@@ -13,7 +13,7 @@
 @property NSString *msg;
 @property BOOL isValid;
 
-- (id) initWithMsg:(NSString*) msg andStatus: (BOOL) isValid;
+-(id)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid;
 +(XLFormValidationStatus *)formValidationStatusWithMsg:(NSString *)msg status:(BOOL)status;
 
 @end
