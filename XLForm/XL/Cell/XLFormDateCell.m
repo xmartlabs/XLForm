@@ -44,6 +44,9 @@
 - (UIView *)inputView
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDate] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTime] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTime]){
+        if (self.rowDescriptor.value){
+            [self.datePicker setDate:self.rowDescriptor.value];
+        }
         return self.datePicker;
     }
     return [super inputView];
