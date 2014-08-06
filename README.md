@@ -557,8 +557,54 @@ For instance if we want to show or hide a row depending on the value of another 
     }
 ```
 
+Open form in Popover
+------------------------------------
+
+Configure your row with `XLFormRowDescriptorTypeSelectorPopover`
+
+```objc
+row = [XLFormRowDescriptor formRowDescriptorWithTag:rowTag rowType:XLFormRowDescriptorTypeSelectorPopover title:@"PickerForm"];
+```
+
+Implement protocols `XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController` in your custom form class:
+
+```objc
+#import "XLFormRowDescriptor.h"
+#import "XLForm.h"
+
+@interface PickerForm : UITableViewController <XLFormRowDescriptorViewController,XLFormRowDescriptorPopoverViewController, UITableViewDelegate, UITableViewDataSource>
+
+@end
+```
+
+Implement button to allow user to dismiss popover, synthesize popoverController:
+
+```objc
+@implementation PickerForm
+
+@synthesize rowDescriptor;
+@synthesize popoverController;
 
 
+-(void)viewDidLoad{
+	[super viewDidLoad];
+	self.navigationController.navigationBarHidden=NO;
+	self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
+}
+
+-(void)dismiss{
+	[self.popoverController dismissPopoverAnimated:YES];
+}
+```
+
+```objc
+Also dismiss popover on row select:
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	self.rowDescriptor.value=[XLFormOptionsObject formOptionsObjectWithValue:@(indexPath.row) displayText:@""];
+	[self.popoverController dismissPopoverAnimated:YES];
+}
+```
 
 Validations
 ------------------------------------
