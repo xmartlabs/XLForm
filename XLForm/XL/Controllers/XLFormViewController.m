@@ -162,6 +162,7 @@
                                                XLFormRowDescriptorTypeSelectorPickerViewInline: [XLFormInlineSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorSegmentedControl: [XLFormSegmentedCell class],
                                                XLFormRowDescriptorTypeMultipleSelector: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeMultipleSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
                                                XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
                                                XLFormRowDescriptorTypeBooleanSwitch : [XLFormSwitchCell class],
