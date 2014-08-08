@@ -155,6 +155,7 @@
                                                XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
+											   XLFormRowDescriptorTypeSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorAlertView: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorPickerView: [XLFormSelectorCell class],
