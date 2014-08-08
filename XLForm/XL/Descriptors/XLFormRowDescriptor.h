@@ -31,6 +31,7 @@
 
 @class XLFormViewController;
 @class XLFormSectionDescriptor;
+@class XLFormButtonCell;
 @protocol XLFormValidatorProtocol;
 
 typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
@@ -72,7 +73,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 // =================================
 @property Class buttonViewController;
 @property XLFormPresentationMode buttonViewControllerPresentationMode;
-
+@property (nonatomic, copy) void (^buttonBlock)(XLFormButtonCell *sender);
 
 // ===========================
 // property used for Selectors
