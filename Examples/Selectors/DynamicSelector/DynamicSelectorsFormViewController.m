@@ -27,6 +27,7 @@
 #import "DynamicSelectorsFormViewController.h"
 
 NSString *const kSelectorUser = @"selectorUser";
+NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
 
 @implementation DynamicSelectorsFormViewController
 
@@ -49,6 +50,13 @@ NSString *const kSelectorUser = @"selectorUser";
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUser rowType:XLFormRowDescriptorTypeSelectorPush title:@"User"];
         row.selectorControllerClass = [UsersTableViewController class];
         [section addFormRow:row];
+        
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+            // Selector PopOver
+            row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUserPopover rowType:XLFormRowDescriptorTypeSelectorPopover title:@"User Popover"];
+            row.selectorControllerClass = [UsersTableViewController class];
+            [section addFormRow:row];
+        }
         
         self.form = form;
         

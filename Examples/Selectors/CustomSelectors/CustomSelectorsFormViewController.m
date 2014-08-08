@@ -30,6 +30,7 @@
 #import "CustomSelectorsFormViewController.h"
 
 NSString *const kSelectorMap = @"selectorMap";
+NSString *const kSelectorMapPopover = @"selectorMapPopover";
 
 @implementation CustomSelectorsFormViewController
 
@@ -53,6 +54,15 @@ NSString *const kSelectorMap = @"selectorMap";
         row.valueTransformer = [CLLocationValueTrasformer class];
         row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
         [section addFormRow:row];
+        
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+            // Selector PopOver
+            row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorMapPopover rowType:XLFormRowDescriptorTypeSelectorPopover title:@"Coordinate PopOver"];
+            row.selectorControllerClass = [MapViewController class];
+            row.valueTransformer = [CLLocationValueTrasformer class];
+            row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
+            [section addFormRow:row];
+        }
         
         self.form = form;
         

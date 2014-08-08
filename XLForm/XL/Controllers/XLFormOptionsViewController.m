@@ -45,6 +45,7 @@
 @synthesize titleHeaderSection = _titleHeaderSection;
 @synthesize titleFooterSection = _titleFooterSection;
 @synthesize rowDescriptor = _rowDescriptor;
+@synthesize popoverController = __popoverController;
 @synthesize options = _options;
 
 - (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style
@@ -68,7 +69,6 @@
     [super viewDidLoad];
     // register option cell
     [self.tableView registerClass:[XLFormRightDetailCell class] forCellReuseIdentifier:CELL_REUSE_IDENTIFIER];
-    //self.tableView.allowsMultipleSelection = [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector];
 }
 
 
@@ -84,7 +84,7 @@
     XLFormRightDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
     id cellObject =  [self.options objectAtIndex:indexPath.row];
     cell.textLabel.text = [self valueDisplayTextForOption:cellObject];
-    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]){
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]){
         cell.accessoryType = ([self selectedValuesContainsOption:cellObject] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
     }
     else{
@@ -116,7 +116,7 @@
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     id cellObject =  [self.options objectAtIndex:indexPath.row];
-    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]){
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]){
         if ([self selectedValuesContainsOption:cellObject]){
             self.rowDescriptor.value = [self selectedValuesRemoveOption:cellObject];
             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -143,7 +143,13 @@
             self.rowDescriptor.value = cellObject;
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.popoverController){
+            [self.popoverController dismissPopoverAnimated:YES];
+            [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
+        }
+        else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -176,7 +182,7 @@
     return self.selectedValues;
 }
 
--(NSMutableArray *)selectedValuesAddOption:(id)option 
+-(NSMutableArray *)selectedValuesAddOption:(id)option
 {
     NSAssert([self.selectedValues formIndexForItem:option] == NSNotFound, @"XLFormRowDescriptor value must not contain the option");
     NSMutableArray * result = self.selectedValues;
