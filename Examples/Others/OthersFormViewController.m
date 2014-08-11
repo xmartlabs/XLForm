@@ -89,7 +89,7 @@ NSString *const kButton = @"button";
     
     // Button
     XLFormRowDescriptor * buttonRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"];
-    [buttonRow.cellConfigAtConfigure setObject:self.view.tintColor forKey:@"textLabel.textColor"];
+    [buttonRow.cellConfig setObject:self.view.tintColor forKey:@"textLabel.textColor"];
     [section addFormRow:buttonRow];
 
     self.form = form;

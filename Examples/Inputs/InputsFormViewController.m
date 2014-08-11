@@ -61,6 +61,8 @@ NSString *const kNotes = @"notes";
     
     // Email
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kEmail rowType:XLFormRowDescriptorTypeEmail title:@"Email"];
+    // validate the email
+    [row addValidator:[XLFormValidator emailValidator]];
     [section addFormRow:row];
     
     // Twitter
