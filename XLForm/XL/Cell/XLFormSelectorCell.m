@@ -128,10 +128,10 @@
 -(void)update
 {
     [super update];
-    self.accessoryType = self.rowDescriptor.disabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    self.accessoryType = self.rowDescriptor.disabled || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInfo] ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     [self.textLabel setText:self.rowDescriptor.title];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    self.selectionStyle = self.rowDescriptor.disabled || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInfo] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];

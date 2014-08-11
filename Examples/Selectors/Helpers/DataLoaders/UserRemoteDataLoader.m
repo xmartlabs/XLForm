@@ -1,5 +1,5 @@
 //
-//  XLRemoteDataLoader.m
+//  UserRemoteDataLoader.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
