@@ -165,6 +165,7 @@
                                                XLFormRowDescriptorTypeMultipleSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
                                                XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
+                                               XLFormRowDescriptorTypeInfo: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeBooleanSwitch : [XLFormSwitchCell class],
                                                XLFormRowDescriptorTypeBooleanCheck : [XLFormCheckCell class],
                                                XLFormRowDescriptorTypeDate: [XLFormDateCell class],
