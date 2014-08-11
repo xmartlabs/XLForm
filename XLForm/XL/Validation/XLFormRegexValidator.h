@@ -23,11 +23,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "XLFormValidatorProtocol.h"
 #import "XLFormValidationStatus.h"
+#import "XLFormValidator.h"
 
-@interface XLFormRegexValidator : NSObject<XLFormValidatorProtocol>
+@interface XLFormRegexValidator : XLFormValidator
 
 @property NSString *msg;
 @property NSString *regex;

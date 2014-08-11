@@ -27,7 +27,7 @@
 
 @implementation XLFormRegexValidator
 
--(id)initWithMsg:(NSString*) msg andRegexString:(NSString*)regex {
+-(id)initWithMsg:(NSString*)msg andRegexString:(NSString*)regex {
     self = [super init];
     if (self) {
         self.msg = msg;
@@ -37,7 +37,7 @@
     return self;
 }
 
--(XLFormValidationStatus *) isValid: (XLFormRowDescriptor *) row {
+-(XLFormValidationStatus *)isValid: (XLFormRowDescriptor *)row {
     if (row != nil && row.value != nil &&  [row.value isKindOfClass:[NSString class]]) {
         // we only validate if there is a value
         // assumption: required validation is already triggered
