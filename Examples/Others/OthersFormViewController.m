@@ -29,7 +29,9 @@
 NSString *const kSwitchBool = @"switchBool";
 NSString *const kSwitchCheck = @"switchBool";
 NSString *const kStepCounter = @"stepCounter";
+NSString *const kSegmentedControl = @"segmentedControl";
 NSString *const kCustom = @"custom";
+NSString *const kInfo = @"info";
 NSString *const kButton = @"button";
 
 @implementation OthersFormViewController
@@ -61,13 +63,24 @@ NSString *const kButton = @"button";
 
     // step counter
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"]];
- 
     
-    // custom cell
+    // Segmented Control
+    XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:kSegmentedControl rowType:XLFormRowDescriptorTypeSelectorSegmentedControl title:@"Fruits"];
+    row.selectorOptions = @[@"Apple", @"Orange", @"Pear"];
+    row.value = @"Pear";
+    [section addFormRow:row];
+    
+    // Custom cell
     XLFormRowDescriptor *customRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kCustom rowType:@"XLFormRowDescriptorTypeCustom"];
     // Must set custom cell or add custom cell to cellClassesForRowDescriptorTypes dictionary before XLFormViewController loaded
     customRowDescriptor.cellClass = [XLFormCustomCell class];
     [section addFormRow:customRowDescriptor];
+    
+    // Info cell
+    XLFormRowDescriptor *infoRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kInfo rowType:XLFormRowDescriptorTypeInfo];
+    infoRowDescriptor.title = @"Version";
+    infoRowDescriptor.value = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [section addFormRow:infoRowDescriptor];
     
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Buttons"];
@@ -76,12 +89,11 @@ NSString *const kButton = @"button";
     
     // Button
     XLFormRowDescriptor * buttonRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"];
-    [buttonRow.cellConfigAtConfigure setObject:self.view.tintColor forKey:@"textLabel.textColor"];
+    [buttonRow.cellConfig setObject:self.view.tintColor forKey:@"textLabel.textColor"];
     [section addFormRow:buttonRow];
 
     self.form = form;
 }
-
 
 
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow
@@ -96,6 +108,5 @@ NSString *const kButton = @"button";
         [self deselectFormRow:formRow];
     }
 }
-
 
 @end

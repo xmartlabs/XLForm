@@ -26,12 +26,6 @@
 
 #import "XLFormTextView.h"
 
-@interface XLFormTextView()
-//
-//@property (nonatomic, retain) UILabel *placeHolderLabel;
-
-@end
-
 @implementation XLFormTextView
 
 - (void)dealloc

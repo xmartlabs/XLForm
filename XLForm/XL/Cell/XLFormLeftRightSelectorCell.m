@@ -40,32 +40,7 @@
 @synthesize rightLabel = _rightLabel;
 
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        UIView * separatorView = [UIView autolayoutView];
-        [separatorView setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-        
-        [self.contentView addSubview:self.leftButton];
-        [self.contentView addSubview:self.rightLabel];
-        [self.contentView addSubview:separatorView];
-        
-        NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView};
-        
-        [self.contentView addConstraint:[self.leftButton layoutConstraintSameHeightOf:self.contentView]];
-        [self.contentView addConstraint:[self.rightLabel layoutConstraintSameHeightOf:self.contentView]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[leftButton]-[separatorView(1)]-[rightLabel]-14-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[separatorView]-8-|" options:0 metrics:nil views:views]];
-        
-    }
-    return self;
-}
-
-
 #pragma mark - Properties
-
 
 -(UIButton *)leftButton
 {
@@ -131,6 +106,20 @@
 -(void)configure
 {
     [super configure];
+    UIView * separatorView = [UIView autolayoutView];
+    [separatorView setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
+    
+    [self.contentView addSubview:self.leftButton];
+    [self.contentView addSubview:self.rightLabel];
+    [self.contentView addSubview:separatorView];
+    
+    NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView};
+    
+    [self.contentView addConstraint:[self.leftButton layoutConstraintSameHeightOf:self.contentView]];
+    [self.contentView addConstraint:[self.rightLabel layoutConstraintSameHeightOf:self.contentView]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[leftButton]-[separatorView(1)]-[rightLabel]-14-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[separatorView]-8-|" options:0 metrics:nil views:views]];
 }
 
 -(void)update
@@ -158,7 +147,7 @@
     if (self.rowDescriptor.leftRightSelectorLeftOptionSelected){
         XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
         if (option.rightOptions){
-            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithOptions:option.rightOptions multipleSelection:NO style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc]  initWithOptions:option.rightOptions style:UITableViewStyleGrouped];
             optionsViewController.title = option.selectorTitle;
             optionsViewController.rowDescriptor = self.rowDescriptor;
             [controller.navigationController pushViewController:optionsViewController animated:YES];
@@ -174,20 +163,10 @@
     }
 }
 
-
 -(NSString *)formDescriptorHttpParameterName
 {
     XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
     return option.httpParameterKey;
-}
-
--(NSError *)formDescriptorCellLocalValidation
-{
-    if (self.rowDescriptor.required && self.rowDescriptor.value == nil){
-        return [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeRequired userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"%@ can't be empty", nil), [self.rowDescriptor.leftRightSelectorLeftOptionSelected displayText]]}];
-        
-    }
-    return nil;
 }
 
 

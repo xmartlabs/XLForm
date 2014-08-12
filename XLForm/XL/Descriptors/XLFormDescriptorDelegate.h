@@ -33,10 +33,10 @@
 
 @required
 
--(void)formSectionHasBeenRemovedAtIndex:(NSUInteger)index;
--(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)sectionDescriptor atIndex:(NSUInteger)index;
--(void)formRowHasBeenAdded:(XLFormRowDescriptor *)rowDescriptor atIndexPath:(NSIndexPath *)indexPath;
--(void)formRowHasBeenRemovedAtIndexPath:(NSIndexPath *)indexPath;
--(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue;
+-(void)formSectionHasBeenRemoved:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+-(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+-(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
+-(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
+-(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
 
 @end

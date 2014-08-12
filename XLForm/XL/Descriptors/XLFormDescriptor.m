@@ -44,7 +44,7 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
     if (self){
         _formSections = [NSMutableArray array];
         _title = title;
-        [self addObserver:self forKeyPath:@"formSections" options:0 context:0];
+        [self addObserver:self forKeyPath:@"formSections" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     }
     return self;
 }
@@ -177,11 +177,37 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
     return nil;
 }
 
+-(NSDictionary *)formValues
+{
+    NSMutableDictionary * result = [NSMutableDictionary dictionary];
+    for (XLFormSectionDescriptor * section in self.formSections) {
+        if (!section.isMultivaluedSection)
+        {
+            for (XLFormRowDescriptor * row in section.formRows) {
+                if (row.tag && ![row.tag isEqualToString:@""]){
+                    [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
+                }
+            }
+        }
+        else{
+            NSMutableArray * multiValuedValuesArray = [NSMutableArray new];
+            for (XLFormRowDescriptor * row in section.formRows) {
+                if (row.value){
+                    [multiValuedValuesArray addObject:row.value];
+                }
+            }
+            [result setObject:multiValuedValuesArray forKey:section.multiValuedTag];
+        }
+    }
+    return result;
+    
+}
+
 -(NSDictionary *)httpParameters:(XLFormViewController *)formViewController
 {
     NSMutableDictionary * result = [NSMutableDictionary dictionary];
     for (XLFormSectionDescriptor * section in self.formSections) {
-        if (!section.isMultivaluedSection  || [section.multiValuedTag rangeOfString:@"{index}"].location != NSNotFound)
+        if (!section.isMultivaluedSection)
         {
             for (XLFormRowDescriptor * row in section.formRows) {
                 NSString * httpParameterKey = nil;
@@ -206,9 +232,6 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
 
 -(NSString *)httpParameterKeyForRow:(XLFormRowDescriptor *)row cell:(UITableViewCell<XLFormDescriptorCell> *)descriptorCell
 {
-    if (row.sectionDescriptor.isMultivaluedSection ){
-        return [row.sectionDescriptor.multiValuedTag stringByReplacingOccurrencesOfString:@"{index}" withString:[NSString stringWithFormat:@"%@", @([row.sectionDescriptor.formRows indexOfObject:row])]];
-    }
     if ([descriptorCell respondsToSelector:@selector(formDescriptorHttpParameterName)]){
         return [descriptorCell formDescriptorHttpParameterName];
     }
@@ -218,22 +241,23 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
     return nil;
 }
 
--(NSArray *)localValidationErrors:(XLFormViewController *)formViewController
-{
+-(NSArray *)localValidationErrors:(XLFormViewController *)formViewController {
     NSMutableArray * result = [NSMutableArray array];
     for (XLFormSectionDescriptor * section in self.formSections) {
         for (XLFormRowDescriptor * row in section.formRows) {
-            UITableViewCell<XLFormDescriptorCell> * cell = [row cellForFormController:formViewController];
-            if ([cell respondsToSelector:@selector(formDescriptorCellLocalValidation)]){
-                NSError * error = cell.formDescriptorCellLocalValidation;
+            XLFormValidationStatus* status = [row doValidation];
+            if (status != nil && (![status isValid])) {
+                NSError * error = [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeGen userInfo:@{ NSLocalizedDescriptionKey:status.msg }];
                 if (error){
                     [result addObject:error];
                 }
             }
         }
     }
+    
     return result;
 }
+
 
 - (void)setFirstResponder:(XLFormViewController *)formViewController
 {
@@ -263,7 +287,8 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         }
         else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
             NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            [self.delegate formSectionHasBeenRemovedAtIndex:indexSet.firstIndex];
+            XLFormSectionDescriptor * removedSection = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
+            [self.delegate formSectionHasBeenRemoved:removedSection atIndex:indexSet.firstIndex];
         }
     }
     else if ([keyPath isEqualToString:@"formRows"]){
@@ -275,10 +300,11 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         }
         else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
             NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+            XLFormRowDescriptor * removedRow = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
             NSUInteger sectionIndex = [self.formSections indexOfObject:object];
-            [self.delegate formRowHasBeenRemovedAtIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
+            [self.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
         }
-
+        
     }
 }
 
@@ -313,7 +339,7 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
 
 - (void)insertObject:(XLFormSectionDescriptor *)formSection inFormSectionsAtIndex:(NSUInteger)index {
     formSection.formDescriptor = self;
-    [formSection addObserver:self forKeyPath:@"formRows" options:0 context:0];
+    [formSection addObserver:self forKeyPath:@"formRows" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     [self.formSections insertObject:formSection atIndex:index];
 }
 

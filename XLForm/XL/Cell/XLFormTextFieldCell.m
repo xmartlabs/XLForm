@@ -40,23 +40,6 @@
 @synthesize textField = _textField;
 @synthesize textLabel = _textLabel;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [self.contentView addSubview:self.textLabel];
-        [self.contentView addSubview:self.textField];
-        [self.contentView addConstraints:[self layoutConstraints]];
-        [self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-        [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-        
-        [self.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    }
-    return self;
-}
-
-
 #pragma mark - KVO
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -79,6 +62,14 @@
 -(void)configure
 {
     [super configure];
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+    [self.contentView addSubview:self.textLabel];
+    [self.contentView addSubview:self.textField];
+    [self.contentView addConstraints:[self layoutConstraints]];
+    [self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    
+    [self.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
 -(void)update
@@ -89,12 +80,12 @@
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeText]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.keyboardType = UIKeyboardTypeDefault;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeName]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.keyboardType = UIKeyboardTypeDefault;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeEmail]){
         self.textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -112,7 +103,7 @@
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePassword]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.keyboardType = UIKeyboardTypeASCIICapable;
         self.textField.secureTextEntry = YES;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePhone]){
@@ -129,14 +120,14 @@
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeAccount]){
-        self.textField.keyboardType = UIKeyboardTypeAlphabet;
+        self.textField.keyboardType = UIKeyboardTypeASCIICapable;
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     
     self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
     
-     self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
+    self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
     [self.textField setEnabled:!self.rowDescriptor.disabled];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textField.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
@@ -152,25 +143,6 @@
 -(BOOL)formDescriptorCellResignFirstResponder
 {
     return [self.textField resignFirstResponder];
-}
-
--(NSError *)formDescriptorCellLocalValidation
-{
-    if (self.rowDescriptor.required && (self.textField.text == nil || [self.textField.text isEqualToString:@""])){
-        return [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeRequired userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"%@ can't be empty", nil), self.rowDescriptor.title] }];
-
-    }
-    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeEmail] && self.textField.text.length > 0 && ![self isValidAsEmail:self.textField.text]){
-        return [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeInvalidEmailAddress userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"\"%@\" is not an email", nil), self.textField.text] }];
-    }
-    return nil;
-}
-
--(BOOL)isValidAsEmail:(NSString *)emailString
-{
-    NSString *regexForEmailAddress = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailValidation = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regexForEmailAddress];
-    return [emailValidation evaluateWithObject:emailString];
 }
 
 #pragma mark - Properties
@@ -253,14 +225,16 @@
 #pragma mark - Helper
 
 - (void)textFieldDidChange:(UITextField *)textField{
-    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber]){
-        self.rowDescriptor.value =  @([self.textField.text doubleValue]);
-    }
-    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
-        self.rowDescriptor.value = @([self.textField.text integerValue]);
-    }
-    else{
-        self.rowDescriptor.value = self.textField.text;
+    if([self.textField.text length] > 0) {
+        if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber]){
+            self.rowDescriptor.value =  @([self.textField.text doubleValue]);
+        } else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
+            self.rowDescriptor.value = @([self.textField.text integerValue]);
+        } else {
+            self.rowDescriptor.value = self.textField.text;
+        }
+    } else {
+        self.rowDescriptor.value = nil;
     }
 }
 

@@ -86,7 +86,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 }
 
 
-+(CGFloat)formDescriptorCellHeightForRowDescription:(XLFormRowDescriptor *)rowDescriptor
++(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
 {
     return 120.0f;
 }

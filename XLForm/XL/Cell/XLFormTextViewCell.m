@@ -43,23 +43,6 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 @synthesize label = _label;
 @synthesize textView = _textView;
 
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [self.contentView addSubview:self.label];
-        [self.contentView addSubview:self.textView];
-        [self.label addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-        NSDictionary * views = @{@"label": self.label, @"textView": self.textView};
-        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[label]" options:0 metrics:0 views:views]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-        [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-    }
-    return self;
-}
-
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object == self.label && [keyPath isEqualToString:@"text"]){
@@ -98,6 +81,14 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 -(void)configure
 {
     [super configure];
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
+    [self.contentView addSubview:self.label];
+    [self.contentView addSubview:self.textView];
+    [self.label addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    NSDictionary * views = @{@"label": self.label, @"textView": self.textView};
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[label]" options:0 metrics:0 views:views]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
 }
 
 -(void)update
@@ -107,7 +98,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textView.keyboardType = UIKeyboardTypeAlphabet;
+    self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.text = self.rowDescriptor.value;
     [self.textView setEditable:!self.rowDescriptor.disabled];
     self.textView.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
@@ -115,18 +106,9 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     self.label.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
 }
 
-+(CGFloat)formDescriptorCellHeightForRowDescription:(XLFormRowDescriptor *)rowDescriptor
++(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
 {
     return 110.f;
-}
-
--(NSError *)formDescriptorCellLocalValidation
-{
-    if (self.rowDescriptor.required && (self.textView.text == nil || [self.textView.text isEqualToString:@""])){
-        return [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeRequired userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"%@ can't be empty", nil), self.rowDescriptor.title] }];
-        
-    }
-    return nil;
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder

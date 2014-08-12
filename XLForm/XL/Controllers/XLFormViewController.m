@@ -155,11 +155,17 @@
                                                XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
+											   XLFormRowDescriptorTypeSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorAlertView: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorPickerView: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeSelectorPickerViewInline: [XLFormInlineSelectorCell class],
+                                               XLFormRowDescriptorTypeSelectorSegmentedControl: [XLFormSegmentedCell class],
+                                               XLFormRowDescriptorTypeMultipleSelector: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeMultipleSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
                                                XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
+                                               XLFormRowDescriptorTypeInfo: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeBooleanSwitch : [XLFormSwitchCell class],
                                                XLFormRowDescriptorTypeBooleanCheck : [XLFormCheckCell class],
                                                XLFormRowDescriptorTypeDate: [XLFormDateCell class],
@@ -169,6 +175,7 @@
                                                XLFormRowDescriptorTypeTimeInline: [XLFormDateCell class],
                                                XLFormRowDescriptorTypeDateTimeInline: [XLFormDateCell class],
                                                XLFormRowDescriptorTypeDatePicker : [XLFormDatePickerCell class],
+                                               XLFormRowDescriptorTypePicker : [XLFormPickerCell class],
                                                XLFormRowDescriptorTypeSelectorLeftRight : [XLFormLeftRightSelectorCell class],
                                                XLFormRowDescriptorTypeStepCounter: [XLFormStepCounterCell class]
                                                } mutableCopy];
@@ -176,34 +183,57 @@
     return _cellClassesForRowDescriptorTypes;
 }
 
+#pragma mark - inlineRowDescriptorTypes
+
++(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes
+{
+    static NSMutableDictionary * _inlineRowDescriptorTypesForRowDescriptorTypes;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _inlineRowDescriptorTypesForRowDescriptorTypes = [
+  @{XLFormRowDescriptorTypeSelectorPickerViewInline: XLFormRowDescriptorTypePicker,
+    XLFormRowDescriptorTypeDateInline: XLFormRowDescriptorTypeDatePicker,
+    XLFormRowDescriptorTypeDateTimeInline: XLFormRowDescriptorTypeDatePicker,
+    XLFormRowDescriptorTypeTimeInline: XLFormRowDescriptorTypeDatePicker
+                                                            } mutableCopy];
+    });
+    return _inlineRowDescriptorTypesForRowDescriptorTypes;
+
+}
 
 #pragma mark - XLFormDescriptorDelegate
 
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:[self insertRowAnimationForRow:formRow]];
 }
 
--(void)formRowHasBeenRemovedAtIndexPath:(NSIndexPath *)indexPath
+-(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:YES];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:[self deleteRowAnimationForRow:formRow]];
 }
 
--(void)formSectionHasBeenRemovedAtIndex:(NSUInteger)index
+-(void)formSectionHasBeenRemoved:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[self deleteRowAnimationForSection:formSection]];
 }
 
 -(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[self insertRowAnimationForSection:formSection]];
 }
 
--(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue
+-(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
 {
 }
 
 #pragma mark - XLFormViewControllerDelegate
+
+-(NSDictionary *)formValues
+{
+    return [self.form formValues];
+}
 
 -(NSDictionary *)httpParameters
 {
@@ -218,7 +248,28 @@
     }
 }
 
+-(UITableViewRowAnimation)insertRowAnimationForRow:(XLFormRowDescriptor *)formRow
+{
+    if (formRow.sectionDescriptor.isMultivaluedSection){
+        return YES;
+    }
+    return UITableViewRowAnimationFade;
+}
 
+-(UITableViewRowAnimation)deleteRowAnimationForRow:(XLFormRowDescriptor *)formRow
+{
+    return UITableViewRowAnimationFade;
+}
+
+-(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection
+{
+    return UITableViewRowAnimationAutomatic;
+}
+
+-(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection
+{
+    return UITableViewRowAnimationAutomatic;
+}
 
 #pragma mark - Methods
 
@@ -242,11 +293,19 @@
 
 #pragma mark - Helpers
 
--(void)deselectFormRow:(XLFormRowDescriptor *)row
+-(void)deselectFormRow:(XLFormRowDescriptor *)formRow
 {
-    NSIndexPath * indexPath = [self.form indexPathOfFormRow:row];
+    NSIndexPath * indexPath = [self.form indexPathOfFormRow:formRow];
     if (indexPath){
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+}
+
+-(void)reloadFormRow:(XLFormRowDescriptor *)formRow
+{
+    NSIndexPath * indexPath = [self.form indexPathOfFormRow:formRow];
+    if (indexPath){
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 
@@ -291,7 +350,7 @@
 {
     XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:indexPath];
     ((UITableViewCell<XLFormDescriptorCell> *)cell).rowDescriptor = rowDescriptor;
-    [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL *stop) {
+    [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
         [cell setValue:value forKeyPath:keyPath];
     }];
     [cell setNeedsUpdateConstraints];
@@ -314,7 +373,7 @@
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert){
         XLFormSectionDescriptor * multivaluedFormSection = [self.form formSectionAtIndex:indexPath.section];
-        XLFormRowDescriptor * formRowDescriptor = [multivaluedFormSection newMultivaluedFormRowDescriptor];
+        XLFormRowDescriptor * formRowDescriptor = [self respondsToSelector:@selector(formRowFormMultivaluedFormSection:)] ? [self formRowFormMultivaluedFormSection:multivaluedFormSection] : [multivaluedFormSection newMultivaluedFormRowDescriptor];
         [multivaluedFormSection addFormRow:formRowDescriptor];
         self.tableView.editing = NO;
         self.tableView.editing = YES;
@@ -341,8 +400,8 @@
 {
     XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
     Class cellClass = rowDescriptor.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][rowDescriptor.rowType];
-    if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescription:)]){
-        return [cellClass formDescriptorCellHeightForRowDescription:rowDescriptor];
+    if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
+        return [cellClass formDescriptorCellHeightForRowDescriptor:rowDescriptor];
     }
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
@@ -404,10 +463,9 @@
 
 #pragma mark - UITextViewDelegate
 
--(void)textViewDidEndEditing:(UITextView *)textView{
-    
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
 }
-
 
 #pragma mark - UIScrollViewDelegate
 
@@ -417,7 +475,7 @@
     UIView * firstResponder = [self.tableView findFirstResponder];
     if ([firstResponder conformsToProtocol:@protocol(XLFormDescriptorCell)]){
         id<XLFormDescriptorCell> cell = (id<XLFormDescriptorCell>)firstResponder;
-        if ([cell.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateInline] || [cell.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTimeInline] || [cell.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTimeInline]){
+        if ([[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes].allKeys containsObject:cell.rowDescriptor.rowType]){
             return;
         }
     }

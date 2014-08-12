@@ -24,28 +24,16 @@
 // THE SOFTWARE.
 
 
-//@class XLFormOptionsViewController;
 
-
+#import "XLFormRowDescriptorViewController.h"
 #import "XLFormRowDescriptor.h"
 
-@protocol XLFormRowDescriptorViewController <NSObject>
+@interface XLFormOptionsViewController : UITableViewController<XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController>
 
-@required
-
-@property (nonatomic) XLFormRowDescriptor * rowDescriptor;
-
-@end
+- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style;
 
 
-@interface XLFormOptionsViewController : UITableViewController<XLFormRowDescriptorViewController>
-
-- (id)initWithOptions:(NSArray *)options multipleSelection:(BOOL)multipleSelection
-                style:(UITableViewStyle)style;
-
-
-- (id)initWithOptions:(NSArray *)options multipleSelection:(BOOL)multipleSelection
-                 style:(UITableViewStyle)style
+- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style
     titleHeaderSection:(NSString *)titleHeaderSection
     titleFooterSection:(NSString *)titleFooterSection;
 

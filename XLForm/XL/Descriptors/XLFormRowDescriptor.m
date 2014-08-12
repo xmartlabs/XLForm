@@ -23,12 +23,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "XLForm.h"
 #import "XLFormViewController.h"
 #import "XLFormRowDescriptor.h"
 
 @interface XLFormRowDescriptor() <NSCopying>
 
 @property UITableViewCell<XLFormDescriptorCell> * cell;
+@property (nonatomic) NSMutableArray *validators;
 
 @end
 
@@ -39,12 +41,15 @@
 {
     self = [self init];
     if (self){
+        NSAssert(((![rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] && ![rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) || (([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) && ([rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] || [rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]))), @"You must be running under UIUserInterfaceIdiomPad to use either XLFormRowDescriptorTypeSelectorPopover or XLFormRowDescriptorTypeMultipleSelectorPopover rows.");
         _tag = tag;
         _disabled = NO;
         _rowType = rowType;
         _title = title;
         _buttonViewControllerPresentationMode = XLFormPresentationModeDefault;
         _cellStype = UITableViewCellStyleValue1;
+        _validators = [NSMutableArray new];
+        
     }
     return self;
 }
@@ -100,9 +105,9 @@
     rowDescriptorCopy.disabled = self.disabled;
     rowDescriptorCopy.required = self.required;
     
-    // ================================
+    // =====================
     // properties for Button
-    // =================================
+    // =====================
     rowDescriptorCopy.buttonViewController = [self.buttonViewController copy];
     rowDescriptorCopy.buttonViewControllerPresentationMode = self.buttonViewControllerPresentationMode;
     
@@ -122,6 +127,68 @@
     return rowDescriptorCopy;
 }
 
+
+#pragma mark - validation
+
+-(void) addValidator: (id<XLFormValidatorProtocol>) validator {
+    if (validator == nil || ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)])
+        return;
+    
+    if(![self.validators containsObject:validator]) {
+        [self.validators addObject:validator];
+    }
+}
+
+-(void) removeValidator: (id<XLFormValidatorProtocol>) validator {
+    if (validator == nil|| ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)])
+        return;
+    
+    if ([self.validators containsObject:validator]) {
+        [self.validators removeObject:validator];
+    }
+}
+
+-(XLFormValidationStatus *) doValidation {
+    XLFormValidationStatus *valStatus = [XLFormValidationStatus formValidationStatusWithMsg:@"" status:YES];
+    
+    if (self.required) {
+        // do required validation here
+        if (self.value == nil) { // || value.length() == 0
+            valStatus.isValid = NO;
+            NSString *msg = nil;
+            if (self.requireMsg != nil) {
+                msg = self.requireMsg;
+            } else {
+                // default message for required msg
+                msg = NSLocalizedString(@"%@ can't be empty", nil);
+            }
+            valStatus.msg = [NSString stringWithFormat:msg, self.title];
+            
+            return valStatus;
+        }
+    } else {
+        // if user has not enter anything, we dun display the valid icon
+        if (self.value == nil) {// || value.length() == 0
+            valStatus = nil; // optional field, we will mark this validation as optional by passing null
+        }
+    }
+    
+    // custom validator
+    for(id<XLFormValidatorProtocol> v in self.validators) {
+        if ([v conformsToProtocol:@protocol(XLFormValidatorProtocol)]) {
+            XLFormValidationStatus *vStatus = [v isValid:self];
+            // fail validation
+            if (vStatus != nil && !vStatus.isValid) {
+                return vStatus;
+            }
+            valStatus = vStatus;
+        } else {
+            valStatus = nil;
+        }
+    }
+    
+    return valStatus;
+}
 
 @end
 

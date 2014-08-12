@@ -40,9 +40,14 @@
 #import "XLFormOptionsViewController.h"
 #import "XLFormViewController.h"
 
+//Protocols
+#import "XLFormDescriptorCell.h"
+#import "XLFormInlineRowDescriptorCell.h"
+#import "XLFormRowDescriptorViewController.h"
 
 //Cells
 #import "XLFormBaseCell.h"
+#import "XLFormInlineSelectorCell.h"
 #import "XLFormTextFieldCell.h"
 #import "XLFormTextViewCell.h"
 #import "XLFormSelectorCell.h"
@@ -51,9 +56,14 @@
 #import "XLFormSwitchCell.h"
 #import "XLFormCheckCell.h"
 #import "XLFormDatePickerCell.h"
+#import "XLFormPickerCell.h"
 #import "XLFormLeftRightSelectorCell.h"
 #import "XLFormDateCell.h"
 #import "XLFormStepCounterCell.h"
+#import "XLFormSegmentedCell.h"
+
+//Validation
+#import "XLFormRegexValidator.h"
 
 
 static NSString *const XLFormRowDescriptorTypeText = @"text";
@@ -68,10 +78,15 @@ static NSString *const XLFormRowDescriptorTypeAccount = @"account";
 static NSString *const XLFormRowDescriptorTypeInteger = @"integer";
 static NSString *const XLFormRowDescriptorTypeTextView = @"textView";
 static NSString *const XLFormRowDescriptorTypeSelectorPush = @"selectorPush";
+static NSString *const XLFormRowDescriptorTypeSelectorPopover = @"selectorPopover";
 static NSString *const XLFormRowDescriptorTypeSelectorActionSheet = @"selectorActionSheet";
 static NSString *const XLFormRowDescriptorTypeSelectorAlertView = @"selectorAlertView";
 static NSString *const XLFormRowDescriptorTypeSelectorPickerView = @"selectorPickerView";
+static NSString *const XLFormRowDescriptorTypeSelectorPickerViewInline = @"selectorPickerViewInline";
+static NSString *const XLFormRowDescriptorTypeMultipleSelector = @"multipleSelector";
+static NSString *const XLFormRowDescriptorTypeMultipleSelectorPopover = @"multipleSelectorPopover";
 static NSString *const XLFormRowDescriptorTypeSelectorLeftRight = @"selectorLeftRight";
+static NSString *const XLFormRowDescriptorTypeSelectorSegmentedControl = @"selectorSegmentedControl";
 static NSString *const XLFormRowDescriptorTypeDateInline = @"dateInline";
 static NSString *const XLFormRowDescriptorTypeDateTimeInline = @"datetimeInline";
 static NSString *const XLFormRowDescriptorTypeTimeInline = @"timeInline";
@@ -79,9 +94,11 @@ static NSString *const XLFormRowDescriptorTypeDate = @"date";
 static NSString *const XLFormRowDescriptorTypeDateTime = @"datetime";
 static NSString *const XLFormRowDescriptorTypeTime = @"time";
 static NSString *const XLFormRowDescriptorTypeDatePicker = @"datePicker";
+static NSString *const XLFormRowDescriptorTypePicker = @"picker";
 static NSString *const XLFormRowDescriptorTypeBooleanCheck = @"booleanCheck";
 static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 static NSString *const XLFormRowDescriptorTypeButton = @"button";
+static NSString *const XLFormRowDescriptorTypeInfo = @"info";
 static NSString *const XLFormRowDescriptorTypeImage = @"image";
 static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 

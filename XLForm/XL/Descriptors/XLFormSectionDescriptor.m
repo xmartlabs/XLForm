@@ -33,8 +33,6 @@
 
 @implementation XLFormSectionDescriptor
 
-static NSUInteger multiValuedIndex = 0;
-
 -(id)initWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
 {
     self = [self init];
@@ -65,8 +63,7 @@ static NSUInteger multiValuedIndex = 0;
 -(XLFormRowDescriptor *)newMultivaluedFormRowDescriptor
 {
     XLFormRowDescriptor * formRowDescriptor = [[self.formRows objectAtIndex:0] copy];
-    formRowDescriptor.tag = [self.multiValuedTag stringByReplacingOccurrencesOfString:@"{index}" withString:[[NSNumber numberWithUnsignedInteger:multiValuedIndex] stringValue]];
-    multiValuedIndex++;
+    formRowDescriptor.tag = nil;
     return formRowDescriptor;
 }
 

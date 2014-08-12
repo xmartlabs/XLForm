@@ -45,6 +45,13 @@
     if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSNumber class]] || [self isKindOfClass:[NSDate class]]){
         return self;
     }
+    if ([self isKindOfClass:[NSArray class]]) {
+        NSMutableArray * result = [NSMutableArray array];
+        [(NSArray *)self enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL __unused *stop) {
+            [result addObject:[obj valueData]];
+        }];
+        return result;
+    }
     if ([self conformsToProtocol:@protocol(XLFormOptionObject)]){
         return [(id<XLFormOptionObject>)self formValue];
     }

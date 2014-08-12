@@ -27,10 +27,7 @@
 #import "DynamicSelectorsFormViewController.h"
 
 NSString *const kSelectorUser = @"selectorUser";
-
-@interface DynamicSelectorsFormViewController ()
-
-@end
+NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
 
 @implementation DynamicSelectorsFormViewController
 
@@ -54,22 +51,17 @@ NSString *const kSelectorUser = @"selectorUser";
         row.selectorControllerClass = [UsersTableViewController class];
         [section addFormRow:row];
         
+        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+            // Selector PopOver
+            row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUserPopover rowType:XLFormRowDescriptorTypeSelectorPopover title:@"User Popover"];
+            row.selectorControllerClass = [UsersTableViewController class];
+            [section addFormRow:row];
+        }
+        
         self.form = form;
         
     }
     return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
