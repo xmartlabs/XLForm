@@ -350,7 +350,7 @@
 {
     XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:indexPath];
     ((UITableViewCell<XLFormDescriptorCell> *)cell).rowDescriptor = rowDescriptor;
-    [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL *stop) {
+    [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
         [cell setValue:value forKeyPath:keyPath];
     }];
     [cell setNeedsUpdateConstraints];

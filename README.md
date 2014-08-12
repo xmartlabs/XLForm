@@ -726,8 +726,19 @@ If you need something different, you can iterate over each row...
  }
  return result;
 ```
- 
 
+#### How to change a UITableViewCell font
+
+You can change the font or any other table view cell property using the `cellConfig` dictionary property. XLForm will set up `cellConfig` dictionary values when the table view cell is about to be displayed.
+
+```objc
+[row.cellConfig setObject:[UIColor greenColor] forKey:@"textLabel.textColor"];
+[row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"textLabel.font"];
+[row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"detailTextLabel.font"];
+```
+
+For further details, please take a look at [UICustomizationFormViewController.m](/Examples/UICustomization/UICustomizationFormViewController.m) example.
+ 
 
 Installation
 --------------------------
@@ -766,6 +777,10 @@ Release Notes
 Version 2.0.1 (master)
 
 * Change `XLFormRowDescriptorTypeText`, `XLFormRowDescriptorTypeName` and `XLFormRowDescriptorTypeTextView` keyboard type to `UIKeyboardTypeDefault`.
+* Added `XLFormRowDescriptorTypeInfo` row type and example.
+* Added `XLFormRowDescriptorTypeSelectorPopover` row type and example.
+* CI added. Created Test project into Tests folder and set up Travis.
+* Documented how to customize UI. Added an example.
 
 Version 2.0.0 (cocoaPod)
 
