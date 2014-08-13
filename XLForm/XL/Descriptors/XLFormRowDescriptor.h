@@ -36,7 +36,9 @@
 typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
     XLFormPresentationModeDefault = 0,
     XLFormPresentationModePush,
-    XLFormPresentationModePresent
+    XLFormPresentationModePresent,
+	XLFormPresentationModeFormSheet,
+	XLFormPresentationModePageSheet
 };
 
 @interface XLFormRowDescriptor : NSObject

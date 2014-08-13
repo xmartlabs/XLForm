@@ -61,7 +61,18 @@
             [controller presentViewController:[[self.rowDescriptor.buttonViewController alloc] init] animated:YES completion:nil];
         }
         else{
-            [controller.navigationController pushViewController:[[self.rowDescriptor.buttonViewController alloc] init] animated:YES];
+			UIViewController *buttonController=[[self.rowDescriptor.buttonViewController alloc] init];
+			if (self.rowDescriptor.buttonViewControllerPresentationMode==XLFormPresentationModeFormSheet) {
+				buttonController.modalPresentationStyle=UIModalPresentationFormSheet;
+				[controller presentViewController:buttonController animated:YES completion:nil];
+				return;
+			}
+			if (self.rowDescriptor.buttonViewControllerPresentationMode==XLFormPresentationModePageSheet) {
+				buttonController.modalPresentationStyle=UIModalPresentationPageSheet;
+				[controller presentViewController:buttonController animated:YES completion:nil];
+				return;
+			}
+            [controller.navigationController pushViewController:buttonController animated:YES];
         }
     }
 }
