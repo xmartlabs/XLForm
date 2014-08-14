@@ -127,7 +127,13 @@
     [super viewDidAppear:animated];
     if (self.form.assignFirstResponderOnShow) {
         self.form.assignFirstResponderOnShow = NO;
-        [self.form setFirstResponder:self];
+		if (self.modalPresentationStyle==UIModalPresentationFormSheet || self.modalPresentationStyle==UIModalPresentationPageSheet  ) {
+			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+				[self.form setFirstResponder:self];
+			});
+		} else {
+			[self.form setFirstResponder:self];
+		}
     }
 }
 
