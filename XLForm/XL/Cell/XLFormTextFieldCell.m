@@ -39,6 +39,7 @@
 
 @synthesize textField = _textField;
 @synthesize textLabel = _textLabel;
+@synthesize valueLabel = _valueLabel;
 
 #pragma mark - KVO
 
@@ -65,6 +66,7 @@
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self.contentView addSubview:self.textLabel];
     [self.contentView addSubview:self.textField];
+    [self.contentView addSubview:self.valueLabel];
     [self.contentView addConstraints:[self layoutConstraints]];
     [self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
@@ -127,10 +129,13 @@
     
     self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
     
+    self.valueLabel.text = self.rowDescriptor.valueLabelText;
+    
     self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
     [self.textField setEnabled:!self.rowDescriptor.disabled];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textField.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+    self.valueLabel.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
@@ -163,6 +168,16 @@
     return _textField;
 }
 
+- (UILabel *)valueLabel
+{
+    if (!_valueLabel) {
+        _valueLabel = [UILabel autolayoutView];
+        [_valueLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleFootnote]];
+    }
+    
+    return _valueLabel;
+}
+
 #pragma mark - LayoutConstraints
 
 -(NSArray *)layoutConstraints
@@ -173,6 +188,8 @@
     [result addObject:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
     [result addObject:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [result addObject:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [result addObject:[NSLayoutConstraint constraintWithItem:self.valueLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
+    [result addObject:[NSLayoutConstraint constraintWithItem:self.valueLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     return result;
 }
 
@@ -181,23 +198,36 @@
     if (self.dynamicCustomConstraints){
         [self.contentView removeConstraints:self.dynamicCustomConstraints];
     }
-    NSDictionary * views = @{@"label": self.textLabel, @"textField": self.textField, @"image": self.imageView};
+    NSDictionary * views = @{@"label": self.textLabel, @"textField": self.textField, @"image": self.imageView, @"valueLabel": self.valueLabel};
+    
+    NSMutableString *format = [NSMutableString stringWithString:@"H:"];
+    
+    // Image/Leading Edge
     if (self.imageView.image){
-        if (self.textLabel.text.length > 0){
-            self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-4-|" options:0 metrics:0 views:views];
-        }
-        else{
-            self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[textField]-4-|" options:0 metrics:0 views:views];
-        }
+        [format appendString:@"[image]-"];
     }
-    else{
-        if (self.textLabel.text.length > 0){
-            self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textField]-4-|" options:0 metrics:0 views:views];
-        }
-        else{
-            self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textField]-4-|" options:0 metrics:0 views:views];
-        }
+    else {
+        [format appendString:@"|-16-"];
     }
+    
+    // Text Label
+    if (self.textLabel.text.length > 0) {
+        [format appendString:@"[label]-"];
+    }
+    
+    // Text Field
+    [format appendString:@"[textField]-"];
+    
+    // Value Label
+    if (self.valueLabel.text.length > 0) {
+        [format appendString:@"[valueLabel]-"];
+    }
+    
+    // Trailing Edge
+    [format appendString:@"4-|"];
+    
+    self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:0 views:views];
+    
     [self.contentView addConstraints:self.dynamicCustomConstraints];
     [super updateConstraints];
 }
