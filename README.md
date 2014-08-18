@@ -159,6 +159,11 @@ static NSString *const XLFormRowDescriptorTypeInteger = @"integer";
 Will be represented by a `UITextField` with `UIKeyboardTypeNumberPad`.
 
 ```objc
+static NSString *const XLFormRowDescriptorTypeDecimal = @"decimal";
+```
+Will be represented by a `UITextField` with `UIKeyboardTypeDecimalPad`.
+
+```objc
 static NSString *const XLFormRowDescriptorTypeTextView = @"textView";
 ```
 Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `UITextAutocapitalizationTypeSentences` and `UIKeyboardTypeDefault`.
