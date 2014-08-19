@@ -70,6 +70,7 @@
 		3C3360B3193E43D800BA9C4A /* XLFormSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3360B2193E43D800BA9C4A /* XLFormSegmentedCell.m */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 		D55C39BE191BCA460090B6B4 /* XLFormStepCounterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */; };
+		DCC8167B19A3F8E30071915C /* XLFormSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC8167A19A3F8E30071915C /* XLFormSliderCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -176,8 +177,8 @@
 		28A7665C1932F61100D69546 /* DynamicSelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicSelectorsFormViewController.h; path = Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.h; sourceTree = "<group>"; };
 		28A7665D1932F61100D69546 /* DynamicSelectorsFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DynamicSelectorsFormViewController.m; path = Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.m; sourceTree = "<group>"; };
 		28A8083D190D9083009D77F8 /* iPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPhoneStoryboard.storyboard; path = Examples/StoryboardExample/iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
-		28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormImageSelectorCell.h; path = Examples/Others/CustomCells/XLFormImageSelectorCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormImageSelectorCell.m; path = Examples/Others/CustomCells/XLFormImageSelectorCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormImageSelectorCell.h; path = ../../../Examples/Others/CustomCells/XLFormImageSelectorCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormImageSelectorCell.m; path = ../../../Examples/Others/CustomCells/XLFormImageSelectorCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		28AC9B71194A711E00847840 /* NSArray+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+XLFormAdditions.h"; path = "XL/Helpers/NSArray+XLFormAdditions.h"; sourceTree = "<group>"; };
 		28AC9B72194A711E00847840 /* NSArray+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+XLFormAdditions.m"; path = "XL/Helpers/NSArray+XLFormAdditions.m"; sourceTree = "<group>"; };
 		28C0260B18D2138200C0854B /* XLForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLForm.h; path = XL/XLForm.h; sourceTree = "<group>"; };
@@ -196,6 +197,8 @@
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
 		D55C39BC191BCA460090B6B4 /* XLFormStepCounterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormStepCounterCell.h; sourceTree = "<group>"; };
 		D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormStepCounterCell.m; sourceTree = "<group>"; };
+		DCC8167919A3F8E30071915C /* XLFormSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSliderCell.h; sourceTree = "<group>"; };
+		DCC8167A19A3F8E30071915C /* XLFormSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSliderCell.m; sourceTree = "<group>"; };
 		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -435,6 +438,8 @@
 		2850C62D18D0F9A6002B7D0A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */,
+				28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */,
 				D55C39BC191BCA460090B6B4 /* XLFormStepCounterCell.h */,
 				D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */,
 				2850C68618D12122002B7D0A /* XLFormSelectorCell.h */,
@@ -465,6 +470,8 @@
 				283B59A9194D5DE2000828CD /* XLFormInlineRowDescriptorCell.h */,
 				283B59AA194D6117000828CD /* XLFormPickerCell.h */,
 				283B59AB194D6117000828CD /* XLFormPickerCell.m */,
+				DCC8167919A3F8E30071915C /* XLFormSliderCell.h */,
+				DCC8167A19A3F8E30071915C /* XLFormSliderCell.m */,
 			);
 			name = Cell;
 			path = XL/Cell;
@@ -501,8 +508,6 @@
 		28A7662A1932A3D800D69546 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
-				28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */,
-				28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */,
 				D51B8B2A19126664008C0478 /* XLFormCustomCell.h */,
 				D51B8B2B19126664008C0478 /* XLFormCustomCell.m */,
 			);
@@ -703,6 +708,7 @@
 				28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */,
 				287E8A231998662400225536 /* XLFormValidator.m in Sources */,
 				28A85D5918E346C100E81A26 /* XLFormImageSelectorCell.m in Sources */,
+				DCC8167B19A3F8E30071915C /* XLFormSliderCell.m in Sources */,
 				28468E9818EC686500DBB015 /* NativeEventFormViewController.m in Sources */,
 				3C3360B3193E43D800BA9C4A /* XLFormSegmentedCell.m in Sources */,
 				282C5EFE18D3A31C00A5D47C /* XLFormDescriptor.m in Sources */,

@@ -29,6 +29,7 @@
 NSString *const kSwitchBool = @"switchBool";
 NSString *const kSwitchCheck = @"switchBool";
 NSString *const kStepCounter = @"stepCounter";
+NSString *const kSlider = @"slider";
 NSString *const kSegmentedControl = @"segmentedControl";
 NSString *const kCustom = @"custom";
 NSString *const kInfo = @"info";
@@ -68,6 +69,15 @@ NSString *const kButton = @"button";
     XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:kSegmentedControl rowType:XLFormRowDescriptorTypeSelectorSegmentedControl title:@"Fruits"];
     row.selectorOptions = @[@"Apple", @"Orange", @"Pear"];
     row.value = @"Pear";
+    [section addFormRow:row];
+	
+	
+    // Slider
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSlider rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
+    row.value = @(30);
+    [row.cellConfigAtConfigure setObject:@(100) forKey:@"slider.maximumValue"];
+    [row.cellConfigAtConfigure setObject:@(10) forKey:@"slider.minimumValue"];
+    [row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
     [section addFormRow:row];
     
     // Custom cell

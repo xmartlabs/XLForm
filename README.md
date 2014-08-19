@@ -318,7 +318,9 @@ static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 We can also simulate other types of Boolean rows using any of the Selector Row Types introduced in the Selector Rows section.
 
 
-####Step Counter Rows
+####Other Rows
+
+#####Stepper
 
 XLForms supports counting using UIStepper control:
 
@@ -328,7 +330,26 @@ XLForms supports counting using UIStepper control:
 ```objc
 static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 ```
+#####Slider
 
+XLForms supports counting using UISlider control:
+
+
+```objc
+static NSString *const XLFormRowDescriptorTypeStepCounter = @"slider";
+```
+
+You can adjust the slider for your own interests very easily:
+
+```objc
+	row = [XLFormRowDescriptor formRowDescriptorWithTag:kSlider rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
+	row.value = @(30);
+	[row.cellConfigAtConfigure setObject:@(100) forKey:@"slider.maximumValue"];
+	[row.cellConfigAtConfigure setObject:@(10) forKey:@"slider.minimumValue"];
+	[row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
+```
+
+Set `steps` to `@(0)` to disable the steps functionality.
 
 Multivalued Sections
 ------------------------
