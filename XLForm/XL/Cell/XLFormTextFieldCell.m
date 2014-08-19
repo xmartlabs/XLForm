@@ -100,6 +100,9 @@
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
         self.textField.keyboardType = UIKeyboardTypeNumberPad;
     }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
+        self.textField.keyboardType = UIKeyboardTypeDecimalPad;
+    }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePassword]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;

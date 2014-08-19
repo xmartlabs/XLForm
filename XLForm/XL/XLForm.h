@@ -76,6 +76,7 @@ static NSString *const XLFormRowDescriptorTypePhone = @"phone";
 static NSString *const XLFormRowDescriptorTypeTwitter = @"twitter";
 static NSString *const XLFormRowDescriptorTypeAccount = @"account";
 static NSString *const XLFormRowDescriptorTypeInteger = @"integer";
+static NSString *const XLFormRowDescriptorTypeDecimal = @"decimal";
 static NSString *const XLFormRowDescriptorTypeTextView = @"textView";
 static NSString *const XLFormRowDescriptorTypeSelectorPush = @"selectorPush";
 static NSString *const XLFormRowDescriptorTypeSelectorPopover = @"selectorPopover";
