@@ -336,7 +336,7 @@ XLForms supports counting using UISlider control:
 
 
 ```objc
-static NSString *const XLFormRowDescriptorTypeStepCounter = @"slider";
+static NSString *const XLFormRowDescriptorTypeSlider = @"slider";
 ```
 
 You can adjust the slider for your own interests very easily:
