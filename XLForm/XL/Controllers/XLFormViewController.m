@@ -177,6 +177,7 @@
                                                XLFormRowDescriptorTypeDateTimeInline: [XLFormDateCell class],
                                                XLFormRowDescriptorTypeDatePicker : [XLFormDatePickerCell class],
                                                XLFormRowDescriptorTypePicker : [XLFormPickerCell class],
+											   XLFormRowDescriptorTypeSlider : [XLFormSliderCell class],
                                                XLFormRowDescriptorTypeSelectorLeftRight : [XLFormLeftRightSelectorCell class],
                                                XLFormRowDescriptorTypeStepCounter: [XLFormStepCounterCell class]
                                                } mutableCopy];
