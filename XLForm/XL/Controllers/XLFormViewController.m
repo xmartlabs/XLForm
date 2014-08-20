@@ -160,6 +160,7 @@
                                                XLFormRowDescriptorTypePassword: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeDecimal: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
 											   XLFormRowDescriptorTypeSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
@@ -182,6 +183,7 @@
                                                XLFormRowDescriptorTypeDateTimeInline: [XLFormDateCell class],
                                                XLFormRowDescriptorTypeDatePicker : [XLFormDatePickerCell class],
                                                XLFormRowDescriptorTypePicker : [XLFormPickerCell class],
+											   XLFormRowDescriptorTypeSlider : [XLFormSliderCell class],
                                                XLFormRowDescriptorTypeSelectorLeftRight : [XLFormLeftRightSelectorCell class],
                                                XLFormRowDescriptorTypeStepCounter: [XLFormStepCounterCell class]
                                                } mutableCopy];
