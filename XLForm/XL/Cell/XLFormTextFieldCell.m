@@ -218,6 +218,25 @@
     return [self.formViewController textFieldShouldReturn:textField];
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return [self.formViewController textFieldShouldBeginEditing:textField];
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return [self.formViewController textFieldShouldEndEditing:textField];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return [self.formViewController textField:textField shouldChangeCharactersInRange:range replacementString:string];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self.formViewController textFieldDidBeginEditing:textField];
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [self textFieldDidChange:textField];
