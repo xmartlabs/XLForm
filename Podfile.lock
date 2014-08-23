@@ -1,6 +1,4 @@
 PODS:
-  - AFNetworkActivityLogger (2.0.2):
-    - AFNetworking/NSURLSession (~> 2.0)
   - AFNetworking (2.2.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
@@ -56,7 +54,6 @@ PODS:
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
-  - AFNetworkActivityLogger
   - AFNetworking (~> 2.0)
   - MRProgress (~> 0.2)
   - XLDataLoader (from `https://github.com/xmartlabs/XLDataLoader.git`, branch `master`)
@@ -67,7 +64,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/xmartlabs/XLDataLoader.git
 
 SPEC CHECKSUMS:
-  AFNetworkActivityLogger: 45ca411593444cbdc401b12924b4c17082ad512a
   AFNetworking: 5f2538aa2d150b71d4e6cca3a420d796e1e1c374
   MRProgress: 209cdf239e60feab2f5b1c605d375bf9cd32c8b0
   XLDataLoader: 0417b79ce5563ba135cb41af6ddd99753ae07efe
