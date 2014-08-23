@@ -46,7 +46,7 @@
 {
     if ((object == self.textLabel && [keyPath isEqualToString:@"text"]) ||  (object == self.imageView && [keyPath isEqualToString:@"image"])){
         if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
-            [self.contentView needsUpdateConstraints];
+            [self.contentView setNeedsUpdateConstraints];
         }
     }
 }
@@ -154,7 +154,7 @@
 {
     if (_textLabel) return _textLabel;
     _textLabel = [UILabel autolayoutView];
-    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
+    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     return _textLabel;
 }
 
@@ -162,7 +162,7 @@
 {
     if (_textField) return _textField;
     _textField = [UITextField autolayoutView];
-    [_textField setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
+    [_textField setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     return _textField;
 }
 
@@ -172,10 +172,8 @@
 {
     NSMutableArray * result = [[NSMutableArray alloc] init];
     [self.textLabel setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_textLabel]-[_textField]" options:NSLayoutFormatAlignAllBaseline metrics:0 views:NSDictionaryOfVariableBindings(_textLabel, _textField)]];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[_textField]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:NSDictionaryOfVariableBindings(_textField)]];
     return result;
 }
 
