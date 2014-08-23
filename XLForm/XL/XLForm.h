@@ -61,6 +61,7 @@
 #import "XLFormDateCell.h"
 #import "XLFormStepCounterCell.h"
 #import "XLFormSegmentedCell.h"
+#import "XLFormSliderCell.h"
 
 //Validation
 #import "XLFormRegexValidator.h"
@@ -76,6 +77,7 @@ static NSString *const XLFormRowDescriptorTypePhone = @"phone";
 static NSString *const XLFormRowDescriptorTypeTwitter = @"twitter";
 static NSString *const XLFormRowDescriptorTypeAccount = @"account";
 static NSString *const XLFormRowDescriptorTypeInteger = @"integer";
+static NSString *const XLFormRowDescriptorTypeDecimal = @"decimal";
 static NSString *const XLFormRowDescriptorTypeTextView = @"textView";
 static NSString *const XLFormRowDescriptorTypeSelectorPush = @"selectorPush";
 static NSString *const XLFormRowDescriptorTypeSelectorPopover = @"selectorPopover";
@@ -95,6 +97,7 @@ static NSString *const XLFormRowDescriptorTypeDateTime = @"datetime";
 static NSString *const XLFormRowDescriptorTypeTime = @"time";
 static NSString *const XLFormRowDescriptorTypeDatePicker = @"datePicker";
 static NSString *const XLFormRowDescriptorTypePicker = @"picker";
+static NSString *const XLFormRowDescriptorTypeSlider = @"slider";
 static NSString *const XLFormRowDescriptorTypeBooleanCheck = @"booleanCheck";
 static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 static NSString *const XLFormRowDescriptorTypeButton = @"button";

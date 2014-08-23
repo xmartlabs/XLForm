@@ -102,6 +102,9 @@
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
         self.textField.keyboardType = UIKeyboardTypeNumberPad;
     }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
+        self.textField.keyboardType = UIKeyboardTypeDecimalPad;
+    }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePassword]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -243,6 +246,25 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     return [self.formViewController textFieldShouldReturn:textField];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return [self.formViewController textFieldShouldBeginEditing:textField];
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return [self.formViewController textFieldShouldEndEditing:textField];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return [self.formViewController textField:textField shouldChangeCharactersInRange:range replacementString:string];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self.formViewController textFieldDidBeginEditing:textField];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
