@@ -34,6 +34,13 @@
     if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSNumber class]]){
         return [self description];
     }
+    if ([self isKindOfClass:[NSArray class]]) {
+        NSMutableArray * result = [NSMutableArray array];
+        [(NSArray *)self enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL __unused *stop) {
+            [result addObject:[obj displayText]];
+        }];
+        return [result componentsJoinedByString:@" "];
+    }
     if ([self conformsToProtocol:@protocol(XLFormOptionObject)]){
         return [(id<XLFormOptionObject>)self formDisplayText];
     }
