@@ -37,7 +37,10 @@ NSString *const kSelectorActionSheetDisabled = @"selectorActionSheetDisabled";
 NSString *const kSelectorLeftRightDisabled = @"selectorLeftRightDisabled";
 NSString *const kSelectorPickerView = @"selectorPickerView";
 NSString *const kSelectorPickerViewInline = @"selectorPickerViewInline";
+NSString *const kSelectorPickerViewInlineMultiCol = @"selectorPickerViewInlineMultiCol";
 NSString *const kMultipleSelector = @"multipleSelector";
+NSString *const kMultipleSelectorValTrans = @"multipleSelectorValTrans";
+NSString *const kMultipleSelectorLanguage = @"multipleSelectorLanguage";
 NSString *const kMultipleSelectorPopover = @"multipleSelectorPopover";
 NSString *const kDynamicSelectors = @"dynamicSelectors";
 NSString *const kCustomSelectors = @"customSelectors";
@@ -236,9 +239,24 @@ NSString *const kPickerView = @"pickerView";
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Inline Selectors"];
     [form addFormSection:section];
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelector rowType:XLFormRowDescriptorTypeSelectorPickerViewInline title:@"Inline Picker View"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPickerViewInline rowType:XLFormRowDescriptorTypeSelectorPickerViewInline title:@"Inline Picker View"];
     row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
     row.value = @"Option 6";
+    [section addFormRow:row];
+    
+    // Picker View Multi Column
+    NSArray *col1Options = @[[XLFormOptionsObject formOptionsObjectWithValue:@"A" displayText:@"Option A"],
+                             [XLFormOptionsObject formOptionsObjectWithValue:@"B" displayText:@"Option B"],
+                             [XLFormOptionsObject formOptionsObjectWithValue:@"C" displayText:@"Option C"],
+                             [XLFormOptionsObject formOptionsObjectWithValue:@"D" displayText:@"Option D"]];
+    
+    NSArray *col2Options = @[[XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 1"],
+                             [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 2"],
+                             [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 3"],
+                             [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 4"]];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPickerViewInlineMultiCol rowType:XLFormRowDescriptorTypeSelectorPickerViewInline title:@"Picker View Multi Column"];
+    row.selectorOptions = @[col1Options, col2Options];
     [section addFormRow:row];
     
     // --------- MultipleSelector
@@ -252,7 +270,7 @@ NSString *const kPickerView = @"pickerView";
     
     
     // Multiple selector with value tranformer
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelector rowType:XLFormRowDescriptorTypeMultipleSelector title:@"Multiple Selector"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelectorValTrans rowType:XLFormRowDescriptorTypeMultipleSelector title:@"Multiple Selector"];
     row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
     row.value = @[@"Option 1", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
     row.valueTransformer = [NSArrayValueTrasformer class];
@@ -260,7 +278,7 @@ NSString *const kPickerView = @"pickerView";
     
     
     // Language multiple selector
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelector rowType:XLFormRowDescriptorTypeMultipleSelector title:@"Multiple Selector"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelectorLanguage rowType:XLFormRowDescriptorTypeMultipleSelector title:@"Multiple Selector"];
     row.selectorOptions = [NSLocale ISOLanguageCodes];
     row.selectorTitle = @"Languages";
     row.valueTransformer = [ISOLanguageCodesValueTranformer class];
