@@ -164,6 +164,10 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
     }
 }
 
+-(void)dealloc
+{
+    [self.textLabel removeObserver:self forKeyPath:@"text"];
+}
 
 #pragma mark - UIActionSheetDelegate
 
