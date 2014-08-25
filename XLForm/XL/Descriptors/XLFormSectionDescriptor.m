@@ -33,14 +33,25 @@
 
 @implementation XLFormSectionDescriptor
 
+-(id)init
+{
+    self = [super init];
+    if (self){
+        _formRows = [NSMutableArray array];
+        _isMultivaluedSection = NO;
+        _title = nil;
+        _footerTitle = nil;
+    }
+    return self;
+}
+
+
 -(id)initWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
 {
     self = [self init];
     if (self){
-        _formRows = [NSMutableArray array];
         _isMultivaluedSection = multivaluedSection;
         _title = title;
-        _footerTitle = nil;
     }
     return self;
 }
