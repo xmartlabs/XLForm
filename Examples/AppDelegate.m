@@ -23,7 +23,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 #import "CoreDataStore.h"
 #import "ExamplesFormViewController.h"
 #import "AppDelegate.h"
@@ -34,13 +33,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [AFNetworkActivityLogger sharedLogger].filterPredicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        NSURLRequest * requestToEvaluate = (NSURLRequest *)evaluatedObject;
-        return [requestToEvaluate.allHTTPHeaderFields[@"Accept"] isEqualToString:@"image/*"];
-    }];
-    [[AFNetworkActivityLogger sharedLogger] startLogging];
-    
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

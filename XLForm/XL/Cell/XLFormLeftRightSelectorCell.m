@@ -34,6 +34,9 @@
 
 
 @implementation XLFormLeftRightSelectorCell
+{
+    UITextField * _constraintTextField;
+}
 
 
 @synthesize leftButton = _leftButton;
@@ -57,7 +60,6 @@
     [_leftButton addSubview:separatorTop];
     [_leftButton addSubview:separatorBottom];
     [_leftButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[separatorTop(separatorBottom)][image][separatorBottom]|" options:0 metrics:0 views:@{@"image": imageView, @"separatorTop": separatorTop, @"separatorBottom": separatorBottom}]];
-
     _leftButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
     
     [_leftButton setTitleColor:[UIColor colorWithRed:0.0 green:0.478431 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
@@ -108,18 +110,21 @@
     [super configure];
     UIView * separatorView = [UIView autolayoutView];
     [separatorView setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-    
+    _constraintTextField = [UITextField autolayoutView];
+    [_constraintTextField setText:@"Option"];
+    [_constraintTextField setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
+    [self.contentView addSubview:_constraintTextField];
+    [_constraintTextField setHidden:YES];
     [self.contentView addSubview:self.leftButton];
     [self.contentView addSubview:self.rightLabel];
     [self.contentView addSubview:separatorView];
     
-    NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView};
-    
-    [self.contentView addConstraint:[self.leftButton layoutConstraintSameHeightOf:self.contentView]];
-    [self.contentView addConstraint:[self.rightLabel layoutConstraintSameHeightOf:self.contentView]];
+    NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView, @"constraintTextField": _constraintTextField };
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.leftButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[constraintTextField]" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[leftButton]-[separatorView(1)]-[rightLabel]-14-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[rightLabel]" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[separatorView]-8-|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorView(20)]" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[constraintTextField]-12-|" options:0 metrics:0 views:views]];
 }
 
 -(void)update
@@ -133,6 +138,7 @@
     self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;    
     self.leftButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.rightLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    _constraintTextField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 

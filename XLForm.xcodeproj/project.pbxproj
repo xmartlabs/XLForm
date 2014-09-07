@@ -21,6 +21,7 @@
 		283B59AC194D6117000828CD /* XLFormPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59AB194D6117000828CD /* XLFormPickerCell.m */; };
 		283B59B219532415000828CD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59B119532415000828CD /* MapViewController.m */; };
 		283B59B7195334AF000828CD /* CustomSelectorsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59B6195334AF000828CD /* CustomSelectorsFormViewController.m */; };
+		283C5B9719AAF2CC00488444 /* XLForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 283C5B9619AAF2CC00488444 /* XLForm.m */; };
 		283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283C6B7C1999BAF100A5283D /* UICustomizationFormViewController.m */; };
 		2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB4618D4915800F13E2B /* ExamplesFormViewController.m */; };
 		2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB4A18D496F600F13E2B /* SelectorsFormViewController.m */; };
@@ -104,6 +105,7 @@
 		283B59B119532415000828CD /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.m; sourceTree = "<group>"; };
 		283B59B5195334AF000828CD /* CustomSelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSelectorsFormViewController.h; path = Examples/Selectors/CustomSelectors/CustomSelectorsFormViewController.h; sourceTree = "<group>"; };
 		283B59B6195334AF000828CD /* CustomSelectorsFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomSelectorsFormViewController.m; path = Examples/Selectors/CustomSelectors/CustomSelectorsFormViewController.m; sourceTree = "<group>"; };
+		283C5B9619AAF2CC00488444 /* XLForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLForm.m; path = XL/XLForm.m; sourceTree = "<group>"; };
 		283C6B7B1999BAF100A5283D /* UICustomizationFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICustomizationFormViewController.h; path = Examples/UICustomization/UICustomizationFormViewController.h; sourceTree = "<group>"; };
 		283C6B7C1999BAF100A5283D /* UICustomizationFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICustomizationFormViewController.m; path = Examples/UICustomization/UICustomizationFormViewController.m; sourceTree = "<group>"; };
 		2843EB4518D4915800F13E2B /* ExamplesFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = ExamplesFormViewController.h; path = Examples/ExamplesFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -425,6 +427,7 @@
 		2850C62C18D0F948002B7D0A /* XL */ = {
 			isa = PBXGroup;
 			children = (
+				283C5B9619AAF2CC00488444 /* XLForm.m */,
 				28135F93198961B900005F9B /* Validation */,
 				282526FC18D1FCE1005ECA20 /* Descriptors */,
 				282D974418D1F9AC00DEE3C5 /* Controllers */,
@@ -720,6 +723,7 @@
 				283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */,
 				28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */,
 				282C5F0018D3A31C00A5D47C /* XLFormSectionDescriptor.m in Sources */,
+				283C5B9719AAF2CC00488444 /* XLForm.m in Sources */,
 				283B59B219532415000828CD /* MapViewController.m in Sources */,
 				28AC9B73194A711E00847840 /* NSArray+XLFormAdditions.m in Sources */,
 				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,

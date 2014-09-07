@@ -67,41 +67,49 @@
 #import "XLFormRegexValidator.h"
 
 
-static NSString *const XLFormRowDescriptorTypeText = @"text";
-static NSString *const XLFormRowDescriptorTypeName = @"name";
-static NSString *const XLFormRowDescriptorTypeURL = @"url";
-static NSString *const XLFormRowDescriptorTypeEmail = @"email";
-static NSString *const XLFormRowDescriptorTypePassword = @"password";
-static NSString *const XLFormRowDescriptorTypeNumber = @"number";
-static NSString *const XLFormRowDescriptorTypePhone = @"phone";
-static NSString *const XLFormRowDescriptorTypeTwitter = @"twitter";
-static NSString *const XLFormRowDescriptorTypeAccount = @"account";
-static NSString *const XLFormRowDescriptorTypeInteger = @"integer";
-static NSString *const XLFormRowDescriptorTypeDecimal = @"decimal";
-static NSString *const XLFormRowDescriptorTypeTextView = @"textView";
-static NSString *const XLFormRowDescriptorTypeSelectorPush = @"selectorPush";
-static NSString *const XLFormRowDescriptorTypeSelectorPopover = @"selectorPopover";
-static NSString *const XLFormRowDescriptorTypeSelectorActionSheet = @"selectorActionSheet";
-static NSString *const XLFormRowDescriptorTypeSelectorAlertView = @"selectorAlertView";
-static NSString *const XLFormRowDescriptorTypeSelectorPickerView = @"selectorPickerView";
-static NSString *const XLFormRowDescriptorTypeSelectorPickerViewInline = @"selectorPickerViewInline";
-static NSString *const XLFormRowDescriptorTypeMultipleSelector = @"multipleSelector";
-static NSString *const XLFormRowDescriptorTypeMultipleSelectorPopover = @"multipleSelectorPopover";
-static NSString *const XLFormRowDescriptorTypeSelectorLeftRight = @"selectorLeftRight";
-static NSString *const XLFormRowDescriptorTypeSelectorSegmentedControl = @"selectorSegmentedControl";
-static NSString *const XLFormRowDescriptorTypeDateInline = @"dateInline";
-static NSString *const XLFormRowDescriptorTypeDateTimeInline = @"datetimeInline";
-static NSString *const XLFormRowDescriptorTypeTimeInline = @"timeInline";
-static NSString *const XLFormRowDescriptorTypeDate = @"date";
-static NSString *const XLFormRowDescriptorTypeDateTime = @"datetime";
-static NSString *const XLFormRowDescriptorTypeTime = @"time";
-static NSString *const XLFormRowDescriptorTypeDatePicker = @"datePicker";
-static NSString *const XLFormRowDescriptorTypePicker = @"picker";
-static NSString *const XLFormRowDescriptorTypeSlider = @"slider";
-static NSString *const XLFormRowDescriptorTypeBooleanCheck = @"booleanCheck";
-static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
-static NSString *const XLFormRowDescriptorTypeButton = @"button";
-static NSString *const XLFormRowDescriptorTypeInfo = @"info";
-static NSString *const XLFormRowDescriptorTypeImage = @"image";
-static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
+extern NSString *const XLFormRowDescriptorTypeText;
+extern NSString *const XLFormRowDescriptorTypeName;
+extern NSString *const XLFormRowDescriptorTypeURL;
+extern NSString *const XLFormRowDescriptorTypeEmail;
+extern NSString *const XLFormRowDescriptorTypePassword;
+extern NSString *const XLFormRowDescriptorTypeNumber;
+extern NSString *const XLFormRowDescriptorTypePhone;
+extern NSString *const XLFormRowDescriptorTypeTwitter;
+extern NSString *const XLFormRowDescriptorTypeAccount;
+extern NSString *const XLFormRowDescriptorTypeInteger;
+extern NSString *const XLFormRowDescriptorTypeDecimal;
+extern NSString *const XLFormRowDescriptorTypeTextView;
+extern NSString *const XLFormRowDescriptorTypeSelectorPush;
+extern NSString *const XLFormRowDescriptorTypeSelectorPopover;
+extern NSString *const XLFormRowDescriptorTypeSelectorActionSheet;
+extern NSString *const XLFormRowDescriptorTypeSelectorAlertView;
+extern NSString *const XLFormRowDescriptorTypeSelectorPickerView;
+extern NSString *const XLFormRowDescriptorTypeSelectorPickerViewInline;
+extern NSString *const XLFormRowDescriptorTypeMultipleSelector;
+extern NSString *const XLFormRowDescriptorTypeMultipleSelectorPopover;
+extern NSString *const XLFormRowDescriptorTypeSelectorLeftRight;
+extern NSString *const XLFormRowDescriptorTypeSelectorSegmentedControl;
+extern NSString *const XLFormRowDescriptorTypeDateInline;
+extern NSString *const XLFormRowDescriptorTypeDateTimeInline;
+extern NSString *const XLFormRowDescriptorTypeTimeInline;
+extern NSString *const XLFormRowDescriptorTypeDate;
+extern NSString *const XLFormRowDescriptorTypeDateTime;
+extern NSString *const XLFormRowDescriptorTypeTime;
+extern NSString *const XLFormRowDescriptorTypeDatePicker;
+extern NSString *const XLFormRowDescriptorTypePicker;
+extern NSString *const XLFormRowDescriptorTypeSlider;
+extern NSString *const XLFormRowDescriptorTypeBooleanCheck;
+extern NSString *const XLFormRowDescriptorTypeBooleanSwitch;
+extern NSString *const XLFormRowDescriptorTypeButton;
+extern NSString *const XLFormRowDescriptorTypeInfo;
+extern NSString *const XLFormRowDescriptorTypeImage;
+extern NSString *const XLFormRowDescriptorTypeStepCounter;
+
+
+#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
+#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending
+
 
