@@ -111,7 +111,8 @@
     [super viewWillAppear:animated];
     NSIndexPath *selected = [self.tableView indexPathForSelectedRow];
     if (selected){
-        [self.tableView reloadRowsAtIndexPaths:@[selected] withRowAnimation:UITableViewRowAnimationNone];
+        // Trigger a cell refresh
+        [self tableView:self.tableView cellForRowAtIndexPath:selected];
         [self.tableView selectRowAtIndexPath:selected animated:NO scrollPosition:UITableViewScrollPositionNone];
         [self.tableView selectRowAtIndexPath:nil animated:YES scrollPosition:UITableViewScrollPositionNone];
     }
