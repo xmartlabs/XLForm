@@ -28,4 +28,5 @@
 
 @interface XLFormButtonCell : XLFormBaseCell
 
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller yieldingNewController:(void (^)(XLFormViewController *newController))newControllerBlock;
 @end
