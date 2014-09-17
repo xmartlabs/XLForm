@@ -61,6 +61,16 @@
         // Section
         section = [XLFormSectionDescriptor formSection];
         [form addFormSection:section];
+		
+		// Formatting
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Required" rowType:XLFormRowDescriptorTypeText title:@"Required"];
+		row.required = YES;
+		[section addFormRow:row];
+		
+		
+		// Section
+        section = [XLFormSectionDescriptor formSection];
+        [form addFormSection:section];
         
         //Button
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Button" rowType:XLFormRowDescriptorTypeButton title:@"Button"];
@@ -74,6 +84,10 @@
     return self;
 }
 
+-(void)formatTextLabel:(XLFormRowDescriptor *)formRow ofCell:(XLFormBaseCell *)cell
+{
+	cell.textLabel.text = formRow.title;
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

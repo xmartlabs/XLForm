@@ -34,6 +34,7 @@
 @required
 
 @property (nonatomic, weak) XLFormRowDescriptor * rowDescriptor;
+@property (nonatomic, weak) XLFormViewController * formViewController;
 -(void)configure;
 -(void)update;
 

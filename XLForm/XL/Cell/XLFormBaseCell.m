@@ -59,16 +59,14 @@
     // override
 }
 
--(XLFormViewController *)formViewController
+#pragma mark - Formatting
+
+-(void)formatTextLabel
 {
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
+	if ([self.formViewController respondsToSelector:@selector(formatTextLabel:ofCell:)])
+		[self.formViewController performSelector:@selector(formatTextLabel:ofCell:) withObject:self.rowDescriptor withObject:self];
+	else
+		self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
 }
 
 
