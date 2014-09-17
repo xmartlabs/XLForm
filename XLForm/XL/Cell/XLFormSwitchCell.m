@@ -34,7 +34,6 @@
 - (void)configure
 {
     [super configure];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryView = [[UISwitch alloc] init];
     [self.switchControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
@@ -57,6 +56,12 @@
 - (void)valueChanged
 {
     self.rowDescriptor.value = @(self.switchControl.on);
+}
+
+
+-(void)updateConstraints
+{
+	[super updateConstraints];
 }
 
 @end

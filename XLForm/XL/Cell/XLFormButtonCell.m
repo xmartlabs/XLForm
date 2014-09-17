@@ -66,5 +66,16 @@
     }
 }
 
+-(NSMutableArray*)defaultConstraints
+{
+	NSMutableArray* constraints = [NSMutableArray array];
+	NSDictionary * views = @{@"label": self.textLabel};
+	
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-|" options:0 metrics:0 views:views]];
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+	return constraints;
+}
+
+
 
 @end

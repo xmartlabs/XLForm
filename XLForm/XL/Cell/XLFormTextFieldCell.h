@@ -29,7 +29,6 @@
 
 @interface XLFormTextFieldCell : XLFormBaseCell
 
-@property (nonatomic, readonly) UILabel * textLabel;
 @property (nonatomic, readonly) UITextField * textField;
 
 @end

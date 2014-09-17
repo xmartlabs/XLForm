@@ -58,7 +58,12 @@
 -(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
 -(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
 
+
+// Formatting
 -(void)formatTextLabel:(XLFormRowDescriptor *)formRow ofCell:(XLFormBaseCell*)cell;
+
+// AutoLayout
+-(NSArray*)customConstraintsForCell:(XLFormBaseCell*)cell;
 
 @end
 

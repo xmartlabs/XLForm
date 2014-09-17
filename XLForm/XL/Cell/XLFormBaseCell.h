@@ -32,6 +32,9 @@
 
 
 @interface XLFormBaseCell : UITableViewCell<XLFormDescriptorCell>
+@property (nonatomic, strong) NSMutableArray * dynamicCustomConstraints;
+
+@property (nonatomic, readonly) UILabel * textLabel;
 
 @property (nonatomic, weak) XLFormRowDescriptor * rowDescriptor;
 @property (nonatomic, weak) XLFormViewController * formViewController;
@@ -39,6 +42,7 @@
 #pragma mark - Formatting
 
 -(void)formatTextLabel;
+-(NSMutableArray*)defaultConstraints;
 
 @end
 
