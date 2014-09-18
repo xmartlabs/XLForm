@@ -125,7 +125,6 @@
     if (_detailLabel) return _detailLabel;
     _detailLabel = [UILabel autolayoutView];
     [_detailLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-	_detailLabel.backgroundColor = [UIColor blueColor];
 	[self.contentView addSubview:_detailLabel];
     return _detailLabel;
 }
@@ -148,6 +147,7 @@
     self.detailTextLabel.text = [self valueDisplayText];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	self.detailTextLabel.textColor = [UIColor grayColor];
 
 	[self formatTextLabel];
 }
@@ -155,8 +155,6 @@
 -(void)updateConstraints
 {
 	[super updateConstraints];
-	
-	[self.textLabel setText:self.rowDescriptor.title];
 }
 
 -(NSMutableArray *)defaultConstraints
