@@ -27,4 +27,6 @@
 
 @interface XLFormSliderCell : XLFormBaseCell
 
+@property (strong, nonatomic) UISlider* slider;
+
 @end

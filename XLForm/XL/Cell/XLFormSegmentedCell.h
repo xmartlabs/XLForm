@@ -27,7 +27,4 @@
 
 @interface XLFormSegmentedCell : XLFormBaseCell
 
-//@property (nonatomic, readonly) UILabel * textLabel;
-//@property (nonatomic, readonly) UISegmentedControl *segmentedControl;
-
 @end

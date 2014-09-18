@@ -104,6 +104,8 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     self.textView.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
 //    self.label.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
 //    self.label.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
+	
+	[self formatTextLabel];
 }
 
 +(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor

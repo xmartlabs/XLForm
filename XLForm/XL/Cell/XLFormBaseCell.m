@@ -57,7 +57,6 @@
 {
     if (_textLabel) return _textLabel;
     _textLabel = [UILabel autolayoutView];
-	_textLabel.frame = CGRectMake(0, 0, 100, 100);
     [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
 	_textLabel.backgroundColor = [UIColor redColor];
     return _textLabel;
@@ -93,7 +92,6 @@
 - (void)update
 {
     // override
-	[self formatTextLabel];
 }
 
 #pragma mark - Formatting

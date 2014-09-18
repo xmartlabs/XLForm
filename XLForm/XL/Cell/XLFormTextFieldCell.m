@@ -52,7 +52,7 @@
 
 -(void)update
 {
-    [super update];
+	[super update];
     self.textField.delegate = self;
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeText]){
@@ -106,14 +106,14 @@
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     
-    [super formatTextLabel];
-    
     self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
     [self.textField setEnabled:!self.rowDescriptor.disabled];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textField.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	
+	[super formatTextLabel];
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder

@@ -139,6 +139,8 @@
     self.leftButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.rightLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _constraintTextField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	
+	[self formatTextLabel];
 }
 
 

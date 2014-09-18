@@ -61,6 +61,8 @@ NSString * const kText = @"text";
     [self updateSegmentedControl];
     self.segmentedControl.selectedSegmentIndex = [self selectedIndex];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	
+	[self formatTextLabel];
 }
 
 //#pragma mark - KVO
