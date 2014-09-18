@@ -84,8 +84,8 @@
 
 -(void)formatTextLabel
 {
-	if ([self.formViewController respondsToSelector:@selector(formatTextLabel:ofCell:)])
-		[self.formViewController performSelector:@selector(formatTextLabel:ofCell:) withObject:self.rowDescriptor withObject:self];
+	if ([self.formViewController respondsToSelector:@selector(willDisplayCell:withRowDescriptor:)])
+		[self.formViewController performSelector:@selector(willDisplayCell:withRowDescriptor:) withObject:self withObject:self.rowDescriptor];
 	else
 		self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
 }

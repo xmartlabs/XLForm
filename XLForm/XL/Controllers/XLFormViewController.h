@@ -60,7 +60,7 @@
 
 
 // Formatting
--(void)formatTextLabel:(XLFormRowDescriptor *)formRow ofCell:(XLFormBaseCell*)cell;
+-(void)willDisplayCell:(XLFormBaseCell *)cell withRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
 
 // AutoLayout
 -(NSArray*)customConstraintsForCell:(XLFormBaseCell*)cell;
