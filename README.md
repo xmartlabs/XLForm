@@ -659,6 +659,8 @@ You can also change the way the error messages are shown overriding:
 
 Additional configuration of Rows
 --------------------------------
+### Format
+#### Individual cells
 
 `XLFormRowDescriptor` allow us to configure generic aspects of a `UITableViewCell`, for example: the `rowType`, the `label`, the `value` (default value), if the cell is `required` or `disabled`, and so on.
 
@@ -683,6 +685,56 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 [row.cellConfigAtConfigure setObject:[UIColor red] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
 ```
+
+#### All cells
+
+If you want to customize all cells at once or just like to replace the default marker for required fields (asterisk after the field name) you can use the `willDisplayCell:withRowDescriptor:` delegate method.
+
+For instance if you want to change the text alignment and/or required field marker (i.e. use a bold font face) you can do the following:
+```objc
+-(void)willDisplayCell:(XLFormBaseCell *)cell withRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
+{
+	// text alignment
+	cell.textLabel.textAlignment = NSTextAlignmentRight;
+	
+	// required marker
+	cell.textLabel.text = rowDescriptor.title;
+	cell.textLabel.font = (rowDescriptor.required)? [UIFont fontWithName:@"GillSans-Bold" size:16.0f] : [UIFont fontWithName:@"GillSans" size:16.0f];
+}
+```
+
+### Custom Layout
+
+If you want a custom layout for the labels of all cells you can use the `customConstraintsForCell:` callback method instead subclassing every cell class.
+
+For instance if you want all text labels to have the same width and the text alignment set to right (see previous section for the latter) you can do the following:
+```objc
+-(NSArray *)customConstraintsForCell:(XLFormBaseCell *)cell
+{
+	int textFieldWidth = 100;
+	
+	NSMutableArray* constraints = [NSMutableArray array];
+	
+	if ([cell isKindOfClass:[XLFormTextFieldCell class]])
+	{
+		XLFormTextFieldCell* textFieldCell = (XLFormTextFieldCell*)cell;
+		NSDictionary * views = @{@"label": textFieldCell.textLabel, @"textField": textFieldCell.textField};
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]-[textField]-|", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[textField]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+	}
+	else
+	{
+		NSDictionary * views = @{@"label": cell.textLabel};
+		
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+	}
+	
+	return constraints;
+}
+```
+
 
 FAQ
 -------
