@@ -73,38 +73,38 @@
         [form addFormSection:section];
 		
 		// AutoLayout
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutText" rowType:XLFormRowDescriptorTypeText title:@"LayoutText"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutText" rowType:XLFormRowDescriptorTypeText title:@"Text"];
 		row.required = YES;
 		[section addFormRow:row];
 		
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSwitch" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"LayoutSwitch"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSwitch" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Switch"];
 		row.required = YES;
 		[section addFormRow:row];
 		
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutCheck" rowType:XLFormRowDescriptorTypeBooleanCheck title:@"LayoutCheck"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutCheck" rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"];
 		row.required = YES;
 		[section addFormRow:row];
 		
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutDatePicker" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"LayoutDatePicker"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutDatePicker" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"DatePicker"];
 		row.required = YES;
 		[section addFormRow:row];
 		
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSegmentedControl" rowType:XLFormRowDescriptorTypeSelectorSegmentedControl title:@"LayoutSegmentedControl"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSegmentedControl" rowType:XLFormRowDescriptorTypeSelectorSegmentedControl title:@"SegmentedControl"];
 		row.required = YES;
 		row.selectorOptions = @[@"YES", @"NO", @"MAYBE"];
 		[section addFormRow:row];
 
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSelectorPush" rowType:XLFormRowDescriptorTypeSelectorPush title:@"LayoutSelectorPush"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSelectorPush" rowType:XLFormRowDescriptorTypeSelectorPush title:@"SelectorPush"];
 		row.required = YES;
 		row.selectorOptions = @[@"Item 1", @"Item 2", @"Item 3", @"Item 4", @"Item 5"];
 		[section addFormRow:row];
 		
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutMultipleSelector" rowType:XLFormRowDescriptorTypeMultipleSelector title:@"LayoutMultipleSelector"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutMultipleSelector" rowType:XLFormRowDescriptorTypeMultipleSelector title:@"MultipleSelector"];
 		row.selectorOptions = @[@"Item 1", @"Item 2", @"Item 3", @"Item 4", @"Item 5"];
 		row.required = NO;
 		[section addFormRow:row];
 		
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSlider" rowType:XLFormRowDescriptorTypeSlider title:@"LayoutSlider"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSlider" rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
 		row.required = NO;
 		[section addFormRow:row];
 		
@@ -145,8 +145,11 @@
 	if ([cell isMemberOfClass:[XLFormButtonCell class]])
 		return;
 	
-	cell.textLabel.text = rowDescriptor.title;
+	// text alignment
 	cell.textLabel.textAlignment = NSTextAlignmentRight;
+	
+	// required marker
+	cell.textLabel.text = rowDescriptor.title; // override the default "fieldname*" format
 	cell.textLabel.font = (rowDescriptor.required)? [UIFont fontWithName:@"GillSans-Bold" size:16.0f] : [UIFont fontWithName:@"GillSans" size:16.0f];
 }
 
@@ -154,7 +157,7 @@
 
 -(NSArray *)customConstraintsForCell:(XLFormBaseCell *)cell
 {
-	static int textFieldWidth = 200;
+	int textFieldWidth = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 200 : 100;
 	
 	if ([cell isMemberOfClass:[XLFormButtonCell class]])
 		return nil;
