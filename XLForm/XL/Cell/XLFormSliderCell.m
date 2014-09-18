@@ -28,8 +28,6 @@
 
 @interface XLFormSliderCell ()
 
-//@property UISlider* slider;
-//@property UILabel* textField;
 @property NSUInteger steps;
 
 @end
@@ -40,18 +38,6 @@
 {
 	[super configure];
 	self.steps = 0;
-	
-//	self.selectionStyle = UITableViewCellSelectionStyleNone;
-	
-//	self.textField = [UILabel autolayoutView];
-//	[self.contentView addSubview:self.textField];
-//	[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
-	//[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
-	//[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:44]];
-	
-//	[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[textField]-15-|" options:0 metrics:0 views:@{@"textField": self.textField}]];
-	//[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[label]-15-|" options:0 metrics:0 views:@{@"label": self.textLabel}]];
-	//[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[slider]-15-|" options:0 metrics:0 views:@{@"slider": self.slider}]];
 	
 	[self valueChanged:nil];
 }
@@ -69,11 +55,8 @@
 {
 	
     [super update];
-//    self.textField.text = self.rowDescriptor.title;
-//    self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.slider.value = [self.rowDescriptor.value floatValue];
     self.slider.enabled = !self.rowDescriptor.disabled;
-//    self.textField.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
 	
 	[self formatTextLabel];
     [self valueChanged:nil];
@@ -89,8 +72,8 @@
 	NSMutableArray* constraints = [NSMutableArray array];
 	[constraints addObject:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
 	[constraints addObject:[NSLayoutConstraint constraintWithItem:self.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:44]];
-	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-15-|" options:0 metrics:0 views:@{@"label": self.textLabel}]];
-	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[slider]-15-|" options:0 metrics:0 views:@{@"slider": self.slider}]];
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-|" options:0 metrics:0 views:@{@"label": self.textLabel}]];
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[slider]-|" options:0 metrics:0 views:@{@"slider": self.slider}]];
 	return constraints;
 }
 

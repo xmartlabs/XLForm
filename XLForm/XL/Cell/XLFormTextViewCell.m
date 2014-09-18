@@ -40,38 +40,21 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     NSArray * _dynamicCustomConstraints;
 }
 
-//@synthesize label = _label;
 @synthesize textView = _textView;
-
-//-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-//{
-//    if (object == self.label && [keyPath isEqualToString:@"text"]){
-//        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
-//            [self needsUpdateConstraints];
-//        }
-//    }
-//}
 
 -(void)dealloc
 {
-//    [self.label removeObserver:self forKeyPath:@"text"];
+
 }
 
 
 #pragma mark - Properties
 
-//-(UILabel *)label
-//{
-//    if (_label) return _label;
-//    _label = [UILabel autolayoutView];
-//    [_label setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
-//    return _label;
-//}
-
 -(XLFormTextView *)textView
 {
     if (_textView) return _textView;
     _textView = [XLFormTextView autolayoutView];
+	[self.contentView addSubview:self.textView];
     return _textView;
 }
 
@@ -80,30 +63,22 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 
 -(void)configure
 {
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-//    [self.contentView addSubview:self.label];
-    [self.contentView addSubview:self.textView];
-//    [self.label addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-//    NSDictionary * views = @{@"label": self.textLabel, @"textView": self.textView};
-//    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[label]" options:0 metrics:0 views:views]];
-//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-//    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
 	[super configure];
+	
+    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
 }
 
 -(void)update
 {
     [super update];
+
     self.textView.delegate = self;
-//    self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.text = self.rowDescriptor.value;
     [self.textView setEditable:!self.rowDescriptor.disabled];
     self.textView.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-//    self.label.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-//    self.label.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
 	
 	[self formatTextLabel];
 }
@@ -124,22 +99,6 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 }
 
 #pragma mark - Constraints
-
-//-(void)updateConstraints
-//{
-//    if (_dynamicCustomConstraints){
-//        [self.contentView removeConstraints:_dynamicCustomConstraints];
-//    }
-//    NSDictionary * views = @{@"label": self.textLabel, @"textView": self.textView};
-//    if (!self.textLabel.text || [self.textLabel.text isEqualToString:@""]){
-//        _dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textView]-16-|" options:0 metrics:0 views:views];
-//    }
-//    else{
-//        _dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textView]-4-|" options:0 metrics:0 views:views];
-//    }
-//    [self.contentView addConstraints:_dynamicCustomConstraints];
-//    [super updateConstraints];
-//}
 
 -(NSMutableArray *)defaultConstraints
 {
