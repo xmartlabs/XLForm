@@ -25,6 +25,7 @@
 
 #import "XLForm.h"
 #import "NSObject+XLFormAdditions.h"
+#import "UIView+XLFormAdditions.h"
 #import "XLFormRowDescriptor.h"
 #import "XLFormSelectorCell.h"
 #import "NSArray+XLFormAdditions.h"
@@ -32,6 +33,7 @@
 @interface XLFormSelectorCell() <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverControllerDelegate>
 
 @property (nonatomic) UIPickerView * pickerView;
+@property (nonatomic) UILabel * detailLabel;
 @property (nonatomic) UIPopoverController *popoverController;
 
 @end
@@ -118,6 +120,16 @@
     return _pickerView;
 }
 
+-(UILabel *)detailTextLabel
+{
+    if (_detailLabel) return _detailLabel;
+    _detailLabel = [UILabel autolayoutView];
+    [_detailLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+	_detailLabel.backgroundColor = [UIColor blueColor];
+	[self.contentView addSubview:_detailLabel];
+    return _detailLabel;
+}
+
 #pragma mark - XLFormDescriptorCell
 
 -(void)configure
@@ -128,6 +140,7 @@
 -(void)update
 {
     [super update];
+	
     self.accessoryType = self.rowDescriptor.disabled || !([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     [self.textLabel setText:self.rowDescriptor.title];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
@@ -135,8 +148,33 @@
     self.detailTextLabel.text = [self valueDisplayText];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-	
+
 	[self formatTextLabel];
+}
+
+-(void)updateConstraints
+{
+	[super updateConstraints];
+	
+	[self.textLabel setText:self.rowDescriptor.title];
+}
+
+-(NSMutableArray *)defaultConstraints
+{
+	NSMutableArray* constraints = [NSMutableArray array];
+
+	self.detailTextLabel.translatesAutoresizingMaskIntoConstraints = NO;
+	
+	NSDictionary * views = @{@"textLabel": self.textLabel, @"detailLabel": self.detailTextLabel};
+	
+	//[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textLabel]-[detailLabel]-|" options:0 metrics:0 views:views]];
+	// work-a-round: while pushing to the selection view controller, the textlabel.text becomes empty and with the constraint above shrinks the label to width = 0
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[textLabel(>=%f)]-[detailLabel]-|", [self.rowDescriptor.title sizeWithAttributes:@{NSFontAttributeName: self.textLabel.font}].width] options:0 metrics:0 views:views]];
+	
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[textLabel]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[detailLabel]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+	
+	return constraints;
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller

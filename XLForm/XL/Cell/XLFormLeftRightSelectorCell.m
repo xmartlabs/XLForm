@@ -29,18 +29,15 @@
 #import "XLFormLeftRightSelectorCell.h"
 
 @interface XLFormLeftRightSelectorCell() <UIActionSheetDelegate>
-
 @end
 
 
 @implementation XLFormLeftRightSelectorCell
-{
-    UITextField * _constraintTextField;
-}
-
 
 @synthesize leftButton = _leftButton;
 @synthesize rightLabel = _rightLabel;
+@synthesize constraintTextField = _constraintTextField;
+@synthesize separatorView = _separatorView;
 
 
 #pragma mark - Properties
@@ -66,6 +63,8 @@
     [_leftButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [_leftButton setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
 
+	[self.contentView addSubview:self.leftButton];
+	
     return _leftButton;
 }
 
@@ -75,7 +74,27 @@
     _rightLabel = [UILabel autolayoutView];
     [_rightLabel setTextColor:[UIColor grayColor]];
     [_rightLabel setTextAlignment:NSTextAlignmentRight];
+    [self.contentView addSubview:self.rightLabel];
     return _rightLabel;
+}
+
+-(UITextField *)constraintTextField
+{
+    if (_constraintTextField) return _constraintTextField;
+    _constraintTextField = [UILabel autolayoutView];
+	[self.contentView addSubview:_constraintTextField];
+    [_constraintTextField setHidden:YES];
+
+    return _constraintTextField;
+}
+
+-(UIView *)separatorView
+{
+    if (_separatorView) return _separatorView;
+    _separatorView = [UILabel autolayoutView];
+	[self.contentView addSubview:_separatorView];
+	
+    return _separatorView;
 }
 
 
@@ -108,23 +127,10 @@
 -(void)configure
 {
     [super configure];
-    UIView * separatorView = [UIView autolayoutView];
-    [separatorView setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
-    _constraintTextField = [UITextField autolayoutView];
+	self.textLabel.hidden = YES;
+    [_separatorView setBackgroundColor:[UIColor colorWithWhite:0.85 alpha:1.0]];
     [_constraintTextField setText:@"Option"];
     [_constraintTextField setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
-    [self.contentView addSubview:_constraintTextField];
-    [_constraintTextField setHidden:YES];
-    [self.contentView addSubview:self.leftButton];
-    [self.contentView addSubview:self.rightLabel];
-    [self.contentView addSubview:separatorView];
-    
-    NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView, @"constraintTextField": _constraintTextField };
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.leftButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[constraintTextField]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[leftButton]-[separatorView(1)]-[rightLabel]-14-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorView(20)]" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[constraintTextField]-12-|" options:0 metrics:0 views:views]];
 }
 
 -(void)update
@@ -141,6 +147,20 @@
     _constraintTextField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 	
 	[self formatTextLabel];
+}
+
+-(NSMutableArray *)defaultConstraints
+{
+	NSMutableArray *constraints = [NSMutableArray array];
+	
+	NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": self.separatorView, @"constraintTextField": self.constraintTextField };
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.leftButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[constraintTextField]" options:0 metrics:nil views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[leftButton]-[separatorView(1)]-[rightLabel]-14-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[separatorView(20)]" options:0 metrics:nil views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[constraintTextField]-12-|" options:0 metrics:0 views:views]];
+	
+	return constraints;
 }
 
 

@@ -99,9 +99,14 @@
 		row.selectorOptions = @[@"Item 1", @"Item 2", @"Item 3", @"Item 4", @"Item 5"];
 		[section addFormRow:row];
 		
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutMultipleSelector" rowType:XLFormRowDescriptorTypeMultipleSelector title:@"LayoutMultipleSelector"];
+		row.selectorOptions = @[@"Item 1", @"Item 2", @"Item 3", @"Item 4", @"Item 5"];
+		[section addFormRow:row];
+		
 		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSlider" rowType:XLFormRowDescriptorTypeSlider title:@"LayoutSlider"];
 		row.required = YES;
 		[section addFormRow:row];
+		
 		
 		
 		// Section
@@ -159,7 +164,7 @@
 	{
 		XLFormTextFieldCell* textFieldCell = (XLFormTextFieldCell*)cell;
 		NSDictionary * views = @{@"label": textFieldCell.textLabel, @"textField": textFieldCell.textField};
-		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]-[textField]-|", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%ld@1000)]-[textField]-|", textFieldWidth] options:0 metrics:0 views:views]];
 		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
 		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[textField]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
 	}
@@ -168,14 +173,22 @@
 		XLFormSliderCell* sliderCell = (XLFormSliderCell*)cell;
 		[constraints addObject:[NSLayoutConstraint constraintWithItem:sliderCell.textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:sliderCell.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
 		[constraints addObject:[NSLayoutConstraint constraintWithItem:sliderCell.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:sliderCell.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:44]];
-		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]", textFieldWidth] options:0 metrics:0 views:@{@"label": sliderCell.textLabel}]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%ld@1000)]", textFieldWidth] options:0 metrics:0 views:@{@"label": sliderCell.textLabel}]];
 		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[slider]-15-|" options:0 metrics:0 views:@{@"slider": sliderCell.slider}]];
+	}
+	else if ([cell isKindOfClass:[XLFormSelectorCell class]])
+	{
+		XLFormSelectorCell* selectorCell = (XLFormSelectorCell*)cell;
+		NSDictionary * views = @{@"label": selectorCell.textLabel, @"detail": selectorCell.detailTextLabel};
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%ld@1000)]-[detail]-|", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[detail]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
 	}
 	else
 	{
 		NSDictionary * views = @{@"label": cell.textLabel};
 		
-		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%ld@1000)]", textFieldWidth] options:0 metrics:0 views:views]];
 		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
 	}
 	

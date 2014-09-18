@@ -58,7 +58,6 @@
     if (_textLabel) return _textLabel;
     _textLabel = [UILabel autolayoutView];
     [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-	_textLabel.backgroundColor = [UIColor redColor];
     return _textLabel;
 }
 
