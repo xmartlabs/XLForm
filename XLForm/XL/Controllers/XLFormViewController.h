@@ -61,6 +61,7 @@
 @interface XLFormViewController : UITableViewController<XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, XLFormViewControllerDelegate>
 
 @property XLFormDescriptor * form;
+@property (nonatomic, assign) BOOL readOnlyMode;
 
 -(id)initWithForm:(XLFormDescriptor *)form;
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;

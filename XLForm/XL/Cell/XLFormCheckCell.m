@@ -41,10 +41,16 @@
     self.textLabel.text = self.rowDescriptor.title;
     self.accessoryType = [self.rowDescriptor.value boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.selectionStyle = self.rowDescriptor.disabled || self.formViewController.readOnlyMode ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
+    if (controller.readOnlyMode) {
+        return;
+    }
+
     self.rowDescriptor.value = [NSNumber numberWithBool:![self.rowDescriptor.value boolValue]];
     [self update];
     [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];

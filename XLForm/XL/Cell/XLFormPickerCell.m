@@ -71,6 +71,9 @@
     [self.pickerView selectRow:[self selectedIndex] inComponent:0 animated:NO];
     [self.pickerView reloadAllComponents];
     
+    self.selectionStyle = self.formViewController.readOnlyMode ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    self.pickerView.userInteractionEnabled = !self.formViewController.readOnlyMode;
+
 }
 
 +(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor

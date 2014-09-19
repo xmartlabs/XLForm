@@ -47,6 +47,8 @@
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.switchControl.enabled = !self.rowDescriptor.disabled;
+
+    self.switchControl.userInteractionEnabled = !self.formViewController.readOnlyMode;
 }
 
 - (UISwitch *)switchControl

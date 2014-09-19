@@ -34,8 +34,7 @@
 @interface XLFormBaseCell : UITableViewCell<XLFormDescriptorCell>
 
 @property (nonatomic, weak) XLFormRowDescriptor * rowDescriptor;
-
--(XLFormViewController *)formViewController;
+@property (nonatomic, weak) XLFormViewController * formViewController;
 
 @end
 
