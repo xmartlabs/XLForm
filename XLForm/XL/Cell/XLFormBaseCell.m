@@ -59,17 +59,4 @@
     // override
 }
 
--(XLFormViewController *)formViewController
-{
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
-}
-
-
 @end

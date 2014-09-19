@@ -145,7 +145,7 @@
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes
 {
     static NSMutableDictionary * _cellClassesForRowDescriptorTypes;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _cellClassesForRowDescriptorTypes = [@{XLFormRowDescriptorTypeText:[XLFormTextFieldCell class],
@@ -194,7 +194,7 @@
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes
 {
     static NSMutableDictionary * _inlineRowDescriptorTypesForRowDescriptorTypes;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _inlineRowDescriptorTypesForRowDescriptorTypes = [
@@ -349,13 +349,14 @@
 {
     XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:indexPath];
     UITableViewCell<XLFormDescriptorCell> * formDescriptorCell = [rowDescriptor cellForFormController:self];
-    
+    ((XLFormBaseCell *)formDescriptorCell).formViewController = self;
+
     ((UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell).rowDescriptor = rowDescriptor;
     [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
         [formDescriptorCell setValue:value forKeyPath:keyPath];
     }];
     [formDescriptorCell setNeedsLayout];
-    
+
     return formDescriptorCell;
 }
 
@@ -372,7 +373,7 @@
         [multivaluedFormSection removeFormRowAtIndex:indexPath.row];
         self.tableView.editing = NO;
         self.tableView.editing = YES;
-        
+
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert){
         XLFormSectionDescriptor * multivaluedFormSection = [self.form formSectionAtIndex:indexPath.section];
@@ -447,7 +448,7 @@
     UITableViewCell<XLFormDescriptorCell> * cell = [textField formDescriptorCell];
     NSIndexPath * currentIndexPath = [self.tableView indexPathForCell:cell];
     NSIndexPath * nextIndexPath = [self nextIndexPath:currentIndexPath];
-    
+
     if (nextIndexPath){
         XLFormRowDescriptor * nextFormRow = [self.form formRowAtIndex:nextIndexPath];
         UITableViewCell<XLFormDescriptorCell> * nextCell = (UITableViewCell<XLFormDescriptorCell> *)[nextFormRow cellForFormController:self];
@@ -464,7 +465,7 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    return YES;
+    return !self.readOnlyMode;
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
@@ -485,6 +486,11 @@
 }
 
 #pragma mark - UITextViewDelegate
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    return !self.readOnlyMode;
+}
+
 
 -(void)textViewDidEndEditing:(UITextView *)textView
 {

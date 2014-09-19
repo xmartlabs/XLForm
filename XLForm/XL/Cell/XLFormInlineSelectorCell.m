@@ -64,7 +64,7 @@
     self.accessoryType = UITableViewCellAccessoryNone;
     [self.textLabel setText:self.rowDescriptor.title];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    self.selectionStyle = self.rowDescriptor.disabled || self.formViewController.readOnlyMode ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
@@ -78,6 +78,9 @@
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
+    if (controller.readOnlyMode) {
+        return;
+    }
     if ([self isFirstResponder]){
         [self resignFirstResponder];
     }

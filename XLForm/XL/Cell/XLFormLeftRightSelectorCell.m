@@ -54,14 +54,14 @@
     [imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
     [_leftButton addSubview:imageView];
     [_leftButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image(8)]|" options:0 metrics:0 views:@{@"image": imageView}]];
-    
+
     UIView * separatorTop = [UIView autolayoutView];
     UIView * separatorBottom = [UIView autolayoutView];
     [_leftButton addSubview:separatorTop];
     [_leftButton addSubview:separatorBottom];
     [_leftButton addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[separatorTop(separatorBottom)][image][separatorBottom]|" options:0 metrics:0 views:@{@"image": imageView, @"separatorTop": separatorTop, @"separatorBottom": separatorBottom}]];
     _leftButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 15);
-    
+
     [_leftButton setTitleColor:[UIColor colorWithRed:0.0 green:0.478431 blue:1.0 alpha:1.0] forState:UIControlStateNormal];
     [_leftButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     [_leftButton setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
@@ -118,7 +118,7 @@
     [self.contentView addSubview:self.leftButton];
     [self.contentView addSubview:self.rightLabel];
     [self.contentView addSubview:separatorView];
-    
+
     NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView, @"constraintTextField": _constraintTextField };
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.leftButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[constraintTextField]" options:0 metrics:nil views:views]];
@@ -135,10 +135,12 @@
     self.rightLabel.text = [self rightTextLabel];
     [self.leftButton setEnabled:(!self.rowDescriptor.disabled)];
     self.accessoryView = self.rowDescriptor.disabled ? nil : [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XLForm.bundle/forwardarrow.png"]];
-    self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;    
+    self.selectionStyle = self.rowDescriptor.disabled || self.formViewController.readOnlyMode ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.leftButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.rightLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     _constraintTextField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+
+    self.leftButton.userInteractionEnabled = !self.formViewController.readOnlyMode;
 }
 
 
@@ -150,6 +152,9 @@
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
+    if (controller.readOnlyMode) {
+        return;
+    }
     if (self.rowDescriptor.leftRightSelectorLeftOptionSelected){
         XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
         if (option.rightOptions){

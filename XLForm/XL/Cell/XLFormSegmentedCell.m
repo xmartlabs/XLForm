@@ -60,6 +60,7 @@ NSString * const kText = @"text";
     [self updateSegmentedControl];
     self.segmentedControl.selectedSegmentIndex = [self selectedIndex];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.segmentedControl.userInteractionEnabled = !self.formViewController.readOnlyMode;
 }
 
 #pragma mark - KVO

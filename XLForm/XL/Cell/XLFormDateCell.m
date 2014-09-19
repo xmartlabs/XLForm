@@ -84,21 +84,25 @@
 -(void)update
 {
     [super update];
-    
+
     self.accessoryType =  UITableViewCellAccessoryNone;
     [self.textLabel setText:self.rowDescriptor.title];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
-    
+    self.selectionStyle = self.rowDescriptor.disabled || self.formViewController.readOnlyMode ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    
+
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
+    if (controller.readOnlyMode) {
+        return;
+    }
+
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTimeInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTimeInline])
     {
         if ([self isFirstResponder]){
@@ -167,16 +171,16 @@
     else{
         datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     }
-    
+
     if (self.minuteInterval)
         datePicker.minuteInterval = self.minuteInterval;
-    
+
     if (self.minimumDate)
         datePicker.minimumDate = self.minimumDate;
-    
+
     if (self.maximumDate)
         datePicker.maximumDate = self.maximumDate;
-    
+
 }
 
 #pragma mark - Properties
@@ -198,7 +202,7 @@
     self.detailTextLabel.text = [self formattedDate:sender.date];
     self.rowDescriptor.value = sender.date;
     [self setNeedsLayout];
-    
+
 }
 
 -(void)setFormDatePickerMode:(XLFormDateDatePickerMode)formDatePickerMode

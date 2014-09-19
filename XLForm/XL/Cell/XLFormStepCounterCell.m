@@ -85,6 +85,8 @@
     [self stepControl].tintColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
 
+    self.stepControl.userInteractionEnabled = !self.formViewController.readOnlyMode;
+
     [self valueChanged:nil];
 }
  

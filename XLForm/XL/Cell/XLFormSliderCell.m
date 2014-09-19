@@ -38,35 +38,37 @@
 
 - (void)configure
 {
-	
+
 	self.steps = 0;
-	
+
 	self.slider = [UISlider autolayoutView];
 	[self.slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
 	[self.contentView addSubview:self.slider];
 	self.selectionStyle = UITableViewCellSelectionStyleNone;
-	
+
 	self.textField = [UILabel autolayoutView];
 	[self.contentView addSubview:self.textField];
 	[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
 	[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:44]];
-	
+
 	[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[textField]-15-|" options:0 metrics:0 views:@{@"textField": self.textField}]];
-	
+
 	[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[slider]-15-|" options:0 metrics:0 views:@{@"slider": self.slider}]];
-	
+
 	[self valueChanged:nil];
 }
 
 -(void)update {
-	
+
     [super update];
     self.textField.text = self.rowDescriptor.title;
     self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.slider.value = [self.rowDescriptor.value floatValue];
     self.slider.enabled = !self.rowDescriptor.disabled;
     self.textField.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-	
+
+    self.slider.userInteractionEnabled = !self.formViewController.readOnlyMode;
+
     [self valueChanged:nil];
 }
 

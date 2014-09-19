@@ -93,6 +93,9 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
+    if (self.formViewController.readOnlyMode) {
+        return;
+    }
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle delegate:self
                                                     cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                                destructiveButtonTitle:nil
@@ -107,13 +110,13 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 {
     NSDictionary *uiComponents = @{ @"image" : self.imageView,
                                     @"text"  : self.textLabel};
-    
+
     NSDictionary *metrics = @{@"margin":@5.0};
-    
+
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
-    
-    
+
+
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
                                                                 attribute:NSLayoutAttributeTop
                                                                 relatedBy:NSLayoutRelationEqual
@@ -129,7 +132,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
                                                                  attribute:NSLayoutAttributeBottom
                                                                 multiplier:1.0f
                                                                   constant:-10.0f]];
-    
+
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image(width)]" options:0 metrics:@{ @"width" : @(_imageWidth) } views:uiComponents]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.imageView
                                                                           attribute:NSLayoutAttributeCenterX
@@ -149,7 +152,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 
 -(void)updateConstraints
 {
-    
+
     [super updateConstraints];
 }
 
@@ -206,7 +209,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
         }
         [self setImageValue:imageToUse];
     }
-    
+
     [self.formViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
