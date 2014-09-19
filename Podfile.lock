@@ -50,22 +50,21 @@ PODS:
   - MRProgress/Stopable (0.4.1):
     - MRProgress/Helper
   - MRProgress/WeakProxy (0.4.1)
-  - XLDataLoader (1.0.0):
+  - XLDataLoader (1.1.0):
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - MRProgress (~> 0.2)
-  - XLDataLoader (from `https://github.com/xmartlabs/XLDataLoader.git`, branch `master`)
+  - XLDataLoader (from `https://github.com/xmartlabs/XLDataLoader.git`)
 
 EXTERNAL SOURCES:
   XLDataLoader:
-    :branch: master
     :git: https://github.com/xmartlabs/XLDataLoader.git
 
 SPEC CHECKSUMS:
   AFNetworking: 5f2538aa2d150b71d4e6cca3a420d796e1e1c374
   MRProgress: 209cdf239e60feab2f5b1c605d375bf9cd32c8b0
-  XLDataLoader: 0417b79ce5563ba135cb41af6ddd99753ae07efe
+  XLDataLoader: 37633d9dfa26db23b25f72f1c3926bfba1a7047a
 
 COCOAPODS: 0.33.1
