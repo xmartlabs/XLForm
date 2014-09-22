@@ -185,7 +185,7 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         {
             for (XLFormRowDescriptor * row in section.formRows) {
                 if (row.tag && ![row.tag isEqualToString:@""]){
-                    [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
+                    [result setObject:([row.value valueData] ?: [NSNull null]) forKey:row.tag];
                 }
             }
         }
