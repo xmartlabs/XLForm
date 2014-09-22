@@ -101,7 +101,7 @@
     }
 	
 	NSArray* customContraints = nil;
-	if ([self.formViewController respondsToSelector:@selector(customConstraintsForCell:)] && (customContraints = [self.formViewController performSelector:@selector(customConstraintsForCell:) withObject:self]))
+	if ([self.formViewController respondsToSelector:@selector(customConstraintsForCell:)] && (customContraints = [self.formViewController performSelector:@selector(customConstraintsForCell:) withObject:self]) && ([customContraints count] > 0))
 		self.dynamicCustomConstraints = [self.formViewController performSelector:@selector(customConstraintsForCell:) withObject:self];
 	else
 		self.dynamicCustomConstraints = [self defaultConstraints];
