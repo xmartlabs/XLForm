@@ -35,15 +35,13 @@
 @end
 
 @implementation XLFormSegmentedCell
+@synthesize segmentedControl = _segmentedControl;
 
 #pragma mark - XLFormDescriptorCell
 
 -(void)configure
 {
     [super configure];
-
-	self.accessoryView = [[UISegmentedControl alloc] initWithItems:@[]];
-    [self.segmentedControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
 
 -(void)update
@@ -59,9 +57,26 @@
 
 #pragma mark - Properties
 
+//-(UISegmentedControl *)segmentedControl
+//{
+//	if (!self.accessoryView)
+//	{
+//		self.accessoryView = [[UISegmentedControl alloc] initWithItems:@[]];
+//		self.accessoryView.translatesAutoresizingMaskIntoConstraints = NO;
+//		[self.contentView addSubview:self.accessoryView];
+//	}
+//	
+//	return (UISegmentedControl *)self.accessoryView;
+//}
+
 -(UISegmentedControl *)segmentedControl
 {
-    return (UISegmentedControl *)self.accessoryView;
+	if (_segmentedControl) return _segmentedControl;
+	_segmentedControl = [UISegmentedControl autolayoutView];
+	[self.contentView addSubview:_segmentedControl];
+	[self.segmentedControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
+//	[_segmentedControl setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+	return _segmentedControl;
 }
 
 #pragma mark - Action
@@ -103,6 +118,22 @@
 }
 
 #pragma mark - Layout Constraints
+
+-(NSMutableArray *)defaultConstraints
+{
+	NSMutableArray* constraints = [NSMutableArray array];
+	NSDictionary * views = @{@"label": self.textLabel, @"segmentedControl": self.segmentedControl};
+	
+	if (self.textLabel.text.length > 0)
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[segmentedControl]-4-|" options:0 metrics:0 views:views]];
+	else
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[segmentedControl]-4-|" options:0 metrics:0 views:views]];
+	
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[segmentedControl]-6-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+	
+	return constraints;
+}
 
 -(void)dealloc
 {

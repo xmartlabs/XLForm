@@ -27,4 +27,6 @@
 
 @interface XLFormSegmentedCell : XLFormBaseCell
 
+@property (nonatomic, readonly) UISegmentedControl* segmentedControl;
+
 @end

@@ -188,6 +188,14 @@
 		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
 		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[detail]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
 	}
+	else if ([cell isKindOfClass:[XLFormSegmentedCell class]])
+	{
+		XLFormSegmentedCell* segmentedCell = (XLFormSegmentedCell*)cell;
+		NSDictionary * views = @{@"label": segmentedCell.textLabel, @"segmentedControl": segmentedCell.segmentedControl};
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]-[segmentedControl(>=60)]-|", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-6-[segmentedControl]-6-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+	}
 	else
 	{
 		NSDictionary * views = @{@"label": cell.textLabel};
@@ -195,7 +203,7 @@
 		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]", textFieldWidth] options:0 metrics:0 views:views]];
 		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
 	}
-	
+
 	return constraints;
 }
 
