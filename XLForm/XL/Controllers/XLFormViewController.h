@@ -61,9 +61,11 @@
 @interface XLFormViewController : UITableViewController<XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, XLFormViewControllerDelegate>
 
 @property XLFormDescriptor * form;
+@property (nonatomic, assign) BOOL swipeToDeleteMode;
 
 -(id)initWithForm:(XLFormDescriptor *)form;
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes;
+-(BOOL)canSwipeToDeleteRowAtIndexPath:(NSIndexPath*)indexPath;
 
 @end
