@@ -121,6 +121,11 @@
     };
 }
 
+-(NSUInteger)indexOfFormRow:(XLFormRowDescriptor*)formRow
+{
+    return [self.formRows indexOfObject:formRow];
+}
+
 -(void)dealloc
 {
     for (XLFormRowDescriptor * formRow in self.formRows) {
@@ -175,6 +180,7 @@
     @catch (NSException * __unused exception) {}
     [self.formRows removeObjectAtIndex:index];
 }
+
 
 
 

@@ -50,7 +50,7 @@
 -(void)removeFormRow:(XLFormRowDescriptor *)formRow;
 
 -(XLFormRowDescriptor *)newMultivaluedFormRowDescriptor;
-
+-(NSUInteger)indexOfFormRow:(XLFormRowDescriptor*)formRow;
 
 
 
