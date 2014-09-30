@@ -6,18 +6,16 @@ PODS:
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.3.1):
+  - AFNetworking/NSURLConnection (2.2.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.3.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.3.1)
-  - AFNetworking/Security (2.3.1)
-  - AFNetworking/Serialization (2.3.1)
-  - AFNetworking/UIKit (2.3.1):
+  - AFNetworking/NSURLSession (2.2.0):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.0)
+  - AFNetworking/Security (2.2.0)
+  - AFNetworking/Serialization (2.2.0)
+  - AFNetworking/UIKit (2.2.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - MRProgress (0.6.0):
@@ -65,7 +63,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5f2538aa2d150b71d4e6cca3a420d796e1e1c374
-  MRProgress: 209cdf239e60feab2f5b1c605d375bf9cd32c8b0
+  MRProgress: bacc0f2f6c547e4ab21fd48ed14e19cbd70de3e4
+  SHSPhoneComponent: 728c61d5dfe23314273c9e7ee9d05b314489425b
   XLDataLoader: 0417b79ce5563ba135cb41af6ddd99753ae07efe
 
 COCOAPODS: 0.33.1
