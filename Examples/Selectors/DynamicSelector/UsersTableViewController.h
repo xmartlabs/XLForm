@@ -26,6 +26,6 @@
 #import "XLFormRowDescriptor.h"
 #import "XLTableViewController.h"
 
-@interface UsersTableViewController : XLTableViewController <XLFormRowDescriptorViewController>
+@interface UsersTableViewController : XLTableViewController <XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController>
 
 @end

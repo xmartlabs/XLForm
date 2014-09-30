@@ -28,6 +28,7 @@
 #import "SelectorsFormViewController.h"
 
 NSString *const kSelectorPush = @"selectorPush";
+NSString *const kSelectorPopover = @"selectorPopover";
 NSString *const kSelectorActionSheet = @"selectorActionSheet";
 NSString *const kSelectorAlertView = @"selectorAlertView";
 NSString *const kSelectorLeftRight = @"selectorLeftRight";
@@ -37,6 +38,7 @@ NSString *const kSelectorLeftRightDisabled = @"selectorLeftRightDisabled";
 NSString *const kSelectorPickerView = @"selectorPickerView";
 NSString *const kSelectorPickerViewInline = @"selectorPickerViewInline";
 NSString *const kMultipleSelector = @"multipleSelector";
+NSString *const kMultipleSelectorPopover = @"multipleSelectorPopover";
 NSString *const kDynamicSelectors = @"dynamicSelectors";
 NSString *const kCustomSelectors = @"customSelectors";
 NSString *const kPickerView = @"pickerView";
@@ -122,23 +124,30 @@ NSString *const kPickerView = @"pickerView";
     // Selector Push
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPush rowType:XLFormRowDescriptorTypeSelectorPush title:@"Push"];
     row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],
-                                                 [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
-                                                 [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
-                                                 [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"],
-                                                 [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 5"]
-                                                 ];
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 5"]
+                            ];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
     [section addFormRow:row];
     
+    // Selector Popover
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPopover rowType:XLFormRowDescriptorTypeSelectorPopover title:@"PopOver"];
+        row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5", @"Option 6"];
+        row.value = @"Option 2";
+        [section addFormRow:row];
+    }
     
     // Selector Action Sheet
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheet rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Sheet"];
     row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],
-                                                 [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
-                                                 [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
-                                                 [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"],
-                                                 [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 5"]
-                                                 ];
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 5"]
+                            ];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"];
     [section addFormRow:row];
     
@@ -148,11 +157,11 @@ NSString *const kPickerView = @"pickerView";
     // Selector Alert View
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorAlertView rowType:XLFormRowDescriptorTypeSelectorAlertView title:@"Alert View"];
     row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],
-                                                        [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
-                                                        [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
-                                                        [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"],
-                                                        [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 5"]
-                                                        ];
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 5"]
+                            ];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"];
     [section addFormRow:row];
     
@@ -163,11 +172,11 @@ NSString *const kPickerView = @"pickerView";
     row.leftRightSelectorLeftOptionSelected = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
     
     NSArray * rightOptions =  @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Right Option 1"],
-      [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Right Option 2"],
-      [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Right Option 3"],
-      [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Right Option 4"],
-      [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Right Option 5"]
-      ];
+                                [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Right Option 2"],
+                                [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Right Option 3"],
+                                [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Right Option 4"],
+                                [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Right Option 5"]
+                                ];
     
     // create right selectors
     NSMutableArray * leftRightSelectorOptions = [[NSMutableArray alloc] init];
@@ -199,14 +208,14 @@ NSString *const kPickerView = @"pickerView";
     row.selectorOptions  = leftRightSelectorOptions;
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Right Option 4"];
     [section addFormRow:row];
-
+    
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPickerView rowType:XLFormRowDescriptorTypeSelectorPickerView title:@"Picker View"];
     row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],
-                          [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
-                          [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
-                          [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"],
-                          [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 5"]
-                          ];
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Option 5"]
+                            ];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Option 4"];
     [section addFormRow:row];
     
@@ -258,6 +267,15 @@ NSString *const kPickerView = @"pickerView";
     row.value = [NSLocale preferredLanguages];
     [section addFormRow:row];
     
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+        // Language multiple selector popover
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultipleSelectorPopover rowType:XLFormRowDescriptorTypeMultipleSelectorPopover title:@"Multiple Selector PopOver"];
+        row.selectorOptions = [NSLocale ISOLanguageCodes];
+        row.valueTransformer = [ISOLanguageCodesValueTranformer class];
+        row.value = [NSLocale preferredLanguages];
+        [section addFormRow:row];
+    }
+    
     
     // --------- Dynamic Selectors
     
@@ -287,7 +305,7 @@ NSString *const kPickerView = @"pickerView";
     [section addFormRow:row];
     
     
-
+    
     // --------- Disabled Selector Action Sheet
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheetDisabled rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Sheet"];
@@ -303,7 +321,7 @@ NSString *const kPickerView = @"pickerView";
     row.disabled = YES;
     [section addFormRow:row];
     
-
+    
     return [super initWithForm:form];
 }
 

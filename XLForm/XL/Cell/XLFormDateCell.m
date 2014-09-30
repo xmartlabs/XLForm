@@ -44,6 +44,9 @@
 - (UIView *)inputView
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDate] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTime] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTime]){
+        if (self.rowDescriptor.value){
+            [self.datePicker setDate:self.rowDescriptor.value];
+        }
         return self.datePicker;
     }
     return [super inputView];
@@ -82,7 +85,7 @@
 {
     [super update];
     
-    self.accessoryType = self.rowDescriptor.disabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    self.accessoryType =  UITableViewCellAccessoryNone;
     [self.textLabel setText:self.rowDescriptor.title];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;

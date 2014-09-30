@@ -124,6 +124,7 @@
 @implementation UsersTableViewController
 
 @synthesize rowDescriptor = _rowDescriptor;
+@synthesize popoverController = __popoverController;
 
 static NSString *const kCellIdentifier = @"CellIdentifier";
 
@@ -160,7 +161,7 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
     
     // SearchBar
     self.tableView.tableHeaderView = self.searchDisplayController.searchBar;
-
+    
     // register cells
     [self.searchDisplayController.searchResultsTableView registerClass:[UserCell class] forCellReuseIdentifier:kCellIdentifier];
     [self.tableView registerClass:[UserCell class] forCellReuseIdentifier:kCellIdentifier];
@@ -172,7 +173,7 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UserCell *cell = (UserCell *) [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];;
-
+    
     User * user = nil;
     if (tableView == self.tableView){
         user = (User *)[self.localDataLoader objectAtIndexPath:indexPath];
@@ -216,8 +217,14 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
         user = (User *)[self.searchLocalDataLoader objectAtIndexPath:indexPath];
     }
     self.rowDescriptor.value = user;
-    [self.navigationController popViewControllerAnimated:YES];
-
+    
+    if (self.popoverController){
+        [self.popoverController dismissPopoverAnimated:YES];
+        [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
+    }
+    else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 
@@ -228,8 +235,8 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
     [[self navigationItem] setTitle:@"Select a User"];
     
     [self.tableView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];    
-
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    
     [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
     [self.searchDisplayController.searchResultsTableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 }

@@ -3,6 +3,8 @@ XLForm
 
 By [XMARTLABS](http://xmartlabs.com).
 
+[![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
+
 Purpose
 --------------
 
@@ -155,6 +157,11 @@ Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITex
 static NSString *const XLFormRowDescriptorTypeInteger = @"integer";
 ```
 Will be represented by a `UITextField` with `UIKeyboardTypeNumberPad`.
+
+```objc
+static NSString *const XLFormRowDescriptorTypeDecimal = @"decimal";
+```
+Will be represented by a `UITextField` with `UIKeyboardTypeDecimalPad`.
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeTextView = @"textView";
@@ -311,7 +318,9 @@ static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 We can also simulate other types of Boolean rows using any of the Selector Row Types introduced in the Selector Rows section.
 
 
-####Step Counter Rows
+####Other Rows
+
+#####Stepper
 
 XLForms supports counting using UIStepper control:
 
@@ -321,7 +330,26 @@ XLForms supports counting using UIStepper control:
 ```objc
 static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 ```
+#####Slider
 
+XLForms supports counting using UISlider control:
+
+
+```objc
+static NSString *const XLFormRowDescriptorTypeSlider = @"slider";
+```
+
+You can adjust the slider for your own interests very easily:
+
+```objc
+	row = [XLFormRowDescriptor formRowDescriptorWithTag:kSlider rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
+	row.value = @(30);
+	[row.cellConfigAtConfigure setObject:@(100) forKey:@"slider.maximumValue"];
+	[row.cellConfigAtConfigure setObject:@(10) forKey:@"slider.minimumValue"];
+	[row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
+```
+
+Set `steps` to `@(0)` to disable the steps functionality.
 
 Multivalued Sections
 ------------------------
@@ -555,8 +583,54 @@ For instance if we want to show or hide a row depending on the value of another 
     }
 ```
 
+Open form in Popover
+------------------------------------
+
+Configure your row with `XLFormRowDescriptorTypeSelectorPopover`
+
+```objc
+row = [XLFormRowDescriptor formRowDescriptorWithTag:rowTag rowType:XLFormRowDescriptorTypeSelectorPopover title:@"PickerForm"];
+```
+
+Implement protocols `XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController` in your custom form class:
+
+```objc
+#import "XLFormRowDescriptor.h"
+#import "XLForm.h"
+
+@interface PickerForm : UITableViewController <XLFormRowDescriptorViewController,XLFormRowDescriptorPopoverViewController, UITableViewDelegate, UITableViewDataSource>
+
+@end
+```
+
+Implement button to allow user to dismiss popover, synthesize popoverController:
+
+```objc
+@implementation PickerForm
+
+@synthesize rowDescriptor;
+@synthesize popoverController;
 
 
+-(void)viewDidLoad{
+	[super viewDidLoad];
+	self.navigationController.navigationBarHidden=NO;
+	self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
+}
+
+-(void)dismiss{
+	[self.popoverController dismissPopoverAnimated:YES];
+}
+```
+
+```objc
+Also dismiss popover on row select:
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	self.rowDescriptor.value=[XLFormOptionsObject formOptionsObjectWithValue:@(indexPath.row) displayText:@""];
+	[self.popoverController dismissPopoverAnimated:YES];
+}
+```
 
 Validations
 ------------------------------------
@@ -678,8 +752,19 @@ If you need something different, you can iterate over each row...
  }
  return result;
 ```
- 
 
+#### How to change a UITableViewCell font
+
+You can change the font or any other table view cell property using the `cellConfig` dictionary property. XLForm will set up `cellConfig` dictionary values when the table view cell is about to be displayed.
+
+```objc
+[row.cellConfig setObject:[UIColor greenColor] forKey:@"textLabel.textColor"];
+[row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"textLabel.font"];
+[row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"detailTextLabel.font"];
+```
+
+For further details, please take a look at [UICustomizationFormViewController.m](/Examples/UICustomization/UICustomizationFormViewController.m) example.
+ 
 
 Installation
 --------------------------
@@ -718,6 +803,10 @@ Release Notes
 Version 2.0.1 (master)
 
 * Change `XLFormRowDescriptorTypeText`, `XLFormRowDescriptorTypeName` and `XLFormRowDescriptorTypeTextView` keyboard type to `UIKeyboardTypeDefault`.
+* Added `XLFormRowDescriptorTypeInfo` row type and example.
+* Added `XLFormRowDescriptorTypeSelectorPopover` row type and example.
+* CI added. Created Test project into Tests folder and set up Travis.
+* Documented how to customize UI. Added an example.
 
 Version 2.0.0 (cocoaPod)
 

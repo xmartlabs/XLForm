@@ -30,7 +30,7 @@
 
 @interface XLFormSegmentedCell()
 
-@property NSArray * dynamicCustomConstraints;
+@property NSMutableArray * dynamicCustomConstraints;
 
 @end
 
@@ -49,7 +49,6 @@ NSString * const kText = @"text";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.segmentedControl];
     [self.contentView addSubview:self.textLabel];
-    [self.contentView addConstraints:[self layoutConstraints]];
     [self.textLabel addObserver:self forKeyPath:kText options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.segmentedControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
@@ -69,7 +68,7 @@ NSString * const kText = @"text";
 {
     if (object == self.textLabel && [keyPath isEqualToString:kText]){
         if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
-            [self.contentView needsUpdateConstraints];
+            [self.contentView setNeedsUpdateConstraints];
         }
     }
 }
@@ -89,7 +88,7 @@ NSString * const kText = @"text";
 {
     if (_textLabel) return _textLabel;
     _textLabel = [UILabel autolayoutView];
-    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
+    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     [_textLabel setContentCompressionResistancePriority:500
                                             forAxis:UILayoutConstraintAxisHorizontal];
     return _textLabel;
@@ -135,34 +134,35 @@ NSString * const kText = @"text";
 
 #pragma mark - Layout Constraints
 
--(NSArray *)layoutConstraints{
-    
-    NSMutableArray * result = [NSMutableArray array];
-    
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.segmentedControl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-
-    return result;
-}
 
 -(void)updateConstraints
 {
     if (self.dynamicCustomConstraints){
         [self.contentView removeConstraints:self.dynamicCustomConstraints];
     }
+    self.dynamicCustomConstraints = [NSMutableArray array];
     NSDictionary * views = @{@"segmentedControl": self.segmentedControl, @"textLabel": self.textLabel};
     if (self.textLabel.text.length > 0){
-        self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textLabel]-16-[segmentedControl]-16-|"
+        [self.dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textLabel]-16-[segmentedControl]-16-|"
+                                                                                options:NSLayoutFormatAlignAllCenterY
+                                                                                metrics:0
+                                                                                  views:views]];
+        [self.dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[textLabel]-12-|"
                                                                                 options:0
                                                                                 metrics:0
-                                                                                  views:views];
+                                                                                  views:views]];
+        
     }
     else{
-        self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[segmentedControl]-16-|"
-                                                                                options:0
+        [self.dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[segmentedControl]-16-|"
+                                                                                options:NSLayoutFormatAlignAllCenterY
                                                                                 metrics:0
-                                                                                  views:views];
+                                                                                  views:views]];
+        [self.dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[segmentedControl]-|"
+                                                                                            options:0
+                                                                                                   metrics:0
+                                                                                                     views:views]];
+        
     }
     [self.contentView addConstraints:self.dynamicCustomConstraints];
     [super updateConstraints];

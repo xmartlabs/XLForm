@@ -46,7 +46,7 @@
 {
     if ((object == self.textLabel && [keyPath isEqualToString:@"text"]) ||  (object == self.imageView && [keyPath isEqualToString:@"image"])){
         if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
-            [self.contentView needsUpdateConstraints];
+            [self.contentView setNeedsUpdateConstraints];
         }
     }
 }
@@ -101,6 +101,9 @@
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
         self.textField.keyboardType = UIKeyboardTypeNumberPad;
     }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
+        self.textField.keyboardType = UIKeyboardTypeDecimalPad;
+    }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePassword]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -152,7 +155,7 @@
 {
     if (_textLabel) return _textLabel;
     _textLabel = [UILabel autolayoutView];
-    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
+    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     return _textLabel;
 }
 
@@ -160,7 +163,7 @@
 {
     if (_textField) return _textField;
     _textField = [UITextField autolayoutView];
-    [_textField setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]];
+    [_textField setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     return _textField;
 }
 
@@ -170,10 +173,8 @@
 {
     NSMutableArray * result = [[NSMutableArray alloc] init];
     [self.textLabel setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [result addObject:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_textLabel]-[_textField]" options:NSLayoutFormatAlignAllBaseline metrics:0 views:NSDictionaryOfVariableBindings(_textLabel, _textField)]];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[_textField]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:NSDictionaryOfVariableBindings(_textField)]];
     return result;
 }
 
@@ -216,8 +217,24 @@
     return [self.formViewController textFieldShouldReturn:textField];
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return [self.formViewController textFieldShouldBeginEditing:textField];
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    return [self.formViewController textFieldShouldEndEditing:textField];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    return [self.formViewController textField:textField shouldChangeCharactersInRange:range replacementString:string];
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    [self.formViewController textFieldDidBeginEditing:textField];
+
     // set the input to the raw value if we have a formatter and it shouldn't be used during input
     if (self.rowDescriptor.valueFormatter) {
         self.textField.text = [self.rowDescriptor editTextValue];
