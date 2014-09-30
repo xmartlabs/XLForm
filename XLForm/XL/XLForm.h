@@ -73,6 +73,7 @@ extern NSString *const XLFormRowDescriptorTypeURL;
 extern NSString *const XLFormRowDescriptorTypeEmail;
 extern NSString *const XLFormRowDescriptorTypePassword;
 extern NSString *const XLFormRowDescriptorTypeNumber;
+extern NSString *const XLFormRowDescriptorTypeDecimalNumber;
 extern NSString *const XLFormRowDescriptorTypePhone;
 extern NSString *const XLFormRowDescriptorTypeTwitter;
 extern NSString *const XLFormRowDescriptorTypeAccount;
@@ -111,5 +112,3 @@ extern NSString *const XLFormRowDescriptorTypeStepCounter;
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending
-
-

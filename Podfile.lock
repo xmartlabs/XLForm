@@ -18,44 +18,42 @@ PODS:
   - AFNetworking/UIKit (2.2.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - MRProgress (0.4.1):
+  - MRProgress (0.6.0):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
-    - MRProgress/Helper
     - MRProgress/Icons
-    - MRProgress/MessageInterceptor
     - MRProgress/NavigationBarProgress
     - MRProgress/Overlay
+  - MRProgress/ActivityIndicator (0.6.0):
     - MRProgress/Stopable
-    - MRProgress/WeakProxy
-  - MRProgress/ActivityIndicator (0.4.1):
-    - MRProgress/Stopable
-  - MRProgress/Blur (0.4.1):
+  - MRProgress/Blur (0.6.0):
     - MRProgress/Helper
-  - MRProgress/Circular (0.4.1):
+  - MRProgress/Circular (0.6.0):
     - MRProgress/Helper
+    - MRProgress/ProgressBaseClass
     - MRProgress/Stopable
-  - MRProgress/Helper (0.4.1)
-  - MRProgress/Icons (0.4.1)
-  - MRProgress/MessageInterceptor (0.4.1)
-  - MRProgress/NavigationBarProgress (0.4.1):
-    - MRProgress/MessageInterceptor
-  - MRProgress/Overlay (0.4.1):
+  - MRProgress/Helper (0.6.0)
+  - MRProgress/Icons (0.6.0)
+  - MRProgress/NavigationBarProgress (0.6.0):
+    - MRProgress/ProgressBaseClass
+  - MRProgress/Overlay (0.6.0):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
     - MRProgress/Helper
     - MRProgress/Icons
-  - MRProgress/Stopable (0.4.1):
+  - MRProgress/ProgressBaseClass (0.6.0)
+  - MRProgress/Stopable (0.6.0):
     - MRProgress/Helper
-  - MRProgress/WeakProxy (0.4.1)
+  - SHSPhoneComponent (2.11)
   - XLDataLoader (1.0.0):
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - MRProgress (~> 0.2)
+  - SHSPhoneComponent
   - XLDataLoader (from `https://github.com/xmartlabs/XLDataLoader.git`, branch `master`)
 
 EXTERNAL SOURCES:
@@ -65,7 +63,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5f2538aa2d150b71d4e6cca3a420d796e1e1c374
-  MRProgress: 209cdf239e60feab2f5b1c605d375bf9cd32c8b0
+  MRProgress: bacc0f2f6c547e4ab21fd48ed14e19cbd70de3e4
+  SHSPhoneComponent: 728c61d5dfe23314273c9e7ee9d05b314489425b
   XLDataLoader: 0417b79ce5563ba135cb41af6ddd99753ae07efe
 
 COCOAPODS: 0.33.1

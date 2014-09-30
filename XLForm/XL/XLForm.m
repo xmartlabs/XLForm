@@ -32,6 +32,7 @@ NSString *const XLFormRowDescriptorTypeURL = @"url";
 NSString *const XLFormRowDescriptorTypeEmail = @"email";
 NSString *const XLFormRowDescriptorTypePassword = @"password";
 NSString *const XLFormRowDescriptorTypeNumber = @"number";
+NSString *const XLFormRowDescriptorTypeDecimalNumber = @"decimalNumber";
 NSString *const XLFormRowDescriptorTypePhone = @"phone";
 NSString *const XLFormRowDescriptorTypeTwitter = @"twitter";
 NSString *const XLFormRowDescriptorTypeAccount = @"account";
