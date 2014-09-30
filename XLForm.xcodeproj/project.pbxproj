@@ -678,6 +678,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Xmartlabs;
 				TargetAttributes = {
+					2850C5F718D0F706002B7D0A = {
+						DevelopmentTeam = 2LA5B99JDX;
+					};
 					2850C61218D0F707002B7D0A = {
 						TestTargetID = 2850C5F718D0F706002B7D0A;
 					};
@@ -942,6 +945,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XLForm/XLForm-Prefix.pch";
 				INFOPLIST_FILE = "XLForm/XLForm-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -956,6 +960,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XLForm/XLForm-Prefix.pch";
 				INFOPLIST_FILE = "XLForm/XLForm-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
