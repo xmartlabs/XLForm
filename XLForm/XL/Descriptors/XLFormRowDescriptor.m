@@ -67,13 +67,27 @@
 
 -(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController
 {
-    if (_cell) return _cell;
-    NSAssert(self.cellClass || [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType], @"Not defined XLFormRowDescriptorType");
-    _cell =  self.cellClass ? [[self.cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil] : [[[XLFormViewController cellClassesForRowDescriptorTypes][self.rowType] alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
+  id cellType = [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
+
+  NSAssert(self.cellReusableIdentifier || self.cellClass || cellType, @"Not defined XLFormRowDescriptorType");
+
+  if ([cellType isKindOfClass:[NSString class]] || self.cellReusableIdentifier) {
+    NSString *identifier = self.cellReusableIdentifier ?: (NSString *) cellType;
+    _cell = [formController.tableView dequeueReusableCellWithIdentifier:identifier];
+    [self configureCellAtCreationTime];
+  } else if (!_cell) {
+    _cell = self.cellClass ? [[self.cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil] : [[[XLFormViewController cellClassesForRowDescriptorTypes][self.rowType] alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
+    [self configureCellAtCreationTime];
+  }
+
+  return _cell;
+}
+
+- (void) configureCellAtCreationTime
+{
     [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
         [_cell setValue:value forKeyPath:keyPath];
     }];
-    return _cell;
 }
 
 -(NSMutableDictionary *)cellConfig
