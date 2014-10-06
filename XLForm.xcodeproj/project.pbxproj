@@ -179,8 +179,8 @@
 		28A7665C1932F61100D69546 /* DynamicSelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicSelectorsFormViewController.h; path = Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.h; sourceTree = "<group>"; };
 		28A7665D1932F61100D69546 /* DynamicSelectorsFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DynamicSelectorsFormViewController.m; path = Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.m; sourceTree = "<group>"; };
 		28A8083D190D9083009D77F8 /* iPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPhoneStoryboard.storyboard; path = Examples/StoryboardExample/iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
-		28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormImageSelectorCell.h; path = ../../../Examples/Others/CustomCells/XLFormImageSelectorCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormImageSelectorCell.m; path = ../../../Examples/Others/CustomCells/XLFormImageSelectorCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormImageSelectorCell.h; path = Examples/Others/CustomCells/XLFormImageSelectorCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormImageSelectorCell.m; path = Examples/Others/CustomCells/XLFormImageSelectorCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		28AC9B71194A711E00847840 /* NSArray+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+XLFormAdditions.h"; path = "XL/Helpers/NSArray+XLFormAdditions.h"; sourceTree = "<group>"; };
 		28AC9B72194A711E00847840 /* NSArray+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+XLFormAdditions.m"; path = "XL/Helpers/NSArray+XLFormAdditions.m"; sourceTree = "<group>"; };
 		28C0260B18D2138200C0854B /* XLForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLForm.h; path = XL/XLForm.h; sourceTree = "<group>"; };
@@ -441,8 +441,6 @@
 		2850C62D18D0F9A6002B7D0A /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */,
-				28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */,
 				D55C39BC191BCA460090B6B4 /* XLFormStepCounterCell.h */,
 				D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */,
 				2850C68618D12122002B7D0A /* XLFormSelectorCell.h */,
@@ -511,6 +509,8 @@
 		28A7662A1932A3D800D69546 /* CustomCells */ = {
 			isa = PBXGroup;
 			children = (
+				28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */,
+				28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */,
 				D51B8B2A19126664008C0478 /* XLFormCustomCell.h */,
 				D51B8B2B19126664008C0478 /* XLFormCustomCell.m */,
 			);
