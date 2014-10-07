@@ -67,20 +67,23 @@
 
 -(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController
 {
-  id cellType = [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
+    id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
 
-  NSAssert(self.cellReusableIdentifier || self.cellClass || cellType, @"Not defined XLFormRowDescriptorType");
+    NSAssert(cellClass, @"Not defined XLFormRowDescriptorType");
 
-  if ([cellType isKindOfClass:[NSString class]] || self.cellReusableIdentifier) {
-    NSString *identifier = self.cellReusableIdentifier ?: (NSString *) cellType;
-    _cell = [formController.tableView dequeueReusableCellWithIdentifier:identifier];
-    [self configureCellAtCreationTime];
-  } else if (!_cell) {
-    _cell = self.cellClass ? [[self.cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil] : [[[XLFormViewController cellClassesForRowDescriptorTypes][self.rowType] alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
-    [self configureCellAtCreationTime];
-  }
-
-  return _cell;
+    if ([cellClass isKindOfClass:[NSString class]]) {
+        _cell = [formController.tableView dequeueReusableCellWithIdentifier:cellClass];
+        if (!_cell && [[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
+            _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
+        }
+        NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
+        [self configureCellAtCreationTime];
+    } else if (!_cell) {
+        _cell = [[cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
+        NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
+        [self configureCellAtCreationTime];
+    }
+    return _cell;
 }
 
 - (void) configureCellAtCreationTime

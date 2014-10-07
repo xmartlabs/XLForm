@@ -251,7 +251,7 @@
 
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow
 {
-    if ([[formRow cellForFormController:self]  respondsToSelector:@selector(formDescriptorCellDidSelectedWithFormController:)]){
+    if ([[formRow cellForFormController:self] respondsToSelector:@selector(formDescriptorCellDidSelectedWithFormController:)]){
         [[formRow cellForFormController:self] formDescriptorCellDidSelectedWithFormController:self];
     }
 }

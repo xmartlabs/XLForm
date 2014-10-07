@@ -41,7 +41,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @interface XLFormRowDescriptor : NSObject
 
-@property Class cellClass;
+@property id cellClass;
 @property (readwrite) NSString *tag;
 @property (readonly) NSString *rowType;
 @property NSString *title;
@@ -53,8 +53,6 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
 @property BOOL disabled;
 @property BOOL required;
-
-@property (nonatomic) NSString *cellReusableIdentifier;
 
 @property (weak) XLFormSectionDescriptor * sectionDescriptor;
 

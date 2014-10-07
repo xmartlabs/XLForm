@@ -809,6 +809,7 @@ Version 2.0.1 (master)
 * Documented how to customize UI. Added an example.
 * Now XLFormViewController extends from UIViewController instead of UITableViewController.
 * Added tableView property as a XLFormViewController IBOutlet.
+* Added support for storyboard reuse identifier and nib file.
 
 Version 2.0.0 (cocoaPod)
 
