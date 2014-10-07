@@ -1,913 +1,3432 @@
-// !$*UTF8*$!
-{
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXBuildFile section */
-		2807DC7118DC84B200A4B0B9 /* XLFormRightImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2807DC7018DC84B200A4B0B9 /* XLFormRightImageButton.m */; };
-		2807DC7318DC877000A4B0B9 /* XLForm.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2807DC7218DC877000A4B0B9 /* XLForm.bundle */; };
-		28135F99198961B900005F9B /* XLFormRegexValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 28135F95198961B900005F9B /* XLFormRegexValidator.m */; };
-		28135F9A198961B900005F9B /* XLFormValidationStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 28135F97198961B900005F9B /* XLFormValidationStatus.m */; };
-		281E5BE919538F4A006D93C5 /* CLLocationValueTrasformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 281E5BE819538F4A006D93C5 /* CLLocationValueTrasformer.m */; };
-		2829624718DF790F00002E09 /* XLFormDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2829624618DF790F00002E09 /* XLFormDateCell.m */; };
-		282C5EFE18D3A31C00A5D47C /* XLFormDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C5EF918D3A31C00A5D47C /* XLFormDescriptor.m */; };
-		282C5EFF18D3A31C00A5D47C /* XLFormRowDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C5EFB18D3A31C00A5D47C /* XLFormRowDescriptor.m */; };
-		282C5F0018D3A31C00A5D47C /* XLFormSectionDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 282C5EFD18D3A31C00A5D47C /* XLFormSectionDescriptor.m */; };
-		282D974318D1271B00DEE3C5 /* XLFormOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282D974218D1271B00DEE3C5 /* XLFormOptionsViewController.m */; };
-		283B59A8194D53DE000828CD /* XLFormInlineSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59A7194D53DE000828CD /* XLFormInlineSelectorCell.m */; };
-		283B59AC194D6117000828CD /* XLFormPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59AB194D6117000828CD /* XLFormPickerCell.m */; };
-		283B59B219532415000828CD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59B119532415000828CD /* MapViewController.m */; };
-		283B59B7195334AF000828CD /* CustomSelectorsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59B6195334AF000828CD /* CustomSelectorsFormViewController.m */; };
-		283C5B9719AAF2CC00488444 /* XLForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 283C5B9619AAF2CC00488444 /* XLForm.m */; };
-		283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283C6B7C1999BAF100A5283D /* UICustomizationFormViewController.m */; };
-		2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB4618D4915800F13E2B /* ExamplesFormViewController.m */; };
-		2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB4A18D496F600F13E2B /* SelectorsFormViewController.m */; };
-		2843EB4E18D4CCD700F13E2B /* XLFormSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB4D18D4CCD700F13E2B /* XLFormSwitchCell.m */; };
-		2843EB5218D4CFC700F13E2B /* OthersFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB5118D4CFC700F13E2B /* OthersFormViewController.m */; };
-		2843EB5618D4F7B700F13E2B /* DatesFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB5518D4F7B700F13E2B /* DatesFormViewController.m */; };
-		2843EB5918D5050500F13E2B /* NSObject+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB5818D5050500F13E2B /* NSObject+XLFormAdditions.m */; };
-		2843EB5E18D736BC00F13E2B /* XLFormCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2843EB5D18D736BC00F13E2B /* XLFormCheckCell.m */; };
-		28468E9818EC686500DBB015 /* NativeEventFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28468E9718EC686500DBB015 /* NativeEventFormViewController.m */; };
-		28468EA118ECAE1200DBB015 /* XLFormTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28468EA018ECAE1200DBB015 /* XLFormTextView.m */; };
-		28468EA418EF41D300DBB015 /* InputsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28468EA318EF41D300DBB015 /* InputsFormViewController.m */; };
-		28468EA718EF594900DBB015 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28468EA518EF594800DBB015 /* Localizable.strings */; };
-		2850C5FC18D0F706002B7D0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2850C5FB18D0F706002B7D0A /* Foundation.framework */; };
-		2850C5FE18D0F706002B7D0A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2850C5FD18D0F706002B7D0A /* CoreGraphics.framework */; };
-		2850C60018D0F706002B7D0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2850C5FF18D0F706002B7D0A /* UIKit.framework */; };
-		2850C60618D0F706002B7D0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2850C60418D0F706002B7D0A /* InfoPlist.strings */; };
-		2850C60818D0F706002B7D0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C60718D0F706002B7D0A /* main.m */; };
-		2850C60E18D0F706002B7D0A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2850C60D18D0F706002B7D0A /* Images.xcassets */; };
-		2850C65E18D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C63118D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m */; };
-		2850C67218D0F9A6002B7D0A /* XLFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C65C18D0F9A6002B7D0A /* XLFormViewController.m */; };
-		2850C67518D0FD4B002B7D0A /* XLFormDatePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C67418D0FD4B002B7D0A /* XLFormDatePickerCell.m */; };
-		2850C67818D0FDBF002B7D0A /* XLFormButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C67718D0FDBF002B7D0A /* XLFormButtonCell.m */; };
-		2850C67C18D0FE3A002B7D0A /* UIView+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C67B18D0FE3A002B7D0A /* UIView+XLFormAdditions.m */; };
-		2850C67F18D11F6D002B7D0A /* XLFormTextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C67E18D11F6D002B7D0A /* XLFormTextViewCell.m */; };
-		2850C68518D11FDA002B7D0A /* XLFormTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C68418D11FDA002B7D0A /* XLFormTextFieldCell.m */; };
-		2850C68818D12122002B7D0A /* XLFormSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C68718D12122002B7D0A /* XLFormSelectorCell.m */; };
-		287E8A231998662400225536 /* XLFormValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 287E8A221998662400225536 /* XLFormValidator.m */; };
-		28A7661F193248BD00D69546 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A7661E193248BD00D69546 /* CoreData.framework */; };
-		28A76625193251E500D69546 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A76624193251E500D69546 /* AppDelegate.m */; };
-		28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A7662D1932E98A00D69546 /* HTTPSessionManager.m */; };
-		28A7663B1932EA1F00D69546 /* UserLocalDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766361932EA1F00D69546 /* UserLocalDataLoader.m */; };
-		28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766381932EA1F00D69546 /* UserRemoteDataLoader.m */; };
-		28A766451932EC9C00D69546 /* CoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766401932EC9C00D69546 /* CoreDataStore.m */; };
-		28A766461932EC9C00D69546 /* User+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766421932EC9C00D69546 /* User+Additions.m */; };
-		28A7664A1932ED3400D69546 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 28A766481932ED3400D69546 /* Model.xcdatamodeld */; };
-		28A7664D1932EE0B00D69546 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A7664C1932EE0B00D69546 /* User.m */; };
-		28A766551932F22400D69546 /* UsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766541932F22400D69546 /* UsersTableViewController.m */; };
-		28A7665E1932F61100D69546 /* DynamicSelectorsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A7665D1932F61100D69546 /* DynamicSelectorsFormViewController.m */; };
-		28A8083E190D9083009D77F8 /* iPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A8083D190D9083009D77F8 /* iPhoneStoryboard.storyboard */; };
-		28A85D5918E346C100E81A26 /* XLFormImageSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */; };
-		28AC9B73194A711E00847840 /* NSArray+XLFormAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 28AC9B72194A711E00847840 /* NSArray+XLFormAdditions.m */; };
-		28C0260E18D22E7A00C0854B /* XLFormBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C0260D18D22E7A00C0854B /* XLFormBaseCell.m */; };
-		28C7ECC218E1F3C1009E3C46 /* XLFormOptionsObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C7ECC118E1F3C1009E3C46 /* XLFormOptionsObject.m */; };
-		28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DBB04018D76FDC00FB8A8B /* MultivaluedFormViewController.m */; };
-		28E093EB18F4C28200E218ED /* XLFormRightDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28E093EA18F4C28200E218ED /* XLFormRightDetailCell.m */; };
-		2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DF43B7BBF44F72A4493E8E /* libPods.a */; };
-		3C3360B3193E43D800BA9C4A /* XLFormSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3360B2193E43D800BA9C4A /* XLFormSegmentedCell.m */; };
-		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
-		D55C39BE191BCA460090B6B4 /* XLFormStepCounterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */; };
-		DCC8167B19A3F8E30071915C /* XLFormSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DCC8167A19A3F8E30071915C /* XLFormSliderCell.m */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXFileReference section */
-		2807DC6F18DC84B200A4B0B9 /* XLFormRightImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormRightImageButton.h; path = XLForm/XL/Helpers/Views/XLFormRightImageButton.h; sourceTree = SOURCE_ROOT; };
-		2807DC7018DC84B200A4B0B9 /* XLFormRightImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormRightImageButton.m; path = XLForm/XL/Helpers/Views/XLFormRightImageButton.m; sourceTree = SOURCE_ROOT; };
-		2807DC7218DC877000A4B0B9 /* XLForm.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = XLForm.bundle; sourceTree = "<group>"; };
-		28135F94198961B900005F9B /* XLFormRegexValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormRegexValidator.h; sourceTree = "<group>"; };
-		28135F95198961B900005F9B /* XLFormRegexValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormRegexValidator.m; sourceTree = "<group>"; };
-		28135F96198961B900005F9B /* XLFormValidationStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormValidationStatus.h; sourceTree = "<group>"; };
-		28135F97198961B900005F9B /* XLFormValidationStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormValidationStatus.m; sourceTree = "<group>"; };
-		28135F98198961B900005F9B /* XLFormValidatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormValidatorProtocol.h; sourceTree = "<group>"; };
-		281E5BE719538F4A006D93C5 /* CLLocationValueTrasformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLLocationValueTrasformer.h; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/CLLocationValueTrasformer.h; sourceTree = "<group>"; };
-		281E5BE819538F4A006D93C5 /* CLLocationValueTrasformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLLocationValueTrasformer.m; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/CLLocationValueTrasformer.m; sourceTree = "<group>"; };
-		2829624518DF790F00002E09 /* XLFormDateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormDateCell.h; sourceTree = "<group>"; };
-		2829624618DF790F00002E09 /* XLFormDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormDateCell.m; sourceTree = "<group>"; };
-		282C5EF818D3A31C00A5D47C /* XLFormDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormDescriptor.h; path = XL/Descriptors/XLFormDescriptor.h; sourceTree = "<group>"; };
-		282C5EF918D3A31C00A5D47C /* XLFormDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormDescriptor.m; path = XL/Descriptors/XLFormDescriptor.m; sourceTree = "<group>"; };
-		282C5EFA18D3A31C00A5D47C /* XLFormRowDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormRowDescriptor.h; path = XL/Descriptors/XLFormRowDescriptor.h; sourceTree = "<group>"; };
-		282C5EFB18D3A31C00A5D47C /* XLFormRowDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormRowDescriptor.m; path = XL/Descriptors/XLFormRowDescriptor.m; sourceTree = "<group>"; };
-		282C5EFC18D3A31C00A5D47C /* XLFormSectionDescriptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormSectionDescriptor.h; path = XL/Descriptors/XLFormSectionDescriptor.h; sourceTree = "<group>"; };
-		282C5EFD18D3A31C00A5D47C /* XLFormSectionDescriptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormSectionDescriptor.m; path = XL/Descriptors/XLFormSectionDescriptor.m; sourceTree = "<group>"; };
-		282D974118D1271B00DEE3C5 /* XLFormOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormOptionsViewController.h; path = XL/Controllers/XLFormOptionsViewController.h; sourceTree = "<group>"; };
-		282D974218D1271B00DEE3C5 /* XLFormOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormOptionsViewController.m; path = XL/Controllers/XLFormOptionsViewController.m; sourceTree = "<group>"; };
-		283B59A4194D4BBF000828CD /* XLFormRowDescriptorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormRowDescriptorViewController.h; path = XL/Controllers/XLFormRowDescriptorViewController.h; sourceTree = "<group>"; };
-		283B59A6194D53DE000828CD /* XLFormInlineSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormInlineSelectorCell.h; sourceTree = "<group>"; };
-		283B59A7194D53DE000828CD /* XLFormInlineSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormInlineSelectorCell.m; sourceTree = "<group>"; };
-		283B59A9194D5DE2000828CD /* XLFormInlineRowDescriptorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormInlineRowDescriptorCell.h; sourceTree = "<group>"; };
-		283B59AA194D6117000828CD /* XLFormPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormPickerCell.h; sourceTree = "<group>"; };
-		283B59AB194D6117000828CD /* XLFormPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormPickerCell.m; sourceTree = "<group>"; };
-		283B59B019532415000828CD /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.h; sourceTree = "<group>"; };
-		283B59B119532415000828CD /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.m; sourceTree = "<group>"; };
-		283B59B5195334AF000828CD /* CustomSelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSelectorsFormViewController.h; path = Examples/Selectors/CustomSelectors/CustomSelectorsFormViewController.h; sourceTree = "<group>"; };
-		283B59B6195334AF000828CD /* CustomSelectorsFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomSelectorsFormViewController.m; path = Examples/Selectors/CustomSelectors/CustomSelectorsFormViewController.m; sourceTree = "<group>"; };
-		283C5B9619AAF2CC00488444 /* XLForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLForm.m; path = XL/XLForm.m; sourceTree = "<group>"; };
-		283C6B7B1999BAF100A5283D /* UICustomizationFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UICustomizationFormViewController.h; path = Examples/UICustomization/UICustomizationFormViewController.h; sourceTree = "<group>"; };
-		283C6B7C1999BAF100A5283D /* UICustomizationFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UICustomizationFormViewController.m; path = Examples/UICustomization/UICustomizationFormViewController.m; sourceTree = "<group>"; };
-		2843EB4518D4915800F13E2B /* ExamplesFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = ExamplesFormViewController.h; path = Examples/ExamplesFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2843EB4618D4915800F13E2B /* ExamplesFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExamplesFormViewController.m; path = Examples/ExamplesFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2843EB4918D496F600F13E2B /* SelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = SelectorsFormViewController.h; path = Examples/Selectors/SelectorsFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2843EB4A18D496F600F13E2B /* SelectorsFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SelectorsFormViewController.m; path = Examples/Selectors/SelectorsFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2843EB4C18D4CCD700F13E2B /* XLFormSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormSwitchCell.h; sourceTree = "<group>"; };
-		2843EB4D18D4CCD700F13E2B /* XLFormSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormSwitchCell.m; sourceTree = "<group>"; };
-		2843EB5018D4CFC700F13E2B /* OthersFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = OthersFormViewController.h; path = Examples/Others/OthersFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2843EB5118D4CFC700F13E2B /* OthersFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = OthersFormViewController.m; path = Examples/Others/OthersFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2843EB5418D4F7B700F13E2B /* DatesFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DatesFormViewController.h; path = Examples/Dates/DatesFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2843EB5518D4F7B700F13E2B /* DatesFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = DatesFormViewController.m; path = Examples/Dates/DatesFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2843EB5718D5050500F13E2B /* NSObject+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NSObject+XLFormAdditions.h"; path = "XL/Helpers/NSObject+XLFormAdditions.h"; sourceTree = "<group>"; };
-		2843EB5818D5050500F13E2B /* NSObject+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NSObject+XLFormAdditions.m"; path = "XL/Helpers/NSObject+XLFormAdditions.m"; sourceTree = "<group>"; };
-		2843EB5C18D736BC00F13E2B /* XLFormCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormCheckCell.h; sourceTree = "<group>"; };
-		2843EB5D18D736BC00F13E2B /* XLFormCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormCheckCell.m; sourceTree = "<group>"; };
-		28468E7D18E7219D00DBB015 /* XLFormDescriptorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormDescriptorDelegate.h; path = XL/Descriptors/XLFormDescriptorDelegate.h; sourceTree = "<group>"; };
-		28468E9618EC686500DBB015 /* NativeEventFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = NativeEventFormViewController.h; path = Examples/RealExamples/NativeEventFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		28468E9718EC686500DBB015 /* NativeEventFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = NativeEventFormViewController.m; path = Examples/RealExamples/NativeEventFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		28468E9F18ECAE1200DBB015 /* XLFormTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormTextView.h; path = XLForm/XL/Helpers/Views/XLFormTextView.h; sourceTree = SOURCE_ROOT; };
-		28468EA018ECAE1200DBB015 /* XLFormTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormTextView.m; path = XLForm/XL/Helpers/Views/XLFormTextView.m; sourceTree = SOURCE_ROOT; };
-		28468EA218EF41D300DBB015 /* InputsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = InputsFormViewController.h; path = Examples/Inputs/InputsFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		28468EA318EF41D300DBB015 /* InputsFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = InputsFormViewController.m; path = Examples/Inputs/InputsFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		28468EA618EF594800DBB015 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2850C5F818D0F706002B7D0A /* XLForm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XLForm.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2850C5FB18D0F706002B7D0A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		2850C5FD18D0F706002B7D0A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2850C5FF18D0F706002B7D0A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2850C60318D0F706002B7D0A /* XLForm-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "XLForm-Info.plist"; sourceTree = "<group>"; };
-		2850C60518D0F706002B7D0A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		2850C60718D0F706002B7D0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2850C60918D0F706002B7D0A /* XLForm-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XLForm-Prefix.pch"; sourceTree = "<group>"; };
-		2850C60A18D0F706002B7D0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppDelegate.h; path = Examples/AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2850C60D18D0F706002B7D0A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		2850C63018D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormLeftRightSelectorCell.h; sourceTree = "<group>"; };
-		2850C63118D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormLeftRightSelectorCell.m; sourceTree = "<group>"; };
-		2850C65B18D0F9A6002B7D0A /* XLFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormViewController.h; path = XL/Controllers/XLFormViewController.h; sourceTree = "<group>"; };
-		2850C65C18D0F9A6002B7D0A /* XLFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormViewController.m; path = XL/Controllers/XLFormViewController.m; sourceTree = "<group>"; };
-		2850C67318D0FD4B002B7D0A /* XLFormDatePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormDatePickerCell.h; sourceTree = "<group>"; };
-		2850C67418D0FD4B002B7D0A /* XLFormDatePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormDatePickerCell.m; sourceTree = "<group>"; };
-		2850C67618D0FDBF002B7D0A /* XLFormButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormButtonCell.h; sourceTree = "<group>"; };
-		2850C67718D0FDBF002B7D0A /* XLFormButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormButtonCell.m; sourceTree = "<group>"; };
-		2850C67A18D0FE3A002B7D0A /* UIView+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "UIView+XLFormAdditions.h"; path = "XL/Helpers/UIView+XLFormAdditions.h"; sourceTree = "<group>"; };
-		2850C67B18D0FE3A002B7D0A /* UIView+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "UIView+XLFormAdditions.m"; path = "XL/Helpers/UIView+XLFormAdditions.m"; sourceTree = "<group>"; };
-		2850C67D18D11F6D002B7D0A /* XLFormTextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormTextViewCell.h; sourceTree = "<group>"; };
-		2850C67E18D11F6D002B7D0A /* XLFormTextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormTextViewCell.m; sourceTree = "<group>"; };
-		2850C68318D11FDA002B7D0A /* XLFormTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormTextFieldCell.h; sourceTree = "<group>"; };
-		2850C68418D11FDA002B7D0A /* XLFormTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormTextFieldCell.m; sourceTree = "<group>"; };
-		2850C68618D12122002B7D0A /* XLFormSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormSelectorCell.h; sourceTree = "<group>"; };
-		2850C68718D12122002B7D0A /* XLFormSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormSelectorCell.m; sourceTree = "<group>"; };
-		287E8A211998662400225536 /* XLFormValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormValidator.h; sourceTree = "<group>"; };
-		287E8A221998662400225536 /* XLFormValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormValidator.m; sourceTree = "<group>"; };
-		28A5D2B018D81873008F0D24 /* XLFormDescriptorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormDescriptorCell.h; sourceTree = "<group>"; };
-		28A7661E193248BD00D69546 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		28A76624193251E500D69546 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Examples/AppDelegate.m; sourceTree = "<group>"; };
-		28A7662C1932E98A00D69546 /* HTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPSessionManager.h; path = Examples/Selectors/Helpers/HTTPSessionManager.h; sourceTree = "<group>"; };
-		28A7662D1932E98A00D69546 /* HTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPSessionManager.m; path = Examples/Selectors/Helpers/HTTPSessionManager.m; sourceTree = "<group>"; };
-		28A766351932EA1F00D69546 /* UserLocalDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocalDataLoader.h; sourceTree = "<group>"; };
-		28A766361932EA1F00D69546 /* UserLocalDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocalDataLoader.m; sourceTree = "<group>"; };
-		28A766371932EA1F00D69546 /* UserRemoteDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRemoteDataLoader.h; sourceTree = "<group>"; };
-		28A766381932EA1F00D69546 /* UserRemoteDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRemoteDataLoader.m; sourceTree = "<group>"; };
-		28A7663F1932EC9C00D69546 /* CoreDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataStore.h; sourceTree = "<group>"; };
-		28A766401932EC9C00D69546 /* CoreDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataStore.m; sourceTree = "<group>"; };
-		28A766411932EC9C00D69546 /* User+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+Additions.h"; sourceTree = "<group>"; };
-		28A766421932EC9C00D69546 /* User+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+Additions.m"; sourceTree = "<group>"; };
-		28A766491932ED3400D69546 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		28A7664B1932EE0B00D69546 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		28A7664C1932EE0B00D69546 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		28A766531932F22400D69546 /* UsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersTableViewController.h; path = Examples/Selectors/DynamicSelector/UsersTableViewController.h; sourceTree = "<group>"; };
-		28A766541932F22400D69546 /* UsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersTableViewController.m; path = Examples/Selectors/DynamicSelector/UsersTableViewController.m; sourceTree = "<group>"; };
-		28A7665C1932F61100D69546 /* DynamicSelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicSelectorsFormViewController.h; path = Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.h; sourceTree = "<group>"; };
-		28A7665D1932F61100D69546 /* DynamicSelectorsFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DynamicSelectorsFormViewController.m; path = Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.m; sourceTree = "<group>"; };
-		28A8083D190D9083009D77F8 /* iPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = iPhoneStoryboard.storyboard; path = Examples/StoryboardExample/iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
-		28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormImageSelectorCell.h; path = ../../../Examples/Others/CustomCells/XLFormImageSelectorCell.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormImageSelectorCell.m; path = ../../../Examples/Others/CustomCells/XLFormImageSelectorCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		28AC9B71194A711E00847840 /* NSArray+XLFormAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+XLFormAdditions.h"; path = "XL/Helpers/NSArray+XLFormAdditions.h"; sourceTree = "<group>"; };
-		28AC9B72194A711E00847840 /* NSArray+XLFormAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+XLFormAdditions.m"; path = "XL/Helpers/NSArray+XLFormAdditions.m"; sourceTree = "<group>"; };
-		28C0260B18D2138200C0854B /* XLForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLForm.h; path = XL/XLForm.h; sourceTree = "<group>"; };
-		28C0260C18D22E7A00C0854B /* XLFormBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XLFormBaseCell.h; sourceTree = "<group>"; };
-		28C0260D18D22E7A00C0854B /* XLFormBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = XLFormBaseCell.m; sourceTree = "<group>"; };
-		28C7ECC018E1F3C1009E3C46 /* XLFormOptionsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = XLFormOptionsObject.h; path = XL/Controllers/XLFormOptionsObject.h; sourceTree = "<group>"; };
-		28C7ECC118E1F3C1009E3C46 /* XLFormOptionsObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = XLFormOptionsObject.m; path = XL/Controllers/XLFormOptionsObject.m; sourceTree = "<group>"; };
-		28DBB03F18D76FDC00FB8A8B /* MultivaluedFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = MultivaluedFormViewController.h; path = Examples/MultiValuedSections/MultivaluedFormViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		28DBB04018D76FDC00FB8A8B /* MultivaluedFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MultivaluedFormViewController.m; path = Examples/MultiValuedSections/MultivaluedFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		28E093E918F4C28200E218ED /* XLFormRightDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormRightDetailCell.h; path = XLForm/XL/Helpers/Views/XLFormRightDetailCell.h; sourceTree = SOURCE_ROOT; };
-		28E093EA18F4C28200E218ED /* XLFormRightDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormRightDetailCell.m; path = XLForm/XL/Helpers/Views/XLFormRightDetailCell.m; sourceTree = SOURCE_ROOT; };
-		3C3360B1193E43D800BA9C4A /* XLFormSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSegmentedCell.h; sourceTree = "<group>"; };
-		3C3360B2193E43D800BA9C4A /* XLFormSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSegmentedCell.m; sourceTree = "<group>"; };
-		72E6DF463B884AB3934DD04A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/CustomCells/XLFormCustomCell.h; sourceTree = "<group>"; };
-		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
-		D55C39BC191BCA460090B6B4 /* XLFormStepCounterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormStepCounterCell.h; sourceTree = "<group>"; };
-		D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormStepCounterCell.m; sourceTree = "<group>"; };
-		DCC8167919A3F8E30071915C /* XLFormSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormSliderCell.h; sourceTree = "<group>"; };
-		DCC8167A19A3F8E30071915C /* XLFormSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormSliderCell.m; sourceTree = "<group>"; };
-		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		2850C5F518D0F706002B7D0A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				28A7661F193248BD00D69546 /* CoreData.framework in Frameworks */,
-				2850C5FE18D0F706002B7D0A /* CoreGraphics.framework in Frameworks */,
-				2850C60018D0F706002B7D0A /* UIKit.framework in Frameworks */,
-				2850C5FC18D0F706002B7D0A /* Foundation.framework in Frameworks */,
-				2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		28135F93198961B900005F9B /* Validation */ = {
-			isa = PBXGroup;
-			children = (
-				28135F94198961B900005F9B /* XLFormRegexValidator.h */,
-				28135F95198961B900005F9B /* XLFormRegexValidator.m */,
-				28135F96198961B900005F9B /* XLFormValidationStatus.h */,
-				28135F97198961B900005F9B /* XLFormValidationStatus.m */,
-				28135F98198961B900005F9B /* XLFormValidatorProtocol.h */,
-				287E8A211998662400225536 /* XLFormValidator.h */,
-				287E8A221998662400225536 /* XLFormValidator.m */,
-			);
-			name = Validation;
-			path = XL/Validation;
-			sourceTree = "<group>";
-		};
-		282526FC18D1FCE1005ECA20 /* Descriptors */ = {
-			isa = PBXGroup;
-			children = (
-				282C5EF818D3A31C00A5D47C /* XLFormDescriptor.h */,
-				282C5EF918D3A31C00A5D47C /* XLFormDescriptor.m */,
-				282C5EFA18D3A31C00A5D47C /* XLFormRowDescriptor.h */,
-				282C5EFB18D3A31C00A5D47C /* XLFormRowDescriptor.m */,
-				282C5EFC18D3A31C00A5D47C /* XLFormSectionDescriptor.h */,
-				282C5EFD18D3A31C00A5D47C /* XLFormSectionDescriptor.m */,
-				28468E7D18E7219D00DBB015 /* XLFormDescriptorDelegate.h */,
-			);
-			name = Descriptors;
-			sourceTree = "<group>";
-		};
-		282C5EEF18D33C1800A5D47C /* Inputs */ = {
-			isa = PBXGroup;
-			children = (
-				28468EA218EF41D300DBB015 /* InputsFormViewController.h */,
-				28468EA318EF41D300DBB015 /* InputsFormViewController.m */,
-			);
-			name = Inputs;
-			sourceTree = "<group>";
-		};
-		282D974418D1F9AC00DEE3C5 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				28C7ECC018E1F3C1009E3C46 /* XLFormOptionsObject.h */,
-				28C7ECC118E1F3C1009E3C46 /* XLFormOptionsObject.m */,
-				2850C65B18D0F9A6002B7D0A /* XLFormViewController.h */,
-				2850C65C18D0F9A6002B7D0A /* XLFormViewController.m */,
-				282D974118D1271B00DEE3C5 /* XLFormOptionsViewController.h */,
-				282D974218D1271B00DEE3C5 /* XLFormOptionsViewController.m */,
-				283B59A4194D4BBF000828CD /* XLFormRowDescriptorViewController.h */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		283B59AF19531DDA000828CD /* CustomSelectors */ = {
-			isa = PBXGroup;
-			children = (
-				283B59B319532A8E000828CD /* XLFormRowViewController */,
-				283B59B5195334AF000828CD /* CustomSelectorsFormViewController.h */,
-				283B59B6195334AF000828CD /* CustomSelectorsFormViewController.m */,
-			);
-			name = CustomSelectors;
-			sourceTree = "<group>";
-		};
-		283B59B319532A8E000828CD /* XLFormRowViewController */ = {
-			isa = PBXGroup;
-			children = (
-				283B59B019532415000828CD /* MapViewController.h */,
-				283B59B119532415000828CD /* MapViewController.m */,
-				281E5BE719538F4A006D93C5 /* CLLocationValueTrasformer.h */,
-				281E5BE819538F4A006D93C5 /* CLLocationValueTrasformer.m */,
-			);
-			name = XLFormRowViewController;
-			sourceTree = "<group>";
-		};
-		283C6B7A1999BA1B00A5283D /* UICustomization */ = {
-			isa = PBXGroup;
-			children = (
-				283C6B7B1999BAF100A5283D /* UICustomizationFormViewController.h */,
-				283C6B7C1999BAF100A5283D /* UICustomizationFormViewController.m */,
-			);
-			name = UICustomization;
-			sourceTree = "<group>";
-		};
-		2843EB4818D496CB00F13E2B /* Selectors */ = {
-			isa = PBXGroup;
-			children = (
-				283B59AF19531DDA000828CD /* CustomSelectors */,
-				28A766521932F1FA00D69546 /* DynamicSelector */,
-				28A7662B1932E92D00D69546 /* Helpers */,
-				2843EB4918D496F600F13E2B /* SelectorsFormViewController.h */,
-				2843EB4A18D496F600F13E2B /* SelectorsFormViewController.m */,
-			);
-			name = Selectors;
-			sourceTree = "<group>";
-		};
-		2843EB4F18D4CFA100F13E2B /* Others */ = {
-			isa = PBXGroup;
-			children = (
-				28A7662A1932A3D800D69546 /* CustomCells */,
-				2843EB5018D4CFC700F13E2B /* OthersFormViewController.h */,
-				2843EB5118D4CFC700F13E2B /* OthersFormViewController.m */,
-			);
-			name = Others;
-			sourceTree = "<group>";
-		};
-		2843EB5318D4F77F00F13E2B /* Dates */ = {
-			isa = PBXGroup;
-			children = (
-				2843EB5418D4F7B700F13E2B /* DatesFormViewController.h */,
-				2843EB5518D4F7B700F13E2B /* DatesFormViewController.m */,
-			);
-			name = Dates;
-			sourceTree = "<group>";
-		};
-		2843EB5F18D76B2D00F13E2B /* MultiValuedSections */ = {
-			isa = PBXGroup;
-			children = (
-				28DBB03F18D76FDC00FB8A8B /* MultivaluedFormViewController.h */,
-				28DBB04018D76FDC00FB8A8B /* MultivaluedFormViewController.m */,
-			);
-			name = MultiValuedSections;
-			sourceTree = "<group>";
-		};
-		28468E9218EA52CA00DBB015 /* RealExamples */ = {
-			isa = PBXGroup;
-			children = (
-				28468E9618EC686500DBB015 /* NativeEventFormViewController.h */,
-				28468E9718EC686500DBB015 /* NativeEventFormViewController.m */,
-			);
-			name = RealExamples;
-			sourceTree = "<group>";
-		};
-		2850C5EF18D0F706002B7D0A = {
-			isa = PBXGroup;
-			children = (
-				2850C62B18D0F92F002B7D0A /* Examples */,
-				2850C60118D0F706002B7D0A /* XLForm */,
-				2850C5FA18D0F706002B7D0A /* Frameworks */,
-				2850C5F918D0F706002B7D0A /* Products */,
-				72E6DF463B884AB3934DD04A /* Pods.xcconfig */,
-			);
-			sourceTree = "<group>";
-		};
-		2850C5F918D0F706002B7D0A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2850C5F818D0F706002B7D0A /* XLForm.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		2850C5FA18D0F706002B7D0A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				28A7661E193248BD00D69546 /* CoreData.framework */,
-				2850C5FB18D0F706002B7D0A /* Foundation.framework */,
-				2850C5FD18D0F706002B7D0A /* CoreGraphics.framework */,
-				2850C5FF18D0F706002B7D0A /* UIKit.framework */,
-				F6DF43B7BBF44F72A4493E8E /* libPods.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2850C60118D0F706002B7D0A /* XLForm */ = {
-			isa = PBXGroup;
-			children = (
-				2807DC7218DC877000A4B0B9 /* XLForm.bundle */,
-				2850C62C18D0F948002B7D0A /* XL */,
-				2850C60D18D0F706002B7D0A /* Images.xcassets */,
-				2850C60218D0F706002B7D0A /* Supporting Files */,
-			);
-			path = XLForm;
-			sourceTree = "<group>";
-		};
-		2850C60218D0F706002B7D0A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				2850C60318D0F706002B7D0A /* XLForm-Info.plist */,
-				2850C60418D0F706002B7D0A /* InfoPlist.strings */,
-				2850C60718D0F706002B7D0A /* main.m */,
-				2850C60918D0F706002B7D0A /* XLForm-Prefix.pch */,
-				28468EA518EF594800DBB015 /* Localizable.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		2850C62B18D0F92F002B7D0A /* Examples */ = {
-			isa = PBXGroup;
-			children = (
-				283C6B7A1999BA1B00A5283D /* UICustomization */,
-				28A76624193251E500D69546 /* AppDelegate.m */,
-				28A8083C190D903D009D77F8 /* StoryboardExample */,
-				28468E9218EA52CA00DBB015 /* RealExamples */,
-				2843EB5F18D76B2D00F13E2B /* MultiValuedSections */,
-				2843EB5318D4F77F00F13E2B /* Dates */,
-				2843EB4F18D4CFA100F13E2B /* Others */,
-				2843EB4818D496CB00F13E2B /* Selectors */,
-				2850C60A18D0F706002B7D0A /* AppDelegate.h */,
-				282C5EEF18D33C1800A5D47C /* Inputs */,
-				2843EB4518D4915800F13E2B /* ExamplesFormViewController.h */,
-				2843EB4618D4915800F13E2B /* ExamplesFormViewController.m */,
-			);
-			name = Examples;
-			sourceTree = "<group>";
-		};
-		2850C62C18D0F948002B7D0A /* XL */ = {
-			isa = PBXGroup;
-			children = (
-				283C5B9619AAF2CC00488444 /* XLForm.m */,
-				28135F93198961B900005F9B /* Validation */,
-				282526FC18D1FCE1005ECA20 /* Descriptors */,
-				282D974418D1F9AC00DEE3C5 /* Controllers */,
-				2850C67918D0FE0B002B7D0A /* Helpers */,
-				2850C62D18D0F9A6002B7D0A /* Cell */,
-				28C0260B18D2138200C0854B /* XLForm.h */,
-			);
-			name = XL;
-			sourceTree = "<group>";
-		};
-		2850C62D18D0F9A6002B7D0A /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				28A85D5718E346C100E81A26 /* XLFormImageSelectorCell.h */,
-				28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */,
-				D55C39BC191BCA460090B6B4 /* XLFormStepCounterCell.h */,
-				D55C39BD191BCA460090B6B4 /* XLFormStepCounterCell.m */,
-				2850C68618D12122002B7D0A /* XLFormSelectorCell.h */,
-				2850C68718D12122002B7D0A /* XLFormSelectorCell.m */,
-				2850C68318D11FDA002B7D0A /* XLFormTextFieldCell.h */,
-				2850C68418D11FDA002B7D0A /* XLFormTextFieldCell.m */,
-				2850C67D18D11F6D002B7D0A /* XLFormTextViewCell.h */,
-				2850C67E18D11F6D002B7D0A /* XLFormTextViewCell.m */,
-				2850C67618D0FDBF002B7D0A /* XLFormButtonCell.h */,
-				2850C67718D0FDBF002B7D0A /* XLFormButtonCell.m */,
-				2850C67318D0FD4B002B7D0A /* XLFormDatePickerCell.h */,
-				2850C67418D0FD4B002B7D0A /* XLFormDatePickerCell.m */,
-				2850C63018D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.h */,
-				2850C63118D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m */,
-				28C0260C18D22E7A00C0854B /* XLFormBaseCell.h */,
-				28C0260D18D22E7A00C0854B /* XLFormBaseCell.m */,
-				2843EB4C18D4CCD700F13E2B /* XLFormSwitchCell.h */,
-				2843EB4D18D4CCD700F13E2B /* XLFormSwitchCell.m */,
-				2843EB5C18D736BC00F13E2B /* XLFormCheckCell.h */,
-				2843EB5D18D736BC00F13E2B /* XLFormCheckCell.m */,
-				28A5D2B018D81873008F0D24 /* XLFormDescriptorCell.h */,
-				2829624518DF790F00002E09 /* XLFormDateCell.h */,
-				2829624618DF790F00002E09 /* XLFormDateCell.m */,
-				3C3360B1193E43D800BA9C4A /* XLFormSegmentedCell.h */,
-				3C3360B2193E43D800BA9C4A /* XLFormSegmentedCell.m */,
-				283B59A6194D53DE000828CD /* XLFormInlineSelectorCell.h */,
-				283B59A7194D53DE000828CD /* XLFormInlineSelectorCell.m */,
-				283B59A9194D5DE2000828CD /* XLFormInlineRowDescriptorCell.h */,
-				283B59AA194D6117000828CD /* XLFormPickerCell.h */,
-				283B59AB194D6117000828CD /* XLFormPickerCell.m */,
-				DCC8167919A3F8E30071915C /* XLFormSliderCell.h */,
-				DCC8167A19A3F8E30071915C /* XLFormSliderCell.m */,
-			);
-			name = Cell;
-			path = XL/Cell;
-			sourceTree = "<group>";
-		};
-		2850C64E18D0F9A6002B7D0A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				28E093E918F4C28200E218ED /* XLFormRightDetailCell.h */,
-				28E093EA18F4C28200E218ED /* XLFormRightDetailCell.m */,
-				28468E9F18ECAE1200DBB015 /* XLFormTextView.h */,
-				28468EA018ECAE1200DBB015 /* XLFormTextView.m */,
-				2807DC6F18DC84B200A4B0B9 /* XLFormRightImageButton.h */,
-				2807DC7018DC84B200A4B0B9 /* XLFormRightImageButton.m */,
-			);
-			name = Views;
-			path = XL/Views;
-			sourceTree = "<group>";
-		};
-		2850C67918D0FE0B002B7D0A /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				2850C64E18D0F9A6002B7D0A /* Views */,
-				2850C67A18D0FE3A002B7D0A /* UIView+XLFormAdditions.h */,
-				2850C67B18D0FE3A002B7D0A /* UIView+XLFormAdditions.m */,
-				2843EB5718D5050500F13E2B /* NSObject+XLFormAdditions.h */,
-				2843EB5818D5050500F13E2B /* NSObject+XLFormAdditions.m */,
-				28AC9B71194A711E00847840 /* NSArray+XLFormAdditions.h */,
-				28AC9B72194A711E00847840 /* NSArray+XLFormAdditions.m */,
-			);
-			name = Helpers;
-			sourceTree = "<group>";
-		};
-		28A7662A1932A3D800D69546 /* CustomCells */ = {
-			isa = PBXGroup;
-			children = (
-				D51B8B2A19126664008C0478 /* XLFormCustomCell.h */,
-				D51B8B2B19126664008C0478 /* XLFormCustomCell.m */,
-			);
-			name = CustomCells;
-			sourceTree = "<group>";
-		};
-		28A7662B1932E92D00D69546 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				28A7663D1932EC9C00D69546 /* Data */,
-				28A766301932EA1F00D69546 /* DataLoaders */,
-				28A7662C1932E98A00D69546 /* HTTPSessionManager.h */,
-				28A7662D1932E98A00D69546 /* HTTPSessionManager.m */,
-			);
-			name = Helpers;
-			sourceTree = "<group>";
-		};
-		28A766301932EA1F00D69546 /* DataLoaders */ = {
-			isa = PBXGroup;
-			children = (
-				28A766351932EA1F00D69546 /* UserLocalDataLoader.h */,
-				28A766361932EA1F00D69546 /* UserLocalDataLoader.m */,
-				28A766371932EA1F00D69546 /* UserRemoteDataLoader.h */,
-				28A766381932EA1F00D69546 /* UserRemoteDataLoader.m */,
-			);
-			name = DataLoaders;
-			path = Examples/Selectors/Helpers/DataLoaders;
-			sourceTree = "<group>";
-		};
-		28A7663D1932EC9C00D69546 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				28A7663E1932EC9C00D69546 /* Store */,
-				28A766411932EC9C00D69546 /* User+Additions.h */,
-				28A766421932EC9C00D69546 /* User+Additions.m */,
-				28A766481932ED3400D69546 /* Model.xcdatamodeld */,
-				28A7664B1932EE0B00D69546 /* User.h */,
-				28A7664C1932EE0B00D69546 /* User.m */,
-			);
-			name = Data;
-			path = Examples/Selectors/Helpers/Data;
-			sourceTree = "<group>";
-		};
-		28A7663E1932EC9C00D69546 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				28A7663F1932EC9C00D69546 /* CoreDataStore.h */,
-				28A766401932EC9C00D69546 /* CoreDataStore.m */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
-		28A766521932F1FA00D69546 /* DynamicSelector */ = {
-			isa = PBXGroup;
-			children = (
-				28A7665A1932F55700D69546 /* XLFormRowViewController */,
-				28A7665C1932F61100D69546 /* DynamicSelectorsFormViewController.h */,
-				28A7665D1932F61100D69546 /* DynamicSelectorsFormViewController.m */,
-			);
-			name = DynamicSelector;
-			sourceTree = "<group>";
-		};
-		28A7665A1932F55700D69546 /* XLFormRowViewController */ = {
-			isa = PBXGroup;
-			children = (
-				28A766531932F22400D69546 /* UsersTableViewController.h */,
-				28A766541932F22400D69546 /* UsersTableViewController.m */,
-			);
-			name = XLFormRowViewController;
-			sourceTree = "<group>";
-		};
-		28A8083C190D903D009D77F8 /* StoryboardExample */ = {
-			isa = PBXGroup;
-			children = (
-				28A8083D190D9083009D77F8 /* iPhoneStoryboard.storyboard */,
-			);
-			name = StoryboardExample;
-			sourceTree = "<group>";
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		2850C5F718D0F706002B7D0A /* XLForm */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2850C62418D0F707002B7D0A /* Build configuration list for PBXNativeTarget "XLForm" */;
-			buildPhases = (
-				0EA9FCE3DA0D444498836D37 /* Check Pods Manifest.lock */,
-				2850C5F418D0F706002B7D0A /* Sources */,
-				2850C5F518D0F706002B7D0A /* Frameworks */,
-				2850C5F618D0F706002B7D0A /* Resources */,
-				CFE72E068B5F4D9BB45FB757 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = XLForm;
-			productName = XLForm;
-			productReference = 2850C5F818D0F706002B7D0A /* XLForm.app */;
-			productType = "com.apple.product-type.application";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		2850C5F018D0F706002B7D0A /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = Xmartlabs;
-			};
-			buildConfigurationList = 2850C5F318D0F706002B7D0A /* Build configuration list for PBXProject "XLForm" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = 2850C5EF18D0F706002B7D0A;
-			productRefGroup = 2850C5F918D0F706002B7D0A /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				2850C5F718D0F706002B7D0A /* XLForm */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		2850C5F618D0F706002B7D0A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2807DC7318DC877000A4B0B9 /* XLForm.bundle in Resources */,
-				28468EA718EF594900DBB015 /* Localizable.strings in Resources */,
-				2850C60618D0F706002B7D0A /* InfoPlist.strings in Resources */,
-				2850C60E18D0F706002B7D0A /* Images.xcassets in Resources */,
-				28A8083E190D9083009D77F8 /* iPhoneStoryboard.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0EA9FCE3DA0D444498836D37 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CFE72E068B5F4D9BB45FB757 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
-		2850C5F418D0F706002B7D0A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				28135F99198961B900005F9B /* XLFormRegexValidator.m in Sources */,
-				283B59B7195334AF000828CD /* CustomSelectorsFormViewController.m in Sources */,
-				28C0260E18D22E7A00C0854B /* XLFormBaseCell.m in Sources */,
-				28A766551932F22400D69546 /* UsersTableViewController.m in Sources */,
-				2850C67C18D0FE3A002B7D0A /* UIView+XLFormAdditions.m in Sources */,
-				2850C67F18D11F6D002B7D0A /* XLFormTextViewCell.m in Sources */,
-				28A7663B1932EA1F00D69546 /* UserLocalDataLoader.m in Sources */,
-				2850C68818D12122002B7D0A /* XLFormSelectorCell.m in Sources */,
-				2850C68518D11FDA002B7D0A /* XLFormTextFieldCell.m in Sources */,
-				2850C60818D0F706002B7D0A /* main.m in Sources */,
-				D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */,
-				28A7664D1932EE0B00D69546 /* User.m in Sources */,
-				28A7664A1932ED3400D69546 /* Model.xcdatamodeld in Sources */,
-				2807DC7118DC84B200A4B0B9 /* XLFormRightImageButton.m in Sources */,
-				28A766461932EC9C00D69546 /* User+Additions.m in Sources */,
-				2829624718DF790F00002E09 /* XLFormDateCell.m in Sources */,
-				2843EB5E18D736BC00F13E2B /* XLFormCheckCell.m in Sources */,
-				28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */,
-				287E8A231998662400225536 /* XLFormValidator.m in Sources */,
-				28A85D5918E346C100E81A26 /* XLFormImageSelectorCell.m in Sources */,
-				DCC8167B19A3F8E30071915C /* XLFormSliderCell.m in Sources */,
-				28468E9818EC686500DBB015 /* NativeEventFormViewController.m in Sources */,
-				3C3360B3193E43D800BA9C4A /* XLFormSegmentedCell.m in Sources */,
-				282C5EFE18D3A31C00A5D47C /* XLFormDescriptor.m in Sources */,
-				28A7665E1932F61100D69546 /* DynamicSelectorsFormViewController.m in Sources */,
-				281E5BE919538F4A006D93C5 /* CLLocationValueTrasformer.m in Sources */,
-				2843EB5618D4F7B700F13E2B /* DatesFormViewController.m in Sources */,
-				2843EB5918D5050500F13E2B /* NSObject+XLFormAdditions.m in Sources */,
-				28468EA118ECAE1200DBB015 /* XLFormTextView.m in Sources */,
-				283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */,
-				28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */,
-				282C5F0018D3A31C00A5D47C /* XLFormSectionDescriptor.m in Sources */,
-				283C5B9719AAF2CC00488444 /* XLForm.m in Sources */,
-				283B59B219532415000828CD /* MapViewController.m in Sources */,
-				28AC9B73194A711E00847840 /* NSArray+XLFormAdditions.m in Sources */,
-				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,
-				2850C67818D0FDBF002B7D0A /* XLFormButtonCell.m in Sources */,
-				2843EB4E18D4CCD700F13E2B /* XLFormSwitchCell.m in Sources */,
-				2850C67218D0F9A6002B7D0A /* XLFormViewController.m in Sources */,
-				D55C39BE191BCA460090B6B4 /* XLFormStepCounterCell.m in Sources */,
-				28A766451932EC9C00D69546 /* CoreDataStore.m in Sources */,
-				282C5EFF18D3A31C00A5D47C /* XLFormRowDescriptor.m in Sources */,
-				282D974318D1271B00DEE3C5 /* XLFormOptionsViewController.m in Sources */,
-				28E093EB18F4C28200E218ED /* XLFormRightDetailCell.m in Sources */,
-				2850C67518D0FD4B002B7D0A /* XLFormDatePickerCell.m in Sources */,
-				2850C65E18D0F9A6002B7D0A /* XLFormLeftRightSelectorCell.m in Sources */,
-				283B59A8194D53DE000828CD /* XLFormInlineSelectorCell.m in Sources */,
-				28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */,
-				2843EB5218D4CFC700F13E2B /* OthersFormViewController.m in Sources */,
-				28C7ECC218E1F3C1009E3C46 /* XLFormOptionsObject.m in Sources */,
-				28135F9A198961B900005F9B /* XLFormValidationStatus.m in Sources */,
-				2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */,
-				28468EA418EF41D300DBB015 /* InputsFormViewController.m in Sources */,
-				28A76625193251E500D69546 /* AppDelegate.m in Sources */,
-				283B59AC194D6117000828CD /* XLFormPickerCell.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		28468EA518EF594800DBB015 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				28468EA618EF594800DBB015 /* en */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		2850C60418D0F706002B7D0A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2850C60518D0F706002B7D0A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
-/* Begin XCBuildConfiguration section */
-		2850C62218D0F707002B7D0A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-			};
-			name = Debug;
-		};
-		2850C62318D0F707002B7D0A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				SDKROOT = iphoneos;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		2850C62518D0F707002B7D0A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72E6DF463B884AB3934DD04A /* Pods.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "XLForm/XLForm-Prefix.pch";
-				INFOPLIST_FILE = "XLForm/XLForm-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		2850C62618D0F707002B7D0A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72E6DF463B884AB3934DD04A /* Pods.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "XLForm/XLForm-Prefix.pch";
-				INFOPLIST_FILE = "XLForm/XLForm-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		2850C5F318D0F706002B7D0A /* Build configuration list for PBXProject "XLForm" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2850C62218D0F707002B7D0A /* Debug */,
-				2850C62318D0F707002B7D0A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2850C62418D0F707002B7D0A /* Build configuration list for PBXNativeTarget "XLForm" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2850C62518D0F707002B7D0A /* Debug */,
-				2850C62618D0F707002B7D0A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-/* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		28A766481932ED3400D69546 /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				28A766491932ED3400D69546 /* Model.xcdatamodel */,
-			);
-			currentVersion = 28A766491932ED3400D69546 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
-	};
-	rootObject = 2850C5F018D0F706002B7D0A /* Project object */;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>archiveVersion</key>
+	<string>1</string>
+	<key>classes</key>
+	<dict/>
+	<key>objectVersion</key>
+	<string>46</string>
+	<key>objects</key>
+	<dict>
+		<key>0EA9FCE3DA0D444498836D37</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Check Pods Manifest.lock</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
+if [[ $? != 0 ]] ; then
+    cat &lt;&lt; EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+    exit 1
+fi
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>15E61D225B0D27FAB51BDD90</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>7B0D2D6A86E2A41ED22E8A35</string>
+				<string>976A33EE62A018A7257B4878</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Pods</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2807DC6F18DC84B200A4B0B9</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormRightImageButton.h</string>
+			<key>path</key>
+			<string>XLForm/XL/Helpers/Views/XLFormRightImageButton.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>2807DC7018DC84B200A4B0B9</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormRightImageButton.m</string>
+			<key>path</key>
+			<string>XLForm/XL/Helpers/Views/XLFormRightImageButton.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>2807DC7118DC84B200A4B0B9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2807DC7018DC84B200A4B0B9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2807DC7218DC877000A4B0B9</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.plug-in</string>
+			<key>path</key>
+			<string>XLForm.bundle</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2807DC7318DC877000A4B0B9</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2807DC7218DC877000A4B0B9</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28135F93198961B900005F9B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28135F94198961B900005F9B</string>
+				<string>28135F95198961B900005F9B</string>
+				<string>28135F96198961B900005F9B</string>
+				<string>28135F97198961B900005F9B</string>
+				<string>28135F98198961B900005F9B</string>
+				<string>287E8A211998662400225536</string>
+				<string>287E8A221998662400225536</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Validation</string>
+			<key>path</key>
+			<string>XL/Validation</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28135F94198961B900005F9B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormRegexValidator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28135F95198961B900005F9B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>XLFormRegexValidator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28135F96198961B900005F9B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormValidationStatus.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28135F97198961B900005F9B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>XLFormValidationStatus.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28135F98198961B900005F9B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormValidatorProtocol.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28135F99198961B900005F9B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28135F95198961B900005F9B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28135F9A198961B900005F9B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28135F97198961B900005F9B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>281E5BE719538F4A006D93C5</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>CLLocationValueTrasformer.h</string>
+			<key>path</key>
+			<string>Examples/Selectors/CustomSelectors/XLFormRowViewController/CLLocationValueTrasformer.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>281E5BE819538F4A006D93C5</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>CLLocationValueTrasformer.m</string>
+			<key>path</key>
+			<string>Examples/Selectors/CustomSelectors/XLFormRowViewController/CLLocationValueTrasformer.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>281E5BE919538F4A006D93C5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>281E5BE819538F4A006D93C5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>282526FC18D1FCE1005ECA20</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>282C5EF818D3A31C00A5D47C</string>
+				<string>282C5EF918D3A31C00A5D47C</string>
+				<string>282C5EFA18D3A31C00A5D47C</string>
+				<string>282C5EFB18D3A31C00A5D47C</string>
+				<string>282C5EFC18D3A31C00A5D47C</string>
+				<string>282C5EFD18D3A31C00A5D47C</string>
+				<string>28468E7D18E7219D00DBB015</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Descriptors</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2829624518DF790F00002E09</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormDateCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2829624618DF790F00002E09</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormDateCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2829624718DF790F00002E09</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2829624618DF790F00002E09</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>282C5EEF18D33C1800A5D47C</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28468EA218EF41D300DBB015</string>
+				<string>28468EA318EF41D300DBB015</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Inputs</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282C5EF818D3A31C00A5D47C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormDescriptor.h</string>
+			<key>path</key>
+			<string>XL/Descriptors/XLFormDescriptor.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282C5EF918D3A31C00A5D47C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormDescriptor.m</string>
+			<key>path</key>
+			<string>XL/Descriptors/XLFormDescriptor.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282C5EFA18D3A31C00A5D47C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormRowDescriptor.h</string>
+			<key>path</key>
+			<string>XL/Descriptors/XLFormRowDescriptor.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282C5EFB18D3A31C00A5D47C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormRowDescriptor.m</string>
+			<key>path</key>
+			<string>XL/Descriptors/XLFormRowDescriptor.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282C5EFC18D3A31C00A5D47C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormSectionDescriptor.h</string>
+			<key>path</key>
+			<string>XL/Descriptors/XLFormSectionDescriptor.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282C5EFD18D3A31C00A5D47C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormSectionDescriptor.m</string>
+			<key>path</key>
+			<string>XL/Descriptors/XLFormSectionDescriptor.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282C5EFE18D3A31C00A5D47C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>282C5EF918D3A31C00A5D47C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>282C5EFF18D3A31C00A5D47C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>282C5EFB18D3A31C00A5D47C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>282C5F0018D3A31C00A5D47C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>282C5EFD18D3A31C00A5D47C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>282D974118D1271B00DEE3C5</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormOptionsViewController.h</string>
+			<key>path</key>
+			<string>XL/Controllers/XLFormOptionsViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282D974218D1271B00DEE3C5</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormOptionsViewController.m</string>
+			<key>path</key>
+			<string>XL/Controllers/XLFormOptionsViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>282D974318D1271B00DEE3C5</key>
+		<dict>
+			<key>fileRef</key>
+			<string>282D974218D1271B00DEE3C5</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>282D974418D1F9AC00DEE3C5</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28C7ECC018E1F3C1009E3C46</string>
+				<string>28C7ECC118E1F3C1009E3C46</string>
+				<string>2850C65B18D0F9A6002B7D0A</string>
+				<string>2850C65C18D0F9A6002B7D0A</string>
+				<string>282D974118D1271B00DEE3C5</string>
+				<string>282D974218D1271B00DEE3C5</string>
+				<string>283B59A4194D4BBF000828CD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Controllers</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59A4194D4BBF000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>XLFormRowDescriptorViewController.h</string>
+			<key>path</key>
+			<string>XL/Controllers/XLFormRowDescriptorViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59A6194D53DE000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormInlineSelectorCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59A7194D53DE000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>XLFormInlineSelectorCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59A8194D53DE000828CD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>283B59A7194D53DE000828CD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>283B59A9194D5DE2000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormInlineRowDescriptorCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59AA194D6117000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormPickerCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59AB194D6117000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>XLFormPickerCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59AC194D6117000828CD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>283B59AB194D6117000828CD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>283B59AF19531DDA000828CD</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>283B59B319532A8E000828CD</string>
+				<string>283B59B5195334AF000828CD</string>
+				<string>283B59B6195334AF000828CD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>CustomSelectors</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59B019532415000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>MapViewController.h</string>
+			<key>path</key>
+			<string>Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59B119532415000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>MapViewController.m</string>
+			<key>path</key>
+			<string>Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59B219532415000828CD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>283B59B119532415000828CD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>283B59B319532A8E000828CD</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>283B59B019532415000828CD</string>
+				<string>283B59B119532415000828CD</string>
+				<string>281E5BE719538F4A006D93C5</string>
+				<string>281E5BE819538F4A006D93C5</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>XLFormRowViewController</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59B5195334AF000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>CustomSelectorsFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/Selectors/CustomSelectors/CustomSelectorsFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59B6195334AF000828CD</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>CustomSelectorsFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/Selectors/CustomSelectors/CustomSelectorsFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283B59B7195334AF000828CD</key>
+		<dict>
+			<key>fileRef</key>
+			<string>283B59B6195334AF000828CD</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>283C5B9619AAF2CC00488444</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>XLForm.m</string>
+			<key>path</key>
+			<string>XL/XLForm.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283C5B9719AAF2CC00488444</key>
+		<dict>
+			<key>fileRef</key>
+			<string>283C5B9619AAF2CC00488444</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>283C6B7A1999BA1B00A5283D</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>283C6B7B1999BAF100A5283D</string>
+				<string>283C6B7C1999BAF100A5283D</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>UICustomization</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283C6B7B1999BAF100A5283D</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UICustomizationFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/UICustomization/UICustomizationFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283C6B7C1999BAF100A5283D</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UICustomizationFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/UICustomization/UICustomizationFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>283C6B7D1999BAF100A5283D</key>
+		<dict>
+			<key>fileRef</key>
+			<string>283C6B7C1999BAF100A5283D</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2843EB4518D4915800F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>ExamplesFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/ExamplesFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>2843EB4618D4915800F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>ExamplesFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/ExamplesFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>2843EB4718D4915800F13E2B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2843EB4618D4915800F13E2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2843EB4818D496CB00F13E2B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>283B59AF19531DDA000828CD</string>
+				<string>28A766521932F1FA00D69546</string>
+				<string>28A7662B1932E92D00D69546</string>
+				<string>2843EB4918D496F600F13E2B</string>
+				<string>2843EB4A18D496F600F13E2B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Selectors</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB4918D496F600F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>SelectorsFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/Selectors/SelectorsFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>2843EB4A18D496F600F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>SelectorsFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/Selectors/SelectorsFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>2843EB4B18D496F600F13E2B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2843EB4A18D496F600F13E2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2843EB4C18D4CCD700F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormSwitchCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB4D18D4CCD700F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormSwitchCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB4E18D4CCD700F13E2B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2843EB4D18D4CCD700F13E2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2843EB4F18D4CFA100F13E2B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A7662A1932A3D800D69546</string>
+				<string>2843EB5018D4CFC700F13E2B</string>
+				<string>2843EB5118D4CFC700F13E2B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Others</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB5018D4CFC700F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>OthersFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/Others/OthersFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>2843EB5118D4CFC700F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>OthersFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/Others/OthersFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>2843EB5218D4CFC700F13E2B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2843EB5118D4CFC700F13E2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2843EB5318D4F77F00F13E2B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2843EB5418D4F7B700F13E2B</string>
+				<string>2843EB5518D4F7B700F13E2B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Dates</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB5418D4F7B700F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>DatesFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/Dates/DatesFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>2843EB5518D4F7B700F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>DatesFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/Dates/DatesFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>2843EB5618D4F7B700F13E2B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2843EB5518D4F7B700F13E2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2843EB5718D5050500F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>NSObject+XLFormAdditions.h</string>
+			<key>path</key>
+			<string>XL/Helpers/NSObject+XLFormAdditions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB5818D5050500F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>NSObject+XLFormAdditions.m</string>
+			<key>path</key>
+			<string>XL/Helpers/NSObject+XLFormAdditions.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB5918D5050500F13E2B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2843EB5818D5050500F13E2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2843EB5C18D736BC00F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormCheckCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB5D18D736BC00F13E2B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormCheckCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2843EB5E18D736BC00F13E2B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2843EB5D18D736BC00F13E2B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2843EB5F18D76B2D00F13E2B</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28DBB03F18D76FDC00FB8A8B</string>
+				<string>28DBB04018D76FDC00FB8A8B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>MultiValuedSections</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28468E7D18E7219D00DBB015</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormDescriptorDelegate.h</string>
+			<key>path</key>
+			<string>XL/Descriptors/XLFormDescriptorDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28468E9218EA52CA00DBB015</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28468E9618EC686500DBB015</string>
+				<string>28468E9718EC686500DBB015</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>RealExamples</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28468E9618EC686500DBB015</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>NativeEventFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/RealExamples/NativeEventFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>28468E9718EC686500DBB015</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>NativeEventFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/RealExamples/NativeEventFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>28468E9818EC686500DBB015</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28468E9718EC686500DBB015</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28468E9F18ECAE1200DBB015</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormTextView.h</string>
+			<key>path</key>
+			<string>XLForm/XL/Helpers/Views/XLFormTextView.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>28468EA018ECAE1200DBB015</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormTextView.m</string>
+			<key>path</key>
+			<string>XLForm/XL/Helpers/Views/XLFormTextView.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>28468EA118ECAE1200DBB015</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28468EA018ECAE1200DBB015</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28468EA218EF41D300DBB015</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>InputsFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/Inputs/InputsFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>28468EA318EF41D300DBB015</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>InputsFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/Inputs/InputsFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>28468EA418EF41D300DBB015</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28468EA318EF41D300DBB015</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28468EA518EF594800DBB015</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28468EA618EF594800DBB015</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>Localizable.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28468EA618EF594800DBB015</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/Localizable.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28468EA718EF594900DBB015</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28468EA518EF594800DBB015</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C5EF18D0F706002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2850C62B18D0F92F002B7D0A</string>
+				<string>2850C60118D0F706002B7D0A</string>
+				<string>2850C5FA18D0F706002B7D0A</string>
+				<string>2850C5F918D0F706002B7D0A</string>
+				<string>15E61D225B0D27FAB51BDD90</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C5F018D0F706002B7D0A</key>
+		<dict>
+			<key>attributes</key>
+			<dict>
+				<key>LastUpgradeCheck</key>
+				<string>0510</string>
+				<key>ORGANIZATIONNAME</key>
+				<string>Xmartlabs</string>
+			</dict>
+			<key>buildConfigurationList</key>
+			<string>2850C5F318D0F706002B7D0A</string>
+			<key>compatibilityVersion</key>
+			<string>Xcode 3.2</string>
+			<key>developmentRegion</key>
+			<string>English</string>
+			<key>hasScannedForEncodings</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXProject</string>
+			<key>knownRegions</key>
+			<array>
+				<string>en</string>
+			</array>
+			<key>mainGroup</key>
+			<string>2850C5EF18D0F706002B7D0A</string>
+			<key>productRefGroup</key>
+			<string>2850C5F918D0F706002B7D0A</string>
+			<key>projectDirPath</key>
+			<string></string>
+			<key>projectReferences</key>
+			<array/>
+			<key>projectRoot</key>
+			<string></string>
+			<key>targets</key>
+			<array>
+				<string>2850C5F718D0F706002B7D0A</string>
+			</array>
+		</dict>
+		<key>2850C5F318D0F706002B7D0A</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>2850C62218D0F707002B7D0A</string>
+				<string>2850C62318D0F707002B7D0A</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>2850C5F418D0F706002B7D0A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>28135F99198961B900005F9B</string>
+				<string>283B59B7195334AF000828CD</string>
+				<string>28C0260E18D22E7A00C0854B</string>
+				<string>28A766551932F22400D69546</string>
+				<string>2850C67C18D0FE3A002B7D0A</string>
+				<string>2850C67F18D11F6D002B7D0A</string>
+				<string>28A7663B1932EA1F00D69546</string>
+				<string>2850C68818D12122002B7D0A</string>
+				<string>2850C68518D11FDA002B7D0A</string>
+				<string>2850C60818D0F706002B7D0A</string>
+				<string>D51B8B2C19126664008C0478</string>
+				<string>28A7664D1932EE0B00D69546</string>
+				<string>28A7664A1932ED3400D69546</string>
+				<string>2807DC7118DC84B200A4B0B9</string>
+				<string>28A766461932EC9C00D69546</string>
+				<string>2829624718DF790F00002E09</string>
+				<string>2843EB5E18D736BC00F13E2B</string>
+				<string>28DBB04118D76FDC00FB8A8B</string>
+				<string>287E8A231998662400225536</string>
+				<string>28A85D5918E346C100E81A26</string>
+				<string>DCC8167B19A3F8E30071915C</string>
+				<string>28468E9818EC686500DBB015</string>
+				<string>3C3360B3193E43D800BA9C4A</string>
+				<string>282C5EFE18D3A31C00A5D47C</string>
+				<string>28A7665E1932F61100D69546</string>
+				<string>281E5BE919538F4A006D93C5</string>
+				<string>2843EB5618D4F7B700F13E2B</string>
+				<string>2843EB5918D5050500F13E2B</string>
+				<string>28468EA118ECAE1200DBB015</string>
+				<string>283C6B7D1999BAF100A5283D</string>
+				<string>28A7662E1932E98A00D69546</string>
+				<string>282C5F0018D3A31C00A5D47C</string>
+				<string>283C5B9719AAF2CC00488444</string>
+				<string>283B59B219532415000828CD</string>
+				<string>28AC9B73194A711E00847840</string>
+				<string>2843EB4718D4915800F13E2B</string>
+				<string>2850C67818D0FDBF002B7D0A</string>
+				<string>2843EB4E18D4CCD700F13E2B</string>
+				<string>2850C67218D0F9A6002B7D0A</string>
+				<string>D55C39BE191BCA460090B6B4</string>
+				<string>28A766451932EC9C00D69546</string>
+				<string>282C5EFF18D3A31C00A5D47C</string>
+				<string>282D974318D1271B00DEE3C5</string>
+				<string>28E093EB18F4C28200E218ED</string>
+				<string>2850C67518D0FD4B002B7D0A</string>
+				<string>2850C65E18D0F9A6002B7D0A</string>
+				<string>283B59A8194D53DE000828CD</string>
+				<string>28A7663C1932EA1F00D69546</string>
+				<string>2843EB5218D4CFC700F13E2B</string>
+				<string>28C7ECC218E1F3C1009E3C46</string>
+				<string>28135F9A198961B900005F9B</string>
+				<string>2843EB4B18D496F600F13E2B</string>
+				<string>28468EA418EF41D300DBB015</string>
+				<string>28A76625193251E500D69546</string>
+				<string>283B59AC194D6117000828CD</string>
+			</array>
+			<key>isa</key>
+			<string>PBXSourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>2850C5F518D0F706002B7D0A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>28A7661F193248BD00D69546</string>
+				<string>2850C5FE18D0F706002B7D0A</string>
+				<string>2850C60018D0F706002B7D0A</string>
+				<string>2850C5FC18D0F706002B7D0A</string>
+				<string>2CA9A3FC06E94345A2FDE415</string>
+			</array>
+			<key>isa</key>
+			<string>PBXFrameworksBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>2850C5F618D0F706002B7D0A</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array>
+				<string>2807DC7318DC877000A4B0B9</string>
+				<string>28468EA718EF594900DBB015</string>
+				<string>2850C60618D0F706002B7D0A</string>
+				<string>2850C60E18D0F706002B7D0A</string>
+				<string>28A8083E190D9083009D77F8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXResourcesBuildPhase</string>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+		</dict>
+		<key>2850C5F718D0F706002B7D0A</key>
+		<dict>
+			<key>buildConfigurationList</key>
+			<string>2850C62418D0F707002B7D0A</string>
+			<key>buildPhases</key>
+			<array>
+				<string>0EA9FCE3DA0D444498836D37</string>
+				<string>2850C5F418D0F706002B7D0A</string>
+				<string>2850C5F518D0F706002B7D0A</string>
+				<string>2850C5F618D0F706002B7D0A</string>
+				<string>CFE72E068B5F4D9BB45FB757</string>
+			</array>
+			<key>buildRules</key>
+			<array/>
+			<key>dependencies</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXNativeTarget</string>
+			<key>name</key>
+			<string>XLForm</string>
+			<key>productName</key>
+			<string>XLForm</string>
+			<key>productReference</key>
+			<string>2850C5F818D0F706002B7D0A</string>
+			<key>productType</key>
+			<string>com.apple.product-type.application</string>
+		</dict>
+		<key>2850C5F818D0F706002B7D0A</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>wrapper.application</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>XLForm.app</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+		<key>2850C5F918D0F706002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2850C5F818D0F706002B7D0A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Products</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C5FA18D0F706002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A7661E193248BD00D69546</string>
+				<string>2850C5FB18D0F706002B7D0A</string>
+				<string>2850C5FD18D0F706002B7D0A</string>
+				<string>2850C5FF18D0F706002B7D0A</string>
+				<string>F6DF43B7BBF44F72A4493E8E</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Frameworks</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C5FB18D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>Foundation.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/Foundation.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>2850C5FC18D0F706002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C5FB18D0F706002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C5FD18D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>CoreGraphics.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/CoreGraphics.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>2850C5FE18D0F706002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C5FD18D0F706002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C5FF18D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>UIKit.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/UIKit.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>2850C60018D0F706002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C5FF18D0F706002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C60118D0F706002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2807DC7218DC877000A4B0B9</string>
+				<string>2850C62C18D0F948002B7D0A</string>
+				<string>2850C60D18D0F706002B7D0A</string>
+				<string>2850C60218D0F706002B7D0A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>XLForm</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C60218D0F706002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2850C60318D0F706002B7D0A</string>
+				<string>2850C60418D0F706002B7D0A</string>
+				<string>2850C60718D0F706002B7D0A</string>
+				<string>2850C60918D0F706002B7D0A</string>
+				<string>28468EA518EF594800DBB015</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Supporting Files</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C60318D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.xml</string>
+			<key>path</key>
+			<string>XLForm-Info.plist</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C60418D0F706002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2850C60518D0F706002B7D0A</string>
+			</array>
+			<key>isa</key>
+			<string>PBXVariantGroup</string>
+			<key>name</key>
+			<string>InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C60518D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.plist.strings</string>
+			<key>name</key>
+			<string>en</string>
+			<key>path</key>
+			<string>en.lproj/InfoPlist.strings</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C60618D0F706002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C60418D0F706002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C60718D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>main.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>2850C60818D0F706002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C60718D0F706002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C60918D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLForm-Prefix.pch</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C60A18D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>AppDelegate.h</string>
+			<key>path</key>
+			<string>Examples/AppDelegate.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>2850C60D18D0F706002B7D0A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>folder.assetcatalog</string>
+			<key>path</key>
+			<string>Images.xcassets</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C60E18D0F706002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C60D18D0F706002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C62218D0F707002B7D0A</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<array>
+					<string>DEBUG=1</string>
+					<string>$(inherited)</string>
+				</array>
+				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
+				<string>NO</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>2850C62318D0F707002B7D0A</key>
+		<dict>
+			<key>buildSettings</key>
+			<dict>
+				<key>ALWAYS_SEARCH_USER_PATHS</key>
+				<string>NO</string>
+				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
+				<string>gnu++0x</string>
+				<key>CLANG_CXX_LIBRARY</key>
+				<string>libc++</string>
+				<key>CLANG_ENABLE_MODULES</key>
+				<string>YES</string>
+				<key>CLANG_ENABLE_OBJC_ARC</key>
+				<string>YES</string>
+				<key>CLANG_WARN_BOOL_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN_EMPTY_BODY</key>
+				<string>YES</string>
+				<key>CLANG_WARN_ENUM_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_INT_CONVERSION</key>
+				<string>YES</string>
+				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
+				<string>YES_ERROR</string>
+				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
+				<string>YES</string>
+				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
+				<string>iPhone Developer</string>
+				<key>COPY_PHASE_STRIP</key>
+				<string>YES</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_C_LANGUAGE_STANDARD</key>
+				<string>gnu99</string>
+				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
+				<string>YES</string>
+				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
+				<string>YES_ERROR</string>
+				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
+				<string>YES_AGGRESSIVE</string>
+				<key>GCC_WARN_UNUSED_FUNCTION</key>
+				<string>YES</string>
+				<key>GCC_WARN_UNUSED_VARIABLE</key>
+				<string>YES</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.0</string>
+				<key>SDKROOT</key>
+				<string>iphoneos</string>
+				<key>VALIDATE_PRODUCT</key>
+				<string>YES</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>2850C62418D0F707002B7D0A</key>
+		<dict>
+			<key>buildConfigurations</key>
+			<array>
+				<string>2850C62518D0F707002B7D0A</string>
+				<string>2850C62618D0F707002B7D0A</string>
+			</array>
+			<key>defaultConfigurationIsVisible</key>
+			<string>0</string>
+			<key>defaultConfigurationName</key>
+			<string>Release</string>
+			<key>isa</key>
+			<string>XCConfigurationList</string>
+		</dict>
+		<key>2850C62518D0F707002B7D0A</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>7B0D2D6A86E2A41ED22E8A35</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
+				<string>LaunchImage</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>XLForm/XLForm-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>XLForm/XLForm-Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>app</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Debug</string>
+		</dict>
+		<key>2850C62618D0F707002B7D0A</key>
+		<dict>
+			<key>baseConfigurationReference</key>
+			<string>976A33EE62A018A7257B4878</string>
+			<key>buildSettings</key>
+			<dict>
+				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
+				<string>AppIcon</string>
+				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
+				<string>LaunchImage</string>
+				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
+				<string>YES</string>
+				<key>GCC_PREFIX_HEADER</key>
+				<string>XLForm/XLForm-Prefix.pch</string>
+				<key>INFOPLIST_FILE</key>
+				<string>XLForm/XLForm-Info.plist</string>
+				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
+				<string>7.1</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>TARGETED_DEVICE_FAMILY</key>
+				<string>1,2</string>
+				<key>WRAPPER_EXTENSION</key>
+				<string>app</string>
+			</dict>
+			<key>isa</key>
+			<string>XCBuildConfiguration</string>
+			<key>name</key>
+			<string>Release</string>
+		</dict>
+		<key>2850C62B18D0F92F002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>283C6B7A1999BA1B00A5283D</string>
+				<string>28A76624193251E500D69546</string>
+				<string>28A8083C190D903D009D77F8</string>
+				<string>28468E9218EA52CA00DBB015</string>
+				<string>2843EB5F18D76B2D00F13E2B</string>
+				<string>2843EB5318D4F77F00F13E2B</string>
+				<string>2843EB4F18D4CFA100F13E2B</string>
+				<string>2843EB4818D496CB00F13E2B</string>
+				<string>2850C60A18D0F706002B7D0A</string>
+				<string>282C5EEF18D33C1800A5D47C</string>
+				<string>2843EB4518D4915800F13E2B</string>
+				<string>2843EB4618D4915800F13E2B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Examples</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C62C18D0F948002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>283C5B9619AAF2CC00488444</string>
+				<string>28135F93198961B900005F9B</string>
+				<string>282526FC18D1FCE1005ECA20</string>
+				<string>282D974418D1F9AC00DEE3C5</string>
+				<string>2850C67918D0FE0B002B7D0A</string>
+				<string>2850C62D18D0F9A6002B7D0A</string>
+				<string>28C0260B18D2138200C0854B</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>XL</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C62D18D0F9A6002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>D55C39BC191BCA460090B6B4</string>
+				<string>D55C39BD191BCA460090B6B4</string>
+				<string>2850C68618D12122002B7D0A</string>
+				<string>2850C68718D12122002B7D0A</string>
+				<string>2850C68318D11FDA002B7D0A</string>
+				<string>2850C68418D11FDA002B7D0A</string>
+				<string>2850C67D18D11F6D002B7D0A</string>
+				<string>2850C67E18D11F6D002B7D0A</string>
+				<string>2850C67618D0FDBF002B7D0A</string>
+				<string>2850C67718D0FDBF002B7D0A</string>
+				<string>2850C67318D0FD4B002B7D0A</string>
+				<string>2850C67418D0FD4B002B7D0A</string>
+				<string>2850C63018D0F9A6002B7D0A</string>
+				<string>2850C63118D0F9A6002B7D0A</string>
+				<string>28C0260C18D22E7A00C0854B</string>
+				<string>28C0260D18D22E7A00C0854B</string>
+				<string>2843EB4C18D4CCD700F13E2B</string>
+				<string>2843EB4D18D4CCD700F13E2B</string>
+				<string>2843EB5C18D736BC00F13E2B</string>
+				<string>2843EB5D18D736BC00F13E2B</string>
+				<string>28A5D2B018D81873008F0D24</string>
+				<string>2829624518DF790F00002E09</string>
+				<string>2829624618DF790F00002E09</string>
+				<string>3C3360B1193E43D800BA9C4A</string>
+				<string>3C3360B2193E43D800BA9C4A</string>
+				<string>283B59A6194D53DE000828CD</string>
+				<string>283B59A7194D53DE000828CD</string>
+				<string>283B59A9194D5DE2000828CD</string>
+				<string>283B59AA194D6117000828CD</string>
+				<string>283B59AB194D6117000828CD</string>
+				<string>DCC8167919A3F8E30071915C</string>
+				<string>DCC8167A19A3F8E30071915C</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Cell</string>
+			<key>path</key>
+			<string>XL/Cell</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C63018D0F9A6002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormLeftRightSelectorCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C63118D0F9A6002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormLeftRightSelectorCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C64E18D0F9A6002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28E093E918F4C28200E218ED</string>
+				<string>28E093EA18F4C28200E218ED</string>
+				<string>28468E9F18ECAE1200DBB015</string>
+				<string>28468EA018ECAE1200DBB015</string>
+				<string>2807DC6F18DC84B200A4B0B9</string>
+				<string>2807DC7018DC84B200A4B0B9</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Views</string>
+			<key>path</key>
+			<string>XL/Views</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C65B18D0F9A6002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormViewController.h</string>
+			<key>path</key>
+			<string>XL/Controllers/XLFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C65C18D0F9A6002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormViewController.m</string>
+			<key>path</key>
+			<string>XL/Controllers/XLFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C65E18D0F9A6002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C63118D0F9A6002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C67218D0F9A6002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C65C18D0F9A6002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C67318D0FD4B002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormDatePickerCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67418D0FD4B002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormDatePickerCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67518D0FD4B002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C67418D0FD4B002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C67618D0FDBF002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormButtonCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67718D0FDBF002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormButtonCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67818D0FDBF002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C67718D0FDBF002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C67918D0FE0B002B7D0A</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>2850C64E18D0F9A6002B7D0A</string>
+				<string>2850C67A18D0FE3A002B7D0A</string>
+				<string>2850C67B18D0FE3A002B7D0A</string>
+				<string>2843EB5718D5050500F13E2B</string>
+				<string>2843EB5818D5050500F13E2B</string>
+				<string>28AC9B71194A711E00847840</string>
+				<string>28AC9B72194A711E00847840</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Helpers</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67A18D0FE3A002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>UIView+XLFormAdditions.h</string>
+			<key>path</key>
+			<string>XL/Helpers/UIView+XLFormAdditions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67B18D0FE3A002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>UIView+XLFormAdditions.m</string>
+			<key>path</key>
+			<string>XL/Helpers/UIView+XLFormAdditions.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67C18D0FE3A002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C67B18D0FE3A002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C67D18D11F6D002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormTextViewCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67E18D11F6D002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormTextViewCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C67F18D11F6D002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C67E18D11F6D002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C68318D11FDA002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormTextFieldCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C68418D11FDA002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormTextFieldCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C68518D11FDA002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C68418D11FDA002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2850C68618D12122002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormSelectorCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C68718D12122002B7D0A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormSelectorCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>2850C68818D12122002B7D0A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>2850C68718D12122002B7D0A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>287E8A211998662400225536</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormValidator.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>287E8A221998662400225536</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>XLFormValidator.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>287E8A231998662400225536</key>
+		<dict>
+			<key>fileRef</key>
+			<string>287E8A221998662400225536</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A5D2B018D81873008F0D24</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormDescriptorCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7661E193248BD00D69546</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.framework</string>
+			<key>name</key>
+			<string>CoreData.framework</string>
+			<key>path</key>
+			<string>System/Library/Frameworks/CoreData.framework</string>
+			<key>sourceTree</key>
+			<string>SDKROOT</string>
+		</dict>
+		<key>28A7661F193248BD00D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A7661E193248BD00D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A76624193251E500D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>AppDelegate.m</string>
+			<key>path</key>
+			<string>Examples/AppDelegate.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A76625193251E500D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A76624193251E500D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A7662A1932A3D800D69546</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A85D5718E346C100E81A26</string>
+				<string>28A85D5818E346C100E81A26</string>
+				<string>D51B8B2A19126664008C0478</string>
+				<string>D51B8B2B19126664008C0478</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>CustomCells</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7662B1932E92D00D69546</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A7663D1932EC9C00D69546</string>
+				<string>28A766301932EA1F00D69546</string>
+				<string>28A7662C1932E98A00D69546</string>
+				<string>28A7662D1932E98A00D69546</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Helpers</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7662C1932E98A00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>HTTPSessionManager.h</string>
+			<key>path</key>
+			<string>Examples/Selectors/Helpers/HTTPSessionManager.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7662D1932E98A00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>HTTPSessionManager.m</string>
+			<key>path</key>
+			<string>Examples/Selectors/Helpers/HTTPSessionManager.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7662E1932E98A00D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A7662D1932E98A00D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A766301932EA1F00D69546</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A766351932EA1F00D69546</string>
+				<string>28A766361932EA1F00D69546</string>
+				<string>28A766371932EA1F00D69546</string>
+				<string>28A766381932EA1F00D69546</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>DataLoaders</string>
+			<key>path</key>
+			<string>Examples/Selectors/Helpers/DataLoaders</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766351932EA1F00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>UserLocalDataLoader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766361932EA1F00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>UserLocalDataLoader.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766371932EA1F00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>UserRemoteDataLoader.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766381932EA1F00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>UserRemoteDataLoader.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7663B1932EA1F00D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A766361932EA1F00D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A7663C1932EA1F00D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A766381932EA1F00D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A7663D1932EC9C00D69546</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A7663E1932EC9C00D69546</string>
+				<string>28A766411932EC9C00D69546</string>
+				<string>28A766421932EC9C00D69546</string>
+				<string>28A766481932ED3400D69546</string>
+				<string>28A7664B1932EE0B00D69546</string>
+				<string>28A7664C1932EE0B00D69546</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Data</string>
+			<key>path</key>
+			<string>Examples/Selectors/Helpers/Data</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7663E1932EC9C00D69546</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A7663F1932EC9C00D69546</string>
+				<string>28A766401932EC9C00D69546</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>path</key>
+			<string>Store</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7663F1932EC9C00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>CoreDataStore.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766401932EC9C00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>CoreDataStore.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766411932EC9C00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>User+Additions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766421932EC9C00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>User+Additions.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766451932EC9C00D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A766401932EC9C00D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A766461932EC9C00D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A766421932EC9C00D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A766481932ED3400D69546</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A766491932ED3400D69546</string>
+			</array>
+			<key>currentVersion</key>
+			<string>28A766491932ED3400D69546</string>
+			<key>isa</key>
+			<string>XCVersionGroup</string>
+			<key>path</key>
+			<string>Model.xcdatamodeld</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>versionGroupType</key>
+			<string>wrapper.xcdatamodel</string>
+		</dict>
+		<key>28A766491932ED3400D69546</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>wrapper.xcdatamodel</string>
+			<key>path</key>
+			<string>Model.xcdatamodel</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7664A1932ED3400D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A766481932ED3400D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A7664B1932EE0B00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>User.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7664C1932EE0B00D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>User.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7664D1932EE0B00D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A7664C1932EE0B00D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A766521932F1FA00D69546</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A7665A1932F55700D69546</string>
+				<string>28A7665C1932F61100D69546</string>
+				<string>28A7665D1932F61100D69546</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>DynamicSelector</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766531932F22400D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>UsersTableViewController.h</string>
+			<key>path</key>
+			<string>Examples/Selectors/DynamicSelector/UsersTableViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766541932F22400D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>UsersTableViewController.m</string>
+			<key>path</key>
+			<string>Examples/Selectors/DynamicSelector/UsersTableViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A766551932F22400D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A766541932F22400D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A7665A1932F55700D69546</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A766531932F22400D69546</string>
+				<string>28A766541932F22400D69546</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>XLFormRowViewController</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7665C1932F61100D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>DynamicSelectorsFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7665D1932F61100D69546</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>DynamicSelectorsFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A7665E1932F61100D69546</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A7665D1932F61100D69546</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A8083C190D903D009D77F8</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>28A8083D190D9083009D77F8</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>StoryboardExample</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A8083D190D9083009D77F8</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>file.storyboard</string>
+			<key>name</key>
+			<string>iPhoneStoryboard.storyboard</string>
+			<key>path</key>
+			<string>Examples/StoryboardExample/iPhoneStoryboard.storyboard</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28A8083E190D9083009D77F8</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A8083D190D9083009D77F8</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28A85D5718E346C100E81A26</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormImageSelectorCell.h</string>
+			<key>path</key>
+			<string>Examples/Others/CustomCells/XLFormImageSelectorCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>28A85D5818E346C100E81A26</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormImageSelectorCell.m</string>
+			<key>path</key>
+			<string>Examples/Others/CustomCells/XLFormImageSelectorCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>28A85D5918E346C100E81A26</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28A85D5818E346C100E81A26</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28AC9B71194A711E00847840</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>NSArray+XLFormAdditions.h</string>
+			<key>path</key>
+			<string>XL/Helpers/NSArray+XLFormAdditions.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28AC9B72194A711E00847840</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>NSArray+XLFormAdditions.m</string>
+			<key>path</key>
+			<string>XL/Helpers/NSArray+XLFormAdditions.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28AC9B73194A711E00847840</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28AC9B72194A711E00847840</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28C0260B18D2138200C0854B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLForm.h</string>
+			<key>path</key>
+			<string>XL/XLForm.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28C0260C18D22E7A00C0854B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormBaseCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28C0260D18D22E7A00C0854B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>path</key>
+			<string>XLFormBaseCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28C0260E18D22E7A00C0854B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28C0260D18D22E7A00C0854B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28C7ECC018E1F3C1009E3C46</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormOptionsObject.h</string>
+			<key>path</key>
+			<string>XL/Controllers/XLFormOptionsObject.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28C7ECC118E1F3C1009E3C46</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>XLFormOptionsObject.m</string>
+			<key>path</key>
+			<string>XL/Controllers/XLFormOptionsObject.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>28C7ECC218E1F3C1009E3C46</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28C7ECC118E1F3C1009E3C46</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28DBB03F18D76FDC00FB8A8B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>MultivaluedFormViewController.h</string>
+			<key>path</key>
+			<string>Examples/MultiValuedSections/MultivaluedFormViewController.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objcpp</string>
+		</dict>
+		<key>28DBB04018D76FDC00FB8A8B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>lineEnding</key>
+			<string>0</string>
+			<key>name</key>
+			<string>MultivaluedFormViewController.m</string>
+			<key>path</key>
+			<string>Examples/MultiValuedSections/MultivaluedFormViewController.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+			<key>xcLanguageSpecificationIdentifier</key>
+			<string>xcode.lang.objc</string>
+		</dict>
+		<key>28DBB04118D76FDC00FB8A8B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28DBB04018D76FDC00FB8A8B</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>28E093E918F4C28200E218ED</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>XLFormRightDetailCell.h</string>
+			<key>path</key>
+			<string>XLForm/XL/Helpers/Views/XLFormRightDetailCell.h</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>28E093EA18F4C28200E218ED</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>XLFormRightDetailCell.m</string>
+			<key>path</key>
+			<string>XLForm/XL/Helpers/Views/XLFormRightDetailCell.m</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>28E093EB18F4C28200E218ED</key>
+		<dict>
+			<key>fileRef</key>
+			<string>28E093EA18F4C28200E218ED</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>2CA9A3FC06E94345A2FDE415</key>
+		<dict>
+			<key>fileRef</key>
+			<string>F6DF43B7BBF44F72A4493E8E</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>3C3360B1193E43D800BA9C4A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormSegmentedCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3C3360B2193E43D800BA9C4A</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>XLFormSegmentedCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>3C3360B3193E43D800BA9C4A</key>
+		<dict>
+			<key>fileRef</key>
+			<string>3C3360B2193E43D800BA9C4A</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>7B0D2D6A86E2A41ED22E8A35</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods.debug.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods/Pods.debug.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>976A33EE62A018A7257B4878</key>
+		<dict>
+			<key>includeInIndex</key>
+			<string>1</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text.xcconfig</string>
+			<key>name</key>
+			<string>Pods.release.xcconfig</string>
+			<key>path</key>
+			<string>Pods/Target Support Files/Pods/Pods.release.xcconfig</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>CFE72E068B5F4D9BB45FB757</key>
+		<dict>
+			<key>buildActionMask</key>
+			<string>2147483647</string>
+			<key>files</key>
+			<array/>
+			<key>inputPaths</key>
+			<array/>
+			<key>isa</key>
+			<string>PBXShellScriptBuildPhase</string>
+			<key>name</key>
+			<string>Copy Pods Resources</string>
+			<key>outputPaths</key>
+			<array/>
+			<key>runOnlyForDeploymentPostprocessing</key>
+			<string>0</string>
+			<key>shellPath</key>
+			<string>/bin/sh</string>
+			<key>shellScript</key>
+			<string>"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh"
+</string>
+			<key>showEnvVarsInLog</key>
+			<string>0</string>
+		</dict>
+		<key>D51B8B2A19126664008C0478</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>name</key>
+			<string>XLFormCustomCell.h</string>
+			<key>path</key>
+			<string>Examples/Others/CustomCells/XLFormCustomCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D51B8B2B19126664008C0478</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>name</key>
+			<string>XLFormCustomCell.m</string>
+			<key>path</key>
+			<string>Examples/Others/CustomCells/XLFormCustomCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D51B8B2C19126664008C0478</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D51B8B2B19126664008C0478</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>D55C39BC191BCA460090B6B4</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormStepCounterCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D55C39BD191BCA460090B6B4</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>XLFormStepCounterCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>D55C39BE191BCA460090B6B4</key>
+		<dict>
+			<key>fileRef</key>
+			<string>D55C39BD191BCA460090B6B4</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>DCC8167919A3F8E30071915C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.h</string>
+			<key>path</key>
+			<string>XLFormSliderCell.h</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DCC8167A19A3F8E30071915C</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>XLFormSliderCell.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>DCC8167B19A3F8E30071915C</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DCC8167A19A3F8E30071915C</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>F6DF43B7BBF44F72A4493E8E</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
+	</dict>
+	<key>rootObject</key>
+	<string>2850C5F018D0F706002B7D0A</string>
+</dict>
+</plist>

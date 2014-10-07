@@ -1,71 +1,64 @@
 PODS:
-  - AFNetworking (2.2.0):
+  - AFNetworking (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.2.0):
+  - AFNetworking/NSURLConnection (2.4.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.2.0):
-    - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.2.0)
-  - AFNetworking/Security (2.2.0)
-  - AFNetworking/Serialization (2.2.0)
-  - AFNetworking/UIKit (2.2.0):
+  - AFNetworking/NSURLSession (2.4.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.4.1)
+  - AFNetworking/Security (2.4.1)
+  - AFNetworking/Serialization (2.4.1)
+  - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - MRProgress (0.4.1):
+  - MRProgress (0.7.0):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
-    - MRProgress/Helper
     - MRProgress/Icons
-    - MRProgress/MessageInterceptor
     - MRProgress/NavigationBarProgress
     - MRProgress/Overlay
+  - MRProgress/ActivityIndicator (0.7.0):
     - MRProgress/Stopable
-    - MRProgress/WeakProxy
-  - MRProgress/ActivityIndicator (0.4.1):
-    - MRProgress/Stopable
-  - MRProgress/Blur (0.4.1):
+  - MRProgress/Blur (0.7.0):
     - MRProgress/Helper
-  - MRProgress/Circular (0.4.1):
+  - MRProgress/Circular (0.7.0):
     - MRProgress/Helper
+    - MRProgress/ProgressBaseClass
     - MRProgress/Stopable
-  - MRProgress/Helper (0.4.1)
-  - MRProgress/Icons (0.4.1)
-  - MRProgress/MessageInterceptor (0.4.1)
-  - MRProgress/NavigationBarProgress (0.4.1):
-    - MRProgress/MessageInterceptor
-  - MRProgress/Overlay (0.4.1):
+  - MRProgress/Helper (0.7.0)
+  - MRProgress/Icons (0.7.0)
+  - MRProgress/NavigationBarProgress (0.7.0):
+    - MRProgress/ProgressBaseClass
+  - MRProgress/Overlay (0.7.0):
     - MRProgress/ActivityIndicator
     - MRProgress/Blur
     - MRProgress/Circular
     - MRProgress/Helper
     - MRProgress/Icons
-  - MRProgress/Stopable (0.4.1):
+  - MRProgress/ProgressBaseClass (0.7.0)
+  - MRProgress/Stopable (0.7.0):
     - MRProgress/Helper
-  - MRProgress/WeakProxy (0.4.1)
-  - XLDataLoader (1.0.0):
+  - XLDataLoader (1.1.0):
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - MRProgress (~> 0.2)
-  - XLDataLoader (from `https://github.com/xmartlabs/XLDataLoader.git`, branch `master`)
-
-EXTERNAL SOURCES:
-  XLDataLoader:
-    :branch: master
-    :git: https://github.com/xmartlabs/XLDataLoader.git
+  - XLDataLoader (~> 1.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: 5f2538aa2d150b71d4e6cca3a420d796e1e1c374
-  MRProgress: 209cdf239e60feab2f5b1c605d375bf9cd32c8b0
-  XLDataLoader: 0417b79ce5563ba135cb41af6ddd99753ae07efe
+  AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  MRProgress: 5abb19ba97ad22c321c37f3d299e32391109b1d6
+  XLDataLoader: bd783ebe782932a6390ffc7619fcd884c8600944
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.1

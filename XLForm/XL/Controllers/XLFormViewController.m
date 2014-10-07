@@ -35,28 +35,19 @@
 
 @end
 
-
 @implementation XLFormViewController
-
--(id)init
-{
-    return [self initWithStyle:UITableViewStyleGrouped];
-}
 
 -(id)initWithForm:(XLFormDescriptor *)form
 {
-    self = [self initWithStyle:UITableViewStyleGrouped];
-    if (self){
-        self.form = form;
-    }
-    return self;
+    return [self initWithForm:form style:UITableViewStyleGrouped];
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
+-(id)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style
 {
-    self = [super initWithStyle:style];
-    if (self) {
+    self = [self initWithNibName:nil bundle:nil];
+    if (self){
         _tableViewStyle = style;
+        _form = form;
     }
     return self;
 }
@@ -69,8 +60,6 @@
     }
     return self;
 }
-
-
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -90,6 +79,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (!self.tableView){
+        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
+                                                      style:self.tableViewStyle];
+        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    }
+    if (!self.tableView.superview){
+        [self.view addSubview:self.tableView];;
+    }
+    if (!self.tableView.delegate){
+        self.tableView.delegate = self;
+    }
+    if (!self.tableView.dataSource){
+        self.tableView.dataSource = self;
+    }
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 44.0;
@@ -100,7 +103,6 @@
     [self.tableView setEditing:YES animated:NO];
     self.tableView.allowsSelectionDuringEditing = YES;
     self.form.delegate = self;
-    self.clearsSelectionOnViewWillAppear = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -406,10 +408,7 @@
     if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
         return [cellClass formDescriptorCellHeightForRowDescriptor:rowDescriptor];
     }
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
-        return -1;
-    }
-    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+    return self.tableView.rowHeight;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

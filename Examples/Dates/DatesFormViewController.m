@@ -39,7 +39,7 @@ NSString *const kDateTime = @"dateTime";
 
 - (id)init
 {
-    self = [super initWithStyle:UITableViewStyleGrouped];
+    self = [super init];
     if (self){
         XLFormDescriptor * form;
         XLFormSectionDescriptor * section;

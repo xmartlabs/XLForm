@@ -61,7 +61,7 @@ NSString *const kButton = @"button";
     
     // check
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kSwitchCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"]];
-
+    
     // step counter
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"]];
     
@@ -70,8 +70,8 @@ NSString *const kButton = @"button";
     row.selectorOptions = @[@"Apple", @"Orange", @"Pear"];
     row.value = @"Pear";
     [section addFormRow:row];
-	
-	
+    
+    
     // Slider
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSlider rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
     row.value = @(30);
@@ -99,9 +99,9 @@ NSString *const kButton = @"button";
     
     // Button
     XLFormRowDescriptor * buttonRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"];
-    [buttonRow.cellConfig setObject:self.view.tintColor forKey:@"textLabel.textColor"];
+    [buttonRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
     [section addFormRow:buttonRow];
-
+    
     self.form = form;
 }
 
