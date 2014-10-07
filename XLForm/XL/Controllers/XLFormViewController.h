@@ -58,11 +58,13 @@
 
 @end
 
-@interface XLFormViewController : UITableViewController<XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, XLFormViewControllerDelegate>
+@interface XLFormViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, UIActionSheetDelegate, XLFormViewControllerDelegate>
 
 @property XLFormDescriptor * form;
+@property IBOutlet UITableView * tableView;
 
 -(id)initWithForm:(XLFormDescriptor *)form;
+-(id)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style;
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes;
 
