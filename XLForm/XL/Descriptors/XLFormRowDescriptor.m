@@ -68,21 +68,22 @@
 -(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController
 {
     id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
-
     NSAssert(cellClass, @"Not defined XLFormRowDescriptorType");
-
     if ([cellClass isKindOfClass:[NSString class]]) {
-        _cell = [formController.tableView dequeueReusableCellWithIdentifier:cellClass];
-        if (!_cell && [[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
-            _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
+        UITableViewCell<XLFormDescriptorCell> * reuseCell = [formController.tableView dequeueReusableCellWithIdentifier:cellClass];
+        if (reuseCell){
+            _cell  = reuseCell;
+            [self configureCellAtCreationTime];
         }
-        NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
-        [self configureCellAtCreationTime];
+        else if (!_cell && [[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
+            _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
+            [self configureCellAtCreationTime];
+        }
     } else if (!_cell) {
         _cell = [[cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
-        NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
         [self configureCellAtCreationTime];
     }
+    NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
     return _cell;
 }
 

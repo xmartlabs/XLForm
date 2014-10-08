@@ -23,6 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "UIView+XLFormAdditions.h"
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormViewController.h"
 #import "UIView+XLFormAdditions.h"
@@ -118,6 +119,15 @@
                                              selector:@selector(contentSizeCategoryChanged:)
                                                  name:UIContentSizeCategoryDidChangeNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -126,6 +136,15 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIContentSizeCategoryDidChangeNotification
                                                   object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -297,6 +316,50 @@
 - (void)contentSizeCategoryChanged:(NSNotification *)notification
 {
     [self.tableView reloadData];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    UIView * firstResponderView = [self.tableView findFirstResponder];
+    UITableViewCell<XLFormDescriptorCell> * cell = [firstResponderView formDescriptorCell];
+    if (cell){
+        NSDictionary *keyboardInfo = [notification userInfo];
+        CGRect keyboardFrame = [self.tableView.window convertRect:[keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue] toView:self.tableView.superview];
+        CGFloat newBottomInset = self.tableView.frame.origin.y + self.tableView.frame.size.height - keyboardFrame.origin.y;
+        if (newBottomInset > 0){
+            UIEdgeInsets tableContentInset = self.tableView.contentInset;
+            UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+            tableContentInset.bottom = newBottomInset;
+            tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
+            [UIView setAnimationCurve:[keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] intValue]];
+            self.tableView.contentInset = tableContentInset;
+            self.tableView.scrollIndicatorInsets = tableScrollIndicatorInsets;
+            NSIndexPath *selectedRow = [self.tableView indexPathForCell:cell];
+            [self.tableView scrollToRowAtIndexPath:selectedRow atScrollPosition:UITableViewScrollPositionNone animated:NO];
+            [UIView commitAnimations];
+        }
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    UIView * firstResponderView = [self.tableView findFirstResponder];
+    UITableViewCell<XLFormDescriptorCell> * cell = [firstResponderView formDescriptorCell];
+    if (cell){
+        NSDictionary *keyboardInfo = [notification userInfo];
+        UIEdgeInsets tableContentInset = self.tableView.contentInset;
+        UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+        tableContentInset.bottom = 0;
+        tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
+        [UIView setAnimationCurve:[keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] intValue]];
+        self.tableView.contentInset = tableContentInset;
+        self.tableView.scrollIndicatorInsets = tableScrollIndicatorInsets;
+        [UIView commitAnimations];
+    }
 }
 
 #pragma mark - Helpers
