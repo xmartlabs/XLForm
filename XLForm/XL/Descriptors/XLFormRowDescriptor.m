@@ -36,6 +36,7 @@
 
 @implementation XLFormRowDescriptor
 
+@synthesize action = _action;
 
 -(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
@@ -111,6 +112,14 @@
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"%@ - %@ (%@)", [super description], self.tag, self.rowType];
+}
+
+-(XLFormAction *)action
+{
+    if (!_action){
+        _action = [[XLFormAction alloc] init];
+    }
+    return _action;
 }
 
 // In the implementation
@@ -237,6 +246,24 @@
     return self;
 }
 
+
+@end
+
+
+@implementation XLFormAction
+
+-(void)setFormSelector:(SEL)formSelector
+{
+    _formBlock = nil;
+    _formSelector = formSelector;
+}
+
+
+-(void)setFormBlock:(void (^)(XLFormRowDescriptor *))formBlock
+{
+    _formSelector = nil;
+    _formBlock = formBlock;
+}
 
 @end
 

@@ -56,7 +56,16 @@
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
-    if (self.rowDescriptor.buttonViewController){
+    BOOL hasAction = self.rowDescriptor.action.formBlock || self.rowDescriptor.action.formSelector;
+    if (hasAction){
+        if (self.rowDescriptor.action.formBlock){
+            self.rowDescriptor.action.formBlock(self.rowDescriptor);
+        }
+        else{
+            [controller performFormSeletor:self.rowDescriptor.action.formSelector withObject:self.rowDescriptor];
+        }
+    }
+    else if (self.rowDescriptor.buttonViewController){
         if (controller.navigationController == nil || [self.rowDescriptor.buttonViewController isSubclassOfClass:[UINavigationController class]] || self.rowDescriptor.buttonViewControllerPresentationMode == XLFormPresentationModePresent){
             [controller presentViewController:[[self.rowDescriptor.buttonViewController alloc] init] animated:YES completion:nil];
         }

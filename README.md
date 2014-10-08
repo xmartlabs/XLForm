@@ -810,6 +810,7 @@ Version 2.0.1 (master)
 * Now XLFormViewController extends from UIViewController instead of UITableViewController.
 * Added tableView property as a XLFormViewController IBOutlet.
 * Added support for storyboard reuse identifier and nib file.
+* Button selection can be handled using a selector or block.
 
 Version 2.0.0 (cocoaPod)
 

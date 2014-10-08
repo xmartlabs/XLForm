@@ -311,6 +311,18 @@
     [alertView show];
 }
 
+-(void)performFormSeletor:(SEL)selector withObject:(id)sender
+{
+    UIResponder * responder = [self targetForAction:selector withSender:sender];;
+    if (responder) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Warc-performSelector-leaks"
+        [responder performSelector:selector withObject:sender];
+#pragma GCC diagnostic pop
+    }
+
+}
+
 #pragma mark - Private
 
 - (void)contentSizeCategoryChanged:(NSNotification *)notification

@@ -68,4 +68,6 @@
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes;
 
+-(void)performFormSeletor:(SEL)selector withObject:(id)sender;
+
 @end
