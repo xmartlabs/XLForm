@@ -128,7 +128,9 @@
     }
     else{
         if ([[self.rowDescriptor.value valueData] isEqual:[cellObject valueData]]){
-            self.rowDescriptor.value = nil;
+            if (!self.rowDescriptor.required){
+                self.rowDescriptor.value = nil;
+            }
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
         else{
