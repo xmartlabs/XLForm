@@ -39,6 +39,8 @@
 - (void)configure
 {
     //override
+	[super configure];
+	
     UIFont *labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
     UIFontDescriptor *fontDesc = [labelFont fontDescriptor];
     UIFontDescriptor *fontBoldDesc = [fontDesc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];

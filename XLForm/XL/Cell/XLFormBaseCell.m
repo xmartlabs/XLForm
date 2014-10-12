@@ -24,8 +24,11 @@
 // THE SOFTWARE.
 
 #import "XLFormBaseCell.h"
+#import "UIView+XLFormAdditions.h"
 
 @implementation XLFormBaseCell
+
+@synthesize textLabel = _textLabel;
 
 - (id)init
 {
@@ -48,10 +51,28 @@
     [self update];
 }
 
+#pragma mark - Properties
+
+-(UILabel *)textLabel
+{
+    if (_textLabel) return _textLabel;
+    _textLabel = [UILabel autolayoutView];
+    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+    return _textLabel;
+}
+
+#pragma mark
 
 - (void)configure
 {
     //override
+	[self setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+	[self.contentView addSubview:self.textLabel];
+	[self updateConstraints];
+	
+	[self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
 }
 
 - (void)update
@@ -59,17 +80,60 @@
     // override
 }
 
--(XLFormViewController *)formViewController
+#pragma mark - Formatting
+
+-(void)formatTextLabel
 {
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
+	if ([self.formViewController respondsToSelector:@selector(willDisplayCell:withRowDescriptor:)])
+		[self.formViewController performSelector:@selector(willDisplayCell:withRowDescriptor:) withObject:self withObject:self.rowDescriptor];
+	else
+		self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
 }
 
+#pragma mark - LayoutConstraints
+
+-(void)updateConstraints
+{
+	[super updateConstraints];
+	
+    if (self.dynamicCustomConstraints){
+        [self.contentView removeConstraints:self.dynamicCustomConstraints];
+    }
+	
+	NSArray* customContraints = nil;
+	if ([self.formViewController respondsToSelector:@selector(customConstraintsForCell:)] && (customContraints = [self.formViewController performSelector:@selector(customConstraintsForCell:) withObject:self]))
+		self.dynamicCustomConstraints = [self.formViewController performSelector:@selector(customConstraintsForCell:) withObject:self];
+	else
+		self.dynamicCustomConstraints = [self defaultConstraints];
+	
+    [self.contentView addConstraints:self.dynamicCustomConstraints];
+}
+
+-(NSMutableArray*)defaultConstraints
+{
+	NSMutableArray* constraints = [NSMutableArray array];
+	NSDictionary * views = @{@"label": self.textLabel};
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:0 metrics:0 views:views]];
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+	return constraints;
+}
+
+
+#pragma mark - KVO
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ((object == self.textLabel && [keyPath isEqualToString:@"text"]) ||  (object == self.imageView && [keyPath isEqualToString:@"image"])){
+        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+            [self.contentView setNeedsUpdateConstraints];
+        }
+    }
+}
+
+-(void)dealloc
+{
+    [self.textLabel removeObserver:self forKeyPath:@"text"];
+    [self.imageView removeObserver:self forKeyPath:@"image"];
+}
 
 @end

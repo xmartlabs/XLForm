@@ -35,6 +35,8 @@
 @class XLFormSectionDescriptor;
 @class XLFormDescriptor;
 
+@class XLFormBaseCell;
+
 @protocol XLFormViewControllerDelegate <NSObject>
 
 @optional
@@ -55,6 +57,13 @@
 -(UITableViewRowAnimation)deleteRowAnimationForRow:(XLFormRowDescriptor *)formRow;
 -(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
 -(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
+
+
+// Formatting
+-(void)willDisplayCell:(XLFormBaseCell *)cell withRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
+
+// AutoLayout
+-(NSArray*)customConstraintsForCell:(XLFormBaseCell*)cell;
 
 @end
 

@@ -34,19 +34,21 @@
 - (void)configure
 {
     [super configure];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryView = [[UISwitch alloc] init];
     [self.switchControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)update
 {
-    [super update];
+	[super update];
+	
     self.textLabel.text = self.rowDescriptor.title;
     self.switchControl.on = [self.rowDescriptor.value boolValue];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.switchControl.enabled = !self.rowDescriptor.disabled;
+	
+	[super formatTextLabel];
 }
 
 - (UISwitch *)switchControl
@@ -57,6 +59,12 @@
 - (void)valueChanged
 {
     self.rowDescriptor.value = @(self.switchControl.on);
+}
+
+
+-(void)updateConstraints
+{
+	[super updateConstraints];
 }
 
 @end

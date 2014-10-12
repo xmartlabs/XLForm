@@ -31,50 +31,25 @@
 
 @interface XLFormTextFieldCell() <UITextFieldDelegate>
 
-@property NSArray * dynamicCustomConstraints;
-
 @end
 
 @implementation XLFormTextFieldCell
 
 @synthesize textField = _textField;
-@synthesize textLabel = _textLabel;
-
-#pragma mark - KVO
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if ((object == self.textLabel && [keyPath isEqualToString:@"text"]) ||  (object == self.imageView && [keyPath isEqualToString:@"image"])){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
-            [self.contentView setNeedsUpdateConstraints];
-        }
-    }
-}
-
--(void)dealloc
-{
-    [self.textLabel removeObserver:self forKeyPath:@"text"];
-    [self.imageView removeObserver:self forKeyPath:@"image"];
-}
 
 #pragma mark - XLFormDescriptorCell
 
 -(void)configure
 {
-    [super configure];
-    [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [self.contentView addSubview:self.textLabel];
     [self.contentView addSubview:self.textField];
-    [self.contentView addConstraints:[self layoutConstraints]];
-    [self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-    [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     
     [self.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+	[super configure];
 }
 
 -(void)update
 {
-    [super update];
+	[super update];
     self.textField.delegate = self;
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeText]){
@@ -128,14 +103,14 @@
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     
-    self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
-    
     self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
     [self.textField setEnabled:!self.rowDescriptor.disabled];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textField.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	
+	[super formatTextLabel];
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder
@@ -150,14 +125,6 @@
 
 #pragma mark - Properties
 
--(UILabel *)textLabel
-{
-    if (_textLabel) return _textLabel;
-    _textLabel = [UILabel autolayoutView];
-    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-    return _textLabel;
-}
-
 -(UITextField *)textField
 {
     if (_textField) return _textField;
@@ -168,41 +135,33 @@
 
 #pragma mark - LayoutConstraints
 
--(NSArray *)layoutConstraints
+-(NSMutableArray *)defaultConstraints
 {
-    NSMutableArray * result = [[NSMutableArray alloc] init];
-    [self.textLabel setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_textLabel]-[_textField]" options:NSLayoutFormatAlignAllBaseline metrics:0 views:NSDictionaryOfVariableBindings(_textLabel, _textField)]];
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[_textField]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:NSDictionaryOfVariableBindings(_textField)]];
-    return result;
+	NSMutableArray* constraints = [NSMutableArray array];
+	NSDictionary * views = @{@"label": self.textLabel, @"textField": self.textField, @"image": self.imageView};
+	
+	if (self.imageView.image){
+		if (self.textLabel.text.length > 0){
+			[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-4-|" options:0 metrics:0 views:views]];
+		}
+		else{
+			[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[textField]-4-|" options:0 metrics:0 views:views]];
+		}
+	}
+	else{
+		if (self.textLabel.text.length > 0){
+			[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textField]-4-|" options:0 metrics:0 views:views]];
+		}
+		else{
+			[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textField]-4-|" options:0 metrics:0 views:views]];
+		}
+	}
+	
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+	[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[textField]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views]];
+	
+	return constraints;
 }
-
--(void)updateConstraints
-{
-    if (self.dynamicCustomConstraints){
-        [self.contentView removeConstraints:self.dynamicCustomConstraints];
-    }
-    NSDictionary * views = @{@"label": self.textLabel, @"textField": self.textField, @"image": self.imageView};
-    if (self.imageView.image){
-        if (self.textLabel.text.length > 0){
-            self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-4-|" options:0 metrics:0 views:views];
-        }
-        else{
-            self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[textField]-4-|" options:0 metrics:0 views:views];
-        }
-    }
-    else{
-        if (self.textLabel.text.length > 0){
-            self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textField]-4-|" options:0 metrics:0 views:views];
-        }
-        else{
-            self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textField]-4-|" options:0 metrics:0 views:views];
-        }
-    }
-    [self.contentView addConstraints:self.dynamicCustomConstraints];
-    [super updateConstraints];
-}
-
 
 #pragma mark - UITextFieldDelegate
 

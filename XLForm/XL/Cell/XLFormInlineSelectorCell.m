@@ -69,6 +69,8 @@
     self.detailTextLabel.text = [self valueDisplayText];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	
+	[self formatTextLabel];
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder

@@ -57,6 +57,7 @@
 -(void)update
 {
     [super update];
+	[self formatTextLabel];
 }
 
 

@@ -31,5 +31,8 @@
 
 @property (nonatomic, readonly) UIButton * leftButton;
 @property (nonatomic, readonly) UILabel * rightLabel;
+@property (nonatomic, readonly) UITextField * constraintTextField;
+@property (nonatomic, readonly) UIView* separatorView;
+
 
 @end

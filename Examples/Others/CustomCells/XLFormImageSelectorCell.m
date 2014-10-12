@@ -83,6 +83,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
                                             }];
     }
     [self.textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+	[self formatTextLabel];
 }
 
 

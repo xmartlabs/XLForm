@@ -61,6 +61,58 @@
         // Section
         section = [XLFormSectionDescriptor formSection];
         [form addFormSection:section];
+		
+		// Formatting
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Required" rowType:XLFormRowDescriptorTypeText title:@"Required"];
+		row.required = YES;
+		[section addFormRow:row];
+		
+		
+		// Section
+        section = [XLFormSectionDescriptor formSection];
+        [form addFormSection:section];
+		
+		// AutoLayout
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutText" rowType:XLFormRowDescriptorTypeText title:@"Text"];
+		row.required = YES;
+		[section addFormRow:row];
+		
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSwitch" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Switch"];
+		row.required = YES;
+		[section addFormRow:row];
+		
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutCheck" rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"];
+		row.required = YES;
+		[section addFormRow:row];
+		
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutDatePicker" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"DatePicker"];
+		row.required = YES;
+		[section addFormRow:row];
+		
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSegmentedControl" rowType:XLFormRowDescriptorTypeSelectorSegmentedControl title:@"SegmentedControl"];
+		row.required = YES;
+		row.selectorOptions = @[@"YES", @"NO", @"MAYBE"];
+		[section addFormRow:row];
+
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSelectorPush" rowType:XLFormRowDescriptorTypeSelectorPush title:@"SelectorPush"];
+		row.required = YES;
+		row.selectorOptions = @[@"Item 1", @"Item 2", @"Item 3", @"Item 4", @"Item 5"];
+		[section addFormRow:row];
+		
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutMultipleSelector" rowType:XLFormRowDescriptorTypeMultipleSelector title:@"MultipleSelector"];
+		row.selectorOptions = @[@"Item 1", @"Item 2", @"Item 3", @"Item 4", @"Item 5"];
+		row.required = NO;
+		[section addFormRow:row];
+		
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutSlider" rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
+		row.required = NO;
+		[section addFormRow:row];
+		
+		
+		
+		// Section
+        section = [XLFormSectionDescriptor formSection];
+        [form addFormSection:section];
         
         //Button
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Button" rowType:XLFormRowDescriptorTypeButton title:@"Button"];
@@ -74,7 +126,6 @@
     return self;
 }
 
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // change cell height of a particular cell
@@ -86,5 +137,68 @@
     }
     return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
+
+#pragma mark - Formatting
+
+-(void)willDisplayCell:(XLFormBaseCell *)cell withRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
+{
+	if ([cell isMemberOfClass:[XLFormButtonCell class]])
+		return;
+	
+	// text alignment
+	cell.textLabel.textAlignment = NSTextAlignmentRight;
+	
+	// required marker
+	cell.textLabel.text = rowDescriptor.title; // override the default "fieldname*" format
+	cell.textLabel.font = (rowDescriptor.required)? [UIFont fontWithName:@"GillSans-Bold" size:16.0f] : [UIFont fontWithName:@"GillSans" size:16.0f];
+}
+
+#pragma mark - AutoLayout
+
+-(NSArray *)customConstraintsForCell:(XLFormBaseCell *)cell
+{
+	int textFieldWidth = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 200 : 100;
+	
+	if ([cell isMemberOfClass:[XLFormButtonCell class]])
+		return nil;
+	
+	NSMutableArray* constraints = [NSMutableArray array];
+	
+	if ([cell isKindOfClass:[XLFormTextFieldCell class]])
+	{
+		XLFormTextFieldCell* textFieldCell = (XLFormTextFieldCell*)cell;
+		NSDictionary * views = @{@"label": textFieldCell.textLabel, @"textField": textFieldCell.textField};
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]-[textField]-|", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[textField]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+	}
+	else if ([cell isKindOfClass:[XLFormSliderCell class]])
+	{
+		XLFormSliderCell* sliderCell = (XLFormSliderCell*)cell;
+		[constraints addObject:[NSLayoutConstraint constraintWithItem:sliderCell.textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:sliderCell.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
+		[constraints addObject:[NSLayoutConstraint constraintWithItem:sliderCell.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:sliderCell.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:44]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]", textFieldWidth] options:0 metrics:0 views:@{@"label": sliderCell.textLabel}]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[slider]-15-|" options:0 metrics:0 views:@{@"slider": sliderCell.slider}]];
+	}
+	else if ([cell isKindOfClass:[XLFormSelectorCell class]])
+	{
+		XLFormSelectorCell* selectorCell = (XLFormSelectorCell*)cell;
+		NSDictionary * views = @{@"label": selectorCell.textLabel, @"detail": selectorCell.detailTextLabel};
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]-[detail]-|", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[detail]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+	}
+	else
+	{
+		NSDictionary * views = @{@"label": cell.textLabel};
+		
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-[label(%d@1000)]", textFieldWidth] options:0 metrics:0 views:views]];
+		[constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[label]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+	}
+	
+	return constraints;
+}
+
+
 
 @end

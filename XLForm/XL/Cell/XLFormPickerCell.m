@@ -70,7 +70,8 @@
     [super update];
     [self.pickerView selectRow:[self selectedIndex] inComponent:0 animated:NO];
     [self.pickerView reloadAllComponents];
-    
+ 
+	[self formatTextLabel];
 }
 
 +(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
