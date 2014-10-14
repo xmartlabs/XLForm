@@ -38,12 +38,18 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
 
 @implementation XLFormDescriptor
 
+-(id)init
+{
+    return [self initWithTitle:nil];
+}
+
 -(id)initWithTitle:(NSString *)title;
 {
     self = [super init];
     if (self){
         _formSections = [NSMutableArray array];
         _title = title;
+        _addAsteriskToRequiredRowsTitle = NO;
         [self addObserver:self forKeyPath:@"formSections" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     }
     return self;
