@@ -27,4 +27,6 @@
 
 @interface XLFormSwitchCell : XLFormBaseCell
 
+@property (readonly, nonatomic) UISwitch* switchControl;
+
 @end

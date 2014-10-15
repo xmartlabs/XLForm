@@ -26,16 +26,18 @@
 #import "XLFormRowDescriptor.h"
 
 #import "XLFormSwitchCell.h"
+#import "NSObject+XLFormAdditions.h"
+#import "UIView+XLFormAdditions.h"
+
 
 @implementation XLFormSwitchCell
+@synthesize switchControl = _switchControl;
 
 #pragma mark - XLFormDescriptorCell
 
 - (void)configure
 {
     [super configure];
-    self.accessoryView = [[UISwitch alloc] init];
-    [self.switchControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)update
@@ -51,9 +53,25 @@
 	[super formatTextLabel];
 }
 
-- (UISwitch *)switchControl
+//- (UISwitch *)switchControl
+//{
+//	if (!self.accessoryView)
+//	{
+//		self.accessoryView = [[UISwitch alloc] init];
+//		self.accessoryView.translatesAutoresizingMaskIntoConstraints = NO;
+//		[self.contentView addSubview:self.accessoryView];
+//	}
+//	
+//    return (UISwitch *)self.accessoryView;
+//}
+
+-(UISwitch *)switchControl
 {
-    return (UISwitch *)self.accessoryView;
+	if (_switchControl) return _switchControl;
+	_switchControl = [UISwitch autolayoutView];
+	[self.contentView addSubview:_switchControl];
+	[_switchControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
+	return _switchControl;
 }
 
 - (void)valueChanged
