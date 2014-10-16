@@ -772,7 +772,7 @@ Installation
 The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 2.0'`.
+`pod 'XLForm', '~> 2.1.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
