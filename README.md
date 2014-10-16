@@ -772,7 +772,7 @@ Installation
 The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 2.0'`.
+`pod 'XLForm', '~> 2.1.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
@@ -807,6 +807,12 @@ Version 2.0.1 (master)
 * Added `XLFormRowDescriptorTypeSelectorPopover` row type and example.
 * CI added. Created Test project into Tests folder and set up Travis.
 * Documented how to customize UI. Added an example.
+* Now XLFormViewController extends from UIViewController instead of UITableViewController.
+* Added tableView property as a XLFormViewController IBOutlet.
+* Added support for storyboard reuse identifier and nib file.
+* Button selection can be handled using a selector or block.
+* Added addAsteriskToRequiredRowsTitle property to XLFormDescriptor. NO is used as value by default.
+* Image cell has been removed because it depends on AFNetworking and now needs to be implemented as a custom cell. You can find the image custom cell in Examples/Others/CustomCells.
 
 Version 2.0.0 (cocoaPod)
 

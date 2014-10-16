@@ -32,9 +32,9 @@ NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
 @implementation DynamicSelectorsFormViewController
 
 
--(id)initWithStyle:(UITableViewStyle)style
+-(id)init
 {
-    self = [super initWithStyle:style];
+    self = [super init];
     if (self) {
         XLFormDescriptor * form = [XLFormDescriptor formDescriptorWithTitle:@"Selectors"];
         XLFormSectionDescriptor * section;

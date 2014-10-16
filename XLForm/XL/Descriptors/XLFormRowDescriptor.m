@@ -36,6 +36,7 @@
 
 @implementation XLFormRowDescriptor
 
+@synthesize action = _action;
 
 -(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
@@ -67,13 +68,31 @@
 
 -(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController
 {
-    if (_cell) return _cell;
-    NSAssert(self.cellClass || [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType], @"Not defined XLFormRowDescriptorType");
-    _cell =  self.cellClass ? [[self.cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil] : [[[XLFormViewController cellClassesForRowDescriptorTypes][self.rowType] alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
+    id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
+    NSAssert(cellClass, @"Not defined XLFormRowDescriptorType");
+    if ([cellClass isKindOfClass:[NSString class]]) {
+        UITableViewCell<XLFormDescriptorCell> * reuseCell = [formController.tableView dequeueReusableCellWithIdentifier:cellClass];
+        if (reuseCell){
+            _cell  = reuseCell;
+            [self configureCellAtCreationTime];
+        }
+        else if (!_cell && [[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
+            _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
+            [self configureCellAtCreationTime];
+        }
+    } else if (!_cell) {
+        _cell = [[cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
+        [self configureCellAtCreationTime];
+    }
+    NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
+    return _cell;
+}
+
+- (void) configureCellAtCreationTime
+{
     [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
         [_cell setValue:value forKeyPath:keyPath];
     }];
-    return _cell;
 }
 
 -(NSMutableDictionary *)cellConfig
@@ -93,6 +112,14 @@
 -(NSString *)description
 {
     return [NSString stringWithFormat:@"%@ - %@ (%@)", [super description], self.tag, self.rowType];
+}
+
+-(XLFormAction *)action
+{
+    if (!_action){
+        _action = [[XLFormAction alloc] init];
+    }
+    return _action;
 }
 
 // In the implementation
@@ -219,6 +246,24 @@
     return self;
 }
 
+
+@end
+
+
+@implementation XLFormAction
+
+-(void)setFormSelector:(SEL)formSelector
+{
+    _formBlock = nil;
+    _formSelector = formSelector;
+}
+
+
+-(void)setFormBlock:(void (^)(XLFormRowDescriptor *))formBlock
+{
+    _formSelector = nil;
+    _formBlock = formBlock;
+}
 
 @end
 

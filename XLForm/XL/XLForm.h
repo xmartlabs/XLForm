@@ -102,7 +102,6 @@ extern NSString *const XLFormRowDescriptorTypeBooleanCheck;
 extern NSString *const XLFormRowDescriptorTypeBooleanSwitch;
 extern NSString *const XLFormRowDescriptorTypeButton;
 extern NSString *const XLFormRowDescriptorTypeInfo;
-extern NSString *const XLFormRowDescriptorTypeImage;
 extern NSString *const XLFormRowDescriptorTypeStepCounter;
 
 

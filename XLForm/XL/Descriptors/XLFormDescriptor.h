@@ -43,6 +43,7 @@ typedef NS_ENUM(NSInteger, XLFormErrorCode)
 @property (readonly, nonatomic) NSMutableArray * formSections;
 @property (readonly) NSString * title;
 @property (nonatomic) BOOL assignFirstResponderOnShow;
+@property (nonatomic) BOOL addAsteriskToRequiredRowsTitle;
 
 @property (weak) id<XLFormDescriptorDelegate> delegate;
 

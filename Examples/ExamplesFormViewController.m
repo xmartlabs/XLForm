@@ -45,9 +45,9 @@ NSString * const kMultivalued = @"Multivalued";
 @implementation ExamplesFormViewController
 
 
-- (id)initWithStyle:(UITableViewStyle)style
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
         [self initializeForm];
     }

@@ -34,6 +34,7 @@ NSString *const kSegmentedControl = @"segmentedControl";
 NSString *const kCustom = @"custom";
 NSString *const kInfo = @"info";
 NSString *const kButton = @"button";
+NSString *const kButtonLeftAligned = @"buttonLeftAligned";
 
 @implementation OthersFormViewController
 
@@ -61,7 +62,7 @@ NSString *const kButton = @"button";
     
     // check
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kSwitchCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"]];
-
+    
     // step counter
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"]];
     
@@ -70,8 +71,8 @@ NSString *const kButton = @"button";
     row.selectorOptions = @[@"Apple", @"Orange", @"Pear"];
     row.value = @"Pear";
     [section addFormRow:row];
-	
-	
+    
+    
     // Slider
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSlider rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
     row.value = @(30);
@@ -99,24 +100,36 @@ NSString *const kButton = @"button";
     
     // Button
     XLFormRowDescriptor * buttonRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"];
-    [buttonRow.cellConfig setObject:self.view.tintColor forKey:@"textLabel.textColor"];
+    [buttonRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
+    buttonRow.action.formSelector = @selector(didTouchButton:);
     [section addFormRow:buttonRow];
-
-    self.form = form;
-}
-
-
--(void)didSelectFormRow:(XLFormRowDescriptor *)formRow
-{
-    [super didSelectFormRow:formRow];
     
-    if ([formRow.tag isEqual:kButton]){
-        if ([[self.form formRowWithTag:kSwitchBool].value boolValue]){
+    
+    // Left Button
+    XLFormRowDescriptor * buttonLeftAlignedRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonLeftAligned rowType:XLFormRowDescriptorTypeButton title:@"Button Left"];
+    [buttonLeftAlignedRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
+    [buttonLeftAlignedRow.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
+    [buttonLeftAlignedRow.cellConfig setObject:@(UITableViewCellAccessoryDisclosureIndicator) forKey:@"accessoryType"];
+    buttonLeftAlignedRow.action.formBlock = ^(XLFormRowDescriptor * sender){
+        if ([[sender.sectionDescriptor.formDescriptor formRowWithTag:kSwitchBool].value boolValue]){
             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil) message:@"Button has checked the switch value..." delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
             [alertView show];
         }
-        [self deselectFormRow:formRow];
+        [self deselectFormRow:sender];
+    };
+    [section addFormRow:buttonLeftAlignedRow];
+    
+    
+    self.form = form;
+}
+
+-(void)didTouchButton:(XLFormRowDescriptor *)sender
+{
+    if ([[sender.sectionDescriptor.formDescriptor formRowWithTag:kSwitchBool].value boolValue]){
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil) message:@"Button has checked the switch value..." delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+        [alertView show];
     }
+    [self deselectFormRow:sender];
 }
 
 @end
