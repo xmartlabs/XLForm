@@ -61,6 +61,5 @@ NSString *const XLFormRowDescriptorTypeBooleanCheck = @"booleanCheck";
 NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 NSString *const XLFormRowDescriptorTypeButton = @"button";
 NSString *const XLFormRowDescriptorTypeInfo = @"info";
-NSString *const XLFormRowDescriptorTypeImage = @"image";
 NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 

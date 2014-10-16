@@ -812,6 +812,7 @@ Version 2.0.1 (master)
 * Added support for storyboard reuse identifier and nib file.
 * Button selection can be handled using a selector or block.
 * Added addAsteriskToRequiredRowsTitle property to XLFormDescriptor. NO is used as value by default.
+* Image cell has been removed because it depends on AFNetworking and now needs to be implemented as a custom cell. You can find the image custom cell in Examples/Others/CustomCells.
 
 Version 2.0.0 (cocoaPod)
 
