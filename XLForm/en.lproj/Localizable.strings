@@ -7,7 +7,7 @@
 */
 
 
-"XLFormViewController_ValidationErrorTitle" = "Error";
+"XLFormViewController_ValidationErrorTitle" = "Oops!";
 "XLFormController_DeleteConfirmation" = "Are you sure?";
 
 

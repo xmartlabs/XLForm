@@ -800,7 +800,11 @@ Requirements
 Release Notes
 --------------
 
-Version 2.0.1 (master)
+Version 2.1.1 (master)
+
+* Fixed "(null)" caption when `XLFormRowDescriptorTypeSelectorLeftRight` row required error message is shown.
+
+Version 2.1.0
 
 * Change `XLFormRowDescriptorTypeText`, `XLFormRowDescriptorTypeName` and `XLFormRowDescriptorTypeTextView` keyboard type to `UIKeyboardTypeDefault`.
 * Added `XLFormRowDescriptorTypeInfo` row type and example.
