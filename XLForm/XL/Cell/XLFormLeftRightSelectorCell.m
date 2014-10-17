@@ -118,6 +118,7 @@
     [self.contentView addSubview:self.leftButton];
     [self.contentView addSubview:self.rightLabel];
     [self.contentView addSubview:separatorView];
+    [self.leftButton addTarget:self action:@selector(leftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     NSDictionary * views = @{@"leftButton" : self.leftButton, @"rightLabel": self.rightLabel, @"separatorView": separatorView, @"constraintTextField": _constraintTextField };
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.leftButton attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
@@ -130,8 +131,8 @@
 -(void)update
 {
     [super update];
-    [self.leftButton addTarget:self action:@selector(leftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", [self.rowDescriptor.leftRightSelectorLeftOptionSelected displayText], self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""] forState:UIControlStateNormal];
+    [self.rowDescriptor setTitle:[self.rowDescriptor.leftRightSelectorLeftOptionSelected displayText]];
     self.rightLabel.text = [self rightTextLabel];
     [self.leftButton setEnabled:(!self.rowDescriptor.disabled)];
     self.accessoryView = self.rowDescriptor.disabled ? nil : [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XLForm.bundle/forwardarrow.png"]];
@@ -196,11 +197,11 @@
 {
     if ([actionSheet cancelButtonIndex] != buttonIndex){
         NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
-        if (![self.rowDescriptor.leftRightSelectorLeftOptionSelected isEqual:[self leftOptionForDescription:title].leftValue]){
-            self.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:title].leftValue;
-            [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", [self.rowDescriptor.leftRightSelectorLeftOptionSelected displayText], self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""] forState:UIControlStateNormal];
+        if (![self.rowDescriptor.leftRightSelectorLeftOptionSelected isEqual:[self leftOptionForDescription:title].leftValue]){            
             self.rowDescriptor.value = nil;
-            self.rightLabel.text = [self rightTextLabel];
+            self.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:title].leftValue;
+            [self update];
+
         }
     }
 }
