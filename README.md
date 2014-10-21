@@ -396,6 +396,11 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescrip
 [section addFormRow:row];
 ```
 
+You can set the minimum and maximum number of rows the user must have (to limit input) by setting:
+```objc
+section.minMultivaluedEntries = [NSNumber numberWithInt:2];
+section.maxMultivaluedEntries = [NSNumber numberWithInt:20];
+```
 
 
 Form Values
@@ -803,6 +808,7 @@ Release Notes
 Version 2.1.1 (master)
 
 * Fixed "(null)" caption when `XLFormRowDescriptorTypeSelectorLeftRight` row required error message is shown.
+* Added ```minMultivaluedEntries``` and ```maxMultivaluedEntries``` properties to multivalued sections.
 
 Version 2.1.0
 

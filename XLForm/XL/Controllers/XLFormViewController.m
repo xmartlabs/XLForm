@@ -500,10 +500,15 @@
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.form formSectionAtIndex:indexPath.section].formRows.count == (indexPath.row + 1)){
+    XLFormSectionDescriptor * multivaluedFormSection = [self.form formSectionAtIndex:indexPath.section];
+    NSUInteger count = multivaluedFormSection.formRows.count;
+    if (count == (indexPath.row + 1) && multivaluedFormSection.maxMultivaluedEntries != nil && count < [multivaluedFormSection.maxMultivaluedEntries intValue]){
         return UITableViewCellEditingStyleInsert;
+    } else if(multivaluedFormSection.minMultivaluedEntries != nil && count > [multivaluedFormSection.minMultivaluedEntries intValue]) {
+        return UITableViewCellEditingStyleDelete;
+    } else {
+        return UITableViewCellEditingStyleNone;
     }
-    return UITableViewCellEditingStyleDelete;
 }
 
 

@@ -35,6 +35,8 @@
 @property (nonatomic) NSString * footerTitle;
 @property (readonly) NSMutableArray * formRows;
 @property BOOL isMultivaluedSection;
+@property NSNumber *minMultivaluedEntries;
+@property NSNumber *maxMultivaluedEntries;
 @property (nonatomic) NSString * multiValuedTag;
 
 @property (weak) XLFormDescriptor * formDescriptor;
