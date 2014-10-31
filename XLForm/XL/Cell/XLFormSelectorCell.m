@@ -164,8 +164,17 @@
 			}
         }
         else{
-            Class selectorClass = self.rowDescriptor.selectorControllerClass;
-            UIViewController<XLFormRowDescriptorViewController> *selectorViewController = [[selectorClass alloc] init];
+            id selectorClass = self.rowDescriptor.selectorControllerClass;
+            UIViewController<XLFormRowDescriptorViewController> *selectorViewController;
+            if ([selectorClass isKindOfClass:[NSString class]]) {
+                selectorViewController = [controller.storyboard instantiateViewControllerWithIdentifier:selectorClass];
+                if (!selectorViewController && [[NSBundle mainBundle] pathForResource:selectorClass ofType:@"nib"]) {
+                    selectorViewController = [[NSBundle mainBundle] loadNibNamed:selectorClass owner:nil options:nil].firstObject;
+                }
+                NSAssert([selectorViewController isKindOfClass:[UIViewController class]] && [selectorViewController conformsToProtocol:@protocol(XLFormRowDescriptorViewController)], @"Can not get a UIViewController form selectorClass");
+            } else {
+                selectorViewController = [[selectorClass alloc] init];
+            }
             selectorViewController.rowDescriptor = self.rowDescriptor;
             selectorViewController.title = self.rowDescriptor.selectorTitle;
             
