@@ -61,6 +61,15 @@
     return _textLabel;
 }
 
+-(UILabel *)detailTextLabel
+{
+	if (_detailLabel) return _detailLabel;
+	_detailLabel = [UILabel autolayoutView];
+	[_detailLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+	[self.contentView addSubview:_detailLabel];
+	return _detailLabel;
+}
+
 #pragma mark
 
 - (void)configure

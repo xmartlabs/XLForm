@@ -85,7 +85,7 @@
 		row.required = YES;
 		[section addFormRow:row];
 		
-		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutDatePicker" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"DatePicker"];
+		row = [XLFormRowDescriptor formRowDescriptorWithTag:@"LayoutDatePicker" rowType:XLFormRowDescriptorTypeDatePicker title:@"DatePicker"];
 		row.required = YES;
 		[section addFormRow:row];
 		

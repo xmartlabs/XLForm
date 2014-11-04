@@ -33,7 +33,7 @@
 @interface XLFormSelectorCell() <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverControllerDelegate>
 
 @property (nonatomic) UIPickerView * pickerView;
-@property (nonatomic) UILabel * detailLabel;
+//@property (nonatomic) UILabel * detailLabel;
 @property (nonatomic) UIPopoverController *popoverController;
 
 @end
@@ -120,14 +120,14 @@
     return _pickerView;
 }
 
--(UILabel *)detailTextLabel
-{
-    if (_detailLabel) return _detailLabel;
-    _detailLabel = [UILabel autolayoutView];
-    [_detailLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
-	[self.contentView addSubview:_detailLabel];
-    return _detailLabel;
-}
+//-(UILabel *)detailTextLabel
+//{
+//    if (_detailLabel) return _detailLabel;
+//    _detailLabel = [UILabel autolayoutView];
+//    [_detailLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+//	[self.contentView addSubview:_detailLabel];
+//    return _detailLabel;
+//}
 
 #pragma mark - XLFormDescriptorCell
 
