@@ -176,7 +176,7 @@
 }
 
 -(XLFormValidationStatus *) doValidation {
-    XLFormValidationStatus *valStatus = [XLFormValidationStatus formValidationStatusWithMsg:@"" status:YES];
+    XLFormValidationStatus *valStatus = [XLFormValidationStatus formValidationStatusWithMsg:@"" status:YES rowDescriptor:self];
     
     if (self.required) {
         // do required validation here
