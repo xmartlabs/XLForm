@@ -29,6 +29,7 @@
 #import <Foundation/Foundation.h>
 
 NSString * const XLFormErrorDomain;
+NSString * const XLValidationStatusErrorKey;
 
 typedef NS_ENUM(NSInteger, XLFormErrorCode)
 {

@@ -25,12 +25,18 @@
 
 #import <Foundation/Foundation.h>
 
+#import "XLFormRowDescriptor.h"
+
 @interface XLFormValidationStatus : NSObject
 
 @property NSString *msg;
 @property BOOL isValid;
+@property (nonatomic, weak) XLFormRowDescriptor *rowDescriptor;
 
--(id)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid;
-+(XLFormValidationStatus *)formValidationStatusWithMsg:(NSString *)msg status:(BOOL)status;
+//-(id)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid;
+-(id)initWithMsg:(NSString*)msg status:(BOOL)isValid rowDescriptor:(XLFormRowDescriptor *)row;
+
+//+(XLFormValidationStatus *)formValidationStatusWithMsg:(NSString *)msg status:(BOOL)status;
++(XLFormValidationStatus *)formValidationStatusWithMsg:(NSString *)msg status:(BOOL)status rowDescriptor:(XLFormRowDescriptor *)row;
 
 @end
