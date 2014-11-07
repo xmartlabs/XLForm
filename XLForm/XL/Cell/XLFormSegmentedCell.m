@@ -46,6 +46,7 @@ NSString * const kText = @"text";
 -(void)configure
 {
     [super configure];
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.segmentedControl];
     [self.contentView addSubview:self.textLabel];
@@ -59,7 +60,6 @@ NSString * const kText = @"text";
     self.textLabel.text = self.rowDescriptor.title;
     [self updateSegmentedControl];
     self.segmentedControl.selectedSegmentIndex = [self selectedIndex];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 #pragma mark - KVO
