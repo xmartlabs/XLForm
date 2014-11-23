@@ -28,17 +28,20 @@
 #import "XLFormRowDescriptor.h"
 #import "XLFormSelectorCell.h"
 #import "NSArray+XLFormAdditions.h"
+#import "UIView+XLFormAdditions.h"
 
 @interface XLFormSelectorCell() <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverControllerDelegate>
 
 @property (nonatomic) UIPickerView * pickerView;
 @property (nonatomic) UIPopoverController *popoverController;
+@property NSMutableArray * dynamicCustomConstraints;
 
 @end
 
 
 @implementation XLFormSelectorCell
 
+@synthesize valueLabel = _valueLabel;
 
 -(NSString *)valueDisplayText
 {
@@ -118,11 +121,41 @@
     return _pickerView;
 }
 
+- (UILabel *)valueLabel
+{
+    if (!_valueLabel) {
+        _valueLabel = [UILabel autolayoutView];
+        [_valueLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleFootnote]];
+    }
+    
+    return _valueLabel;
+}
+
 #pragma mark - XLFormDescriptorCell
 
 -(void)configure
 {
     [super configure];
+    [self.contentView addSubview:self.valueLabel];
+    self.detailTextLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    [self setNeedsUpdateConstraints];
+}
+
+- (void)updateConstraints
+{
+    if (!self.dynamicCustomConstraints){
+        self.dynamicCustomConstraints = [NSMutableArray array];
+    }
+    [self.contentView removeConstraints:self.dynamicCustomConstraints];
+    
+    NSDictionary * views = @{@"detailTextLabel": self.detailTextLabel, @"valueLabel": self.valueLabel};
+    
+    [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:self.detailTextLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.detailTextLabel.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-11.5-[detailTextLabel(22.5)]-11.5-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+    [self.dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[detailTextLabel]-[valueLabel]-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+    
+    [self.contentView addConstraints:self.dynamicCustomConstraints];
+    [super updateConstraints];
 }
 
 -(void)update
@@ -136,7 +169,7 @@
     self.detailTextLabel.text = [self valueDisplayText];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    
+    self.valueLabel.text = self.rowDescriptor.valueLabelText;
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
