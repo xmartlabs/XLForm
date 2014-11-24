@@ -34,13 +34,15 @@
 
 @property (nonatomic) UIPickerView * pickerView;
 @property (nonatomic) UIPopoverController *popoverController;
-@property NSMutableArray * dynamicCustomConstraints;
 
 @end
 
 
-@implementation XLFormSelectorCell
+@implementation XLFormSelectorCell {
+    UIView *spacer;
+}
 
+@synthesize detailTextLabel = _detailTextLabel;
 @synthesize valueLabel = _valueLabel;
 
 -(NSString *)valueDisplayText
@@ -131,31 +133,43 @@
     return _valueLabel;
 }
 
+-(UILabel *)detailTextLabel
+{
+    if (_detailTextLabel) return _detailTextLabel;
+    _detailTextLabel = [UILabel autolayoutView];
+    [_detailTextLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+    return _detailTextLabel;
+}
+
 #pragma mark - XLFormDescriptorCell
 
 -(void)configure
 {
     [super configure];
+    [self.contentView addSubview:self.detailTextLabel];
     [self.contentView addSubview:self.valueLabel];
-    self.detailTextLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    [self setNeedsUpdateConstraints];
+    
+    // Added spacer view so cell can determine its height
+    spacer = [UIView autolayoutView];
+    [self.contentView addSubview:spacer];
+    
+    [self.contentView addConstraints:[self layoutConstraints]];
 }
 
-- (void)updateConstraints
+-(NSArray *)layoutConstraints
 {
-    if (!self.dynamicCustomConstraints){
-        self.dynamicCustomConstraints = [NSMutableArray array];
-    }
-    [self.contentView removeConstraints:self.dynamicCustomConstraints];
+    NSMutableArray * result = [[NSMutableArray alloc] init];
     
-    NSDictionary * views = @{@"detailTextLabel": self.detailTextLabel, @"valueLabel": self.valueLabel};
+    NSDictionary * views = NSDictionaryOfVariableBindings(_detailTextLabel, _valueLabel);
     
-    [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:self.detailTextLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.detailTextLabel.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [self.dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-11.5-[detailTextLabel(22.5)]-11.5-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
-    [self.dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[detailTextLabel]-[valueLabel]-|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+    [result addObject:[NSLayoutConstraint constraintWithItem:self.detailTextLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.detailTextLabel.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     
-    [self.contentView addConstraints:self.dynamicCustomConstraints];
-    [super updateConstraints];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_detailTextLabel]-[_valueLabel]|" options:NSLayoutFormatAlignAllBaseline metrics:0 views:views]];
+    
+    // Spacer View - So cell can determine its height
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[spacer(>=40)]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(spacer)]];
+    
+    return result;
 }
 
 -(void)update
