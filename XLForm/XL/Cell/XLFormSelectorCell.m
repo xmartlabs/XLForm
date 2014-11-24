@@ -179,35 +179,35 @@
 {
 	Class selectorClass = (self.rowDescriptor.selectorControllerClass) ? self.rowDescriptor.selectorControllerClass : [XLFormOptionsViewController class];
 
-//	if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover])
-//	{
-//		UIViewController<XLFormRowDescriptorViewController> *selectorViewController = (self.rowDescriptor.selectorControllerClass) ? [[self.rowDescriptor.selectorControllerClass alloc] init] : [[XLFormOptionsViewController alloc] initWithOptions:self.rowDescriptor.selectorOptions style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
-//		selectorViewController.rowDescriptor = self.rowDescriptor;
-//		selectorViewController.title = self.rowDescriptor.selectorTitle;
-//		
-//		if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
-//			if (self.popoverController && self.popoverController.popoverVisible) {
-//				[self.popoverController dismissPopoverAnimated:NO];
-//			}
-//			
-//			UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:selectorViewController];
-//			self.popoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
-//			self.popoverController.delegate = self;
-//			if ([selectorViewController conformsToProtocol:@protocol(XLFormRowDescriptorPopoverViewController)]){
-//				((id<XLFormRowDescriptorPopoverViewController>)selectorViewController).popoverController = self.popoverController;
-//			}
-//			if (self.detailTextLabel.window){
-//				[self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height) inView:self.detailTextLabel permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-//			}
-//			else{
-//				[self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-//			}
-//			[controller.tableView deselectRowAtIndexPath:[controller.tableView indexPathForCell:self] animated:YES];
-//		}
-//		else {
-//			[controller.navigationController pushViewController:selectorViewController animated:YES];
-//		}
-//	}
+	if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover])
+	{
+		UIViewController<XLFormRowDescriptorViewController> *selectorViewController = (self.rowDescriptor.selectorControllerClass) ? [[self.rowDescriptor.selectorControllerClass alloc] init] : [[XLFormOptionsViewController alloc] initWithOptions:self.rowDescriptor.selectorOptions style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+		selectorViewController.rowDescriptor = self.rowDescriptor;
+		selectorViewController.title = self.rowDescriptor.selectorTitle;
+		
+		if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
+			if (self.popoverController && self.popoverController.popoverVisible) {
+				[self.popoverController dismissPopoverAnimated:NO];
+			}
+			
+			UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:selectorViewController];
+			self.popoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
+			self.popoverController.delegate = self;
+			if ([selectorViewController conformsToProtocol:@protocol(XLFormRowDescriptorPopoverViewController)]){
+				((id<XLFormRowDescriptorPopoverViewController>)selectorViewController).popoverController = self.popoverController;
+			}
+			if (self.detailTextLabel.window){
+				[self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height) inView:self.detailTextLabel permittedArrowDirections:UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown animated:YES];
+			}
+			else{
+				[self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) inView:self permittedArrowDirections:UIPopoverArrowDirectionUp|UIPopoverArrowDirectionDown animated:YES];
+			}
+			[controller.tableView deselectRowAtIndexPath:[controller.tableView indexPathForCell:self] animated:YES];
+		}
+		else {
+			[controller.navigationController pushViewController:selectorViewController animated:YES];
+		}
+	}
 //    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover])
 //    {
 //        NSAssert(self.rowDescriptor.selectorOptions, @"selectorOptions property shopuld not be nil");
@@ -230,7 +230,7 @@
 //            [controller.navigationController pushViewController:optionsViewController animated:YES];
 //        }
 //    }
-	if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush])
+	else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush])
 	{
 		UIViewController<XLFormRowDescriptorViewController> *selectorViewController = [[selectorClass alloc] initWithOptions:self.rowDescriptor.selectorOptions style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
 		selectorViewController.rowDescriptor = self.rowDescriptor;
