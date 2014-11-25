@@ -26,7 +26,7 @@ What XLForm does
  * Supports multivalued sections. For further details see [*Multivalued Sections*](https://github.com/xmartlabs/XLForm#multivalued-sections "Multivalued Sections") section bellow.
  * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-row).
  * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](https://github.com/xmartlabs/XLForm#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
- * Provides several inline selectors such as date picker and picker inline selectos and brings a way to create custom inline selectors.
+ * Provides several inline selectors such as date picker and picker inline selectors and brings a way to create custom inline selectors.
  * Validates the form data based on form definition and shows error messages.
  * Changes the firstResponder among `UITextField`s and `UITextView`s when keyboard return button is pressed.
 
@@ -480,9 +480,9 @@ Once custom cell has been created you have to let `XLFormRowDescriptor` know abo
 Custom Selectors - Selector Row with a custom selector view controller
 --------------------------------------------
 
-Almost always the basic selector which allows the user to select one or multiple items from a pushed view controller is enough for owr needs, but sometimes we need more flexibility to bring a better user experience to the user or do something not supported by default.
+Almost always the basic selector which allows the user to select one or multiple items from a pushed view controller is enough for our needs, but sometimes we need more flexibility to bring a better user experience to the user or do something not supported by default.
 
-Let's say your app user neets to select a map coordinate or it needs to select a value fetched from a server endpoint. How do we do that easily?
+Let's say your app user needs to select a map coordinate or it needs to select a value fetched from a server endpoint. How do we do that easily?
 
 
 ![Screenshot of Map Custom Selector](Examples/Selectors/CustomSelectors/XLFormRowViewController/XLForm-map-custom-selector.gif)
@@ -715,7 +715,7 @@ You should do the same as [*How to set a value to a row*](https://github.com/xma
 
 #### How to set up the options to a selector row.
 
-XLForm has several types of selectors rows. Almost all of them need to know which are the values to be selected. For a particular `XLFormRowDescriptor` instance you spefify these values setting a `NSArray` instance to `selectorOptions` property.
+XLForm has several types of selectors rows. Almost all of them need to know which are the values to be selected. For a particular `XLFormRowDescriptor` instance you specify these values setting a `NSArray` instance to `selectorOptions` property.
 
 ```objc
 @property NSArray * selectorOptions;
