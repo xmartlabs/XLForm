@@ -288,12 +288,12 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateInline rowType:XLFormRo
 row.value = [NSDate new];
 [section addFormRow:row];
 
-// DateTime
+// Time
 row = [XLFormRowDescriptor formRowDescriptorWithTag:kTimeInline rowType:XLFormRowDescriptorTypeTimeInline title:@"Time"];
 row.value = [NSDate new];
 [section addFormRow:row];
 
-// Time
+// DateTime
 row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTimeInline rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Date Time"];
 row.value = [NSDate new];
 [section addFormRow:row];
