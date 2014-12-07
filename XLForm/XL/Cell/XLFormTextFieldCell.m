@@ -62,6 +62,7 @@
 -(void)configure
 {
     [super configure];
+    self.shouldDisplayLabel = YES;
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -130,7 +131,9 @@
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     
-    self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
+    if (self.shouldDisplayLabel) {
+        self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
+    }
     
     self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
     [self.textField setEnabled:!self.rowDescriptor.disabled];
@@ -184,7 +187,7 @@
     }
     NSDictionary * views = @{@"label": self.textLabel, @"textField": self.textField, @"image": self.imageView};
     if (self.imageView.image){
-        if (self.textLabel.text.length > 0){
+        if (self.shouldDisplayLabel && self.textLabel.text.length > 0){
             self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-4-|" options:0 metrics:0 views:views];
         }
         else{
@@ -192,7 +195,7 @@
         }
     }
     else{
-        if (self.textLabel.text.length > 0){
+        if (self.shouldDisplayLabel && self.textLabel.text.length > 0){
             self.dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textField]-4-|" options:0 metrics:0 views:views];
         }
         else{

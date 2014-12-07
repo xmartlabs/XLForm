@@ -31,5 +31,6 @@
 
 @property (nonatomic, readonly) UILabel * label;
 @property (nonatomic, readonly) XLFormTextView * textView;
+@property (nonatomic) BOOL shouldDisplayLabel;
 
 @end
