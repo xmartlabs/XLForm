@@ -503,7 +503,7 @@ row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
 
 `selectorControllerClass` controller class should conform to `XLFormRowDescriptorViewController` protocol. 
 
-In the example above, `MapViewController` conforms to `XLFormRowDescriptorViewController`.
+In the example above, `MapViewController` conforms to `XLFormRowDescriptorViewController`. Use `#import "XLFormRowDescriptor.h"` to import the `XLFormRowDescriptorViewController` protocol into your project.
 
 ```objc
 @protocol XLFormRowDescriptorViewController <NSObject>
