@@ -48,7 +48,7 @@
         _rowType = rowType;
         _title = title;
         _buttonViewControllerPresentationMode = XLFormPresentationModeDefault;
-        _cellStype = UITableViewCellStyleValue1;
+        _cellStyle = UITableViewCellStyleValue1;
         _validators = [NSMutableArray new];
         
     }
