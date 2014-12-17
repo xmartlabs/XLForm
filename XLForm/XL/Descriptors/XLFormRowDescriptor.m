@@ -81,7 +81,7 @@
             [self configureCellAtCreationTime];
         }
     } else if (!_cell) {
-        _cell = [[cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
+        _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
         [self configureCellAtCreationTime];
     }
     NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
