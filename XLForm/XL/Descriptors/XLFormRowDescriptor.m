@@ -189,8 +189,13 @@
                 // default message for required msg
                 msg = NSLocalizedString(@"%@ can't be empty", nil);
             }
-            valStatus.msg = [NSString stringWithFormat:msg, self.title];
             
+            if (self.title != nil) {
+                valStatus.msg = [NSString stringWithFormat:msg, self.title];
+            } else {
+                valStatus.msg = [NSString stringWithFormat:msg, self.tag];
+            }
+
             return valStatus;
         }
     } else {
