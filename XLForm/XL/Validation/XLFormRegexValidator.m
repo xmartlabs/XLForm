@@ -45,7 +45,7 @@
         if (row.value != nil && [row.value length] > 0) {
             BOOL isValid = [[NSPredicate predicateWithFormat:@"SELF MATCHES %@",self.regex] evaluateWithObject:[row.value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
             
-            return [XLFormValidationStatus formValidationStatusWithMsg:self.msg status:isValid];
+            return [XLFormValidationStatus formValidationStatusWithMsg:self.msg status:isValid rowDescriptor:row];
         }
     }
     

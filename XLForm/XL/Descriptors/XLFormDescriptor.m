@@ -28,6 +28,7 @@
 #import "XLFormDescriptor.h"
 
 NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
+NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @interface XLFormDescriptor()
 
@@ -253,7 +254,9 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         for (XLFormRowDescriptor * row in section.formRows) {
             XLFormValidationStatus* status = [row doValidation];
             if (status != nil && (![status isValid])) {
-                NSError * error = [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeGen userInfo:@{ NSLocalizedDescriptionKey:status.msg }];
+                NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: status.msg,
+                                            XLValidationStatusErrorKey: status };
+                NSError * error = [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeGen userInfo:userInfo];
                 if (error){
                     [result addObject:error];
                 }

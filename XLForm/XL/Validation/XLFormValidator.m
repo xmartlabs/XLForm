@@ -32,7 +32,7 @@
 
 -(XLFormValidationStatus *)isValid:(XLFormRowDescriptor *)row
 {
-    return [XLFormValidationStatus formValidationStatusWithMsg:nil status:YES];
+    return [XLFormValidationStatus formValidationStatusWithMsg:nil status:YES rowDescriptor:row];
 }
 
 #pragma mark - Validators
