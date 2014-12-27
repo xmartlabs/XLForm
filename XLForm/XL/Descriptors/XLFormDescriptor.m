@@ -86,6 +86,26 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     }
 }
 
+
+-(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow
+{
+    NSIndexPath * beforeIndexPath = [self indexPathOfFormRow:beforeRow];
+    if (self.formSections.count > beforeIndexPath.section){
+        [[self.formSections objectAtIndex:beforeIndexPath.section] addFormRow:formRow beforeRow:beforeRow];
+    }
+    else{
+        [[self.formSections lastObject] addFormRow:formRow beforeRow:beforeRow];
+    }
+}
+
+-(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRowTag:(NSString *)beforeRowTag
+{
+    XLFormRowDescriptor * beforeRowForm = [self formRowWithTag:beforeRowTag];
+    [self addFormRow:formRow beforeRow:beforeRowForm];
+}
+
+
+
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow
 {
     NSIndexPath * afterIndexPath = [self indexPathOfFormRow:afterRow];
