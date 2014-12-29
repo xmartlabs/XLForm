@@ -50,6 +50,15 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
 
+@property BOOL useValueFormatterDuringInput;
+@property NSFormatter *valueFormatter;
+
+// returns the display text for the row descriptor, taking into account NSFormatters and default placeholder values
+- (NSString*) displayTextValue;
+
+// returns the editing text value for the row descriptor, taking into account NSFormatters.
+- (NSString*) editTextValue;
+
 @property (nonatomic) NSMutableDictionary *cellConfig;
 @property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
 @property BOOL disabled;

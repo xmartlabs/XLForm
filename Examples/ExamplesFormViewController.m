@@ -31,12 +31,14 @@
 #import "ExamplesFormViewController.h"
 #import "NativeEventFormViewController.h"
 #import "UICustomizationFormViewController.h"
+#import "FormattersViewController.h"
 
 NSString * const kTextFieldAndTextView = @"TextFieldAndTextView";
 NSString * const kSelectors = @"Selectors";
 NSString * const kOthes = @"Others";
 NSString * const kDates = @"Dates";
 NSString * const kMultivalued = @"Multivalued";
+NSString * const kFormatters = @"Formatters";
 
 @interface ExamplesFormViewController ()
 
@@ -101,6 +103,11 @@ NSString * const kMultivalued = @"Multivalued";
     // Dates
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kDates rowType:XLFormRowDescriptorTypeButton title:@"Dates"];
     row.buttonViewController = [DatesFormViewController class];
+    [section addFormRow:row];
+    
+    // NSFormatters
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kFormatters rowType:XLFormRowDescriptorTypeButton title:@"NSFormatter Support"];
+    row.buttonViewController = [FormattersViewController class];
     [section addFormRow:row];
     
     // Others

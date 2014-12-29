@@ -20,15 +20,18 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - SHSPhoneComponent (2.15)
   - XLDataLoader (1.1.0):
     - AFNetworking (~> 2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - SHSPhoneComponent
   - XLDataLoader (~> 1.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  SHSPhoneComponent: 0827ce04b28d3dbbdc4251ac3b937f769f58af3d
   XLDataLoader: bd783ebe782932a6390ffc7619fcd884c8600944
 
 COCOAPODS: 0.35.0

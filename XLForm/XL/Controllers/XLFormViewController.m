@@ -184,6 +184,7 @@
                                                XLFormRowDescriptorTypeAccount: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypePassword: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeDecimalNumber: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeDecimal: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
