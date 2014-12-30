@@ -92,8 +92,7 @@
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
-    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber] ||
-                          [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimalNumber]){
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber]){
         self.textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -101,7 +100,8 @@
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
         self.textField.keyboardType = UIKeyboardTypeNumberPad;
     }
-    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimalNumber]){
         self.textField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePassword]){
@@ -258,7 +258,6 @@
 
 - (void)textFieldDidChange:(UITextField *)textField{
     if([self.textField.text length] > 0) {
-        NSLog(@"text %@",textField.text);
         BOOL didUseFormatter = NO;
         
         if (self.rowDescriptor.valueFormatter && self.rowDescriptor.useValueFormatterDuringInput)

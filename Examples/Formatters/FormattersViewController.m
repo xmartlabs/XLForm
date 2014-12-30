@@ -19,19 +19,18 @@
 // Simple little class to demonstraite currency formatting.   Unfortunally we have to subclass
 // NSNumberFormatter to work aroundn some long known rounding bugs with NSNumberFormatter
 //     http://stackoverflow.com/questions/12580162/nsstring-to-nsdate-conversion-issue
-@interface USCurrencyFormatter : NSNumberFormatter
+@interface CurrencyFormatter : NSNumberFormatter
 
 @property (readonly) NSDecimalNumberHandler *roundingBehavior;
 
 @end
 
-@implementation USCurrencyFormatter
+@implementation CurrencyFormatter
 
 - (id) init
 {
     self = [super init];
     if (self) {
-        [self setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US"]];
         [self setNumberStyle: NSNumberFormatterCurrencyStyle];
         [self setGeneratesDecimalNumbers:YES];
         
@@ -44,20 +43,20 @@
     return self;
 }
 
-- (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error
-{
-    NSDecimalNumber *number;
-    BOOL success = [super getObjectValue:&number forString:string errorDescription:error];
-    
-    if (success) {
-        *anObject = [number decimalNumberByRoundingAccordingToBehavior:_roundingBehavior];
-    }
-    else {
-        *anObject = nil;
-    }
-    
-    return success;
-}
+//- (BOOL)getObjectValue:(id *)anObject forString:(NSString *)string errorDescription:(NSString **)error
+//{
+//    NSDecimalNumber *number;
+//    BOOL success = [super getObjectValue:&number forString:string errorDescription:error];
+//    
+//    if (success) {
+//        *anObject = [number decimalNumberByRoundingAccordingToBehavior:_roundingBehavior];
+//    }
+//    else {
+//        *anObject = nil;
+//    }
+//    
+//    return success;
+//}
 
 @end
 
@@ -91,7 +90,7 @@
     
     // Currency
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"currency" rowType:XLFormRowDescriptorTypeDecimalNumber title:@"USD"];
-    USCurrencyFormatter *numberFormatter = [[USCurrencyFormatter alloc] init];
+    CurrencyFormatter *numberFormatter = [[CurrencyFormatter alloc] init];
     row.valueFormatter = numberFormatter;
     row.value = [NSDecimalNumber numberWithDouble:9.95];
     [row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
