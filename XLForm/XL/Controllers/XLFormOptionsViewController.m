@@ -98,6 +98,20 @@
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    id cellObject =  [self.options objectAtIndex:indexPath.row];
+    NSString *text = [self valueDisplayTextForOption:cellObject];
+    NSDictionary * attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:17]};
+    
+    CGRect device = [[UIScreen mainScreen] bounds];
+    
+    CGRect rect = [text boundingRectWithSize:CGSizeMake(device.size.width - 50, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    
+    CGFloat height = rect.size.height + 20;
+    CGFloat def = 44;
+    return height > def ? height : def;
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
