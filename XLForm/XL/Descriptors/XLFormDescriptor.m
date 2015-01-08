@@ -28,6 +28,7 @@
 #import "XLFormDescriptor.h"
 
 NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
+NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @interface XLFormDescriptor()
 
@@ -84,6 +85,26 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         [self insertObject:formSection inFormSectionsAtIndex:[self.formSections indexOfObject:afterSection]+1];
     }
 }
+
+
+-(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow
+{
+    NSIndexPath * beforeIndexPath = [self indexPathOfFormRow:beforeRow];
+    if (self.formSections.count > beforeIndexPath.section){
+        [[self.formSections objectAtIndex:beforeIndexPath.section] addFormRow:formRow beforeRow:beforeRow];
+    }
+    else{
+        [[self.formSections lastObject] addFormRow:formRow beforeRow:beforeRow];
+    }
+}
+
+-(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRowTag:(NSString *)beforeRowTag
+{
+    XLFormRowDescriptor * beforeRowForm = [self formRowWithTag:beforeRowTag];
+    [self addFormRow:formRow beforeRow:beforeRowForm];
+}
+
+
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow
 {
@@ -253,7 +274,9 @@ NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
         for (XLFormRowDescriptor * row in section.formRows) {
             XLFormValidationStatus* status = [row doValidation];
             if (status != nil && (![status isValid])) {
-                NSError * error = [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeGen userInfo:@{ NSLocalizedDescriptionKey:status.msg }];
+                NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: status.msg,
+                                            XLValidationStatusErrorKey: status };
+                NSError * error = [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeGen userInfo:userInfo];
                 if (error){
                     [result addObject:error];
                 }

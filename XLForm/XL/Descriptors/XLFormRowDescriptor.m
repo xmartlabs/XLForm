@@ -48,7 +48,7 @@
         _rowType = rowType;
         _title = title;
         _buttonViewControllerPresentationMode = XLFormPresentationModeDefault;
-        _cellStype = UITableViewCellStyleValue1;
+        _cellStyle = UITableViewCellStyleValue1;
         _validators = [NSMutableArray new];
         
     }
@@ -81,7 +81,7 @@
             [self configureCellAtCreationTime];
         }
     } else if (!_cell) {
-        _cell = [[cellClass alloc] initWithStyle:self.cellStype reuseIdentifier:nil];
+        _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
         [self configureCellAtCreationTime];
     }
     NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
@@ -176,7 +176,7 @@
 }
 
 -(XLFormValidationStatus *) doValidation {
-    XLFormValidationStatus *valStatus = [XLFormValidationStatus formValidationStatusWithMsg:@"" status:YES];
+    XLFormValidationStatus *valStatus = [XLFormValidationStatus formValidationStatusWithMsg:@"" status:YES rowDescriptor:self];
     
     if (self.required) {
         // do required validation here
@@ -189,8 +189,13 @@
                 // default message for required msg
                 msg = NSLocalizedString(@"%@ can't be empty", nil);
             }
-            valStatus.msg = [NSString stringWithFormat:msg, self.title];
             
+            if (self.title != nil) {
+                valStatus.msg = [NSString stringWithFormat:msg, self.title];
+            } else {
+                valStatus.msg = [NSString stringWithFormat:msg, self.tag];
+            }
+
             return valStatus;
         }
     } else {
