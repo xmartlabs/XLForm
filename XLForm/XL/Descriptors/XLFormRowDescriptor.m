@@ -91,7 +91,7 @@
 - (void) configureCellAtCreationTime
 {
     [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
-        [_cell setValue:value forKeyPath:keyPath];
+        [_cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
     }];
 }
 

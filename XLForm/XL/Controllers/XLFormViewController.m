@@ -435,7 +435,7 @@
     
     ((UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell).rowDescriptor = rowDescriptor;
     [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-        [formDescriptorCell setValue:value forKeyPath:keyPath];
+        [formDescriptorCell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
     }];
     [formDescriptorCell setNeedsLayout];
     
