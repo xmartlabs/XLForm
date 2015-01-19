@@ -183,7 +183,7 @@
 	{
 		UIViewController<XLFormRowDescriptorViewController> *selectorViewController = (self.rowDescriptor.selectorControllerClass) ? [[self.rowDescriptor.selectorControllerClass alloc] init] : [[XLFormOptionsViewController alloc] initWithOptions:self.rowDescriptor.selectorOptions style:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
 		selectorViewController.rowDescriptor = self.rowDescriptor;
-		selectorViewController.title = self.rowDescriptor.selectorTitle;
+		selectorViewController.title = (self.rowDescriptor.selectorTitle) ? self.rowDescriptor.selectorTitle : self.textLabel.text;
 		
 		if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
 			if (self.popoverController && self.popoverController.popoverVisible) {
