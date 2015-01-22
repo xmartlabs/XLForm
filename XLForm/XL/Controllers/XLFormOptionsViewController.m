@@ -69,6 +69,8 @@
     [super viewDidLoad];
     // register option cell
     [self.tableView registerClass:[XLFormRightDetailCell class] forCellReuseIdentifier:CELL_REUSE_IDENTIFIER];
+	
+	self.tableView.accessibilityIdentifier = [NSString stringWithFormat:@"%@.options", self.rowDescriptor.tag];
 }
 
 
