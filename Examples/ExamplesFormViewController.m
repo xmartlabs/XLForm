@@ -91,6 +91,9 @@ NSString * const kMultivalued = @"Multivalued";
     // TextFieldAndTextView
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kTextFieldAndTextView rowType:XLFormRowDescriptorTypeButton title:@"Text Fields"];
     row.buttonViewController = [InputsFormViewController class];
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		row.buttonViewControllerPresentationMode=XLFormPresentationModeFormSheet;
+	}
     [section addFormRow:row];
     
     // Selectors
