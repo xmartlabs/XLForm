@@ -81,6 +81,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 -(void)configure
 {
     [super configure];
+    self.shouldDisplayLabel = YES;
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
     [self.contentView addSubview:self.label];
     [self.contentView addSubview:self.textView];
@@ -103,7 +104,9 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     [self.textView setEditable:!self.rowDescriptor.disabled];
     self.textView.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.label.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.label.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
+    if (self.shouldDisplayLabel) {
+        self.label.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
+    }
 }
 
 +(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
@@ -129,11 +132,11 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
         [self.contentView removeConstraints:_dynamicCustomConstraints];
     }
     NSDictionary * views = @{@"label": self.label, @"textView": self.textView};
-    if (!self.label.text || [self.label.text isEqualToString:@""]){
-        _dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textView]-16-|" options:0 metrics:0 views:views];
+    if (self.shouldDisplayLabel && self.label.text.length > 0){
+        _dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textView]-4-|" options:0 metrics:0 views:views];
     }
     else{
-        _dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textView]-4-|" options:0 metrics:0 views:views];
+        _dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textView]-16-|" options:0 metrics:0 views:views];
     }
     [self.contentView addConstraints:_dynamicCustomConstraints];
     [super updateConstraints];

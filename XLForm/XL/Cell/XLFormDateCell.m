@@ -79,6 +79,8 @@
 {
     [super configure];
     self.formDatePickerMode = XLFormDateDatePickerModeGetFromRowDescriptor;
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 -(void)update
@@ -92,8 +94,6 @@
     
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     
 }
 

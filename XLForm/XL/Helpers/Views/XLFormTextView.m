@@ -38,7 +38,7 @@
     if((self = [super initWithFrame:frame])){
         self.contentInset = UIEdgeInsetsMake(0, -4, 0, 0);
         [self setPlaceholder:@""];
-        [self setPlaceholderColor:[UIColor colorWithRed:.78 green:.78 blue:.80 alpha:1.0]];
+        [self setPlaceholderColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.098 alpha:0.22]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChanged:) name:UITextViewTextDidChangeNotification object:nil];
     }
     return self;

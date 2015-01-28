@@ -153,20 +153,25 @@
 {
     if (self.rowDescriptor.leftRightSelectorLeftOptionSelected){
         XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
-        if (option.rightOptions){
-            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc]  initWithOptions:option.rightOptions style:UITableViewStyleGrouped];
-            optionsViewController.title = option.selectorTitle;
-            optionsViewController.rowDescriptor = self.rowDescriptor;
-            [controller.navigationController pushViewController:optionsViewController animated:YES];
-        }
-        else{
+        UIViewController<XLFormRowDescriptorViewController> *selectorViewController;
+        if (option.rightSelectorControllerClass) {
             XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
-            Class selectorClass =  option.rightSelectorControllerClass;
-            UIViewController<XLFormRowDescriptorViewController> *selectorViewController = [[selectorClass alloc] init];
-            selectorViewController.rowDescriptor = self.rowDescriptor;
-            selectorViewController.title = self.rowDescriptor.selectorTitle;
-            [controller.navigationController pushViewController:selectorViewController animated:YES];
+            id selectorClass = option.rightSelectorControllerClass;
+            if ([selectorClass isKindOfClass:[NSString class]]) {
+                selectorViewController = [controller.storyboard instantiateViewControllerWithIdentifier:selectorClass];
+                if (!selectorViewController && [[NSBundle mainBundle] pathForResource:selectorClass ofType:@"nib"]) {
+                    selectorViewController = [[NSBundle mainBundle] loadNibNamed:selectorClass owner:nil options:nil].firstObject;
+                }
+                NSAssert([selectorViewController isKindOfClass:[UIViewController class]] && [selectorViewController conformsToProtocol:@protocol(XLFormRowDescriptorViewController)], @"Can not get a UIViewController form selectorClass");
+            } else {
+                selectorViewController = [[selectorClass alloc] init];
+            }
+        } else if (option.rightOptions) {
+            selectorViewController = [[XLFormOptionsViewController alloc] initWithOptions:option.rightOptions style:UITableViewStyleGrouped];
         }
+        selectorViewController.rowDescriptor = self.rowDescriptor;
+        selectorViewController.title = self.rowDescriptor.selectorTitle;
+        [controller.navigationController pushViewController:selectorViewController animated:YES];
     }
 }
 

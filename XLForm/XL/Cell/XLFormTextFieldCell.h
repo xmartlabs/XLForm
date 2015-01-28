@@ -31,5 +31,6 @@
 
 @property (nonatomic, readonly) UILabel * textLabel;
 @property (nonatomic, readonly) UITextField * textField;
+@property (nonatomic) BOOL shouldDisplayLabel;
 
 @end

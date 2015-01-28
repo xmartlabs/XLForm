@@ -33,6 +33,7 @@
 {
     [super configure];
     self.accessoryType = UITableViewCellAccessoryCheckmark;
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 - (void)update
@@ -40,7 +41,6 @@
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
     self.accessoryType = [self.rowDescriptor.value boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller

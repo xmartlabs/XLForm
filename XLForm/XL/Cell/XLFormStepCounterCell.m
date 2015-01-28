@@ -47,6 +47,7 @@
 - (void)configure
 {
     [super configure];
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     UIStepper *stepperControl = [[UIStepper alloc] initWithFrame:CGRectMake(25,
                                                                             0,
@@ -79,7 +80,6 @@
 {
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
     self.stepControl.enabled = !self.rowDescriptor.disabled;
     [self stepControl].tintColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;
