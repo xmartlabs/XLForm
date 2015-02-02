@@ -32,6 +32,7 @@
 @interface XLFormTextFieldCell() <UITextFieldDelegate>
 
 @property NSArray * dynamicCustomConstraints;
+@property UIReturnKeyType returnKeyType;
 
 @end
 
@@ -39,6 +40,7 @@
 
 @synthesize textField = _textField;
 @synthesize textLabel = _textLabel;
+
 
 #pragma mark - KVO
 
@@ -68,7 +70,6 @@
     [self.contentView addConstraints:[self layoutConstraints]];
     [self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.imageView addObserver:self forKeyPath:@"image" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-    
     [self.textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
@@ -258,6 +259,16 @@
     } else {
         self.rowDescriptor.value = nil;
     }
+}
+
+-(void)setReturnKeyType:(UIReturnKeyType)returnKeyType
+{
+    self.textField.returnKeyType = returnKeyType;
+}
+
+-(UIReturnKeyType)returnKeyType
+{
+    return self.textField.returnKeyType;
 }
 
 @end
