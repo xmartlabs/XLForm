@@ -47,6 +47,7 @@
         if (self.rowDescriptor.value){
             [self.datePicker setDate:self.rowDescriptor.value];
         }
+        [self setModeToDatePicker:self.datePicker];
         return self.datePicker;
     }
     return [super inputView];
@@ -176,7 +177,6 @@
     
     if (self.maximumDate)
         datePicker.maximumDate = self.maximumDate;
-    
 }
 
 #pragma mark - Properties
@@ -204,7 +204,7 @@
 -(void)setFormDatePickerMode:(XLFormDateDatePickerMode)formDatePickerMode
 {
     _formDatePickerMode = formDatePickerMode;
-    if ([self isFirstResponder] ){
+    if ([self isFirstResponder]){
         if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTimeInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTimeInline])
         {
             NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];

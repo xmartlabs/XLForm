@@ -853,8 +853,10 @@ Version 1.0.0 (cocoaPod)
 Contact
 ----------------
 
-If you are using XLForm in your app and have any suggestion or question:
+Any suggestion or question? Please create a Github issue or reach us out.
 
-Martin Barreto, <martin@xmartlabs.com>, [@mtnBarreto](http://twitter.com/mtnBarreto "@mtnBarreto")
+Martin Barreto, [@mtnBarreto](http://twitter.com/mtnBarreto "@mtnBarreto")
 
+[xmartlabs.com](http://xmartlabs.com).
 [@xmartlabs](http://twitter.com/xmartlabs "@xmartlabs")
+
