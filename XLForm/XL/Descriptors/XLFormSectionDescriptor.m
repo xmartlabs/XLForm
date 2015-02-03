@@ -39,6 +39,8 @@
     if (self){
         _formRows = [NSMutableArray array];
         _isMultivaluedSection = NO;
+        _minMultivaluedEntries = nil;
+        _maxMultivaluedEntries = nil;
         _title = nil;
         _footerTitle = nil;
     }
