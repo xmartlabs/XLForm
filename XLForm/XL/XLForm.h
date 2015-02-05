@@ -73,6 +73,7 @@ extern NSString *const XLFormRowDescriptorTypeURL;
 extern NSString *const XLFormRowDescriptorTypeEmail;
 extern NSString *const XLFormRowDescriptorTypePassword;
 extern NSString *const XLFormRowDescriptorTypeNumber;
+extern NSString *const XLFormRowDescriptorTypeDecimalNumber;
 extern NSString *const XLFormRowDescriptorTypePhone;
 extern NSString *const XLFormRowDescriptorTypeTwitter;
 extern NSString *const XLFormRowDescriptorTypeAccount;

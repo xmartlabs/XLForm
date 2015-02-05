@@ -29,7 +29,13 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    return [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+    self =[super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+    if (self){
+        self.textLabel.numberOfLines = 0;
+        [self.textLabel sizeToFit];
+        
+    }
+    return self;
 }
 
 @end

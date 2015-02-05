@@ -28,17 +28,18 @@
 #import "XLFormRowDescriptor.h"
 #import "XLFormSelectorCell.h"
 #import "NSArray+XLFormAdditions.h"
+#import "UIView+XLFormAdditions.h"
 
 @interface XLFormSelectorCell() <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverControllerDelegate>
 
 @property (nonatomic) UIPickerView * pickerView;
+@property (nonatomic) UITextField * textField;
 @property (nonatomic) UIPopoverController *popoverController;
 
 @end
 
 
 @implementation XLFormSelectorCell
-
 
 -(NSString *)valueDisplayText
 {
@@ -100,9 +101,9 @@
 
 - (BOOL)canBecomeFirstResponder
 {
-    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
-        return YES;
-    }
+//    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
+//        return YES;
+//    }
     return [super canBecomeFirstResponder];
 }
 
@@ -118,11 +119,37 @@
     return _pickerView;
 }
 
+-(UITextField *)textField
+{
+    if (_textField) return _textField;
+    _textField = [UITextField autolayoutView];
+    [_textField setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
+    
+    return _textField;
+}
+
+#pragma mark - LayoutConstraints
+
+-(NSArray *)layoutConstraints
+{
+    NSMutableArray * result = [[NSMutableArray alloc] init];
+    UILabel *textLabel = self.textLabel;
+    [self.textLabel setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[textLabel]-[_textField]" options:NSLayoutFormatAlignAllBaseline metrics:0 views:NSDictionaryOfVariableBindings(textLabel, _textField)]];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-12-[_textField]-12-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:NSDictionaryOfVariableBindings(_textField)]];
+    return result;
+}
+
 #pragma mark - XLFormDescriptorCell
 
 -(void)configure
 {
     [super configure];
+    [self.contentView addSubview:self.textField];
+    [self.contentView addConstraints:[self layoutConstraints]];
+    //[self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    
+    
 }
 
 -(void)update
@@ -133,9 +160,14 @@
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.selectionStyle = self.rowDescriptor.disabled || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInfo] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
-    self.detailTextLabel.text = [self valueDisplayText];
+    self.textField.text = [self valueDisplayText];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
+        [self.textField setInputView:self.pickerView];
+    }
+    
     
 }
 
@@ -152,8 +184,8 @@
 				self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
                 self.popoverController.delegate = self;
                 optionsViewController.popoverController = self.popoverController;
-                if (self.detailTextLabel.window){
-                    [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height) inView:self.detailTextLabel permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                if (self.textField.window){
+                    [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.textField.frame.size.width, self.textField.frame.size.height) inView:self.textField permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
                 }
                 else{
                     [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -180,8 +212,8 @@
                 if ([selectorViewController conformsToProtocol:@protocol(XLFormRowDescriptorPopoverViewController)]){
                     ((id<XLFormRowDescriptorPopoverViewController>)selectorViewController).popoverController = self.popoverController;
                 }
-                if (self.detailTextLabel.window){
-                    [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height) inView:self.detailTextLabel permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+                if (self.textField.window){
+                    [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.textField.frame.size.width, self.textField.frame.size.height) inView:self.textField permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
                 }
                 else{
                     [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -204,8 +236,8 @@
             self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
             self.popoverController.delegate = self;
             optionsViewController.popoverController = self.popoverController;
-            if (self.detailTextLabel.window){
-                [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height) inView:self.detailTextLabel permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+            if (self.textField.window){
+                [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.textField.frame.size.width, self.textField.frame.size.height) inView:self.textField permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
             }
             else{
                 [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -236,7 +268,7 @@
         [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
-        [self becomeFirstResponder];
+        [self.textField becomeFirstResponder];
         [controller.tableView selectRowAtIndexPath:nil animated:YES scrollPosition:UITableViewScrollPositionNone];
     }
 }
@@ -290,7 +322,7 @@
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
         self.rowDescriptor.value = [self.rowDescriptor.selectorOptions objectAtIndex:row];
-        self.detailTextLabel.text = [self valueDisplayText];
+        self.textField.text = [self valueDisplayText];
         [self setNeedsLayout];
     }
 }
