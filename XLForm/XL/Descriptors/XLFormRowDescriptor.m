@@ -47,7 +47,6 @@
         _disabled = NO;
         _rowType = rowType;
         _title = title;
-        _buttonViewControllerPresentationMode = XLFormPresentationModeDefault;
         _cellStyle = UITableViewCellStyleValue1;
         _validators = [NSMutableArray new];
         
@@ -122,6 +121,11 @@
     return _action;
 }
 
+-(void)setAction:(XLFormAction *)action
+{
+    _action = action;
+}
+
 // In the implementation
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -135,8 +139,8 @@
     // =====================
     // properties for Button
     // =====================
-    rowDescriptorCopy.buttonViewController = [self.buttonViewController copy];
-    rowDescriptorCopy.buttonViewControllerPresentationMode = self.buttonViewControllerPresentationMode;
+    rowDescriptorCopy.action = [self.action copy];
+
     
     // ===========================
     // property used for Selectors
@@ -146,10 +150,6 @@
     rowDescriptorCopy.selectorTitle = [self.selectorTitle copy];
     rowDescriptorCopy.selectorOptions = [self.selectorOptions copy];
     rowDescriptorCopy.leftRightSelectorLeftOptionSelected = [self.leftRightSelectorLeftOptionSelected copy];
-    // =====================================
-    // properties used for dynamic selectors
-    // =====================================
-    rowDescriptorCopy.selectorControllerClass = [self.selectorControllerClass copy];
     
     return rowDescriptorCopy;
 }
@@ -227,6 +227,39 @@
     return valStatus;
 }
 
+
+#pragma mark - Deprecations
+
+-(void)setButtonViewController:(Class)buttonViewController
+{
+    self.action.viewControllerClass = buttonViewController;
+}
+
+-(Class)buttonViewController
+{
+    return self.action.viewControllerClass;
+}
+
+-(void)setSelectorControllerClass:(Class)selectorControllerClass
+{
+    self.action.viewControllerClass = selectorControllerClass;
+}
+
+-(Class)selectorControllerClass
+{
+    return self.action.viewControllerClass;
+}
+
+-(void)setButtonViewControllerPresentationMode:(XLFormPresentationMode)buttonViewControllerPresentationMode
+{
+    self.action.viewControllerPresentationMode = buttonViewControllerPresentationMode;
+}
+
+-(XLFormPresentationMode)buttonViewControllerPresentationMode
+{
+    return self.action.viewControllerPresentationMode;
+}
+
 @end
 
 
@@ -259,20 +292,69 @@
 
 @end
 
-
 @implementation XLFormAction
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _viewControllerPresentationMode = XLFormPresentationModeDefault;
+    }
+    return self;
+}
+
+// In the implementation
+-(id)copyWithZone:(NSZone *)zone
+{
+    XLFormAction * actionCopy = [[XLFormAction alloc] init];
+    actionCopy.viewControllerPresentationMode = self.viewControllerPresentationMode;
+    actionCopy.viewControllerClass = [self.viewControllerClass copy];
+    if (self.formBlock){
+        actionCopy.formBlock = [self.formBlock copy];
+    }
+    else if (self.formSelector){
+        actionCopy.formSelector = self.formSelector;
+    }
+    else if (self.formSegueIdenfifier){
+        actionCopy.formSegueIdenfifier = [self.formSegueIdenfifier copy];
+    }
+    else if (self.formSegueClass){
+        actionCopy.formSegueClass = [self.formSegueClass copy];
+    }
+    return actionCopy;
+}
 
 -(void)setFormSelector:(SEL)formSelector
 {
     _formBlock = nil;
+    _formSegueClass = nil;
+    _formSegueIdenfifier = nil;
     _formSelector = formSelector;
 }
 
 
 -(void)setFormBlock:(void (^)(XLFormRowDescriptor *))formBlock
 {
+    _formSegueClass = nil;
+    _formSegueIdenfifier = nil;
     _formSelector = nil;
     _formBlock = formBlock;
+}
+
+-(void)setFormSegueClass:(Class)formSegueClass
+{
+    _formSelector = nil;
+    _formBlock = nil;
+    _formSegueIdenfifier = nil;
+    _formSegueClass = formSegueClass;
+}
+
+-(void)setFormSegueIdenfifier:(NSString *)formSegueIdenfifier
+{
+    _formSelector = nil;
+    _formBlock = nil;
+    _formSegueClass = nil;
+    _formSegueIdenfifier = formSegueIdenfifier;
 }
 
 @end

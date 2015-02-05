@@ -498,7 +498,7 @@ Define the previous selector row is as simple as ...
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorMap rowType:XLFormRowDescriptorTypeSelectorPush title:@"Coordinate"];
 // set up the selector controller class 
-row.selectorControllerClass = [MapViewController class];
+row.action.viewControllerClass = [MapViewController class];
 // Set up a NSValueTransformer to convert CLLocation to NSString, it's used to show the select value description (text).  
 row.valueTransformer = [CLLocationValueTrasformer class];
 // Set up the default value
@@ -506,7 +506,7 @@ row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
 ```
 
 
-`selectorControllerClass` controller class should conform to `XLFormRowDescriptorViewController` protocol. 
+`action.viewControllerClass` controller class should conform to `XLFormRowDescriptorViewController` protocol. 
 
 In the example above, `MapViewController` conforms to `XLFormRowDescriptorViewController`.
 
@@ -534,7 +534,7 @@ The developer is responsible for update its views with the `rowDescriptor` value
 
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUser rowType:XLFormRowDescriptorTypeSelectorPush title:@"User"];
-row.selectorControllerClass = [UsersTableViewController class];
+row.action.viewControllerClass = [UsersTableViewController class];
 ```
 
 You can find the details of these examples within the example repository folder, `Examples/Selectors/CustomSelectors/` and  `Examples/Selectors/DynamicSelector`.
@@ -794,6 +794,11 @@ To use xmartlabs master branch.....
 
 You can replace the repository URL for your forked version url if you wish.
 
+### How to use XLForm from Swift project
+
+Install XLForm using cocoapods and add `#import <XLForm/XLForm.h>` to your bridging header file.
+
+For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift"). 
 
 Requirements
 -----------------------------

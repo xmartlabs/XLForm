@@ -592,5 +592,23 @@
 }
 
 
+#pragma mark - Segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([sender isKindOfClass:[XLFormRowDescriptor class]]){
+        UIViewController * destinationViewController = segue.destinationViewController;
+        XLFormRowDescriptor * rowDescriptor = (XLFormRowDescriptor *)sender;
+        if (rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorPush || rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorPopover){
+            NSAssert([destinationViewController conformsToProtocol:@protocol(XLFormRowDescriptorViewController)], @"Segue destinationViewController must conform to XLFormRowDescriptorViewController protocol");
+            UIViewController<XLFormRowDescriptorViewController> * rowDescriptorViewController = (UIViewController<XLFormRowDescriptorViewController> *)destinationViewController;
+            rowDescriptorViewController.rowDescriptor = rowDescriptor;
+        }
+        else if ([destinationViewController conformsToProtocol:@protocol(XLFormRowDescriptorViewController)]){
+            UIViewController<XLFormRowDescriptorViewController> * rowDescriptorViewController = (UIViewController<XLFormRowDescriptorViewController> *)destinationViewController;
+            rowDescriptorViewController.rowDescriptor = rowDescriptor;
+        }
+    }
+}
 
 @end
