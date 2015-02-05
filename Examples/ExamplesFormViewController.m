@@ -64,6 +64,7 @@ NSString * const kMultivalued = @"Multivalued";
     return self;
 }
 
+
 #pragma mark - Helper
 
 -(void)initializeForm
@@ -79,7 +80,7 @@ NSString * const kMultivalued = @"Multivalued";
     
     // NativeEventFormViewController
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"realExamples" rowType:XLFormRowDescriptorTypeButton title:@"iOS Calendar Event Form"];
-    row.buttonViewController = [NativeEventNavigationViewController class];
+    row.action.formSegueIdenfifier = @"NativeEventNavigationViewControllerSegue";
     [section addFormRow:row];
     
     
@@ -90,29 +91,29 @@ NSString * const kMultivalued = @"Multivalued";
     
     // TextFieldAndTextView
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kTextFieldAndTextView rowType:XLFormRowDescriptorTypeButton title:@"Text Fields"];
-    row.buttonViewController = [InputsFormViewController class];
+    row.action.viewControllerClass = [InputsFormViewController class];
     [section addFormRow:row];
     
     // Selectors
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectors rowType:XLFormRowDescriptorTypeButton title:@"Selectors"];
-    row.buttonViewController = [SelectorsFormViewController class];
+    row.action.formSegueIdenfifier = @"SelectorsFormViewControllerSegue";
     [section addFormRow:row];
     
     // Dates
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kDates rowType:XLFormRowDescriptorTypeButton title:@"Dates"];
-    row.buttonViewController = [DatesFormViewController class];
+    row.action.viewControllerClass = [DatesFormViewController class];
     [section addFormRow:row];
     
     // Others
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kOthes rowType:XLFormRowDescriptorTypeButton title:@"Other Rows"];
-    row.buttonViewController = [OthersFormViewController class];
+    row.action.formSegueIdenfifier = @"OthersFormViewControllerSegue";
     [section addFormRow:row];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Multivalued example"];
     [form addFormSection:section];
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivalued rowType:XLFormRowDescriptorTypeButton title:@"MultiValued Sections"];
-    row.buttonViewController = [MultiValuedFormViewController class];
+    row.action.viewControllerClass = [MultiValuedFormViewController class];
     [section addFormRow:row];
     
     
@@ -120,7 +121,7 @@ NSString * const kMultivalued = @"Multivalued";
     [form addFormSection:section];
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivalued rowType:XLFormRowDescriptorTypeButton title:@"UI Customization"];
-    row.buttonViewController = [UICustomizationFormViewController class];
+    row.action.viewControllerClass = [UICustomizationFormViewController class];
     [section addFormRow:row];
     
     

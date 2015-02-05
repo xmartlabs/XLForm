@@ -55,7 +55,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property BOOL disabled;
 @property BOOL required;
 
-@property (readonly) XLFormAction * action;
+@property XLFormAction * action;
 
 @property (weak) XLFormSectionDescriptor * sectionDescriptor;
 
@@ -70,13 +70,6 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 -(void) removeValidator: (id<XLFormValidatorProtocol>) validator;
 -(XLFormValidationStatus *) doValidation;
 
-// ================================
-// properties for Button
-// =================================
-@property Class buttonViewController;
-@property XLFormPresentationMode buttonViewControllerPresentationMode;
-
-
 // ===========================
 // property used for Selectors
 // ===========================
@@ -84,12 +77,16 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property NSString * selectorTitle;
 @property NSArray * selectorOptions;
 
-// =====================================
-// properties used for dynamic selectors
-// =====================================
-@property Class selectorControllerClass;
-
 @property id leftRightSelectorLeftOptionSelected;
+
+
+// =====================================
+// Deprecated
+// =====================================
+@property Class buttonViewController DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use action.viewControllerClass instead");
+@property XLFormPresentationMode buttonViewControllerPresentationMode DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("use action.viewControllerPresentationMode instead");
+@property Class selectorControllerClass DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use action.viewControllerClass instead");
+
 
 @end
 
@@ -125,11 +122,15 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @end
 
-
 @interface XLFormAction : NSObject
 
+@property (nonatomic, strong) Class viewControllerClass;
+@property (nonatomic) XLFormPresentationMode viewControllerPresentationMode;
 @property (nonatomic, strong) void (^formBlock)(XLFormRowDescriptor * sender);
 @property (nonatomic) SEL formSelector;
+@property (nonatomic, strong) NSString * formSegueIdenfifier;
+@property (nonatomic, strong) Class formSegueClass;
+
 
 @end
 

@@ -48,18 +48,16 @@ NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
         
         // Selector Push
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUser rowType:XLFormRowDescriptorTypeSelectorPush title:@"User"];
-        row.selectorControllerClass = [UsersTableViewController class];
+        row.action.viewControllerClass = [UsersTableViewController class];
         [section addFormRow:row];
         
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
             // Selector PopOver
             row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUserPopover rowType:XLFormRowDescriptorTypeSelectorPopover title:@"User Popover"];
-            row.selectorControllerClass = [UsersTableViewController class];
+            row.action.viewControllerClass = [UsersTableViewController class];
             [section addFormRow:row];
         }
-        
         self.form = form;
-        
     }
     return self;
 }
