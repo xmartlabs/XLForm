@@ -30,10 +30,10 @@
 
 @interface XLFormOptionsViewController : UITableViewController<XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController>
 
-- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style;
+- (id)initWithStyle:(UITableViewStyle)style;
 
 
-- (id)initWithOptions:(NSArray *)options style:(UITableViewStyle)style
+- (id)initWithStyle:(UITableViewStyle)style
     titleHeaderSection:(NSString *)titleHeaderSection
     titleFooterSection:(NSString *)titleFooterSection;
 

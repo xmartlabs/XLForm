@@ -45,32 +45,41 @@
 {
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
-    self.textLabel.textAlignment = self.rowDescriptor.buttonViewController ? NSTextAlignmentLeft : NSTextAlignmentCenter;
-    self.accessoryType = self.rowDescriptor.buttonViewController ? UITableViewCellAccessoryDisclosureIndicator: UITableViewCellAccessoryNone;
+    BOOL leftAligmnment = self.rowDescriptor.action.viewControllerClass || [self.rowDescriptor.action.formSegueIdenfifier length] != 0 || self.rowDescriptor.action.formSegueClass;
+    self.textLabel.textAlignment = leftAligmnment ? NSTextAlignmentLeft : NSTextAlignmentCenter;
+    self.accessoryType = leftAligmnment ? UITableViewCellAccessoryDisclosureIndicator: UITableViewCellAccessoryNone;
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
-
 }
 
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
-    BOOL hasAction = self.rowDescriptor.action.formBlock || self.rowDescriptor.action.formSelector;
+    BOOL hasAction = self.rowDescriptor.action.formBlock || self.rowDescriptor.action.formSelector || self.rowDescriptor.action.formSegueIdenfifier || self.rowDescriptor.action.formSegueClass;
     if (hasAction){
         if (self.rowDescriptor.action.formBlock){
             self.rowDescriptor.action.formBlock(self.rowDescriptor);
         }
-        else{
+        else if (self.rowDescriptor.action.formSelector){
             [controller performFormSeletor:self.rowDescriptor.action.formSelector withObject:self.rowDescriptor];
         }
+        else if ([self.rowDescriptor.action.formSegueIdenfifier length] != 0){
+            [controller performSegueWithIdentifier:self.rowDescriptor.action.formSegueIdenfifier sender:self.rowDescriptor];
+        }
+        else if (self.rowDescriptor.action.formSegueClass){
+            NSAssert(self.rowDescriptor.action.viewControllerClass, @"rowDescriptor.action.viewControllerClass must be assigned");
+            UIStoryboardSegue * segue = [[self.rowDescriptor.action.formSegueClass alloc] initWithIdentifier:self.rowDescriptor.tag source:controller destination:[[self.rowDescriptor.action.viewControllerClass alloc] init]];
+            [controller prepareForSegue:segue sender:self.rowDescriptor];
+            [segue perform];
+        }
     }
-    else if (self.rowDescriptor.buttonViewController){
-        if (controller.navigationController == nil || [self.rowDescriptor.buttonViewController isSubclassOfClass:[UINavigationController class]] || self.rowDescriptor.buttonViewControllerPresentationMode == XLFormPresentationModePresent){
-            [controller presentViewController:[[self.rowDescriptor.buttonViewController alloc] init] animated:YES completion:nil];
+    else if (self.rowDescriptor.action.viewControllerClass){
+        if (controller.navigationController == nil || [self.rowDescriptor.action.viewControllerClass isSubclassOfClass:[UINavigationController class]] || self.rowDescriptor.action.viewControllerPresentationMode == XLFormPresentationModePresent){
+            [controller presentViewController:[[self.rowDescriptor.action.viewControllerClass alloc] init] animated:YES completion:nil];
         }
         else{
-            [controller.navigationController pushViewController:[[self.rowDescriptor.buttonViewController alloc] init] animated:YES];
+            [controller.navigationController pushViewController:[[self.rowDescriptor.action.viewControllerClass alloc] init] animated:YES];
         }
     }
 }

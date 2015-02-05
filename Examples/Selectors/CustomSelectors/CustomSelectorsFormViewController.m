@@ -50,7 +50,7 @@ NSString *const kSelectorMapPopover = @"selectorMapPopover";
         
         // Selector Push
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorMap rowType:XLFormRowDescriptorTypeSelectorPush title:@"Coordinate"];
-        row.selectorControllerClass = [MapViewController class];
+        row.action.viewControllerClass = [MapViewController class];
         row.valueTransformer = [CLLocationValueTrasformer class];
         row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
         [section addFormRow:row];
@@ -58,7 +58,7 @@ NSString *const kSelectorMapPopover = @"selectorMapPopover";
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
             // Selector PopOver
             row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorMapPopover rowType:XLFormRowDescriptorTypeSelectorPopover title:@"Coordinate PopOver"];
-            row.selectorControllerClass = [MapViewController class];
+            row.action.viewControllerClass = [MapViewController class];
             row.valueTransformer = [CLLocationValueTrasformer class];
             row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
             [section addFormRow:row];

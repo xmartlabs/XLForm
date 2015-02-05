@@ -38,6 +38,16 @@ NSString *const kButtonLeftAligned = @"buttonLeftAligned";
 
 @implementation OthersFormViewController
 
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self initializeForm];
+    }
+    return self;
+}
+
 - (id)init
 {
     self = [super init];
@@ -118,6 +128,15 @@ NSString *const kButtonLeftAligned = @"buttonLeftAligned";
         [self deselectFormRow:sender];
     };
     [section addFormRow:buttonLeftAlignedRow];
+    
+    
+    // Another Left Button with segue
+    XLFormRowDescriptor * buttonLeftAlignedWithSegueRow = [XLFormRowDescriptor formRowDescriptorWithTag:@"Segue" rowType:XLFormRowDescriptorTypeButton title:@"Button Left"];
+    [buttonLeftAlignedWithSegueRow.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
+    [buttonLeftAlignedWithSegueRow.cellConfig setObject:@(UITableViewCellAccessoryDisclosureIndicator) forKey:@"accessoryType"];
+    buttonLeftAlignedWithSegueRow.action.formSegueClass = NSClassFromString(@"UIStoryboardPushSegue");
+    buttonLeftAlignedWithSegueRow.action.viewControllerClass = [self class];
+    [section addFormRow:buttonLeftAlignedWithSegueRow];
     
     
     self.form = form;

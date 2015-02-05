@@ -109,7 +109,25 @@ NSString *const kPickerView = @"pickerView";
 
 @implementation SelectorsFormViewController
 
-- (id)init
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self initializeForm];
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self initializeForm];
+    }
+    return self;
+}
+
+- (void)initializeForm
 {
     XLFormDescriptor * form = [XLFormDescriptor formDescriptorWithTitle:@"Selectors"];
     XLFormSectionDescriptor * section;
@@ -282,7 +300,7 @@ NSString *const kPickerView = @"pickerView";
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Dynamic Selectors"];
     [form addFormSection:section];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kDynamicSelectors rowType:XLFormRowDescriptorTypeButton title:@"Dynamic Selectors"];
-    row.buttonViewController = [DynamicSelectorsFormViewController class];
+    row.action.viewControllerClass = [DynamicSelectorsFormViewController class];
     [section addFormRow:row];
     
     // --------- Custom Selectors
@@ -290,7 +308,7 @@ NSString *const kPickerView = @"pickerView";
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Custom Selectors"];
     [form addFormSection:section];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomSelectors rowType:XLFormRowDescriptorTypeButton title:@"Custom Selectors"];
-    row.buttonViewController = [CustomSelectorsFormViewController class];
+    row.action.viewControllerClass = [CustomSelectorsFormViewController class];
     [section addFormRow:row];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled & Required Selectors"];
@@ -321,8 +339,7 @@ NSString *const kPickerView = @"pickerView";
     row.disabled = YES;
     [section addFormRow:row];
     
-    
-    return [super initWithForm:form];
+    self.form = form;
 }
 
 
