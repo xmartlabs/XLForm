@@ -26,7 +26,7 @@
         <!--Others Form View Controller-->
         <scene sceneID="dyJ-7m-RaD">
             <objects>
-                <viewController id="oQO-1z-ESS" customClass="OthersFormViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OthersFormViewController" id="oQO-1z-ESS" customClass="OthersFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oOp-1u-3hE"/>
                         <viewControllerLayoutGuide type="bottom" id="HPb-Nx-E1G"/>
@@ -37,6 +37,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Hf0-cB-ORN"/>
+                    <connections>
+                        <segue destination="WMh-VN-FWi" kind="push" identifier="MapViewControllerSegue" id="wAD-tS-AFZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7YZ-ZR-X81" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -127,10 +130,32 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Buo-Af-6Q1"/>
+                    <connections>
+                        <segue destination="WMh-VN-FWi" kind="push" identifier="MapViewControllerSegue" id="Mtw-x2-E0b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fu-YK-6qz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="994" y="481"/>
+            <point key="canvasLocation" x="1346" y="533"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="tAS-lK-35t">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="WMh-VN-FWi" customClass="MapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9jO-04-Lp1"/>
+                        <viewControllerLayoutGuide type="bottom" id="cgQ-Vs-ICN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JjC-E5-SyY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BjG-Bq-0lD"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LmS-YR-mFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1789" y="533"/>
         </scene>
         <!--Native Event Navigation View Controller-->
         <scene sceneID="mNb-be-ApA">
@@ -156,4 +181,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="wAD-tS-AFZ"/>
+    </inferredMetricsTieBreakers>
 </document>

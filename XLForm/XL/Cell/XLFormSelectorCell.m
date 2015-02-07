@@ -142,20 +142,21 @@
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]){
+        UIViewController * controllerToPresent = nil;
         if (self.rowDescriptor.action.formSegueIdenfifier){
             [controller performSegueWithIdentifier:self.rowDescriptor.action.formSegueIdenfifier sender:self.rowDescriptor];
         }
         else if (self.rowDescriptor.action.formSegueClass){
-            NSAssert(self.rowDescriptor.action.viewControllerClass != nil, @"Must set up XLFormRowDescriptor rowDescriptor.action.viewControllerClass property. It will be the segue destination view controller");
-            NSAssert([self.rowDescriptor.action.viewControllerClass conformsToProtocol:@protocol(XLFormRowDescriptorViewController)], @"rowDescriptor.action.viewControllerClass must conform to XLFormRowDescriptorViewController protocol");
-            UIStoryboardSegue * segue = [[self.rowDescriptor.action.formSegueClass alloc] initWithIdentifier:self.rowDescriptor.tag source:controller destination:[[self.rowDescriptor.action.viewControllerClass alloc] init]];
+            UIViewController * controllerToPresent = [self controllerToPresent];
+            NSAssert(controllerToPresent, @"either rowDescriptor.action.viewControllerClass or rowDescriptor.action.viewControllerStoryboardId or rowDescriptor.action.viewControllerNibName must be assigned");
+            NSAssert([controllerToPresent conformsToProtocol:@protocol(XLFormRowDescriptorViewController)], @"selector view controller must conform to XLFormRowDescriptorViewController protocol");
+            UIStoryboardSegue * segue = [[self.rowDescriptor.action.formSegueClass alloc] initWithIdentifier:self.rowDescriptor.tag source:controller destination:controllerToPresent];
             [controller prepareForSegue:segue sender:self.rowDescriptor];
             [segue perform];
         }
-        else if (self.rowDescriptor.action.viewControllerClass){
-            Class selectorClass = self.rowDescriptor.action.viewControllerClass;
-            NSAssert([self.rowDescriptor.action.viewControllerClass conformsToProtocol:@protocol(XLFormRowDescriptorViewController)], @"rowDescriptor.action.viewControllerClass must conform to XLFormRowDescriptorViewController protocol");
-            UIViewController<XLFormRowDescriptorViewController> *selectorViewController = [[selectorClass alloc] init];
+        else if ((controllerToPresent = [self controllerToPresent])){
+            NSAssert([controllerToPresent conformsToProtocol:@protocol(XLFormRowDescriptorViewController)], @"rowDescriptor.action.viewControllerClass must conform to XLFormRowDescriptorViewController protocol");
+            UIViewController<XLFormRowDescriptorViewController> *selectorViewController = (UIViewController<XLFormRowDescriptorViewController> *)controllerToPresent;
             selectorViewController.rowDescriptor = self.rowDescriptor;
             selectorViewController.title = self.rowDescriptor.selectorTitle;
             
@@ -318,7 +319,7 @@
 }
 
 
-#pragma mark - helpers
+#pragma mark - Helpers
 
 -(NSInteger)selectedIndex
 {
@@ -330,6 +331,35 @@
         }
     }
     return -1;
+}
+
+-(UIViewController *)controllerToPresent
+{
+    if (self.rowDescriptor.action.viewControllerClass){
+        return [[self.rowDescriptor.action.viewControllerClass alloc] init];
+    }
+    else if ([self.rowDescriptor.action.viewControllerStoryboardId length] != 0){
+        UIStoryboard * storyboard =  [self storyboardToPresent];
+        NSAssert(storyboard != nil, @"You must provide a storyboard when rowDescriptor.action.viewControllerStoryboardId is used");
+        return [storyboard instantiateViewControllerWithIdentifier:self.rowDescriptor.action.viewControllerStoryboardId];
+    }
+    else if ([self.rowDescriptor.action.viewControllerNibName length] != 0){
+        Class viewControllerClass = NSClassFromString(self.rowDescriptor.action.viewControllerNibName);
+        NSAssert(viewControllerClass, @"class owner of self.rowDescriptor.action.viewControllerNibName must be equal to %@", self.rowDescriptor.action.viewControllerNibName);
+        return [[viewControllerClass alloc] initWithNibName:self.rowDescriptor.action.viewControllerNibName bundle:nil];
+    }
+    return nil;
+}
+
+-(UIStoryboard *)storyboardToPresent
+{
+    if ([self.formViewController respondsToSelector:@selector(storyboardForRow:)]){
+        return [self.formViewController storyboardForRow:self.rowDescriptor];
+    }
+    if (self.formViewController.storyboard){
+        return self.formViewController.storyboard;
+    }
+    return nil;
 }
 
 

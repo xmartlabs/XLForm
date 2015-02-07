@@ -49,13 +49,18 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-    return [super initWithStyle:style];
+    self = [super initWithStyle:style];
+    if (self){
+        _titleFooterSection = nil;
+        _titleHeaderSection = nil;
+    }
+    return self;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style titleHeaderSection:(NSString *)titleHeaderSection titleFooterSection:(NSString *)titleFooterSection
 {
-    self = [super initWithStyle:style];
-    if (self) {
+    self = [self initWithStyle:style];
+    if (self){
         _titleFooterSection = titleFooterSection;
         _titleHeaderSection = titleHeaderSection;
     }
