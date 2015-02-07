@@ -23,6 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "MapViewController.h"
 #import "OthersFormViewController.h"
 #import "XLFormCustomCell.h"
 
@@ -35,6 +36,11 @@ NSString *const kCustom = @"custom";
 NSString *const kInfo = @"info";
 NSString *const kButton = @"button";
 NSString *const kButtonLeftAligned = @"buttonLeftAligned";
+NSString *const kButtonWithSegueId = @"buttonWithSegueId";
+NSString *const kButtonWithSegueClass = @"buttonWithSegueClass";
+NSString *const kButtonWithNibName = @"buttonWithNibName";
+NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
+
 
 @implementation OthersFormViewController
 
@@ -105,7 +111,7 @@ NSString *const kButtonLeftAligned = @"buttonLeftAligned";
     
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Buttons"];
-    section.footerTitle = @"Button will show a message when Switch is ON";
+    section.footerTitle = @"Blue buttons will show a message when Switch is ON";
     [form addFormSection:section];
     
     // Button
@@ -116,7 +122,7 @@ NSString *const kButtonLeftAligned = @"buttonLeftAligned";
     
     
     // Left Button
-    XLFormRowDescriptor * buttonLeftAlignedRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonLeftAligned rowType:XLFormRowDescriptorTypeButton title:@"Button Left"];
+    XLFormRowDescriptor * buttonLeftAlignedRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonLeftAligned rowType:XLFormRowDescriptorTypeButton title:@"Button with Block"];
     [buttonLeftAlignedRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
     [buttonLeftAlignedRow.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [buttonLeftAlignedRow.cellConfig setObject:@(UITableViewCellAccessoryDisclosureIndicator) forKey:@"accessoryType"];
@@ -129,15 +135,30 @@ NSString *const kButtonLeftAligned = @"buttonLeftAligned";
     };
     [section addFormRow:buttonLeftAlignedRow];
     
-    
     // Another Left Button with segue
-    XLFormRowDescriptor * buttonLeftAlignedWithSegueRow = [XLFormRowDescriptor formRowDescriptorWithTag:@"Segue" rowType:XLFormRowDescriptorTypeButton title:@"Button Left"];
-    [buttonLeftAlignedWithSegueRow.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
-    [buttonLeftAlignedWithSegueRow.cellConfig setObject:@(UITableViewCellAccessoryDisclosureIndicator) forKey:@"accessoryType"];
+    XLFormRowDescriptor * buttonLeftAlignedWithSegueRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonWithSegueClass rowType:XLFormRowDescriptorTypeButton title:@"Button with Segue Class"];
     buttonLeftAlignedWithSegueRow.action.formSegueClass = NSClassFromString(@"UIStoryboardPushSegue");
-    buttonLeftAlignedWithSegueRow.action.viewControllerClass = [self class];
+    buttonLeftAlignedWithSegueRow.action.viewControllerClass = [MapViewController class];
     [section addFormRow:buttonLeftAlignedWithSegueRow];
     
+    
+    // Button with SegueId
+    XLFormRowDescriptor * buttonWithSegueId = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonWithSegueClass rowType:XLFormRowDescriptorTypeButton title:@"Button with Segue Idenfifier"];
+    buttonWithSegueId.action.formSegueIdenfifier = @"MapViewControllerSegue";
+    [section addFormRow:buttonWithSegueId];
+    
+    
+    // Another Button using Segue
+    XLFormRowDescriptor * buttonWithStoryboardId = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonWithStoryboardId rowType:XLFormRowDescriptorTypeButton title:@"Button with StoryboardId"];
+    buttonWithStoryboardId.action.viewControllerStoryboardId = @"MapViewController";
+    [section addFormRow:buttonWithStoryboardId];
+    
+    // Another Left Button with segue
+    XLFormRowDescriptor * buttonWithNibName = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonWithNibName
+                                                                                    rowType:XLFormRowDescriptorTypeButton
+                                                                                      title:@"Button with NibName"];
+    buttonWithNibName.action.viewControllerNibName = @"MapViewController";
+    [section addFormRow:buttonWithNibName];
     
     self.form = form;
 }

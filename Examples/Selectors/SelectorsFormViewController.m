@@ -23,6 +23,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <MapKit/MapKit.h>
+#import "CLLocationValueTrasformer.h"
+#import "MapViewController.h"
 #import "CustomSelectorsFormViewController.h"
 #import "DynamicSelectorsFormViewController.h"
 #import "SelectorsFormViewController.h"
@@ -42,7 +45,10 @@ NSString *const kMultipleSelectorPopover = @"multipleSelectorPopover";
 NSString *const kDynamicSelectors = @"dynamicSelectors";
 NSString *const kCustomSelectors = @"customSelectors";
 NSString *const kPickerView = @"pickerView";
-
+NSString *const kSelectorWithSegueId = @"selectorWithSegueId";
+NSString *const kSelectorWithSegueClass = @"selectorWithSegueClass";
+NSString *const kSelectorWithNibName = @"selectorWithNibName";
+NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
 
 #pragma mark - NSValueTransformer
 
@@ -339,9 +345,51 @@ NSString *const kPickerView = @"pickerView";
     row.disabled = YES;
     [section addFormRow:row];
     
+    
+    // --------- Selector definition types
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Selectors"];
+    [form addFormSection:section];
+    
+    // selector with segue class
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithSegueClass rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with Segue Class"];
+    row.action.formSegueClass = NSClassFromString(@"UIStoryboardPushSegue");
+    row.action.viewControllerClass = [MapViewController class];
+    row.valueTransformer = [CLLocationValueTrasformer class];
+    row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
+    [section addFormRow:row];
+    
+    // selector with SegueId
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithSegueClass rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with Segue Idenfifier"];
+    row.action.formSegueIdenfifier = @"MapViewControllerSegue";
+    row.valueTransformer = [CLLocationValueTrasformer class];
+    row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
+    [section addFormRow:row];
+    
+    // selector using StoryboardId
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithStoryboardId rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with StoryboardId"];
+    row.action.viewControllerStoryboardId = @"MapViewController";
+    row.valueTransformer = [CLLocationValueTrasformer class];
+    row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
+    [section addFormRow:row];
+    
+    // selector with NibName
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithNibName rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with NibName"];
+    row.action.viewControllerNibName = @"MapViewController";
+    row.valueTransformer = [CLLocationValueTrasformer class];
+    row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
+    [section addFormRow:row];
+    
+    
+    
     self.form = form;
 }
 
+
+-(UIStoryboard *)storyboardForRow:(XLFormRowDescriptor *)formRow
+{
+    return [UIStoryboard storyboardWithName:@"iPhoneStoryboard" bundle:nil];
+}
 
 
 @end

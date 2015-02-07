@@ -47,6 +47,7 @@
 -(NSDictionary *)httpParameters;
 
 -(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)formSection;
+-(UIStoryboard *)storyboardForRow:(XLFormRowDescriptor *)formRow;
 
 -(NSArray *)formValidationErrors;
 -(void)showFormValidationError:(NSError *)error;
