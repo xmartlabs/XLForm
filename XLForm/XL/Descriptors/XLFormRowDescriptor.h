@@ -125,12 +125,15 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @interface XLFormAction : NSObject
 
 @property (nonatomic, strong) Class viewControllerClass;
+@property (nonatomic, strong) NSString * viewControllerStoryboardId;
+@property (nonatomic, strong) NSString * viewControllerNibName;
+
 @property (nonatomic) XLFormPresentationMode viewControllerPresentationMode;
+
 @property (nonatomic, strong) void (^formBlock)(XLFormRowDescriptor * sender);
 @property (nonatomic) SEL formSelector;
 @property (nonatomic, strong) NSString * formSegueIdenfifier;
 @property (nonatomic, strong) Class formSegueClass;
-
 
 @end
 

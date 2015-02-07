@@ -303,7 +303,15 @@
 {
     XLFormAction * actionCopy = [[XLFormAction alloc] init];
     actionCopy.viewControllerPresentationMode = self.viewControllerPresentationMode;
-    actionCopy.viewControllerClass = [self.viewControllerClass copy];
+    if (self.viewControllerClass){
+        actionCopy.viewControllerClass = [self.viewControllerClass copy];
+    }
+    else if ([self.viewControllerStoryboardId length]  != 0){
+        actionCopy.viewControllerStoryboardId = [self.viewControllerStoryboardId copy];
+    }
+    else if ([self.viewControllerNibName length] != 0){
+        actionCopy.viewControllerNibName = [self.viewControllerNibName copy];
+    }
     if (self.formBlock){
         actionCopy.formBlock = [self.formBlock copy];
     }
@@ -318,6 +326,28 @@
     }
     return actionCopy;
 }
+
+-(void)setViewControllerClass:(Class)viewControllerClass
+{
+    _viewControllerClass = viewControllerClass;
+    _viewControllerNibName = nil;
+    _viewControllerStoryboardId = nil;
+}
+
+-(void)setViewControllerNibName:(NSString *)viewControllerNibName
+{
+    _viewControllerClass = nil;
+    _viewControllerNibName = viewControllerNibName;
+    _viewControllerStoryboardId = nil;
+}
+
+-(void)setViewControllerStoryboardId:(NSString *)viewControllerStoryboardId
+{
+    _viewControllerClass = nil;
+    _viewControllerNibName = nil;
+    _viewControllerStoryboardId = viewControllerStoryboardId;
+}
+
 
 -(void)setFormSelector:(SEL)formSelector
 {
