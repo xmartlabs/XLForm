@@ -51,6 +51,9 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         _formSections = [NSMutableArray array];
         _title = title;
         _addAsteriskToRequiredRowsTitle = NO;
+        _fixedFontSize = NO;
+        _defaultFontBold = nil;
+        _defaultFontRegular = nil;
         [self addObserver:self forKeyPath:@"formSections" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     }
     return self;
@@ -65,6 +68,30 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     return [[XLFormDescriptor alloc] initWithTitle:title];
 }
+
+#pragma mark - Fonts
+
+- (UIFont *)boldFont {
+    return [self defaultBodyFontWithSettingsAndFont:self.defaultFontBold];
+}
+
+- (UIFont *)regularFont {
+    return [self defaultBodyFontWithSettingsAndFont:self.defaultFontRegular];
+}
+
+- (UIFont *)defaultBodyFontWithSettingsAndFont:(UIFont *)font {
+    if (font) {
+        
+        if (!self.fixedFontSize) {
+            font = [UIFont fontWithName:font.fontName size:[UIFont preferredFontForTextStyle:UIFontTextStyleBody].pointSize];
+        }
+        
+    } else {
+        font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    }
+    return font;
+}
+
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection
 {

@@ -135,8 +135,10 @@
     [self.textField setEnabled:!self.rowDescriptor.disabled];
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textField.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    
+    self.textLabel.font = [self.rowDescriptor.sectionDescriptor.formDescriptor boldFont];
+    self.textField.font = [self.rowDescriptor.sectionDescriptor.formDescriptor regularFont];
+    
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder

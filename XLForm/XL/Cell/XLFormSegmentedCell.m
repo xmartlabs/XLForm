@@ -59,7 +59,8 @@ NSString * const kText = @"text";
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
     [self updateSegmentedControl];
     self.segmentedControl.selectedSegmentIndex = [self selectedIndex];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textLabel.font = [self.rowDescriptor.sectionDescriptor.formDescriptor boldFont];
+    
 }
 
 #pragma mark - KVO

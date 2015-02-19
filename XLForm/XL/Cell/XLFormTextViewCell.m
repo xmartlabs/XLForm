@@ -94,10 +94,11 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 -(void)update
 {
     [super update];
+    
     self.textView.delegate = self;
-    self.label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textView.placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.label.font = [self.rowDescriptor.sectionDescriptor.formDescriptor regularFont];
+    self.textView.font = [self.rowDescriptor.sectionDescriptor.formDescriptor regularFont];
+    self.textView.placeHolderLabel.font = [self.rowDescriptor.sectionDescriptor.formDescriptor regularFont];
     self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.text = self.rowDescriptor.value;
     [self.textView setEditable:!self.rowDescriptor.disabled];

@@ -38,6 +38,8 @@
         XLFormSectionDescriptor * section;
         XLFormRowDescriptor * row;
         
+        form.defaultFontBold = [UIFont fontWithName:@"AvenirNext-Heavy" size:14.0];
+        form.defaultFontRegular = [UIFont fontWithName:@"AvenirNext-Regular" size:14.0];
         
         // Section
         section = [XLFormSectionDescriptor formSection];
@@ -48,11 +50,11 @@
         // change the background color
         [row.cellConfigAtConfigure setObject:[UIColor greenColor] forKey:@"backgroundColor"];
         // font
-        [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:30] forKey:@"textLabel.font"];
+        //[row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:30] forKey:@"textLabel.font"];
         // background color
         [row.cellConfig setObject:[UIColor grayColor] forKey:@"textField.backgroundColor"];
         // font
-        [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:25] forKey:@"textField.font"];
+        //[row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:25] forKey:@"textField.font"];
         // alignment
         [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
         [section addFormRow:row];

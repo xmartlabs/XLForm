@@ -46,11 +46,19 @@ typedef NS_ENUM(NSInteger, XLFormErrorCode)
 @property (nonatomic) BOOL assignFirstResponderOnShow;
 @property (nonatomic) BOOL addAsteriskToRequiredRowsTitle;
 
+@property UIFont *defaultFontRegular;
+@property UIFont *defaultFontBold;
+/// Default is false
+@property BOOL fixedFontSize;
+
 @property (weak) id<XLFormDescriptorDelegate> delegate;
 
 -(id)initWithTitle:(NSString *)title;
 +(XLFormDescriptor *)formDescriptor;
 +(XLFormDescriptor *)formDescriptorWithTitle:(NSString *)title;
+
+-(UIFont *)boldFont;
+-(UIFont *)regularFont;
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection;
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;

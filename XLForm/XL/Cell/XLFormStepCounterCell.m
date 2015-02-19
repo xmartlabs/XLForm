@@ -79,7 +79,7 @@
 {
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textLabel.font = [self.rowDescriptor.sectionDescriptor.formDescriptor boldFont];
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
     self.stepControl.enabled = !self.rowDescriptor.disabled;
     [self stepControl].tintColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;

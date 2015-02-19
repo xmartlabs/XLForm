@@ -79,13 +79,42 @@
 }
 
 #pragma mark - UIPickerViewDelegate
-
+/*
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (self.inlineRowDescriptor){
         return [[self.inlineRowDescriptor.selectorOptions objectAtIndex:row] displayText];
     }
     return [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
+}
+*/
+
+- (NSString *)titleForRow:(NSInteger)row {
+    if (self.inlineRowDescriptor){
+        return [[self.inlineRowDescriptor.selectorOptions objectAtIndex:row] displayText];
+    }
+    return [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
+}
+/*
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSAttributedString
+}
+ */
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel* rowView = (UILabel*)view;
+    
+    if (!rowView) {
+        rowView = [[UILabel alloc] init];
+        [rowView setFont:[self.rowDescriptor.sectionDescriptor.formDescriptor regularFont]];
+        [rowView setTextAlignment:NSTextAlignmentCenter];
+        rowView.numberOfLines = 1;
+    }
+    
+    rowView.text = [self titleForRow:row];
+    
+    return rowView;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component

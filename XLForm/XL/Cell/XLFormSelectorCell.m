@@ -134,8 +134,10 @@
     self.selectionStyle = self.rowDescriptor.disabled || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInfo] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    
+    self.textLabel.font = [self.rowDescriptor.sectionDescriptor.formDescriptor boldFont];
+    self.detailTextLabel.font = [self.rowDescriptor.sectionDescriptor.formDescriptor regularFont];
+
     
 }
 
@@ -291,10 +293,26 @@
 }
 
 #pragma mark - UIPickerViewDelegate
-
+/*
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     return [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
+}
+*/
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel* rowView = (UILabel*)view;
+    
+    if (!rowView) {
+        rowView = [[UILabel alloc] init];
+        [rowView setFont:[self.rowDescriptor.sectionDescriptor.formDescriptor regularFont]];
+        [rowView setTextAlignment:NSTextAlignmentCenter];
+        rowView.numberOfLines = 1;
+    }
+    
+    rowView.text = [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
+    
+    return rowView;
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
