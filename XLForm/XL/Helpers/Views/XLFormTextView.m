@@ -36,6 +36,7 @@
 - (id)initWithFrame:(CGRect)frame
 {
     if((self = [super initWithFrame:frame])){
+        self.scrollsToTop = NO;
         self.contentInset = UIEdgeInsetsMake(0, -4, 0, 0);
         [self setPlaceholder:@""];
         [self setPlaceholderColor:[UIColor colorWithRed:.78 green:.78 blue:.80 alpha:1.0]];
