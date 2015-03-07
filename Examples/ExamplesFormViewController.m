@@ -37,6 +37,7 @@ NSString * const kSelectors = @"Selectors";
 NSString * const kOthes = @"Others";
 NSString * const kDates = @"Dates";
 NSString * const kMultivalued = @"Multivalued";
+NSString * const kValidations= @"Validations";
 
 @interface ExamplesFormViewController ()
 
@@ -124,6 +125,12 @@ NSString * const kMultivalued = @"Multivalued";
     row.action.viewControllerClass = [UICustomizationFormViewController class];
     [section addFormRow:row];
     
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Validation Examples"];
+    [form addFormSection:section];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidations rowType:XLFormRowDescriptorTypeButton title:@"Validation Examples"];
+    row.action.formSegueIdenfifier = @"ValidationExamplesFormViewControllerSegue";
+    [section addFormRow:row];
     
     self.form = form;
 

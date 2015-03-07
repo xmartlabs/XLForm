@@ -157,7 +157,8 @@
 
 #pragma mark - validation
 
--(void) addValidator: (id<XLFormValidatorProtocol>) validator {
+-(void)addValidator:(id<XLFormValidatorProtocol>)validator
+{
     if (validator == nil || ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)])
         return;
     
@@ -166,7 +167,8 @@
     }
 }
 
--(void) removeValidator: (id<XLFormValidatorProtocol>) validator {
+-(void)removeValidator:(id<XLFormValidatorProtocol>)validator
+{
     if (validator == nil|| ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)])
         return;
     
@@ -180,13 +182,14 @@
     return self.value == nil || [self.value isKindOfClass:[NSNull class]] || ([self.value respondsToSelector:@selector(length)] && [self.value length]==0);
 }
 
--(XLFormValidationStatus *) doValidation {
-    XLFormValidationStatus *valStatus = [XLFormValidationStatus formValidationStatusWithMsg:@"" status:YES rowDescriptor:self];
+-(XLFormValidationStatus *)doValidation
+{
+    XLFormValidationStatus *valStatus = nil;
     
     if (self.required) {
         // do required validation here
-        if ([self valueIsEmpty]) { // || value.length() == 0
-            valStatus.isValid = NO;
+        if ([self valueIsEmpty]) {
+            valStatus = [XLFormValidationStatus formValidationStatusWithMsg:@"" status:NO rowDescriptor:self];
             NSString *msg = nil;
             if (self.requireMsg != nil) {
                 msg = self.requireMsg;
@@ -203,13 +206,7 @@
 
             return valStatus;
         }
-    } else {
-        // if user has not enter anything, we dun display the valid icon
-        if ([self valueIsEmpty]) {// || value.length() == 0
-            valStatus = nil; // optional field, we will mark this validation as optional by passing null
-        }
     }
-    
     // custom validator
     for(id<XLFormValidatorProtocol> v in self.validators) {
         if ([v conformsToProtocol:@protocol(XLFormValidatorProtocol)]) {
@@ -223,7 +220,6 @@
             valStatus = nil;
         }
     }
-    
     return valStatus;
 }
 
