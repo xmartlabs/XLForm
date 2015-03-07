@@ -175,12 +175,17 @@
     }
 }
 
+- (BOOL)valueIsEmpty
+{
+    return self.value == nil || [self.value isKindOfClass:[NSNull class]] || ([self.value respondsToSelector:@selector(length)] && [self.value length]==0);
+}
+
 -(XLFormValidationStatus *) doValidation {
     XLFormValidationStatus *valStatus = [XLFormValidationStatus formValidationStatusWithMsg:@"" status:YES rowDescriptor:self];
     
     if (self.required) {
         // do required validation here
-        if (self.value == nil) { // || value.length() == 0
+        if ([self valueIsEmpty]) { // || value.length() == 0
             valStatus.isValid = NO;
             NSString *msg = nil;
             if (self.requireMsg != nil) {
@@ -200,7 +205,7 @@
         }
     } else {
         // if user has not enter anything, we dun display the valid icon
-        if (self.value == nil) {// || value.length() == 0
+        if ([self valueIsEmpty]) {// || value.length() == 0
             valStatus = nil; // optional field, we will mark this validation as optional by passing null
         }
     }
