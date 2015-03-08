@@ -162,7 +162,7 @@
     [row.cellConfigAtConfigure setObject:@"URL" forKey:@"textField.placeholder"];
     [section addFormRow:row];
     
-    // Location
+    // Notes
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:XLFormRowDescriptorTypeTextView];
     [row.cellConfigAtConfigure setObject:@"Notes" forKey:@"textView.placeholder"];
     [section addFormRow:row];
