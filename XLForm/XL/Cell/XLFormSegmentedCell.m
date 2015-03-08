@@ -36,8 +36,6 @@
 
 @implementation XLFormSegmentedCell
 
-NSString * const kText = @"text";
-
 @synthesize textLabel = _textLabel;
 @synthesize segmentedControl = _segmentedControl;
 
@@ -49,7 +47,7 @@ NSString * const kText = @"text";
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.contentView addSubview:self.segmentedControl];
     [self.contentView addSubview:self.textLabel];
-    [self.textLabel addObserver:self forKeyPath:kText options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.segmentedControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
 
@@ -66,7 +64,7 @@ NSString * const kText = @"text";
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (object == self.textLabel && [keyPath isEqualToString:kText]){
+    if (object == self.textLabel && [keyPath isEqualToString:@"text"]){
         if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
             [self.contentView setNeedsUpdateConstraints];
         }
@@ -170,7 +168,7 @@ NSString * const kText = @"text";
 
 -(void)dealloc
 {
-    [self.textLabel removeObserver:self forKeyPath:kText];
+    [self.textLabel removeObserver:self forKeyPath:@"text"];
 }
 
 @end
