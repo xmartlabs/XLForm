@@ -44,7 +44,9 @@
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
     self.switchControl.on = [self.rowDescriptor.value boolValue];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    
+    self.textLabel.font = [self.rowDescriptor.sectionDescriptor.formDescriptor boldFont];
+    
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.switchControl.enabled = !self.rowDescriptor.disabled;
 }
