@@ -17,7 +17,7 @@ task :default => 'test'
 private
 
 def run_tests(scheme, sdk)
-  sh("xcodebuild -workspace 'Tests/XLForm Tests.xcworkspace' -scheme '#{scheme}' -sdk '#{sdk}' -configuration Release clean test | xcpretty -c ; exit ${PIPESTATUS[0]}") rescue nil
+  sh("xcodebuild -workspace 'Tests/XLForm Tests.xcworkspace' -scheme '#{scheme}' -sdk '#{sdk}' -destination 'name=iPhone 6' -configuration Release clean test | xcpretty -c ; exit ${PIPESTATUS[0]}") rescue nil
 end
 
 def tests_failed
@@ -28,4 +28,3 @@ end
 def red(string)
  "\033[0;31m! #{string}"
 end
-
