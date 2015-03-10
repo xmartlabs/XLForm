@@ -80,12 +80,12 @@
     
     // Title
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-    [row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
+    [row.cellConfig setObject:@"Title" forKey:@"textField.placeholder"];
     [section addFormRow:row];
     
     // Location
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRowDescriptorTypeText];
-    [row.cellConfigAtConfigure setObject:@"Location" forKey:@"textField.placeholder"];
+    [row.cellConfig setObject:@"Location" forKey:@"textField.placeholder"];
     [section addFormRow:row];
     
     section = [XLFormSectionDescriptor formSection];
@@ -159,12 +159,12 @@
 
     // URL
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"url" rowType:XLFormRowDescriptorTypeURL];
-    [row.cellConfigAtConfigure setObject:@"URL" forKey:@"textField.placeholder"];
+    [row.cellConfig setObject:@"URL" forKey:@"textField.placeholder"];
     [section addFormRow:row];
     
     // Notes
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"notes" rowType:XLFormRowDescriptorTypeTextView];
-    [row.cellConfigAtConfigure setObject:@"Notes" forKey:@"textView.placeholder"];
+    [row.cellConfig setObject:@"Notes" forKey:@"textView.placeholder"];
     [section addFormRow:row];
     
     
@@ -223,7 +223,7 @@
         XLFormDateCell * dateEndCell = (XLFormDateCell *)[endDateDescriptor cellForFormController:self];
         if ([startDateDescriptor.value compare:endDateDescriptor.value] == NSOrderedDescending) {
             // startDateDescriptor is later than endDateDescriptor
-            endDateDescriptor.value =  [[NSDate alloc] initWithTimeInterval:(60*60*24) sinceDate:startDateDescriptor.value];
+            endDateDescriptor.value = (NSDate *)newValue;
             [dateEndCell update];
         }
     }
@@ -233,8 +233,7 @@
         XLFormDateCell * dateEndCell = (XLFormDateCell *)[endDateDescriptor cellForFormController:self];
         if ([startDateDescriptor.value compare:endDateDescriptor.value] == NSOrderedDescending) {
             // startDateDescriptor is later than endDateDescriptor
-            NSDictionary *strikeThroughAttribute = [NSDictionary dictionaryWithObject:@1
-                                                                               forKey:NSStrikethroughStyleAttributeName];
+            NSDictionary *strikeThroughAttribute = @{NSStrikethroughStyleAttributeName:@1};
             NSAttributedString* strikeThroughText = [[NSAttributedString alloc] initWithString:dateEndCell.detailTextLabel.text attributes:strikeThroughAttribute];
             dateEndCell.detailTextLabel.attributedText = strikeThroughText;
         }

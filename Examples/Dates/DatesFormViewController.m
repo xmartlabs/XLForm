@@ -72,13 +72,13 @@ NSString *const kDateTime = @"dateTime";
         // Date
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDate rowType:XLFormRowDescriptorTypeDate title:@"Date"];
         row.value = [NSDate new];
-        [row.cellConfigAtConfigure setObject:[NSDate new] forKey:@"minimumDate"];
-        [row.cellConfigAtConfigure setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
+        [row.cellConfig setObject:[NSDate new] forKey:@"minimumDate"];
+        [row.cellConfig setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
         [section addFormRow:row];
         
         // DateTime
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kTime rowType:XLFormRowDescriptorTypeTime title:@"Time"];
-        [row.cellConfigAtConfigure setObject:@(10) forKey:@"minuteInterval"];
+        [row.cellConfig setObject:@(10) forKey:@"minuteInterval"];
         row.value = [NSDate new];
         [section addFormRow:row];
         

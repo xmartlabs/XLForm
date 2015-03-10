@@ -73,25 +73,15 @@
         UITableViewCell<XLFormDescriptorCell> * reuseCell = [formController.tableView dequeueReusableCellWithIdentifier:cellClass];
         if (reuseCell){
             _cell  = reuseCell;
-            [self configureCellAtCreationTime];
         }
         else if (!_cell && [[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
             _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
-            [self configureCellAtCreationTime];
         }
     } else if (!_cell) {
         _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
-        [self configureCellAtCreationTime];
     }
     NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
     return _cell;
-}
-
-- (void) configureCellAtCreationTime
-{
-    [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
-        [_cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-    }];
 }
 
 -(NSMutableDictionary *)cellConfig
@@ -99,13 +89,6 @@
     if (_cellConfig) return _cellConfig;
     _cellConfig = [NSMutableDictionary dictionary];
     return _cellConfig;
-}
-
--(NSMutableDictionary *)cellConfigAtConfigure
-{
-    if (_cellConfigAtConfigure) return _cellConfigAtConfigure;
-    _cellConfigAtConfigure = [NSMutableDictionary dictionary];
-    return _cellConfigAtConfigure;
 }
 
 -(NSString *)description
@@ -132,7 +115,6 @@
     XLFormRowDescriptor * rowDescriptorCopy = [XLFormRowDescriptor formRowDescriptorWithTag:[self.tag copy] rowType:[self.rowType copy] title:[self.title copy]];
     rowDescriptorCopy.cellClass = [self.cellClass copy];
     rowDescriptorCopy.cellConfig = [self.cellConfig mutableCopy];
-    rowDescriptorCopy.cellConfigAtConfigure = [self.cellConfigAtConfigure mutableCopy];
     rowDescriptorCopy.disabled = self.disabled;
     rowDescriptorCopy.required = self.required;
     

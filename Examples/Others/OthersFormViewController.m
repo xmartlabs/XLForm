@@ -92,9 +92,9 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     // Slider
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSlider rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
     row.value = @(30);
-    [row.cellConfigAtConfigure setObject:@(100) forKey:@"slider.maximumValue"];
-    [row.cellConfigAtConfigure setObject:@(10) forKey:@"slider.minimumValue"];
-    [row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
+    [row.cellConfig setObject:@(100) forKey:@"slider.maximumValue"];
+    [row.cellConfig setObject:@(10) forKey:@"slider.minimumValue"];
+    [row.cellConfig setObject:@(4) forKey:@"steps"];
     [section addFormRow:row];
     
     // Custom cell

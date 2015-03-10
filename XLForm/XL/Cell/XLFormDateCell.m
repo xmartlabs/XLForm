@@ -171,11 +171,11 @@
     
     if (self.minuteInterval)
         datePicker.minuteInterval = self.minuteInterval;
-    
-    if (self.minimumDate)
+
+    if (self.minimumDate && ![self.minimumDate isEqual:[NSNull null]])
         datePicker.minimumDate = self.minimumDate;
     
-    if (self.maximumDate)
+    if (self.maximumDate && ![self.maximumDate isEqual:[NSNull null]])
         datePicker.maximumDate = self.maximumDate;
 }
 
