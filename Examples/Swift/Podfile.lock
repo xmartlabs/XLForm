@@ -1,0 +1,14 @@
+PODS:
+  - XLForm (2.1.0)
+
+DEPENDENCIES:
+  - XLForm (from `../../`)
+
+EXTERNAL SOURCES:
+  XLForm:
+    :path: ../../
+
+SPEC CHECKSUMS:
+  XLForm: c87bc94f769f52ce32793282d72d2fb15d0d5638
+
+COCOAPODS: 0.35.0

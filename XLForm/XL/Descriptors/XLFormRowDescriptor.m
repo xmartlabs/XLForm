@@ -54,13 +54,13 @@
     return self;
 }
 
-+(XLFormRowDescriptor *)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
++(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
 {
     return [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:rowType title:nil];
     
 }
 
-+(XLFormRowDescriptor *)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title
++(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title
 {
     return [[XLFormRowDescriptor alloc] initWithTag:tag rowType:rowType title:title];
 }

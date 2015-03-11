@@ -1,4 +1,4 @@
-XLForm 
+XLForm
 ---------------
 
 By [XMARTLABS](http://xmartlabs.com).
@@ -15,17 +15,17 @@ XLForm provides a very powerful DSL used to create a form. It keeps track of thi
 #####Let's see the iOS 7 Calendar Event Form created using XLForm
 
 
-![Screenshot of native Calendar Event Example](Examples/RealExamples/XLForm.gif)
+![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/RealExamples/XLForm.gif)
 
 
 What XLForm does
 ----------------
 
- * Loads a form based on a declarative [*form definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-form "form definition").
- * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](https://github.com/xmartlabs/XLForm#dynamic-forms---how-to-change-the-form-dynamically-at-runtime "Dynamic Forms") section of this readme.
- * Supports multivalued sections. For further details see [*Multivalued Sections*](https://github.com/xmartlabs/XLForm#multivalued-sections "Multivalued Sections") section bellow.
- * Supports [*custom rows definition*](https://github.com/xmartlabs/XLForm#how-to-create-a-custom-row).
- * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](https://github.com/xmartlabs/XLForm#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
+ * Loads a form based on a declarative [*form definition*](#how-to-create-a-form "form definition").
+ * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](#dynamic-forms---how-to-change-the-form-dynamically-at-runtime "Dynamic Forms") section of this readme.
+ * Supports multivalued sections. For further details see [*Multivalued Sections*](#multivalued-sections "Multivalued Sections") section bellow.
+ * Supports [*custom rows definition*](#how-to-create-a-custom-row).
+ * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
  * Provides several inline selectors such as date picker and picker inline selectors and brings a way to create custom inline selectors.
  * Validates the form data based on form definition and shows error messages.
  * Changes the firstResponder among `UITextField`s and `UITextView`s when keyboard return button is pressed.
@@ -36,7 +36,7 @@ How to create a form
 
 To create a form we should declare it through a `XLFormDescriptor` instance and assign it to a `XLFormViewController` instance. As we said XLForm works based on a DSL that hides complex and boilerplate stuff without losing the power and flexibility of hand-made forms.
 
-To define a form we use 3 classes: 
+To define a form we use 3 classes:
 
  * `XLFormDescriptor`
  * `XLFormSectionDescriptor`
@@ -54,15 +54,15 @@ XLFormRowDescriptor * row;
 
 form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
 
-// First section        
+// First section
 section = [XLFormSectionDescriptor formSection];
 [form addFormSection:section];
-        
+
 // Title
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
 [row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
 [section addFormRow:row];
-        
+
 // Location
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRowDescriptorTypeText];
 [row.cellConfigAtConfigure setObject:@"Location" forKey:@"textField.placeholder"];
@@ -71,11 +71,11 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRo
 // Second Section
 section = [XLFormSectionDescriptor formSection];
 [form addFormSection:section];
-        
+
 // All-day
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"all-day" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"All-day"];
 [section addFormRow:row];
-        
+
 // Starts
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
 row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
@@ -101,7 +101,7 @@ Rows
 ---------------------
 ####Input Rows
 
-![Screenshot of Input Examples](Examples/Inputs/XLForm-Inputs.gif)
+![Screenshot of Input Examples](Examples/Objective-C/Examples/Inputs/XLForm-Inputs.gif)
 
 
 
@@ -110,7 +110,7 @@ Input rows allows the user to enter text values. Basically they use `UITextField
 ```objc
 static NSString *const XLFormRowDescriptorTypeText = @"text";
 ```
-Will be represented by a `UITextField` with `UITextAutocorrectionTypeDefault`, `UITextAutocapitalizationTypeSentences` and `UIKeyboardTypeDefault`.   
+Will be represented by a `UITextField` with `UITextAutocorrectionTypeDefault`, `UITextAutocapitalizationTypeSentences` and `UIKeyboardTypeDefault`.
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeName = @"name";
@@ -131,7 +131,7 @@ Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITex
 static NSString *const XLFormRowDescriptorTypePassword = @"password";
 ```
 Will be represented by a `UITextField` with `UITextAutocorrectionTypeNo`, `UITextAutocapitalizationTypeNone` and `UIKeyboardTypeASCIICapable`.
-This row type also set the  `secureTextEntry` to `YES` in order to hide what the user types. 
+This row type also set the  `secureTextEntry` to `YES` in order to hide what the user types.
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeNumber = @"number";
@@ -174,7 +174,7 @@ Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `U
 
 Selector rows allow us to select a value or values from a list. XLForm supports 8 types of selectors out of the box:
 
-![Screenshot of native Calendar Event Example](Examples/Selectors/XLForm-Selectors.gif)
+![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/Selectors/XLForm-Selectors.gif)
 
 
 ```objc
@@ -214,19 +214,19 @@ Normally we will have a collection of object to select (these objects should hav
 
 XLForm follows the following rules to display an object:
 
-1. If the object is a `NSString` or `NSNumber` it uses the object `description` property. 
+1. If the object is a `NSString` or `NSNumber` it uses the object `description` property.
 2. If the object conforms to protocol `XLFormOptionObject`, XLForm gets the display value from `formDisplayText` method.
 3. Otherwise it return nil. That means you should conforms the protocol `:)`.
 
 
 XLForm follows the following rules to get the option value:
 
-1. If the object is a `NSString`, `NSNumber` or `NSDate` it uses the object itself as the option value. 
+1. If the object is a `NSString`, `NSNumber` or `NSDate` it uses the object itself as the option value.
 2. If the object conforms to protocol `XLFormOptionObject`, XLForm gets the option value from `formValue` method.
 3. Otherwise it return nil. That means you should conforms the protocol :).
 
- 
-This is the protocol declaration: 
+
+This is the protocol declaration:
 
 ```objc
 @protocol XLFormOptionObject <NSObject>
@@ -243,7 +243,7 @@ This is the protocol declaration:
 
 XLForms supports 3 types of dates: `Date`, `DateTime` and `Time` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
 
-![Screenshot of native Calendar Event Example](Examples/Dates/XLForm-Dates.gif)
+![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/Dates/XLForm-Dates.gif)
 
 
 ```objc
@@ -304,7 +304,7 @@ row.value = [NSDate new];
 
 XLForms supports 2 types of boolean controls:
 
-![Screenshot of native Calendar Event Example](Examples/Others/XLForm-Boolean.gif)
+![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/Others/XLForm-Boolean.gif)
 
 
 ```objc
@@ -324,7 +324,7 @@ We can also simulate other types of Boolean rows using any of the Selector Row T
 
 XLForms supports counting using UIStepper control:
 
-![Screenshot of native Calendar Event Example](Examples/Others/XLForm-stepCounter.gif)
+![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/Others/XLForm-stepCounter.gif)
 
 
 ```objc
@@ -354,10 +354,10 @@ Set `steps` to `@(0)` to disable the steps functionality.
 Multivalued Sections
 ------------------------
 
-Any `XLFormSectionDescriptor` could be set up to support multivalued rows. Multivalued Sections let the user enter multiple values (of the same type) for a field by adding or removing rows. 
-The most interesting part of multivalued `XLFormSectionDescriptor` is that it supports all the types of rows that were shown on the [*Rows*](https://github.com/xmartlabs/XLForm#rows "Rows") section.   
+Any `XLFormSectionDescriptor` could be set up to support multivalued rows. Multivalued Sections let the user enter multiple values (of the same type) for a field by adding or removing rows.
+The most interesting part of multivalued `XLFormSectionDescriptor` is that it supports all the types of rows that were shown on the [*Rows*](#rows "Rows") section.
 
-![Screenshot of Multivalued Section Example](Examples/MultiValuedSections/XLForm-MultiValuedSections.gif)
+![Screenshot of Multivalued Section Example](Examples/Objective-C/Examples/MultiValuedSections/XLForm-MultiValuedSections.gif)
 
 
 ### How to set up a multivalued section
@@ -374,16 +374,16 @@ We have also to set up the `multiValuedTag` property. `multiValuedTag` will be u
 XLFormDescriptor * form;
 XLFormSectionDescriptor * section;
 XLFormRowDescriptor * row;
-    
+
 NSArray * nameList = @[@"family", @"male", @"female", @"client"];
-        
+
 form = [XLFormDescriptor formDescriptorWithTitle:@"Multivalued examples"];
-    
+
 // MultivaluedSection section
 section = [XLFormSectionDescriptor formSectionWithTitle:@"MultiValued TextField" multivaluedSection:YES];
 section.multiValuedTag = @"textFieldRow";
 [form addFormSection:section];
-    
+
 for (NSString * tag in nameList) {
 	// add a row to the section, each row will represent a name of the name list array.
 	row = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeText title:nil];
@@ -405,11 +405,11 @@ Form Values
 
 You can get all form values invoking `-(NSDictionary *)formValues;` to either `XLFormViewController` instance or `XLFormDescriptor` instance.
 
-The returned `NSDictionary` is created following this rules: 
+The returned `NSDictionary` is created following this rules:
 
 `XLForm` adds a value for each `XLFormRowDescriptor` instance not contained in a multivalued section, the dictionary key is the value of `XLFormRowDescriptor` `tag` property.
 
-It also adds a dictionary item for each multivalued section containing an `NSArray` with the instance values of the `XLFormRowDescriptor`s contained in the section. 
+It also adds a dictionary item for each multivalued section containing an `NSArray` with the instance values of the `XLFormRowDescriptor`s contained in the section.
 For instance, if we have a section with the tag property equal to `tags` and the following values on the contained rows: 'family', 'male', 'female', 'client', the generated value will be `tags: ['family', 'male', 'female', 'client']`
 
 
@@ -419,12 +419,12 @@ In same cases the form value we need may differ from the value of `XLFormRowDesc
 
 When using `-(NSDictionary *)httpParameters` method, `XLForm` follows the following rules to get `XLFormRowDescriptor` value:
 
-1. If the object is a `NSString`, `NSNumber` or `NSDate`, the value is the object itself 
+1. If the object is a `NSString`, `NSNumber` or `NSDate`, the value is the object itself
 2. If the object conforms to protocol `XLFormOptionObject`, XLForm gets the value from `formValue` method.
 3. Otherwise it return nil.
 
 
-This is the protocol declaration: 
+This is the protocol declaration:
 
 ```objc
 @protocol XLFormOptionObject <NSObject>
@@ -459,7 +459,7 @@ Add optional methods to create custom behaviour
 // called when cell wants to become active
 -(BOOL)formDescriptorCellBecomeFirstResponder;
 
-// called when cell requested to loss first responder 
+// called when cell requested to loss first responder
 -(BOOL)formDescriptorCellResignFirstResponder;
 
 // called when cell been selected
@@ -485,14 +485,14 @@ Almost always the basic selector which allows the user to select one or multiple
 Let's say your app user needs to select a map coordinate or it needs to select a value fetched from a server endpoint. How do we do that easily?
 
 
-![Screenshot of Map Custom Selector](Examples/Selectors/CustomSelectors/XLFormRowViewController/XLForm-map-custom-selector.gif)
+![Screenshot of Map Custom Selector](Examples/Objective-C/Examples/Selectors/CustomSelectors/XLFormRowViewController/XLForm-map-custom-selector.gif)
 
 
 Define the previous selector row is as simple as ...
 
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorMap rowType:XLFormRowDescriptorTypeSelectorPush title:@"Coordinate"];
-// set up the selector controller class 
+// set up the selector controller class
 row.action.viewControllerClass = [MapViewController class];
 // Set up a NSValueTransformer to convert CLLocation to NSString, it's used to show the select value description (text).  
 row.valueTransformer = [CLLocationValueTrasformer class];
@@ -501,7 +501,7 @@ row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
 ```
 
 
-`action.viewControllerClass` controller class should conform to `XLFormRowDescriptorViewController` protocol. 
+`action.viewControllerClass` controller class should conform to `XLFormRowDescriptorViewController` protocol.
 
 In the example above, `MapViewController` conforms to `XLFormRowDescriptorViewController`.
 
@@ -514,7 +514,7 @@ In the example above, `MapViewController` conforms to `XLFormRowDescriptorViewCo
 @end
 ```
 
-XLForm sets up `rowDescriptor` property using the `XLFormRowDescriptor` instance that belongs to the selector row. 
+XLForm sets up `rowDescriptor` property using the `XLFormRowDescriptor` instance that belongs to the selector row.
 
 The developer is responsible for update its views with the `rowDescriptor` value as well as set the selected value to `rowDescriptor` from within the custom selector view controller.
 
@@ -524,7 +524,7 @@ The developer is responsible for update its views with the `rowDescriptor` value
 #### Another example
 
 
-![Screenshot of Dynamic Custom Selector](Examples/Selectors/DynamicSelector/XLForm-dynamic-custom-selector.gif)
+![Screenshot of Dynamic Custom Selector](Examples/Objective-C/Examples/Selectors/DynamicSelector/XLForm-dynamic-custom-selector.gif)
 
 
 ```objc
@@ -539,9 +539,9 @@ You can find the details of these examples within the example repository folder,
 Dynamic Forms - How to change the form dynamically at runtime
 -------------------------------
 
-Any change made on the `XLFormDescriptor` will be reflected on the `XLFormViewController` tableView. That means that we can add or remove sections or rows at any time and XLForm will animate the section or row accordingly. 
+Any change made on the `XLFormDescriptor` will be reflected on the `XLFormViewController` tableView. That means that we can add or remove sections or rows at any time and XLForm will animate the section or row accordingly.
 
-We shouldn't have again to work with `NSIndexPaths` or add, remove `UITableViewCell`. `NSIndexPath` of a specific `TableViewCell` changes along the time and this makes very hard to keep track of the `NSIndexPath` of each `UITableViewCell`. 
+We shouldn't have again to work with `NSIndexPaths` or add, remove `UITableViewCell`. `NSIndexPath` of a specific `TableViewCell` changes along the time and this makes very hard to keep track of the `NSIndexPath` of each `UITableViewCell`.
 
 On XLForm, each `XLFormRowDescriptor` has a `tag` property that is set up in its constructor. `XLFormDescriptor` has, among other helpers, an specific one to get a `XLFormRowDescriptor` from a `tag`.
 It's much easier to manage `XLFormRowDescriptor`s using tags, the tag should be unique and it doesn't change on tableview additions modifications or deletions.
@@ -569,7 +569,7 @@ For instance if we want to show or hide a row depending on the value of another 
 ```objc
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue
 {
-	[super formRowDescriptorValueHasChanged:rowDescriptor oldValue:oldValue newValue:newValue]; 
+	[super formRowDescriptorValueHasChanged:rowDescriptor oldValue:oldValue newValue:newValue];
     if ([rowDescriptor.tag isEqualToString:@"alert"]){
         if ([[rowDescriptor.value valueData] isEqualToNumber:@(0)] == NO && [[oldValue valueData] isEqualToNumber:@(0)]){
             XLFormRowDescriptor * newRow = [rowDescriptor copy];
@@ -635,7 +635,7 @@ Also dismiss popover on row select:
 Validations
 ------------------------------------
 
-XLForm supports 2 types of app validation so far. 
+XLForm supports 2 types of app validation so far.
 
 * Is Required Validation.
 * Email validation.
@@ -655,14 +655,14 @@ You can also change the way the error messages are shown overriding:
 ```objc
 -(void)showFormValidationError:(NSError *)error;
 ```
-   
+
 
 Additional configuration of Rows
 --------------------------------
 
 `XLFormRowDescriptor` allow us to configure generic aspects of a `UITableViewCell`, for example: the `rowType`, the `label`, the `value` (default value), if the cell is `required` or `disabled`, and so on.
 
-You may want to set up another properties of the `UITableViewCell`. To set up another properties `XLForm` makes use of [Key-Value Coding](https://developer.apple.com/LIBRARY/IOS/documentation/Cocoa/Conceptual/KeyValueCoding/Articles/KeyValueCoding.html "Key-Value Coding") allowing the developer to set the cell properties by keyPath. 
+You may want to set up another properties of the `UITableViewCell`. To set up another properties `XLForm` makes use of [Key-Value Coding](https://developer.apple.com/LIBRARY/IOS/documentation/Cocoa/Conceptual/KeyValueCoding/Articles/KeyValueCoding.html "Key-Value Coding") allowing the developer to set the cell properties by keyPath.
 
 You just have to add the properties to `cellConfig` or `cellConfigAtConfigure` dictionary property of `XLFormRowDescriptor`.
 The main difference between `cellConfig` and `cellConfigAtConfigure` is the time when the property is set up. `cellConfig` properties are set up each time before display a cell. `cellConfigAtConfigure`, on the other hand, set up the property just after the init method of the cell is called and only one time.
@@ -676,7 +676,7 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 [section addFormRow:row];
 ```
 
-Let's see how to change the color of the cell label: 
+Let's see how to change the color of the cell label:
 
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
@@ -705,12 +705,12 @@ You should set the `value` property of `XLFormRowDescriptor` relevant instance.
 
 You may notice that the `value` property type is `id` and you are the responsable to set a value with the proper type. For instance, you should set a `NSString` value to a `XLFormRowDescriptor` instance of `XLFormRowDescriptorTypeText`.
 
-You may have to update the cell to see the UI changes if the row is already presented. 
-`-(void)reloadFormRow:(XLFormRowDescriptor *)formRow` method is provided by `XLFormViewController` to do so.   
+You may have to update the cell to see the UI changes if the row is already presented.
+`-(void)reloadFormRow:(XLFormRowDescriptor *)formRow` method is provided by `XLFormViewController` to do so.
 
 #### How to set the default value to a row.
 
-You should do the same as [*How to set a value to a row*](https://github.com/xmartlabs/XLForm#how-to-set-a-value-to-a-row "How to set a value to a row").
+You should do the same as [*How to set a value to a row*](#how-to-set-a-value-to-a-row "How to set a value to a row").
 
 
 #### How to set up the options to a selector row.
@@ -723,7 +723,7 @@ XLForm has several types of selectors rows. Almost all of them need to know whic
 
 #### How to get form values
 
-If you want to get the raw form values you should call `formValues` method of `XLFormDescriptor`. Doing that you will get a dictionary containing all the form values. 
+If you want to get the raw form values you should call `formValues` method of `XLFormDescriptor`. Doing that you will get a dictionary containing all the form values.
 `tag` property value of each row is used as dictionary key. Only `XLFormROwDescriptor` values for non nil `tag` values are added to the dictionary.
 
 You may be interested in the form values to use it as enpoint parameter. In this case `httpParameters` would be useful.
@@ -763,8 +763,8 @@ You can change the font or any other table view cell property using the `cellCon
 [row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"detailTextLabel.font"];
 ```
 
-For further details, please take a look at [UICustomizationFormViewController.m](/Examples/UICustomization/UICustomizationFormViewController.m) example.
- 
+For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
+
 
 Installation
 --------------------------
@@ -793,7 +793,7 @@ You can replace the repository URL for your forked version url if you wish.
 
 Install XLForm using cocoapods and add `#import <XLForm/XLForm.h>` to your bridging header file.
 
-For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift"). 
+For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift").
 
 Requirements
 -----------------------------
@@ -864,4 +864,3 @@ Martin Barreto, [@mtnBarreto](http://twitter.com/mtnBarreto "@mtnBarreto")
 
 [xmartlabs.com](http://xmartlabs.com).
 [@xmartlabs](http://twitter.com/xmartlabs "@xmartlabs")
-
