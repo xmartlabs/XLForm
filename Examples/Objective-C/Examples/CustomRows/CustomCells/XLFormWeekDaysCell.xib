@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="piA-L5-eiN" customClass="XLFormWeekDaysCell">
+            <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="piA-L5-eiN" id="Yr6-3E-keb">
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZAg-Me-yKR">
+                        <rect key="frame" x="5" y="0.0" width="53" height="49"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="S">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                        <connections>
+                            <action selector="dayTapped:" destination="piA-L5-eiN" eventType="touchUpInside" id="K4V-Xd-Bak"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPl-47-rS8">
+                        <rect key="frame" x="111" y="0.0" width="53" height="49"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="T">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="dayTapped:" destination="piA-L5-eiN" eventType="touchUpInside" id="4vk-5n-jge"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6iC-Cl-RyI">
+                        <rect key="frame" x="164" y="0.0" width="53" height="49"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="W">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="dayTapped:" destination="piA-L5-eiN" eventType="touchUpInside" id="oO1-zj-XRv"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eTo-Ip-reh">
+                        <rect key="frame" x="218" y="0.0" width="53" height="49"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="T">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="dayTapped:" destination="piA-L5-eiN" eventType="touchUpInside" id="SkQ-0a-9Fy"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wjb-tu-QEo">
+                        <rect key="frame" x="271" y="0.0" width="53" height="49"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="F">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="dayTapped:" destination="piA-L5-eiN" eventType="touchUpInside" id="9A8-9a-SGG"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3w-qP-kRZ">
+                        <rect key="frame" x="58" y="0.0" width="53" height="49"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="M">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="dayTapped:" destination="piA-L5-eiN" eventType="touchUpInside" id="FaQ-oB-Nkl"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LNf-b4-GYP">
+                        <rect key="frame" x="324" y="0.0" width="53" height="49"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <state key="normal" title="S">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="dayTapped:" destination="piA-L5-eiN" eventType="touchUpInside" id="I4k-Ho-KxE"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ZAg-Me-yKR" firstAttribute="leading" secondItem="Yr6-3E-keb" secondAttribute="leading" constant="5" id="0EB-cP-ogn"/>
+                    <constraint firstItem="6iC-Cl-RyI" firstAttribute="width" secondItem="cPl-47-rS8" secondAttribute="width" id="1ZI-HN-9ew"/>
+                    <constraint firstItem="cPl-47-rS8" firstAttribute="leading" secondItem="N3w-qP-kRZ" secondAttribute="trailing" id="1pQ-h0-SEG"/>
+                    <constraint firstItem="eTo-Ip-reh" firstAttribute="leading" secondItem="6iC-Cl-RyI" secondAttribute="trailing" constant="1" id="2UA-Ao-KZF"/>
+                    <constraint firstItem="N3w-qP-kRZ" firstAttribute="leading" secondItem="ZAg-Me-yKR" secondAttribute="trailing" id="67F-sV-r6W"/>
+                    <constraint firstItem="LNf-b4-GYP" firstAttribute="top" secondItem="Yr6-3E-keb" secondAttribute="top" id="7YT-x4-m88"/>
+                    <constraint firstItem="6iC-Cl-RyI" firstAttribute="top" secondItem="Yr6-3E-keb" secondAttribute="top" id="Aac-10-vTs"/>
+                    <constraint firstAttribute="bottom" secondItem="ZAg-Me-yKR" secondAttribute="bottom" id="BeZ-ar-qMN"/>
+                    <constraint firstAttribute="bottom" secondItem="LNf-b4-GYP" secondAttribute="bottom" id="EYe-ne-rqO"/>
+                    <constraint firstItem="6iC-Cl-RyI" firstAttribute="leading" secondItem="cPl-47-rS8" secondAttribute="trailing" id="KQe-Ei-8jY"/>
+                    <constraint firstItem="cPl-47-rS8" firstAttribute="top" secondItem="Yr6-3E-keb" secondAttribute="top" id="Kw5-3R-qXs"/>
+                    <constraint firstItem="ZAg-Me-yKR" firstAttribute="width" secondItem="N3w-qP-kRZ" secondAttribute="width" id="Mem-UJ-5Js"/>
+                    <constraint firstItem="N3w-qP-kRZ" firstAttribute="width" secondItem="cPl-47-rS8" secondAttribute="width" id="Pl6-Xd-Krq"/>
+                    <constraint firstItem="Wjb-tu-QEo" firstAttribute="width" secondItem="LNf-b4-GYP" secondAttribute="width" id="Pro-fg-wBA"/>
+                    <constraint firstAttribute="bottom" secondItem="6iC-Cl-RyI" secondAttribute="bottom" id="Q5M-8N-hIh"/>
+                    <constraint firstAttribute="trailing" secondItem="LNf-b4-GYP" secondAttribute="trailing" constant="5" id="RlS-d5-rIx"/>
+                    <constraint firstAttribute="bottom" secondItem="N3w-qP-kRZ" secondAttribute="bottom" id="STf-aE-Y2E"/>
+                    <constraint firstAttribute="bottom" secondItem="cPl-47-rS8" secondAttribute="bottom" id="Tmp-md-564"/>
+                    <constraint firstItem="eTo-Ip-reh" firstAttribute="width" secondItem="6iC-Cl-RyI" secondAttribute="width" id="X0k-jG-o63"/>
+                    <constraint firstItem="Wjb-tu-QEo" firstAttribute="leading" secondItem="eTo-Ip-reh" secondAttribute="trailing" id="cOc-P1-ZhU"/>
+                    <constraint firstItem="LNf-b4-GYP" firstAttribute="leading" secondItem="Wjb-tu-QEo" secondAttribute="trailing" id="dSr-cr-ebR"/>
+                    <constraint firstItem="ZAg-Me-yKR" firstAttribute="top" secondItem="Yr6-3E-keb" secondAttribute="top" id="glN-lT-q1z"/>
+                    <constraint firstItem="eTo-Ip-reh" firstAttribute="width" secondItem="Wjb-tu-QEo" secondAttribute="width" id="hEH-9C-pGZ"/>
+                    <constraint firstItem="eTo-Ip-reh" firstAttribute="top" secondItem="Yr6-3E-keb" secondAttribute="top" id="i5C-wG-rRN"/>
+                    <constraint firstItem="Wjb-tu-QEo" firstAttribute="top" secondItem="Yr6-3E-keb" secondAttribute="top" id="pn7-s8-fDj"/>
+                    <constraint firstAttribute="bottom" secondItem="Wjb-tu-QEo" secondAttribute="bottom" id="uh4-LM-Ieo"/>
+                    <constraint firstAttribute="bottom" secondItem="eTo-Ip-reh" secondAttribute="bottom" id="xIu-Vy-Nff"/>
+                    <constraint firstItem="N3w-qP-kRZ" firstAttribute="top" secondItem="Yr6-3E-keb" secondAttribute="top" id="yEX-Wv-CZQ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="fridayButton" destination="Wjb-tu-QEo" id="AcP-Qg-i9P"/>
+                <outlet property="mondayButton" destination="N3w-qP-kRZ" id="u3A-mt-EKd"/>
+                <outlet property="saturdayButton" destination="LNf-b4-GYP" id="TeM-3b-B1Z"/>
+                <outlet property="sundayButton" destination="ZAg-Me-yKR" id="GUI-ry-Hm1"/>
+                <outlet property="thursdayButton" destination="eTo-Ip-reh" id="Dxi-hi-oBK"/>
+                <outlet property="tuesdayButton" destination="cPl-47-rS8" id="wIn-mO-cUx"/>
+                <outlet property="wednesdayButton" destination="6iC-Cl-RyI" id="GQe-Oy-pcd"/>
+            </connections>
+            <point key="canvasLocation" x="296" y="228"/>
+        </tableViewCell>
+    </objects>
+</document>
