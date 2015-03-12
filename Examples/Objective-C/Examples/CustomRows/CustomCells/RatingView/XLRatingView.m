@@ -1,5 +1,4 @@
-//
-//  XLFormBaseCell.m
+//  XLRatingView.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,61 +22,48 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormBaseCell.h"
+#import "XLRatingView.h"
 
-@implementation XLFormBaseCell
+@implementation XLRatingView
 
-- (id)init
+- (instancetype)init
 {
-    return [self initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-}
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super init];
     if (self) {
-        [self configure];
+        [self customize];
     }
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super initWithCoder:coder];
+    self = [super initWithFrame:frame];
     if (self) {
-        [self configure];
+        [self customize];
     }
     return self;
 }
 
--(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    _rowDescriptor = rowDescriptor;
-    [self update];
-}
-
-
-- (void)configure
-{
-    //override
-}
-
-- (void)update
-{
-    // override
-}
-
--(XLFormViewController *)formViewController
-{
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self customize];
     }
-    return nil;
+    return self;
 }
 
+- (void)customize
+{
+    UIColor * grayColor = [UIColor colorWithRed:(205/255.0) green:(201/255.0) blue:(201/255.0) alpha:1];
+    self.baseColor = grayColor;
+
+    UIColor * goldColor = [UIColor colorWithRed:(255/255.0) green:(215/255.0) blue:0 alpha:1];
+    self.highlightColor = goldColor;
+    self.markFont = [UIFont systemFontOfSize:23.0f];
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.stepInterval = 1.0f;
+}
 
 @end
+

@@ -23,7 +23,6 @@
 		2850C60018D0F706002B7D0A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2850C5FF18D0F706002B7D0A /* UIKit.framework */; };
 		2850C60618D0F706002B7D0A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2850C60418D0F706002B7D0A /* InfoPlist.strings */; };
 		2850C60818D0F706002B7D0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2850C60718D0F706002B7D0A /* main.m */; };
-		2850C60E18D0F706002B7D0A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2850C60D18D0F706002B7D0A /* Images.xcassets */; };
 		28815E2E1A8589F600B674D2 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28815E2D1A8589F600B674D2 /* MapViewController.xib */; };
 		28A7661F193248BD00D69546 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A7661E193248BD00D69546 /* CoreData.framework */; };
 		28A76625193251E500D69546 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A76624193251E500D69546 /* AppDelegate.m */; };
@@ -41,6 +40,14 @@
 		28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DBB04018D76FDC00FB8A8B /* MultivaluedFormViewController.m */; };
 		28F89F2E1AA4EA5600E90218 /* ValidationExamplesFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F89F2D1AA4EA5600E90218 /* ValidationExamplesFormViewController.m */; };
 		2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DF43B7BBF44F72A4493E8E /* libPods.a */; };
+		3C0357F01AB0D82300200C8A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C0357EF1AB0D82300200C8A /* Images.xcassets */; };
+		3C8228A11AB0E17A00AAFB35 /* AXRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C82289F1AB0E17A00AAFB35 /* AXRatingView.m */; };
+		3C8228A21AB0E17A00AAFB35 /* XLRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8228A01AB0E17A00AAFB35 /* XLRatingView.m */; };
+		3C8228A71AB0E4F300AAFB35 /* XLFormRatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8228A61AB0E4F300AAFB35 /* XLFormRatingCell.m */; };
+		3C8228AB1AB0E55600AAFB35 /* XLFormRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8228AA1AB0E55600AAFB35 /* XLFormRatingCell.xib */; };
+		3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */; };
+		3CDAFC7E1AB0B384000F75B6 /* XLFormWeekDaysCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDAFC7D1AB0B384000F75B6 /* XLFormWeekDaysCell.m */; };
+		3CDAFC801AB0B4A7000F75B6 /* XLFormWeekDaysCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CDAFC7F1AB0B4A7000F75B6 /* XLFormWeekDaysCell.xib */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 /* End PBXBuildFile section */
 
@@ -75,7 +82,6 @@
 		2850C60718D0F706002B7D0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2850C60918D0F706002B7D0A /* XLForm-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XLForm-Prefix.pch"; sourceTree = "<group>"; };
 		2850C60A18D0F706002B7D0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AppDelegate.h; path = Examples/AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2850C60D18D0F706002B7D0A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		28815E2D1A8589F600B674D2 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapViewController.xib; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.xib; sourceTree = "<group>"; };
 		28A7661E193248BD00D69546 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		28A76624193251E500D69546 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Examples/AppDelegate.m; sourceTree = "<group>"; };
@@ -103,6 +109,19 @@
 		28DBB04018D76FDC00FB8A8B /* MultivaluedFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MultivaluedFormViewController.m; path = Examples/MultiValuedSections/MultivaluedFormViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		28F89F2C1AA4EA5600E90218 /* ValidationExamplesFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValidationExamplesFormViewController.h; path = Examples/Validations/ValidationExamplesFormViewController.h; sourceTree = "<group>"; };
 		28F89F2D1AA4EA5600E90218 /* ValidationExamplesFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ValidationExamplesFormViewController.m; path = Examples/Validations/ValidationExamplesFormViewController.m; sourceTree = "<group>"; };
+		3C0357EF1AB0D82300200C8A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3C82289D1AB0E17A00AAFB35 /* AXRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXRatingView.h; path = Examples/CustomRows/CustomCells/RatingView/AXRatingView.h; sourceTree = "<group>"; };
+		3C82289E1AB0E17A00AAFB35 /* XLRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLRatingView.h; path = Examples/CustomRows/CustomCells/RatingView/XLRatingView.h; sourceTree = "<group>"; };
+		3C82289F1AB0E17A00AAFB35 /* AXRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXRatingView.m; path = Examples/CustomRows/CustomCells/RatingView/AXRatingView.m; sourceTree = "<group>"; };
+		3C8228A01AB0E17A00AAFB35 /* XLRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLRatingView.m; path = Examples/CustomRows/CustomCells/RatingView/XLRatingView.m; sourceTree = "<group>"; };
+		3C8228A51AB0E4F300AAFB35 /* XLFormRatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormRatingCell.h; path = Examples/CustomRows/CustomCells/XLFormRatingCell.h; sourceTree = "<group>"; };
+		3C8228A61AB0E4F300AAFB35 /* XLFormRatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormRatingCell.m; path = Examples/CustomRows/CustomCells/XLFormRatingCell.m; sourceTree = "<group>"; };
+		3C8228AA1AB0E55600AAFB35 /* XLFormRatingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XLFormRatingCell.xib; path = Examples/CustomRows/CustomCells/XLFormRatingCell.xib; sourceTree = "<group>"; };
+		3CDAFC781AB0AFA4000F75B6 /* CustomRowsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomRowsViewController.h; path = Examples/CustomRows/CustomRowsViewController.h; sourceTree = "<group>"; };
+		3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomRowsViewController.m; path = Examples/CustomRows/CustomRowsViewController.m; sourceTree = "<group>"; };
+		3CDAFC7C1AB0B384000F75B6 /* XLFormWeekDaysCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormWeekDaysCell.h; path = Examples/CustomRows/CustomCells/XLFormWeekDaysCell.h; sourceTree = "<group>"; };
+		3CDAFC7D1AB0B384000F75B6 /* XLFormWeekDaysCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormWeekDaysCell.m; path = Examples/CustomRows/CustomCells/XLFormWeekDaysCell.m; sourceTree = "<group>"; };
+		3CDAFC7F1AB0B4A7000F75B6 /* XLFormWeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XLFormWeekDaysCell.xib; path = Examples/CustomRows/CustomCells/XLFormWeekDaysCell.xib; sourceTree = "<group>"; };
 		7B0D2D6A86E2A41ED22E8A35 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		976A33EE62A018A7257B4878 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/CustomCells/XLFormCustomCell.h; sourceTree = "<group>"; };
@@ -258,7 +277,6 @@
 		2850C60118D0F706002B7D0A /* XLForm */ = {
 			isa = PBXGroup;
 			children = (
-				2850C60D18D0F706002B7D0A /* Images.xcassets */,
 				2850C60218D0F706002B7D0A /* Supporting Files */,
 			);
 			path = XLForm;
@@ -267,6 +285,7 @@
 		2850C60218D0F706002B7D0A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3C0357EF1AB0D82300200C8A /* Images.xcassets */,
 				2850C60318D0F706002B7D0A /* XLForm-Info.plist */,
 				2850C60418D0F706002B7D0A /* InfoPlist.strings */,
 				2850C60718D0F706002B7D0A /* main.m */,
@@ -279,6 +298,7 @@
 		2850C62B18D0F92F002B7D0A /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				3CDAFC741AB0AEE5000F75B6 /* CustomRows */,
 				28F89F2B1AA4E99500E90218 /* Validations */,
 				283C6B7A1999BA1B00A5283D /* UICustomization */,
 				28A76624193251E500D69546 /* AppDelegate.m */,
@@ -389,6 +409,41 @@
 			name = Validations;
 			sourceTree = "<group>";
 		};
+		3C82289C1AB0E0F800AAFB35 /* RatingView */ = {
+			isa = PBXGroup;
+			children = (
+				3C82289D1AB0E17A00AAFB35 /* AXRatingView.h */,
+				3C82289F1AB0E17A00AAFB35 /* AXRatingView.m */,
+				3C82289E1AB0E17A00AAFB35 /* XLRatingView.h */,
+				3C8228A01AB0E17A00AAFB35 /* XLRatingView.m */,
+			);
+			name = RatingView;
+			sourceTree = "<group>";
+		};
+		3CDAFC741AB0AEE5000F75B6 /* CustomRows */ = {
+			isa = PBXGroup;
+			children = (
+				3CDAFC7B1AB0AFBF000F75B6 /* CustomCells */,
+				3CDAFC781AB0AFA4000F75B6 /* CustomRowsViewController.h */,
+				3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */,
+			);
+			name = CustomRows;
+			sourceTree = "<group>";
+		};
+		3CDAFC7B1AB0AFBF000F75B6 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				3C82289C1AB0E0F800AAFB35 /* RatingView */,
+				3C8228AA1AB0E55600AAFB35 /* XLFormRatingCell.xib */,
+				3C8228A51AB0E4F300AAFB35 /* XLFormRatingCell.h */,
+				3C8228A61AB0E4F300AAFB35 /* XLFormRatingCell.m */,
+				3CDAFC7F1AB0B4A7000F75B6 /* XLFormWeekDaysCell.xib */,
+				3CDAFC7C1AB0B384000F75B6 /* XLFormWeekDaysCell.h */,
+				3CDAFC7D1AB0B384000F75B6 /* XLFormWeekDaysCell.m */,
+			);
+			name = CustomCells;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -444,8 +499,10 @@
 			files = (
 				28468EA718EF594900DBB015 /* Localizable.strings in Resources */,
 				2850C60618D0F706002B7D0A /* InfoPlist.strings in Resources */,
-				2850C60E18D0F706002B7D0A /* Images.xcassets in Resources */,
+				3C8228AB1AB0E55600AAFB35 /* XLFormRatingCell.xib in Resources */,
 				28815E2E1A8589F600B674D2 /* MapViewController.xib in Resources */,
+				3C0357F01AB0D82300200C8A /* Images.xcassets in Resources */,
+				3CDAFC801AB0B4A7000F75B6 /* XLFormWeekDaysCell.xib in Resources */,
 				28A8083E190D9083009D77F8 /* iPhoneStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,6 +549,7 @@
 			files = (
 				283B59B7195334AF000828CD /* CustomSelectorsFormViewController.m in Sources */,
 				28A766551932F22400D69546 /* UsersTableViewController.m in Sources */,
+				3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */,
 				28A7663B1932EA1F00D69546 /* UserLocalDataLoader.m in Sources */,
 				2850C60818D0F706002B7D0A /* main.m in Sources */,
 				D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */,
@@ -499,6 +557,7 @@
 				28A7664A1932ED3400D69546 /* Model.xcdatamodeld in Sources */,
 				28A766461932EC9C00D69546 /* User+Additions.m in Sources */,
 				28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */,
+				3C8228A11AB0E17A00AAFB35 /* AXRatingView.m in Sources */,
 				28A85D5918E346C100E81A26 /* XLFormImageSelectorCell.m in Sources */,
 				28468E9818EC686500DBB015 /* NativeEventFormViewController.m in Sources */,
 				28F89F2E1AA4EA5600E90218 /* ValidationExamplesFormViewController.m in Sources */,
@@ -506,8 +565,11 @@
 				281E5BE919538F4A006D93C5 /* CLLocationValueTrasformer.m in Sources */,
 				2843EB5618D4F7B700F13E2B /* DatesFormViewController.m in Sources */,
 				283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */,
+				3CDAFC7E1AB0B384000F75B6 /* XLFormWeekDaysCell.m in Sources */,
 				28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */,
+				3C8228A21AB0E17A00AAFB35 /* XLRatingView.m in Sources */,
 				283B59B219532415000828CD /* MapViewController.m in Sources */,
+				3C8228A71AB0E4F300AAFB35 /* XLFormRatingCell.m in Sources */,
 				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,
 				28A766451932EC9C00D69546 /* CoreDataStore.m in Sources */,
 				28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */,

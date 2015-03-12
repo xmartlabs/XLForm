@@ -1,5 +1,4 @@
-//
-//  XLFormBaseCell.m
+//  XLFormWeekDaysCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -25,59 +24,16 @@
 
 #import "XLFormBaseCell.h"
 
-@implementation XLFormBaseCell
+extern NSString * const XLFormRowDescriptorTypeWeekDays;
 
-- (id)init
-{
-    return [self initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-}
+extern NSString *const kSunday;
+extern NSString *const kMonday;
+extern NSString *const kTuesday;
+extern NSString *const kWednesday;
+extern NSString *const kThursday;
+extern NSString *const kFriday;
+extern NSString *const kSaturday;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self configure];
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self configure];
-    }
-    return self;
-}
-
--(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    _rowDescriptor = rowDescriptor;
-    [self update];
-}
-
-
-- (void)configure
-{
-    //override
-}
-
-- (void)update
-{
-    // override
-}
-
--(XLFormViewController *)formViewController
-{
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
-}
-
+@interface XLFormWeekDaysCell : XLFormBaseCell
 
 @end

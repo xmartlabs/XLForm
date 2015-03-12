@@ -1,5 +1,4 @@
-//
-//  XLFormBaseCell.m
+//  XLFormRatingCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,61 +22,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormBaseCell.h"
+#import "XLFormRatingCell.h"
 
-@implementation XLFormBaseCell
+NSString * const XLFormRowDescriptorTypeRate = @"XLFormRowDescriptorTypeRate";
 
-- (id)init
+@implementation XLFormRatingCell
+
++(void)load
 {
-    return [self initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
+    [XLFormViewController.cellClassesForRowDescriptorTypes setObject:NSStringFromClass([XLFormRatingCell class]) forKey:XLFormRowDescriptorTypeRate];
 }
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self configure];
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self configure];
-    }
-    return self;
-}
-
--(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    _rowDescriptor = rowDescriptor;
-    [self update];
-}
-
 
 - (void)configure
 {
-    //override
+    [super configure];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self.ratingView addTarget:self action:@selector(rateChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 - (void)update
 {
-    // override
+    [super update];
+    
+    self.ratingView.value = [self.rowDescriptor.value floatValue];
+    self.rateTitle.text = self.rowDescriptor.title;
 }
 
--(XLFormViewController *)formViewController
+#pragma mark - Events
+
+-(void)rateChanged:(AXRatingView *)ratingView
 {
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
+    self.rowDescriptor.value = [NSNumber numberWithFloat:ratingView.value];
 }
-
 
 @end

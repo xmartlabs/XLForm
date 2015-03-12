@@ -1,5 +1,4 @@
-//
-//  XLFormBaseCell.m
+//  CustomRowsViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,61 +22,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormBaseCell.h"
+#import "XLFormViewController.h"
 
-@implementation XLFormBaseCell
-
-- (id)init
-{
-    return [self initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-}
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self configure];
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self configure];
-    }
-    return self;
-}
-
--(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    _rowDescriptor = rowDescriptor;
-    [self update];
-}
-
-
-- (void)configure
-{
-    //override
-}
-
-- (void)update
-{
-    // override
-}
-
--(XLFormViewController *)formViewController
-{
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
-}
-
+@interface CustomRowsViewController : XLFormViewController
 
 @end

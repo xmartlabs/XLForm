@@ -1,5 +1,4 @@
-//
-//  XLFormBaseCell.m
+//  XLFormRatingCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -24,60 +23,12 @@
 // THE SOFTWARE.
 
 #import "XLFormBaseCell.h"
+#import "XLRatingView.h"
 
-@implementation XLFormBaseCell
+extern NSString * const XLFormRowDescriptorTypeRate;
 
-- (id)init
-{
-    return [self initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-}
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self configure];
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self configure];
-    }
-    return self;
-}
-
--(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    _rowDescriptor = rowDescriptor;
-    [self update];
-}
-
-
-- (void)configure
-{
-    //override
-}
-
-- (void)update
-{
-    // override
-}
-
--(XLFormViewController *)formViewController
-{
-    id responder = self;
-    while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
-}
-
+@interface XLFormRatingCell : XLFormBaseCell
+@property (weak, nonatomic) IBOutlet UILabel *rateTitle;
+@property (weak, nonatomic) IBOutlet XLRatingView *ratingView;
 
 @end
