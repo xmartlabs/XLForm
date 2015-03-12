@@ -87,11 +87,15 @@
 {
     [super viewDidLoad];
     if (!self.tableView){
-        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
-                                                      style:self.tableViewStyle];
-        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        if ([self.view isKindOfClass:[UITableView class]]) {
+            self.tableView = (UITableView *)self.view;
+        } else {
+            self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
+                                                          style:self.tableViewStyle];
+            self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        }
     }
-    if (!self.tableView.superview){
+    if (!self.tableView.superview && self.view != self.tableView){
         [self.view addSubview:self.tableView];;
     }
     if (!self.tableView.delegate){
