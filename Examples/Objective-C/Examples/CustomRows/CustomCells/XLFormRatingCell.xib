@@ -38,10 +38,12 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="Vxp-gw-YTt" secondAttribute="bottom" constant="11" id="0Qz-iR-Tzb"/>
                     <constraint firstAttribute="centerY" secondItem="Vxp-gw-YTt" secondAttribute="centerY" id="4Vh-2e-m2p"/>
                     <constraint firstAttribute="trailing" secondItem="yhI-dj-sRk" secondAttribute="trailing" constant="10" id="NPC-r7-JFl"/>
                     <constraint firstAttribute="centerY" secondItem="yhI-dj-sRk" secondAttribute="centerY" id="Vw4-h8-wId"/>
                     <constraint firstItem="Vxp-gw-YTt" firstAttribute="leading" secondItem="hV6-xt-6pq" secondAttribute="leading" constant="15" id="Xgq-Cy-zLQ"/>
+                    <constraint firstItem="Vxp-gw-YTt" firstAttribute="top" secondItem="hV6-xt-6pq" secondAttribute="top" constant="11" id="bgO-t8-Rjz"/>
                     <constraint firstItem="yhI-dj-sRk" firstAttribute="leading" secondItem="Vxp-gw-YTt" secondAttribute="trailing" id="n0B-tg-Pik"/>
                 </constraints>
             </tableViewCellContentView>

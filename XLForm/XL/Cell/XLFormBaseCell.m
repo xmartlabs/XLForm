@@ -41,6 +41,14 @@
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self configure];
+    }
+    return self;
+}
 
 -(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
 {
