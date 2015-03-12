@@ -36,6 +36,19 @@ static NSString * const XLFormRowDescriptorTypeRate = @"XLFormRowDescriptorTypeR
     XLFormRowDescriptor * row;
     
     // Section
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Ratings"];
+    [form addFormSection:section];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Rate1" rowType:XLFormRowDescriptorTypeRate title:@"First Rating"];
+    row.value = @(3);
+    [section addFormRow:row];
+    
+    // Rate
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Rate2" rowType:XLFormRowDescriptorTypeRate title:@"Second Rating"];
+    row.value = @(1);
+    [section addFormRow:row];
+    
+    // Section
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Weekdays"];
     [form addFormSection:section];
     
@@ -50,17 +63,6 @@ static NSString * const XLFormRowDescriptorTypeRate = @"XLFormRowDescriptorTypeR
                    kFriday: @(NO),
                    kSaturday: @(NO)
                    };
-    [section addFormRow:row];
-    
-    // Section
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Rates"];
-    [form addFormSection:section];
-
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Rate1" rowType:XLFormRowDescriptorTypeRate title:@"Rate 1"];
-    [section addFormRow:row];
-    
-    // Rate
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Rate2" rowType:XLFormRowDescriptorTypeRate title:@"Rate 2"];
     [section addFormRow:row];
     
     self.form = form;

@@ -13,8 +13,16 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OGo-4x-YLf" id="hV6-xt-6pq">
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhI-dj-sRk" customClass="XLRatingView">
+                        <rect key="frame" x="353" y="11" width="115" height="22"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="85e-Ov-qM7"/>
+                            <constraint firstAttribute="width" constant="115" id="kOb-W4-HPs"/>
+                        </constraints>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxp-gw-YTt">
-                        <rect key="frame" x="10" y="11" width="343" height="21"/>
+                        <rect key="frame" x="15" y="11" width="338" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="IK4-8e-SFs"/>
                             <constraint firstAttribute="width" constant="150" id="hNG-F9-1wj"/>
@@ -28,20 +36,12 @@
                             </mask>
                         </variation>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhI-dj-sRk" customClass="XLRatingView">
-                        <rect key="frame" x="353" y="11" width="115" height="22"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="22" id="85e-Ov-qM7"/>
-                            <constraint firstAttribute="width" constant="115" id="kOb-W4-HPs"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="Vxp-gw-YTt" secondAttribute="centerY" id="4Vh-2e-m2p"/>
                     <constraint firstAttribute="trailing" secondItem="yhI-dj-sRk" secondAttribute="trailing" constant="10" id="NPC-r7-JFl"/>
                     <constraint firstAttribute="centerY" secondItem="yhI-dj-sRk" secondAttribute="centerY" id="Vw4-h8-wId"/>
-                    <constraint firstItem="Vxp-gw-YTt" firstAttribute="leading" secondItem="hV6-xt-6pq" secondAttribute="leading" constant="10" id="Xgq-Cy-zLQ"/>
+                    <constraint firstItem="Vxp-gw-YTt" firstAttribute="leading" secondItem="hV6-xt-6pq" secondAttribute="leading" constant="15" id="Xgq-Cy-zLQ"/>
                     <constraint firstItem="yhI-dj-sRk" firstAttribute="leading" secondItem="Vxp-gw-YTt" secondAttribute="trailing" id="n0B-tg-Pik"/>
                 </constraints>
             </tableViewCellContentView>
