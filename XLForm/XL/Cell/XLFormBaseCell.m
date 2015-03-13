@@ -41,13 +41,10 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+- (void)awakeFromNib
 {
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self configure];
-    }
-    return self;
+    [super awakeFromNib];
+    [self configure];
 }
 
 -(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
