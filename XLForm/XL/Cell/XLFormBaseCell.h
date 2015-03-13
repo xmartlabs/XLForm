@@ -35,7 +35,7 @@
 
 @property (nonatomic, weak) XLFormRowDescriptor * rowDescriptor;
 
--(XLFormViewController *)formViewController;
+@property (nonatomic, readonly, strong) XLFormViewController *formViewController;
 
 @end
 

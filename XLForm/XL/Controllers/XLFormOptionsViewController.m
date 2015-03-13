@@ -47,7 +47,7 @@
 @synthesize rowDescriptor = _rowDescriptor;
 @synthesize popoverController = __popoverController;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self){
@@ -57,7 +57,7 @@
     return self;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style titleHeaderSection:(NSString *)titleHeaderSection titleFooterSection:(NSString *)titleFooterSection
+- (instancetype)initWithStyle:(UITableViewStyle)style titleHeaderSection:(NSString *)titleHeaderSection titleFooterSection:(NSString *)titleFooterSection
 {
     self = [self initWithStyle:style];
     if (self){
@@ -85,7 +85,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRightDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
-    id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row];
+    id cellObject =  [self selectorOptions][indexPath.row];
     cell.textLabel.text = [self valueDisplayTextForOption:cellObject];
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]){
         cell.accessoryType = ([self selectedValuesContainsOption:cellObject] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
@@ -118,7 +118,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row];
+    id cellObject =  [self selectorOptions][indexPath.row];
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]){
         if ([self selectedValuesContainsOption:cellObject]){
             self.rowDescriptor.value = [self selectedValuesRemoveOption:cellObject];

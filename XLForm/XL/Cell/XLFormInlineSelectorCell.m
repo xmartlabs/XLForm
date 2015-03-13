@@ -45,7 +45,7 @@
     NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
     NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
     XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
-    XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
+    XLFormSectionDescriptor * formSection = (self.formViewController.form.formSections)[nextRowPath.section];
     [formSection removeFormRow:nextFormRow];
     return [super resignFirstResponder];
 }

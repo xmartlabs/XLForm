@@ -27,11 +27,11 @@
 
 @implementation XLFormValidationStatus
 
--(id)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid {
+-(instancetype)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid {
     return [self initWithMsg:msg status:isValid rowDescriptor:nil];
 }
 
--(id)initWithMsg:(NSString*)msg status:(BOOL)isValid rowDescriptor:(XLFormRowDescriptor *)row {
+-(instancetype)initWithMsg:(NSString*)msg status:(BOOL)isValid rowDescriptor:(XLFormRowDescriptor *)row {
     self = [super init];
     if (self) {
         self.msg = msg;

@@ -83,20 +83,20 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (self.inlineRowDescriptor){
-        return [[self.inlineRowDescriptor.selectorOptions objectAtIndex:row] displayText];
+        return [(self.inlineRowDescriptor.selectorOptions)[row] displayText];
     }
-    return [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
+    return [(self.rowDescriptor.selectorOptions)[row] displayText];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     if (self.inlineRowDescriptor){
-        self.inlineRowDescriptor.value = [self.inlineRowDescriptor.selectorOptions objectAtIndex:row];
+        self.inlineRowDescriptor.value = (self.inlineRowDescriptor.selectorOptions)[row];
         [[self.inlineRowDescriptor cellForFormController:self.formViewController] update];
     }
     else{
         [self becomeFirstResponder];
-        self.rowDescriptor.value = [self.rowDescriptor.selectorOptions objectAtIndex:row];
+        self.rowDescriptor.value = (self.rowDescriptor.selectorOptions)[row];
     }
 }
 

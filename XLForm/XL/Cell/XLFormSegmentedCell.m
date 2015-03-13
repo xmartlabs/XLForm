@@ -65,7 +65,7 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object == self.textLabel && [keyPath isEqualToString:@"text"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+        if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
             [self.contentView setNeedsUpdateConstraints];
         }
     }
@@ -96,7 +96,7 @@
 
 -(void)valueChanged
 {
-    self.rowDescriptor.value = [self.rowDescriptor.selectorOptions objectAtIndex:self.segmentedControl.selectedSegmentIndex];
+    self.rowDescriptor.value = (self.rowDescriptor.selectorOptions)[self.segmentedControl.selectedSegmentIndex];
 }
 
 #pragma mark - Helper

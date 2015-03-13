@@ -34,7 +34,7 @@ NSString *const kSelectorMapPopover = @"selectorMapPopover";
 
 @implementation CustomSelectorsFormViewController
 
--(id)init
+-(instancetype)init
 {
     self = [super init];
     if (self) {

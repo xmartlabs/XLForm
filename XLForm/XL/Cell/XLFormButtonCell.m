@@ -28,7 +28,7 @@
 
 @implementation XLFormButtonCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     return [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
 }

@@ -30,7 +30,7 @@
 
 +(id)autolayoutView;
 -(NSLayoutConstraint *)layoutConstraintSameHeightOf:(UIView *)view;
--(UIView *)findFirstResponder;
--(UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell;
+@property (nonatomic, readonly, strong) UIView *findFirstResponder;
+@property (nonatomic, readonly, strong) UITableViewCell<XLFormDescriptorCell> *formDescriptorCell;
 
 @end

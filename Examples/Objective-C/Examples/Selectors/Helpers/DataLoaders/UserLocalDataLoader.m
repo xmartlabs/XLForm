@@ -32,7 +32,7 @@
     NSString *_searchString;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         NSFetchedResultsController * fetchResultController = [[NSFetchedResultsController alloc] initWithFetchRequest:[User getFetchRequest]

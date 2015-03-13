@@ -48,7 +48,7 @@ NSString *const kSaturday = @"saturday";
 
 +(void)load
 {
-    [XLFormViewController.cellClassesForRowDescriptorTypes setObject:NSStringFromClass([XLFormWeekDaysCell class]) forKey:XLFormRowDescriptorTypeWeekDays];
+    (XLFormViewController.cellClassesForRowDescriptorTypes)[XLFormRowDescriptorTypeWeekDays] = NSStringFromClass([XLFormWeekDaysCell class]);
 }
 
 #pragma mark - XLFormDescriptorCell
@@ -93,13 +93,13 @@ NSString *const kSaturday = @"saturday";
 -(void)updateButtons
 {
     NSDictionary * value = self.rowDescriptor.value;
-    self.sundayButton.selected = [[value objectForKey:kSunday] boolValue];
-    self.mondayButton.selected = [[value objectForKey:kMonday] boolValue];
-    self.tuesdayButton.selected = [[value objectForKey:kTuesday] boolValue];
-    self.wednesdayButton.selected = [[value objectForKey:kWednesday] boolValue];
-    self.thursdayButton.selected = [[value objectForKey:kThursday] boolValue];
-    self.fridayButton.selected = [[value objectForKey:kFriday] boolValue];
-    self.saturdayButton.selected = [[value objectForKey:kSaturday] boolValue];
+    self.sundayButton.selected = [value[kSunday] boolValue];
+    self.mondayButton.selected = [value[kMonday] boolValue];
+    self.tuesdayButton.selected = [value[kTuesday] boolValue];
+    self.wednesdayButton.selected = [value[kWednesday] boolValue];
+    self.thursdayButton.selected = [value[kThursday] boolValue];
+    self.fridayButton.selected = [value[kFriday] boolValue];
+    self.saturdayButton.selected = [value[kSaturday] boolValue];
 }
 
 -(NSString *)getDayFormButton:(id)sender
@@ -117,7 +117,7 @@ NSString *const kSaturday = @"saturday";
 {
     button.selected = !button.selected;
     NSMutableDictionary * value = [self.rowDescriptor.value mutableCopy];
-    [value setObject:@(button.selected) forKey:day];
+    value[day] = @(button.selected);
     self.rowDescriptor.value = value;
 }
 

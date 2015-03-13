@@ -27,7 +27,7 @@
 
 @implementation XLFormRegexValidator
 
--(id)initWithMsg:(NSString*)msg andRegexString:(NSString*)regex {
+-(instancetype)initWithMsg:(NSString*)msg andRegexString:(NSString*)regex {
     self = [super init];
     if (self) {
         self.msg = msg;

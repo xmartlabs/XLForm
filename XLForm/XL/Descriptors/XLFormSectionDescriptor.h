@@ -39,9 +39,9 @@
 
 @property (weak) XLFormDescriptor * formDescriptor;
 
-+(id)formSection;
-+(id)formSectionWithTitle:(NSString *)title;
-+(id)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection;
++(instancetype)formSection;
++(instancetype)formSectionWithTitle:(NSString *)title;
++(instancetype)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection;
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow;
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow;
@@ -49,9 +49,6 @@
 -(void)removeFormRowAtIndex:(NSUInteger)index;
 -(void)removeFormRow:(XLFormRowDescriptor *)formRow;
 
--(XLFormRowDescriptor *)newMultivaluedFormRowDescriptor;
-
-
-
+@property (nonatomic, readonly, strong) XLFormRowDescriptor *newMultivaluedFormRowDescriptor;
 
 @end

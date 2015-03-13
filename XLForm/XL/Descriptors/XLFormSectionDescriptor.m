@@ -33,7 +33,7 @@
 
 @implementation XLFormSectionDescriptor
 
--(id)init
+-(instancetype)init
 {
     self = [super init];
     if (self){
@@ -46,7 +46,7 @@
 }
 
 
--(id)initWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
+-(instancetype)initWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
 {
     self = [self init];
     if (self){
@@ -56,24 +56,24 @@
     return self;
 }
 
-+(id)formSection
++(instancetype)formSection
 {
     return [self formSectionWithTitle:nil];
 }
 
-+(id)formSectionWithTitle:(NSString *)title
++(instancetype)formSectionWithTitle:(NSString *)title
 {
     return [self formSectionWithTitle:title multivaluedSection:NO];
 }
 
-+(id)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
++(instancetype)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
 {
     return [[XLFormSectionDescriptor alloc] initWithTitle:title multivaluedSection:multivaluedSection];
 }
 
 -(XLFormRowDescriptor *)newMultivaluedFormRowDescriptor
 {
-    XLFormRowDescriptor * formRowDescriptor = [[self.formRows objectAtIndex:0] copy];
+    XLFormRowDescriptor * formRowDescriptor = [(self.formRows)[0] copy];
     formRowDescriptor.tag = nil;
     return formRowDescriptor;
 }
@@ -136,9 +136,9 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([object isKindOfClass:[XLFormRowDescriptor class]] && [keyPath isEqualToString:@"value"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
-            id newValue = [change objectForKey:NSKeyValueChangeNewKey];
-            id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
+        if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+            id newValue = change[NSKeyValueChangeNewKey];
+            id oldValue = change[NSKeyValueChangeOldKey];
             [self.formDescriptor.delegate formRowDescriptorValueHasChanged:object oldValue:oldValue newValue:newValue];
         }
     }
@@ -154,7 +154,7 @@
 }
 
 - (id)objectInFormRowsAtIndex:(NSUInteger)index {
-    return [self.formRows objectAtIndex:index];
+    return (self.formRows)[index];
 }
 
 - (NSArray *)formRowsAtIndexes:(NSIndexSet *)indexes {
@@ -168,7 +168,7 @@
 }
 
 - (void)removeObjectFromFormRowsAtIndex:(NSUInteger)index {
-    XLFormRowDescriptor * formRow = [self.formRows objectAtIndex:index];
+    XLFormRowDescriptor * formRow = (self.formRows)[index];
     @try {
         [formRow removeObserver:self forKeyPath:@"value"];
     }

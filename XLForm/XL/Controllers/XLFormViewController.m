@@ -38,12 +38,12 @@
 
 @implementation XLFormViewController
 
--(id)initWithForm:(XLFormDescriptor *)form
+-(instancetype)initWithForm:(XLFormDescriptor *)form
 {
     return [self initWithForm:form style:UITableViewStyleGrouped];
 }
 
--(id)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style
+-(instancetype)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self){
@@ -53,7 +53,7 @@
     return self;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
@@ -62,7 +62,7 @@
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder
+-(instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
     if (self){
@@ -425,7 +425,7 @@
     if (section >= self.form.formSections.count){
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"" userInfo:nil];
     }
-    return [[[self.form.formSections objectAtIndex:section] formRows] count];
+    return [[(self.form.formSections)[section] formRows] count];
 }
 
 
@@ -475,12 +475,12 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [[self.form.formSections objectAtIndex:section] title];
+    return [(self.form.formSections)[section] title];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-    return [[self.form.formSections objectAtIndex:section] footerTitle];
+    return [(self.form.formSections)[section] footerTitle];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

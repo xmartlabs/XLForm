@@ -158,7 +158,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object == self.textLabel && [keyPath isEqualToString:@"text"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+        if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
             [self.contentView needsUpdateConstraints];
         }
     }
@@ -192,12 +192,12 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    NSString *mediaType = info[UIImagePickerControllerMediaType];
     UIImage *originalImage, *editedImage, *imageToUse;
     if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
         // ensure the user has taken a picture
-        editedImage = (UIImage *) [info objectForKey:UIImagePickerControllerEditedImage];
-        originalImage = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
+        editedImage = (UIImage *) info[UIImagePickerControllerEditedImage];
+        originalImage = (UIImage *) info[UIImagePickerControllerOriginalImage];
         if (editedImage) {
             imageToUse = editedImage;
         }

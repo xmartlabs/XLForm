@@ -46,7 +46,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object == self.label && [keyPath isEqualToString:@"text"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+        if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
             [self needsUpdateConstraints];
         }
     }

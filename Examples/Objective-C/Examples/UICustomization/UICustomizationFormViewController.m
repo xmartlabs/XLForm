@@ -28,7 +28,7 @@
 
 @implementation UICustomizationFormViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -46,15 +46,15 @@
         // Name
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Name" rowType:XLFormRowDescriptorTypeText title:@"Name"];
         // change the background color
-        [row.cellConfigAtConfigure setObject:[UIColor greenColor] forKey:@"backgroundColor"];
+        (row.cellConfigAtConfigure)[@"backgroundColor"] = [UIColor greenColor];
         // font
-        [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:30] forKey:@"textLabel.font"];
+        (row.cellConfig)[@"textLabel.font"] = [UIFont fontWithName:@"Helvetica" size:30];
         // background color
-        [row.cellConfig setObject:[UIColor grayColor] forKey:@"textField.backgroundColor"];
+        (row.cellConfig)[@"textField.backgroundColor"] = [UIColor grayColor];
         // font
-        [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:25] forKey:@"textField.font"];
+        (row.cellConfig)[@"textField.font"] = [UIFont fontWithName:@"Helvetica" size:25];
         // alignment
-        [row.cellConfig setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
+        (row.cellConfig)[@"textField.textAlignment"] = @(NSTextAlignmentRight);
         [section addFormRow:row];
         
         
@@ -64,9 +64,9 @@
         
         //Button
         row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Button" rowType:XLFormRowDescriptorTypeButton title:@"Button"];
-        [row.cellConfigAtConfigure setObject:[UIColor purpleColor] forKey:@"backgroundColor"];
-        [row.cellConfig setObject:[UIColor whiteColor] forKey:@"textLabel.color"];
-        [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:40] forKey:@"textLabel.font"];
+        (row.cellConfigAtConfigure)[@"backgroundColor"] = [UIColor purpleColor];
+        (row.cellConfig)[@"textLabel.color"] = [UIColor whiteColor];
+        (row.cellConfig)[@"textLabel.font"] = [UIFont fontWithName:@"Helvetica" size:40];
         [section addFormRow:row];
         
         self.form = form;

@@ -39,12 +39,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @implementation XLFormDescriptor
 
--(id)init
+-(instancetype)init
 {
     return [self initWithTitle:nil];
 }
 
--(id)initWithTitle:(NSString *)title;
+-(instancetype)initWithTitle:(NSString *)title;
 {
     self = [super init];
     if (self){
@@ -56,12 +56,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     return self;
 }
 
-+(id)formDescriptor
++(instancetype)formDescriptor
 {
     return [self formDescriptorWithTitle:nil];
 }
 
-+(id)formDescriptorWithTitle:(NSString *)title
++(instancetype)formDescriptorWithTitle:(NSString *)title
 {
     return [[XLFormDescriptor alloc] initWithTitle:title];
 }
@@ -91,7 +91,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     NSIndexPath * beforeIndexPath = [self indexPathOfFormRow:beforeRow];
     if (self.formSections.count > beforeIndexPath.section){
-        [[self.formSections objectAtIndex:beforeIndexPath.section] addFormRow:formRow beforeRow:beforeRow];
+        [(self.formSections)[beforeIndexPath.section] addFormRow:formRow beforeRow:beforeRow];
     }
     else{
         [[self.formSections lastObject] addFormRow:formRow beforeRow:beforeRow];
@@ -110,7 +110,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     NSIndexPath * afterIndexPath = [self indexPathOfFormRow:afterRow];
     if (self.formSections.count > afterIndexPath.section){
-        [[self.formSections objectAtIndex:afterIndexPath.section] addFormRow:formRow afterRow:afterRow];
+        [(self.formSections)[afterIndexPath.section] addFormRow:formRow afterRow:afterRow];
     }
     else{
         [[self.formSections lastObject] addFormRow:formRow afterRow:afterRow];
@@ -181,8 +181,8 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 -(XLFormRowDescriptor *)formRowAtIndex:(NSIndexPath *)indexPath
 {
-    if ((self.formSections.count > indexPath.section) && [[self.formSections objectAtIndex:indexPath.section] formRows].count > indexPath.row){
-        return [[[self.formSections objectAtIndex:indexPath.section] formRows] objectAtIndex:indexPath.row];
+    if ((self.formSections.count > indexPath.section) && [(self.formSections)[indexPath.section] formRows].count > indexPath.row){
+        return [(self.formSections)[indexPath.section] formRows][indexPath.row];
     }
     return nil;
 }
@@ -212,7 +212,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         {
             for (XLFormRowDescriptor * row in section.formRows) {
                 if (row.tag && ![row.tag isEqualToString:@""]){
-                    [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
+                    result[row.tag] = (row.value ?: [NSNull null]);
                 }
             }
         }
@@ -223,7 +223,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
                     [multiValuedValuesArray addObject:row.value];
                 }
             }
-            [result setObject:multiValuedValuesArray forKey:section.multiValuedTag];
+            result[section.multiValuedTag] = multiValuedValuesArray;
         }
     }
     return result;
@@ -240,7 +240,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
                 NSString * httpParameterKey = nil;
                 if ((httpParameterKey = [self httpParameterKeyForRow:row cell:[row cellForFormController:formViewController]])){
                     id parameterValue = [row.value valueData] ?: [NSNull null];
-                    [result setObject:parameterValue forKey:httpParameterKey];
+                    result[httpParameterKey] = parameterValue;
                 }
             }
         }
@@ -251,7 +251,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
                     [multiValuedValuesArray addObject:[row.value valueData]];
                 }
             }
-            [result setObject:multiValuedValuesArray forKey:section.multiValuedTag];
+            result[section.multiValuedTag] = multiValuedValuesArray;
         }
     }
     return result;
@@ -309,27 +309,27 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     if (!self.delegate) return;
     if ([keyPath isEqualToString:@"formSections"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
-            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            XLFormSectionDescriptor * section = [self.formSections objectAtIndex:indexSet.firstIndex];
+        if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
+            NSIndexSet * indexSet = change[NSKeyValueChangeIndexesKey];
+            XLFormSectionDescriptor * section = (self.formSections)[indexSet.firstIndex];
             [self.delegate formSectionHasBeenAdded:section atIndex:indexSet.firstIndex];
         }
-        else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
-            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            XLFormSectionDescriptor * removedSection = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
+        else if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
+            NSIndexSet * indexSet = change[NSKeyValueChangeIndexesKey];
+            XLFormSectionDescriptor * removedSection = change[NSKeyValueChangeOldKey][0];
             [self.delegate formSectionHasBeenRemoved:removedSection atIndex:indexSet.firstIndex];
         }
     }
     else if ([keyPath isEqualToString:@"formRows"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
-            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            XLFormRowDescriptor * formRow = [((XLFormSectionDescriptor *)object).formRows objectAtIndex:indexSet.firstIndex];
+        if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
+            NSIndexSet * indexSet = change[NSKeyValueChangeIndexesKey];
+            XLFormRowDescriptor * formRow = (((XLFormSectionDescriptor *)object).formRows)[indexSet.firstIndex];
             NSUInteger sectionIndex = [self.formSections indexOfObject:object];
             [self.delegate formRowHasBeenAdded:formRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
         }
-        else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
-            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            XLFormRowDescriptor * removedRow = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
+        else if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
+            NSIndexSet * indexSet = change[NSKeyValueChangeIndexesKey];
+            XLFormRowDescriptor * removedRow = change[NSKeyValueChangeOldKey][0];
             NSUInteger sectionIndex = [self.formSections indexOfObject:object];
             [self.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
         }
@@ -359,7 +359,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 }
 
 - (id)objectInFormSectionsAtIndex:(NSUInteger)index {
-    return [self.formSections objectAtIndex:index];
+    return (self.formSections)[index];
 }
 
 - (NSArray *)formSectionsAtIndexes:(NSIndexSet *)indexes {
@@ -373,7 +373,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 }
 
 - (void)removeObjectFromFormSectionsAtIndex:(NSUInteger)index {
-    XLFormSectionDescriptor * formSection = [self.formSections objectAtIndex:index];
+    XLFormSectionDescriptor * formSection = (self.formSections)[index];
     @try {
         [formSection removeObserver:self forKeyPath:@"formRows"];
     }

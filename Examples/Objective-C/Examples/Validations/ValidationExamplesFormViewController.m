@@ -60,8 +60,8 @@ NSString * const kValidationInteger = @"kInteger";
     
     // Name
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidationName rowType:XLFormRowDescriptorTypeText title:@"Name"];
-    [row.cellConfigAtConfigure setObject:@"Required..." forKey:@"textField.placeholder"];
-    [row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
+    (row.cellConfigAtConfigure)[@"textField.placeholder"] = @"Required...";
+    (row.cellConfigAtConfigure)[@"textField.textAlignment"] = @(NSTextAlignmentRight);
     row.required = YES;
     row.value = @"Martin";
     [section addFormRow:row];
@@ -72,7 +72,7 @@ NSString * const kValidationInteger = @"kInteger";
 
     // Email
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidationEmail rowType:XLFormRowDescriptorTypeText title:@"Email"];
-    [row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
+    (row.cellConfigAtConfigure)[@"textField.textAlignment"] = @(NSTextAlignmentRight);
     row.required = NO;
     row.value = @"not valid email";
     [row addValidator:[XLFormValidator emailValidator]];
@@ -85,8 +85,8 @@ NSString * const kValidationInteger = @"kInteger";
     
     // Password
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidationPassword rowType:XLFormRowDescriptorTypePassword title:@"Password"];
-    [row.cellConfigAtConfigure setObject:@"Required..." forKey:@"textField.placeholder"];
-    [row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
+    (row.cellConfigAtConfigure)[@"textField.placeholder"] = @"Required...";
+    (row.cellConfigAtConfigure)[@"textField.textAlignment"] = @(NSTextAlignmentRight);
     row.required = YES;
     [row addValidator:[XLFormRegexValidator formRegexValidatorWithMsg:@"At least 6, max 32 characters" regex:@"^(?=.*\\d)(?=.*[A-Za-z]).{6,32}$"]];
     [section addFormRow:row];
@@ -98,8 +98,8 @@ NSString * const kValidationInteger = @"kInteger";
     
     // Integer
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidationInteger rowType:XLFormRowDescriptorTypeInteger title:@"Integer"];
-    [row.cellConfigAtConfigure setObject:@"Required..." forKey:@"textField.placeholder"];
-    [row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
+    (row.cellConfigAtConfigure)[@"textField.placeholder"] = @"Required...";
+    (row.cellConfigAtConfigure)[@"textField.textAlignment"] = @(NSTextAlignmentRight);
     row.required = YES;
     [row addValidator:[XLFormRegexValidator formRegexValidatorWithMsg:@"grather than 50 and less than 100" regex:@"^([5-9][0-9]|100)$"]];
     [section addFormRow:row];
@@ -121,7 +121,7 @@ NSString * const kValidationInteger = @"kInteger";
 {
     NSArray * array = [self formValidationErrors];
     [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        XLFormValidationStatus * validationStatus = [[obj userInfo] objectForKey:XLValidationStatusErrorKey];
+        XLFormValidationStatus * validationStatus = [obj userInfo][XLValidationStatusErrorKey];
         if ([validationStatus.rowDescriptor.tag isEqualToString:kValidationName]){
             UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:[self.form indexPathOfFormRow:validationStatus.rowDescriptor]];
             cell.backgroundColor = [UIColor orangeColor];

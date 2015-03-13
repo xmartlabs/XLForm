@@ -18,7 +18,7 @@
   _minimumValue = 0.0;
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
   if (self = [super initWithFrame:frame]) {
     [self axRatingViewInit];
@@ -26,7 +26,7 @@
   return self;
 }
 
-- (id)initWithCoder:(NSCoder *)decoder
+- (instancetype)initWithCoder:(NSCoder *)decoder
 {
   if (self = [super initWithCoder:decoder]) {
     [self axRatingViewInit];

@@ -34,7 +34,7 @@
 @property (nonatomic, weak) XLFormRowDescriptor *rowDescriptor;
 
 //-(id)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid;
--(id)initWithMsg:(NSString*)msg status:(BOOL)isValid rowDescriptor:(XLFormRowDescriptor *)row;
+-(instancetype)initWithMsg:(NSString*)msg status:(BOOL)isValid rowDescriptor:(XLFormRowDescriptor *)row;
 
 //+(XLFormValidationStatus *)formValidationStatusWithMsg:(NSString *)msg status:(BOOL)status;
 +(XLFormValidationStatus *)formValidationStatusWithMsg:(NSString *)msg status:(BOOL)status rowDescriptor:(XLFormRowDescriptor *)row;

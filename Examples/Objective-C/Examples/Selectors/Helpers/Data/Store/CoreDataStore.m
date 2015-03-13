@@ -82,7 +82,7 @@ static NSString *const TBCoreDataModelFileName = @"Model";
 
 #pragma mark - Lifecycle
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self) {
@@ -103,7 +103,7 @@ static NSString *const TBCoreDataModelFileName = @"Model";
 {
     @synchronized(self) {
         [self.mainQueueContext performBlock:^{
-            for(NSManagedObject *object in [[notification userInfo] objectForKey:NSUpdatedObjectsKey]) {
+            for(NSManagedObject *object in [notification userInfo][NSUpdatedObjectsKey]) {
                 [[self.mainQueueContext objectWithID:[object objectID]] willAccessValueForKey:nil];
             }
             [self.mainQueueContext mergeChangesFromContextDidSaveNotification:notification];

@@ -32,7 +32,7 @@ NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
 @implementation DynamicSelectorsFormViewController
 
 
--(id)init
+-(instancetype)init
 {
     self = [super init];
     if (self) {

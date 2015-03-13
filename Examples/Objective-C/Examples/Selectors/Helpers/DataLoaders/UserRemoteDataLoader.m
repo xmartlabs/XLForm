@@ -52,7 +52,7 @@
 -(void)successulDataLoad {
     // change flags
     // [self fetchedData] contains the data coming from the server
-    NSArray * itemsArray = [[self fetchedData] objectForKey:kXLRemoteDataLoaderDefaultKeyForNonDictionaryResponse];
+    NSArray * itemsArray = [self fetchedData][kXLRemoteDataLoaderDefaultKeyForNonDictionaryResponse];
 
     // This flag indicates if there is more data to load
     _hasMoreToLoad = !((itemsArray.count == 0) || (itemsArray.count < _limit && itemsArray.count != 0));
