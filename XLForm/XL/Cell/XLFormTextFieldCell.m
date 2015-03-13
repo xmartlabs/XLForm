@@ -47,7 +47,7 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ((object == self.textLabel && [keyPath isEqualToString:@"text"]) ||  (object == self.imageView && [keyPath isEqualToString:@"image"])){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+        if ([change[NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
             [self.contentView setNeedsUpdateConstraints];
         }
     }

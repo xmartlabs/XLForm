@@ -32,7 +32,7 @@
 @property NSString *msg;
 @property NSString *regex;
 
-- (id)initWithMsg:(NSString*)msg andRegexString:(NSString*)regex;
+- (instancetype)initWithMsg:(NSString*)msg andRegexString:(NSString*)regex;
 + (XLFormRegexValidator *)formRegexValidatorWithMsg:(NSString *)msg regex:(NSString *)regex;
 
 @end

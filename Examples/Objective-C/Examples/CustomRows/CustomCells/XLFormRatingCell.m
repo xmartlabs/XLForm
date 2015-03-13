@@ -30,7 +30,7 @@ NSString * const XLFormRowDescriptorTypeRate = @"XLFormRowDescriptorTypeRate";
 
 +(void)load
 {
-    [XLFormViewController.cellClassesForRowDescriptorTypes setObject:NSStringFromClass([XLFormRatingCell class]) forKey:XLFormRowDescriptorTypeRate];
+    (XLFormViewController.cellClassesForRowDescriptorTypes)[XLFormRowDescriptorTypeRate] = NSStringFromClass([XLFormRatingCell class]);
 }
 
 - (void)configure
@@ -53,7 +53,7 @@ NSString * const XLFormRowDescriptorTypeRate = @"XLFormRowDescriptorTypeRate";
 
 -(void)rateChanged:(AXRatingView *)ratingView
 {
-    self.rowDescriptor.value = [NSNumber numberWithFloat:ratingView.value];
+    self.rowDescriptor.value = @(ratingView.value);
 }
 
 @end

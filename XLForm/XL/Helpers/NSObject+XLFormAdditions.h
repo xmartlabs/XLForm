@@ -27,7 +27,7 @@
 
 @interface NSObject (XLFormAdditions)
 
--(NSString *)displayText;
--(id)valueData;
+@property (nonatomic, readonly, copy) NSString *displayText;
+@property (nonatomic, readonly, strong) id valueData;
 
 @end

@@ -64,8 +64,8 @@
 @property XLFormDescriptor * form;
 @property IBOutlet UITableView * tableView;
 
--(id)initWithForm:(XLFormDescriptor *)form;
--(id)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style;
+-(instancetype)initWithForm:(XLFormDescriptor *)form;
+-(instancetype)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style;
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes;
 

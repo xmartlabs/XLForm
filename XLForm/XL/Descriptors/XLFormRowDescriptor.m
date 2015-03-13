@@ -38,7 +38,7 @@
 
 @synthesize action = _action;
 
--(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
+-(instancetype)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
     self = [self init];
     if (self){
@@ -54,13 +54,13 @@
     return self;
 }
 
-+(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
++(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
 {
     return [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:rowType title:nil];
     
 }
 
-+(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title
++(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title
 {
     return [[XLFormRowDescriptor alloc] initWithTag:tag rowType:rowType title:title];
 }
@@ -273,7 +273,7 @@
 }
 
 
--(id)initWithLeftValue:(NSString *)leftValue httpParameterKey:(NSString *)httpParameterKey rightOptions:(NSArray *)rightOptions
+-(instancetype)initWithLeftValue:(NSString *)leftValue httpParameterKey:(NSString *)httpParameterKey rightOptions:(NSArray *)rightOptions
 {
     self = [super init];
     if (self){

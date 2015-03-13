@@ -42,7 +42,7 @@ NSString *const kNotes = @"notes";
 
 @implementation InputsFormViewController
 
--(id)init
+-(instancetype)init
 {
     XLFormDescriptor * formDescriptor = [XLFormDescriptor formDescriptorWithTitle:@"Text Fields"];
     XLFormSectionDescriptor * section;
@@ -102,7 +102,7 @@ NSString *const kNotes = @"notes";
     
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kTextView rowType:XLFormRowDescriptorTypeTextView];
-    [row.cellConfigAtConfigure setObject:@"TEXT VIEW EXAMPLE" forKey:@"textView.placeholder"];
+    (row.cellConfigAtConfigure)[@"textView.placeholder"] = @"TEXT VIEW EXAMPLE";
     [section addFormRow:row];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"TextView With Label Example"];

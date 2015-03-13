@@ -54,7 +54,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     return self;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
     if (self){
@@ -92,9 +92,9 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     // Slider
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSlider rowType:XLFormRowDescriptorTypeSlider title:@"Slider"];
     row.value = @(30);
-    [row.cellConfigAtConfigure setObject:@(100) forKey:@"slider.maximumValue"];
-    [row.cellConfigAtConfigure setObject:@(10) forKey:@"slider.minimumValue"];
-    [row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
+    (row.cellConfigAtConfigure)[@"slider.maximumValue"] = @(100);
+    (row.cellConfigAtConfigure)[@"slider.minimumValue"] = @(10);
+    (row.cellConfigAtConfigure)[@"steps"] = @(4);
     [section addFormRow:row];
     
     // Custom cell
@@ -106,7 +106,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     // Info cell
     XLFormRowDescriptor *infoRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kInfo rowType:XLFormRowDescriptorTypeInfo];
     infoRowDescriptor.title = @"Version";
-    infoRowDescriptor.value = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    infoRowDescriptor.value = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
     [section addFormRow:infoRowDescriptor];
     
     
@@ -116,16 +116,16 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     
     // Button
     XLFormRowDescriptor * buttonRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"];
-    [buttonRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
+    (buttonRow.cellConfig)[@"textLabel.textColor"] = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
     buttonRow.action.formSelector = @selector(didTouchButton:);
     [section addFormRow:buttonRow];
     
     
     // Left Button
     XLFormRowDescriptor * buttonLeftAlignedRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonLeftAligned rowType:XLFormRowDescriptorTypeButton title:@"Button with Block"];
-    [buttonLeftAlignedRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
-    [buttonLeftAlignedRow.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
-    [buttonLeftAlignedRow.cellConfig setObject:@(UITableViewCellAccessoryDisclosureIndicator) forKey:@"accessoryType"];
+    (buttonLeftAlignedRow.cellConfig)[@"textLabel.textColor"] = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0];
+    (buttonLeftAlignedRow.cellConfig)[@"textLabel.textAlignment"] = @(NSTextAlignmentLeft);
+    (buttonLeftAlignedRow.cellConfig)[@"accessoryType"] = @(UITableViewCellAccessoryDisclosureIndicator);
     buttonLeftAlignedRow.action.formBlock = ^(XLFormRowDescriptor * sender){
         if ([[sender.sectionDescriptor.formDescriptor formRowWithTag:kSwitchBool].value boolValue]){
             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil) message:@"Button has checked the switch value..." delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];

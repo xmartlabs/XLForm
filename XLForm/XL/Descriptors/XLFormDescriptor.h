@@ -48,9 +48,9 @@ typedef NS_ENUM(NSInteger, XLFormErrorCode)
 
 @property (weak) id<XLFormDescriptorDelegate> delegate;
 
--(id)initWithTitle:(NSString *)title;
-+(id)formDescriptor;
-+(id)formDescriptorWithTitle:(NSString *)title;
+-(instancetype)initWithTitle:(NSString *)title;
++(instancetype)formDescriptor;
++(instancetype)formDescriptorWithTitle:(NSString *)title;
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection;
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSInteger, XLFormErrorCode)
 
 -(NSIndexPath *)indexPathOfFormRow:(XLFormRowDescriptor *)formRow;
 
--(NSDictionary *)formValues;
+@property (nonatomic, readonly, copy) NSDictionary *formValues;
 -(NSDictionary *)httpParameters:(XLFormViewController *)formViewController;
 
 -(NSArray *)localValidationErrors:(XLFormViewController *)formViewController;

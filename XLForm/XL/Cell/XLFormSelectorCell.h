@@ -26,6 +26,6 @@
 #import "XLFormBaseCell.h"
 #import <UIKit/UIKit.h>
 
-@interface XLFormSelectorCell : XLFormBaseCell
+@interface XLFormSelectorCell : XLFormBaseCell<XLFormRowDescriptorPopoverViewController> 
 
 @end
