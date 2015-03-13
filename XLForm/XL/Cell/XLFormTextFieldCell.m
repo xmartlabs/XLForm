@@ -154,17 +154,27 @@
 -(UILabel *)textLabel
 {
     if (_textLabel) return _textLabel;
-    _textLabel = [UILabel autolayoutView];
+    _textLabel = [self createTextLabel];
     [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     return _textLabel;
+}
+
+-(UILabel *)createTextLabel
+{
+    return [UILabel autolayoutView];
 }
 
 -(UITextField *)textField
 {
     if (_textField) return _textField;
-    _textField = [UITextField autolayoutView];
+    _textField = [self createTextField];
     [_textField setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     return _textField;
+}
+
+-(UITextField *)createTextField
+{
+    return [UITextField autolayoutView];
 }
 
 #pragma mark - LayoutConstraints
