@@ -38,6 +38,8 @@
 
 @implementation XLFormViewController
 
+@synthesize form = _form;
+
 -(id)initWithForm:(XLFormDescriptor *)form
 {
     return [self initWithForm:form style:UITableViewStyleGrouped];
@@ -617,6 +619,19 @@
             rowDescriptorViewController.rowDescriptor = rowDescriptor;
         }
     }
+}
+
+#pragma mark - properties
+
+-(void)setForm:(XLFormDescriptor *)form
+{
+    _form = form;
+    _form.delegate = self;
+}
+
+-(XLFormDescriptor *)form
+{
+    return _form;
 }
 
 @end
