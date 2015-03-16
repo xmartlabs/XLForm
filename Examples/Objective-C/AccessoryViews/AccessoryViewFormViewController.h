@@ -1,8 +1,8 @@
 //
-//  XLFormDatePickerCell.h
+//  AccessoryViewFormViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,13 +23,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLForm.h"
-#import "XLFormBaseCell.h"
+#import "XLFormViewController.h"
 
-#import <UIKit/UIKit.h>
-
-@interface XLFormDatePickerCell : XLFormBaseCell<XLFormInlineRowDescriptorCell>
-
-@property (nonatomic, readonly) UIDatePicker * datePicker;
+@interface AccessoryViewFormViewController : XLFormViewController
 
 @end

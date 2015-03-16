@@ -76,14 +76,6 @@
 */
 
 /*
--(BOOL)formDescriptorCellResignFirstResponder
-{
-    // custom code
-    return YES;
-}
-*/
-
-/*
 -(NSError *)formDescriptorCellLocalValidation
 {
     // custom error handler

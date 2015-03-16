@@ -32,6 +32,7 @@
 #import "NativeEventFormViewController.h"
 #import "UICustomizationFormViewController.h"
 #import "CustomRowsViewController.h"
+#import "AccessoryViewFormViewController.h"
 
 NSString * const kTextFieldAndTextView = @"TextFieldAndTextView";
 NSString * const kSelectors = @"Selectors";
@@ -132,6 +133,13 @@ NSString * const kValidations= @"Validations";
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivalued rowType:XLFormRowDescriptorTypeButton title:@"Custom Rows"];
     row.action.viewControllerClass = [CustomRowsViewController class];
+    [section addFormRow:row];
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Accessory View"];
+    [form addFormSection:section];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivalued rowType:XLFormRowDescriptorTypeButton title:@"Accessory Views"];
+    row.action.viewControllerClass = [AccessoryViewFormViewController class];
     [section addFormRow:row];
 
     
