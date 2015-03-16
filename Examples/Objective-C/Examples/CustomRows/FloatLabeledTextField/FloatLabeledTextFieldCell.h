@@ -1,4 +1,4 @@
-//  XLRatingView.h
+//  FloatLabeledTextFieldCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -22,8 +22,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "AXRatingView.h"
+#import "XLFormBaseCell.h"
 
-@interface XLRatingView : AXRatingView
+extern NSString * const XLFormRowDescriptorTypeFloatLabeledTextField;
+
+@interface FloatLabeledTextFieldCell : XLFormBaseCell
 
 @end

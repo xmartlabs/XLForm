@@ -26,6 +26,12 @@
 #import "XLForm.h"
 #import "XLFormWeekDaysCell.h"
 #import "XLFormRatingCell.h"
+#import "FloatLabeledTextFieldCell.h"
+
+static NSString * const kCustomRowFirstRatingTag = @"CustomRowFirstRatingTag";
+static NSString * const kCustomRowSecondRatingTag = @"CustomRowSecondRatingTag";
+static NSString * const kCustomRowFloatLabeledTextFieldTag = @"CustomRowFloatLabeledTextFieldTag";
+static NSString * const kCustomRowWeekdays = @"CustomRowWeekdays";
 
 @implementation CustomRowsViewController
 
@@ -44,25 +50,31 @@
     XLFormSectionDescriptor * section;
     XLFormRowDescriptor * row;
     
-    // Section
+    // Section Ratings
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Ratings"];
     [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Rate1" rowType:XLFormRowDescriptorTypeRate title:@"First Rating"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowFirstRatingTag rowType:XLFormRowDescriptorTypeRate title:@"First Rating"];
     row.value = @(3);
     [section addFormRow:row];
     
-    // Rate
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Rate2" rowType:XLFormRowDescriptorTypeRate title:@"Second Rating"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowSecondRatingTag rowType:XLFormRowDescriptorTypeRate title:@"Second Rating"];
     row.value = @(1);
     [section addFormRow:row];
     
-    // Section
+    // Section Float Labeled Text Field
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Float Labeled Text Field"];
+    [form addFormSection:section];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowFloatLabeledTextFieldTag rowType:XLFormRowDescriptorTypeFloatLabeledTextField title:@"Title"];
+    [section addFormRow:row];
+    
+    // Section Weekdays
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Weekdays"];
     [form addFormSection:section];
     
     // WeekDays
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"WeekDays" rowType:XLFormRowDescriptorTypeWeekDays];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowWeekdays rowType:XLFormRowDescriptorTypeWeekDays];
     row.value =  @{
                    kSunday: @(NO),
                    kMonday: @(YES),
