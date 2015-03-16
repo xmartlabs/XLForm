@@ -29,7 +29,7 @@
 
 @interface CoreDataStore : NSObject
 
-+(CoreDataStore*)defaultStore;
++(instancetype)defaultStore;
 
 + (NSManagedObjectContext *)mainQueueContext;
 + (NSManagedObjectContext *)privateQueueContext;

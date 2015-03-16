@@ -68,7 +68,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property NSString *requireMsg;
 -(void)addValidator:(id<XLFormValidatorProtocol>)validator;
 -(void)removeValidator:(id<XLFormValidatorProtocol>)validator;
-@property (nonatomic, readonly, strong) XLFormValidationStatus *doValidation;
+-(XLFormValidationStatus *)doValidation;
 
 // ===========================
 // property used for Selectors

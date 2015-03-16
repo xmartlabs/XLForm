@@ -32,6 +32,7 @@
 @interface XLFormSelectorCell() <UIActionSheetDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIPopoverControllerDelegate>
 
 @property (nonatomic) UIPickerView * pickerView;
+@property (nonatomic) UIPopoverController *popoverController;
 
 @end
 
