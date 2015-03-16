@@ -20,12 +20,16 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AXRatingView (1.0.3)
+  - JVFloatLabeledTextField (1.0.2)
   - XLDataLoader (1.1.0):
     - AFNetworking (~> 2.0)
   - XLForm (2.1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - AXRatingView (~> 1.0.3)
+  - JVFloatLabeledTextField (~> 1.0.2)
   - XLDataLoader (~> 1.1)
   - XLForm (from `../../`)
 
@@ -35,6 +39,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
+  AXRatingView: 4f6d6c96f6d0efc1deaa6cf493dbb1ffcfa79e55
+  JVFloatLabeledTextField: c1ad6b4b5bd77115cfe6c71ba4c023866df5c4cf
   XLDataLoader: bd783ebe782932a6390ffc7619fcd884c8600944
   XLForm: c87bc94f769f52ce32793282d72d2fb15d0d5638
 

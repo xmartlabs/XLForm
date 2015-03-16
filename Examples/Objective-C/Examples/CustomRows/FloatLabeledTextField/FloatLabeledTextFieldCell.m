@@ -27,6 +27,8 @@
 #import "JVFloatLabeledTextField.h"
 #import "NSObject+XLFormAdditions.h"
 
+#import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
+
 NSString * const XLFormRowDescriptorTypeFloatLabeledTextField = @"XLFormRowDescriptorTypeFloatLabeledTextField";
 
 const static CGFloat kHMargin = 15.0f;

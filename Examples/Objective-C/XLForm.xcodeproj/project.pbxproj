@@ -46,10 +46,7 @@
 		3C3B01D61AB741EF0027CD45 /* XLFormRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B01D41AB741EF0027CD45 /* XLFormRatingCell.xib */; };
 		3C3B01DA1AB7497D0027CD45 /* XLFormWeekDaysCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01D81AB7497D0027CD45 /* XLFormWeekDaysCell.m */; };
 		3C3B01DB1AB7497D0027CD45 /* XLFormWeekDaysCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B01D91AB7497D0027CD45 /* XLFormWeekDaysCell.xib */; };
-		3C3B01E11AB7499A0027CD45 /* AXRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01DF1AB7499A0027CD45 /* AXRatingView.m */; };
 		3C3B01E21AB7499A0027CD45 /* XLRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01E01AB7499A0027CD45 /* XLRatingView.m */; };
-		3C3B01EB1AB74B0F0027CD45 /* JVFloatLabeledTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01E81AB74B0F0027CD45 /* JVFloatLabeledTextField.m */; };
-		3C3B01ED1AB74B0F0027CD45 /* NSString+TextDirectionality.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01EA1AB74B0F0027CD45 /* NSString+TextDirectionality.m */; };
 		3C3B01F01AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01EF1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m */; };
 		3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
@@ -122,14 +119,8 @@
 		3C3B01D71AB7497D0027CD45 /* XLFormWeekDaysCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormWeekDaysCell.h; path = Examples/CustomRows/Weekdays/XLFormWeekDaysCell.h; sourceTree = "<group>"; };
 		3C3B01D81AB7497D0027CD45 /* XLFormWeekDaysCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormWeekDaysCell.m; path = Examples/CustomRows/Weekdays/XLFormWeekDaysCell.m; sourceTree = "<group>"; };
 		3C3B01D91AB7497D0027CD45 /* XLFormWeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XLFormWeekDaysCell.xib; path = Examples/CustomRows/Weekdays/XLFormWeekDaysCell.xib; sourceTree = "<group>"; };
-		3C3B01DD1AB7499A0027CD45 /* AXRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXRatingView.h; path = Examples/CustomRows/Rating/RatingView/AXRatingView.h; sourceTree = "<group>"; };
 		3C3B01DE1AB7499A0027CD45 /* XLRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLRatingView.h; path = Examples/CustomRows/Rating/RatingView/XLRatingView.h; sourceTree = "<group>"; };
-		3C3B01DF1AB7499A0027CD45 /* AXRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXRatingView.m; path = Examples/CustomRows/Rating/RatingView/AXRatingView.m; sourceTree = "<group>"; };
 		3C3B01E01AB7499A0027CD45 /* XLRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLRatingView.m; path = Examples/CustomRows/Rating/RatingView/XLRatingView.m; sourceTree = "<group>"; };
-		3C3B01E51AB74B0F0027CD45 /* JVFloatLabeledTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JVFloatLabeledTextField.h; path = Examples/CustomRows/FloatLabeledTextField/JVFloatLabeledTextField/JVFloatLabeledTextField.h; sourceTree = "<group>"; };
-		3C3B01E71AB74B0F0027CD45 /* NSString+TextDirectionality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+TextDirectionality.h"; path = "Examples/CustomRows/FloatLabeledTextField/JVFloatLabeledTextField/NSString+TextDirectionality.h"; sourceTree = "<group>"; };
-		3C3B01E81AB74B0F0027CD45 /* JVFloatLabeledTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JVFloatLabeledTextField.m; path = Examples/CustomRows/FloatLabeledTextField/JVFloatLabeledTextField/JVFloatLabeledTextField.m; sourceTree = "<group>"; };
-		3C3B01EA1AB74B0F0027CD45 /* NSString+TextDirectionality.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+TextDirectionality.m"; path = "Examples/CustomRows/FloatLabeledTextField/JVFloatLabeledTextField/NSString+TextDirectionality.m"; sourceTree = "<group>"; };
 		3C3B01EE1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FloatLabeledTextFieldCell.h; path = Examples/CustomRows/FloatLabeledTextField/FloatLabeledTextFieldCell.h; sourceTree = "<group>"; };
 		3C3B01EF1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FloatLabeledTextFieldCell.m; path = Examples/CustomRows/FloatLabeledTextField/FloatLabeledTextFieldCell.m; sourceTree = "<group>"; };
 		3CDAFC781AB0AFA4000F75B6 /* CustomRowsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomRowsViewController.h; path = Examples/CustomRows/CustomRowsViewController.h; sourceTree = "<group>"; };
@@ -455,9 +446,7 @@
 		3C3B01DC1AB7498B0027CD45 /* RatingView */ = {
 			isa = PBXGroup;
 			children = (
-				3C3B01DD1AB7499A0027CD45 /* AXRatingView.h */,
 				3C3B01DE1AB7499A0027CD45 /* XLRatingView.h */,
-				3C3B01DF1AB7499A0027CD45 /* AXRatingView.m */,
 				3C3B01E01AB7499A0027CD45 /* XLRatingView.m */,
 			);
 			name = RatingView;
@@ -466,22 +455,10 @@
 		3C3B01E31AB74AC10027CD45 /* FloatLabeledTextField */ = {
 			isa = PBXGroup;
 			children = (
-				3C3B01E41AB74AFE0027CD45 /* JVFloatLabeledTextField */,
 				3C3B01EE1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.h */,
 				3C3B01EF1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m */,
 			);
 			name = FloatLabeledTextField;
-			sourceTree = "<group>";
-		};
-		3C3B01E41AB74AFE0027CD45 /* JVFloatLabeledTextField */ = {
-			isa = PBXGroup;
-			children = (
-				3C3B01E51AB74B0F0027CD45 /* JVFloatLabeledTextField.h */,
-				3C3B01E71AB74B0F0027CD45 /* NSString+TextDirectionality.h */,
-				3C3B01E81AB74B0F0027CD45 /* JVFloatLabeledTextField.m */,
-				3C3B01EA1AB74B0F0027CD45 /* NSString+TextDirectionality.m */,
-			);
-			name = JVFloatLabeledTextField;
 			sourceTree = "<group>";
 		};
 		3CDAFC741AB0AEE5000F75B6 /* CustomRows */ = {
@@ -599,12 +576,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C3B01EB1AB74B0F0027CD45 /* JVFloatLabeledTextField.m in Sources */,
 				283B59B7195334AF000828CD /* CustomSelectorsFormViewController.m in Sources */,
 				28A766551932F22400D69546 /* UsersTableViewController.m in Sources */,
 				3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */,
 				28A7663B1932EA1F00D69546 /* UserLocalDataLoader.m in Sources */,
-				3C3B01ED1AB74B0F0027CD45 /* NSString+TextDirectionality.m in Sources */,
+				282EB27C1AB5FF33004A736F /* AccessoryViewFormViewController.m in Sources */,
 				2850C60818D0F706002B7D0A /* main.m in Sources */,
 				D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */,
 				28A7664D1932EE0B00D69546 /* User.m in Sources */,
@@ -622,7 +598,6 @@
 				2843EB5618D4F7B700F13E2B /* DatesFormViewController.m in Sources */,
 				283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */,
 				3C3B01E21AB7499A0027CD45 /* XLRatingView.m in Sources */,
-				3C3B01E11AB7499A0027CD45 /* AXRatingView.m in Sources */,
 				28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */,
 				283B59B219532415000828CD /* MapViewController.m in Sources */,
 				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,
