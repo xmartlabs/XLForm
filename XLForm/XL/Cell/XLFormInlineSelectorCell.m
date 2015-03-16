@@ -71,13 +71,14 @@
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
--(BOOL)formDescriptorCellBecomeFirstResponder
+-(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
-    return YES;
+    return (!self.rowDescriptor.disabled);
 }
 
--(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
+-(BOOL)formDescriptorCellBecomeFirstResponder
 {
+
     if ([self isFirstResponder]){
         [self resignFirstResponder];
     }
@@ -92,6 +93,11 @@
         inlineCell.inlineRowDescriptor = self.rowDescriptor;
         [self.rowDescriptor.sectionDescriptor addFormRow:inlineRowDescriptor afterRow:self.rowDescriptor];
     }
+    return YES;
+}
+
+-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
+{
     [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
 }
 

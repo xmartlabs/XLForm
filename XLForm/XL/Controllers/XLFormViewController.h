@@ -28,12 +28,18 @@
 #import "XLFormDescriptor.h"
 #import "XLFormSectionDescriptor.h"
 #import "XLFormDescriptorDelegate.h"
+#import "XLFormRowNavigationAccessoryView.h"
 
 
 @class XLFormViewController;
 @class XLFormRowDescriptor;
 @class XLFormSectionDescriptor;
 @class XLFormDescriptor;
+
+typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
+    XLFormRowNavigationDirectionPrevious = 0,
+    XLFormRowNavigationDirectionNext
+};
 
 @protocol XLFormViewControllerDelegate <NSObject>
 
@@ -56,6 +62,10 @@
 -(UITableViewRowAnimation)deleteRowAnimationForRow:(XLFormRowDescriptor *)formRow;
 -(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
 -(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
+
+// InputAccessoryView
+-(UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
+-(XLFormRowDescriptor *)nextRowDescriptorForRow:(XLFormRowDescriptor*)currentRow withDirection:(XLFormRowNavigationDirection)direction;
 
 @end
 
