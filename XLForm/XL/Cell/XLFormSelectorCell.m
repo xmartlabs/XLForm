@@ -98,6 +98,16 @@
     return [super inputView];
 }
 
+-(BOOL)formDescriptorCellCanBecomeFirstResponder
+{
+    return ((!self.rowDescriptor.disabled) && ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]));
+}
+
+-(BOOL)formDescriptorCellBecomeFirstResponder
+{
+    return  [self becomeFirstResponder];
+}
+
 - (BOOL)canBecomeFirstResponder
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){

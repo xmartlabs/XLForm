@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		281E5BE919538F4A006D93C5 /* CLLocationValueTrasformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 281E5BE819538F4A006D93C5 /* CLLocationValueTrasformer.m */; };
+		282EB27C1AB5FF33004A736F /* AccessoryViewFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282EB27B1AB5FF33004A736F /* AccessoryViewFormViewController.m */; };
 		283B59B219532415000828CD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59B119532415000828CD /* MapViewController.m */; };
 		283B59B7195334AF000828CD /* CustomSelectorsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59B6195334AF000828CD /* CustomSelectorsFormViewController.m */; };
 		283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283C6B7C1999BAF100A5283D /* UICustomizationFormViewController.m */; };
@@ -57,6 +58,8 @@
 /* Begin PBXFileReference section */
 		281E5BE719538F4A006D93C5 /* CLLocationValueTrasformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLLocationValueTrasformer.h; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/CLLocationValueTrasformer.h; sourceTree = "<group>"; };
 		281E5BE819538F4A006D93C5 /* CLLocationValueTrasformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLLocationValueTrasformer.m; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/CLLocationValueTrasformer.m; sourceTree = "<group>"; };
+		282EB27A1AB5FF33004A736F /* AccessoryViewFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccessoryViewFormViewController.h; path = AccessoryViews/AccessoryViewFormViewController.h; sourceTree = "<group>"; };
+		282EB27B1AB5FF33004A736F /* AccessoryViewFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccessoryViewFormViewController.m; path = AccessoryViews/AccessoryViewFormViewController.m; sourceTree = "<group>"; };
 		283B59B019532415000828CD /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.h; sourceTree = "<group>"; };
 		283B59B119532415000828CD /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.m; sourceTree = "<group>"; };
 		283B59B5195334AF000828CD /* CustomSelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomSelectorsFormViewController.h; path = Examples/Selectors/CustomSelectors/CustomSelectorsFormViewController.h; sourceTree = "<group>"; };
@@ -170,6 +173,15 @@
 				28468EA318EF41D300DBB015 /* InputsFormViewController.m */,
 			);
 			name = Inputs;
+			sourceTree = "<group>";
+		};
+		282EB2791AB5FD66004A736F /* AccessoryViews */ = {
+			isa = PBXGroup;
+			children = (
+				282EB27A1AB5FF33004A736F /* AccessoryViewFormViewController.h */,
+				282EB27B1AB5FF33004A736F /* AccessoryViewFormViewController.m */,
+			);
+			name = AccessoryViews;
 			sourceTree = "<group>";
 		};
 		283B59AF19531DDA000828CD /* CustomSelectors */ = {
@@ -307,6 +319,7 @@
 		2850C62B18D0F92F002B7D0A /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				282EB2791AB5FD66004A736F /* AccessoryViews */,
 				3CDAFC741AB0AEE5000F75B6 /* CustomRows */,
 				28F89F2B1AA4E99500E90218 /* Validations */,
 				283C6B7A1999BA1B00A5283D /* UICustomization */,
