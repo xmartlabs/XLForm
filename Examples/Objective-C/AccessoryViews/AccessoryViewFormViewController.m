@@ -78,12 +78,12 @@ NSString * kAccessoryViewNotes = @"notes";
     
     // RowNavigationEnabled
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationEnabled rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Row Navigation Enabled?"];
-    row.value = @(formDescriptor.rowNavigationOptions != XLFormRowNavigationOptionNone);
+    row.value = @YES;
     [section addFormRow:row];
     
     // RowNavigationShowAccessoryView
     _rowShowAccessoryView = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationShowAccessoryView rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Show input accessory view?"];
-    _rowShowAccessoryView.value = @(formDescriptor.rowNavigationOptions != XLFormRowNavigationOptionNone);
+    _rowShowAccessoryView.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionEnabled) == XLFormRowNavigationOptionEnabled);
     [section addFormRow:_rowShowAccessoryView];
     
     // RowNavigationStopDisableRow
@@ -185,7 +185,7 @@ NSString * kAccessoryViewNotes = @"notes";
             self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptionStopDisableRow;
         }
         else{
-            self.form.rowNavigationOptions = self.form.rowNavigationOptions & (!XLFormRowNavigationOptionStopDisableRow);
+            self.form.rowNavigationOptions = self.form.rowNavigationOptions & (~XLFormRowNavigationOptionStopDisableRow);
         }
     }
     else if ([rowDescriptor.tag isEqualToString:kAccessoryViewRowNavigationStopInlineRow]){
@@ -193,7 +193,7 @@ NSString * kAccessoryViewNotes = @"notes";
             self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptionStopInlineRow;
         }
         else{
-            self.form.rowNavigationOptions = self.form.rowNavigationOptions & (!XLFormRowNavigationOptionStopInlineRow);
+            self.form.rowNavigationOptions = self.form.rowNavigationOptions & (~XLFormRowNavigationOptionStopInlineRow);
         }
     }
     else if ([rowDescriptor.tag isEqualToString:kAccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow]){
@@ -201,7 +201,7 @@ NSString * kAccessoryViewNotes = @"notes";
             self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow;
         }
         else{
-            self.form.rowNavigationOptions = self.form.rowNavigationOptions & (!XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow);
+            self.form.rowNavigationOptions = self.form.rowNavigationOptions & (~XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow);
         }
     }
 }
