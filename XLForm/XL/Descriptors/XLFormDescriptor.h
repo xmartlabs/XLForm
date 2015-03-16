@@ -45,7 +45,6 @@ typedef NS_ENUM(NSInteger, XLFormErrorCode)
 @property (readonly) NSString * title;
 @property (nonatomic) BOOL assignFirstResponderOnShow;
 @property (nonatomic) BOOL addAsteriskToRequiredRowsTitle;
-@property (nonatomic) BOOL enableRowModifyNotification;
 
 @property (weak) id<XLFormDescriptorDelegate> delegate;
 
@@ -64,6 +63,8 @@ typedef NS_ENUM(NSInteger, XLFormErrorCode)
 -(void)removeFormSection:(XLFormSectionDescriptor *)formSection;
 -(void)removeFormRow:(XLFormRowDescriptor *)formRow;
 -(void)removeFormRowWithTag:(NSString *)tag;
+
+-(void)viewHasMovedRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath;
 
 
 -(XLFormRowDescriptor *)formRowWithTag:(NSString *)tag;

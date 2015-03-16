@@ -34,6 +34,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @property NSMutableArray * formSections;
 @property NSString * title;
+@property BOOL enableRowModifyNotification;
 
 @end
 
@@ -178,6 +179,23 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     XLFormRowDescriptor * formRow = [self formRowWithTag:tag];
     [self removeFormRow:formRow];
+}
+
+-(void)viewHasMovedRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    _enableRowModifyNotification = NO;
+    if (sourceIndexPath.section == destinationIndexPath.section){
+        [[self.formSections objectAtIndex:sourceIndexPath.section] moveFormRowAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+    } else {
+        XLFormRowDescriptor * formRow = [self formRowAtIndex:sourceIndexPath];
+        [self removeFormRow:formRow];
+        XLFormRowDescriptor * beforeRow = [self formRowAtIndex:destinationIndexPath];
+        if (!beforeRow) {
+            [[self.formSections objectAtIndex:destinationIndexPath.section] addFormRow:formRow];
+        } else {
+            [[self.formSections objectAtIndex:destinationIndexPath.section] addFormRow:formRow beforeRow:beforeRow];
+        }
+    }
+    _enableRowModifyNotification = YES;
 }
 
 -(XLFormRowDescriptor *)formRowAtIndex:(NSIndexPath *)indexPath

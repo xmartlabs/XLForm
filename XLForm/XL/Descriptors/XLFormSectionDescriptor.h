@@ -48,6 +48,7 @@
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow;
 -(void)removeFormRowAtIndex:(NSUInteger)index;
 -(void)removeFormRow:(XLFormRowDescriptor *)formRow;
+-(void)moveFormRowAtIndex:(NSUInteger)sourceIndex toIndex:(NSUInteger)destinationIndex;
 
 -(XLFormRowDescriptor *)newMultivaluedFormRowDescriptor;
 
