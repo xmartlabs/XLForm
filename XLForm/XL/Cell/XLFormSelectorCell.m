@@ -38,6 +38,9 @@
 
 
 @implementation XLFormSelectorCell
+{
+    UIColor * _beforeChangeColor;
+}
 
 
 -(NSString *)valueDisplayText
@@ -257,11 +260,22 @@
         [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
-        [self becomeFirstResponder];
         [controller.tableView selectRowAtIndexPath:nil animated:YES scrollPosition:UITableViewScrollPositionNone];
     }
 }
 
+-(void)highlight
+{
+    [super highlight];
+    _beforeChangeColor = self.detailTextLabel.textColor;
+    self.detailTextLabel.textColor = self.formViewController.view.tintColor;
+}
+
+-(void)unhighlight
+{
+    [super unhighlight];
+    self.detailTextLabel.textColor = _beforeChangeColor;
+}
 
 #pragma mark - UIActionSheetDelegate
 

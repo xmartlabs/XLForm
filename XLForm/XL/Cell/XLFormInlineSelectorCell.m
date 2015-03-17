@@ -28,20 +28,35 @@
 
 @interface XLFormInlineSelectorCell()
 
-@property UIColor * beforeBecameFirstResponderColor;
-
 @end
 
 @implementation XLFormInlineSelectorCell
+{
+    UIColor * _beforeChangeColor;
+}
 
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
 }
 
+-(BOOL)becomeFirstResponder
+{
+    _beforeChangeColor = self.detailTextLabel.textColor;
+    BOOL result = [super becomeFirstResponder];
+    if (result){
+        XLFormRowDescriptor * inlineRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes][self.rowDescriptor.rowType]];
+        UITableViewCell<XLFormDescriptorCell> * cell = [inlineRowDescriptor cellForFormController:self.formViewController];
+        NSAssert([cell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)], @"inline cell must conform to XLFormInlineRowDescriptorCell");
+        UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)cell;
+        inlineCell.inlineRowDescriptor = self.rowDescriptor;
+        [self.rowDescriptor.sectionDescriptor addFormRow:inlineRowDescriptor afterRow:self.rowDescriptor];
+    }
+    return result;
+}
+
 -(BOOL)resignFirstResponder
 {
-    self.detailTextLabel.textColor = self.beforeBecameFirstResponderColor;
     NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
     NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
     XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
@@ -81,19 +96,9 @@
 
     if ([self isFirstResponder]){
         [self resignFirstResponder];
+        return NO;
     }
-    else{
-        [self becomeFirstResponder];
-        self.beforeBecameFirstResponderColor = self.detailTextLabel.textColor;
-        self.detailTextLabel.textColor = self.formViewController.view.tintColor;
-        XLFormRowDescriptor * inlineRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes][self.rowDescriptor.rowType]];
-        UITableViewCell<XLFormDescriptorCell> * cell = [inlineRowDescriptor cellForFormController:self.formViewController];
-        NSAssert([cell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)], @"inline cell must conform to XLFormInlineRowDescriptorCell");
-        UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)cell;
-        inlineCell.inlineRowDescriptor = self.rowDescriptor;
-        [self.rowDescriptor.sectionDescriptor addFormRow:inlineRowDescriptor afterRow:self.rowDescriptor];
-    }
-    return YES;
+    return [self becomeFirstResponder];
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
@@ -101,6 +106,17 @@
     [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
 }
 
+-(void)highlight
+{
+    [super highlight];
+    self.detailTextLabel.textColor = self.formViewController.view.tintColor;
+}
+
+-(void)unhighlight
+{
+    [super unhighlight];
+    self.detailTextLabel.textColor = _beforeChangeColor;
+}
 
 #pragma mark - Helpers
 
