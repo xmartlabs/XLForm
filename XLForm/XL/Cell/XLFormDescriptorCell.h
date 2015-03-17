@@ -46,4 +46,8 @@
 -(NSString *)formDescriptorHttpParameterName;
 
 
+-(void)highlight;
+-(void)unhighlight;
+
+
 @end

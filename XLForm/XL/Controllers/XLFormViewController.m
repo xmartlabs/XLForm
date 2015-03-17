@@ -327,6 +327,16 @@
     return self.navigationAccessoryView;
 }
 
+-(void)beginEditing:(XLFormRowDescriptor *)rowDescriptor
+{
+    [[rowDescriptor cellForFormController:self] highlight];
+}
+
+-(void)endEditing:(XLFormRowDescriptor *)rowDescriptor
+{
+    [[rowDescriptor cellForFormController:self] unhighlight];
+}
+
 #pragma mark - Methods
 
 -(NSArray *)formValidationErrors
@@ -521,12 +531,9 @@
     if (row.disabled) {
         return;
     }
-    else
-    {
-        UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[row cellForFormController:self];
-        if (!([cell formDescriptorCellCanBecomeFirstResponder] && [cell formDescriptorCellBecomeFirstResponder])){
-            [self.tableView endEditing:YES];
-        }
+    UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[row cellForFormController:self];
+    if (!([cell formDescriptorCellCanBecomeFirstResponder] && [cell formDescriptorCellBecomeFirstResponder])){
+        [self.tableView endEditing:YES];
     }
     [self didSelectFormRow:row];
 }
@@ -538,7 +545,6 @@
     }
     return UITableViewCellEditingStyleDelete;
 }
-
 
 #pragma mark - UITextFieldDelegate
 
@@ -596,6 +602,10 @@
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     return YES;
+}
+
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView
@@ -725,6 +735,7 @@
     _navigationAccessoryView.nextButton.action = @selector(rowNavigationAction:);
     _navigationAccessoryView.doneButton.target = self;
     _navigationAccessoryView.doneButton.action = @selector(rowNavigationDone:);
+    _navigationAccessoryView.tintColor = self.view.tintColor;
     return _navigationAccessoryView;
 }
 

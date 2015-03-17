@@ -131,6 +131,18 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     return [self.textView becomeFirstResponder];
 }
 
+-(void)highlight
+{
+    [super highlight];
+    self.label.textColor = self.formViewController.view.tintColor;
+}
+
+-(void)unhighlight
+{
+    [super unhighlight];
+    [self update];
+}
+
 #pragma mark - Constraints
 
 -(void)updateConstraints
@@ -152,6 +164,12 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 
 #pragma mark - UITextViewDelegate
 
+-(void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self.formViewController beginEditing:self.rowDescriptor];
+    return [self.formViewController textViewDidBeginEditing:textView];
+}
+
 -(void)textViewDidEndEditing:(UITextView *)textView
 {
     if([self.textView.text length] > 0) {
@@ -159,6 +177,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     } else {
         self.rowDescriptor.value = nil;
     }
+    [self.formViewController endEditing:self.rowDescriptor];
     [self.formViewController textViewDidEndEditing:textView];
 }
 
