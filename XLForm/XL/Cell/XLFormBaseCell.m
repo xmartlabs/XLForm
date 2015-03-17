@@ -64,6 +64,14 @@
     // override
 }
 
+-(void)highlight
+{
+}
+
+-(void)unhighlight
+{
+}
+
 -(XLFormViewController *)formViewController
 {
     id responder = self;
@@ -90,6 +98,26 @@
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
     return NO;
+}
+
+#pragma mark -
+
+-(BOOL)becomeFirstResponder
+{
+    BOOL result = [super becomeFirstResponder];
+    if (result){
+        [self.formViewController beginEditing:self.rowDescriptor];
+    }
+    return result;
+}
+
+-(BOOL)resignFirstResponder
+{
+    BOOL result = [super resignFirstResponder];
+    if (result){
+        [self.formViewController endEditing:self.rowDescriptor];
+    }
+    return result;
 }
 
 @end
