@@ -37,11 +37,20 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 
 @implementation XLFormTextViewCell
 {
-    NSArray * _dynamicCustomConstraints;
+    NSMutableArray * _dynamicCustomConstraints;
 }
 
 @synthesize label = _label;
 @synthesize textView = _textView;
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        _dynamicCustomConstraints = [NSMutableArray array];
+    }
+    return self;
+}
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -89,6 +98,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[label]" options:0 metrics:0 views:views]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[textView]-0-|" options:0 metrics:0 views:views]];
 }
 
 -(void)update
@@ -111,14 +121,14 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     return 110.f;
 }
 
+-(BOOL)formDescriptorCellCanBecomeFirstResponder
+{
+    return (!self.rowDescriptor.disabled);
+}
+
 -(BOOL)formDescriptorCellBecomeFirstResponder
 {
     return [self.textView becomeFirstResponder];
-}
-
--(BOOL)formDescriptorCellResignFirstResponder
-{
-    return [self.textView resignFirstResponder];
 }
 
 #pragma mark - Constraints
@@ -127,13 +137,14 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 {
     if (_dynamicCustomConstraints){
         [self.contentView removeConstraints:_dynamicCustomConstraints];
+        [_dynamicCustomConstraints removeAllObjects];
     }
     NSDictionary * views = @{@"label": self.label, @"textView": self.textView};
     if (!self.label.text || [self.label.text isEqualToString:@""]){
-        _dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textView]-16-|" options:0 metrics:0 views:views];
+        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textView]-16-|" options:0 metrics:0 views:views]];
     }
     else{
-        _dynamicCustomConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textView]-4-|" options:0 metrics:0 views:views];
+        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textView]-4-|" options:0 metrics:0 views:views]];
     }
     [self.contentView addConstraints:_dynamicCustomConstraints];
     [super updateConstraints];
@@ -141,13 +152,19 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 
 #pragma mark - UITextViewDelegate
 
--(void)textViewDidEndEditing:(UITextView *)textView{
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
     if([self.textView.text length] > 0) {
         self.rowDescriptor.value = self.textView.text;
     } else {
         self.rowDescriptor.value = nil;
     }
     [self.formViewController textViewDidEndEditing:textView];
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
+{
+    return [self.formViewController textViewShouldBeginEditing:textView];
 }
 
 -(void)textViewDidChange:(UITextView *)textView{

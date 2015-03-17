@@ -1,7 +1,8 @@
-//  XLRatingView.h
+//
+//  AccessoryViewFormViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,8 +23,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "AXRatingView.h"
+#import "XLFormViewController.h"
 
-@interface XLRatingView : AXRatingView
+@interface AccessoryViewFormViewController : XLFormViewController
 
 @end

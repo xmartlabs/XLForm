@@ -1,5 +1,5 @@
 //
-//  XLFormDatePickerCell.h
+//  XLFormRowNavigationAccessoryView.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,13 +23,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLForm.h"
-#import "XLFormBaseCell.h"
-
 #import <UIKit/UIKit.h>
 
-@interface XLFormDatePickerCell : XLFormBaseCell<XLFormInlineRowDescriptorCell>
+@interface XLFormRowNavigationAccessoryView : UIToolbar
 
-@property (nonatomic, readonly) UIDatePicker * datePicker;
+@property (nonatomic) UIBarButtonItem *previousButton;
+@property (nonatomic) UIBarButtonItem *nextButton;
+@property (nonatomic) UIBarButtonItem *doneButton;
 
 @end

@@ -1,5 +1,4 @@
-//
-//  XLFormDatePickerCell.h
+//  FloatLabeledTextFieldCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
@@ -23,13 +22,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLForm.h"
 #import "XLFormBaseCell.h"
 
-#import <UIKit/UIKit.h>
+extern NSString * const XLFormRowDescriptorTypeFloatLabeledTextField;
 
-@interface XLFormDatePickerCell : XLFormBaseCell<XLFormInlineRowDescriptorCell>
-
-@property (nonatomic, readonly) UIDatePicker * datePicker;
+@interface FloatLabeledTextFieldCell : XLFormBaseCell
 
 @end
