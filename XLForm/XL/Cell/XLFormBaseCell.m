@@ -62,6 +62,7 @@
 - (void)update
 {
     // override
+    [self setUserInteractionEnabled:!self.rowDescriptor.disabled];
 }
 
 -(XLFormViewController *)formViewController

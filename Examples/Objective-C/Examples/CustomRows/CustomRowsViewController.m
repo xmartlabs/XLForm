@@ -69,6 +69,12 @@ static NSString * const kCustomRowWeekdays = @"CustomRowWeekdays";
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowFloatLabeledTextFieldTag rowType:XLFormRowDescriptorTypeFloatLabeledTextField title:@"Title"];
     [section addFormRow:row];
     
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowFloatLabeledTextFieldTag rowType:XLFormRowDescriptorTypeFloatLabeledTextField title:@"First Name"];
+    [section addFormRow:row];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowFloatLabeledTextFieldTag rowType:XLFormRowDescriptorTypeFloatLabeledTextField title:@"Last Name"];
+    [section addFormRow:row];
+    
     // Section Weekdays
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Weekdays"];
     [form addFormSection:section];

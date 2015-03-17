@@ -37,6 +37,7 @@
 @implementation XLFormRowDescriptor
 
 @synthesize action = _action;
+@synthesize disabled = _disabled;
 
 -(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
@@ -124,6 +125,16 @@
 -(void)setAction:(XLFormAction *)action
 {
     _action = action;
+}
+
+-(BOOL)isDisabled
+{
+    return _disabled || self.sectionDescriptor.formDescriptor.isDisabled;
+}
+
+-(void)setDisabled:(BOOL)disabled
+{
+    _disabled = disabled;
 }
 
 // In the implementation

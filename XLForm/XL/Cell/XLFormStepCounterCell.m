@@ -83,6 +83,7 @@
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
     self.stepControl.enabled = !self.rowDescriptor.disabled;
     [self stepControl].tintColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;
+    [self currentStepValue].textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;
     self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
 
     [self valueChanged:nil];
