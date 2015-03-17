@@ -31,7 +31,7 @@
 @interface XLFormSegmentedCell()
 
 @property NSMutableArray * dynamicCustomConstraints;
-
+@property (strong,nonatomic) UIColor *defaultTintColor;
 @end
 
 @implementation XLFormSegmentedCell
@@ -58,6 +58,8 @@
     [self updateSegmentedControl];
     self.segmentedControl.selectedSegmentIndex = [self selectedIndex];
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    [self.segmentedControl setTintColor:self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor];
+    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
 }
 
 #pragma mark - KVO
@@ -79,6 +81,7 @@
     
     _segmentedControl = [UISegmentedControl autolayoutView];
     [_segmentedControl setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
+    self.defaultTintColor = _segmentedControl.tintColor;
     return _segmentedControl;
 }
 

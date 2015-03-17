@@ -52,8 +52,8 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @property (nonatomic) NSMutableDictionary *cellConfig;
 @property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
-@property BOOL disabled;
-@property BOOL required;
+@property (getter=isDisabled) BOOL disabled;
+@property (getter=isRequired) BOOL required;
 
 @property XLFormAction * action;
 

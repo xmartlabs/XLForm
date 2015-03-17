@@ -47,6 +47,9 @@ NSString * const XLFormRowDescriptorTypeRate = @"XLFormRowDescriptorTypeRate";
     
     self.ratingView.value = [self.rowDescriptor.value floatValue];
     self.rateTitle.text = self.rowDescriptor.title;
+    
+    [self.ratingView setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.rateTitle setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
 }
 
 #pragma mark - Events

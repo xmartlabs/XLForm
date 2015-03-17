@@ -463,7 +463,8 @@
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.form formSectionAtIndex:indexPath.section].isMultivaluedSection;
+    XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
+    return  !rowDescriptor.isDisabled && [self.form formSectionAtIndex:indexPath.section].isMultivaluedSection;
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath

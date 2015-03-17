@@ -172,4 +172,25 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     [self deselectFormRow:sender];
 }
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStyleBordered
+                                                target:self
+                                                action:@selector(disableEnable:)];
+    barButton.possibleTitles = [NSSet setWithObjects:@"Disable", @"Enable", nil];
+    
+    self.navigationItem.rightBarButtonItem = barButton;
+}
+
+-(IBAction)disableEnable:(UIBarButtonItem *)button
+{
+    self.form.disabled = !self.form.disabled;
+    [button setTitle:(self.form.disabled ? @"Enable" : @"Disable")];
+    [self.tableView endEditing:YES];
+    [self.tableView reloadData];
+}
+
+
 @end
