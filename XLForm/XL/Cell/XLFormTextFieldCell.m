@@ -158,7 +158,7 @@
 -(void)unhighlight
 {
     [super unhighlight];
-    [self update];
+    [self.formViewController reloadFormRow:self.rowDescriptor];
 }
 
 #pragma mark - Properties
