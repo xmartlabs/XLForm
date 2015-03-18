@@ -73,6 +73,8 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
 -(void)removeFormRow:(XLFormRowDescriptor *)formRow;
 -(void)removeFormRowWithTag:(NSString *)tag;
 
+-(void)viewHasMovedRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath;
+
 
 -(XLFormRowDescriptor *)formRowWithTag:(NSString *)tag;
 -(XLFormRowDescriptor *)formRowAtIndex:(NSIndexPath *)indexPath;

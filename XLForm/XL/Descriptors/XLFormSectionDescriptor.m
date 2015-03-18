@@ -121,6 +121,12 @@
     };
 }
 
+-(void)moveFormRowAtIndex:(NSUInteger)sourceIndex toIndex:(NSUInteger)destinationIndex{
+    XLFormRowDescriptor * formRow = [self.formRows objectAtIndex:sourceIndex];
+    [self removeFormRowAtIndex:sourceIndex];
+    [self insertObject:formRow inFormRowsAtIndex:destinationIndex];
+}
+
 -(void)dealloc
 {
     for (XLFormRowDescriptor * formRow in self.formRows) {
