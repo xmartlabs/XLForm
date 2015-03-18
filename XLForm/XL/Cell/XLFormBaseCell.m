@@ -120,4 +120,28 @@
     return result;
 }
 
+#pragma mark -
+
+-(void)setAccessoryType:(UITableViewCellAccessoryType)accessoryType
+{
+    [super setAccessoryType:accessoryType];
+    [super setEditingAccessoryType:accessoryType];
+}
+
+-(void)setAccessoryView:(UIView *)accessoryView
+{
+    [super setAccessoryView:accessoryView];
+    [super setEditingAccessoryView:accessoryView];
+}
+
+-(void)setEditingAccessoryType:(UITableViewCellAccessoryType)editingAccessoryType
+{
+    [self setAccessoryType:editingAccessoryType];
+}
+
+-(void)setEditingAccessoryView:(UIView *)editingAccessoryView
+{
+    [self setAccessoryView:editingAccessoryView];
+}
+
 @end
