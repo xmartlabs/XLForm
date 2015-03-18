@@ -158,7 +158,7 @@
 -(void)unhighlight
 {
     [super unhighlight];
-    [self update];
+    [self.formViewController reloadFormRow:self.rowDescriptor];
 }
 
 #pragma mark - Properties
@@ -253,8 +253,8 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [self.formViewController endEditing:self.rowDescriptor];
     [self textFieldDidChange:textField];
+    [self.formViewController endEditing:self.rowDescriptor];
     [self.formViewController textFieldDidEndEditing:textField];
 }
 

@@ -97,7 +97,7 @@
         self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     if (!self.tableView.superview){
-        [self.view addSubview:self.tableView];;
+        [self.view addSubview:self.tableView];
     }
     if (!self.tableView.delegate){
         self.tableView.delegate = self;
