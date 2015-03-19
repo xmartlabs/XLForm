@@ -38,6 +38,7 @@ NSString *const XLFormRowDescriptorTypeAccount = @"account";
 NSString *const XLFormRowDescriptorTypeInteger = @"integer";
 NSString *const XLFormRowDescriptorTypeDecimal = @"decimal";
 NSString *const XLFormRowDescriptorTypeTextView = @"textView";
+NSString *const XLFormRowDescriptorTypeDynamicTextView = @"dynamicTextView";
 NSString *const XLFormRowDescriptorTypeSelectorPush = @"selectorPush";
 NSString *const XLFormRowDescriptorTypeSelectorPopover = @"selectorPopover";
 NSString *const XLFormRowDescriptorTypeSelectorActionSheet = @"selectorActionSheet";

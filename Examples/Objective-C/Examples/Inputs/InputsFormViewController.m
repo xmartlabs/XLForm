@@ -110,6 +110,14 @@ NSString *const kNotes = @"notes";
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kNotes rowType:XLFormRowDescriptorTypeTextView title:@"Notes"];
     [section addFormRow:row];
     
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Dynamic Text View"];
+    [formDescriptor addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kTextView rowType:XLFormRowDescriptorTypeDynamicTextView];
+    [row.cellConfigAtConfigure setObject:@"DYNAMIC TEXT VIEW EXAMPLE" forKey:@"textView.placeholder"];
+    [row.cellConfigAtConfigure setObject:@(50) forKey:@"defaultHeight"];
+    [section addFormRow:row];
+    
     return [super initWithForm:formDescriptor];
     
 }

@@ -28,11 +28,16 @@
 #import "XLFormViewController.h"
 #import "XLFormTextView.h"
 #import "XLFormTextViewCell.h"
+#import "XLForm.h"
 
 NSString *const kFormTextViewCellPlaceholder = @"placeholder";
+static const CGFloat kPaddingLeft = 16;
+static const CGFloat kPaddingRight = 16;
+static const CGFloat kKeyboardSpace = 10;
+
 
 @interface XLFormTextViewCell() <UITextViewDelegate>
-
+@property (nonatomic) UITextView * dummyTextView;
 @end
 
 @implementation XLFormTextViewCell
@@ -42,6 +47,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 
 @synthesize textLabel = _textLabel;
 @synthesize textView = _textView;
+@synthesize dummyTextView = _dummyTextView;
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -89,6 +95,13 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     return _textView;
 }
 
+-(UITextView *)dummyTextView
+{
+    if (_dummyTextView) return _dummyTextView;
+    _dummyTextView = [[UITextView alloc] init];
+    return _dummyTextView;
+}
+
 #pragma mark - XLFormDescriptorCell
 
 -(void)configure
@@ -117,12 +130,27 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     [self.textView setEditable:!self.rowDescriptor.disabled];
     self.textView.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textLabel.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
+    
+    self.textView.scrollEnabled = [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTextView];
+    
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTextView]){
+        self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
+    }
 }
 
-+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
+-(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
 {
-    return 110.f;
+    if ([rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTextView]){
+        return ([self.defaultHeight floatValue]) ?: 110.f;
+    }
+    // Configure the dummy text view
+    self.dummyTextView.font = self.textView.font;
+    self.dummyTextView.text = rowDescriptor.value ?: @" ";
+    
+    CGSize textViewSize = [self.dummyTextView sizeThatFits:CGSizeMake(self.contentView.frame.size.width - kPaddingLeft - kPaddingRight, FLT_MAX)];
+    CGFloat height = ceilf(textViewSize.height) + 1; // 1 is for contentView height diference on cell
+    
+    return MAX(height, [self.defaultHeight floatValue]);
 }
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
@@ -157,7 +185,9 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     }
     NSDictionary * views = @{@"label": self.textLabel, @"textView": self.textView};
     if (!self.textLabel.text || [self.textLabel.text isEqualToString:@""]){
-        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textView]-16-|" options:0 metrics:0 views:views]];
+        NSDictionary *metrics = @{@"paddingLeft":[NSNumber numberWithFloat:kPaddingLeft],
+                                  @"paddingRight":[NSNumber numberWithFloat:kPaddingRight]};
+        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(paddingLeft)-[textView]-(paddingRight)-|" options:0 metrics:metrics views:views]];
     }
     else{
         [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textView]-4-|" options:0 metrics:0 views:views]];
@@ -195,6 +225,20 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
         self.rowDescriptor.value = self.textView.text;
     } else {
         self.rowDescriptor.value = nil;
+    }
+    
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDynamicTextView]){
+        // Update height
+        UITableView * tableView  = self.formViewController.tableView;
+        [UIView setAnimationsEnabled:NO];
+        [tableView beginUpdates];
+        [tableView endUpdates];
+        [UIView setAnimationsEnabled:YES];
+        
+        // Scroll
+        CGRect cursorRect = [self.textView caretRectForPosition:self.textView.selectedTextRange.end];
+        CGRect newRect = CGRectMake(cursorRect.origin.x, cursorRect.origin.y + kKeyboardSpace, cursorRect.size.width, cursorRect.size.height);
+        [tableView scrollRectToVisible:[tableView convertRect:newRect fromView:self.textView] animated:NO];
     }
 }
 

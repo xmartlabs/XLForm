@@ -39,7 +39,8 @@
 
 @optional
 
-+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
++(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("use instance method formDescriptorCellHeightForRowDescriptor: instead");
+-(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
 -(BOOL)formDescriptorCellCanBecomeFirstResponder;
 -(BOOL)formDescriptorCellBecomeFirstResponder;
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;

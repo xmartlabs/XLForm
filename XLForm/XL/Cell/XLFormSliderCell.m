@@ -77,7 +77,7 @@
 	self.rowDescriptor.value = @(self.slider.value);
 }
 
-+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor {
+-(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor {
 	return 88;
 }
 

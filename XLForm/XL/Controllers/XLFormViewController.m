@@ -202,6 +202,7 @@
                                                XLFormRowDescriptorTypeMultipleSelector: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeMultipleSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
+                                               XLFormRowDescriptorTypeDynamicTextView: [XLFormTextViewCell class],
                                                XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
                                                XLFormRowDescriptorTypeInfo: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeBooleanSwitch : [XLFormSwitchCell class],
@@ -505,9 +506,13 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
-    Class cellClass = [[rowDescriptor cellForFormController:self] class];
-    if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
-        return [cellClass formDescriptorCellHeightForRowDescriptor:rowDescriptor];
+    
+    id<XLFormDescriptorCell> cell = [rowDescriptor cellForFormController:self];
+    if ([cell respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
+        return [cell formDescriptorCellHeightForRowDescriptor:rowDescriptor];
+    }
+    else if ([[cell class] respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
+        return [[cell class] formDescriptorCellHeightForRowDescriptor:rowDescriptor];
     }
     return self.tableView.rowHeight;
 }
