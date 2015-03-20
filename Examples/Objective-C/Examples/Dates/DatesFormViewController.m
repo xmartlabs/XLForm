@@ -104,4 +104,23 @@ NSString *const kDateTime = @"dateTime";
 }
 
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithTitle:@"Disable" style:UIBarButtonItemStylePlain
+                                                                  target:self
+                                                                  action:@selector(disableEnable:)];
+    barButton.possibleTitles = [NSSet setWithObjects:@"Disable", @"Enable", nil];
+    self.navigationItem.rightBarButtonItem = barButton;
+}
+
+-(void)disableEnable:(UIBarButtonItem *)button
+{
+    self.form.disabled = !self.form.disabled;
+    [button setTitle:(self.form.disabled ? @"Enable" : @"Disable")];
+    [self.tableView endEditing:YES];
+    [self.tableView reloadData];
+}
+
+
 @end

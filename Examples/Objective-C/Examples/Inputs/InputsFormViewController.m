@@ -121,7 +121,7 @@ NSString *const kNotes = @"notes";
 }
 
 
--(IBAction)savePressed:(UIBarButtonItem * __unused)button
+-(void)savePressed:(UIBarButtonItem * __unused)button
 {
     NSArray * validationErrors = [self formValidationErrors];
     if (validationErrors.count > 0){

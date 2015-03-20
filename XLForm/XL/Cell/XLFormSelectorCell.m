@@ -103,7 +103,7 @@
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
-    return ((!self.rowDescriptor.disabled) && ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]));
+    return ((!self.rowDescriptor.isDisabled) && ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]));
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder
@@ -141,15 +141,11 @@
 -(void)update
 {
     [super update];
-    self.accessoryType = self.rowDescriptor.disabled || !([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    self.accessoryType = self.rowDescriptor.isDisabled || !([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     [self.textLabel setText:self.rowDescriptor.title];
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.selectionStyle = self.rowDescriptor.disabled || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInfo] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    self.selectionStyle = self.rowDescriptor.isDisabled || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInfo] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
-    self.detailTextLabel.text = [self valueDisplayText];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    
+    self.detailTextLabel.text = [self valueDisplayText];    
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
@@ -268,7 +264,7 @@
 {
     [super highlight];
     _beforeChangeColor = self.detailTextLabel.textColor;
-    self.detailTextLabel.textColor = self.formViewController.view.tintColor;
+    self.detailTextLabel.textColor = self.tintColor;
 }
 
 -(void)unhighlight

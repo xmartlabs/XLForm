@@ -37,7 +37,7 @@
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
-    return ((!self.rowDescriptor.disabled) && (self.inlineRowDescriptor == nil));
+    return ((!self.rowDescriptor.isDisabled) && (self.inlineRowDescriptor == nil));
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder
@@ -80,6 +80,9 @@
 -(void)update
 {
     [super update];
+    BOOL isDisable = self.rowDescriptor.isDisabled;
+    self.userInteractionEnabled = !isDisable;
+    self.contentView.alpha = isDisable ? 0.5 : 1.0;
     [self.pickerView selectRow:[self selectedIndex] inComponent:0 animated:NO];
     [self.pickerView reloadAllComponents];
     
@@ -104,7 +107,7 @@
 {
     if (self.inlineRowDescriptor){
         self.inlineRowDescriptor.value = [self.inlineRowDescriptor.selectorOptions objectAtIndex:row];
-        [[self.inlineRowDescriptor cellForFormController:self.formViewController] update];
+        [self.formViewController updateFormRow:self.inlineRowDescriptor];
     }
     else{
         [self becomeFirstResponder];

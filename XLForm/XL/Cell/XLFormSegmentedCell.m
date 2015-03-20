@@ -57,7 +57,7 @@
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
     [self updateSegmentedControl];
     self.segmentedControl.selectedSegmentIndex = [self selectedIndex];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.segmentedControl.enabled = !self.rowDescriptor.isDisabled;
 }
 
 #pragma mark - KVO
@@ -86,7 +86,6 @@
 {
     if (_textLabel) return _textLabel;
     _textLabel = [UILabel autolayoutView];
-    [_textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
     [_textLabel setContentCompressionResistancePriority:500
                                             forAxis:UILayoutConstraintAxisHorizontal];
     return _textLabel;

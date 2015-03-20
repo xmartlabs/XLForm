@@ -29,7 +29,7 @@
 
 @interface XLFormRowDescriptor() <NSCopying>
 
-@property UITableViewCell<XLFormDescriptorCell> * cell;
+@property XLFormBaseCell * cell;
 @property (nonatomic) NSMutableArray *validators;
 
 @end
@@ -37,6 +37,7 @@
 @implementation XLFormRowDescriptor
 
 @synthesize action = _action;
+@synthesize disabled = _disabled;
 
 -(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
@@ -49,7 +50,9 @@
         _title = title;
         _cellStyle = UITableViewCellStyleValue1;
         _validators = [NSMutableArray new];
-        
+        _cellConfig = [NSMutableDictionary dictionary];
+        _cellConfigIfDisabled = [NSMutableDictionary dictionary];
+        _cellConfigAtConfigure = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -57,7 +60,6 @@
 +(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
 {
     return [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:rowType title:nil];
-    
 }
 
 +(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title
@@ -65,29 +67,26 @@
     return [[XLFormRowDescriptor alloc] initWithTag:tag rowType:rowType title:title];
 }
 
--(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController
+-(XLFormBaseCell *)cellForFormController:(XLFormViewController *)formController
 {
     id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
     NSAssert(cellClass, @"Not defined XLFormRowDescriptorType");
-    if ([cellClass isKindOfClass:[NSString class]]) {
-        UITableViewCell<XLFormDescriptorCell> * reuseCell = [formController.tableView dequeueReusableCellWithIdentifier:cellClass];
-        if (reuseCell){
-            _cell  = reuseCell;
+    if (!_cell){
+        if ([cellClass isKindOfClass:[NSString class]]) {
+            if ([[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
+                _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
+                [self configureCellAtCreationTime];
+            }
+        } else if (!_cell) {
+            _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
             [self configureCellAtCreationTime];
         }
-        else if (!_cell && [[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
-            _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
-            [self configureCellAtCreationTime];
-        }
-    } else if (!_cell) {
-        _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
-        [self configureCellAtCreationTime];
+        NSAssert([_cell isKindOfClass:[XLFormBaseCell class]], @"Can not get a XLFormBaseCell");
     }
-    NSAssert([_cell isKindOfClass:[UITableViewCell class]] && [_cell conformsToProtocol:@protocol(XLFormDescriptorCell)], @"Can not get a UITableViewCell form cellClass");
     return _cell;
 }
 
-- (void) configureCellAtCreationTime
+- (void)configureCellAtCreationTime
 {
     [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
         [_cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
@@ -99,6 +98,13 @@
     if (_cellConfig) return _cellConfig;
     _cellConfig = [NSMutableDictionary dictionary];
     return _cellConfig;
+}
+
+-(NSMutableDictionary *)cellConfigIfDisabled
+{
+    if (_cellConfigIfDisabled) return _cellConfigIfDisabled;
+    _cellConfigIfDisabled = [NSMutableDictionary dictionary];
+    return _cellConfigIfDisabled;
 }
 
 -(NSMutableDictionary *)cellConfigAtConfigure
@@ -126,6 +132,16 @@
     _action = action;
 }
 
+-(BOOL)isDisabled
+{
+    return _disabled || self.sectionDescriptor.formDescriptor.isDisabled;
+}
+
+-(void)setDisabled:(BOOL)disabled
+{
+    _disabled = disabled;
+}
+
 // In the implementation
 -(id)copyWithZone:(NSZone *)zone
 {
@@ -133,8 +149,8 @@
     rowDescriptorCopy.cellClass = [self.cellClass copy];
     rowDescriptorCopy.cellConfig = [self.cellConfig mutableCopy];
     rowDescriptorCopy.cellConfigAtConfigure = [self.cellConfigAtConfigure mutableCopy];
-    rowDescriptorCopy.disabled = self.disabled;
-    rowDescriptorCopy.required = self.required;
+    rowDescriptorCopy.disabled = self.isDisabled;
+    rowDescriptorCopy.required = self.isRequired;
     
     // =====================
     // properties for Button
