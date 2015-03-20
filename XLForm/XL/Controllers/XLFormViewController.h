@@ -29,12 +29,13 @@
 #import "XLFormSectionDescriptor.h"
 #import "XLFormDescriptorDelegate.h"
 #import "XLFormRowNavigationAccessoryView.h"
-
+#import "XLFormBaseCell.h"
 
 @class XLFormViewController;
 @class XLFormRowDescriptor;
 @class XLFormSectionDescriptor;
 @class XLFormDescriptor;
+@class XLFormBaseCell;
 
 typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
     XLFormRowNavigationDirectionPrevious = 0,
@@ -48,6 +49,7 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow;
 -(void)deselectFormRow:(XLFormRowDescriptor *)formRow;
 -(void)reloadFormRow:(XLFormRowDescriptor *)formRow;
+-(XLFormBaseCell *)updateFormRow:(XLFormRowDescriptor *)formRow;
 
 -(NSDictionary *)formValues;
 -(NSDictionary *)httpParameters;

@@ -108,15 +108,13 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 -(void)update
 {
     [super update];
-    self.textView.delegate = self;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textView.placeHolderLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textView.placeHolderLabel.font = self.textView.font;
+    self.textView.delegate = self;
     self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.text = self.rowDescriptor.value;
-    [self.textView setEditable:!self.rowDescriptor.disabled];
-    self.textView.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.textLabel.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+    [self.textView setEditable:!self.rowDescriptor.isDisabled];
+    self.textView.textColor  = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
 }
 
@@ -127,7 +125,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
-    return (!self.rowDescriptor.disabled);
+    return (!self.rowDescriptor.isDisabled);
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder
@@ -138,13 +136,13 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 -(void)highlight
 {
     [super highlight];
-    self.textLabel.textColor = self.formViewController.view.tintColor;
+    self.textLabel.textColor = self.tintColor;
 }
 
 -(void)unhighlight
 {
     [super unhighlight];
-    [self.formViewController reloadFormRow:self.rowDescriptor];
+    [self.formViewController updateFormRow:self.rowDescriptor];
 }
 
 #pragma mark - Constraints

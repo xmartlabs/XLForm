@@ -154,9 +154,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillHideNotification
                                                   object:nil];
-    
-    
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -430,6 +427,14 @@
     }
 }
 
+-(XLFormBaseCell *)updateFormRow:(XLFormRowDescriptor *)formRow
+{
+    XLFormBaseCell * cell = [formRow cellForFormController:self];
+    cell.rowDescriptor = formRow;
+    [cell setNeedsLayout];
+    return cell;
+}
+
 #pragma mark - UITableViewDataSource
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -449,15 +454,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:indexPath];
-    UITableViewCell<XLFormDescriptorCell> * formDescriptorCell = [rowDescriptor cellForFormController:self];
-    
-    ((UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell).rowDescriptor = rowDescriptor;
-    [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-        [formDescriptorCell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-    }];
-    [formDescriptorCell setNeedsLayout];
-    
-    return formDescriptorCell;
+    return [self updateFormRow:rowDescriptor];
 }
 
 
@@ -529,7 +526,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor * row = [self.form formRowAtIndex:indexPath];
-    if (row.disabled) {
+    if (row.isDisabled) {
         return;
     }
     UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[row cellForFormController:self];
@@ -697,17 +694,17 @@
         }
     }
     XLFormRowNavigationOptions rowNavigationOptions = self.form.rowNavigationOptions;
-    if (nextRow.disabled && ((rowNavigationOptions & XLFormRowNavigationOptionStopDisableRow) == XLFormRowNavigationOptionStopDisableRow)){
+    if (nextRow.isDisabled && ((rowNavigationOptions & XLFormRowNavigationOptionStopDisableRow) == XLFormRowNavigationOptionStopDisableRow)){
         return nil;
     }
-    if (!nextRow.disabled && ((rowNavigationOptions & XLFormRowNavigationOptionStopInlineRow) == XLFormRowNavigationOptionStopInlineRow) && [[[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes] allKeys] containsObject:nextRow.rowType]){
+    if (!nextRow.isDisabled && ((rowNavigationOptions & XLFormRowNavigationOptionStopInlineRow) == XLFormRowNavigationOptionStopInlineRow) && [[[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes] allKeys] containsObject:nextRow.rowType]){
         return nil;
     }
     UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[nextRow cellForFormController:self];
-    if (!nextRow.disabled && ((rowNavigationOptions & XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) != XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) && (![cell formDescriptorCellCanBecomeFirstResponder])){
+    if (!nextRow.isDisabled && ((rowNavigationOptions & XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) != XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) && (![cell formDescriptorCellCanBecomeFirstResponder])){
         return nil;
     }
-    if (!nextRow.disabled && [cell formDescriptorCellCanBecomeFirstResponder]){
+    if (!nextRow.isDisabled && [cell formDescriptorCellCanBecomeFirstResponder]){
         return nextRow;
     }
     return [self nextRowDescriptorForRow:nextRow withDirection:direction];

@@ -40,14 +40,24 @@
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
     self.accessoryType = [self.rowDescriptor.value boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+    CGFloat red, green, blue, alpha;
+    [self.tintColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
+    if (self.rowDescriptor.isDisabled)
+    {
+        [self setTintColor:[UIColor colorWithRed:red green:green blue:blue alpha:0.3]];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    else{
+        [self setTintColor:[UIColor colorWithRed:red green:green blue:blue alpha:1]];
+    }
 }
+//
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
     self.rowDescriptor.value = [NSNumber numberWithBool:![self.rowDescriptor.value boolValue]];
-    [self update];
+    [self.formViewController updateFormRow:self.rowDescriptor];
     [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
 }
 

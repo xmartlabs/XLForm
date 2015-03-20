@@ -51,18 +51,27 @@
 {
     _rowDescriptor = rowDescriptor;
     [self update];
+    [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+        [self setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+    }];
+    if (rowDescriptor.isDisabled){
+        [rowDescriptor.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+            [self setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+        }];
+    }
 }
 
 
 - (void)configure
 {
-    //override
 }
 
 - (void)update
 {
-    // override
-    [self setUserInteractionEnabled:!self.rowDescriptor.disabled];
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+    //self.detailTextLabel.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
 }
 
 -(void)highlight

@@ -30,23 +30,20 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
-        
+        // Initialization code        
     }
     return self;
 }
 
 - (void)configure
 {
+    [super configure];
     //override
-    UIFont *labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
-    UIFontDescriptor *fontDesc = [labelFont fontDescriptor];
-    UIFontDescriptor *fontBoldDesc = [fontDesc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
-    self.textLabel.font = [UIFont fontWithDescriptor:fontBoldDesc size:0.0f];
 }
 
 - (void)update
 {
+    [super update];
     // override
     self.textLabel.text = @"Am a custom cell, select me!";
 }
@@ -55,54 +52,9 @@
 {
     // custom code here
     // i.e new behaviour when cell has been selected
-    self.textLabel.text = @"I can do any custom behaviour...";
+    self.textLabel.text = [self.textLabel.text isEqualToString:@"I can do any custom behaviour..."] ? @"Am a custom cell, select me!" : @"I can do any custom behaviour...";
     self.rowDescriptor.value = self.textLabel.text;
+    [self.formViewController.tableView selectRowAtIndexPath:nil animated:YES scrollPosition:UITableViewScrollPositionNone];
 }
-
-/*
-+(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    // return custom cell size
-    return 40;
-}
-*/
-
-/*
--(BOOL)formDescriptorCellBecomeFirstResponder
-{
-    // custom code
-    return YES;
-}
-*/
-
-/*
--(NSError *)formDescriptorCellLocalValidation
-{
-    // custom error handler
-    // compare with a custom property if it should return a error
-    // i.e some textfield is empty etc...
-    if (self.rowDescriptor.required){
-        return [[NSError alloc] initWithDomain:XLFormErrorDomain code:XLFormErrorCodeRequired userInfo:@{ NSLocalizedDescriptionKey: [NSString stringWithFormat:NSLocalizedString(@"%@ can't be empty", nil), self.rowDescriptor.title] }];
-        
-    }
-    return nil;
-}
-*/
-
-/*
--(NSString *)formDescriptorHttpParameterName 
-{
-  // custom code
-}
-*/
-
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
 
 @end
