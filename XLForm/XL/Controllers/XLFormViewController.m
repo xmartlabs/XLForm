@@ -472,6 +472,14 @@
         self.tableView.editing = NO;
         self.tableView.editing = YES;
         
+        UIView * firstResponder = [self.tableView findFirstResponder];
+        if (firstResponder){
+            UITableViewCell<XLFormDescriptorCell> * firstResponderCell = [firstResponder formDescriptorCell];
+            XLFormRowDescriptor * rowDescriptor = firstResponderCell.rowDescriptor;
+            
+            // update the accessory view
+            [self inputAccessoryViewForRowDescriptor:rowDescriptor];
+        }
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert){
         XLFormSectionDescriptor * multivaluedFormSection = [self.form formSectionAtIndex:indexPath.section];
@@ -573,6 +581,9 @@
     XLFormRowDescriptor * row = [self.form formRowAtIndex:sourceIndexPath];
     XLFormSectionDescriptor * section = row.sectionDescriptor;
     [section moveRowAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+    
+    // update the accessory view
+    [self inputAccessoryViewForRowDescriptor:row];
 }
 
 #pragma mark - UITextFieldDelegate
