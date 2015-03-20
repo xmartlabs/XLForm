@@ -26,6 +26,11 @@
 #import "XLFormRowDescriptor.h"
 #import <Foundation/Foundation.h>
 
+typedef NS_OPTIONS(NSUInteger, XLFormSectionOptions) {
+    XLFormSectionOptionNone        = 0,
+    XLFormSectionOptionMultivalued = 1 << 0,
+    XLFormSectionOptionSortable    = 1 << 1,
+};
 
 @class XLFormDescriptor;
 
@@ -34,20 +39,23 @@
 @property (nonatomic) NSString * title;
 @property (nonatomic) NSString * footerTitle;
 @property (readonly) NSMutableArray * formRows;
-@property BOOL isMultivaluedSection;
+@property XLFormSectionOptions sectionOptions;
 @property (nonatomic) NSString * multiValuedTag;
 
 @property (weak) XLFormDescriptor * formDescriptor;
 
 +(id)formSection;
 +(id)formSectionWithTitle:(NSString *)title;
-+(id)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection;
++(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions;
 
+
+-(BOOL)isMultivaluedSection;
 -(void)addFormRow:(XLFormRowDescriptor *)formRow;
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow;
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow;
 -(void)removeFormRowAtIndex:(NSUInteger)index;
 -(void)removeFormRow:(XLFormRowDescriptor *)formRow;
+-(void)moveRowAtIndex:(NSUInteger)sourceIndex toIndex:(NSUInteger)destinationIndex;
 
 -(XLFormRowDescriptor *)newMultivaluedFormRowDescriptor;
 

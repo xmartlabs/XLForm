@@ -544,6 +544,37 @@
     return UITableViewCellEditingStyleDelete;
 }
 
+#pragma mark - Reordering Cells
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    XLFormSectionDescriptor * section = [self.form formSectionAtIndex:indexPath.section];
+    return ((section.sectionOptions & XLFormSectionOptionMultivalued) &&
+            (section.sectionOptions & XLFormSectionOptionSortable)    &&
+            (indexPath.row != ([section.formRows count] - 1))); // is not add row
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+                                                    toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+    XLFormSectionDescriptor * section = [self.form formSectionAtIndex:sourceIndexPath.section];
+    NSUInteger multivaluedSectionCount = [section.formRows count] - 1; // Skip the add row
+    if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
+        NSUInteger rowInSourceSection =
+        (sourceIndexPath.section > proposedDestinationIndexPath.section) ? 0 : multivaluedSectionCount - 1;
+        return [NSIndexPath indexPathForRow:rowInSourceSection inSection:sourceIndexPath.section];
+    } else if (proposedDestinationIndexPath.row >= multivaluedSectionCount) {
+        return [NSIndexPath indexPathForRow:multivaluedSectionCount - 1 inSection:sourceIndexPath.section];
+    }
+    // Allow the proposed destination.
+    return proposedDestinationIndexPath;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
+    XLFormRowDescriptor * row = [self.form formRowAtIndex:sourceIndexPath];
+    XLFormSectionDescriptor * section = row.sectionDescriptor;
+    [section moveRowAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+}
+
 #pragma mark - UITextFieldDelegate
 
 
