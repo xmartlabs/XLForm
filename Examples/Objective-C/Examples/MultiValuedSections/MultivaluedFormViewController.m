@@ -105,7 +105,7 @@
 
 -(void)addDidTouch:(UIBarButtonItem * __unused)sender
 {
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove Last Section" otherButtonTitles:@"Add a section at the end", nil];
+    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove Last Section" otherButtonTitles:@"Add a section at the end", self.form.isDisabled ? @"Enable Form" : @"Disable Form", nil];
     [actionSheet showInView:self.view];
     
 }
@@ -130,6 +130,12 @@
                                    [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"]];
         [newSection addFormRow:newRow];
         [self.form addFormSection:newSection];
+    }
+    else {
+        self.form.disabled = !self.form.disabled;
+        [self.tableView endEditing:YES];
+        [self.tableView reloadData];
+
     }
 }
 

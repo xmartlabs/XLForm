@@ -29,8 +29,6 @@
 
 @interface XLFormStepCounterCell ()
 
-@property (strong,nonatomic) UIColor *defaultTintColor;
-
 @end
 
 @implementation XLFormStepCounterCell
@@ -53,17 +51,12 @@
                                                                             0,
                                                                             0)];
     [stepperControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-    self.defaultTintColor = stepperControl.tintColor;
-    
     UILabel *currentStepValue = [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                                           0,
                                                                           25,
                                                                           CGRectGetHeight(stepperControl.frame))];
     
     currentStepValue.textAlignment = NSTextAlignmentCenter;
-    currentStepValue.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    currentStepValue.textColor = self.defaultTintColor;
-
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                  0,
                                                                  CGRectGetWidth(stepperControl.frame) + CGRectGetWidth(currentStepValue.frame),
@@ -79,13 +72,20 @@
 {
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
-    self.stepControl.enabled = !self.rowDescriptor.disabled;
-    [self stepControl].tintColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;
-    [self currentStepValue].textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : self.defaultTintColor;
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-
+    [self stepControl].enabled = !self.rowDescriptor.isDisabled;
+    [self currentStepValue].font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    CGFloat red, green, blue, alpha;
+    [self.tintColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    if (self.rowDescriptor.isDisabled)
+    {
+        [self setTintColor:[UIColor colorWithRed:red green:green blue:blue alpha:0.3]];
+        [self currentStepValue].textColor = [UIColor colorWithRed:red green:green blue:blue alpha:0.3];
+    }
+    else{
+        [self setTintColor:[UIColor colorWithRed:red green:green blue:blue alpha:1]];
+        [self currentStepValue].textColor = [UIColor colorWithRed:red green:green blue:blue alpha:1];
+    }
     [self valueChanged:nil];
 }
  

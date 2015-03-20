@@ -27,11 +27,13 @@
 #import "XLFormWeekDaysCell.h"
 #import "XLFormRatingCell.h"
 #import "FloatLabeledTextFieldCell.h"
+#import "XLFormCustomCell.h"
 
 static NSString * const kCustomRowFirstRatingTag = @"CustomRowFirstRatingTag";
 static NSString * const kCustomRowSecondRatingTag = @"CustomRowSecondRatingTag";
 static NSString * const kCustomRowFloatLabeledTextFieldTag = @"CustomRowFloatLabeledTextFieldTag";
 static NSString * const kCustomRowWeekdays = @"CustomRowWeekdays";
+static NSString * const kCustomRowText = @"kCustomText";
 
 @implementation CustomRowsViewController
 
@@ -91,6 +93,15 @@ static NSString * const kCustomRowWeekdays = @"CustomRowWeekdays";
                    kSaturday: @(NO)
                    };
     [section addFormRow:row];
+    
+    
+    section = [XLFormSectionDescriptor formSection];
+    [form addFormSection:section];
+    
+    XLFormRowDescriptor *customRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowText rowType:@"XLFormRowDescriptorTypeCustom"];
+    // Must set custom cell or add custom cell to cellClassesForRowDescriptorTypes dictionary before XLFormViewController loaded
+    customRowDescriptor.cellClass = [XLFormCustomCell class];
+    [section addFormRow:customRowDescriptor];
     
     self.form = form;
 }
