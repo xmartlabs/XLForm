@@ -42,7 +42,7 @@
     form = [XLFormDescriptor formDescriptorWithTitle:@"MultiValued Examples"];
     
     // MultivaluedSection section
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"MultiValued TextField" multivaluedSection:YES];
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"MultiValued TextField" sectionOptions:XLFormSectionOptionMultivalued];
     section.multiValuedTag = @"textFieldRow";
     [form addFormSection:section];
     
@@ -60,7 +60,7 @@
     [section addFormRow:row];
     
     // Another MultivaluedSection section
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"MultiValued ActionSheet Selector example" multivaluedSection:YES];
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"MultiValued ActionSheet Selector example" sectionOptions:XLFormSectionOptionMultivalued];
     section.multiValuedTag = @"actionSheetSelector";
     [form addFormSection:section];
     
@@ -77,7 +77,7 @@
     
     
     // Another one
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"MultiValued Push Selector example" multivaluedSection:YES];
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"MultiValued Push Selector example" sectionOptions:XLFormSectionOptionMultivalued];
     section.footerTitle = @"MultiValuedFormViewController.h";
     section.multiValuedTag = @"multivaluedPushSelector";
     [form addFormSection:section];
@@ -122,7 +122,7 @@
     }
     else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Add a section at the end"]){
         // add a new section
-        XLFormSectionDescriptor * newSection = [XLFormSectionDescriptor formSectionWithTitle:[NSString stringWithFormat:@"Section created at %@", [NSDateFormatter localizedStringFromDate:[NSDate new] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]] multivaluedSection:YES];
+        XLFormSectionDescriptor * newSection = [XLFormSectionDescriptor formSectionWithTitle:[NSString stringWithFormat:@"Section created at %@", [NSDateFormatter localizedStringFromDate:[NSDate new] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]] sectionOptions:XLFormSectionOptionMultivalued];
         newSection.multiValuedTag = [NSString stringWithFormat:@"multivaluedPushSelector_%@", @(self.form.formSections.count)];
         XLFormRowDescriptor * newRow = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeSelectorPush title:@"Tap to select ;).."];
         newRow.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Option 1"],

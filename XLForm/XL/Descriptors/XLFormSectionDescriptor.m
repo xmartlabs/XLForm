@@ -38,19 +38,18 @@
     self = [super init];
     if (self){
         _formRows = [NSMutableArray array];
-        _isMultivaluedSection = NO;
+        _sectionOptions = XLFormSectionOptionNone;
         _title = nil;
         _footerTitle = nil;
     }
     return self;
 }
 
-
--(id)initWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
+-(id)initWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions
 {
     self = [self init];
     if (self){
-        _isMultivaluedSection = multivaluedSection;
+        _sectionOptions = sectionOptions;
         _title = title;
     }
     return self;
@@ -63,12 +62,12 @@
 
 +(id)formSectionWithTitle:(NSString *)title
 {
-    return [self formSectionWithTitle:title multivaluedSection:NO];
+    return [self formSectionWithTitle:title sectionOptions:XLFormSectionOptionNone];
 }
 
-+(id)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
++(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions
 {
-    return [[XLFormSectionDescriptor alloc] initWithTitle:title multivaluedSection:multivaluedSection];
+    return [[XLFormSectionDescriptor alloc] initWithTitle:title sectionOptions:sectionOptions];
 }
 
 -(XLFormRowDescriptor *)newMultivaluedFormRowDescriptor
@@ -76,6 +75,11 @@
     XLFormRowDescriptor * formRowDescriptor = [[self.formRows objectAtIndex:0] copy];
     formRowDescriptor.tag = nil;
     return formRowDescriptor;
+}
+
+-(BOOL)isMultivaluedSection
+{
+    return (_sectionOptions & XLFormSectionOptionMultivalued);
 }
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow
@@ -119,6 +123,15 @@
     if ((index = [self.formRows indexOfObject:formRow]) != NSNotFound){
         [self removeFormRowAtIndex:index];
     };
+}
+
+- (void)moveRowAtIndex:(NSUInteger)sourceIndex toIndex:(NSUInteger)destinationIndex
+{
+    if ((sourceIndex < [self countOfFormRows]) && (destinationIndex < [self countOfFormRows])){
+        XLFormRowDescriptor * row = [self objectInFormRowsAtIndex:sourceIndex];
+        [self.formRows removeObjectAtIndex:sourceIndex];
+        [self.formRows insertObject:row atIndex:destinationIndex];
+    }
 }
 
 -(void)dealloc
