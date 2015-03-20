@@ -59,6 +59,26 @@
     [[row cellConfig] setObject:@"Add a new tag" forKey:@"textField.placeholder"];
     [section addFormRow:row];
     
+    
+    // MultivaluedSection section with reorder
+    XLFormSectionOptions sectionOptions = XLFormSectionOptionMultivalued | XLFormSectionOptionSortable;
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Reordering rows" sectionOptions:sectionOptions];
+    section.multiValuedTag = @"textFieldRowReorder";
+    [form addFormSection:section];
+    
+    
+    for (NSString * tag in nameList) {
+        // add a row to the section, the row will be used to crete new rows.
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeText];
+        [[row cellConfig] setObject:@"Add a new tag" forKey:@"textField.placeholder"];
+        row.value = [tag copy];
+        [section addFormRow:row];
+    }
+    // add a row to the section, the row will be used to crete new rows.
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeText];
+    [[row cellConfig] setObject:@"Add a new tag" forKey:@"textField.placeholder"];
+    [section addFormRow:row];
+    
     // Another MultivaluedSection section
     section = [XLFormSectionDescriptor formSectionWithTitle:@"MultiValued ActionSheet Selector example" sectionOptions:XLFormSectionOptionMultivalued];
     section.multiValuedTag = @"actionSheetSelector";
