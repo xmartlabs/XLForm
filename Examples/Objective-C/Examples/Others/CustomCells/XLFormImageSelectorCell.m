@@ -82,7 +82,6 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
                                                 NSLog(@"Failed to download image");
                                             }];
     }
-    [self.textLabel setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]];
 }
 
 

@@ -74,13 +74,13 @@
     XLFormRowDescriptor * row;
     
     form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
-    
     section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];
     
     // Title
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"Title" rowType:XLFormRowDescriptorTypeText];
     [row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
+    row.required = YES;
     [section addFormRow:row];
     
     // Location
@@ -241,13 +241,13 @@
     }
 }
 
--(IBAction)cancelPressed:(UIBarButtonItem * __unused)button
+-(void)cancelPressed:(UIBarButtonItem * __unused)button
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
--(IBAction)savePressed:(UIBarButtonItem * __unused)button
+-(void)savePressed:(UIBarButtonItem * __unused)button
 {
     NSArray * validationErrors = [self formValidationErrors];
     if (validationErrors.count > 0){

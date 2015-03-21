@@ -77,25 +77,25 @@ const static CGFloat kFloatingLabelFontSize = 11.0f;
     
     self.floatLabeledTextField.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:self.rowDescriptor.title
-                                    attributes:@{NSForegroundColorAttributeName: [UIColor darkGrayColor]}];
+                                    attributes:@{NSForegroundColorAttributeName: [UIColor lightGrayColor]}];
     
     self.floatLabeledTextField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
     [self.floatLabeledTextField setEnabled:!self.rowDescriptor.disabled];
     
-    self.floatLabeledTextField.textColor = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
     self.floatLabeledTextField.floatingLabelTextColor = [UIColor lightGrayColor];
+    
+    [self.floatLabeledTextField setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+}
+
+-(BOOL)formDescriptorCellCanBecomeFirstResponder
+{
+    return (!self.rowDescriptor.disabled);
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder
 {
     return [self.floatLabeledTextField becomeFirstResponder];
 }
-
--(BOOL)formDescriptorCellResignFirstResponder
-{
-    return [self.floatLabeledTextField resignFirstResponder];
-}
-
 
 #pragma mark - UITextFieldDelegate
 
