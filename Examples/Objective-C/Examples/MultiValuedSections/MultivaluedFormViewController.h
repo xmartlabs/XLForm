@@ -25,6 +25,21 @@
 
 #import "XLFormViewController.h"
 
-@interface MultiValuedFormViewController : XLFormViewController
+@interface MultivaluedFormViewController : XLFormViewController
+
+@end
+
+
+@interface MultivaluedOnlyReorderViewController : XLFormViewController
+
+@end
+
+
+@interface MultivaluedOnlyInserViewController : XLFormViewController
+
+@end
+
+
+@interface MultivaluedOnlyDeleteViewController : XLFormViewController
 
 @end

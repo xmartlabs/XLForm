@@ -39,6 +39,9 @@ NSString * const kSelectors = @"Selectors";
 NSString * const kOthes = @"Others";
 NSString * const kDates = @"Dates";
 NSString * const kMultivalued = @"Multivalued";
+NSString * const kMultivaluedOnlyReorder = @"MultivaluedOnlyReorder";
+NSString * const kMultivaluedOnlyInsert = @"MultivaluedOnlyInsert";
+NSString * const kMultivaluedOnlyDelete = @"MultivaluedOnlyDelete";
 NSString * const kValidations= @"Validations";
 
 @interface ExamplesFormViewController ()
@@ -115,9 +118,24 @@ NSString * const kValidations= @"Validations";
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Multivalued example"];
     [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivalued rowType:XLFormRowDescriptorTypeButton title:@"MultiValued Sections"];
-    row.action.viewControllerClass = [MultiValuedFormViewController class];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivalued rowType:XLFormRowDescriptorTypeButton title:@"Multivalued Sections"];
+    row.action.viewControllerClass = [MultivaluedFormViewController class];
     [section addFormRow:row];
+    
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivaluedOnlyReorder rowType:XLFormRowDescriptorTypeButton title:@"Multivalued Only Reorder"];
+    row.action.viewControllerClass = [MultivaluedOnlyReorderViewController class];
+    [section addFormRow:row];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivaluedOnlyInsert rowType:XLFormRowDescriptorTypeButton title:@"Multivalued Only Insert"];
+    row.action.viewControllerClass = [MultivaluedOnlyInserViewController class];
+    [section addFormRow:row];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMultivaluedOnlyDelete rowType:XLFormRowDescriptorTypeButton title:@"Multivalued Only Delete"];
+    row.action.viewControllerClass = [MultivaluedOnlyDeleteViewController class];
+    [section addFormRow:row];
+    
+    
     
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"UI Customization"];

@@ -285,8 +285,13 @@
 
 -(UITableViewRowAnimation)insertRowAnimationForRow:(XLFormRowDescriptor *)formRow
 {
-    if (formRow.sectionDescriptor.isMultivaluedSection){
-        return YES;
+    if (formRow.sectionDescriptor.sectionOptions & XLFormSectionOptionCanInsert){
+        if (formRow.sectionDescriptor.sectionInsertMode == XLFormSectionInsertModeButton){
+            return UITableViewRowAnimationAutomatic;
+        }
+        else if (formRow.sectionDescriptor.sectionInsertMode == XLFormSectionInsertModeLastRow){
+            return YES;
+        }
     }
     return UITableViewRowAnimationFade;
 }
@@ -332,6 +337,32 @@
 -(void)endEditing:(XLFormRowDescriptor *)rowDescriptor
 {
     [[rowDescriptor cellForFormController:self] unhighlight];
+}
+
+-(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)formSection
+{
+    if (formSection.multivaluedRowTemplate){
+        return [formSection.multivaluedRowTemplate copy];
+    }
+    XLFormRowDescriptor * formRowDescriptor = [[formSection.formRows objectAtIndex:0] copy];
+    formRowDescriptor.tag = nil;
+    return formRowDescriptor;
+}
+
+-(void)multivaluedInsertButtonTapped:(XLFormRowDescriptor *)formRow
+{
+    [self deselectFormRow:formRow];
+    XLFormSectionDescriptor * multivaluedFormSection = formRow.sectionDescriptor;
+    XLFormRowDescriptor * formRowDescriptor = [self formRowFormMultivaluedFormSection:multivaluedFormSection];
+    [multivaluedFormSection addFormRow:formRowDescriptor];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.tableView.editing = !self.tableView.editing;
+        self.tableView.editing = !self.tableView.editing;
+    });
+    UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[formRowDescriptor cellForFormController:self];
+    if ([cell formDescriptorCellCanBecomeFirstResponder]){
+        [cell formDescriptorCellBecomeFirstResponder];
+    }
 }
 
 #pragma mark - Methods
@@ -461,29 +492,87 @@
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
-    return  !rowDescriptor.isDisabled && [self.form formSectionAtIndex:indexPath.section].isMultivaluedSection;
+    if (rowDescriptor.isDisabled || !rowDescriptor.sectionDescriptor.isMultivaluedSection){
+        return NO;
+    }
+    XLFormBaseCell * baseCell = [rowDescriptor cellForFormController:self];
+    if ([baseCell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)] && ((id<XLFormInlineRowDescriptorCell>)baseCell).inlineRowDescriptor){
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
+    XLFormSectionDescriptor * section = rowDescriptor.sectionDescriptor;
+    if (section.sectionOptions & XLFormSectionOptionCanReorder && section.formRows.count > 1) {
+        if (section.sectionInsertMode == XLFormSectionInsertModeButton && section.sectionOptions & XLFormSectionOptionCanInsert){
+            if (section.formRows.count <= 2 || rowDescriptor == section.multivaluedAddButton){
+                return NO;
+            }
+        }
+        XLFormBaseCell * baseCell = [rowDescriptor cellForFormController:self];
+        return !([baseCell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)] && ((id<XLFormInlineRowDescriptorCell>)baseCell).inlineRowDescriptor);
+    }
+    return NO;
+}
+
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    XLFormRowDescriptor * row = [self.form formRowAtIndex:sourceIndexPath];
+    XLFormSectionDescriptor * section = row.sectionDescriptor;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Warc-performSelector-leaks"
+    [section performSelector:NSSelectorFromString(@"moveRowAtIndexPath:toIndexPath:") withObject:sourceIndexPath withObject:destinationIndexPath];
+#pragma GCC diagnostic pop
+    // update the accessory view
+    [self inputAccessoryViewForRowDescriptor:row];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.tableView.editing = !self.tableView.editing;
+        self.tableView.editing = !self.tableView.editing;
+    });
+    
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete){
-        XLFormSectionDescriptor * multivaluedFormSection = [self.form formSectionAtIndex:indexPath.section];
-        [multivaluedFormSection removeFormRowAtIndex:indexPath.row];
-        self.tableView.editing = NO;
-        self.tableView.editing = YES;
-        
+        XLFormRowDescriptor * multivaluedFormRow = [self.form formRowAtIndex:indexPath];
+        // end editing
+        UIView * firstResponder = [[multivaluedFormRow cellForFormController:self] findFirstResponder];
+        if (firstResponder){
+                [self.tableView endEditing:YES];
+        }
+        [multivaluedFormRow.sectionDescriptor removeFormRowAtIndex:indexPath.row];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.tableView.editing = !self.tableView.editing;
+            self.tableView.editing = !self.tableView.editing;
+        });
+        if (firstResponder){
+            UITableViewCell<XLFormDescriptorCell> * firstResponderCell = [firstResponder formDescriptorCell];
+            XLFormRowDescriptor * rowDescriptor = firstResponderCell.rowDescriptor;
+            [self inputAccessoryViewForRowDescriptor:rowDescriptor];
+        }
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert){
+
         XLFormSectionDescriptor * multivaluedFormSection = [self.form formSectionAtIndex:indexPath.section];
-        XLFormRowDescriptor * formRowDescriptor = [self respondsToSelector:@selector(formRowFormMultivaluedFormSection:)] ? [self formRowFormMultivaluedFormSection:multivaluedFormSection] : [multivaluedFormSection newMultivaluedFormRowDescriptor];
-        [multivaluedFormSection addFormRow:formRowDescriptor];
-        self.tableView.editing = NO;
-        self.tableView.editing = YES;
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-        
-        UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[formRowDescriptor cellForFormController:self];
-        if ([cell formDescriptorCellCanBecomeFirstResponder]){
-            [cell formDescriptorCellBecomeFirstResponder];
+        if (multivaluedFormSection.sectionInsertMode == XLFormSectionInsertModeButton && multivaluedFormSection.sectionOptions & XLFormSectionOptionCanInsert){
+            [self multivaluedInsertButtonTapped:multivaluedFormSection.multivaluedAddButton];
+        }
+        else{
+            XLFormRowDescriptor * formRowDescriptor = [self formRowFormMultivaluedFormSection:multivaluedFormSection];
+            [multivaluedFormSection addFormRow:formRowDescriptor];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.tableView.editing = !self.tableView.editing;
+                self.tableView.editing = !self.tableView.editing;
+            });
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[formRowDescriptor cellForFormController:self];
+            if ([cell formDescriptorCellCanBecomeFirstResponder]){
+                [cell formDescriptorCellBecomeFirstResponder];
+            }
         }
     }
 }
@@ -538,10 +627,73 @@
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.form formSectionAtIndex:indexPath.section].formRows.count == (indexPath.row + 1)){
-        return UITableViewCellEditingStyleInsert;
+    XLFormRowDescriptor * row = [self.form formRowAtIndex:indexPath];
+    XLFormSectionDescriptor * section = row.sectionDescriptor;
+    if (section.sectionOptions & XLFormSectionOptionCanInsert){
+        if (section.formRows.count == indexPath.row + 2){
+            if ([[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes].allKeys containsObject:row.rowType]){
+                UITableViewCell<XLFormDescriptorCell> * cell = [row cellForFormController:self];
+                UIView * firstResponder = [cell findFirstResponder];
+                if (firstResponder){
+                    return UITableViewCellEditingStyleInsert;
+                }
+            }
+        }
+        else if (section.formRows.count == (indexPath.row + 1)){
+            return UITableViewCellEditingStyleInsert;
+        }
     }
-    return UITableViewCellEditingStyleDelete;
+    if (section.sectionOptions & XLFormSectionOptionCanDelete){
+        return UITableViewCellEditingStyleDelete;
+    }
+    return UITableViewCellEditingStyleNone;
+}
+
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+       toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
+        return sourceIndexPath;
+    }
+    XLFormSectionDescriptor * sectionDescriptor = [self.form formSectionAtIndex:sourceIndexPath.section];
+    XLFormRowDescriptor * proposedDestination = [sectionDescriptor.formRows objectAtIndex:proposedDestinationIndexPath.row];
+    XLFormBaseCell * proposedDestinationCell = [proposedDestination cellForFormController:self];
+    if (([proposedDestinationCell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)] && ((id<XLFormInlineRowDescriptorCell>)proposedDestinationCell).inlineRowDescriptor) || ([[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes].allKeys containsObject:proposedDestinationCell.rowDescriptor.rowType] && [[proposedDestinationCell findFirstResponder] formDescriptorCell] == proposedDestinationCell)) {
+        if (sourceIndexPath.row < proposedDestinationIndexPath.row){
+            return [NSIndexPath indexPathForRow:proposedDestinationIndexPath.row + 1 inSection:sourceIndexPath.section];
+        }
+        else{
+            return [NSIndexPath indexPathForRow:proposedDestinationIndexPath.row - 1 inSection:sourceIndexPath.section];
+        }
+    }
+    
+    if ((sectionDescriptor.sectionInsertMode == XLFormSectionInsertModeButton && sectionDescriptor.sectionOptions & XLFormSectionOptionCanInsert)){
+        if (proposedDestinationIndexPath.row == sectionDescriptor.formRows.count - 1){
+            return [NSIndexPath indexPathForRow:(sectionDescriptor.formRows.count - 2) inSection:sourceIndexPath.section];
+        }
+    }
+    return proposedDestinationIndexPath;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCellEditingStyle editingStyle = [self tableView:tableView editingStyleForRowAtIndexPath:indexPath];
+    if (editingStyle == UITableViewCellEditingStyleNone){
+        return NO;
+    }
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView willBeginReorderingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // end editing if inline cell is first responder
+    UITableViewCell<XLFormDescriptorCell> * cell = [[self.tableView findFirstResponder] formDescriptorCell];
+    if ([[self.form indexPathOfFormRow:cell.rowDescriptor] isEqual:indexPath]){
+        if ([[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes].allKeys containsObject:cell.rowDescriptor.rowType]){
+            [self.tableView endEditing:YES];
+        }
+    }
 }
 
 #pragma mark - UITextFieldDelegate
