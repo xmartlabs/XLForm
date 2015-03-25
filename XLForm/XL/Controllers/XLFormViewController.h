@@ -55,6 +55,7 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 -(NSDictionary *)httpParameters;
 
 -(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)formSection;
+-(void)multivaluedInsertButtonTapped:(XLFormRowDescriptor *)formRow;
 -(UIStoryboard *)storyboardForRow:(XLFormRowDescriptor *)formRow;
 
 -(NSArray *)formValidationErrors;
