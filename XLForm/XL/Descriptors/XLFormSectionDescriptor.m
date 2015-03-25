@@ -23,6 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "XLForm.h"
 #import "XLFormSectionDescriptor.h"
 
 @interface XLFormSectionDescriptor()
@@ -38,6 +39,7 @@
     self = [super init];
     if (self){
         _formRows = [NSMutableArray array];
+        _sectionInsertMode = XLFormSectionInsertModeLastRow;
         _sectionOptions = XLFormSectionOptionNone;
         _title = nil;
         _footerTitle = nil;
@@ -45,12 +47,19 @@
     return self;
 }
 
--(id)initWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions
-{
+-(id)initWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode{
     self = [self init];
     if (self){
+        _sectionInsertMode = sectionInsertMode;
         _sectionOptions = sectionOptions;
         _title = title;
+        if ([self canInsertUsingButton]){
+            _multivaluedAddButton = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeButton title:@"Add Item"];
+            [_multivaluedAddButton.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
+            [_multivaluedAddButton.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
+            _multivaluedAddButton.action.formSelector = NSSelectorFromString(@"multivaluedInsertButtonTapped:");
+            [self insertObject:_multivaluedAddButton inFormRowsAtIndex:0];
+        }
     }
     return self;
 }
@@ -65,26 +74,29 @@
     return [self formSectionWithTitle:title sectionOptions:XLFormSectionOptionNone];
 }
 
-+(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions
++(id)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
 {
-    return [[XLFormSectionDescriptor alloc] initWithTitle:title sectionOptions:sectionOptions];
+    return [self formSectionWithTitle:title sectionOptions:(multivaluedSection ? XLFormSectionOptionCanInsert | XLFormSectionOptionCanDelete : XLFormSectionOptionNone)];
 }
 
--(XLFormRowDescriptor *)newMultivaluedFormRowDescriptor
++(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions
 {
-    XLFormRowDescriptor * formRowDescriptor = [[self.formRows objectAtIndex:0] copy];
-    formRowDescriptor.tag = nil;
-    return formRowDescriptor;
+    return [self formSectionWithTitle:title sectionOptions:sectionOptions sectionInsertMode:XLFormSectionInsertModeLastRow];
+}
+
++(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode
+{
+    return [[XLFormSectionDescriptor alloc] initWithTitle:title sectionOptions:sectionOptions sectionInsertMode:sectionInsertMode];
 }
 
 -(BOOL)isMultivaluedSection
 {
-    return (_sectionOptions & XLFormSectionOptionMultivalued);
+    return (self.sectionOptions != XLFormSectionOptionNone);
 }
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow
 {
-    [self insertObject:formRow inFormRowsAtIndex:[self.formRows count]];
+    [self insertObject:formRow inFormRowsAtIndex:([self canInsertUsingButton] ? [self.formRows count] - 1 : [self.formRows count])];
 }
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow
@@ -109,7 +121,6 @@
     }
 }
 
-
 -(void)removeFormRowAtIndex:(NSUInteger)index
 {
     if (self.formRows.count > index){
@@ -125,12 +136,12 @@
     };
 }
 
-- (void)moveRowAtIndex:(NSUInteger)sourceIndex toIndex:(NSUInteger)destinationIndex
+- (void)moveRowAtIndexPath:(NSIndexPath *)sourceIndex toIndexPath:(NSIndexPath *)destinationIndex
 {
-    if ((sourceIndex < [self countOfFormRows]) && (destinationIndex < [self countOfFormRows])){
-        XLFormRowDescriptor * row = [self objectInFormRowsAtIndex:sourceIndex];
-        [self.formRows removeObjectAtIndex:sourceIndex];
-        [self.formRows insertObject:row atIndex:destinationIndex];
+    if ((sourceIndex.row < self.formRows.count) && (destinationIndex.row < self.formRows.count)){
+        XLFormRowDescriptor * row = [self objectInFormRowsAtIndex:sourceIndex.row];
+        [self.formRows removeObjectAtIndex:sourceIndex.row];
+        [self.formRows insertObject:row atIndex:destinationIndex.row];
     }
 }
 
@@ -166,21 +177,25 @@
     return self.formRows.count;
 }
 
-- (id)objectInFormRowsAtIndex:(NSUInteger)index {
+- (id)objectInFormRowsAtIndex:(NSUInteger)index
+{
     return [self.formRows objectAtIndex:index];
 }
 
-- (NSArray *)formRowsAtIndexes:(NSIndexSet *)indexes {
+- (NSArray *)formRowsAtIndexes:(NSIndexSet *)indexes
+{
     return [self.formRows objectsAtIndexes:indexes];
 }
 
-- (void)insertObject:(XLFormRowDescriptor *)formRow inFormRowsAtIndex:(NSUInteger)index {
+- (void)insertObject:(XLFormRowDescriptor *)formRow inFormRowsAtIndex:(NSUInteger)index
+{
     formRow.sectionDescriptor = self;
     [formRow addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.formRows insertObject:formRow atIndex:index];
 }
 
-- (void)removeObjectFromFormRowsAtIndex:(NSUInteger)index {
+- (void)removeObjectFromFormRowsAtIndex:(NSUInteger)index
+{
     XLFormRowDescriptor * formRow = [self.formRows objectAtIndex:index];
     @try {
         [formRow removeObserver:self forKeyPath:@"value"];
@@ -189,6 +204,13 @@
     [self.formRows removeObjectAtIndex:index];
 }
 
+
+#pragma mark - Helpers
+
+-(BOOL)canInsertUsingButton
+{
+    return (self.sectionInsertMode == XLFormSectionInsertModeButton && self.sectionOptions & XLFormSectionOptionCanInsert);
+}
 
 
 @end

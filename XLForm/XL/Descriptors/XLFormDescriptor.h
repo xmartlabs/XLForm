@@ -80,7 +80,6 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
 -(XLFormRowDescriptor *)formRowWithHash:(NSUInteger)hash;
 -(XLFormSectionDescriptor *)formSectionAtIndex:(NSUInteger)index;
 
-
 -(NSIndexPath *)indexPathOfFormRow:(XLFormRowDescriptor *)formRow;
 
 -(NSDictionary *)formValues;
