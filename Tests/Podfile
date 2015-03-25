@@ -3,6 +3,5 @@ xcodeproj 'XLForm Tests'
 inhibit_all_warnings!
 
 platform :ios, '7.0'
-pod 'OCMock', '~> 2.1.1'
-pod 'Expecta', '~> 0.2.1'
+pod 'Expecta', '~> 0.2.4'
 pod 'XLForm', :path => '../'
