@@ -12,7 +12,7 @@ XLForm is the most flexible and powerful iOS library to create dynamic table-vie
 
 XLForm provides a very powerful DSL used to create a form. It keeps track of this specification on runtime, updating the UI on the fly.
 
-#####Let's see the iOS 7 Calendar Event Form created using XLForm
+#####Let's see the iOS Calendar Event Form created using XLForm
 
 
 ![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/RealExamples/XLForm.gif)
@@ -23,12 +23,14 @@ What XLForm does
 
  * Loads a form based on a declarative [*form definition*](#how-to-create-a-form "form definition").
  * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](#dynamic-forms---how-to-change-the-form-dynamically-at-runtime "Dynamic Forms") section of this readme.
- * Supports multivalued sections. For further details see [*Multivalued Sections*](#multivalued-sections "Multivalued Sections") section bellow.
+ * Supports multivalued sections allowing us to create, delete or reorder rows. For further details see [*Multivalued Sections*](#multivalued-sections "Multivalued Sections") section bellow.
  * Supports [*custom rows definition*](#how-to-create-a-custom-row).
  * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
  * Provides several inline selectors such as date picker and picker inline selectors and brings a way to create custom inline selectors.
- * Validates the form data based on form definition and shows error messages.
- * Changes the firstResponder among `UITextField`s and `UITextView`s when keyboard return button is pressed.
+ * Form data validation based on form definition.
+ * Ability to easily navigate among rows, fully customizable. * Ability to show inputAccessoryView if needed. By default a navigation input accessory view is shown.
+ * Read only mode for a particular row or the entire form.
+
 
 
 How to create a form
@@ -44,7 +46,7 @@ To define a form we use 3 classes:
 
 A form definition is a `XLFormDescriptor` instance that contains one or more sections (`XLFormSectionDescriptor` instances) and each section contains several rows (`XLFormRowDescriptor` instance). As you may have noticed the DSL structure is analog to the structure of a `UITableView` (Table -->> Sections -- >> Rows). The resulting table-view form's structure (sections and rows order) mirrors the definition's structure.
 
-#####Let's see part of the iOS 7 Calendar Event Form definition.
+#####Let's see part of the iOS Calendar Event Form definition.
 
 
 ```objc
@@ -805,9 +807,32 @@ Requirements
 Release Notes
 --------------
 
-Version 2.1.1 (master)
+Version 2.2.0 (master)
 
 * Fixed "(null)" caption when `XLFormRowDescriptorTypeSelectorLeftRight` row required error message is shown.
+* Refresh the cell content instead of recreating one, when the form get back from a selection.
+* Added XLFormRowDescriptor to validations error to easily show an error mask.
+* Use row tag in validation error message if row does not have a title. It is also possible to set up a custom message if needed
+* Added a convenience method to add a XLFormRowDescriptor instance before another one.
+* Allow nil values in cellConfig and cellConfigAtConfigure.
+* Fix constraints for textFieldCell when it is configured to be right aligned.
+* Add asterisk to required segmentedCells if needed.
+* Fail validation for empty strings and NSNull on required rows.
+* Segue support added to buttons and selectors.
+* Ability to configure a storyboardId or a viewController nibName to by used by button and selector rows as presented view controller.
+* Fix scrolling to top when status bar is tapped.
+* Fix wrong type of XLFormRowDescriptorTypeDecimal row. Now it's converted to NSNumber.
+* Fix issue: XLFormRegexValidator only checks regex validation for NSStrings, not working for number.
+* Callconfigure method from awakeFromNib on XLFormBaseCell.
+* Assign form.delegate from inside setForm: method.
+* Added custom cell, validation, reordering, can insert, can delete examples.
+* Added support for inputAccessoryView. Default input accessory view allows to navigate among rows. Fully optionally and customizable.
+* Added suport for row navigation. Fully optionally and customizable.
+* beginEditing: endEditing: methods added. These method are called each time a row gains / loses firstResponder. They bring the ability to do UI changes.
+* Read Only mode added. `disable` property added to XLFormDescriptor class.
+* Rename `label` XLFormTextViewCell property as `textLabel`.
+* fix position of multivalued section accessory view.
+* Can delete, can delete, can reorder section mode added. it's possible to enable some of them, don't need to enable all modes.
 
 Version 2.1.0
 
