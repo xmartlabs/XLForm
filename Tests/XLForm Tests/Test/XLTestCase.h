@@ -10,7 +10,6 @@
 
 #define EXP_SHORTHAND YES
 #import "Expecta.h"
-#import "OCMock.h"
 
 #import <XLForm/XLForm.h>
 

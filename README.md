@@ -493,11 +493,15 @@ You may be interested in implement `XLFormDescriptorCell` methods to change the 
 
 Once a custom cell has been created you need to let `XLForm` know about this cell by adding the row definition to `cellClassesForRowDescriptorTypes` dictionary.
 
-`[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];`
+```objc
+[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:[MYCustomCellClass class] forKey:kMyAppCustomCellType];
+```
 
 or, in case we have used nib file to define the `XLBaseDescriptorCell`:
 
-`[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:@"nibNameWithoutNibExtension" forKey:kMyAppCustomCellType];`
+```objc
+[[XLFormViewController cellClassesForRowDescriptorTypes] setObject:@"nibNameWithoutNibExtension" forKey:kMyAppCustomCellType];
+```
 
 Doing that, XLForm will instantiate the proper cell class when kMyAppCustomCellType row type is used.
 
