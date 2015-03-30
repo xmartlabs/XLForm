@@ -213,15 +213,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     NSMutableDictionary * result = [NSMutableDictionary dictionary];
     for (XLFormSectionDescriptor * section in self.formSections) {
-        if (!section.isMultivaluedSection)
-        {
-            for (XLFormRowDescriptor * row in section.formRows) {
-                if (row.tag && ![row.tag isEqualToString:@""]){
-                    [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
-                }
-            }
-        }
-        else{
+        if (section.multivaluedTag.length > 0){
             NSMutableArray * multiValuedValuesArray = [NSMutableArray new];
             for (XLFormRowDescriptor * row in section.formRows) {
                 if (row.value){
@@ -230,26 +222,22 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
             }
             [result setObject:multiValuedValuesArray forKey:section.multivaluedTag];
         }
+        else{
+            for (XLFormRowDescriptor * row in section.formRows) {
+                if (row.tag && ![row.tag isEqualToString:@""]){
+                    [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
+                }
+            }
+        }
     }
     return result;
-    
 }
 
 -(NSDictionary *)httpParameters:(XLFormViewController *)formViewController
 {
     NSMutableDictionary * result = [NSMutableDictionary dictionary];
     for (XLFormSectionDescriptor * section in self.formSections) {
-        if (!section.isMultivaluedSection)
-        {
-            for (XLFormRowDescriptor * row in section.formRows) {
-                NSString * httpParameterKey = nil;
-                if ((httpParameterKey = [self httpParameterKeyForRow:row cell:[row cellForFormController:formViewController]])){
-                    id parameterValue = [row.value valueData] ?: [NSNull null];
-                    [result setObject:parameterValue forKey:httpParameterKey];
-                }
-            }
-        }
-        else{
+        if (section.multivaluedTag.length > 0){
             NSMutableArray * multiValuedValuesArray = [NSMutableArray new];
             for (XLFormRowDescriptor * row in section.formRows) {
                 if ([row.value valueData]){
@@ -257,6 +245,15 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
                 }
             }
             [result setObject:multiValuedValuesArray forKey:section.multivaluedTag];
+        }
+        else{
+            for (XLFormRowDescriptor * row in section.formRows) {
+                NSString * httpParameterKey = nil;
+                if ((httpParameterKey = [self httpParameterKeyForRow:row cell:[row cellForFormController:formViewController]])){
+                    id parameterValue = [row.value valueData] ?: [NSNull null];
+                    [result setObject:parameterValue forKey:httpParameterKey];
+                }
+            }
         }
     }
     return result;
