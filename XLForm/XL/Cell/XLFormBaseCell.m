@@ -54,7 +54,7 @@
     [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
         [self setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
     }];
-    if (rowDescriptor.isDisabled){
+    if ([rowDescriptor isDisabledPredicate]){
         [rowDescriptor.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
             [self setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
         }];
@@ -70,7 +70,7 @@
 {
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+    self.textLabel.textColor  = [self.rowDescriptor isDisabledPredicate] ? [UIColor grayColor] : [UIColor blackColor];
 }
 
 -(void)highlight

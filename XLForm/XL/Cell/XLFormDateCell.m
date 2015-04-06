@@ -55,7 +55,7 @@
 
 - (BOOL)canBecomeFirstResponder
 {
-    return (!self.rowDescriptor.isDisabled);
+    return (![self.rowDescriptor isDisabledPredicate]);
 }
 
 -(BOOL)becomeFirstResponder
@@ -116,7 +116,7 @@
     [super update];
     self.accessoryType =  UITableViewCellAccessoryNone;
     [self.textLabel setText:self.rowDescriptor.title];
-    self.selectionStyle = self.rowDescriptor.isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    self.selectionStyle = [self.rowDescriptor isDisabledPredicate] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
 }

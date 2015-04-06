@@ -32,6 +32,9 @@
 @property XLFormBaseCell * cell;
 @property (nonatomic) NSMutableArray *validators;
 
+@property (nonatomic, readwrite) NSPredicate* disablePredicate;
+@property (nonatomic) NSMutableDictionary* predicateVariables;
+
 @end
 
 @implementation XLFormRowDescriptor
@@ -46,6 +49,7 @@
         NSAssert(((![rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] && ![rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) || (([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) && ([rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] || [rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]))), @"You must be running under UIUserInterfaceIdiomPad to use either XLFormRowDescriptorTypeSelectorPopover or XLFormRowDescriptorTypeMultipleSelectorPopover rows.");
         _tag = tag;
         _disabled = NO;
+        _predicateVariables = [[NSMutableDictionary alloc] init];
         _rowType = rowType;
         _title = title;
         _cellStyle = UITableViewCellStyleValue1;
@@ -53,6 +57,7 @@
         _cellConfig = [NSMutableDictionary dictionary];
         _cellConfigIfDisabled = [NSMutableDictionary dictionary];
         _cellConfigAtConfigure = [NSMutableDictionary dictionary];
+        _observers = [NSMutableArray array];
     }
     return self;
 }
@@ -116,7 +121,7 @@
 
 -(NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ - %@ (%@)", [super description], self.tag, self.rowType];
+    return self.tag;  // [NSString stringWithFormat:@"%@ - %@ (%@)", [super description], self.tag, self.rowType];
 }
 
 -(XLFormAction *)action
@@ -140,6 +145,114 @@
 -(void)setDisabled:(BOOL)disabled
 {
     _disabled = disabled;
+}
+
+-(BOOL)isDisabledPredicate
+{
+    if(!_disablePredicate || self.isDisabled)
+        return self.isDisabled;
+    @try {
+        return [_disablePredicate evaluateWithObject:self substitutionVariables:_predicateVariables];
+    }
+    @catch (NSException *exception) {
+        // predicate syntax error. 
+        return self.isDisabled;
+    };
+}
+
+-(void)setPredicate:(id) disablePredicate{
+    XLFormRowDescriptor* obs;
+    NSString* separator = @"$";
+    if ([disablePredicate isKindOfClass:[NSString class]]){
+        //preprocess string
+        
+        NSArray* tokens = [disablePredicate componentsSeparatedByString:separator];
+        NSMutableString* new_string = [[NSMutableString alloc] initWithString:tokens[0]];
+        NSRange range;
+        for (int i = 1; i < tokens.count; i++) {
+            [new_string appendString:separator];
+            NSMutableString* tag = [[tokens[i] componentsSeparatedByString:@" "][0] componentsSeparatedByString:@"."][0];
+            obs = [self.sectionDescriptor.formDescriptor formRowWithTag:tag];
+            if (obs){
+                [obs addObserverRow:self];
+                _predicateVariables[tag] = obs;
+            }
+            else{
+                return; // wrong tag
+            }
+            [new_string appendString:tag];
+            range = [tokens[i] rangeOfString:[NSString stringWithFormat:@"%@", tag]];
+            if (![[tokens[i] substringWithRange:NSMakeRange(range.location + range.length, 6)] isEqualToString:@".value"]){
+                [new_string appendString:@".value"];
+                
+            }
+            [new_string appendString:[tokens[i] substringFromIndex:range.location + range.length]];
+        }
+        _disablePredicate = [NSPredicate predicateWithFormat:new_string];
+    }
+    else if ([disablePredicate isKindOfClass:[NSPredicate class]]){
+        // get vars from predicate
+        
+        NSMutableArray* tokens = [self getPredicateVars:disablePredicate];
+        for (int i = 0; i < tokens.count; i++) {
+            obs = [self.sectionDescriptor.formDescriptor formRowWithTag:tokens[i]];
+            if (obs){
+                [obs addObserverRow:self];
+                _predicateVariables[tokens[i]] = obs;
+            }
+            else{
+                return; // wrong tag
+            }
+        }
+        _disablePredicate = disablePredicate;
+    }
+}
+
+-(NSMutableArray*) getPredicateVars:(NSPredicate*) predicate {
+    NSMutableArray* ret = [[NSMutableArray alloc] init];
+    if ([predicate isKindOfClass:([NSCompoundPredicate class])]) {
+        for (id object in ((NSCompoundPredicate*) predicate).subpredicates ) {
+            [ret addObjectsFromArray:[self getPredicateVars:object]];
+        }
+    }
+    else if ([predicate isKindOfClass:([NSComparisonPredicate class])]){
+        [ret addObjectsFromArray:[self getExpressionVars:((NSComparisonPredicate*) predicate).leftExpression]];
+        [ret addObjectsFromArray:[self getExpressionVars:((NSComparisonPredicate*) predicate).rightExpression]];
+    }
+    return ret;
+}
+
+-(NSMutableArray*) getExpressionVars:(NSExpression*) expression{
+    switch (expression.expressionType) {
+        case NSFunctionExpressionType:{
+            NSString* str = [NSString stringWithFormat:@"%@", expression];
+            if ([str containsString:@"."])
+                str = [str substringWithRange:NSMakeRange(1, [str rangeOfString:@"."].location - 1)];
+            else
+                str = [str substringFromIndex:1];
+            return [[NSMutableArray alloc] initWithObjects: str, nil];
+            break;
+        }
+        default:
+            return nil;
+            break;
+    }
+}
+
+/*
+-(void)setPredicateVariables:(NSDictionary *)predicateVariables{
+    _predicateVariables = predicateVariables;
+    XLFormRowDescriptor* row = [predicateVariables objectForKey:@"preddep"];
+    [row addObserverRow:self];
+}
+*/
+-(void)addObserverRow:(XLFormRowDescriptor*) rowDescriptor{
+    if (![_observers containsObject:rowDescriptor])
+        [_observers addObject:rowDescriptor];
+}
+
+-(void)delObserverRow:(XLFormRowDescriptor*) rowDescriptor{
+    [_observers removeObject:rowDescriptor];
 }
 
 // In the implementation

@@ -33,11 +33,13 @@
 #import "UICustomizationFormViewController.h"
 #import "CustomRowsViewController.h"
 #import "AccessoryViewFormViewController.h"
+#import "PredicateFormViewController.h"
 
 NSString * const kTextFieldAndTextView = @"TextFieldAndTextView";
 NSString * const kSelectors = @"Selectors";
 NSString * const kOthes = @"Others";
 NSString * const kDates = @"Dates";
+NSString * const kPredicates = @"Predicates";
 NSString * const kMultivalued = @"Multivalued";
 NSString * const kMultivaluedOnlyReorder = @"MultivaluedOnlyReorder";
 NSString * const kMultivaluedOnlyInsert = @"MultivaluedOnlyInsert";
@@ -166,6 +168,13 @@ NSString * const kValidations= @"Validations";
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidations rowType:XLFormRowDescriptorTypeButton title:@"Validation Examples"];
     row.action.formSegueIdenfifier = @"ValidationExamplesFormViewControllerSegue";
+    [section addFormRow:row];
+    
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Predicate Disabling"];
+    [form addFormSection:section];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidations rowType:XLFormRowDescriptorTypeButton title:@"Predicate Disabling"];
+    row.action.formSegueIdenfifier = @"PredicateFormViewControllerSegue";
     [section addFormRow:row];
     
     self.form = form;

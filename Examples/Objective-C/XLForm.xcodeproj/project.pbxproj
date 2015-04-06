@@ -49,6 +49,7 @@
 		3C3B01E21AB7499A0027CD45 /* XLRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01E01AB7499A0027CD45 /* XLRatingView.m */; };
 		3C3B01F01AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01EF1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m */; };
 		3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */; };
+		BFD5D6F71AD2FFC1006F04FA /* PredicateFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD5D6F61AD2FFC1006F04FA /* PredicateFormViewController.m */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +128,8 @@
 		3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomRowsViewController.m; path = Examples/CustomRows/CustomRowsViewController.m; sourceTree = "<group>"; };
 		7B0D2D6A86E2A41ED22E8A35 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		976A33EE62A018A7257B4878 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BFD5D6F51AD2FFC1006F04FA /* PredicateFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PredicateFormViewController.h; sourceTree = "<group>"; };
+		BFD5D6F61AD2FFC1006F04FA /* PredicateFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PredicateFormViewController.m; sourceTree = "<group>"; };
 		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/CustomCells/XLFormCustomCell.h; sourceTree = "<group>"; };
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
 		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,6 +325,7 @@
 				2843EB4F18D4CFA100F13E2B /* Others */,
 				2843EB4818D496CB00F13E2B /* Selectors */,
 				2850C60A18D0F706002B7D0A /* AppDelegate.h */,
+				BFD5D6F41AD2FFC1006F04FA /* PredicateDisabling */,
 				282C5EEF18D33C1800A5D47C /* Inputs */,
 				2843EB4518D4915800F13E2B /* ExamplesFormViewController.h */,
 				2843EB4618D4915800F13E2B /* ExamplesFormViewController.m */,
@@ -473,6 +477,16 @@
 			name = CustomRows;
 			sourceTree = "<group>";
 		};
+		BFD5D6F41AD2FFC1006F04FA /* PredicateDisabling */ = {
+			isa = PBXGroup;
+			children = (
+				BFD5D6F51AD2FFC1006F04FA /* PredicateFormViewController.h */,
+				BFD5D6F61AD2FFC1006F04FA /* PredicateFormViewController.m */,
+			);
+			name = PredicateDisabling;
+			path = Examples/PredicateDisabling;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -600,6 +614,7 @@
 				3C3B01E21AB7499A0027CD45 /* XLRatingView.m in Sources */,
 				28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */,
 				283B59B219532415000828CD /* MapViewController.m in Sources */,
+				BFD5D6F71AD2FFC1006F04FA /* PredicateFormViewController.m in Sources */,
 				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,
 				28A766451932EC9C00D69546 /* CoreDataStore.m in Sources */,
 				28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */,

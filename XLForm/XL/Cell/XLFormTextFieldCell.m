@@ -132,14 +132,14 @@
     self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
     
     self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
-    [self.textField setEnabled:!self.rowDescriptor.isDisabled];
-    self.textField.textColor = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
+    [self.textField setEnabled:![self.rowDescriptor isDisabledPredicate]];
+    self.textField.textColor = [self.rowDescriptor isDisabledPredicate] ? [UIColor grayColor] : [UIColor blackColor];
     self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
-    return (!self.rowDescriptor.isDisabled);
+    return (![self.rowDescriptor isDisabledPredicate]);
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder

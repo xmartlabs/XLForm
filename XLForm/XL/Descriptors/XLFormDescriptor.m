@@ -224,7 +224,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         }
         else{
             for (XLFormRowDescriptor * row in section.formRows) {
-                if (row.tag && ![row.tag isEqualToString:@""]){
+                if (row.tag.length > 0){
                     [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
                 }
             }
@@ -264,7 +264,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     if ([descriptorCell respondsToSelector:@selector(formDescriptorHttpParameterName)]){
         return [descriptorCell formDescriptorHttpParameterName];
     }
-    if (row.tag && ![row.tag isEqualToString:@""]){
+    if (row.tag.length > 0){
         return row.tag;
     }
     return nil;

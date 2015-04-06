@@ -1,5 +1,5 @@
 //
-//  XLFormSwitchCell.h
+//  DatesFormViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
@@ -23,38 +23,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormRowDescriptor.h"
+#import "XLForm.h"
+#import "XLFormViewController.h"
 
-#import "XLFormSwitchCell.h"
-
-@implementation XLFormSwitchCell
-
-#pragma mark - XLFormDescriptorCell
-
-- (void)configure
-{
-    [super configure];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.accessoryView = [[UISwitch alloc] init];
-    [self.switchControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
-}
-
-- (void)update
-{
-    [super update];
-    self.textLabel.text = self.rowDescriptor.title;
-    self.switchControl.on = [self.rowDescriptor.value boolValue];
-    self.switchControl.enabled = ![self.rowDescriptor isDisabledPredicate];
-}
-
-- (UISwitch *)switchControl
-{
-    return (UISwitch *)self.accessoryView;
-}
-
-- (void)valueChanged
-{
-    self.rowDescriptor.value = @(self.switchControl.on);
-}
+@interface PredicateFormViewController : XLFormViewController
 
 @end

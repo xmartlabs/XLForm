@@ -43,7 +43,9 @@ NSString *const kDateTime = @"dateTime";
     if (self){
         XLFormDescriptor * form;
         XLFormSectionDescriptor * section;
+        
         XLFormRowDescriptor * row;
+        XLFormRowDescriptor * pred, *pred2;
         
         form = [XLFormDescriptor formDescriptorWithTitle:@"Dates"];
         
@@ -88,7 +90,7 @@ NSString *const kDateTime = @"dateTime";
         [section addFormRow:row];
         
         section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled Dates"];
-        section.footerTitle = @"DatesFormViewController.h";
+        //section.footerTitle = @"DatesFormViewController.h";
         [form addFormSection:section];
         
         // Date
