@@ -34,6 +34,7 @@
 #import "CustomRowsViewController.h"
 #import "AccessoryViewFormViewController.h"
 #import "PredicateFormViewController.h"
+#import "FormattersViewController.h"
 
 NSString * const kTextFieldAndTextView = @"TextFieldAndTextView";
 NSString * const kSelectors = @"Selectors";
@@ -46,6 +47,7 @@ NSString * const kMultivaluedOnlyReorder = @"MultivaluedOnlyReorder";
 NSString * const kMultivaluedOnlyInsert = @"MultivaluedOnlyInsert";
 NSString * const kMultivaluedOnlyDelete = @"MultivaluedOnlyDelete";
 NSString * const kValidations= @"Validations";
+NSString * const kFormatters = @"Formatters";
 
 @interface ExamplesFormViewController ()
 
@@ -111,6 +113,11 @@ NSString * const kValidations= @"Validations";
     // Dates
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kDates rowType:XLFormRowDescriptorTypeButton title:@"Date & Time"];
     row.action.viewControllerClass = [DatesFormViewController class];
+    [section addFormRow:row];
+    
+    // NSFormatters
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kFormatters rowType:XLFormRowDescriptorTypeButton title:@"NSFormatter Support"];
+    row.action.viewControllerClass = [FormattersViewController class];
     [section addFormRow:row];
     
     // Others

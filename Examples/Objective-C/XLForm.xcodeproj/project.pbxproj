@@ -49,6 +49,7 @@
 		BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 		DEA6EF911B57D6CC000F4893 /* HTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA6EF901B57D6CC000F4893 /* HTTPSessionManager.m */; };
+		DEB8235C1AD5529A00AF9FE2 /* FormattersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB8235B1AD5529A00AF9FE2 /* FormattersViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +129,9 @@
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
 		DEA6EF8F1B57D6CC000F4893 /* HTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPSessionManager.h; path = Examples/Selectors/HTTPSessionManager.h; sourceTree = "<group>"; };
 		DEA6EF901B57D6CC000F4893 /* HTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPSessionManager.m; path = Examples/Selectors/HTTPSessionManager.m; sourceTree = "<group>"; };
+		DEB8235A1AD5529A00AF9FE2 /* FormattersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormattersViewController.h; sourceTree = "<group>"; };
+		DEB8235B1AD5529A00AF9FE2 /* FormattersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormattersViewController.m; sourceTree = "<group>"; };
+		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +316,7 @@
 				282EB2791AB5FD66004A736F /* AccessoryViews */,
 				3CDAFC741AB0AEE5000F75B6 /* CustomRows */,
 				28F89F2B1AA4E99500E90218 /* Validations */,
+				DEB823591AD5529A00AF9FE2 /* Formatters */,
 				283C6B7A1999BA1B00A5283D /* UICustomization */,
 				28A76624193251E500D69546 /* AppDelegate.m */,
 				28A8083C190D903D009D77F8 /* StoryboardExample */,
@@ -461,6 +466,16 @@
 			name = SessionManager;
 			sourceTree = "<group>";
 		};
+		DEB823591AD5529A00AF9FE2 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				DEB8235A1AD5529A00AF9FE2 /* FormattersViewController.h */,
+				DEB8235B1AD5529A00AF9FE2 /* FormattersViewController.m */,
+			);
+			name = Formatters;
+			path = Examples/Formatters;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -606,6 +621,7 @@
 				BF01E9281C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m in Sources */,
 				BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */,
 				BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */,
+				DEB8235C1AD5529A00AF9FE2 /* FormattersViewController.m in Sources */,
 				2843EB5218D4CFC700F13E2B /* OthersFormViewController.m in Sources */,
 				2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */,
 				28468EA418EF41D300DBB015 /* InputsFormViewController.m in Sources */,
