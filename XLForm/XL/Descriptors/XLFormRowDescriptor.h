@@ -55,11 +55,17 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic) NSMutableDictionary *cellConfigIfDisabled;
 @property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
 @property (getter=isDisabled) BOOL disabled;
-@property (nonatomic, readonly) NSPredicate* disablePredicate;
-@property (nonatomic) NSMutableArray* observers;
+@property (getter=isHidden) BOOL hidden;
+@property BOOL dirtyPredicate;
+@property (nonatomic) id hiddenPredicate;
 
 -(BOOL)isDisabledPredicate;
--(void)setPredicate:(id) disablePredicate;
+-(void)setDisablingPredicate:(id) disablePredicate;
+-(BOOL)isHiddenPredicate;
+
+@property (nonatomic) NSMutableArray* observers;
+-(void)addObserverRow:(id) descriptor;
+-(void)delObserverRow:(id) descriptor;
 
 @property (getter=isRequired) BOOL required;
 

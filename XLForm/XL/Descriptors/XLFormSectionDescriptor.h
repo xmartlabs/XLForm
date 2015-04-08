@@ -51,8 +51,16 @@ typedef NS_ENUM(NSUInteger, XLFormSectionInsertMode) {
 @property XLFormRowDescriptor * multivaluedRowTemplate;
 @property (readonly) XLFormRowDescriptor * multivaluedAddButton;
 @property (nonatomic) NSString * multivaluedTag;
+@property (nonatomic) id hiddenPredicate;
 
 @property (weak) XLFormDescriptor * formDescriptor;
+
+@property (getter=isDisabled) BOOL disabled;
+@property (getter=isHidden) BOOL hidden;
+@property BOOL dirtyPredicate;
+-(BOOL)isDisabledPredicate;
+-(void)setDisablingPredicate:(id) disablePredicate;
+-(BOOL)isHiddenPredicate;
 
 
 +(id)formSection;
@@ -67,5 +75,8 @@ typedef NS_ENUM(NSUInteger, XLFormSectionInsertMode) {
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow;
 -(void)removeFormRowAtIndex:(NSUInteger)index;
 -(void)removeFormRow:(XLFormRowDescriptor *)formRow;
+
+-(void)showFormRow:(XLFormRowDescriptor*)formRow;
+-(void)hideFormRow:(XLFormRowDescriptor*)formRow;
 
 @end

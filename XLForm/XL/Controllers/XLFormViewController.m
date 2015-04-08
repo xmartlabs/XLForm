@@ -263,7 +263,18 @@
 {
     for (id object in formRow.observers) {
         if ([object isKindOfClass:[XLFormRowDescriptor class]]) {
-            [[object cellForFormController:self] update];
+            XLFormRowDescriptor* row = (XLFormRowDescriptor*) object;
+            row.dirtyPredicate = YES;
+            [self updateFormRow:row];
+            //[[row cellForFormController:self] update];
+            row.isHiddenPredicate;
+        }
+        else if ([object isKindOfClass:[XLFormSectionDescriptor class]]) {
+            XLFormSectionDescriptor* section = (XLFormSectionDescriptor*) object;
+            section.dirtyPredicate = YES;
+            //[[object cellForFormController:self] update];
+            //section.title = [section isDisabledPredicate] ? @"disabled section" : section.title;
+            section.isHiddenPredicate;
         }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DatesFormViewController.m
+//  PredicateFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 // 
 //  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
@@ -77,19 +77,21 @@ NSString *const kPredDep2 = @"preddep2";
     pred3 = row;
     [section addFormRow:row];
     
+    pred2.hiddenPredicate  = [NSString stringWithFormat:@"$%@  == 0", pred3];
+    
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Dependent rows"];
-    section.footerTitle = @"PredicateFormViewController.h";
+    section.footerTitle = @"PredicateFormViewController.h\nType disable in the textfield, a number between 18 and 60 in the integer field or use the switch to disable the last row. By doing all three the last section will hide.\nThe";
     [form addFormSection:section];
     
     // Predicate Disabling
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPred rowType:XLFormRowDescriptorTypeDate title:@"Disabled"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPred rowType:XLFormRowDescriptorTypeDateInline title:@"Disabled"];
     row.value = [NSDate new];
     [section addFormRow:row];
     
-    [row setPredicate:[NSString stringWithFormat:@"$%@ contains[c] \"%@\" OR (($%@ > 18) AND ($%@ < 60)) OR ($%@.value == 0)", pred,  @"disable", pred2, pred2, pred3]];
-    //[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) OR (($%@.value > 18) AND ($%@.value < 60)) OR ($%@.value == 0)", pred, pred2, pred2, pred3],  @"disable"]];
+    [row setDisablingPredicate://[NSString stringWithFormat:@"$%@ contains[c] \"%@\" OR (($%@ > 18) AND ($%@ < 60)) OR ($%@.value == 0)", pred,  @"disable", pred2, pred2, pred3]];
+    [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) OR (($%@.value > 18) AND ($%@.value < 60)) OR ($%@.value == 0)", pred, pred2, pred2, pred3],  @"disable"]];
 
-    
+    section.hiddenPredicate = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) AND (($%@.value > 18) AND ($%@.value < 60)) AND ($%@.value == 0)", pred, pred2, pred2, pred3],  @"disable"];
     self.form = form;
 }
 

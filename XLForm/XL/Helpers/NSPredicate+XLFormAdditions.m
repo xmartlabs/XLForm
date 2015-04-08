@@ -1,5 +1,5 @@
 //
-//  PredicateFormViewController.h
+//  NSPredicate+XLFormAdditions.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
@@ -22,10 +22,24 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+#import "NSPredicate+XLFormAdditions.h"
+#import "NSExpression+XLFormAdditions.h"
 
-#import "XLForm.h"
-#import "XLFormViewController.h"
+@implementation NSPredicate (XLFormAdditions)
 
-@interface PredicateFormViewController : XLFormViewController
+
+-(NSMutableArray*) getPredicateVars{
+    NSMutableArray* ret = [[NSMutableArray alloc] init];
+    if ([self isKindOfClass:([NSCompoundPredicate class])]) {
+        for (id object in ((NSCompoundPredicate*) self).subpredicates ) {
+            [ret addObjectsFromArray:[object getPredicateVars]];
+        }
+    }
+    else if ([self isKindOfClass:([NSComparisonPredicate class])]){
+        [ret addObjectsFromArray:[((NSComparisonPredicate*) self).leftExpression getExpressionVars]];
+        [ret addObjectsFromArray:[((NSComparisonPredicate*) self).rightExpression getExpressionVars]];
+    }
+    return ret;
+}
 
 @end

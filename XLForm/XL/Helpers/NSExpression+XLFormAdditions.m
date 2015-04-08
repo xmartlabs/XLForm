@@ -1,5 +1,5 @@
 //
-//  PredicateFormViewController.h
+//  NSExpression+XLFormAdditions.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
@@ -23,9 +23,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLForm.h"
-#import "XLFormViewController.h"
 
-@interface PredicateFormViewController : XLFormViewController
+#import "NSExpression+XLFormAdditions.h"
+
+@implementation NSExpression (XLFormAdditions)
+
+
+-(NSMutableArray*) getExpressionVars{
+    switch (self.expressionType) {
+        case NSFunctionExpressionType:{
+            NSString* str = [NSString stringWithFormat:@"%@", self];
+            if ([str containsString:@"."])
+                str = [str substringWithRange:NSMakeRange(1, [str rangeOfString:@"."].location - 1)];
+            else
+                str = [str substringFromIndex:1];
+            return [[NSMutableArray alloc] initWithObjects: str, nil];
+            break;
+        }
+        default:
+            return nil;
+            break;
+    }
+}
+
 
 @end

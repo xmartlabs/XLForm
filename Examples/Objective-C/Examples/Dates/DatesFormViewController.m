@@ -45,7 +45,6 @@ NSString *const kDateTime = @"dateTime";
         XLFormSectionDescriptor * section;
         
         XLFormRowDescriptor * row;
-        XLFormRowDescriptor * pred, *pred2;
         
         form = [XLFormDescriptor formDescriptorWithTitle:@"Dates"];
         
