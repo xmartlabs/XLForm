@@ -39,14 +39,15 @@
 @property (nonatomic) NSMutableDictionary* disablePredicateVariables;
 @property (nonatomic) NSMutableDictionary* hidePredicateVariables;
 
+@property BOOL dirtyPredicate;
+
 @end
 
 @implementation XLFormSectionDescriptor
 
-@synthesize disabled = _disabled;
+
 @synthesize hidden = _hidden;
 @synthesize dirtyPredicate = _dirtyPredicate;
-@synthesize hiddenPredicate = _hiddenPredicate;
 
 -(id)init
 {
@@ -58,8 +59,7 @@
         _sectionOptions = XLFormSectionOptionNone;
         _title = nil;
         _footerTitle = nil;
-        _hidden = NO;
-        _disabled = NO;
+        _hidden = @NO;
         _dirtyPredicate = YES;
         _disablePredicateVariables = [[NSMutableDictionary alloc] init];
         _hidePredicateVariables = [[NSMutableDictionary alloc] init];
@@ -144,7 +144,7 @@
         return;
     }
     
-    if (!formRow.hidden){
+    if (![formRow.isHidden boolValue]){
         NSUInteger index = [self.formRows indexOfObject:afterRow];
         while (index == NSNotFound && allRowIndex != 0) {
             afterRow = [self.allRows objectAtIndex:(--allRowIndex)];
@@ -170,7 +170,7 @@
         return;
     }
     
-    if (!formRow.hidden){
+    if (![[formRow isHidden] boolValue]){
         NSUInteger index = [self.formRows indexOfObject:beforeRow];
         while (index == NSNotFound && allRowIndex != ([self.allRows count]-1)) {
             beforeRow = [self.allRows objectAtIndex:(++allRowIndex)];
@@ -228,6 +228,14 @@
             [formRow removeObserver:self forKeyPath:@"value"];
         }
         @catch (NSException * __unused exception) {}
+        @try {
+            [formRow removeObserver:self forKeyPath:@"disablePredicateCache"];
+        }
+        @catch (NSException * __unused exception) {}
+        @try {
+            [formRow removeObserver:self forKeyPath:@"hidePredicateCache"];
+        }
+        @catch (NSException * __unused exception) {}
     }
 }
 
@@ -267,11 +275,18 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([object isKindOfClass:[XLFormRowDescriptor class]] && [keyPath isEqualToString:@"value"]){
+    if ([object isKindOfClass:[XLFormRowDescriptor class]] && [keyPath isEqualToString:@"value"] ){
         if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
             id newValue = [change objectForKey:NSKeyValueChangeNewKey];
             id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
             [self.formDescriptor.delegate formRowDescriptorValueHasChanged:object oldValue:oldValue newValue:newValue];
+        }
+    }
+    else if ([object isKindOfClass:[XLFormRowDescriptor class]] && ([keyPath isEqualToString:@"hidePredicateCache"] || [keyPath isEqualToString:@"disablePredicateCache"])){
+        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+            id newValue = [change objectForKey:NSKeyValueChangeNewKey];
+            id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
+            [self.formDescriptor.delegate formRowDescriptorPredicateHasChanged:object oldValue:oldValue newValue:newValue];
         }
     }
 }
@@ -299,6 +314,8 @@
 {
     formRow.sectionDescriptor = self;
     [formRow addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [formRow addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [formRow addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.formRows insertObject:formRow atIndex:index];
 }
 
@@ -313,6 +330,14 @@
     XLFormRowDescriptor * formRow = [self.formRows objectAtIndex:index];
     @try {
         [formRow removeObserver:self forKeyPath:@"value"];
+    }
+    @catch (NSException * __unused exception) {}
+    @try {
+        [formRow removeObserver:self forKeyPath:@"disablePredicateCache"];
+    }
+    @catch (NSException * __unused exception) {}
+    @try {
+        [formRow removeObserver:self forKeyPath:@"hidePredicateCache"];
     }
     @catch (NSException * __unused exception) {}
     [self.formRows removeObjectAtIndex:index];
@@ -331,106 +356,47 @@
 }
 
 #pragma mark - Predicates
--(BOOL)isDisabled
-{
-    return _disabled || self.formDescriptor.isDisabled;
+
+-(BOOL)dirtyPredicate{
+    return _dirtyPredicate;
 }
 
--(void)setDisabled:(BOOL)disabled
-{
-    _disabled = disabled;
+-(void)setDirtyPredicate:(BOOL)dirtyPredicate{
+    _dirtyPredicate = dirtyPredicate;
+    [[self isHidden] boolValue];
+    [self hiddenValueDidChange];
 }
 
 
-
--(BOOL)isDisabledPredicate
+-(id)isHidden
 {
-    if(!_disablePredicate || self.isDisabled)
-        return self.isDisabled;
-    if (self.dirtyPredicate) {
-        @try {
-            self.disablePredicateCache = [_disablePredicate evaluateWithObject:self substitutionVariables:_disablePredicateVariables];
-            self.dirtyPredicate = NO;
-            return self.disablePredicateCache;
+    if ([_hidden isKindOfClass:[NSPredicate class]]) {
+        if (self.dirtyPredicate) {
+            @try {
+                self.hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:_hidePredicateVariables];
+                self.dirtyPredicate = NO;
+                return @(self.hidePredicateCache);
+            }
+            @catch (NSException *exception) {
+                // predicate syntax error.
+                return @NO;
+            };
         }
-        @catch (NSException *exception) {
-            // predicate syntax error.
-            return self.isDisabled;
-        };
+        else
+            return @(self.hidePredicateCache);
     }
-    else
-        return self.disablePredicateCache;
+    else{
+        return _hidden;
+    }
 }
 
--(void)setDisablingPredicate:(id) disablePredicate{
+
+-(void)setHidden:(id)hidden
+{
     XLFormRowDescriptor* obs;
-    if ([disablePredicate isKindOfClass:[NSString class]]){
+    if ([hidden isKindOfClass:[NSString class]]){
         //preprocess string
-        NSMutableArray* tags = [disablePredicate getFormPredicateTags];
-        for (int i = 1; i < tags.count; i++) {
-            obs = [self.formDescriptor formRowWithTag:tags[i]];
-            if (obs){
-                [obs addObserverRow:self];
-                _disablePredicateVariables[tags[i]] = obs;
-            }
-            else{
-                return; // wrong tag
-            }
-        }
-        _disablePredicate = [NSPredicate predicateWithFormat:tags[0]];
-    }
-    else if ([disablePredicate isKindOfClass:[NSPredicate class]]){
-        // get vars from predicate
-        
-        NSMutableArray* tokens = [disablePredicate getPredicateVars];
-        for (int i = 0; i < tokens.count; i++) {
-            obs = [self.formDescriptor formRowWithTag:tokens[i]];
-            if (obs){
-                [obs addObserverRow:self];
-                _disablePredicateVariables[tokens[i]] = obs;
-            }
-            else{
-                return; // wrong tag
-            }
-        }
-        _disablePredicate = disablePredicate;
-    }
-}
-
--(BOOL)isHidden
-{
-    return _hidden;
-}
-
--(void)setHidden:(BOOL)hidden
-{
-    _hidden = hidden;
-}
-
--(BOOL)isHiddenPredicate{
-    if(!_hiddenPredicate || self.isHidden)
-        return self.isHidden;
-    if (self.dirtyPredicate) {
-        @try {
-            self.hidePredicateCache = [_hiddenPredicate evaluateWithObject:self substitutionVariables:_hidePredicateVariables];
-            self.dirtyPredicate = NO;
-            [self hiddenValueDidChange];
-            return self.hidePredicateCache;
-        }
-        @catch (NSException *exception) {
-            // predicate syntax error.
-            return self.isHidden;
-        };
-    }
-    else
-        return self.hidePredicateCache;
-}
-
--(void)setHiddenPredicate:(id)hiddenPredicate{
-    XLFormRowDescriptor* obs;
-    if ([hiddenPredicate isKindOfClass:[NSString class]]){
-        //preprocess string
-        NSMutableArray* tags = [hiddenPredicate getFormPredicateTags];
+        NSMutableArray* tags = [hidden getFormPredicateTags];
         for (int i = 1; i < tags.count; i++) {
             obs = [self.formDescriptor formRowWithTag:tags[i]];
             if (obs){
@@ -441,12 +407,12 @@
                 return; // wrong tag
             }
         }
-        _hiddenPredicate = [NSPredicate predicateWithFormat:tags[0]];
+        _hidden = [NSPredicate predicateWithFormat:tags[0]];
     }
-    else if ([hiddenPredicate isKindOfClass:[NSPredicate class]]){
+    else if ([hidden isKindOfClass:[NSPredicate class]]){
         // get vars from predicate
         
-        NSMutableArray* tokens = [hiddenPredicate getPredicateVars];
+        NSMutableArray* tokens = [hidden getPredicateVars];
         for (int i = 0; i < tokens.count; i++) {
             obs = [self.formDescriptor formRowWithTag:tokens[i]];
             if (obs){
@@ -457,17 +423,27 @@
                 return; // wrong tag
             }
         }
-        _hiddenPredicate = hiddenPredicate;
+        _hidden = hidden;
+    }
+    else{
+        _hidden = hidden;
     }
 }
 
 -(void)hiddenValueDidChange{
-    if ([self isHiddenPredicate]) {
+    if ([[self isHidden] boolValue]) {
         [self.formDescriptor hideFormSection:self];
     }
     else{
         [self.formDescriptor showFormSection:self];
     }
+}
+
+-(id)getReturnValueFor:(BOOL)value{
+    if (value)
+        return @(value);
+    else
+        return nil;
 }
 
 @end

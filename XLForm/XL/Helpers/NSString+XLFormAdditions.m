@@ -40,12 +40,17 @@
     NSRange range;
     for (int i = 1; i < tokens.count; i++) {
         [new_string appendString:separator];
-        NSMutableString* tag = [[tokens[i] componentsSeparatedByString:@" "][0] componentsSeparatedByString:@"."][0];
+        NSArray* subtokens = [[tokens[i]  componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" <>!=+-&|"]][0]
+                              componentsSeparatedByString:@"."];
+        NSString* tag = subtokens[0];
+        NSString* attribute;
+        if ([subtokens count] >= 2) {
+            attribute = subtokens[1];
+        }
         [new_string appendString:tag];
         range = [tokens[i] rangeOfString:[NSString stringWithFormat:@"%@", tag]];
-        if (![[tokens[i] substringWithRange:NSMakeRange(range.location + range.length, 6)] isEqualToString:@".value"]){
+        if (!attribute || (![attribute isEqualToString:@"value"] && ![attribute isEqualToString:@"hidden"] && ![attribute isEqualToString:@"disabled"])){
             [new_string appendString:@".value"];
-            
         }
         [new_string appendString:[tokens[i] substringFromIndex:range.location + range.length]];
         [ret insertObject:tag atIndex:0];

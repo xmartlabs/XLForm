@@ -33,9 +33,8 @@
 
 @property XLFormBaseCell * cell;
 @property (nonatomic) NSMutableArray *validators;
+@property BOOL dirtyPredicate;
 
-@property BOOL disablePredicateCache;
-@property BOOL hidePredicateCache;
 @property (nonatomic) NSPredicate* disablePredicate;
 @property (nonatomic) NSMutableDictionary* disablePredicateVariables;
 @property (nonatomic) NSMutableDictionary* hidePredicateVariables;
@@ -43,13 +42,14 @@
 @end
 
 @implementation XLFormRowDescriptor
-
+{
+    BOOL _disablePredicateCache;
+    BOOL _hidePredicateCache;
+}
 @synthesize action = _action;
 @synthesize disabled = _disabled;
 @synthesize hidden = _hidden;
-//@synthesize dirtyPredicate = _dirtyPredicate;
-
-@synthesize hiddenPredicate = _hiddenPredicate;
+@synthesize dirtyPredicate = _dirtyPredicate;
 
 -(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
@@ -57,7 +57,8 @@
     if (self){
         NSAssert(((![rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] && ![rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) || (([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) && ([rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] || [rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]))), @"You must be running under UIUserInterfaceIdiomPad to use either XLFormRowDescriptorTypeSelectorPopover or XLFormRowDescriptorTypeMultipleSelectorPopover rows.");
         _tag = tag;
-        _disabled = NO;
+        _disabled = @NO;
+        _hidden = @NO;
         _dirtyPredicate = YES;
         _disablePredicateVariables = [[NSMutableDictionary alloc] init];
         _hidePredicateVariables = [[NSMutableDictionary alloc] init];
@@ -148,14 +149,14 @@
     _action = action;
 }
 
--(BOOL)isDisabled
-{
-    return _disabled || self.sectionDescriptor.formDescriptor.isDisabled;
+-(BOOL)dirtyPredicate{
+    return _dirtyPredicate;
 }
 
--(void)setDisabled:(BOOL)disabled
-{
-    _disabled = disabled;
+-(void)setDirtyPredicate:(BOOL)dirtyPredicate{
+    _dirtyPredicate = dirtyPredicate;
+    // cache value
+    [self isHidden];
 }
 
 
@@ -166,8 +167,8 @@
     rowDescriptorCopy.cellClass = [self.cellClass copy];
     rowDescriptorCopy.cellConfig = [self.cellConfig mutableCopy];
     rowDescriptorCopy.cellConfigAtConfigure = [self.cellConfigAtConfigure mutableCopy];
-    rowDescriptorCopy.hiddenPredicate = self.hiddenPredicate;
-    rowDescriptorCopy.disabled = self.isDisabled;
+    rowDescriptorCopy.hidden = _hidden;
+    rowDescriptorCopy.disabled = _disabled;
     rowDescriptorCopy.required = self.isRequired;
     
     // =====================
@@ -190,30 +191,75 @@
 
 #pragma mark - Disable Predicate functions
 
--(BOOL)isDisabledPredicate
+-(id)isDisabled
 {
-    if(!_disablePredicate || self.isDisabled)
-        return self.isDisabled;
-    if (self.dirtyPredicate) {
-        @try {
-            self.disablePredicateCache = [_disablePredicate evaluateWithObject:self substitutionVariables:_disablePredicateVariables];
-            self.dirtyPredicate = NO;
-            return self.disablePredicateCache;
-        }
-        @catch (NSException *exception) {
-            // predicate syntax error. 
-            return self.isDisabled;
-        };
+    if ( self.sectionDescriptor.formDescriptor.isDisabled ){
+        return @YES;
     }
-    else
-        return self.disablePredicateCache;
+    if ([_disabled isKindOfClass:[NSPredicate class]]) {
+        if (self.dirtyPredicate) {
+            @try {
+                _disablePredicateCache = [_disabled evaluateWithObject:self substitutionVariables:_disablePredicateVariables];
+                self.dirtyPredicate = NO;
+                return @(_disablePredicateCache);
+            }
+            @catch (NSException *exception) {
+                // predicate syntax error.
+                return @NO;
+            };
+        }
+        else
+            return @(_disablePredicateCache);
+    }
+    else{
+        return _disabled;
+    }
 }
 
--(void)setDisablingPredicate:(id) disablePredicate{
+-(void)setDisabled:(id)disabled
+{
     XLFormRowDescriptor* obs;
-    if ([disablePredicate isKindOfClass:[NSString class]]){
+    if ([disabled isKindOfClass:[NSString class]]){
         //preprocess string
-        NSMutableArray* tags = [disablePredicate getFormPredicateTags];
+        NSMutableArray* tags = [disabled getFormPredicateTags];
+        for (int i = 1; i < tags.count; i++) {
+            obs = [self.sectionDescriptor.formDescriptor formRowWithTag:tags[i]];
+            if (obs){
+                [obs addObserverRow:self];
+                _disablePredicateVariables[tags[i]] = obs;
+            }
+            else{
+                return;  // wrong tag
+            }
+        }
+        _disabled = [NSPredicate predicateWithFormat:tags[0]];
+    }
+    else if ([disabled isKindOfClass:[NSPredicate class]]){
+        // get vars from predicate
+        NSMutableArray* tokens = [disabled getPredicateVars];
+        for (int i = 0; i < tokens.count; i++) {
+            obs = [self.sectionDescriptor.formDescriptor formRowWithTag:tokens[i]];
+            if (obs){
+                [obs addObserverRow:self];
+                _disablePredicateVariables[tokens[i]] = obs;
+            }
+            else{
+                return;  // wrong tag
+            }
+        }
+        _disabled = disabled;
+    }
+    else {
+        _disabled = disabled;
+    }
+}
+
+
+-(void)setDisabledPredicate:(id)predicate{
+    XLFormRowDescriptor* obs;
+    if ([predicate isKindOfClass:[NSString class]]){
+        //preprocess string
+        NSMutableArray* tags = [predicate getFormPredicateTags];
         for (int i = 1; i < tags.count; i++) {
             obs = [self.sectionDescriptor.formDescriptor formRowWithTag:tags[i]];
             if (obs){
@@ -224,12 +270,12 @@
                 return; // wrong tag
             }
         }
-        _disablePredicate = [NSPredicate predicateWithFormat:tags[0]];
+        self.disablePredicate = [NSPredicate predicateWithFormat:tags[0]];
     }
-    else if ([disablePredicate isKindOfClass:[NSPredicate class]]){
+    else if ([predicate isKindOfClass:[NSPredicate class]]){
         // get vars from predicate
         
-        NSMutableArray* tokens = [disablePredicate getPredicateVars];
+        NSMutableArray* tokens = [predicate getPredicateVars];
         for (int i = 0; i < tokens.count; i++) {
             obs = [self.sectionDescriptor.formDescriptor formRowWithTag:tokens[i]];
             if (obs){
@@ -240,47 +286,42 @@
                 return; // wrong tag
             }
         }
-        _disablePredicate = disablePredicate;
+        self.disablePredicate = predicate;
     }
 }
 
 #pragma mark - Hide Predicate functions
 
--(BOOL)isHidden
+-(id)isHidden
 {
-    return _hidden || self.sectionDescriptor.hidden;
-}
-
--(void)setHidden:(BOOL)hidden
-{
-    _hidden = hidden;
-}
-
--(BOOL)isHiddenPredicate{
-    if(!_hiddenPredicate || self.isHidden)
-        return self.isHidden;
-    if (self.dirtyPredicate) {
-        @try {
-            //[self addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionNew | [NSKeyValueObservingOptionOld context:0];
-            self.hidePredicateCache = [_hiddenPredicate evaluateWithObject:self substitutionVariables:_hidePredicateVariables];
-            self.dirtyPredicate = NO;
-            [self hiddenValueDidChange];
-            return self.hidePredicateCache;
+    if ([_hidden isKindOfClass:[NSPredicate class]]) {
+        if (self.dirtyPredicate) {
+            @try {
+                //[self addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionNew | [NSKeyValueObservingOptionOld context:0];
+                _hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:_hidePredicateVariables];
+                self.dirtyPredicate = NO;
+                [self hiddenValueDidChange];
+                return @(_hidePredicateCache);
+            }
+            @catch (NSException *exception) {
+                // predicate syntax error.
+                return @NO;
+            };
         }
-        @catch (NSException *exception) {
-            // predicate syntax error.
-            return self.isHidden;
-        };
+        else
+            return @(_hidePredicateCache);
     }
-    else
-        return self.hidePredicateCache;
+    else{
+        return _hidden;
+    }
 }
 
--(void)setHiddenPredicate:(id)hiddenPredicate{
+-(void)setHidden:(id)hidden
+{
     XLFormRowDescriptor* obs;
-    if ([hiddenPredicate isKindOfClass:[NSString class]]){
+    if ([hidden isKindOfClass:[NSString class]]){
         //preprocess string
-        NSMutableArray* tags = [hiddenPredicate getFormPredicateTags];
+        NSMutableArray* tags = [hidden getFormPredicateTags];
         for (int i = 1; i < tags.count; i++) {
             obs = [self.sectionDescriptor.formDescriptor formRowWithTag:tags[i]];
             if (obs){
@@ -291,12 +332,12 @@
                 return; // wrong tag
             }
         }
-        _hiddenPredicate = [NSPredicate predicateWithFormat:tags[0]];
+        _hidden = [NSPredicate predicateWithFormat:tags[0]];
     }
-    else if ([hiddenPredicate isKindOfClass:[NSPredicate class]]){
+    else if ([hidden isKindOfClass:[NSPredicate class]]){
         // get vars from predicate
         
-        NSMutableArray* tokens = [hiddenPredicate getPredicateVars];
+        NSMutableArray* tokens = [hidden getPredicateVars];
         for (int i = 0; i < tokens.count; i++) {
             obs = [self.sectionDescriptor.formDescriptor formRowWithTag:tokens[i]];
             if (obs){
@@ -307,17 +348,20 @@
                 return; // wrong tag
             }
         }
-        _hiddenPredicate = hiddenPredicate;
+        _hidden = hidden;
+    }
+    else{
+        _hidden = hidden;
     }
 }
 
+
 -(void)hiddenValueDidChange{
-    if ([self isHiddenPredicate]) {
+    if ([[self isHidden] boolValue]) {
         [self.sectionDescriptor hideFormRow:self];
     }
     else{
         [self.sectionDescriptor showFormRow:self];
-  
     }
 }
 

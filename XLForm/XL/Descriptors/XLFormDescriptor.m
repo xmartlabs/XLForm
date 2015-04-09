@@ -38,6 +38,18 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @end
 
+@interface XLFormSectionDescriptor (_XLFormAdditions)
+
+@property NSMutableArray * allRows;
+
+@end
+
+@implementation XLFormSectionDescriptor (_XLFormAdditions)
+
+@dynamic allRows;
+
+@end
+
 @implementation XLFormDescriptor
 
 -(id)init
@@ -73,31 +85,42 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection
 {
     [self insertObject:formSection inAllSectionsAtIndex:[self.allSections count]];
-    if (!formSection.hidden) {
+    if (![[formSection isHidden] boolValue]) {
         [self insertObject:formSection inFormSectionsAtIndex:[self.formSections count]];
     }
 }
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
-    if (!formSection.hidden && self.formSections.count >= index) {
-        [self insertObject:formSection inFormSectionsAtIndex:index];
+    // this will insert the section at the given index in formSections and
+    // after the previous section of formSections in allSections.
+    if (index == 0){
+        if (![[formSection isHidden] boolValue]){
+            [self insertObject:formSection inFormSectionsAtIndex:0];
+        }
+        [self insertObject:formSection inAllSectionsAtIndex:0];
     }
-    // not supporting allsections
+    else if (index <= self.formSections.count){
+        XLFormSectionDescriptor* previousSection = [self.formSections objectAtIndex:index-1];
+        [self addFormSection:formSection afterSection:previousSection];
+    }
 }
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection afterSection:(XLFormSectionDescriptor *)afterSection
 {
-    NSUInteger allSectionIndex = [self.allSections indexOfObject:afterSection];
-    if (allSectionIndex != NSNotFound) {
-        [self insertObject:formSection inAllSectionsAtIndex:allSectionIndex+1];
+    NSUInteger sectionIndex;
+    NSUInteger allSectionIndex;
+    if ((sectionIndex = [self.allSections  indexOfObject:formSection]) == NSNotFound){
+        allSectionIndex = [self.allSections indexOfObject:afterSection];
+        if (allSectionIndex != NSNotFound) {
+            [self insertObject:formSection inAllSectionsAtIndex:allSectionIndex+1];
+        }
+        else { //case when afterSection does not exist. Just insert at the end.
+            [self addFormSection:formSection];
+            return;
+        }
     }
-    else { //case when afterSection does not exist. Just insert at the end.
-        [self addFormSection:formSection];
-        return;
-    }
-
-    if (!formSection.hidden){
+    if (![[formSection isHidden] boolValue]){
         NSUInteger index = [self.formSections indexOfObject:afterSection];
         while (index == NSNotFound && allSectionIndex != 0){
             afterSection = [self.allSections objectAtIndex:(--allSectionIndex)];
@@ -109,9 +132,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         else { // insert at the beginning as there is no previous row
             [self.formSections insertObject:formSection atIndex:0];
         }
-
     }
-    
 }
 
 
@@ -214,9 +235,8 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 -(XLFormRowDescriptor *)formRowWithTag:(NSString *)tag
 {
-#warning search in allSections instead?
-    for (XLFormSectionDescriptor * section in self.formSections){
-        for (XLFormRowDescriptor * row in section.formRows) {
+    for (XLFormSectionDescriptor * section in self.allSections){
+        for (XLFormRowDescriptor * row in section.allRows){
             if ([row.tag isEqualToString:tag]){
                 return row;
             }
@@ -227,9 +247,8 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 -(XLFormRowDescriptor *)formRowWithHash:(NSUInteger)hash
 {
-#warning search in allSections instead?
-    for (XLFormSectionDescriptor * section in self.formSections){
-        for (XLFormRowDescriptor * row in section.formRows) {
+    for (XLFormSectionDescriptor * section in self.allSections){
+        for (XLFormRowDescriptor * row in section.allRows) {
             if ([row hash] == hash){
                 return row;
             }

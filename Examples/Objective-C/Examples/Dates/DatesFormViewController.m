@@ -94,7 +94,7 @@ NSString *const kDateTime = @"dateTime";
         
         // Date
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDate rowType:XLFormRowDescriptorTypeDate title:@"Date"];
-        row.disabled = YES;
+        row.disabled = @YES;
         row.required = YES;
         row.value = [NSDate new];
         [section addFormRow:row];

@@ -73,11 +73,11 @@
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
     self.stepControl.value = [self.rowDescriptor.value doubleValue];
-    [self stepControl].enabled = ![self.rowDescriptor isDisabledPredicate];
+    [self stepControl].enabled = ![self.rowDescriptor.isDisabled boolValue];
     [self currentStepValue].font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     CGFloat red, green, blue, alpha;
     [self.tintColor getRed:&red green:&green blue:&blue alpha:&alpha];
-    if ([self.rowDescriptor isDisabledPredicate])
+    if ([self.rowDescriptor.isDisabled boolValue])
     {
         [self setTintColor:[UIColor colorWithRed:red green:green blue:blue alpha:0.3]];
         [self currentStepValue].textColor = [UIColor colorWithRed:red green:green blue:blue alpha:0.3];

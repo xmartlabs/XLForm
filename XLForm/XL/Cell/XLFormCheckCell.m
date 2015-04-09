@@ -43,7 +43,7 @@
     CGFloat red, green, blue, alpha;
     [self.tintColor getRed:&red green:&green blue:&blue alpha:&alpha];
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
-    if ([self.rowDescriptor isDisabledPredicate])
+    if ([self.rowDescriptor.isDisabled boolValue])
     {
         [self setTintColor:[UIColor colorWithRed:red green:green blue:blue alpha:0.3]];
         self.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -136,9 +136,9 @@
     [self.leftButton setTitle:[NSString stringWithFormat:@"%@%@", [self.rowDescriptor.leftRightSelectorLeftOptionSelected displayText], self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""] forState:UIControlStateNormal];
     [self.rowDescriptor setTitle:[self.rowDescriptor.leftRightSelectorLeftOptionSelected displayText]];
     self.rightLabel.text = [self rightTextLabel];
-    [self.leftButton setEnabled:(![self.rowDescriptor isDisabledPredicate])];
-    self.accessoryView = [self.rowDescriptor isDisabledPredicate] ? nil : [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XLForm.bundle/forwardarrow.png"]];
-    self.selectionStyle = [self.rowDescriptor isDisabledPredicate] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    [self.leftButton setEnabled:(![self.rowDescriptor.isDisabled boolValue])];
+    self.accessoryView = [self.rowDescriptor.isDisabled boolValue] ? nil : [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XLForm.bundle/forwardarrow.png"]];
+    self.selectionStyle = [self.rowDescriptor.isDisabled boolValue] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
 }
 
 
