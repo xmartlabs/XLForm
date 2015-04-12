@@ -28,7 +28,8 @@ What XLForm does
  * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
  * Provides several inline selectors such as date picker and picker inline selectors and brings a way to create custom inline selectors.
  * Form data validation based on form definition.
- * Ability to easily navigate among rows, fully customizable. * Ability to show inputAccessoryView if needed. By default a navigation input accessory view is shown.
+ * Ability to easily navigate among rows, fully customizable.
+ * Ability to show inputAccessoryView if needed. By default a navigation input accessory view is shown.
  * Read only mode for a particular row or the entire form.
 
 

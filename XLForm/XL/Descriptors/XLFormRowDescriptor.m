@@ -86,19 +86,18 @@
 
 -(XLFormBaseCell *)cellForFormController:(XLFormViewController *)formController
 {
-    id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
-    NSAssert(cellClass, @"Not defined XLFormRowDescriptorType");
     if (!_cell){
+        id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
+        NSAssert(cellClass, @"Not defined XLFormRowDescriptorType: %@", self.rowType ?: @"");
         if ([cellClass isKindOfClass:[NSString class]]) {
             if ([[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
                 _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
-                [self configureCellAtCreationTime];
             }
-        } else if (!_cell) {
+        } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
-            [self configureCellAtCreationTime];
         }
-        NSAssert([_cell isKindOfClass:[XLFormBaseCell class]], @"Can not get a XLFormBaseCell");
+        NSAssert([_cell isKindOfClass:[XLFormBaseCell class]], @"UITableViewCell must extend from XLFormBaseCell");
+        [self configureCellAtCreationTime];
     }
     return _cell;
 }
