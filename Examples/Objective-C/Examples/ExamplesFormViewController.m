@@ -173,7 +173,7 @@ NSString * const kValidations= @"Validations";
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Predicate Disabling"];
     [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidations rowType:XLFormRowDescriptorTypeButton title:@"Predicate Disabling"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Predicate Disabling"];
     row.action.formSegueIdenfifier = @"PredicateFormViewControllerSegue";
     [section addFormRow:row];
     

@@ -56,12 +56,12 @@ NSString *const kPredDep2 = @"preddep2";
     XLFormDescriptor * form;
     XLFormSectionDescriptor * section;
     XLFormRowDescriptor * row;
-    XLFormRowDescriptor * pred, *pred2, *pred3, *pred4;
+    XLFormRowDescriptor * pred, *pred3, *pred4;
     
     form = [XLFormDescriptor formDescriptorWithTitle:@"Predicates"];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Independent rows"];
-    [form addFormSection:section];
+    
 
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredDep rowType:XLFormRowDescriptorTypeText title:@"Text"];
     [row.cellConfigAtConfigure setObject:@"Type disable" forKey:@"textField.placeholder"];
@@ -69,7 +69,7 @@ NSString *const kPredDep2 = @"preddep2";
     [section addFormRow:row];
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredDep2 rowType:XLFormRowDescriptorTypeInteger title:@"Integer"];
-    pred2 = row;
+    row.hidden = [NSString stringWithFormat:@"$switch==0"];
     [section addFormRow:row];
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"switch" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Boolean"];
@@ -77,7 +77,7 @@ NSString *const kPredDep2 = @"preddep2";
     pred3 = row;
     [section addFormRow:row];
     
-    pred2.hidden = [NSString stringWithFormat:@"$%@==0", pred3];
+    [form addFormSection:section];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Dependent section"];
     section.footerTitle = @"Type disable in the textfield, a number between 18 and 60 in the integer field or use the switch to disable the last row. By doing all three the last section will hide.\nThe integer field hides when the boolean switch is set to 0.";
@@ -88,10 +88,10 @@ NSString *const kPredDep2 = @"preddep2";
     row.value = [NSDate new];
     [section addFormRow:row];
     
-    row.disabled = [NSString stringWithFormat:@"$%@ contains[c] \"%@\" OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred,  @"disable", pred2, pred3];
+    row.disabled = [NSString stringWithFormat:@"$%@ contains[c] \"%@\" OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred,  @"disable", kPredDep2, pred3];
     //[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred, pred2, pred3],  @"disable"] ];
 
-    section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) AND ($%@.value between {18, 60}) AND ($%@.value == 0)", pred, pred2, pred3],  @"disable"];
+    section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) AND ($%@.value between {18, 60}) AND ($%@.value == 0)", pred, kPredDep2, pred3],  @"disable"];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"More predicates..."];
     section.footerTitle = @"This row hides when the row of the previous section is disabled and the textfield in the first section contains \"out\"\n\nPredicateFormViewController.m";

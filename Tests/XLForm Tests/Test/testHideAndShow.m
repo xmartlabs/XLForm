@@ -13,6 +13,14 @@ static NSString * const kTextFieldCellTag = @"TextFieldCellTag";
 static NSString * const kIntegerFieldCellTag = @"IntegerFieldCellTag";
 static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
 
+@interface XLFormDescriptor (_XLTestAdditions)
+
+@property (readonly) NSMutableDictionary* allRowsByTag;
+@property NSMutableDictionary* rowObservers;
+
+@end
+
+
 @interface testHideAndShow : XCTestCase
 
 @property (nonatomic, strong) XLFormViewController * formController;
@@ -70,7 +78,23 @@ static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
     
     expect([tableView numberOfSections]).to.equal(2);
     expect([tableView numberOfRowsInSection:0]).to.equal(2);
+}
+
+-(void)testInternDataStructures{
+    UITableView * tableView = self.formController.tableView;
     
+    XLFormRowDescriptor* disabledRow = ((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]]).rowDescriptor;
+    NSMutableDictionary* deps = self.formController.form.rowObservers;
+    NSMutableDictionary* rows = self.formController.form.allRowsByTag;
+    
+    expect(rows[kDisabledFieldCellTag]).to.equal(disabledRow);
+    expect(rows[kIntegerFieldCellTag]).to.equal(((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]]).rowDescriptor);
+    expect(rows[kTextFieldCellTag]).to.equal(((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]]).rowDescriptor);
+    
+    expect(deps[kDisabledFieldCellTag]).to.equal(@[kIntegerFieldCellTag]);
+    expect(deps[kIntegerFieldCellTag]).to.equal(nil);
+    expect(deps[kTextFieldCellTag]).to.equal(@[disabledRow.sectionDescriptor, kDisabledFieldCellTag]);
+
 }
 
 #pragma mark - Build Form
@@ -87,17 +111,17 @@ static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
     [section addFormRow:row];
     
     XLFormRowDescriptor * row2 = [XLFormRowDescriptor formRowDescriptorWithTag:kIntegerFieldCellTag rowType:XLFormRowDescriptorTypeInteger title:@"Number"];
+    row2.hidden = [NSString stringWithFormat:@"$%@.disabled == 1", kDisabledFieldCellTag];
     [section addFormRow:row2];
     
     XLFormSectionDescriptor * section2 = [XLFormSectionDescriptor formSection];
+    section2.hidden = [NSString stringWithFormat:@"$%@ contains[c] 'hide'", row];
     [self.formController.form addFormSection:section2];
     
     XLFormRowDescriptor * row3 = [XLFormRowDescriptor formRowDescriptorWithTag:kDisabledFieldCellTag rowType:XLFormRowDescriptorTypeEmail title:@"Email"];
+    row3.disabled = [NSString stringWithFormat:@"$%@ contains[c] 'dis'", row];
     [section2 addFormRow:row3];
     
-    row3.disabled = [NSString stringWithFormat:@"$%@ contains[c] 'dis'", row];
-    section2.hidden = [NSString stringWithFormat:@"$%@ contains[c] 'hide'", row];
-    row2.hidden = [NSString stringWithFormat:@"$%@.disabled == 1", row3];
 }
 
 #pragma mark - Load View

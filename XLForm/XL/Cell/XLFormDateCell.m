@@ -95,8 +95,7 @@
         XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
         BOOL result = [super resignFirstResponder];
         if ([nextFormRow.rowType isEqualToString:XLFormRowDescriptorTypeDatePicker]){
-            XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
-            [formSection removeFormRow:nextFormRow];
+            [self.rowDescriptor.sectionDescriptor removeFormRow:nextFormRow];
         }
         return result;
     }

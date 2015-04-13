@@ -57,11 +57,6 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @property (getter=isDisabled) id disabled;
 @property (getter=isHidden) id hidden;
-
-@property (nonatomic) NSMutableArray* observers;
--(void)addObserverRow:(id) descriptor;
--(void)delObserverRow:(id) descriptor;
-
 @property (getter=isRequired) BOOL required;
 
 @property XLFormAction * action;
