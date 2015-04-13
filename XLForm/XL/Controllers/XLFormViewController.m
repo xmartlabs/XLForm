@@ -30,6 +30,12 @@
 #import "XLForm.h"
 
 
+@interface XLFormRowDescriptor(_XLFormViewController)
+
+@property (readonly) NSArray * observers;
+
+@end
+
 @interface XLFormViewController()
 
 @property UITableViewStyle tableViewStyle;

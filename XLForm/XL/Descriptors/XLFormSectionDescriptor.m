@@ -28,15 +28,19 @@
 #import "NSPredicate+XLFormAdditions.h"
 #import "NSString+XLFormAdditions.h"
 
+@interface XLFormRowDescriptor(_XLFormSectionDescriptor)
+
+-(void)addObserverRow:(id)descriptor;
+-(void)delObserverRow:(id)descriptor;
+
+@end
+
 @interface XLFormSectionDescriptor()
 
 @property NSMutableArray * formRows;
 @property NSMutableArray * allRows;
 
-@property BOOL disablePredicateCache;
 @property BOOL hidePredicateCache;
-@property (nonatomic) NSPredicate* disablePredicate;
-@property (nonatomic) NSMutableDictionary* disablePredicateVariables;
 @property (nonatomic) NSMutableDictionary* hidePredicateVariables;
 
 @property BOOL dirtyPredicate;
@@ -44,7 +48,6 @@
 @end
 
 @implementation XLFormSectionDescriptor
-
 
 @synthesize hidden = _hidden;
 @synthesize dirtyPredicate = _dirtyPredicate;
@@ -61,7 +64,6 @@
         _footerTitle = nil;
         _hidden = @NO;
         _dirtyPredicate = YES;
-        _disablePredicateVariables = [[NSMutableDictionary alloc] init];
         _hidePredicateVariables = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -117,19 +119,8 @@
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow
 {
-#warning what happens when count == 0
-    if ([self.formRows count] == 0) {
-        [self insertObject:formRow inFormRowsAtIndex:(0)];
-    }
-    else{
-        [self insertObject:formRow inFormRowsAtIndex:([self canInsertUsingButton] ? [self.formRows count] - 1 : [self.formRows count])];
-    }
-    if ([self.allRows count] == 0){
-        [self insertObject:formRow inAllRowsAtIndex:0];
-    }
-    else{
-        [self insertObject:formRow inAllRowsAtIndex:([self canInsertUsingButton] ? [self.allRows count] - 1 : [self.allRows count])];
-    }
+    [self insertObject:formRow inFormRowsAtIndex:([self canInsertUsingButton] ? MAX(0, [self.formRows count] - 1) : [self.formRows count])];
+    [self insertObject:formRow inAllRowsAtIndex:([self canInsertUsingButton] ? MAX(0, [self.formRows count] - 1) : [self.allRows count])];
 }
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow

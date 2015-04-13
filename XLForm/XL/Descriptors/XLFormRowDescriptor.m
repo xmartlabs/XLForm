@@ -34,7 +34,7 @@
 @property XLFormBaseCell * cell;
 @property (nonatomic) NSMutableArray *validators;
 @property BOOL dirtyPredicate;
-
+@property NSMutableArray * observers;
 @property (nonatomic) NSPredicate* disablePredicate;
 @property (nonatomic) NSMutableDictionary* disablePredicateVariables;
 @property (nonatomic) NSMutableDictionary* hidePredicateVariables;
