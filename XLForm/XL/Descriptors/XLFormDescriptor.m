@@ -26,6 +26,7 @@
 
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormDescriptor.h"
+#import "XLFormSectionDescriptor+XLFormAdditions.h"
 
 NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
 NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
@@ -35,18 +36,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 @property NSMutableArray * formSections;
 @property NSMutableArray * allSections;
 @property NSString * title;
-
-@end
-
-@interface XLFormSectionDescriptor (_XLFormAdditions)
-
-@property NSMutableArray * allRows;
-
-@end
-
-@implementation XLFormSectionDescriptor (_XLFormAdditions)
-
-@dynamic allRows;
 
 @end
 
@@ -138,12 +127,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow
 {
-    NSIndexPath * beforeIndexPath = [self indexPathOfFormRow:beforeRow];
-    if (self.formSections.count > beforeIndexPath.section){
-        [[self.formSections objectAtIndex:beforeIndexPath.section] addFormRow:formRow beforeRow:beforeRow];
+    NSIndexPath * beforeIndexPath = [self globalIndexPathOfFormRow:beforeRow];
+    if (self.allSections.count > beforeIndexPath.section){
+        [[self.allSections objectAtIndex:beforeIndexPath.section] addFormRow:formRow beforeRow:beforeRow];
     }
     else{
-        [[self.formSections lastObject] addFormRow:formRow beforeRow:beforeRow];
+        [[self.allSections lastObject] addFormRow:formRow beforeRow:beforeRow];
     }
 }
 
@@ -157,12 +146,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow
 {
-    NSIndexPath * afterIndexPath = [self indexPathOfFormRow:afterRow];
-    if (self.formSections.count > afterIndexPath.section){
-        [[self.formSections objectAtIndex:afterIndexPath.section] addFormRow:formRow afterRow:afterRow];
+    NSIndexPath * afterIndexPath = [self globalIndexPathOfFormRow:afterRow];
+    if (self.allSections.count > afterIndexPath.section){
+        [[self.allSections objectAtIndex:afterIndexPath.section] addFormRow:formRow afterRow:afterRow];
     }
     else{
-        [[self.formSections lastObject] addFormRow:formRow afterRow:afterRow];
+        [[self.allSections lastObject] addFormRow:formRow afterRow:afterRow];
     }
 }
 
@@ -284,6 +273,21 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         NSUInteger sectionIndex = [self.formSections indexOfObject:section];
         if (sectionIndex != NSNotFound){
             NSUInteger rowIndex = [section.formRows indexOfObject:formRow];
+            if (rowIndex != NSNotFound){
+                return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+            }
+        }
+    }
+    return nil;
+}
+
+-(NSIndexPath *)globalIndexPathOfFormRow:(XLFormRowDescriptor *)formRow
+{
+    XLFormSectionDescriptor * section = formRow.sectionDescriptor;
+    if (section){
+        NSUInteger sectionIndex = [self.allSections indexOfObject:section];
+        if (sectionIndex != NSNotFound){
+            NSUInteger rowIndex = [section.allRows indexOfObject:formRow];
             if (rowIndex != NSNotFound){
                 return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
             }

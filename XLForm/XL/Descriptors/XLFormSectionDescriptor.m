@@ -117,7 +117,6 @@
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow
 {
-#warning what happens when count == 0
     if ([self.formRows count] == 0) {
         [self insertObject:formRow inFormRowsAtIndex:(0)];
     }

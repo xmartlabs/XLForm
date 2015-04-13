@@ -54,6 +54,10 @@ NSString * kAccessoryViewCheck = @"check";
 NSString * kAccessoryViewNotes = @"notes";
 
 
+//This macro defines if we use predicates to hide rows or do it manually the old way.
+//Just comment out if you want it to run without predicates.
+#define USE_PREDICATES_FOR_HIDING
+
 -(id)init
 {
     self = [super init];
@@ -78,7 +82,7 @@ NSString * kAccessoryViewNotes = @"notes";
     
     // RowNavigationEnabled
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationEnabled rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Row Navigation Enabled?"];
-    row.value = @YES;
+    row.value = @NO;
     [section addFormRow:row];
     
     // RowNavigationShowAccessoryView
@@ -100,6 +104,14 @@ NSString * kAccessoryViewNotes = @"notes";
     _rowSkipCanNotBecomeFirstResponderRow = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Skip Can Not Become First Responder Row?"];
     _rowSkipCanNotBecomeFirstResponderRow.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) == XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow);
     [section addFormRow:_rowSkipCanNotBecomeFirstResponderRow];
+    
+    
+#ifdef USE_PREDICATES_FOR_HIDING
+    _rowShowAccessoryView.hidden = [NSString stringWithFormat:@"$%@ == 0", row];
+    _rowSkipCanNotBecomeFirstResponderRow.hidden = [NSString stringWithFormat:@"$%@ == 0", row];
+    _rowStopDisableRow.hidden = [NSString stringWithFormat:@"$%@ == 0", row];
+    _rowStopInlineRow.hidden = [NSString stringWithFormat:@"$%@ == 0", row];
+#endif
     
     // Basic Information - Section
     section = [XLFormSectionDescriptor formSectionWithTitle:@"TextField Types"];
@@ -158,6 +170,7 @@ NSString * kAccessoryViewNotes = @"notes";
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue
 {
     [super formRowDescriptorValueHasChanged:rowDescriptor oldValue:oldValue newValue:newValue];
+#ifndef USE_PREDICATES_FOR_HIDING
     NSString * kRowNavigationEnabled        = @"kRowNavigationEnabled";
     if ([rowDescriptor.tag isEqualToString:kRowNavigationEnabled]){
         if ([[rowDescriptor.value valueData] isEqual:@NO]){
@@ -180,7 +193,9 @@ NSString * kAccessoryViewNotes = @"notes";
             
         }
     }
-    else if ([rowDescriptor.tag isEqualToString:kAccessoryViewRowNavigationStopDisableRow]){
+    else
+#endif
+    if ([rowDescriptor.tag isEqualToString:kAccessoryViewRowNavigationStopDisableRow]){
         if ([[rowDescriptor.value valueData] isEqual:@(YES)]){
             self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptionStopDisableRow;
         }

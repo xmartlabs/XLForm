@@ -35,6 +35,8 @@
 @property (nonatomic) NSMutableArray *validators;
 @property BOOL dirtyPredicate;
 
+@property BOOL disablePredicateCache;
+@property BOOL hidePredicateCache;
 @property (nonatomic) NSPredicate* disablePredicate;
 @property (nonatomic) NSMutableDictionary* disablePredicateVariables;
 @property (nonatomic) NSMutableDictionary* hidePredicateVariables;
@@ -42,10 +44,7 @@
 @end
 
 @implementation XLFormRowDescriptor
-{
-    BOOL _disablePredicateCache;
-    BOOL _hidePredicateCache;
-}
+
 @synthesize action = _action;
 @synthesize disabled = _disabled;
 @synthesize hidden = _hidden;
@@ -199,7 +198,7 @@
     if ([_disabled isKindOfClass:[NSPredicate class]]) {
         if (self.dirtyPredicate) {
             @try {
-                _disablePredicateCache = [_disabled evaluateWithObject:self substitutionVariables:_disablePredicateVariables];
+                self.disablePredicateCache = [_disabled evaluateWithObject:self substitutionVariables:_disablePredicateVariables];
                 self.dirtyPredicate = NO;
                 return @(_disablePredicateCache);
             }
@@ -254,7 +253,7 @@
     }
 }
 
-
+/*
 -(void)setDisabledPredicate:(id)predicate{
     XLFormRowDescriptor* obs;
     if ([predicate isKindOfClass:[NSString class]]){
@@ -289,7 +288,7 @@
         self.disablePredicate = predicate;
     }
 }
-
+*/
 #pragma mark - Hide Predicate functions
 
 -(id)isHidden
@@ -297,8 +296,7 @@
     if ([_hidden isKindOfClass:[NSPredicate class]]) {
         if (self.dirtyPredicate) {
             @try {
-                //[self addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionNew | [NSKeyValueObservingOptionOld context:0];
-                _hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:_hidePredicateVariables];
+                self.hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:_hidePredicateVariables];
                 self.dirtyPredicate = NO;
                 [self hiddenValueDidChange];
                 return @(_hidePredicateCache);
