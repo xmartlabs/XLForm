@@ -137,9 +137,7 @@ NSString * const kValidations= @"Validations";
     row.action.viewControllerClass = [MultivaluedOnlyDeleteViewController class];
     [section addFormRow:row];
     
-    
-    
-    
+
     section = [XLFormSectionDescriptor formSectionWithTitle:@"UI Customization"];
     [form addFormSection:section];
     

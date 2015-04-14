@@ -26,6 +26,8 @@
 
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormDescriptor.h"
+#import "NSPredicate+XLFormAdditions.h"
+#import "NSString+XLFormAdditions.h"
 
 NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
 NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
@@ -34,19 +36,9 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 @interface XLFormSectionDescriptor (_XLFormDescriptor)
 
 @property NSArray * allRows;
--(void)clearRowDependencies;
--(void)addMissingRowDependencies;
+-(id)evaluateIsHidden;
 
 @end
-
-@interface XLFormRowDescriptor (_XLFormDescriptor)
-
--(void)clearRowDependencies;
--(void)addMissingRowDependencies;
-
-@end
-
-
 
 @interface XLFormDescriptor()
 
@@ -95,29 +87,17 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection
 {
     [self insertObject:formSection inAllSectionsAtIndex:[self.allSections count]];
-    [self insertObject:formSection inFormSectionsAtIndex:[self.formSections count]];
-    [formSection addMissingRowDependencies];
-    [formSection isHidden];
-    
-    //buggy if we check isHidden before inserting. Same for the two functions below.
 }
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
-    // this will insert the section at the given index in formSections and
-    // after the previous section of formSections in allSections.
     if (index == 0){
-        if (![[formSection isHidden] boolValue]){
-            [self insertObject:formSection inFormSectionsAtIndex:0];
-        }
         [self insertObject:formSection inAllSectionsAtIndex:0];
-        
     }
     else{
         XLFormSectionDescriptor* previousSection = [self.formSections objectAtIndex:MIN(self.formSections.count, index-1)];
         [self addFormSection:formSection afterSection:previousSection];
     }
-    [formSection addMissingRowDependencies];
 }
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection afterSection:(XLFormSectionDescriptor *)afterSection
@@ -134,16 +114,16 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
             return;
         }
     }
-    if (![[formSection isHidden] boolValue]){
-        NSUInteger index = [self.formSections indexOfObject:afterSection];
-        while (index == NSNotFound && allSectionIndex != 0){
-            afterSection = [self.allSections objectAtIndex:(--allSectionIndex)];
-            index = [self.formSections indexOfObject:afterSection];
-        }
-        // insert at the beginning as there is no previous row
-        [self insertObject:formSection inFormSectionsAtIndex:(index != NSNotFound ? ++index : 0)];
-    }
-    [formSection addMissingRowDependencies];
+    formSection.hidden = formSection.hidden;
+//    if (![[formSection isHidden] boolValue]){
+//        NSUInteger index = [self.formSections indexOfObject:afterSection];
+//        while (index == NSNotFound && allSectionIndex != 0){
+//            afterSection = [self.allSections objectAtIndex:(--allSectionIndex)];
+//            index = [self.formSections indexOfObject:afterSection];
+//        }
+//        // insert at the beginning as there is no previous row
+//        [self insertObject:formSection inFormSectionsAtIndex:(index != NSNotFound ? ++index : 0)];
+//    }
 }
 
 
@@ -185,7 +165,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     if (self.formSections.count > index){
         XLFormSectionDescriptor *formSection = [self.formSections objectAtIndex:index];
-        [formSection clearRowDependencies];
         [self removeObjectFromFormSectionsAtIndex:index];
         NSUInteger allSectionIndex = [self.allSections indexOfObject:formSection];
         [self removeObjectFromAllSectionsAtIndex:allSectionIndex];
@@ -199,7 +178,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         [self removeFormSectionAtIndex:index];
     }
     else if ((index = [self.allSections indexOfObject:formSection]) != NSNotFound){
-        [formSection clearRowDependencies];
         [self removeObjectFromAllSectionsAtIndex:index];
     };
 }
@@ -497,20 +475,27 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 - (void)removeObjectFromAllSectionsAtIndex:(NSUInteger)index {
     XLFormSectionDescriptor* section = [self.allSections objectAtIndex:index];
-    [section.allRows enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [self removeRowFromTagCollection:obj];
-        [obj clearRowDependencies];
+    [section.allRows enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL *stop) {
+        XLFormRowDescriptor * row = (id)obj;
+        row.hidden = nil;
+        row.disabled = nil;
     }];
+    section.hidden = nil;
     [self.allSections removeObjectAtIndex:index];
 }
 
 - (void)insertObject:(XLFormSectionDescriptor *)section inAllSectionsAtIndex:(NSUInteger)index {
     section.formDescriptor = self;
-    [section.allRows enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [self addRowToTagCollection:obj];
-        [obj addMissingRowDependencies];
-    }];
     [self.allSections insertObject:section atIndex:index];
+    section.hidden = section.hidden;
+    [section.allRows enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL * __unused stop) {
+        XLFormRowDescriptor * row = (id)obj;
+        [self addRowToTagCollection:obj];
+        row.hidden = row.hidden;
+        row.disabled = row.disabled;
+    }];
+
+    
 }
 
 #pragma mark - private
@@ -589,7 +574,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     [self.allRowsByTag removeObjectForKey:rowDescriptor];
 }
 
--(void)addObserver:(id) descriptor forRow:(NSString *)tag
+-(void)addObserver:(id)descriptor forRow:(NSString *)tag
 {
     if (!self.rowObservers[tag]){
         self.rowObservers[tag] = [NSMutableArray array];
@@ -601,6 +586,47 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 -(void)removeObserver:(id)descriptor forRow:(NSString*)tag
 {
     [self.rowObservers[tag] removeObject:descriptor];
+}
+
+-(void)addObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType
+{
+    NSPredicate* predicate;
+    id descriptor;
+    switch(predicateType){
+        case XLPredicateTypeHidden:
+            if ([sectionOrRow isKindOfClass:([XLFormRowDescriptor class])]) {
+                descriptor = ((XLFormRowDescriptor*)sectionOrRow).tag;
+                predicate = ((XLFormRowDescriptor*)sectionOrRow).hidden;
+            }
+            else if ([sectionOrRow isKindOfClass:([XLFormSectionDescriptor class])]) {
+                descriptor = sectionOrRow;
+                predicate = ((XLFormSectionDescriptor*)sectionOrRow).hidden;
+            }
+            break;
+        case XLPredicateTypeDisabled:
+            if ([sectionOrRow isKindOfClass:([XLFormRowDescriptor class])]) {
+                descriptor = ((XLFormRowDescriptor*)sectionOrRow).tag;
+                predicate = ((XLFormRowDescriptor*)sectionOrRow).disabled;
+            }
+            else return;
+            
+            break;
+    }
+    NSMutableArray* tags = [predicate getPredicateVars];
+    for (NSString* tag in tags) {
+        NSString* auxTag = [tag formKeyForPredicateType:predicateType];
+        if (!self.rowObservers[auxTag]){
+            self.rowObservers[auxTag] = [NSMutableArray array];
+        }
+        if (![self.rowObservers[auxTag] containsObject:descriptor])
+            [self.rowObservers[auxTag] addObject:descriptor];
+    }
+    
+}
+
+-(void)removeObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType
+{
+    //[self.rowObservers[tag] removeObject:descriptor];
 }
 
 @end

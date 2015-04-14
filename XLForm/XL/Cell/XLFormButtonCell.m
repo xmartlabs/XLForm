@@ -44,7 +44,7 @@
 -(void)update
 {
     [super update];
-    BOOL isDisabled = [self.rowDescriptor.isDisabled boolValue];
+    BOOL isDisabled = self.rowDescriptor.isDisabled;
     self.textLabel.text = self.rowDescriptor.title;
     BOOL leftAligmnment = self.rowDescriptor.action.viewControllerClass || [self.rowDescriptor.action.viewControllerStoryboardId length] != 0 || [self.rowDescriptor.action.viewControllerNibName length] != 0 || [self.rowDescriptor.action.formSegueIdenfifier length] != 0 || self.rowDescriptor.action.formSegueClass;
     self.textLabel.textAlignment = leftAligmnment ? NSTextAlignmentLeft : NSTextAlignmentCenter;

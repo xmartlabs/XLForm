@@ -57,7 +57,7 @@
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
     [self updateSegmentedControl];
     self.segmentedControl.selectedSegmentIndex = [self selectedIndex];
-    self.segmentedControl.enabled = ![self.rowDescriptor.isDisabled boolValue];
+    self.segmentedControl.enabled = !self.rowDescriptor.isDisabled;
 }
 
 #pragma mark - KVO

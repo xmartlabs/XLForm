@@ -24,9 +24,12 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "XLFormDescriptor.h"
 
 @interface NSString (XLFormAdditions)
 
--(NSMutableArray*) getFormPredicateTags;
+-(NSPredicate *)formPredicate;
+
+-(NSString *)formKeyForPredicateType:(XLPredicateType)predicateType;
 
 @end

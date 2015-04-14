@@ -58,7 +58,7 @@
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
     self.slider.value = [self.rowDescriptor.value floatValue];
-    self.slider.enabled = ![self.rowDescriptor.isDisabled boolValue];
+    self.slider.enabled = !self.rowDescriptor.isDisabled;
     [self valueChanged:nil];
 }
 

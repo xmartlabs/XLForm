@@ -28,6 +28,7 @@
 #import "XLFormViewController.h"
 #import "UIView+XLFormAdditions.h"
 #import "XLForm.h"
+#import "NSString+XLFormAdditions.h"
 
 
 @interface XLFormRowDescriptor(_XLFormViewController)
@@ -38,9 +39,8 @@
 
 @interface XLFormDescriptor (_XLFormViewController)
 
-    -(void)afterSet;
-
-    @property NSMutableDictionary* rowObservers;
+-(void)afterSet;
+@property NSMutableDictionary* rowObservers;
 
 @end
 
@@ -280,27 +280,38 @@
     [self updateAfterDependentRowChanged:formRow];
 }
 
--(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
+-(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue predicateType:(XLPredicateType)predicateType
 {
-    if ([oldValue boolValue] != [newValue boolValue]) {
+    if (oldValue != newValue) {
         [self updateAfterDependentRowChanged:formRow];
     }
 }
 
 -(void)updateAfterDependentRowChanged:(XLFormRowDescriptor *)formRow{
-    NSArray*  observers = self.form.rowObservers[formRow.tag];
-    if (observers){
-        for (id object in observers) {
+    NSArray* revaluateHidden   = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeHidden]];
+    NSArray* revaluateDisabled = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeDisabled]];
+    if (revaluateDisabled){
+        for (id object in revaluateDisabled) {
             if ([object isKindOfClass:[NSString class]]) {
                 XLFormRowDescriptor* row = [self.form formRowWithTag:object];
                 if (row){
-                    [row setValue:@YES forKey:@"dirtyPredicate"];
+                    [row performSelector:NSSelectorFromString(@"evaluateIsDisabled")];
                     [self updateFormRow:row];
+                }
+            }
+        }
+    }
+    if (revaluateHidden){
+        for (id object in revaluateHidden) {
+            if ([object isKindOfClass:[NSString class]]) {
+                XLFormRowDescriptor* row = [self.form formRowWithTag:object];
+                if (row){
+                    [row performSelector:NSSelectorFromString(@"evaluateIsHidden")];
                 }
             }
             else if ([object isKindOfClass:[XLFormSectionDescriptor class]]) {
                 XLFormSectionDescriptor* section = (XLFormSectionDescriptor*) object;
-                [section setValue:@YES forKey:@"dirtyPredicate"];
+                [section performSelector:NSSelectorFromString(@"evaluateIsHidden")];
             }
         }
     }
@@ -535,7 +546,7 @@
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
-    if ([rowDescriptor.isDisabled boolValue] || !rowDescriptor.sectionDescriptor.isMultivaluedSection){
+    if (rowDescriptor.isDisabled || !rowDescriptor.sectionDescriptor.isMultivaluedSection){
         return NO;
     }
     XLFormBaseCell * baseCell = [rowDescriptor cellForFormController:self];
@@ -658,7 +669,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor * row = [self.form formRowAtIndex:indexPath];
-    if ([row.isDisabled boolValue]) {
+    if (row.isDisabled) {
         return;
     }
     UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[row cellForFormController:self];
@@ -889,17 +900,17 @@
         }
     }
     XLFormRowNavigationOptions rowNavigationOptions = self.form.rowNavigationOptions;
-    if ([nextRow.isDisabled boolValue] && ((rowNavigationOptions & XLFormRowNavigationOptionStopDisableRow) == XLFormRowNavigationOptionStopDisableRow)){
+    if (nextRow.isDisabled && ((rowNavigationOptions & XLFormRowNavigationOptionStopDisableRow) == XLFormRowNavigationOptionStopDisableRow)){
         return nil;
     }
-    if (![nextRow.isDisabled boolValue] && ((rowNavigationOptions & XLFormRowNavigationOptionStopInlineRow) == XLFormRowNavigationOptionStopInlineRow) && [[[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes] allKeys] containsObject:nextRow.rowType]){
+    if (!nextRow.isDisabled && ((rowNavigationOptions & XLFormRowNavigationOptionStopInlineRow) == XLFormRowNavigationOptionStopInlineRow) && [[[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes] allKeys] containsObject:nextRow.rowType]){
         return nil;
     }
     UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[nextRow cellForFormController:self];
-    if (![nextRow.isDisabled boolValue] && ((rowNavigationOptions & XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) != XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) && (![cell formDescriptorCellCanBecomeFirstResponder])){
+    if (!nextRow.isDisabled && ((rowNavigationOptions & XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) != XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) && (![cell formDescriptorCellCanBecomeFirstResponder])){
         return nil;
     }
-    if (![nextRow.isDisabled boolValue] && [cell formDescriptorCellCanBecomeFirstResponder]){
+    if (!nextRow.isDisabled && [cell formDescriptorCellCanBecomeFirstResponder]){
         return nextRow;
     }
     return [self nextRowDescriptorForRow:nextRow withDirection:direction];

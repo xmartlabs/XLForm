@@ -113,8 +113,8 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     self.textView.delegate = self;
     self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.text = self.rowDescriptor.value;
-    [self.textView setEditable:![self.rowDescriptor.isDisabled boolValue]];
-    self.textView.textColor  = [self.rowDescriptor.isDisabled boolValue] ? [UIColor grayColor] : [UIColor blackColor];
+    [self.textView setEditable:!self.rowDescriptor.isDisabled];
+    self.textView.textColor  = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
 }
 
@@ -125,7 +125,7 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
-    return (![self.rowDescriptor.isDisabled boolValue]);
+    return (!self.rowDescriptor.isDisabled);
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder
