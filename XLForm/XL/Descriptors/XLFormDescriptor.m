@@ -26,13 +26,18 @@
 
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormDescriptor.h"
-#import "XLFormSectionDescriptor+XLFormAdditions.h"
 
 NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
 NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 
-@interface XLFormRowDescriptor (_XLFormSectionDescriptor)
+@interface XLFormSectionDescriptor (_XLFormDescriptor)
+
+@property NSArray * allRows;
+
+@end
+
+@interface XLFormRowDescriptor (_XLFormDescriptor)
 
 -(void)clearRowDependencies;
 -(void)addMissingRowDependencies;
@@ -555,24 +560,27 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 }
 
 -(void)afterSet{
-    for (XLFormSectionDescriptor* section in self.allSections) {
+    for (XLFormSectionDescriptor* section in self.allSections){
         for (XLFormRowDescriptor* row in section.allRows) {
             [self addRowToTagCollection:row];
         }
     }
 }
 
--(void)addRowToTagCollection:(XLFormRowDescriptor*) rowDescriptor{
+-(void)addRowToTagCollection:(XLFormRowDescriptor*) rowDescriptor
+{
     if (rowDescriptor.tag) {
         self.allRowsByTag[rowDescriptor.tag] = rowDescriptor;
     }
 }
 
--(void)removeRowFromTagCollection:(XLFormRowDescriptor*) rowDescriptor{
+-(void)removeRowFromTagCollection:(XLFormRowDescriptor *)rowDescriptor
+{
     [self.allRowsByTag removeObjectForKey:rowDescriptor];
 }
 
--(void)addObserver:(id) descriptor  ForRow:(NSString*) tag{
+-(void)addObserver:(id) descriptor forRow:(NSString *)tag
+{
     if (!self.rowObservers[tag]){
         self.rowObservers[tag] = [NSMutableArray array];
     }
@@ -580,7 +588,8 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         [self.rowObservers[tag] addObject:descriptor];
 }
 
--(void)removeObserver:(id) descriptor  ForRow:(NSString*) tag{
+-(void)removeObserver:(id)descriptor forRow:(NSString*)tag
+{
     [self.rowObservers[tag] removeObject:descriptor];
 }
 

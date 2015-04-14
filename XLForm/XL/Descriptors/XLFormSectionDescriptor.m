@@ -31,12 +31,14 @@
 
 @interface XLFormDescriptor (_XLFormSectionDescriptor)
 
-    @property (readonly) NSMutableDictionary* allRowsByTag;
+@property (readonly) NSMutableDictionary* allRowsByTag;
 
-    -(void)addRowToTagCollection:(XLFormRowDescriptor*) rowDescriptor;
-    -(void)removeRowFromTagCollection:(XLFormRowDescriptor*) rowDescriptor;
-    -(void)addObserver:(id) descriptor  ForRow:(NSString*) tag;
-    -(void)removeObserver:(id) descriptor  ForRow:(NSString*) tag;
+-(void)addRowToTagCollection:(XLFormRowDescriptor*)rowDescriptor;
+-(void)removeRowFromTagCollection:(XLFormRowDescriptor*) rowDescriptor;
+-(void)addObserver:(id)descriptor forRow:(NSString*) tag;
+-(void)removeObserver:(id)descriptor forRow:(NSString*) tag;
+-(void)showFormSection:(XLFormSectionDescriptor*)formSection;
+-(void)hideFormSection:(XLFormSectionDescriptor*)formSection;
 
 @end
 
@@ -374,14 +376,15 @@
 
 #pragma mark - Predicates
 
--(BOOL)dirtyPredicate{
+-(BOOL)dirtyPredicate
+{
     return _dirtyPredicate;
 }
 
--(void)setDirtyPredicate:(BOOL)dirtyPredicate{
+-(void)setDirtyPredicate:(BOOL)dirtyPredicate
+{
     _dirtyPredicate = dirtyPredicate;
     [[self isHidden] boolValue];
-    
 }
 
 
@@ -417,7 +420,7 @@
         //preprocess string
         tags = [hidden getFormPredicateTags];
         for (int i = 1; i < tags.count; i++) {
-            [self.formDescriptor addObserver:self ForRow:tags[i]];
+            [self.formDescriptor addObserver:self forRow:tags[i]];
         }
         _hidden = [NSPredicate predicateWithFormat:tags[0]];
     }
@@ -426,7 +429,7 @@
         
         tags = [hidden getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.formDescriptor addObserver:self ForRow:tags[i]];
+            [self.formDescriptor addObserver:self forRow:tags[i]];
         }
         _hidden = hidden;
     }
@@ -435,7 +438,8 @@
     }
 }
 
--(void)hiddenValueDidChange{
+-(void)hiddenValueDidChange
+{
     if ([[self isHidden] boolValue]) {
         [self.formDescriptor hideFormSection:self];
     }
@@ -444,11 +448,12 @@
     }
 }
 
--(void)cleanupObservers{
+-(void)cleanupObservers
+{
     if ([_hidden isKindOfClass:[NSPredicate class]]){
         NSMutableArray* tags = [_hidden getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.formDescriptor removeObserver:self ForRow:tags[i]];
+            [self.formDescriptor removeObserver:self forRow:tags[i]];
         }
     }
 }

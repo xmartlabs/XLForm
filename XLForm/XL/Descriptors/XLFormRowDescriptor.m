@@ -33,8 +33,8 @@
 
 @property (readonly) NSMutableDictionary* allRowsByTag;
 
--(void)addObserver:(id) descriptor  ForRow:(NSString*) tag;
--(void)removeObserver:(id) descriptor  ForRow:(NSString*) tag;
+-(void)addObserver:(id)descriptor forRow:(NSString*)tag;
+-(void)removeObserver:(id)descriptor forRow:(NSString*)tag;
 
 @end
 
@@ -223,7 +223,7 @@
     if ([_disabled isKindOfClass:[NSPredicate class]]){
         tags = [disabled getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor removeObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor removeObserver:self.tag forRow:tags[i]];
         }
     }
     
@@ -231,7 +231,7 @@
         //preprocess string
         tags = [disabled getFormPredicateTags];
         for (int i = 1; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor addObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor addObserver:self.tag forRow:tags[i]];
         }
         _disabled = [NSPredicate predicateWithFormat:tags[0]];
     }
@@ -239,7 +239,7 @@
         // get vars from predicate
         tags = [disabled getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor addObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor addObserver:self.tag forRow:tags[i]];
         }
         _disabled = disabled;
     }
@@ -279,14 +279,14 @@
     if ([_hidden isKindOfClass:[NSPredicate class]]){
         tags = [hidden getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor removeObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor removeObserver:self.tag forRow:tags[i]];
         }
     }
     if ([hidden isKindOfClass:[NSString class]]){
         //preprocess string
         tags = [hidden getFormPredicateTags];
         for (int i = 1; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor addObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor addObserver:self.tag forRow:tags[i]];
         }
         _hidden = [NSPredicate predicateWithFormat:tags[0]];
     }
@@ -295,7 +295,7 @@
         
         tags = [hidden getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor addObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor addObserver:self.tag forRow:tags[i]];
         }
         _hidden = hidden;
     }
@@ -320,13 +320,13 @@
     if ([_disabled isKindOfClass:[NSPredicate class]]){
         tags = [_disabled getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor addObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor addObserver:self.tag forRow:tags[i]];
         }
     }
     if ([_hidden isKindOfClass:[NSPredicate class]]){
         tags = [_hidden getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor addObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor addObserver:self.tag forRow:tags[i]];
         }
     }
 }
@@ -336,13 +336,13 @@
     if ([_disabled isKindOfClass:[NSPredicate class]]){
         tags = [_disabled getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor removeObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor removeObserver:self.tag forRow:tags[i]];
         }
     }
     if ([_hidden isKindOfClass:[NSPredicate class]]){
         tags = [_hidden getPredicateVars];
         for (int i = 0; i < tags.count; i++) {
-            [self.sectionDescriptor.formDescriptor removeObserver:self.tag ForRow:tags[i]];
+            [self.sectionDescriptor.formDescriptor removeObserver:self.tag forRow:tags[i]];
         }
     }
 }
