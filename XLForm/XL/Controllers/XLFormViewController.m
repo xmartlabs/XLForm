@@ -36,6 +36,15 @@
 
 @end
 
+@interface XLFormDescriptor (_XLFormViewController)
+
+    -(void)afterSet;
+
+    @property NSMutableDictionary* rowObservers;
+
+@end
+
+
 @interface XLFormViewController()
 
 @property UITableViewStyle tableViewStyle;
@@ -279,15 +288,20 @@
 }
 
 -(void)updateAfterDependentRowChanged:(XLFormRowDescriptor *)formRow{
-    for (id object in formRow.observers) {
-        if ([object isKindOfClass:[XLFormRowDescriptor class]]) {
-            XLFormRowDescriptor* row = (XLFormRowDescriptor*) object;
-            [row setValue:@YES  forKey:@"dirtyPredicate"];
-            [self updateFormRow:row];
-        }
-        else if ([object isKindOfClass:[XLFormSectionDescriptor class]]) {
-            XLFormSectionDescriptor* section = (XLFormSectionDescriptor*) object;
-            [section setValue:@YES forKey:@"dirtyPredicate"];
+    NSArray*  observers = self.form.rowObservers[formRow.tag];
+    if (observers){
+        for (id object in observers) {
+            if ([object isKindOfClass:[NSString class]]) {
+                XLFormRowDescriptor* row = [self.form formRowWithTag:object];
+                if (row){
+                    [row setValue:@YES forKey:@"dirtyPredicate"];
+                    [self updateFormRow:row];
+                }
+            }
+            else if ([object isKindOfClass:[XLFormSectionDescriptor class]]) {
+                XLFormSectionDescriptor* section = (XLFormSectionDescriptor*) object;
+                [section setValue:@YES forKey:@"dirtyPredicate"];
+            }
         }
     }
 }
@@ -897,6 +911,7 @@
 {
     _form = form;
     _form.delegate = self;
+    [_form afterSet];
 }
 
 -(XLFormDescriptor *)form

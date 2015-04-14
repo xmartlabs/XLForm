@@ -28,10 +28,22 @@
 #import "NSPredicate+XLFormAdditions.h"
 #import "NSString+XLFormAdditions.h"
 
-@interface XLFormRowDescriptor(_XLFormSectionDescriptor)
 
--(void)addObserverRow:(id)descriptor;
--(void)delObserverRow:(id)descriptor;
+@interface XLFormDescriptor (_XLFormSectionDescriptor)
+
+    @property (readonly) NSMutableDictionary* allRowsByTag;
+
+    -(void)addRowToTagCollection:(XLFormRowDescriptor*) rowDescriptor;
+    -(void)removeRowFromTagCollection:(XLFormRowDescriptor*) rowDescriptor;
+    -(void)addObserver:(id) descriptor  ForRow:(NSString*) tag;
+    -(void)removeObserver:(id) descriptor  ForRow:(NSString*) tag;
+
+@end
+
+@interface XLFormRowDescriptor (_XLFormSectionDescriptor)
+
+-(void)clearRowDependencies;
+-(void)addMissingRowDependencies;
 
 @end
 
@@ -119,8 +131,12 @@
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow
 {
-    [self insertObject:formRow inFormRowsAtIndex:([self canInsertUsingButton] ? MAX(0, [self.formRows count] - 1) : [self.formRows count])];
+    [self.formDescriptor addRowToTagCollection:formRow];
+    if (![[formRow isHidden] boolValue]){
+        [self insertObject:formRow inFormRowsAtIndex:([self canInsertUsingButton] ? MAX(0, [self.formRows count] - 1) : [self.formRows count])];
+    }
     [self insertObject:formRow inAllRowsAtIndex:([self canInsertUsingButton] ? MAX(0, [self.formRows count] - 1) : [self.allRows count])];
+    [formRow addMissingRowDependencies];
 }
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow
@@ -128,7 +144,9 @@
     
     NSUInteger allRowIndex = [self.allRows indexOfObject:afterRow];
     if (allRowIndex != NSNotFound) {
+        [self.formDescriptor addRowToTagCollection:formRow];
         [self insertObject:formRow inAllRowsAtIndex:allRowIndex+1];
+        [formRow addMissingRowDependencies];
     }
     else { //case when afterRow does not exist. Just insert at the end.
         [self addFormRow:formRow];
@@ -152,9 +170,12 @@
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow
 {
+    
     NSUInteger allRowIndex = [self.allRows indexOfObject:beforeRow];
     if (allRowIndex != NSNotFound) {
+        [self.formDescriptor addRowToTagCollection:formRow];
         [self insertObject:formRow inAllRowsAtIndex:allRowIndex];
+        [formRow addMissingRowDependencies];
     }
     else { //case when afterRow does not exist. Just insert at the end.
         [self addFormRow:formRow];
@@ -183,6 +204,8 @@
         NSUInteger allRowIndex = [self.allRows indexOfObject:formRow];
         [self removeObjectFromFormRowsAtIndex:index];
         [self removeObjectFromAllRowsAtIndex:allRowIndex];
+        [self.formDescriptor removeRowFromTagCollection:formRow];
+        [formRow clearRowDependencies];
     }
 }
 
@@ -196,6 +219,8 @@
         if (self.allRows.count > index){
             [self removeObjectFromAllRowsAtIndex:index];
         }
+        [self.formDescriptor removeRowFromTagCollection:formRow];
+        [formRow clearRowDependencies];
     };
 }
 
@@ -228,6 +253,7 @@
         }
         @catch (NSException * __unused exception) {}
     }
+    [self cleanupObservers];
 }
 
 #pragma mark - Show/hide rows
@@ -355,7 +381,7 @@
 -(void)setDirtyPredicate:(BOOL)dirtyPredicate{
     _dirtyPredicate = dirtyPredicate;
     [[self isHidden] boolValue];
-    [self hiddenValueDidChange];
+    
 }
 
 
@@ -364,8 +390,9 @@
     if ([_hidden isKindOfClass:[NSPredicate class]]) {
         if (self.dirtyPredicate) {
             @try {
-                self.hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:_hidePredicateVariables];
+                self.hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:self.formDescriptor.allRowsByTag ?: @{}];
                 self.dirtyPredicate = NO;
+                [self hiddenValueDidChange];
                 return @(self.hidePredicateCache);
             }
             @catch (NSException *exception) {
@@ -384,35 +411,22 @@
 
 -(void)setHidden:(id)hidden
 {
-    XLFormRowDescriptor* obs;
+    NSMutableArray* tags;
+    [self cleanupObservers];
     if ([hidden isKindOfClass:[NSString class]]){
         //preprocess string
-        NSMutableArray* tags = [hidden getFormPredicateTags];
+        tags = [hidden getFormPredicateTags];
         for (int i = 1; i < tags.count; i++) {
-            obs = [self.formDescriptor formRowWithTag:tags[i]];
-            if (obs){
-                [obs addObserverRow:self];
-                _hidePredicateVariables[tags[i]] = obs;
-            }
-            else{
-                return; // wrong tag
-            }
+            [self.formDescriptor addObserver:self ForRow:tags[i]];
         }
         _hidden = [NSPredicate predicateWithFormat:tags[0]];
     }
     else if ([hidden isKindOfClass:[NSPredicate class]]){
         // get vars from predicate
         
-        NSMutableArray* tokens = [hidden getPredicateVars];
-        for (int i = 0; i < tokens.count; i++) {
-            obs = [self.formDescriptor formRowWithTag:tokens[i]];
-            if (obs){
-                [obs addObserverRow:self];
-                _hidePredicateVariables[tokens[i]] = obs;
-            }
-            else{
-                return; // wrong tag
-            }
+        tags = [hidden getPredicateVars];
+        for (int i = 0; i < tags.count; i++) {
+            [self.formDescriptor addObserver:self ForRow:tags[i]];
         }
         _hidden = hidden;
     }
@@ -430,11 +444,13 @@
     }
 }
 
--(id)getReturnValueFor:(BOOL)value{
-    if (value)
-        return @(value);
-    else
-        return nil;
+-(void)cleanupObservers{
+    if ([_hidden isKindOfClass:[NSPredicate class]]){
+        NSMutableArray* tags = [_hidden getPredicateVars];
+        for (int i = 0; i < tags.count; i++) {
+            [self.formDescriptor removeObserver:self ForRow:tags[i]];
+        }
+    }
 }
 
 @end

@@ -31,6 +31,7 @@ What XLForm does
  * Ability to easily navigate among rows, fully customizable.
  * Ability to show inputAccessoryView if needed. By default a navigation input accessory view is shown.
  * Read only mode for a particular row or the entire form.
+ * Rows can be hidden or shown depending on other rows values declaratively using conditions, `NSPredicates`. (see [*Using NSPredicates to hide/show or enable/disable a row*](#Using NSPredicates to hide/show or enable/disable a row "Using Predicates"))
 
 
 
@@ -572,16 +573,18 @@ You can find the details of these examples within the example repository folder,
 Dynamic Forms - How to change the form dynamically at runtime
 -------------------------------
 
-Any change made on the `XLFormDescriptor` will be reflected on the `XLFormViewController` tableView. That means that we can add or remove sections or rows at any time and XLForm will animate the section or row accordingly.
+Any change made on the `XLFormDescriptor` will be reflected on the `XLFormViewController` tableView. That means that when a section or a row is added or removed XLForm will animate the section or row accordingly.
 
 We shouldn't have to deal with `NSIndexPaths` or add, remove `UITableViewCell` anymore. `NSIndexPath` of a specific `TableViewCell` changes along the time and this makes very hard to keep track of the `NSIndexPath` of each `UITableViewCell`.
 
 Each XLForm `XLFormRowDescriptor` row has a `tag` property that is set up in its constructor. `XLFormDescriptor` has, among other helpers, an specific one to get a `XLFormRowDescriptor` from a `tag`.
 It's much easier to manage `XLFormRowDescriptor`s using tags, the tag should be unique and it doesn't change on tableview additions modifications or deletions.
 
-It's important keep in mind that all the `UITableView` form modifications have to be made using the descriptors and not making modifications directly on the `UITableView`.
+It's important to keep in mind that all the `UITableView` form modifications have to be made using the descriptors and not making modifications directly on the `UITableView`.
 
-Usually you may want to change the form when some value change or some row or section is added or removed. In order to keep posted about the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
+Usually you may want to change the form when some value change or some row or section is added or removed. For this you can set the `disabled` and `hidden` properties of the rows or sections. For more details see [*Using NSPredicates to hide/show or enable/disable a row*](#Using NSPredicates to hide/show or enable/disable a row "Using Predicates").
+
+In order to stay in sync with the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
 
 ```objc
 @protocol XLFormDescriptorDelegate <NSObject>
@@ -616,6 +619,37 @@ For instance if we want to show or hide a row depending on the value of another 
         }
     }
 ```
+
+Make a row or section invisible depending on other rows values
+--------------------------------
+
+To make the appearance and disappearance of rows and sections automatic, there is a property in each descriptor:
+
+```objc
+@property (getter=isHidden) id hidden;
+```
+
+Similarly the rows can be disabled (set to read-only mode):
+
+```objc
+@property (getter=isDisabled) id disabled;
+```
+
+This id object will normally be a NSPredicate or a NSValue containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be sintactically correct.
+
+For example, you could set the following string to a row (`second`) to make it disappear when a previous row (`first`) contains the value "hide".
+
+```objc
+second.hidden = [NSString stringWithFormat:@"$%@ contains[c] 'hide'", first];
+```
+This will insert the tag of the `first` after the '$'. In the setter of the hidden property, the string is parsed and every tag variable will be substituted with the corresponding row. When the argument is a NSString, a '.value' will be appended to every tag unless the tag is followed by '.hidden' or '.disabled'. This means that a row (or section) might depend on the `value` or the `hidden` or `disabled` properties of another row. When a NSPredicate is set directly, its formatString will not be altered.
+
+You can also set this properties with a bool object which means the value of the property will not change unless manually set.
+
+The getter methods return a `@YES` if the row should be hidden and `@NO` otherwise.
+
+![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateDisabling/XLFormPredicates.gif)
+
 
 Validations
 ------------------------------------
@@ -658,7 +692,7 @@ To get all rows validation errors we can invoke the following `XLFormViewControl
 Additional configuration of Rows
 --------------------------------
 
-`XLFormRowDescriptor` allow us to configure generic aspects of a `UITableViewCell`, for example: the `rowType`, the `label`, the `value` (default value), if the cell is `required` or `disabled`, and so on.
+`XLFormRowDescriptor` allow us to configure generic aspects of a `UITableViewCell`, for example: the `rowType`, the `label`, the `value` (default value), if the cell is `required`, `hidden` or `disabled`, and so on.
 
 You may want to set up another properties of the `UITableViewCell`. To set up another properties `XLForm` makes use of [Key-Value Coding](https://developer.apple.com/LIBRARY/IOS/documentation/Cocoa/Conceptual/KeyValueCoding/Articles/KeyValueCoding.html "Key-Value Coding") allowing the developer to set the cell properties by keyPath.
 
@@ -681,6 +715,7 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 [row.cellConfigAtConfigure setObject:[UIColor red] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
 ```
+
 
 FAQ
 -------
@@ -775,7 +810,7 @@ Installation
 The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 2.1.0'`.
+`pod 'XLForm', '~> 2.2.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
