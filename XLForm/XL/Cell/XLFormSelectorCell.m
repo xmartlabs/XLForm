@@ -88,6 +88,10 @@
             return tranformedValue;
         }
     }
+    if ([self.rowDescriptor.value isKindOfClass:[NSNumber class]] && [self.rowDescriptor.value isEqual:@(0)])
+    {
+        return @"";
+    }
     return [self.rowDescriptor.value displayText];
 }
 
