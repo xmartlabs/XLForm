@@ -623,16 +623,20 @@ For instance if we want to show or hide a row depending on the value of another 
 Make a row or section invisible depending on other rows values
 --------------------------------
 
+###Summary
+
+XLForm allows you to define dependencies between rows so that if the value of one row is changed, the behaviour of another one changes automatically. For example, you might have a form where you question the user if he/she has pets. If the answer is 'yes' you might want to ask how their names are.
+So you can make a row invisible and visible again based on the values of other rows. The same happens with sections.
+Take a look at the following example:
+
+![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateDisabling/XLFormPredicatesBasic.gif)
+
+###How it works
+
 To make the appearance and disappearance of rows and sections automatic, there is a property in each descriptor:
 
 ```objc
 @property (getter=isHidden) id hidden;
-```
-
-Similarly the rows can be disabled (set to read-only mode):
-
-```objc
-@property (getter=isDisabled) id disabled;
 ```
 
 This id object will normally be a NSPredicate or a NSValue containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be sintactically correct.
@@ -642,13 +646,24 @@ For example, you could set the following string to a row (`second`) to make it d
 ```objc
 second.hidden = [NSString stringWithFormat:@"$%@ contains[c] 'hide'", first];
 ```
-This will insert the tag of the `first` after the '$'. In the setter of the hidden property, the string is parsed and every tag variable will be substituted with the corresponding row. When the argument is a NSString, a '.value' will be appended to every tag unless the tag is followed by '.hidden' or '.disabled'. This means that a row (or section) might depend on the `value` or the `hidden` or `disabled` properties of another row. When a NSPredicate is set directly, its formatString will not be altered.
+This will insert the tag of the `first` after the '$', you can do that manually as well, of course. In the setter of the hidden property, the string is parsed and every tag variable will be substituted with the corresponding row when the predicate is evaluated. When the argument is a NSString, a '.value' will be appended to every tag unless the tag is followed by '.hidden' or '.disabled'. This means that a row (or section) might depend on the `value` or the `hidden` or `disabled` properties of another row. When a NSPredicate is set directly, its formatString will not be altered.
 
 You can also set this properties with a bool object which means the value of the property will not change unless manually set.
 
-The getter methods return a `@YES` if the row should be hidden and `@NO` otherwise.
+The getter methods return a `@YES` if the row should be hidden and `@NO` otherwise. It will not re-evaluate the predicate each time it gets called but just when one the value (or hidden/disabled status) of the rows it depends on changes. When this happens and the return value changes, it will automagically reflect that change on the form so that no other method must be called.
+
+Here is another example, this time a bit more complex:
 
 ![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateDisabling/XLFormPredicates.gif)
+
+
+
+
+Similarly the rows can be disabled (set to read-only mode):
+
+```objc
+@property (getter=isDisabled) id disabled;
+```
 
 
 Validations

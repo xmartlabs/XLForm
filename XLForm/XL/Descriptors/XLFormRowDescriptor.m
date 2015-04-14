@@ -156,7 +156,6 @@
 
 -(void)setDirtyPredicate:(BOOL)dirtyPredicate{
     _dirtyPredicate = dirtyPredicate;
-    // cache value
     [self isHidden];
 }
 
@@ -201,7 +200,7 @@
         if (self.dirtyPredicate) {
             @try {
                 self.disablePredicateCache = [_disabled evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}];
-                self.dirtyPredicate = NO;
+                _dirtyPredicate = NO;
                 return @(_disablePredicateCache);
             }
             @catch (NSException *exception) {
@@ -256,7 +255,7 @@
         if (self.dirtyPredicate) {
             @try {
                 self.hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}];
-                self.dirtyPredicate = NO;
+                _dirtyPredicate = NO;
                 [self hiddenValueDidChange];
                 return @(_hidePredicateCache);
             }

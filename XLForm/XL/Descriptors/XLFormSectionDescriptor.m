@@ -134,11 +134,12 @@
 -(void)addFormRow:(XLFormRowDescriptor *)formRow
 {
     [self.formDescriptor addRowToTagCollection:formRow];
+    formRow.sectionDescriptor = self;
+    [formRow addMissingRowDependencies];
     if (![[formRow isHidden] boolValue]){
         [self insertObject:formRow inFormRowsAtIndex:([self canInsertUsingButton] ? MAX(0, [self.formRows count] - 1) : [self.formRows count])];
     }
     [self insertObject:formRow inAllRowsAtIndex:([self canInsertUsingButton] ? MAX(0, [self.formRows count] - 1) : [self.allRows count])];
-    [formRow addMissingRowDependencies];
 }
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow
@@ -204,10 +205,10 @@
     if (self.formRows.count > index){
         XLFormRowDescriptor *formRow = [self.formRows objectAtIndex:index];
         NSUInteger allRowIndex = [self.allRows indexOfObject:formRow];
-        [self removeObjectFromFormRowsAtIndex:index];
-        [self removeObjectFromAllRowsAtIndex:allRowIndex];
         [self.formDescriptor removeRowFromTagCollection:formRow];
         [formRow clearRowDependencies];
+        [self removeObjectFromFormRowsAtIndex:index];
+        [self removeObjectFromAllRowsAtIndex:allRowIndex];
     }
 }
 
@@ -218,11 +219,11 @@
         [self removeFormRowAtIndex:index];
     }
     else if ((index = [self.allRows indexOfObject:formRow]) != NSNotFound){
+        [self.formDescriptor removeRowFromTagCollection:formRow];
+        [formRow clearRowDependencies];
         if (self.allRows.count > index){
             [self removeObjectFromAllRowsAtIndex:index];
         }
-        [self.formDescriptor removeRowFromTagCollection:formRow];
-        [formRow clearRowDependencies];
     };
 }
 
@@ -255,7 +256,7 @@
         }
         @catch (NSException * __unused exception) {}
     }
-    [self cleanupObservers];
+    [self clearRowDependencies];
 }
 
 #pragma mark - Show/hide rows
@@ -415,7 +416,7 @@
 -(void)setHidden:(id)hidden
 {
     NSMutableArray* tags;
-    [self cleanupObservers];
+    [self clearRowDependencies];
     if ([hidden isKindOfClass:[NSString class]]){
         //preprocess string
         tags = [hidden getFormPredicateTags];
@@ -448,7 +449,17 @@
     }
 }
 
--(void)cleanupObservers
+-(void)addMissingRowDependencies
+{
+    if ([_hidden isKindOfClass:[NSPredicate class]]){
+        NSMutableArray* tags = [_hidden getPredicateVars];
+        for (int i = 0; i < tags.count; i++) {
+            [self.formDescriptor addObserver:self forRow:tags[i]];
+        }
+    }
+}
+
+-(void)clearRowDependencies
 {
     if ([_hidden isKindOfClass:[NSPredicate class]]){
         NSMutableArray* tags = [_hidden getPredicateVars];

@@ -83,12 +83,12 @@ static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
 -(void)testInternDataStructures{
     UITableView * tableView = self.formController.tableView;
     
-    XLFormRowDescriptor* disabledRow = ((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]]).rowDescriptor;
+    XLFormRowDescriptor* disabledRow = ((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]]).rowDescriptor;
     NSMutableDictionary* deps = self.formController.form.rowObservers;
     NSMutableDictionary* rows = self.formController.form.allRowsByTag;
     
     expect(rows[kDisabledFieldCellTag]).to.equal(disabledRow);
-    expect(rows[kIntegerFieldCellTag]).to.equal(((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]]).rowDescriptor);
+    expect(rows[kIntegerFieldCellTag]).to.equal(((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]]).rowDescriptor);
     expect(rows[kTextFieldCellTag]).to.equal(((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]]).rowDescriptor);
     
     expect(deps[kDisabledFieldCellTag]).to.equal(@[kIntegerFieldCellTag]);
