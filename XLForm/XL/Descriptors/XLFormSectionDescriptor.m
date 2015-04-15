@@ -288,17 +288,17 @@
 
 - (void)removeObjectFromFormRowsAtIndex:(NSUInteger)index
 {
-    XLFormRowDescriptor * formRow = [self.formRows objectAtIndex:index];
+    XLFormRowDescriptor * row = [self.formRows objectAtIndex:index];
     @try {
-        [formRow removeObserver:self forKeyPath:@"value"];
+        [row removeObserver:self forKeyPath:@"value"];
     }
     @catch (NSException * __unused exception) {}
     @try {
-        [formRow removeObserver:self forKeyPath:@"disablePredicateCache"];
+        [row removeObserver:self forKeyPath:@"disablePredicateCache"];
     }
     @catch (NSException * __unused exception) {}
     @try {
-        [formRow removeObserver:self forKeyPath:@"hidePredicateCache"];
+        [row removeObserver:self forKeyPath:@"hidePredicateCache"];
     }
     @catch (NSException * __unused exception) {}
     [self.formRows removeObjectAtIndex:index];

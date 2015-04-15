@@ -59,7 +59,7 @@
 
 -(NSString *)formKeyForPredicateType:(XLPredicateType)predicateType
 {
-    return [NSString stringWithFormat:@"%@-%@", self, (predicateType ? @"disabled" : @"hidden") ];
+    return [NSString stringWithFormat:@"%@-%@", self, (predicateType == XLPredicateTypeHidden ? @"hidden" : @"disabled") ];
 }
 
 @end

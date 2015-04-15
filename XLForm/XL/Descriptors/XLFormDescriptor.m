@@ -637,7 +637,38 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 -(void)removeObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType
 {
-    //[self.rowObservers[tag] removeObject:descriptor];
+    NSPredicate* predicate;
+    id descriptor;
+    switch(predicateType){
+        case XLPredicateTypeHidden:
+            if ([sectionOrRow isKindOfClass:([XLFormRowDescriptor class])]) {
+                descriptor = ((XLFormRowDescriptor*)sectionOrRow).tag;
+                predicate = ((XLFormRowDescriptor*)sectionOrRow).hidden;
+            }
+            else if ([sectionOrRow isKindOfClass:([XLFormSectionDescriptor class])]) {
+                descriptor = sectionOrRow;
+                predicate = ((XLFormSectionDescriptor*)sectionOrRow).hidden;
+            }
+            break;
+        case XLPredicateTypeDisabled:
+            if ([sectionOrRow isKindOfClass:([XLFormRowDescriptor class])]) {
+                descriptor = ((XLFormRowDescriptor*)sectionOrRow).tag;
+                predicate = ((XLFormRowDescriptor*)sectionOrRow).disabled;
+            }
+            else return;
+            
+            break;
+    }
+    if ([predicate isKindOfClass:[NSPredicate class] ]) {
+        NSMutableArray* tags = [predicate getPredicateVars];
+        for (NSString* tag in tags) {
+            NSString* auxTag = [tag formKeyForPredicateType:predicateType];
+            if (self.rowObservers[auxTag]){
+                if ([self.rowObservers[auxTag] containsObject:descriptor])
+                    [self.rowObservers[auxTag] removeObject:descriptor];
+            }
+        }
+    }
 }
 
 @end

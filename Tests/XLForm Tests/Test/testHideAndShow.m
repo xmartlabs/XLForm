@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "XLTestCase.h"
 
-static NSString * const kTextFieldCellTag = @"TextFieldCellTag";
-static NSString * const kIntegerFieldCellTag = @"IntegerFieldCellTag";
-static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
+
+static NSString * const kTextFieldCellTag = @"TextTag";
+static NSString * const kIntegerFieldCellTag = @"IntegerTag";
+static NSString * const kDisabledFieldCellTag = @"DisabledTag";
 
 @interface XLFormDescriptor (_XLTestAdditions)
 
@@ -54,7 +55,7 @@ static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
     //Let's disable the row of the second section. The second row of the first section should hide.
     textFieldCell.rowDescriptor.value = @"dis";
     
-    expect([disabledFieldCell.rowDescriptor.disabled boolValue]).to.beTruthy;
+    expect(disabledFieldCell.rowDescriptor.isDisabled).to.beTruthy;
     
     expect([tableView numberOfSections]).to.equal(2);
     expect([tableView numberOfRowsInSection:0]).to.equal(1);
@@ -62,7 +63,7 @@ static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
     // Now hide the second section. As the row will be enabled, the second row of the first section should reappear
     textFieldCell.rowDescriptor.value = @"hide that section";
     
-    expect([disabledFieldCell.rowDescriptor.disabled boolValue]).to.beFalsy;
+    expect(disabledFieldCell.rowDescriptor.isDisabled).to.beFalsy;
     
     expect([tableView numberOfSections]).to.equal(1);
     expect([tableView numberOfRowsInSection:0]).to.equal(2);
@@ -91,9 +92,10 @@ static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
     expect(rows[kIntegerFieldCellTag]).to.equal(((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]]).rowDescriptor);
     expect(rows[kTextFieldCellTag]).to.equal(((XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]]).rowDescriptor);
     
-    expect(deps[kDisabledFieldCellTag]).to.equal(@[kIntegerFieldCellTag]);
-    expect(deps[kIntegerFieldCellTag]).to.equal(nil);
-    expect(deps[kTextFieldCellTag]).to.equal(@[disabledRow.sectionDescriptor, kDisabledFieldCellTag]);
+    expect(deps[[kDisabledFieldCellTag formKeyForPredicateType:XLPredicateTypeHidden ]]).to.equal(@[kIntegerFieldCellTag]);
+    expect(deps[[kIntegerFieldCellTag formKeyForPredicateType:XLPredicateTypeHidden ]]).to.equal(nil);
+    expect(deps[[kTextFieldCellTag formKeyForPredicateType:XLPredicateTypeHidden]]).to.equal(@[disabledRow.sectionDescriptor]);
+    expect(deps[[kTextFieldCellTag formKeyForPredicateType:XLPredicateTypeDisabled]]).to.equal(@[kDisabledFieldCellTag]);
 
 }
 
@@ -111,7 +113,7 @@ static NSString * const kDisabledFieldCellTag = @"DisabledFieldCellTag";
     [section addFormRow:row];
     
     XLFormRowDescriptor * row2 = [XLFormRowDescriptor formRowDescriptorWithTag:kIntegerFieldCellTag rowType:XLFormRowDescriptorTypeInteger title:@"Number"];
-    row2.hidden = [NSString stringWithFormat:@"$%@.disabled == 1", kDisabledFieldCellTag];
+    row2.hidden = [NSString stringWithFormat:@"$%@.isDisabled == 1", kDisabledFieldCellTag];
     [section addFormRow:row2];
     
     XLFormSectionDescriptor * section2 = [XLFormSectionDescriptor formSection];

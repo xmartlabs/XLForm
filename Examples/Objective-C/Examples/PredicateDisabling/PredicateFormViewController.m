@@ -88,11 +88,11 @@ NSString *const kPredDep2 = @"preddep2";
     row.value = [NSDate new];
     [section addFormRow:row];
     
-    row.disabled = [NSString stringWithFormat:@"$%@ contains[c] \"%@\" OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred,  @"disable", kPredDep2, pred3];
+    row.disabled = [NSString stringWithFormat:@"$%@ contains[c] 'disable' OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred, kPredDep2, pred3];
     //[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred, pred2, pred3],  @"disable"] ];
     pred4 = row;
 
-    section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) AND ($%@.value between {18, 60}) AND ($%@.value == 0)", pred, kPredDep2, pred3],  @"disable"];
+    section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] 'disable') AND ($%@.value between {18, 60}) AND ($%@.value == 0)", pred, kPredDep2, pred3]];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"More predicates..."];
     section.footerTitle = @"This row hides when the row of the previous section is disabled and the textfield in the first section contains \"out\"\n\nPredicateFormViewController.m";
@@ -102,7 +102,7 @@ NSString *const kPredDep2 = @"preddep2";
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"thirds" rowType:XLFormRowDescriptorTypeAccount title:@"Account"];
     [section addFormRow:row];
-    row.hidden = [NSString stringWithFormat:@"$%@.isDisabled == 1 AND $%@.value contains[c] \"out\"", pred4, pred];
+    row.hidden = [NSString stringWithFormat:@"$%@.isDisabled == 1 AND $%@.value contains[c] 'Out'", pred4, pred];
     /*
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"A Section"];
