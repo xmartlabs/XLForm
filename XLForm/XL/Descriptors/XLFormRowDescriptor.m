@@ -50,9 +50,9 @@
 @property (nonatomic) NSMutableArray *validators;
 
 @property BOOL isDirtyDisablePredicateCache;
-@property NSNumber* disablePredicateCache;
+@property (nonatomic) NSNumber* disablePredicateCache;
 @property BOOL isDirtyHidePredicateCache;
-@property NSNumber* hidePredicateCache;
+@property (nonatomic) NSNumber* hidePredicateCache;
 
 @end
 
