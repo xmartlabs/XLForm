@@ -190,7 +190,7 @@
 
 -(void)dealloc
 {
-    for (XLFormRowDescriptor * formRow in self.formRows) {
+    for (XLFormRowDescriptor * formRow in self.allRows) {
         @try {
             [formRow removeObserver:self forKeyPath:@"value"];
         }
@@ -280,27 +280,11 @@
 - (void)insertObject:(XLFormRowDescriptor *)formRow inFormRowsAtIndex:(NSUInteger)index
 {
     formRow.sectionDescriptor = self;
-    [formRow addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-    [formRow addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-    [formRow addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.formRows insertObject:formRow atIndex:index];
 }
 
 - (void)removeObjectFromFormRowsAtIndex:(NSUInteger)index
 {
-    XLFormRowDescriptor * formRow = [self.formRows objectAtIndex:index];
-    @try {
-        [formRow removeObserver:self forKeyPath:@"value"];
-    }
-    @catch (NSException * __unused exception) {}
-    @try {
-        [formRow removeObserver:self forKeyPath:@"disablePredicateCache"];
-    }
-    @catch (NSException * __unused exception) {}
-    @try {
-        [formRow removeObserver:self forKeyPath:@"hidePredicateCache"];
-    }
-    @catch (NSException * __unused exception) {}
     [self.formRows removeObjectAtIndex:index];
 }
 
@@ -326,6 +310,9 @@
     row.sectionDescriptor = self;
     [self.allRows insertObject:row atIndex:index];
     [self.formDescriptor addRowToTagCollection:row];
+    [row addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [row addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [row addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     row.disabled = row.disabled;
     row.hidden = row.hidden;
 }
@@ -336,6 +323,18 @@
     [self.formDescriptor removeRowFromTagCollection:row];
     [self.formDescriptor removeObserversOfObject:row predicateType:XLPredicateTypeDisabled];
     [self.formDescriptor removeObserversOfObject:row predicateType:XLPredicateTypeHidden];
+    @try {
+        [row removeObserver:self forKeyPath:@"value"];
+    }
+    @catch (NSException * __unused exception) {}
+    @try {
+        [row removeObserver:self forKeyPath:@"disablePredicateCache"];
+    }
+    @catch (NSException * __unused exception) {}
+    @try {
+        [row removeObserver:self forKeyPath:@"hidePredicateCache"];
+    }
+    @catch (NSException * __unused exception) {}
     [self.allRows removeObjectAtIndex:index];
 }
 

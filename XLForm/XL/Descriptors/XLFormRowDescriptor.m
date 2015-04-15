@@ -49,10 +49,10 @@
 @property XLFormBaseCell * cell;
 @property (nonatomic) NSMutableArray *validators;
 
-@property BOOL isDiryDisablePredicateCache;
-@property BOOL disablePredicateCache;
+@property BOOL isDirtyDisablePredicateCache;
+@property NSNumber* disablePredicateCache;
 @property BOOL isDirtyHidePredicateCache;
-@property BOOL hidePredicateCache;
+@property NSNumber* hidePredicateCache;
 
 @end
 
@@ -81,10 +81,10 @@
         _cellConfig = [NSMutableDictionary dictionary];
         _cellConfigIfDisabled = [NSMutableDictionary dictionary];
         _cellConfigAtConfigure = [NSMutableDictionary dictionary];
-        _isDiryDisablePredicateCache = YES;
-        _disablePredicateCache = NO;
+        _isDirtyDisablePredicateCache = YES;
+        _disablePredicateCache = nil;
         _isDirtyHidePredicateCache = YES;
-        _hidePredicateCache = NO;
+        _hidePredicateCache = nil;
     }
     return self;
 }
@@ -166,13 +166,15 @@
 // In the implementation
 -(id)copyWithZone:(NSZone *)zone
 {
-    XLFormRowDescriptor * rowDescriptorCopy = [XLFormRowDescriptor formRowDescriptorWithTag:[self.tag copy] rowType:[self.rowType copy] title:[self.title copy]];
+    XLFormRowDescriptor * rowDescriptorCopy = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:[self.rowType copy] title:[self.title copy]];
     rowDescriptorCopy.cellClass = [self.cellClass copy];
     rowDescriptorCopy.cellConfig = [self.cellConfig mutableCopy];
     rowDescriptorCopy.cellConfigAtConfigure = [self.cellConfigAtConfigure mutableCopy];
-    rowDescriptorCopy.hidden = _hidden;
-    rowDescriptorCopy.disabled = _disabled;
+    rowDescriptorCopy->_hidden = _hidden;
+    rowDescriptorCopy->_disabled = _disabled;
     rowDescriptorCopy.required = self.isRequired;
+    rowDescriptorCopy.isDirtyDisablePredicateCache = YES;
+    rowDescriptorCopy.isDirtyHidePredicateCache = YES;
     
     // =====================
     // properties for Button
@@ -199,10 +201,10 @@
     if (self.sectionDescriptor.formDescriptor.isDisabled){
         return YES;
     }
-    if (self.isDiryDisablePredicateCache) {
+    if (self.isDirtyDisablePredicateCache) {
         [self evaluateIsDisabled];
     }
-    return self.disablePredicateCache;
+    return [self.disablePredicateCache boolValue];
 }
 
 -(void)setDisabled:(id)disabled
@@ -214,24 +216,25 @@
     if ([_disabled isKindOfClass:[NSPredicate class]]){
         [self.sectionDescriptor.formDescriptor addObserversOfObject:self predicateType:XLPredicateTypeDisabled];
     }
+    
     [self evaluateIsDisabled];
 }
 
 -(BOOL)evaluateIsDisabled
 {
-    self.isDiryDisablePredicateCache = YES;
     if ([_disabled isKindOfClass:[NSPredicate class]]) {
         @try {
-            self.disablePredicateCache = [_disabled evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}];
+            self.disablePredicateCache = @([_disabled evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
         }
         @catch (NSException *exception) {
             // predicate syntax error.
+            self.isDirtyDisablePredicateCache = YES;
         };
     }
     else{
-        self.disablePredicateCache = [_disabled boolValue];
+        self.disablePredicateCache = _disabled;
     }
-    return self.disablePredicateCache;
+    return [self.disablePredicateCache boolValue];
 }
 
 -(id)disabled
@@ -239,32 +242,34 @@
     return _disabled;
 }
 
--(void)setDisablePredicateCache:(BOOL)disablePredicateCache
+-(void)setDisablePredicateCache:(NSNumber*)disablePredicateCache
 {
-    if (self.isDiryDisablePredicateCache){
-        self.isDiryDisablePredicateCache = NO;
+    NSParameterAssert(disablePredicateCache);
+    self.isDirtyDisablePredicateCache = NO;
+    if (!_disablePredicateCache || ![_disablePredicateCache isEqualToNumber:disablePredicateCache]){
         _disablePredicateCache = disablePredicateCache;
     }
 }
 
--(BOOL)disablePredicateCache
+-(NSNumber*)disablePredicateCache
 {
     return _disablePredicateCache;
 }
 
 #pragma mark - Hide Predicate functions
 
--(BOOL)hidePredicateCache
+-(NSNumber *)hidePredicateCache
 {
     return _hidePredicateCache;
 }
 
--(void)setHidePredicateCache:(BOOL)hidePredicateCache
+-(void)setHidePredicateCache:(NSNumber *)hidePredicateCache
 {
-    if (self.isDirtyHidePredicateCache){
-        self.isDirtyHidePredicateCache = NO;
+    NSParameterAssert(hidePredicateCache);
+    self.isDirtyHidePredicateCache = NO;
+    if (!_hidePredicateCache || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
         _hidePredicateCache = hidePredicateCache;
-        _hidePredicateCache ? [self.sectionDescriptor hideFormRow:self] : [self.sectionDescriptor showFormRow:self];
+        [_hidePredicateCache boolValue] ? [self.sectionDescriptor hideFormRow:self] : [self.sectionDescriptor showFormRow:self];
     }
 }
 
@@ -273,24 +278,24 @@
     if (self.isDirtyHidePredicateCache) {
         return [self evaluateIsHidden];
     }
-    return self.hidePredicateCache;
+    return [self.hidePredicateCache boolValue];
 }
 
 -(BOOL)evaluateIsHidden
 {
-    self.isDirtyHidePredicateCache = YES;
     if ([_hidden isKindOfClass:[NSPredicate class]]) {
         @try {
-            self.hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}];
+            self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
         }
         @catch (NSException *exception) {
             // predicate syntax error.
+            self.isDirtyHidePredicateCache = YES;
         };
     }
     else{
-        self.hidePredicateCache = [_hidden boolValue];
+        self.hidePredicateCache = _hidden;
     }
-    return self.hidePredicateCache;
+    return [self.hidePredicateCache boolValue];
 }
 
 
@@ -319,38 +324,6 @@
         [self.sectionDescriptor showFormRow:self];
     }
 }
-
-//-(void)addMissingRowDependencies{
-//    NSMutableArray* tags;
-//    if ([_disabled isKindOfClass:[NSPredicate class]]){
-//        tags = [_disabled getPredicateVars];
-//        for (int i = 0; i < tags.count; i++) {
-//            [self.sectionDescriptor.formDescriptor addObserver:self.tag forRow:tags[i]];
-//        }
-//    }
-//    if ([_hidden isKindOfClass:[NSPredicate class]]){
-//        tags = [_hidden getPredicateVars];
-//        for (int i = 0; i < tags.count; i++) {
-//            [self.sectionDescriptor.formDescriptor addObserver:self.tag forRow:tags[i]];
-//        }
-//    }
-//}
-
-//-(void)clearRowDependencies{
-//    NSMutableArray* tags;
-//    if ([_disabled isKindOfClass:[NSPredicate class]]){
-//        tags = [_disabled getPredicateVars];
-//        for (int i = 0; i < tags.count; i++) {
-//            [self.sectionDescriptor.formDescriptor removeObserver:self.tag forRow:tags[i]];
-//        }
-//    }
-//    if ([_hidden isKindOfClass:[NSPredicate class]]){
-//        tags = [_hidden getPredicateVars];
-//        for (int i = 0; i < tags.count; i++) {
-//            [self.sectionDescriptor.formDescriptor removeObserver:self.tag forRow:tags[i]];
-//        }
-//    }
-//}
 
 
 #pragma mark - validation
