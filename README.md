@@ -241,9 +241,9 @@ This is the protocol declaration:
 ```
 
 
-####Date Rows
+####Date & Time Rows
 
-XLForms supports 3 types of dates: `Date`, `DateTime` and `Time` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
+XLForms supports 3 types of dates: `Date`, `DateTime` , `Time` and `Countdown Timer` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
 
 ![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/Dates/XLForm-Dates.gif)
 
@@ -261,6 +261,10 @@ static NSString *const XLFormRowDescriptorTypeTimeInline = @"timeInline";
 ```
 
 ```objc
+static NSString *const XLFormRowDescriptorTypeCountDownTimerInline = @"countDownTimerInline";
+```
+
+```objc
 static NSString *const XLFormRowDescriptorTypeDate = @"date";
 ```
 
@@ -270,6 +274,10 @@ static NSString *const XLFormRowDescriptorTypeDateTime = @"datetime";
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeTime = @"time";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeCountDownTimer = @"countDownTimer";
 ```
 
 Here is an example of how to define these row types:
@@ -297,6 +305,11 @@ row.value = [NSDate new];
 
 // DateTime
 row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTimeInline rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Date Time"];
+row.value = [NSDate new];
+[section addFormRow:row];
+
+// CountDownTimer
+row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimerInline title:@"Countdown Timer"];
 row.value = [NSDate new];
 [section addFormRow:row];
 ```
@@ -809,6 +822,10 @@ Release Notes
 --------------
 
 Version 2.2.1 (master)
+
+* Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type and example.
+* Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
+
 
 Version 2.2.0
 
