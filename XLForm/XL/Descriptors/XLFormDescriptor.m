@@ -40,6 +40,15 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @end
 
+
+@interface XLFormRowDescriptor(_XLFormDescriptor)
+
+-(BOOL)evaluateIsDisabled;
+-(BOOL)evaluateIsHidden;
+
+@end
+
+
 @interface XLFormDescriptor()
 
 @property NSMutableArray * formSections;
@@ -477,10 +486,10 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     XLFormSectionDescriptor* section = [self.allSections objectAtIndex:index];
     [section.allRows enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL *stop) {
         XLFormRowDescriptor * row = (id)obj;
-        row.hidden = nil;
-        row.disabled = nil;
+        [self removeObserversOfObject:row predicateType:XLPredicateTypeDisabled];
+        [self removeObserversOfObject:row predicateType:XLPredicateTypeHidden];
     }];
-    section.hidden = nil;
+    [self removeObserversOfObject:section predicateType:XLPredicateTypeHidden];
     [self.allSections removeObjectAtIndex:index];
 }
 
@@ -496,6 +505,24 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     }];
 
     
+}
+
+#pragma mark - EvaluateForm
+
+-(void)forceEvaluate
+{
+    for (XLFormSectionDescriptor* section in self.allSections){
+        for (XLFormRowDescriptor* row in section.allRows) {
+            [self addRowToTagCollection:row];
+        }
+    }
+    for (XLFormSectionDescriptor* section in self.allSections){
+        for (XLFormRowDescriptor* row in section.allRows) {
+            [row evaluateIsDisabled];
+            [row evaluateIsHidden];
+        }
+        [section evaluateIsHidden];
+    }
 }
 
 #pragma mark - private
@@ -554,14 +581,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     return nil;
 }
 
--(void)afterSet{
-    for (XLFormSectionDescriptor* section in self.allSections){
-        for (XLFormRowDescriptor* row in section.allRows) {
-            [self addRowToTagCollection:row];
-        }
-    }
-}
-
 -(void)addRowToTagCollection:(XLFormRowDescriptor*) rowDescriptor
 {
     if (rowDescriptor.tag) {
@@ -574,14 +593,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     [self.allRowsByTag removeObjectForKey:rowDescriptor];
 }
 
--(void)addObserver:(id)descriptor forRow:(NSString *)tag
-{
-    if (!self.rowObservers[tag]){
-        self.rowObservers[tag] = [NSMutableArray array];
-    }
-    if (![self.rowObservers[tag] containsObject:descriptor])
-        [self.rowObservers[tag] addObject:descriptor];
-}
 
 -(void)removeObserver:(id)descriptor forRow:(NSString*)tag
 {

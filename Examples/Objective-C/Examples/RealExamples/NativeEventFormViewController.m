@@ -188,7 +188,7 @@
         if ([[rowDescriptor.value valueData] isEqualToNumber:@(0)] == NO && [[oldValue valueData] isEqualToNumber:@(0)]){
         
             XLFormRowDescriptor * newRow = [rowDescriptor copy];
-            [newRow setTag:@"secondAlert"];
+            newRow.tag = @"secondAlert";
             newRow.title = @"Second Alert";
             [self.form addFormRow:newRow afterRow:rowDescriptor];
         }

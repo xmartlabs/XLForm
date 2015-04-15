@@ -34,12 +34,19 @@
 @interface XLFormRowDescriptor(_XLFormViewController)
 
 @property (readonly) NSArray * observers;
+-(BOOL)evaluateIsDisabled;
+-(BOOL)evaluateIsHidden;
+
+@end
+
+@interface XLFormSectionDescriptor(_XLFormViewController)
+
+-(BOOL)evaluateIsHidden;
 
 @end
 
 @interface XLFormDescriptor (_XLFormViewController)
 
--(void)afterSet;
 @property NSMutableDictionary* rowObservers;
 
 @end
@@ -290,29 +297,25 @@
 -(void)updateAfterDependentRowChanged:(XLFormRowDescriptor *)formRow{
     NSArray* revaluateHidden   = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeHidden]];
     NSArray* revaluateDisabled = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeDisabled]];
-    if (revaluateDisabled){
-        for (id object in revaluateDisabled) {
-            if ([object isKindOfClass:[NSString class]]) {
-                XLFormRowDescriptor* row = [self.form formRowWithTag:object];
-                if (row){
-                    [row performSelector:NSSelectorFromString(@"evaluateIsDisabled")];
-                    [self updateFormRow:row];
-                }
+    for (id object in revaluateDisabled) {
+        if ([object isKindOfClass:[NSString class]]) {
+            XLFormRowDescriptor* row = [self.form formRowWithTag:object];
+            if (row){
+                [row evaluateIsDisabled];
+                [self updateFormRow:row];
             }
         }
     }
-    if (revaluateHidden){
-        for (id object in revaluateHidden) {
-            if ([object isKindOfClass:[NSString class]]) {
-                XLFormRowDescriptor* row = [self.form formRowWithTag:object];
-                if (row){
-                    [row performSelector:NSSelectorFromString(@"evaluateIsHidden")];
-                }
+    for (id object in revaluateHidden) {
+        if ([object isKindOfClass:[NSString class]]) {
+            XLFormRowDescriptor* row = [self.form formRowWithTag:object];
+            if (row){
+                [row evaluateIsHidden];
             }
-            else if ([object isKindOfClass:[XLFormSectionDescriptor class]]) {
-                XLFormSectionDescriptor* section = (XLFormSectionDescriptor*) object;
-                [section performSelector:NSSelectorFromString(@"evaluateIsHidden")];
-            }
+        }
+        else if ([object isKindOfClass:[XLFormSectionDescriptor class]]) {
+            XLFormSectionDescriptor* section = (XLFormSectionDescriptor*) object;
+            [section evaluateIsHidden];
         }
     }
 }
@@ -922,7 +925,7 @@
 {
     _form = form;
     _form.delegate = self;
-    [_form afterSet];
+    [_form forceEvaluate];
 }
 
 -(XLFormDescriptor *)form

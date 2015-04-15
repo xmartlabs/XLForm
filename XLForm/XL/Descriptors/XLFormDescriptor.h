@@ -90,4 +90,6 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
 -(XLFormRowDescriptor *)nextRowDescriptorForRow:(XLFormRowDescriptor *)currentRow;
 -(XLFormRowDescriptor *)previousRowDescriptorForRow:(XLFormRowDescriptor *)currentRow;
 
+-(void)forceEvaluate;
+
 @end

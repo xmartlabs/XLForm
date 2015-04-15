@@ -90,6 +90,7 @@ NSString *const kPredDep2 = @"preddep2";
     
     row.disabled = [NSString stringWithFormat:@"$%@ contains[c] \"%@\" OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred,  @"disable", kPredDep2, pred3];
     //[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred, pred2, pred3],  @"disable"] ];
+    pred4 = row;
 
     section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) AND ($%@.value between {18, 60}) AND ($%@.value == 0)", pred, kPredDep2, pred3],  @"disable"];
     
@@ -97,11 +98,11 @@ NSString *const kPredDep2 = @"preddep2";
     section.footerTitle = @"This row hides when the row of the previous section is disabled and the textfield in the first section contains \"out\"\n\nPredicateFormViewController.m";
     [form addFormSection:section];
     
-    pred4 = row;
+
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"thirds" rowType:XLFormRowDescriptorTypeAccount title:@"Account"];
     [section addFormRow:row];
-    row.hidden = [NSString stringWithFormat:@"$%@.disabled==1 AND $%@.value contains[c] \"out\"", pred4, pred];
+    row.hidden = [NSString stringWithFormat:@"$%@.isDisabled == 1 AND $%@.value contains[c] \"out\"", pred4, pred];
     /*
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"A Section"];
