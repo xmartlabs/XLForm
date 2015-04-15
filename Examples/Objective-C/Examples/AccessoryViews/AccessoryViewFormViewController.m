@@ -26,6 +26,10 @@
 #import "XLForm.h"
 #import "AccessoryViewFormViewController.h"
 
+//This macro defines if we use predicates to hide rows or do it manually the old way.
+//Just comment out if you want it to run without predicates.
+#define USE_PREDICATES_FOR_HIDING
+
 @interface AccessoryViewFormViewController ()
 
 @end
@@ -56,9 +60,7 @@ NSString * kAccessoryViewCheck = @"check";
 NSString * kAccessoryViewNotes = @"notes";
 
 
-//This macro defines if we use predicates to hide rows or do it manually the old way.
-//Just comment out if you want it to run without predicates.
-#define USE_PREDICATES_FOR_HIDING
+
 
 -(id)init
 {
