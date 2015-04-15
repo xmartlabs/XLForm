@@ -37,6 +37,13 @@
 
 @end
 
+@interface XLFormSectionDescriptor (_XLFormRowDescriptor)
+
+-(void)showFormRow:(XLFormRowDescriptor*)formRow;
+-(void)hideFormRow:(XLFormRowDescriptor*)formRow;
+
+@end
+
 @interface XLFormRowDescriptor() <NSCopying>
 
 @property XLFormBaseCell * cell;

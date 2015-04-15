@@ -70,7 +70,4 @@ typedef NS_ENUM(NSUInteger, XLFormSectionInsertMode) {
 -(void)removeFormRowAtIndex:(NSUInteger)index;
 -(void)removeFormRow:(XLFormRowDescriptor *)formRow;
 
--(void)showFormRow:(XLFormRowDescriptor*)formRow;
--(void)hideFormRow:(XLFormRowDescriptor*)formRow;
-
 @end
