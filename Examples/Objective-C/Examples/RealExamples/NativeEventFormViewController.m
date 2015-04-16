@@ -206,10 +206,14 @@
         if ([[rowDescriptor.value valueData] boolValue] == YES){
             startDateDescriptor.valueTransformer = [DateValueTrasformer class];
             endDateDescriptor.valueTransformer = [DateValueTrasformer class];
+            [dateStartCell setFormDatePickerMode:XLFormDateDatePickerModeDate];
+            [dateEndCell setFormDatePickerMode:XLFormDateDatePickerModeDate];
         }
         else{
             startDateDescriptor.valueTransformer = [DateTimeValueTrasformer class];
             endDateDescriptor.valueTransformer = [DateTimeValueTrasformer class];
+            [dateStartCell setFormDatePickerMode:XLFormDateDatePickerModeDateTime];
+            [dateEndCell setFormDatePickerMode:XLFormDateDatePickerModeDateTime];
         }
         [dateStartCell update];
         [dateEndCell update];
