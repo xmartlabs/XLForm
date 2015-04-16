@@ -24,7 +24,9 @@
 // THE SOFTWARE.
 
 #import "XLForm.h"
+#import "DateAndTimeValueTrasformer.h"
 #import "NativeEventFormViewController.h"
+
 
 @implementation NativeEventNavigationViewController
 
@@ -197,8 +199,18 @@
         }
     }
     else if ([rowDescriptor.tag isEqualToString:@"all-day"]){
+        XLFormRowDescriptor * startDateDescriptor = [self.form formRowWithTag:@"starts"];
+        XLFormRowDescriptor * endDateDescriptor = [self.form formRowWithTag:@"ends"];
         XLFormDateCell * dateStartCell = (XLFormDateCell *)[[self.form formRowWithTag:@"starts"] cellForFormController:self];
         XLFormDateCell * dateEndCell = (XLFormDateCell *)[[self.form formRowWithTag:@"ends"] cellForFormController:self];
+        if ([[rowDescriptor.value valueData] boolValue] == YES){
+            startDateDescriptor.valueTransformer = [DateValueTrasformer class];
+            endDateDescriptor.valueTransformer = [DateValueTrasformer class];
+        }
+        else{
+            startDateDescriptor.valueTransformer = [DateTimeValueTrasformer class];
+            endDateDescriptor.valueTransformer = [DateTimeValueTrasformer class];
+        }
         [dateStartCell update];
         [dateEndCell update];
     }
