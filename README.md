@@ -31,7 +31,7 @@ What XLForm does
  * Ability to easily navigate among rows, fully customizable.
  * Ability to show inputAccessoryView if needed. By default a navigation input accessory view is shown.
  * Read only mode for a particular row or the entire form.
- * Rows can be hidden or shown depending on other rows values declaratively using conditions, `NSPredicates`. (see [*Using NSPredicates to hide/show or enable/disable a row*](#Using NSPredicates to hide/show or enable/disable a row "Using Predicates"))
+ * Rows can be hidden or shown depending on other rows values. This can be done declaratively using `NSPredicates`. (see [*Make a row or section invisible depending on other rows values*](#Make a row or section invisible depending on other rows values "Using Predicates"))
 
 
 
@@ -582,7 +582,7 @@ It's much easier to manage `XLFormRowDescriptor`s using tags, the tag should be 
 
 It's important to keep in mind that all the `UITableView` form modifications have to be made using the descriptors and not making modifications directly on the `UITableView`.
 
-Usually you may want to change the form when some value change or some row or section is added or removed. For this you can set the `disabled` and `hidden` properties of the rows or sections. For more details see [*Using NSPredicates to hide/show or enable/disable a row*](#Using NSPredicates to hide/show or enable/disable a row "Using Predicates").
+Usually you may want to change the form when some value change or some row or section is added or removed. For this you can set the `disabled` and `hidden` properties of the rows or sections. For more details see [*UMake a row or section invisible depending on other rows values*](#Make a row or section invisible depending on other rows values "Using Predicates").
 
 In order to stay in sync with the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
 
@@ -631,39 +631,47 @@ Take a look at the following example:
 
 ![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateDisabling/XLFormPredicatesBasic.gif)
 
+Of course, you could also do this manually by observing the value of some rows and deleting and adding rows accordingly, but that would be a lot of work which is already done.
+
 ###How it works
 
 To make the appearance and disappearance of rows and sections automatic, there is a property in each descriptor:
 
 ```objc
-@property (getter=isHidden) id hidden;
+@property id hidden;
 ```
 
-This id object will normally be a NSPredicate or a NSValue containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be sintactically correct.
+This id object will normally be a NSPredicate or a NSNumber containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be sintactically correct.
 
 For example, you could set the following string to a row (`second`) to make it disappear when a previous row (`first`) contains the value "hide".
 
 ```objc
 second.hidden = [NSString stringWithFormat:@"$%@ contains[c] 'hide'", first];
 ```
-This will insert the tag of the `first` after the '$', you can do that manually as well, of course. In the setter of the hidden property, the string is parsed and every tag variable will be substituted with the corresponding row when the predicate is evaluated. When the argument is a NSString, a '.value' will be appended to every tag unless the tag is followed by '.hidden' or '.disabled'. This means that a row (or section) might depend on the `value` or the `hidden` or `disabled` properties of another row. When a NSPredicate is set directly, its formatString will not be altered.
+This will insert the tag of the `first` after the '$', you can do that manually as well, of course. When the predicate is evaluated every tag variable gets substituted by the corresponding row descriptor.
+
+When the argument is a NSString, a '.value' will be appended to every tag unless the tag is followed by '.isHidden' or '.isDisabled'. This means that a row (or section) might depend on the `value` or the `hidden` or `disabled` properties of another row. When the property is set with a NSPredicate directly, its formatString will not be altered (so you have to append a '.value' after each variable if you want to refer to its value). Setting a NSString is the simplest way but some complex predicates might not work so for those you should directly set a NSPredicate.
 
 You can also set this properties with a bool object which means the value of the property will not change unless manually set.
 
-The getter methods return a `@YES` if the row should be hidden and `@NO` otherwise. It will not re-evaluate the predicate each time it gets called but just when one the value (or hidden/disabled status) of the rows it depends on changes. When this happens and the return value changes, it will automagically reflect that change on the form so that no other method must be called.
+To get the evaluated boolean value the `isHidden` method should be called. It will not re-evaluate the predicate each time it gets called but just when the value (or hidden/disabled status) of the rows it depends on changes. When this happens and the return value changes, it will automagically reflect that change on the form so that no other method must be called.
 
 Here is another example, this time a bit more complex:
 
 ![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateDisabling/XLFormPredicates.gif)
 
 
+Disabling rows (set to read-only mode)
+--------------------------------
 
-
-Similarly the rows can be disabled (set to read-only mode):
+Rows can be disabled so that the user can not change them. By default disabled rows have a gray text color. To disable a row the only thing that has to be done is setting its disabled property:
 
 ```objc
-@property (getter=isDisabled) id disabled;
+@property id disabled;
 ```
+This property expects a NSNumber containing a BOOL, a NSString or a NSPredicate. A bool will statically disable (or enable the row). The other two work just like the hidden property explained in the section above. This means a row can be disabled and enabled depending on the values of other rows. When a NSString is set, a NSPredicate will be generated taking the string as format string so that it has to be consistent for that purpose.
+
+A difference to the hidden property is that checking the disabled status of a row does not automatically reflect that value on the form. Tharefore, the XLFormViewController's updateFormRow method should be called.
 
 
 Validations
@@ -817,6 +825,14 @@ For further details, please take a look at [UICustomizationFormViewController.m]
 
 `disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ). 
 Any other row added after form `disable` property is set to `YES` will reflect the disable mode automatically (no need to reload table view).
+
+####How to hide a row or section when another rows value changes.
+
+To hide a row or section you should set its hidden property. The easiest way of doing this is by setting a NSString to it. Let's say you want a section to hide if a previous row, which is a boolean switch, is set to 1 (or YES). Then you would do something like this:
+```objc
+section.hidden = [NSString stringWithFormat:@"$%@ == 1", previousRow];
+```
+That is all!
 
 
 Installation
