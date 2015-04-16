@@ -26,10 +26,12 @@
 NSString *const kDateInline = @"dateInline";
 NSString *const kTimeInline = @"timeInline";
 NSString *const kDateTimeInline = @"dateTimeInline";
+NSString *const kCountDownTimerInline = @"countDownTimerInline";
 
 NSString *const kDate = @"date";
 NSString *const kTime = @"time";
 NSString *const kDateTime = @"dateTime";
+NSString *const kCountDownTimer = @"countDownTimer";
 
 #import "DatesFormViewController.h"
 
@@ -45,7 +47,7 @@ NSString *const kDateTime = @"dateTime";
         XLFormSectionDescriptor * section;
         XLFormRowDescriptor * row;
         
-        form = [XLFormDescriptor formDescriptorWithTitle:@"Dates"];
+        form = [XLFormDescriptor formDescriptorWithTitle:@"Date & Time"];
         
         section = [XLFormSectionDescriptor formSectionWithTitle:@"Inline Dates"];
         [form addFormSection:section];
@@ -55,13 +57,18 @@ NSString *const kDateTime = @"dateTime";
         row.value = [NSDate new];
         [section addFormRow:row];
         
-        // DateTime
+        // Time
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kTimeInline rowType:XLFormRowDescriptorTypeTimeInline title:@"Time"];
         row.value = [NSDate new];
         [section addFormRow:row];
         
-        // Time
+        // DateTime
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTimeInline rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Date Time"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        // CountDownTimer
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimerInline title:@"Countdown Timer"];
         row.value = [NSDate new];
         [section addFormRow:row];
         
@@ -76,14 +83,19 @@ NSString *const kDateTime = @"dateTime";
         [row.cellConfigAtConfigure setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
         [section addFormRow:row];
         
-        // DateTime
+        // Time
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kTime rowType:XLFormRowDescriptorTypeTime title:@"Time"];
         [row.cellConfigAtConfigure setObject:@(10) forKey:@"minuteInterval"];
         row.value = [NSDate new];
         [section addFormRow:row];
         
-        // Time
+        // DateTime
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTime rowType:XLFormRowDescriptorTypeDateTime title:@"Date Time"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        // CountDownTimer
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimer title:@"Countdown Timer"];
         row.value = [NSDate new];
         [section addFormRow:row];
         
