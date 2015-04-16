@@ -27,14 +27,15 @@ NSString *const kDateInline = @"dateInline";
 NSString *const kTimeInline = @"timeInline";
 NSString *const kDateTimeInline = @"dateTimeInline";
 NSString *const kCountDownTimerInline = @"countDownTimerInline";
-
+NSString *const kDatePicker = @"datePicker";
 NSString *const kDate = @"date";
 NSString *const kTime = @"time";
 NSString *const kDateTime = @"dateTime";
 NSString *const kCountDownTimer = @"countDownTimer";
 
 #import "DatesFormViewController.h"
-
+@interface DatesFormViewController() <XLFormDescriptorDelegate>
+@end
 
 @implementation DatesFormViewController
 
@@ -110,6 +111,16 @@ NSString *const kCountDownTimer = @"countDownTimer";
         row.value = [NSDate new];
         [section addFormRow:row];
         
+        // DatePicker
+        section = [XLFormSectionDescriptor formSectionWithTitle:@"DatePicker"];
+        [form addFormSection:section];
+        
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kDatePicker rowType:XLFormRowDescriptorTypeDatePicker];
+        [row.cellConfigAtConfigure setObject:@(UIDatePickerModeDate) forKey:@"datePicker.datePickerMode"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        
         self.form = form;
     }
     return self;
@@ -132,6 +143,20 @@ NSString *const kCountDownTimer = @"countDownTimer";
     [button setTitle:(self.form.disabled ? @"Enable" : @"Disable")];
     [self.tableView endEditing:YES];
     [self.tableView reloadData];
+}
+
+-(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
+{
+    if([formRow.tag isEqualToString:kDatePicker])
+    {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
+                                                          message:@"Value Has changed!"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        
+        [message show];
+    }
 }
 
 

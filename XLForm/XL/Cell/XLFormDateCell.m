@@ -74,8 +74,6 @@
             if (self.rowDescriptor.value){
                 [datePickerCell.datePicker setDate:self.rowDescriptor.value];
             }
-            [datePickerCell.datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
-            
             NSAssert([datePickerCell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)], @"inline cell must conform to XLFormInlineRowDescriptorCell");
             UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)datePickerCell;
             inlineCell.inlineRowDescriptor = self.rowDescriptor;
