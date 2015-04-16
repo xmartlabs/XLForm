@@ -22,13 +22,13 @@ static NSString * const kDisabledFieldCellTag = @"DisabledTag";
 @end
 
 
-@interface testHideAndShow : XCTestCase
+@interface XLTestHideAndShow : XCTestCase
 
 @property (nonatomic, strong) XLFormViewController * formController;
 
 @end
 
-@implementation testHideAndShow
+@implementation XLTestHideAndShow
 
 - (void)setUp {
     [super setUp];
