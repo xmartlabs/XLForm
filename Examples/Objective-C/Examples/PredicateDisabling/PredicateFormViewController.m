@@ -63,7 +63,7 @@ NSString *const kPredDep2 = @"preddep2";
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Independent rows"];
     
 
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredDep rowType:XLFormRowDescriptorTypeText title:@"Text"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredDep rowType:XLFormRowDescriptorTypeAccount title:@"Text"];
     [row.cellConfigAtConfigure setObject:@"Type disable" forKey:@"textField.placeholder"];
     pred = row;
     [section addFormRow:row];

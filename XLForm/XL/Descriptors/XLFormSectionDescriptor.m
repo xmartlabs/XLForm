@@ -48,7 +48,7 @@
 @property NSMutableArray * formRows;
 @property NSMutableArray * allRows;
 @property BOOL isDirtyHidePredicateCache;
-@property BOOL hidePredicateCache;
+@property (nonatomic) NSNumber* hidePredicateCache;
 
 @end
 
@@ -68,8 +68,9 @@
         _title = nil;
         _footerTitle = nil;
         _hidden = @NO;
-        _hidePredicateCache = NO;
+        _hidePredicateCache = @NO;
         _isDirtyHidePredicateCache = YES;
+        [self addObserver:self forKeyPath:@"formRows" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     }
     return self;
 }
@@ -190,21 +191,11 @@
 
 -(void)dealloc
 {
-    for (XLFormRowDescriptor * formRow in self.formRows) {
-        @try {
-            [formRow removeObserver:self forKeyPath:@"value"];
-        }
-        @catch (NSException * __unused exception) {}
-        @try {
-            [formRow removeObserver:self forKeyPath:@"disablePredicateCache"];
-        }
-        @catch (NSException * __unused exception) {}
-        @try {
-            [formRow removeObserver:self forKeyPath:@"hidePredicateCache"];
-        }
-        @catch (NSException * __unused exception) {}
-    }
     [self.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeHidden];
+    @try {
+        [self removeObserver:self forKeyPath:@"formRows"];
+    }
+    @catch (NSException * __unused exception) {}
 }
 
 #pragma mark - Show/hide rows
@@ -241,19 +232,23 @@
 
 #pragma mark - KVO
 
+#pragma mark - KVO
+
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([object isKindOfClass:[XLFormRowDescriptor class]] &&
-        ([keyPath isEqualToString:@"value"] || [keyPath isEqualToString:@"hidePredicateCache"] || [keyPath isEqualToString:@"disablePredicateCache"])){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
-            id newValue = [change objectForKey:NSKeyValueChangeNewKey];
-            id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
-            if ([keyPath isEqualToString:@"value"]){
-                [self.formDescriptor.delegate formRowDescriptorValueHasChanged:object oldValue:oldValue newValue:newValue];
-            }
-            else{
-                [self.formDescriptor.delegate formRowDescriptorPredicateHasChanged:object oldValue:oldValue newValue:newValue predicateType:([keyPath isEqualToString:@"hidePredicateCache"] ? XLPredicateTypeHidden : XLPredicateTypeDisabled)];
-            }
+    if (!self.formDescriptor.delegate) return;
+    if ([keyPath isEqualToString:@"formRows"]){
+        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
+            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+            XLFormRowDescriptor * formRow = [((XLFormSectionDescriptor *)object).formRows objectAtIndex:indexSet.firstIndex];
+            NSUInteger sectionIndex = [self.formDescriptor.formSections indexOfObject:object];
+            [self.formDescriptor.delegate formRowHasBeenAdded:formRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
+        }
+        else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
+            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+            XLFormRowDescriptor * removedRow = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
+            NSUInteger sectionIndex = [self.formDescriptor.formSections indexOfObject:object];
+            [self.formDescriptor.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
         }
     }
 }
@@ -280,27 +275,11 @@
 - (void)insertObject:(XLFormRowDescriptor *)formRow inFormRowsAtIndex:(NSUInteger)index
 {
     formRow.sectionDescriptor = self;
-    [formRow addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-    [formRow addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-    [formRow addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.formRows insertObject:formRow atIndex:index];
 }
 
 - (void)removeObjectFromFormRowsAtIndex:(NSUInteger)index
 {
-    XLFormRowDescriptor * row = [self.formRows objectAtIndex:index];
-    @try {
-        [row removeObserver:self forKeyPath:@"value"];
-    }
-    @catch (NSException * __unused exception) {}
-    @try {
-        [row removeObserver:self forKeyPath:@"disablePredicateCache"];
-    }
-    @catch (NSException * __unused exception) {}
-    @try {
-        [row removeObserver:self forKeyPath:@"hidePredicateCache"];
-    }
-    @catch (NSException * __unused exception) {}
     [self.formRows removeObjectAtIndex:index];
 }
 
@@ -324,8 +303,8 @@
 - (void)insertObject:(XLFormRowDescriptor *)row inAllRowsAtIndex:(NSUInteger)index
 {
     row.sectionDescriptor = self;
-    [self.allRows insertObject:row atIndex:index];
     [self.formDescriptor addRowToTagCollection:row];
+    [self.allRows insertObject:row atIndex:index];
     row.disabled = row.disabled;
     row.hidden = row.hidden;
 }
@@ -348,17 +327,18 @@
 
 #pragma mark - Predicates
 
--(BOOL)hidePredicateCache
+
+-(NSNumber *)hidePredicateCache
 {
     return _hidePredicateCache;
 }
 
--(void)setHidePredicateCache:(BOOL)hidePredicateCache
+-(void)setHidePredicateCache:(NSNumber *)hidePredicateCache
 {
-    if (self.isDirtyHidePredicateCache){
-        self.isDirtyHidePredicateCache = NO;
+    NSParameterAssert(hidePredicateCache);
+    self.isDirtyHidePredicateCache = NO;
+    if (!_hidePredicateCache || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
         _hidePredicateCache = hidePredicateCache;
-        _hidePredicateCache ? [self.formDescriptor hideFormSection:self] : [self.formDescriptor showFormSection:self] ;
     }
 }
 
@@ -375,16 +355,17 @@
     self.isDirtyHidePredicateCache = YES;
     if ([_hidden isKindOfClass:[NSPredicate class]]) {
         @try {
-            self.hidePredicateCache = [_hidden evaluateWithObject:self substitutionVariables:self.formDescriptor.allRowsByTag ?: @{}];
+            self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.formDescriptor.allRowsByTag ?: @{}]);
         }
         @catch (NSException *exception) {
             // predicate syntax error.
         };
     }
     else{
-        self.hidePredicateCache = [_hidden boolValue];
+        self.hidePredicateCache = _hidden;
     }
-    return self.hidePredicateCache;
+    [self.hidePredicateCache boolValue] ? [self.formDescriptor hideFormSection:self] : [self.formDescriptor showFormSection:self] ;
+    return [self.hidePredicateCache boolValue];
 }
 
 

@@ -124,15 +124,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         }
     }
     formSection.hidden = formSection.hidden;
-//    if (![[formSection isHidden] boolValue]){
-//        NSUInteger index = [self.formSections indexOfObject:afterSection];
-//        while (index == NSNotFound && allSectionIndex != 0){
-//            afterSection = [self.allSections objectAtIndex:(--allSectionIndex)];
-//            index = [self.formSections indexOfObject:afterSection];
-//        }
-//        // insert at the beginning as there is no previous row
-//        [self insertObject:formSection inFormSectionsAtIndex:(index != NSNotFound ? ++index : 0)];
-//    }
 }
 
 
@@ -405,31 +396,10 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
             [self.delegate formSectionHasBeenRemoved:removedSection atIndex:indexSet.firstIndex];
         }
     }
-    else if ([keyPath isEqualToString:@"formRows"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
-            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            XLFormRowDescriptor * formRow = [((XLFormSectionDescriptor *)object).formRows objectAtIndex:indexSet.firstIndex];
-            NSUInteger sectionIndex = [self.formSections indexOfObject:object];
-            [self.delegate formRowHasBeenAdded:formRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
-        }
-        else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
-            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            XLFormRowDescriptor * removedRow = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
-            NSUInteger sectionIndex = [self.formSections indexOfObject:object];
-            [self.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
-        }
-        
-    }
 }
 
 -(void)dealloc
 {
-    for (XLFormSectionDescriptor * formSection in self.formSections) {
-        @try {
-            [formSection removeObserver:self forKeyPath:@"formRows"];
-        }
-        @catch (NSException * __unused exception) {}
-    }
     @try {
         [self removeObserver:self forKeyPath:@"formSections"];
     }
@@ -452,19 +422,11 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 }
 
 - (void)insertObject:(XLFormSectionDescriptor *)formSection inFormSectionsAtIndex:(NSUInteger)index {
-    formSection.formDescriptor = self;
-    [formSection addObserver:self forKeyPath:@"formRows" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     [self.formSections insertObject:formSection atIndex:index];
 }
 
 - (void)removeObjectFromFormSectionsAtIndex:(NSUInteger)index {
-    XLFormSectionDescriptor * formSection = [self.formSections objectAtIndex:index];
-    @try {
-        [formSection removeObserver:self forKeyPath:@"formRows"];
-    }
-    @catch (NSException * __unused exception) {}
     [self.formSections removeObjectAtIndex:index];
-    
 }
 
 #pragma mark - allSections KVO
@@ -484,6 +446,10 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 - (void)removeObjectFromAllSectionsAtIndex:(NSUInteger)index {
     XLFormSectionDescriptor* section = [self.allSections objectAtIndex:index];
+    @try {
+        [section removeObserver:self forKeyPath:@"formRows"];
+    }
+    @catch (NSException * __unused exception) {}
     [section.allRows enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL *stop) {
         XLFormRowDescriptor * row = (id)obj;
         [self removeObserversOfObject:row predicateType:XLPredicateTypeDisabled];
@@ -664,8 +630,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         for (NSString* tag in tags) {
             NSString* auxTag = [tag formKeyForPredicateType:predicateType];
             if (self.rowObservers[auxTag]){
-                if ([self.rowObservers[auxTag] containsObject:descriptor])
-                    [self.rowObservers[auxTag] removeObject:descriptor];
+                [self.rowObservers[auxTag] removeObject:descriptor];
             }
         }
     }

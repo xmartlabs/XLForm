@@ -264,11 +264,9 @@
 
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"XLForm - Row Begin");
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:[self insertRowAnimationForRow:formRow]];
     [self.tableView endUpdates];
-    NSLog(@"XLForm - Row End");
 }
 
 -(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
@@ -287,11 +285,9 @@
 
 -(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
-    NSLog(@"XLForm - Section Begin");
     [self.tableView beginUpdates];
     [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[self insertRowAnimationForSection:formSection]];
     [self.tableView endUpdates];
-    NSLog(@"XLForm - Section End");
 }
 
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue

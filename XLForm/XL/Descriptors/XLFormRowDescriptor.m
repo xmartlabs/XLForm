@@ -65,10 +65,14 @@
 @synthesize disablePredicateCache = _disablePredicateCache;
 
 
+-(id)init
+{
+    @throw [NSException exceptionWithName:NSGenericException reason:@"initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title must be used" userInfo:nil];
+}
 
 -(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
-    self = [self init];
+    self = [super init];
     if (self){
         NSAssert(((![rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] && ![rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) || (([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) && ([rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] || [rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]))), @"You must be running under UIUserInterfaceIdiomPad to use either XLFormRowDescriptorTypeSelectorPopover or XLFormRowDescriptorTypeMultipleSelectorPopover rows.");
         _tag = tag;
@@ -85,6 +89,9 @@
         _disablePredicateCache = nil;
         _isDirtyHidePredicateCache = YES;
         _hidePredicateCache = nil;
+        [self addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+        [self addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+        [self addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     }
     return self;
 }
@@ -194,6 +201,43 @@
     return rowDescriptorCopy;
 }
 
+-(void)dealloc
+{
+    [self.sectionDescriptor.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeDisabled];
+    [self.sectionDescriptor.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeHidden];
+    @try {
+        [self removeObserver:self forKeyPath:@"value"];
+    }
+    @catch (NSException * __unused exception) {}
+    @try {
+        [self removeObserver:self forKeyPath:@"disablePredicateCache"];
+    }
+    @catch (NSException * __unused exception) {}
+    @try {
+        [self removeObserver:self forKeyPath:@"hidePredicateCache"];
+    }
+    @catch (NSException * __unused exception) {}
+}
+
+#pragma mark - KVO
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (!self.sectionDescriptor) return;
+    if (object == self && ([keyPath isEqualToString:@"value"] || [keyPath isEqualToString:@"hidePredicateCache"] || [keyPath isEqualToString:@"disablePredicateCache"])){
+        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+            id newValue = [change objectForKey:NSKeyValueChangeNewKey];
+            id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
+            if ([keyPath isEqualToString:@"value"]){
+                [self.sectionDescriptor.formDescriptor.delegate formRowDescriptorValueHasChanged:object oldValue:oldValue newValue:newValue];
+            }
+            else{
+                [self.sectionDescriptor.formDescriptor.delegate formRowDescriptorPredicateHasChanged:object oldValue:oldValue newValue:newValue predicateType:([keyPath isEqualToString:@"hidePredicateCache"] ? XLPredicateTypeHidden : XLPredicateTypeDisabled)];
+            }
+        }
+    }
+}
+
 #pragma mark - Disable Predicate functions
 
 -(BOOL)isDisabled
@@ -269,7 +313,6 @@
     self.isDirtyHidePredicateCache = NO;
     if (!_hidePredicateCache || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
         _hidePredicateCache = hidePredicateCache;
-        [_hidePredicateCache boolValue] ? [self.sectionDescriptor hideFormRow:self] : [self.sectionDescriptor showFormRow:self];
     }
 }
 
@@ -295,6 +338,7 @@
     else{
         self.hidePredicateCache = _hidden;
     }
+    [self.hidePredicateCache boolValue] ? [self.sectionDescriptor hideFormRow:self] : [self.sectionDescriptor showFormRow:self];
     return [self.hidePredicateCache boolValue];
 }
 
