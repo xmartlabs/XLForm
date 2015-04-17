@@ -21,25 +21,10 @@ static NSString * const kDisabledFieldCellTag = @"DisabledTag";
 
 @end
 
-
-@interface XLTestHideAndShow : XCTestCase
-
-@property (nonatomic, strong) XLFormViewController * formController;
-
+@interface XLTestHideAndShow : XLTestCase
 @end
 
 @implementation XLTestHideAndShow
-
-- (void)setUp {
-    [super setUp];
-    [self buildForm]; // Build a form
-    [self forceLoadingOfTheView]; // Load the view
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
 
 - (void)testBasicPredicates {
     // Get the tableView
@@ -103,8 +88,8 @@ static NSString * const kDisabledFieldCellTag = @"DisabledTag";
 
 -(void)buildForm
 {
-    self.formController = [[XLFormViewController alloc] init];
-    self.formController.form = [XLFormDescriptor formDescriptor];
+    XLFormDescriptor * form = [XLFormDescriptor formDescriptor];
+    self.formController.form = form;
     
     XLFormSectionDescriptor * section = [XLFormSectionDescriptor formSection];
     [self.formController.form addFormSection:section];
@@ -126,12 +111,5 @@ static NSString * const kDisabledFieldCellTag = @"DisabledTag";
     
 }
 
-#pragma mark - Load View
-
-- (void)forceLoadingOfTheView
-{
-    // This triggers to load the view
-    expect(self.formController.view).notTo.beNil();
-}
 
 @end

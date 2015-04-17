@@ -18,4 +18,6 @@
 
 @property (nonatomic, strong) XLFormViewController * formController;
 
+-(void)buildForm;
+
 @end
