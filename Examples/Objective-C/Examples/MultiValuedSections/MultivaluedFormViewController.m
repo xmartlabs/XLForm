@@ -71,6 +71,18 @@
     row.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3"];
     section.multivaluedRowTemplate = [row copy];
     [section addFormRow:row];
+    
+    
+    // Add Section Button
+    section = [XLFormSectionDescriptor formSection];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"AddSectionButton" rowType:XLFormRowDescriptorTypeButton title:@"Add Section"];
+    row.action.formSelector = @selector(didTouchAddSectionButton:);
+    [row.cellConfigAtConfigure setObject:[UIColor clearColor] forKey:@"backgroundColor"];
+    [row.cellConfig setObject:[UIColor grayColor] forKey:@"textLabel.color"];
+    [row.cellConfig setObject:[UIFont fontWithName:@"Helvetica" size:17] forKey:@"textLabel.font"];
+    [section addFormRow:row];
+    
     return [super initWithForm:form];
 }
 
@@ -88,6 +100,25 @@
     UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove Last Section" otherButtonTitles:@"Add a section at the end", self.form.isDisabled ? @"Enable Form" : @"Disable Form", nil];
     [actionSheet showInView:self.view];
     
+}
+
+-(void)didTouchAddSectionButton:(XLFormRowDescriptor *)sender
+{
+    // Create a new section
+    XLFormSectionDescriptor * newSection = [XLFormSectionDescriptor formSectionWithTitle:[NSString stringWithFormat:@"Section created at %@", [NSDateFormatter localizedStringFromDate:[NSDate new] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]]];
+    newSection.multivaluedTag = [NSString stringWithFormat:@"multivaluedPushSelector_%@", @(self.form.formSections.count-1)];
+    
+    // Add rows to the new section
+    XLFormRowDescriptor * newRow = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeSelectorPush title:@"Language"];
+    newRow.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3"];
+    [newSection addFormRow:newRow];
+    newRow = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeSelectorPush title:@"Level"];
+    newRow.selectorOptions = @[@"Option A", @"Option B", @"Option C"];
+    [newSection addFormRow:newRow];
+    
+    // Add new section
+    [self.form addFormSection:newSection beforeSection:sender.sectionDescriptor];
+    [self deselectFormRow:sender];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -115,6 +146,7 @@
         [self.tableView reloadData];
     }
 }
+
 
 @end
 
