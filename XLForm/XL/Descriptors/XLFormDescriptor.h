@@ -64,6 +64,7 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection;
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+-(void)addFormSection:(XLFormSectionDescriptor *)formSection beforeSection:(XLFormSectionDescriptor *)beforeSection;
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection afterSection:(XLFormSectionDescriptor *)afterSection;
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)afterRow;
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRowTag:(NSString *)afterRowTag;

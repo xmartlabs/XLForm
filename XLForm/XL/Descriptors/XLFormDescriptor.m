@@ -126,6 +126,23 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     formSection.hidden = formSection.hidden;
 }
 
+-(void)addFormSection:(XLFormSectionDescriptor *)formSection beforeSection:(XLFormSectionDescriptor *)afterSection
+{
+    NSUInteger sectionIndex;
+    NSUInteger allSectionIndex;
+    if ((sectionIndex = [self.allSections indexOfObject:formSection]) == NSNotFound){
+        allSectionIndex = [self.allSections indexOfObject:afterSection];
+        if (allSectionIndex != NSNotFound) {
+            [self insertObject:formSection inAllSectionsAtIndex:allSectionIndex];
+        }
+        else { //case when afterSection does not exist. Just insert at the end.
+            [self addFormSection:formSection];
+            return;
+        }
+    }
+    formSection.hidden = formSection.hidden;
+}
+
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow
 {
