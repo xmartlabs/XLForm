@@ -646,6 +646,10 @@
     if (section.sectionOptions & XLFormSectionOptionCanDelete){
         return UITableViewCellEditingStyleDelete;
     }
+    if ([row.tag rangeOfString:@"Indications"].location != NSNotFound) {
+      return UITableViewCellEditingStyleDelete;
+    }
+
     return UITableViewCellEditingStyleNone;
 }
 
