@@ -29,9 +29,9 @@ static NSString * const kDisabledFieldCellTag = @"DisabledTag";
 - (void)testBasicPredicates {
     // Get the tableView
     UITableView * tableView = self.formController.tableView;
-    NSUInteger arr00[] = {0,0};
+    //NSUInteger arr00[] = {0,0};
     NSUInteger arr10[] = {1,0};
-    NSUInteger arr01[] = {0,1};
+    //NSUInteger arr01[] = {0,1};
     
     // Check if the tableView matches with the form descriptor
     expect([tableView numberOfSections]).to.equal(2);
