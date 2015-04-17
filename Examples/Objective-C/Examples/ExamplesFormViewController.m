@@ -109,7 +109,7 @@ NSString * const kValidations= @"Validations";
     [section addFormRow:row];
     
     // Dates
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDates rowType:XLFormRowDescriptorTypeButton title:@"Dates"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDates rowType:XLFormRowDescriptorTypeButton title:@"Date & Time"];
     row.action.viewControllerClass = [DatesFormViewController class];
     [section addFormRow:row];
     

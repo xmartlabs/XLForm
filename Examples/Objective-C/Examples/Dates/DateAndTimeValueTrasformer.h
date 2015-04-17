@@ -1,5 +1,5 @@
 //
-//  XLFormDateCell.h
+//  DateAndTimeValueTransformer.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
@@ -23,20 +23,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormBaseCell.h"
 
-typedef NS_ENUM(NSUInteger, XLFormDateDatePickerMode) {
-    XLFormDateDatePickerModeGetFromRowDescriptor,
-    XLFormDateDatePickerModeDate,
-    XLFormDateDatePickerModeDateTime,
-    XLFormDateDatePickerModeTime
-};
+#import <Foundation/Foundation.h>
 
-@interface XLFormDateCell : XLFormBaseCell
+@interface DateValueTrasformer : NSValueTransformer
+@end
 
-@property (nonatomic) XLFormDateDatePickerMode formDatePickerMode;
-@property (nonatomic) NSDate *minimumDate;
-@property (nonatomic) NSDate *maximumDate;
-@property (nonatomic) NSInteger minuteInterval;
+@interface DateTimeValueTrasformer : NSValueTransformer
+@end
 
+@interface DateAndTimeValueTrasformer : NSValueTransformer
 @end

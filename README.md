@@ -242,9 +242,9 @@ This is the protocol declaration:
 ```
 
 
-####Date Rows
+####Date & Time Rows
 
-XLForms supports 3 types of dates: `Date`, `DateTime` and `Time` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
+XLForms supports 3 types of dates: `Date`, `DateTime` , `Time` and `Countdown Timer` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
 
 ![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/Dates/XLForm-Dates.gif)
 
@@ -262,6 +262,10 @@ static NSString *const XLFormRowDescriptorTypeTimeInline = @"timeInline";
 ```
 
 ```objc
+static NSString *const XLFormRowDescriptorTypeCountDownTimerInline = @"countDownTimerInline";
+```
+
+```objc
 static NSString *const XLFormRowDescriptorTypeDate = @"date";
 ```
 
@@ -271,6 +275,10 @@ static NSString *const XLFormRowDescriptorTypeDateTime = @"datetime";
 
 ```objc
 static NSString *const XLFormRowDescriptorTypeTime = @"time";
+```
+
+```objc
+static NSString *const XLFormRowDescriptorTypeCountDownTimer = @"countDownTimer";
 ```
 
 Here is an example of how to define these row types:
@@ -298,6 +306,11 @@ row.value = [NSDate new];
 
 // DateTime
 row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTimeInline rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Date Time"];
+row.value = [NSDate new];
+[section addFormRow:row];
+
+// CountDownTimer
+row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimerInline title:@"Countdown Timer"];
 row.value = [NSDate new];
 [section addFormRow:row];
 ```
@@ -629,7 +642,7 @@ XLForm allows you to define dependencies between rows so that if the value of on
 So you can make a row invisible and visible again based on the values of other rows. The same happens with sections.
 Take a look at the following example:
 
-![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateDisabling/XLFormPredicatesBasic.gif)
+![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateExamples/XLFormPredicatesBasic.gif)
 
 Of course, you could also do this manually by observing the value of some rows and deleting and adding rows accordingly, but that would be a lot of work which is already done.
 
@@ -658,7 +671,7 @@ To get the evaluated boolean value the `isHidden` method should be called. It wi
 
 Here is another example, this time a bit more complex:
 
-![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateDisabling/XLFormPredicates.gif)
+![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateExamples/XLFormPredicates.gif)
 
 
 Disabling rows (set to read-only mode)
@@ -823,7 +836,7 @@ For further details, please take a look at [UICustomizationFormViewController.m]
 
 ####How to disable the entire form (read only mode).
 
-`disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ). 
+`disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ).
 Any other row added after form `disable` property is set to `YES` will reflect the disable mode automatically (no need to reload table view).
 
 ####How to hide a row or section when another rows value changes.
@@ -875,6 +888,10 @@ Release Notes
 --------------
 
 Version 2.2.1 (master)
+
+* Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
+* Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
+
 
 Version 2.2.0
 
