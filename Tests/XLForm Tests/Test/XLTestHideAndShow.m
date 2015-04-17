@@ -29,13 +29,16 @@ static NSString * const kDisabledFieldCellTag = @"DisabledTag";
 - (void)testBasicPredicates {
     // Get the tableView
     UITableView * tableView = self.formController.tableView;
+    NSUInteger arr00[] = {0,0};
+    NSUInteger arr10[] = {1,0};
+    NSUInteger arr01[] = {0,1};
     
     // Check if the tableView matches with the form descriptor
     expect([tableView numberOfSections]).to.equal(2);
     expect([tableView numberOfRowsInSection:0]).to.equal(2);
 
     XLFormTextFieldCell * textFieldCell = (XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-    XLFormTextFieldCell * disabledFieldCell = (XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    XLFormTextFieldCell * disabledFieldCell = (XLFormTextFieldCell*) [tableView cellForRowAtIndexPath:[NSIndexPath indexPathWithIndexes:arr10 length:2]];
     
     //Let's disable the row of the second section. The second row of the first section should hide.
     textFieldCell.rowDescriptor.value = @"dis";

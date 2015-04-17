@@ -39,7 +39,8 @@ NSString * const kTextFieldAndTextView = @"TextFieldAndTextView";
 NSString * const kSelectors = @"Selectors";
 NSString * const kOthes = @"Others";
 NSString * const kDates = @"Dates";
-NSString * const kPredicates = @"Predicates";
+NSString * const kPredicates = @"BasicPredicates";
+NSString * const kBlogExample = @"BlogPredicates";
 NSString * const kMultivalued = @"Multivalued";
 NSString * const kMultivaluedOnlyReorder = @"MultivaluedOnlyReorder";
 NSString * const kMultivaluedOnlyInsert = @"MultivaluedOnlyInsert";
@@ -168,11 +169,15 @@ NSString * const kValidations= @"Validations";
     row.action.formSegueIdenfifier = @"ValidationExamplesFormViewControllerSegue";
     [section addFormRow:row];
     
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Predicate Disabling"];
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Using Predicates"];
     [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Predicate Disabling"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Basic predicates"];
     row.action.formSegueIdenfifier = @"PredicateFormViewControllerSegue";
+    [section addFormRow:row];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Blog Example Hide predicates"];
+    row.action.formSegueIdenfifier = @"BlogExampleViewSegue";
     [section addFormRow:row];
     
     self.form = form;

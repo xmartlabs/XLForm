@@ -229,26 +229,25 @@
     }
 }
 
-
-#pragma mark - KVO
-
 #pragma mark - KVO
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (!self.formDescriptor.delegate) return;
     if ([keyPath isEqualToString:@"formRows"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
-            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            XLFormRowDescriptor * formRow = [((XLFormSectionDescriptor *)object).formRows objectAtIndex:indexSet.firstIndex];
-            NSUInteger sectionIndex = [self.formDescriptor.formSections indexOfObject:object];
-            [self.formDescriptor.delegate formRowHasBeenAdded:formRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
-        }
-        else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
-            NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
-            XLFormRowDescriptor * removedRow = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
-            NSUInteger sectionIndex = [self.formDescriptor.formSections indexOfObject:object];
-            [self.formDescriptor.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
+        if ([self.formDescriptor.formSections containsObject:self]){
+            if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
+                NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+                XLFormRowDescriptor * formRow = [((XLFormSectionDescriptor *)object).formRows objectAtIndex:indexSet.firstIndex];
+                NSUInteger sectionIndex = [self.formDescriptor.formSections indexOfObject:object];
+                [self.formDescriptor.delegate formRowHasBeenAdded:formRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
+            }
+            else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
+                NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+                XLFormRowDescriptor * removedRow = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
+                NSUInteger sectionIndex = [self.formDescriptor.formSections indexOfObject:object];
+                [self.formDescriptor.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
+            }
         }
     }
 }
@@ -352,13 +351,13 @@
 
 -(BOOL)evaluateIsHidden
 {
-    self.isDirtyHidePredicateCache = YES;
     if ([_hidden isKindOfClass:[NSPredicate class]]) {
         @try {
             self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.formDescriptor.allRowsByTag ?: @{}]);
         }
         @catch (NSException *exception) {
             // predicate syntax error.
+            self.isDirtyHidePredicateCache = YES;
         };
     }
     else{

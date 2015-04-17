@@ -29,7 +29,6 @@ NSString *const kPredDep2 = @"preddep2";
 
 #import "PredicateFormViewController.h"
 
-
 @implementation PredicateFormViewController
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -58,7 +57,7 @@ NSString *const kPredDep2 = @"preddep2";
     XLFormRowDescriptor * row;
     XLFormRowDescriptor * pred, *pred3, *pred4;
     
-    form = [XLFormDescriptor formDescriptorWithTitle:@"Predicates"];
+    form = [XLFormDescriptor formDescriptorWithTitle:@"Basic Predicates"];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Independent rows"];
     
@@ -103,28 +102,9 @@ NSString *const kPredDep2 = @"preddep2";
     row = [XLFormRowDescriptor formRowDescriptorWithTag:@"thirds" rowType:XLFormRowDescriptorTypeAccount title:@"Account"];
     [section addFormRow:row];
     row.hidden = [NSString stringWithFormat:@"$%@.isDisabled == 1 AND $%@.value contains[c] 'Out'", pred4, pred];
-    /*
     
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"A Section"];
-    [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredDep rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Show next row"];
-    row.value = @0;
-    [section addFormRow:row];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredDep2 rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Show B Section"];
-    row.hidden = [NSString stringWithFormat:@"$%@==0", kPredDep];
-    row.value = @0;
-    [section addFormRow:row];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"B Section"];
-    section.hidden = [NSString stringWithFormat:@"$%@==0", kPredDep2];
-    [form addFormSection:section];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPred rowType:XLFormRowDescriptorTypeText title:@""];
-    [row.cellConfigAtConfigure setObject:@"Gonna disappear soon!!" forKey:@"textField.placeholder"];
-    [section addFormRow:row];
-    */
     
     self.form = form;
 }

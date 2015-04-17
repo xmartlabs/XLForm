@@ -36,7 +36,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 @interface XLFormSectionDescriptor (_XLFormDescriptor)
 
 @property NSArray * allRows;
--(id)evaluateIsHidden;
+-(BOOL)evaluateIsHidden;
 
 @end
 
