@@ -31,7 +31,7 @@ What XLForm does
  * Ability to easily navigate among rows, fully customizable.
  * Ability to show inputAccessoryView if needed. By default a navigation input accessory view is shown.
  * Read only mode for a particular row or the entire form.
- * Rows can be hidden or shown depending on other rows values. This can be done declaratively using `NSPredicates`. (see [*Make a row or section invisible depending on other rows values*](#Make a row or section invisible depending on other rows values "Using Predicates"))
+ * Rows can be hidden or shown depending on other rows values. This can be done declaratively using `NSPredicates`. (see [*Make a row or section invisible depending on other rows values*](#make-a-row-or-section-invisible-depending-on-other-rows-values "Using Predicates"))
 
 
 
@@ -595,7 +595,7 @@ It's much easier to manage `XLFormRowDescriptor`s using tags, the tag should be 
 
 It's important to keep in mind that all the `UITableView` form modifications have to be made using the descriptors and not making modifications directly on the `UITableView`.
 
-Usually you may want to change the form when some value change or some row or section is added or removed. For this you can set the `disabled` and `hidden` properties of the rows or sections. For more details see [*UMake a row or section invisible depending on other rows values*](#Make a row or section invisible depending on other rows values "Using Predicates").
+Usually you may want to change the form when some value change or some row or section is added or removed. For this you can set the `disabled` and `hidden` properties of the rows or sections. For more details see [*Make a row or section invisible depending on other rows values*](#make-a-row-or-section-invisible-depending-on-other-rows-values "Using Predicates").
 
 In order to stay in sync with the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
 
@@ -847,6 +847,13 @@ section.hidden = [NSString stringWithFormat:@"$%@ == 1", previousRow];
 ```
 That is all!
 
+####What do I have to do to migrate from version 2.2.0 to 3.0.0?
+
+The only thing that is not compatible with older versions is that the `disabled` property of the `XLFormRowDescriptor` is an `id` now. So you just have to add `@` before the values you set to it like this:
+```objc
+row.disabled = @YES; // before: row.disabled = YES;
+```
+
 
 Installation
 --------------------------
@@ -854,7 +861,7 @@ Installation
 The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 2.2.0'`.
+`pod 'XLForm', '~> 3.0.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.

@@ -360,15 +360,6 @@
     return _hidden;
 }
 
--(void)hiddenValueDidChange{
-    if ([self isHidden]) {
-        [self.sectionDescriptor hideFormRow:self];
-    }
-    else{
-        [self.sectionDescriptor showFormRow:self];
-    }
-}
-
 
 #pragma mark - validation
 
