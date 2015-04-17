@@ -894,6 +894,10 @@ Version 3.0.0 (master)
 * Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
 * Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
 
+* Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
+* Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
+
+
 Version 2.2.0
 
 * Fixed "(null)" caption when `XLFormRowDescriptorTypeSelectorLeftRight` row required error message is shown.
