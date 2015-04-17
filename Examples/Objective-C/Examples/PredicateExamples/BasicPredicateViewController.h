@@ -1,5 +1,5 @@
 //
-//  XLFormSectionDescriptor+XLFormAdditions.h
+//  BasicPredicateViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
@@ -23,16 +23,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "XLForm.h"
+#import "XLFormViewController.h"
 
-
-@interface XLFormSectionDescriptor (_XLFormAdditions)
-
-@property NSMutableArray * allRows;
-
-@end
-
-@implementation XLFormSectionDescriptor (_XLFormAdditions)
-
-@dynamic allRows;
+@interface BasicPredicateViewController : XLFormViewController
 
 @end

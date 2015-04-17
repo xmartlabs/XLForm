@@ -57,7 +57,7 @@ NSString *const kPredDep2 = @"preddep2";
     XLFormRowDescriptor * row;
     XLFormRowDescriptor * pred, *pred3, *pred4;
     
-    form = [XLFormDescriptor formDescriptorWithTitle:@"Basic Predicates"];
+    form = [XLFormDescriptor formDescriptorWithTitle:@"Predicates example"];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Independent rows"];
     
