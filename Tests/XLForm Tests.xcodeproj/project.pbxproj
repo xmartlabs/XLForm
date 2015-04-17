@@ -16,6 +16,7 @@
 		3C5B9B7A1AC0BA33000AF1BA /* XLFormExampleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B9B791AC0BA33000AF1BA /* XLFormExampleTest.m */; };
 		3C9817861AC30616003F6ABD /* UITextField+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9817851AC30616003F6ABD /* UITextField+Test.m */; };
 		803CF19E12514D00A5080A99 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC7E8601D7342BFAF4C4060 /* libPods.a */; };
+		BFD111841AD8323900943D23 /* XLTestHideAndShow.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD111831AD8323900943D23 /* XLTestHideAndShow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		3C9817841AC30616003F6ABD /* UITextField+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+Test.h"; path = "Helpers/UITextField+Test.h"; sourceTree = "<group>"; };
 		3C9817851AC30616003F6ABD /* UITextField+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+Test.m"; path = "Helpers/UITextField+Test.m"; sourceTree = "<group>"; };
 		8ADC094C94CA7ABBB8134573 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BFD111831AD8323900943D23 /* XLTestHideAndShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLTestHideAndShow.m; path = Test/XLTestHideAndShow.m; sourceTree = "<group>"; };
 		C6B20EA1A9D9591335BEE81F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CEC7E8601D7342BFAF4C4060 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -104,6 +106,7 @@
 		28657A4F19914F7000CE8180 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BFD111831AD8323900943D23 /* XLTestHideAndShow.m */,
 				3C5B9B791AC0BA33000AF1BA /* XLFormExampleTest.m */,
 				28657A5019914F9700CE8180 /* XLTestCase.h */,
 				28657A5119914F9700CE8180 /* XLTestCase.m */,
@@ -158,7 +161,7 @@
 		28657A3019907FBE00CE8180 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0610;
 			};
 			buildConfigurationList = 28657A3319907FBE00CE8180 /* Build configuration list for PBXProject "XLForm Tests" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -228,6 +231,7 @@
 			files = (
 				28657A54199154EE00CE8180 /* XLFormValidatorsTests.m in Sources */,
 				28657A5219914F9700CE8180 /* XLTestCase.m in Sources */,
+				BFD111841AD8323900943D23 /* XLTestHideAndShow.m in Sources */,
 				3C5B9B7A1AC0BA33000AF1BA /* XLFormExampleTest.m in Sources */,
 				3C9817861AC30616003F6ABD /* UITextField+Test.m in Sources */,
 			);
@@ -250,6 +254,7 @@
 		28657A3419907FBE00CE8180 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};

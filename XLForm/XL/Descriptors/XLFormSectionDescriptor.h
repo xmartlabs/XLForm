@@ -54,6 +54,8 @@ typedef NS_ENUM(NSUInteger, XLFormSectionInsertMode) {
 
 @property (weak) XLFormDescriptor * formDescriptor;
 
+@property id hidden;
+-(BOOL)isHidden;
 
 +(id)formSection;
 +(id)formSectionWithTitle:(NSString *)title;

@@ -1,5 +1,5 @@
 //
-//  XLFormDescriptorDelegate.h
+//  NSExpression+XLFormAdditions.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
@@ -23,29 +23,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormDescriptor.h"
-#import <Foundation/Foundation.h>
 
-@class XLFormSectionDescriptor;
+#import "NSExpression+XLFormAdditions.h"
 
-typedef NS_ENUM(NSUInteger, XLPredicateType) {
-    XLPredicateTypeDisabled = 0,
-    XLPredicateTypeHidden
-};
+@implementation NSExpression (XLFormAdditions)
 
 
-@protocol XLFormDescriptorDelegate <NSObject>
+-(NSMutableArray*) getExpressionVars{
+    switch (self.expressionType) {
+        case NSFunctionExpressionType:{
+            NSString* str = [NSString stringWithFormat:@"%@", self];
+            if ([str containsString:@"."])
+                str = [str substringWithRange:NSMakeRange(1, [str rangeOfString:@"."].location - 1)];
+            else
+                str = [str substringFromIndex:1];
+            return [[NSMutableArray alloc] initWithObjects: str, nil];
+            break;
+        }
+        default:
+            return nil;
+            break;
+    }
+}
 
-@required
-
--(void)formSectionHasBeenRemoved:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
--(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
--(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
--(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
--(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
--(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow
-                                   oldValue:(id)oldValue
-                                   newValue:(id)newValue
-                              predicateType:(XLPredicateType)predicateType;
 
 @end

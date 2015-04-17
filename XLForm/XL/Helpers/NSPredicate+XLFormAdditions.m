@@ -1,5 +1,5 @@
 //
-//  XLFormDescriptorDelegate.h
+//  NSPredicate+XLFormAdditions.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
@@ -22,30 +22,24 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+#import "NSPredicate+XLFormAdditions.h"
+#import "NSExpression+XLFormAdditions.h"
 
-#import "XLFormDescriptor.h"
-#import <Foundation/Foundation.h>
-
-@class XLFormSectionDescriptor;
-
-typedef NS_ENUM(NSUInteger, XLPredicateType) {
-    XLPredicateTypeDisabled = 0,
-    XLPredicateTypeHidden
-};
+@implementation NSPredicate (XLFormAdditions)
 
 
-@protocol XLFormDescriptorDelegate <NSObject>
-
-@required
-
--(void)formSectionHasBeenRemoved:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
--(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
--(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
--(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
--(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
--(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow
-                                   oldValue:(id)oldValue
-                                   newValue:(id)newValue
-                              predicateType:(XLPredicateType)predicateType;
+-(NSMutableArray*) getPredicateVars{
+    NSMutableArray* ret = [[NSMutableArray alloc] init];
+    if ([self isKindOfClass:([NSCompoundPredicate class])]) {
+        for (id object in ((NSCompoundPredicate*) self).subpredicates ) {
+            [ret addObjectsFromArray:[object getPredicateVars]];
+        }
+    }
+    else if ([self isKindOfClass:([NSComparisonPredicate class])]){
+        [ret addObjectsFromArray:[((NSComparisonPredicate*) self).leftExpression getExpressionVars]];
+        [ret addObjectsFromArray:[((NSComparisonPredicate*) self).rightExpression getExpressionVars]];
+    }
+    return ret;
+}
 
 @end

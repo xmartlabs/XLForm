@@ -26,16 +26,22 @@
 #import "XLForm.h"
 #import "AccessoryViewFormViewController.h"
 
+//This macro defines if we use predicates to hide rows or do it manually the old way.
+//Just comment out if you want it to run without predicates.
+#define USE_PREDICATES_FOR_HIDING
+
 @interface AccessoryViewFormViewController ()
 
 @end
 
 @implementation AccessoryViewFormViewController
 {
+#ifndef USE_PREDICATES_FOR_HIDING
     XLFormRowDescriptor * _rowShowAccessoryView;
     XLFormRowDescriptor * _rowStopDisableRow;
     XLFormRowDescriptor * _rowStopInlineRow;
     XLFormRowDescriptor * _rowSkipCanNotBecomeFirstResponderRow;
+#endif
 }
 
 
@@ -54,6 +60,8 @@ NSString * kAccessoryViewCheck = @"check";
 NSString * kAccessoryViewNotes = @"notes";
 
 
+
+
 -(id)init
 {
     self = [super init];
@@ -69,7 +77,7 @@ NSString * kAccessoryViewNotes = @"notes";
     formDescriptor.rowNavigationOptions = XLFormRowNavigationOptionEnabled;
     XLFormSectionDescriptor * section;
     XLFormRowDescriptor * row;
-    
+    XLFormRowDescriptor * switchRow;
     
     // Configuration section
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Row Navigation Settings"];
@@ -77,29 +85,51 @@ NSString * kAccessoryViewNotes = @"notes";
     [formDescriptor addFormSection:section];
     
     // RowNavigationEnabled
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationEnabled rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Row Navigation Enabled?"];
-    row.value = @YES;
-    [section addFormRow:row];
+    switchRow = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationEnabled rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Row Navigation Enabled?"];
+    switchRow.value = @YES;
+    [section addFormRow:switchRow];
     
     // RowNavigationShowAccessoryView
-    _rowShowAccessoryView = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationShowAccessoryView rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Show input accessory view?"];
-    _rowShowAccessoryView.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionEnabled) == XLFormRowNavigationOptionEnabled);
-    [section addFormRow:_rowShowAccessoryView];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationShowAccessoryView rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Show input accessory row?"];
+    row.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionEnabled) == XLFormRowNavigationOptionEnabled);
+    [section addFormRow:row];
+#ifdef USE_PREDICATES_FOR_HIDING
+    row.hidden = [NSString stringWithFormat:@"$%@ == 0", switchRow];
+#else
+    _rowShowAccessoryView = row;
+#endif
     
     // RowNavigationStopDisableRow
-    _rowStopDisableRow = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationStopDisableRow rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Stop when reach disabled row?"];
-    _rowStopDisableRow.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionStopDisableRow) == XLFormRowNavigationOptionStopDisableRow);
-    [section addFormRow:_rowStopDisableRow];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationStopDisableRow rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Stop when reach disabled row?"];
+    row.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionStopDisableRow) == XLFormRowNavigationOptionStopDisableRow);
+    [section addFormRow:row];
+#ifdef USE_PREDICATES_FOR_HIDING
+    row.hidden = [NSString stringWithFormat:@"$%@ == 0", switchRow];
+#else
+    _rowStopDisableRow = row;
+#endif
     
     // RowNavigationStopInlineRow
-    _rowStopInlineRow = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationStopInlineRow rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Stop when reach inline row?"];
-    _rowStopInlineRow.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionStopInlineRow) == XLFormRowNavigationOptionStopInlineRow);
-    [section addFormRow:_rowStopInlineRow];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationStopInlineRow rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Stop when reach inline row?"];
+    row.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionStopInlineRow) == XLFormRowNavigationOptionStopInlineRow);
+    [section addFormRow:row];
+#ifdef USE_PREDICATES_FOR_HIDING
+    row.hidden = [NSString stringWithFormat:@"$%@ == 0", switchRow];
+#else
+    _rowStopInlineRow = row;
+#endif
     
     // RowNavigationSkipCanNotBecomeFirstResponderRow
-    _rowSkipCanNotBecomeFirstResponderRow = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Skip Can Not Become First Responder Row?"];
-    _rowSkipCanNotBecomeFirstResponderRow.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) == XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow);
-    [section addFormRow:_rowSkipCanNotBecomeFirstResponderRow];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Skip Can Not Become First Responder Row?"];
+    row.value = @((formDescriptor.rowNavigationOptions & XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow) == XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow);
+    [section addFormRow:row];
+#ifdef USE_PREDICATES_FOR_HIDING
+    row.hidden = [NSString stringWithFormat:@"$%@ == 0", switchRow];
+#else
+    _rowSkipCanNotBecomeFirstResponderRow = row;
+#endif
+    
+
     
     // Basic Information - Section
     section = [XLFormSectionDescriptor formSectionWithTitle:@"TextField Types"];
@@ -119,7 +149,7 @@ NSString * kAccessoryViewNotes = @"notes";
     
     // Twitter
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewTwitter rowType:XLFormRowDescriptorTypeTwitter title:@"Twitter"];
-    row.disabled = YES;
+    row.disabled = @YES;
     row.value = @"@no_editable";
     [section addFormRow:row];
     
@@ -158,6 +188,7 @@ NSString * kAccessoryViewNotes = @"notes";
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)rowDescriptor oldValue:(id)oldValue newValue:(id)newValue
 {
     [super formRowDescriptorValueHasChanged:rowDescriptor oldValue:oldValue newValue:newValue];
+#ifndef USE_PREDICATES_FOR_HIDING
     NSString * kRowNavigationEnabled        = @"kRowNavigationEnabled";
     if ([rowDescriptor.tag isEqualToString:kRowNavigationEnabled]){
         if ([[rowDescriptor.value valueData] isEqual:@NO]){
@@ -180,7 +211,9 @@ NSString * kAccessoryViewNotes = @"notes";
             
         }
     }
-    else if ([rowDescriptor.tag isEqualToString:kAccessoryViewRowNavigationStopDisableRow]){
+    else
+#endif
+    if ([rowDescriptor.tag isEqualToString:kAccessoryViewRowNavigationStopDisableRow]){
         if ([[rowDescriptor.value valueData] isEqual:@(YES)]){
             self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptionStopDisableRow;
         }

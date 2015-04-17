@@ -37,7 +37,7 @@
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
-    return ((!self.rowDescriptor.isDisabled) && (self.inlineRowDescriptor == nil));
+    return (!self.rowDescriptor.isDisabled && (self.inlineRowDescriptor == nil));
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder

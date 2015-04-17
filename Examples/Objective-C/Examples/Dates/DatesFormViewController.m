@@ -46,6 +46,7 @@ NSString *const kCountDownTimer = @"countDownTimer";
     if (self){
         XLFormDescriptor * form;
         XLFormSectionDescriptor * section;
+        
         XLFormRowDescriptor * row;
         
         form = [XLFormDescriptor formDescriptorWithTitle:@"Date & Time"];
@@ -101,12 +102,12 @@ NSString *const kCountDownTimer = @"countDownTimer";
         [section addFormRow:row];
         
         section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled Dates"];
-        section.footerTitle = @"DatesFormViewController.h";
+        //section.footerTitle = @"DatesFormViewController.h";
         [form addFormSection:section];
         
         // Date
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDate rowType:XLFormRowDescriptorTypeDate title:@"Date"];
-        row.disabled = YES;
+        row.disabled = @YES;
         row.required = YES;
         row.value = [NSDate new];
         [section addFormRow:row];

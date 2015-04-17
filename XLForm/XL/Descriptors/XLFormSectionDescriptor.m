@@ -25,24 +25,52 @@
 
 #import "XLForm.h"
 #import "XLFormSectionDescriptor.h"
+#import "NSPredicate+XLFormAdditions.h"
+#import "NSString+XLFormAdditions.h"
+
+
+@interface XLFormDescriptor (_XLFormSectionDescriptor)
+
+@property (readonly) NSDictionary* allRowsByTag;
+
+-(void)addRowToTagCollection:(XLFormRowDescriptor*)rowDescriptor;
+-(void)removeRowFromTagCollection:(XLFormRowDescriptor*) rowDescriptor;
+-(void)showFormSection:(XLFormSectionDescriptor*)formSection;
+-(void)hideFormSection:(XLFormSectionDescriptor*)formSection;
+
+-(void)addObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType;
+-(void)removeObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType;
+
+@end
 
 @interface XLFormSectionDescriptor()
 
 @property NSMutableArray * formRows;
+@property NSMutableArray * allRows;
+@property BOOL isDirtyHidePredicateCache;
+@property (nonatomic) NSNumber* hidePredicateCache;
 
 @end
 
 @implementation XLFormSectionDescriptor
+
+@synthesize hidden = _hidden;
+@synthesize hidePredicateCache = _hidePredicateCache;
 
 -(id)init
 {
     self = [super init];
     if (self){
         _formRows = [NSMutableArray array];
+        _allRows = [NSMutableArray array];
         _sectionInsertMode = XLFormSectionInsertModeLastRow;
         _sectionOptions = XLFormSectionOptionNone;
         _title = nil;
         _footerTitle = nil;
+        _hidden = @NO;
+        _hidePredicateCache = @NO;
+        _isDirtyHidePredicateCache = YES;
+        [self addObserver:self forKeyPath:@"formRows" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     }
     return self;
 }
@@ -59,6 +87,7 @@
             [_multivaluedAddButton.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
             _multivaluedAddButton.action.formSelector = NSSelectorFromString(@"multivaluedInsertButtonTapped:");
             [self insertObject:_multivaluedAddButton inFormRowsAtIndex:0];
+            [self insertObject:_multivaluedAddButton inAllRowsAtIndex:0];
         }
     }
     return self;
@@ -96,35 +125,41 @@
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow
 {
-    [self insertObject:formRow inFormRowsAtIndex:([self canInsertUsingButton] ? [self.formRows count] - 1 : [self.formRows count])];
+    [self insertObject:formRow inAllRowsAtIndex:([self canInsertUsingButton] ? MAX(0, [self.formRows count] - 1) : [self.allRows count])];
 }
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow afterRow:(XLFormRowDescriptor *)afterRow
 {
-    NSUInteger index;
-    if ((index =  [self.formRows indexOfObject:afterRow]) != NSNotFound){
-        [self insertObject:formRow inFormRowsAtIndex:index + 1];
+    NSUInteger allRowIndex = [self.allRows indexOfObject:afterRow];
+    if (allRowIndex != NSNotFound) {
+        [self insertObject:formRow inAllRowsAtIndex:allRowIndex+1];
     }
-    else {
+    else { //case when afterRow does not exist. Just insert at the end.
         [self addFormRow:formRow];
+        return;
     }
 }
 
 -(void)addFormRow:(XLFormRowDescriptor *)formRow beforeRow:(XLFormRowDescriptor *)beforeRow
 {
-    NSUInteger index;
-    if ((index =  [self.formRows indexOfObject:beforeRow]) != NSNotFound){
-        [self insertObject:formRow inFormRowsAtIndex:index];
+    
+    NSUInteger allRowIndex = [self.allRows indexOfObject:beforeRow];
+    if (allRowIndex != NSNotFound) {
+        [self insertObject:formRow inAllRowsAtIndex:allRowIndex];
     }
-    else {
+    else { //case when afterRow does not exist. Just insert at the end.
         [self addFormRow:formRow];
+        return;
     }
 }
 
 -(void)removeFormRowAtIndex:(NSUInteger)index
 {
     if (self.formRows.count > index){
+        XLFormRowDescriptor *formRow = [self.formRows objectAtIndex:index];
+        NSUInteger allRowIndex = [self.allRows indexOfObject:formRow];
         [self removeObjectFromFormRowsAtIndex:index];
+        [self removeObjectFromAllRowsAtIndex:allRowIndex];
     }
 }
 
@@ -133,25 +168,64 @@
     NSUInteger index = NSNotFound;
     if ((index = [self.formRows indexOfObject:formRow]) != NSNotFound){
         [self removeFormRowAtIndex:index];
+    }
+    else if ((index = [self.allRows indexOfObject:formRow]) != NSNotFound){
+        if (self.allRows.count > index){
+            [self removeObjectFromAllRowsAtIndex:index];
+        }
     };
 }
 
 - (void)moveRowAtIndexPath:(NSIndexPath *)sourceIndex toIndexPath:(NSIndexPath *)destinationIndex
 {
-    if ((sourceIndex.row < self.formRows.count) && (destinationIndex.row < self.formRows.count)){
+    if ((sourceIndex.row < self.formRows.count) && (destinationIndex.row < self.formRows.count) && (sourceIndex.row != destinationIndex.row)){
         XLFormRowDescriptor * row = [self objectInFormRowsAtIndex:sourceIndex.row];
+        XLFormRowDescriptor * destRow = [self objectInFormRowsAtIndex:destinationIndex.row];
         [self.formRows removeObjectAtIndex:sourceIndex.row];
         [self.formRows insertObject:row atIndex:destinationIndex.row];
+        
+        [self.allRows removeObjectAtIndex:[self.allRows indexOfObject:row]];
+        [self.allRows insertObject:row atIndex:[self.allRows indexOfObject:destRow]];
     }
 }
 
 -(void)dealloc
 {
-    for (XLFormRowDescriptor * formRow in self.formRows) {
-        @try {
-            [formRow removeObserver:self forKeyPath:@"value"];
+    [self.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeHidden];
+    @try {
+        [self removeObserver:self forKeyPath:@"formRows"];
+    }
+    @catch (NSException * __unused exception) {}
+}
+
+#pragma mark - Show/hide rows
+
+-(void)showFormRow:(XLFormRowDescriptor*)formRow{
+    
+    NSUInteger formIndex = [self.formRows indexOfObject:formRow];
+    if (formIndex != NSNotFound) {
+        return;
+    }
+    NSUInteger index = [self.allRows indexOfObject:formRow];
+    if (index != NSNotFound){
+        while (formIndex == NSNotFound && index > 0) {
+            XLFormRowDescriptor* previous = [self.allRows objectAtIndex:--index];
+            formIndex = [self.formRows indexOfObject:previous];
         }
-        @catch (NSException * __unused exception) {}
+        if (formIndex == NSNotFound){ // index == 0 => insert at the beginning
+            [self insertObject:formRow inFormRowsAtIndex:0];
+        }
+        else {
+            [self insertObject:formRow inFormRowsAtIndex:formIndex+1];
+        }
+        
+    }
+}
+
+-(void)hideFormRow:(XLFormRowDescriptor*)formRow{
+    NSUInteger index = [self.formRows indexOfObject:formRow];
+    if (index != NSNotFound){
+        [self removeObjectFromFormRowsAtIndex:index];
     }
 }
 
@@ -159,11 +233,21 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([object isKindOfClass:[XLFormRowDescriptor class]] && [keyPath isEqualToString:@"value"]){
-        if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
-            id newValue = [change objectForKey:NSKeyValueChangeNewKey];
-            id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
-            [self.formDescriptor.delegate formRowDescriptorValueHasChanged:object oldValue:oldValue newValue:newValue];
+    if (!self.formDescriptor.delegate) return;
+    if ([keyPath isEqualToString:@"formRows"]){
+        if ([self.formDescriptor.formSections containsObject:self]){
+            if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeInsertion)]){
+                NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+                XLFormRowDescriptor * formRow = [((XLFormSectionDescriptor *)object).formRows objectAtIndex:indexSet.firstIndex];
+                NSUInteger sectionIndex = [self.formDescriptor.formSections indexOfObject:object];
+                [self.formDescriptor.delegate formRowHasBeenAdded:formRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
+            }
+            else if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeRemoval)]){
+                NSIndexSet * indexSet = [change objectForKey:NSKeyValueChangeIndexesKey];
+                XLFormRowDescriptor * removedRow = [[change objectForKey:NSKeyValueChangeOldKey] objectAtIndex:0];
+                NSUInteger sectionIndex = [self.formDescriptor.formSections indexOfObject:object];
+                [self.formDescriptor.delegate formRowHasBeenRemoved:removedRow atIndexPath:[NSIndexPath indexPathForRow:indexSet.firstIndex inSection:sectionIndex]];
+            }
         }
     }
 }
@@ -190,20 +274,48 @@
 - (void)insertObject:(XLFormRowDescriptor *)formRow inFormRowsAtIndex:(NSUInteger)index
 {
     formRow.sectionDescriptor = self;
-    [formRow addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     [self.formRows insertObject:formRow atIndex:index];
 }
 
 - (void)removeObjectFromFormRowsAtIndex:(NSUInteger)index
 {
-    XLFormRowDescriptor * formRow = [self.formRows objectAtIndex:index];
-    @try {
-        [formRow removeObserver:self forKeyPath:@"value"];
-    }
-    @catch (NSException * __unused exception) {}
     [self.formRows removeObjectAtIndex:index];
 }
 
+#pragma mark - KVC ALL
+
+-(NSUInteger)countOfAllRows
+{
+    return self.allRows.count;
+}
+
+- (id)objectInAllRowsAtIndex:(NSUInteger)index
+{
+    return [self.allRows objectAtIndex:index];
+}
+
+- (NSArray *)allRowsAtIndexes:(NSIndexSet *)indexes
+{
+    return [self.allRows objectsAtIndexes:indexes];
+}
+
+- (void)insertObject:(XLFormRowDescriptor *)row inAllRowsAtIndex:(NSUInteger)index
+{
+    row.sectionDescriptor = self;
+    [self.formDescriptor addRowToTagCollection:row];
+    [self.allRows insertObject:row atIndex:index];
+    row.disabled = row.disabled;
+    row.hidden = row.hidden;
+}
+
+- (void)removeObjectFromAllRowsAtIndex:(NSUInteger)index
+{
+    XLFormRowDescriptor * row = [self.allRows objectAtIndex:index];
+    [self.formDescriptor removeRowFromTagCollection:row];
+    [self.formDescriptor removeObserversOfObject:row predicateType:XLPredicateTypeDisabled];
+    [self.formDescriptor removeObserversOfObject:row predicateType:XLPredicateTypeHidden];
+    [self.allRows removeObjectAtIndex:index];
+}
 
 #pragma mark - Helpers
 
@@ -212,5 +324,65 @@
     return (self.sectionInsertMode == XLFormSectionInsertModeButton && self.sectionOptions & XLFormSectionOptionCanInsert);
 }
 
+#pragma mark - Predicates
+
+
+-(NSNumber *)hidePredicateCache
+{
+    return _hidePredicateCache;
+}
+
+-(void)setHidePredicateCache:(NSNumber *)hidePredicateCache
+{
+    NSParameterAssert(hidePredicateCache);
+    self.isDirtyHidePredicateCache = NO;
+    if (!_hidePredicateCache || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
+        _hidePredicateCache = hidePredicateCache;
+    }
+}
+
+-(BOOL)isHidden
+{
+    if (self.isDirtyHidePredicateCache) {
+        return [self evaluateIsHidden];
+    }
+    return self.hidePredicateCache;
+}
+
+-(BOOL)evaluateIsHidden
+{
+    if ([_hidden isKindOfClass:[NSPredicate class]]) {
+        @try {
+            self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.formDescriptor.allRowsByTag ?: @{}]);
+        }
+        @catch (NSException *exception) {
+            // predicate syntax error.
+            self.isDirtyHidePredicateCache = YES;
+        };
+    }
+    else{
+        self.hidePredicateCache = _hidden;
+    }
+    [self.hidePredicateCache boolValue] ? [self.formDescriptor hideFormSection:self] : [self.formDescriptor showFormSection:self] ;
+    return [self.hidePredicateCache boolValue];
+}
+
+
+-(id)hidden
+{
+    return _hidden;
+}
+
+-(void)setHidden:(id)hidden
+{
+    if ([_hidden isKindOfClass:[NSPredicate class]]){
+        [self.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeHidden];
+    }
+    _hidden = [hidden isKindOfClass:[NSString class]] ? [hidden formPredicate] : hidden;
+    if ([_hidden isKindOfClass:[NSPredicate class]]){
+        [self.formDescriptor addObserversOfObject:self predicateType:XLPredicateTypeHidden];
+    }
+    [self evaluateIsHidden]; // check and update if this row should be hidden.
+}
 
 @end

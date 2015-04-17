@@ -28,6 +28,28 @@
 #import "XLFormViewController.h"
 #import "UIView+XLFormAdditions.h"
 #import "XLForm.h"
+#import "NSString+XLFormAdditions.h"
+
+
+@interface XLFormRowDescriptor(_XLFormViewController)
+
+@property (readonly) NSArray * observers;
+-(BOOL)evaluateIsDisabled;
+-(BOOL)evaluateIsHidden;
+
+@end
+
+@interface XLFormSectionDescriptor(_XLFormViewController)
+
+-(BOOL)evaluateIsHidden;
+
+@end
+
+@interface XLFormDescriptor (_XLFormViewController)
+
+@property NSMutableDictionary* rowObservers;
+
+@end
 
 
 @interface XLFormViewController()
@@ -140,6 +162,7 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+
 }
 
 -(void)viewDidDisappear:(BOOL)animated
@@ -243,26 +266,68 @@
 
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:[self insertRowAnimationForRow:formRow]];
+    [self.tableView endUpdates];
 }
 
 -(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath
 {
+    [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:[self deleteRowAnimationForRow:formRow]];
+    [self.tableView endUpdates];
 }
 
 -(void)formSectionHasBeenRemoved:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
+    [self.tableView beginUpdates];
     [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[self deleteRowAnimationForSection:formSection]];
+    [self.tableView endUpdates];
 }
 
 -(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index
 {
+    [self.tableView beginUpdates];
     [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:[self insertRowAnimationForSection:formSection]];
+    [self.tableView endUpdates];
 }
 
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
 {
+    [self updateAfterDependentRowChanged:formRow];
+}
+
+-(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue predicateType:(XLPredicateType)predicateType
+{
+    if (oldValue != newValue) {
+        [self updateAfterDependentRowChanged:formRow];
+    }
+}
+
+-(void)updateAfterDependentRowChanged:(XLFormRowDescriptor *)formRow{
+    NSMutableArray* revaluateHidden   = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeHidden]];
+    NSMutableArray* revaluateDisabled = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeDisabled]];
+    for (id object in revaluateDisabled) {
+        if ([object isKindOfClass:[NSString class]]) {
+            XLFormRowDescriptor* row = [self.form formRowWithTag:object];
+            if (row){
+                [row evaluateIsDisabled];
+                [self updateFormRow:row];
+            }
+        }
+    }
+    for (id object in revaluateHidden) {
+        if ([object isKindOfClass:[NSString class]]) {
+            XLFormRowDescriptor* row = [self.form formRowWithTag:object];
+            if (row){
+                [row evaluateIsHidden];
+            }
+        }
+        else if ([object isKindOfClass:[XLFormSectionDescriptor class]]) {
+            XLFormSectionDescriptor* section = (XLFormSectionDescriptor*) object;
+            [section evaluateIsHidden];
+        }
+    }
 }
 
 #pragma mark - XLFormViewControllerDelegate
@@ -870,6 +935,7 @@
 {
     _form = form;
     _form.delegate = self;
+    [_form forceEvaluate];
 }
 
 -(XLFormDescriptor *)form

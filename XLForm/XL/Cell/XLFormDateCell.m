@@ -55,7 +55,7 @@
 
 - (BOOL)canBecomeFirstResponder
 {
-    return (!self.rowDescriptor.isDisabled);
+    return !self.rowDescriptor.isDisabled;
 }
 
 -(BOOL)becomeFirstResponder

@@ -325,7 +325,7 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     // Disabled Selector Push
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPushDisabled rowType:XLFormRowDescriptorTypeSelectorPush title:@"Push"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
-    row.disabled = YES;
+    row.disabled = @YES;
     [section addFormRow:row];
     
     
@@ -334,7 +334,7 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheetDisabled rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Sheet"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"];
-    row.disabled = YES;
+    row.disabled = @YES;
     [section addFormRow:row];
     
     // --------- Disabled Selector Left Right
@@ -342,7 +342,7 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorLeftRightDisabled rowType:XLFormRowDescriptorTypeSelectorLeftRight title:@"Left Right"];
     row.leftRightSelectorLeftOptionSelected = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
     row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Right Option 4"];
-    row.disabled = YES;
+    row.disabled = @YES;
     [section addFormRow:row];
     
     
