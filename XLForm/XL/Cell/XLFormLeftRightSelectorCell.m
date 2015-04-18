@@ -137,9 +137,8 @@
     [self.rowDescriptor setTitle:[self.rowDescriptor.leftRightSelectorLeftOptionSelected displayText]];
     self.rightLabel.text = [self rightTextLabel];
     [self.leftButton setEnabled:!self.rowDescriptor.isDisabled];
-    UIView *accessoryView = self.rowDescriptor.isDisabled ? nil : [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XLForm.bundle/forwardarrow.png"]];
-    self.accessoryView = accessoryView;
-    self.editingAccessoryView = accessoryView;
+    self.accessoryView = self.rowDescriptor.isDisabled ? nil : [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XLForm.bundle/forwardarrow.png"]];
+    self.editingAccessoryView = self.accessoryView;
     self.selectionStyle = self.rowDescriptor.isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
 }
 
