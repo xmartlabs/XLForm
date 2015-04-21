@@ -900,9 +900,9 @@ Version 3.0.0 (master)
 * `hidden` property added to `XLFormSectionDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide the section.
 * Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
 * Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
-
 * Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
 * Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
+* Added example in the ```Multivalued Sections examples``` of how to add dynamic sections with multiple rows.
 
 
 Version 2.2.0
