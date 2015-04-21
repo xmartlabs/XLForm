@@ -398,7 +398,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     NSUInteger indexOfRow = [row.sectionDescriptor.formRows indexOfObject:row];
     if (indexOfRow != NSNotFound){
         if ([row.sectionDescriptor.formRows indexOfObject:row] + 1 < row.sectionDescriptor.formRows.count){
-            return [row.sectionDescriptor.formRows objectAtIndex:++indexOfRow];
+          XLFormRowDescriptor *nextRow = [row.sectionDescriptor.formRows objectAtIndex:++indexOfRow];
+          if ([[nextRow.cellClass description] isEqualToString:@"KMLSpacerCell"]) {
+            // ignore the spacerCell; check if there's a next cell
+            return [self nextRowDescriptorForRow:nextRow];
+          }
+          return nextRow;
         }
         else{
             NSUInteger sectionIndex = [self.formSections indexOfObject:row.sectionDescriptor];
@@ -422,7 +427,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     NSUInteger indexOfRow = [row.sectionDescriptor.formRows indexOfObject:row];
     if (indexOfRow != NSNotFound){
         if ([row.sectionDescriptor.formRows indexOfObject:row] > 0 ){
-            return [row.sectionDescriptor.formRows objectAtIndex:--indexOfRow];
+          XLFormRowDescriptor *previousRow = [row.sectionDescriptor.formRows objectAtIndex:--indexOfRow];
+          if ([[previousRow.cellClass description] isEqualToString:@"KMLSpacerCell"]) {
+            // ignore the spacerCell; check if there's a previous cell
+            return [self previousRowDescriptorForRow:previousRow];
+          }
+          return previousRow;
         }
         else{
             NSUInteger sectionIndex = [self.formSections indexOfObject:row.sectionDescriptor];
