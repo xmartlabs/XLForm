@@ -33,6 +33,7 @@
 {
     [super configure];
     self.accessoryType = UITableViewCellAccessoryCheckmark;
+    self.editingAccessoryType = self.accessoryType;
 }
 
 - (void)update
@@ -40,6 +41,7 @@
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
     self.accessoryType = [self.rowDescriptor.value boolValue] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    self.editingAccessoryType =  self.accessoryType;
     CGFloat red, green, blue, alpha;
     [self.tintColor getRed:&red green:&green blue:&blue alpha:&alpha];
     self.selectionStyle = UITableViewCellSelectionStyleDefault;

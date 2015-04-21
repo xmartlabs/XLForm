@@ -577,11 +577,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 }
 
 
--(void)removeObserver:(id)descriptor forRow:(NSString*)tag
-{
-    [self.rowObservers[tag] removeObject:descriptor];
-}
-
 -(void)addObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType
 {
     NSPredicate* predicate;

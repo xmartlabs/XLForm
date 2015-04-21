@@ -138,6 +138,7 @@
     self.rightLabel.text = [self rightTextLabel];
     [self.leftButton setEnabled:!self.rowDescriptor.isDisabled];
     self.accessoryView = self.rowDescriptor.isDisabled ? nil : [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"XLForm.bundle/forwardarrow.png"]];
+    self.editingAccessoryView = self.accessoryView;
     self.selectionStyle = self.rowDescriptor.isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
 }
 

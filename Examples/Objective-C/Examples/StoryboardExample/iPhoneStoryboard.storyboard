@@ -113,6 +113,7 @@
                         <segue destination="Kiw-nF-jv7" kind="push" identifier="ValidationExamplesFormViewControllerSegue" id="VKe-Ir-Fiu"/>
                         <segue destination="OG6-Tc-1SC" kind="push" identifier="PredicateFormViewControllerSegue" id="Wwg-e9-gLq"/>
                         <segue destination="pO0-sS-Tes" kind="push" identifier="BlogExampleViewSegue" id="a28-Gm-Iku"/>
+                        <segue destination="JL7-uU-kWK" kind="push" identifier="BasicPredicateViewControllerSegue" id="SGg-Ve-bng"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1V5-DZ-WfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -172,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFT-Og-STO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="527" y="789"/>
+            <point key="canvasLocation" x="566" y="938"/>
         </scene>
         <!--Predicate Form View Controller-->
         <scene sceneID="a9p-C8-g8y">
@@ -251,6 +252,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eqB-vl-BzH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="588" y="-635"/>
+        </scene>
+        <!--Basic Predicate View Controller-->
+        <scene sceneID="pD4-sm-x3a">
+            <objects>
+                <viewController id="JL7-uU-kWK" customClass="BasicPredicateViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OQP-pW-kNp"/>
+                        <viewControllerLayoutGuide type="bottom" id="2b4-gN-85p"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NZg-t1-g19">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="1lh-jZ-lIV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tlw-q2-pcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-159" y="1151"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

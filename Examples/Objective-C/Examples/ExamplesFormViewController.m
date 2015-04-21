@@ -172,12 +172,16 @@ NSString * const kValidations= @"Validations";
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Using Predicates"];
     [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Basic predicates"];
-    row.action.formSegueIdenfifier = @"PredicateFormViewControllerSegue";
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Very basic predicates"];
+    row.action.formSegueIdenfifier = @"BasicPredicateViewControllerSegue";
     [section addFormRow:row];
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Blog Example Hide predicates"];
     row.action.formSegueIdenfifier = @"BlogExampleViewSegue";
+    [section addFormRow:row];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Another example"];
+    row.action.formSegueIdenfifier = @"PredicateFormViewControllerSegue";
     [section addFormRow:row];
     
     self.form = form;

@@ -49,9 +49,10 @@
 		3C3B01E21AB7499A0027CD45 /* XLRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01E01AB7499A0027CD45 /* XLRatingView.m */; };
 		3C3B01F01AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01EF1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m */; };
 		3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */; };
+		66B6266E1AE0055100007886 /* DateAndTimeValueTrasformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B6266D1AE0055100007886 /* DateAndTimeValueTrasformer.m */; };
 		BF9DB1D51AE0436600B985E7 /* BlogExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9DB1D21AE0436600B985E7 /* BlogExampleViewController.m */; };
 		BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9DB1D41AE0436600B985E7 /* PredicateFormViewController.m */; };
-		66B6266E1AE0055100007886 /* DateAndTimeValueTrasformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B6266D1AE0055100007886 /* DateAndTimeValueTrasformer.m */; };
+		BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 /* End PBXBuildFile section */
 
@@ -136,6 +137,8 @@
 		BF9DB1D21AE0436600B985E7 /* BlogExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlogExampleViewController.m; path = Examples/PredicateExamples/BlogExampleViewController.m; sourceTree = SOURCE_ROOT; };
 		BF9DB1D31AE0436600B985E7 /* PredicateFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PredicateFormViewController.h; path = Examples/PredicateExamples/PredicateFormViewController.h; sourceTree = SOURCE_ROOT; };
 		BF9DB1D41AE0436600B985E7 /* PredicateFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PredicateFormViewController.m; path = Examples/PredicateExamples/PredicateFormViewController.m; sourceTree = SOURCE_ROOT; };
+		BFE91AF91AE159B200DE5231 /* BasicPredicateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicPredicateViewController.h; path = Examples/PredicateExamples/BasicPredicateViewController.h; sourceTree = SOURCE_ROOT; };
+		BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicPredicateViewController.m; path = Examples/PredicateExamples/BasicPredicateViewController.m; sourceTree = SOURCE_ROOT; };
 		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/CustomCells/XLFormCustomCell.h; sourceTree = "<group>"; };
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
 		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -492,6 +495,8 @@
 				BF9DB1D21AE0436600B985E7 /* BlogExampleViewController.m */,
 				BF9DB1D31AE0436600B985E7 /* PredicateFormViewController.h */,
 				BF9DB1D41AE0436600B985E7 /* PredicateFormViewController.m */,
+				BFE91AF91AE159B200DE5231 /* BasicPredicateViewController.h */,
+				BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */,
 			);
 			name = PredicateExamples;
 			path = Examples/PredicateDisabling;
@@ -630,6 +635,7 @@
 				28A766451932EC9C00D69546 /* CoreDataStore.m in Sources */,
 				BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */,
 				28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */,
+				BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */,
 				2843EB5218D4CFC700F13E2B /* OthersFormViewController.m in Sources */,
 				2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */,
 				28468EA418EF41D300DBB015 /* InputsFormViewController.m in Sources */,
