@@ -346,7 +346,7 @@
     if (self.isDirtyHidePredicateCache) {
         return [self evaluateIsHidden];
     }
-    return self.hidePredicateCache;
+    return [self.hidePredicateCache boolValue];
 }
 
 -(BOOL)evaluateIsHidden
