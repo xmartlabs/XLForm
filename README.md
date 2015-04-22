@@ -834,6 +834,14 @@ You can change the font or any other table view cell property using the `cellCon
 
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
 
+####How to set min/max for date cells?
+
+Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a datetime row to be a value in the next three days you would do as follows:
+```objc
+[row.cellConfigAtConfigure setObject:[NSDate new] forKey:@"minimumDate"];
+[row.cellConfigAtConfigure setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
+``` 
+
 ####How to disable the entire form (read only mode).
 
 `disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ).
