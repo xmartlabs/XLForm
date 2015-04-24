@@ -446,10 +446,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 - (void)removeObjectFromAllSectionsAtIndex:(NSUInteger)index {
     XLFormSectionDescriptor* section = [self.allSections objectAtIndex:index];
-    @try {
-        [section removeObserver:self forKeyPath:@"formRows"];
-    }
-    @catch (NSException * __unused exception) {}
     [section.allRows enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL *stop) {
         XLFormRowDescriptor * row = (id)obj;
         [self removeObserversOfObject:row predicateType:XLPredicateTypeDisabled];

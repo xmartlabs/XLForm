@@ -215,17 +215,17 @@
             [dateStartCell setFormDatePickerMode:XLFormDateDatePickerModeDateTime];
             [dateEndCell setFormDatePickerMode:XLFormDateDatePickerModeDateTime];
         }
-        [dateStartCell update];
-        [dateEndCell update];
+        [self updateFormRow:startDateDescriptor];
+        [self updateFormRow:endDateDescriptor];
     }
     else if ([rowDescriptor.tag isEqualToString:@"starts"]){
         XLFormRowDescriptor * startDateDescriptor = [self.form formRowWithTag:@"starts"];
         XLFormRowDescriptor * endDateDescriptor = [self.form formRowWithTag:@"ends"];
-        XLFormDateCell * dateEndCell = (XLFormDateCell *)[endDateDescriptor cellForFormController:self];
         if ([startDateDescriptor.value compare:endDateDescriptor.value] == NSOrderedDescending) {
             // startDateDescriptor is later than endDateDescriptor
             endDateDescriptor.value =  [[NSDate alloc] initWithTimeInterval:(60*60*24) sinceDate:startDateDescriptor.value];
-            [dateEndCell update];
+            [endDateDescriptor.cellConfig removeObjectForKey:@"detailTextLabel.attributedText"];
+            [self updateFormRow:endDateDescriptor];
         }
     }
     else if ([rowDescriptor.tag isEqualToString:@"ends"]){
@@ -234,10 +234,16 @@
         XLFormDateCell * dateEndCell = (XLFormDateCell *)[endDateDescriptor cellForFormController:self];
         if ([startDateDescriptor.value compare:endDateDescriptor.value] == NSOrderedDescending) {
             // startDateDescriptor is later than endDateDescriptor
+            [dateEndCell update]; // force detailTextLabel update
             NSDictionary *strikeThroughAttribute = [NSDictionary dictionaryWithObject:@1
                                                                                forKey:NSStrikethroughStyleAttributeName];
             NSAttributedString* strikeThroughText = [[NSAttributedString alloc] initWithString:dateEndCell.detailTextLabel.text attributes:strikeThroughAttribute];
-            dateEndCell.detailTextLabel.attributedText = strikeThroughText;
+            [endDateDescriptor.cellConfig setObject:strikeThroughText forKey:@"detailTextLabel.attributedText"];
+            [self updateFormRow:endDateDescriptor];
+        }
+        else{
+            [endDateDescriptor.cellConfig removeObjectForKey:@"detailTextLabel.attributedText"];
+            [self updateFormRow:endDateDescriptor];
         }
     }
 }

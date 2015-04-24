@@ -148,6 +148,8 @@ NSString *const kCountDownTimer = @"countDownTimer";
 
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
 {
+    // super implementation must be called
+    [super formRowDescriptorValueHasChanged:formRow oldValue:oldValue newValue:newValue];
     if([formRow.tag isEqualToString:kDatePicker])
     {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
