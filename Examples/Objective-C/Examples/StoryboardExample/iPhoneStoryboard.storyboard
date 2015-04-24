@@ -32,10 +32,11 @@
                         <viewControllerLayoutGuide type="bottom" id="HPb-Nx-E1G"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wpr-wE-9nj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Hf0-cB-ORN"/>
                     <connections>
                         <segue destination="WMh-VN-FWi" kind="push" identifier="MapViewControllerSegue" id="wAD-tS-AFZ"/>
@@ -129,10 +130,11 @@
                         <viewControllerLayoutGuide type="bottom" id="scM-da-Sg0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hrV-fb-58s">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="RJB-cz-SnF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fvo-wr-5Ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -184,10 +186,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Lsg-dH-McH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6EZ-O7-FjX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Lsd-xH-7IN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZL-10-YZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -203,10 +206,11 @@
                         <viewControllerLayoutGuide type="bottom" id="CTu-Y5-7Qw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bNj-SD-83w">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Buo-Af-6Q1"/>
                     <connections>
                         <segue destination="WMh-VN-FWi" kind="push" identifier="MapViewControllerSegue" id="Mtw-x2-E0b"/>
@@ -225,10 +229,11 @@
                         <viewControllerLayoutGuide type="bottom" id="cgQ-Vs-ICN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JjC-E5-SyY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="BjG-Bq-0lD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmS-YR-mFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -262,10 +267,11 @@
                         <viewControllerLayoutGuide type="bottom" id="2b4-gN-85p"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NZg-t1-g19">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="1lh-jZ-lIV"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlw-q2-pcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
