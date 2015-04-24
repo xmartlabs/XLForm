@@ -71,7 +71,13 @@ NSString *const kCountDownTimer = @"countDownTimer";
         
         // CountDownTimer
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimerInline title:@"Countdown Timer"];
-        row.value = [NSDate new];
+        NSDateComponents * dateComp = [NSDateComponents new];
+        dateComp.hour = 0;
+        dateComp.minute = 7;
+        dateComp.timeZone = [NSTimeZone systemTimeZone];
+        NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        
+        row.value = [calendar dateFromComponents:dateComp];
         [section addFormRow:row];
         
         
@@ -98,7 +104,7 @@ NSString *const kCountDownTimer = @"countDownTimer";
         
         // CountDownTimer
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimer title:@"Countdown Timer"];
-        row.value = [NSDate new];
+        row.value = [calendar dateFromComponents:dateComp];
         [section addFormRow:row];
         
         section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled Dates"];
