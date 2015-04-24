@@ -646,7 +646,8 @@
     if (section.sectionOptions & XLFormSectionOptionCanDelete){
         return UITableViewCellEditingStyleDelete;
     }
-    if ([row.tag rangeOfString:@"Indications"].location != NSNotFound) {
+    if ([row.tag hasPrefix:@"2/"] == YES) {
+      // this row is a newly reported stiffness/injury -> show the delete button
       return UITableViewCellEditingStyleDelete;
     }
 
