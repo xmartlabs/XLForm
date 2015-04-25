@@ -370,12 +370,12 @@
 
 -(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection
 {
-    return UITableViewRowAnimationAutomatic;
+    return UITableViewRowAnimationFade;
 }
 
 -(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection
 {
-    return UITableViewRowAnimationAutomatic;
+    return UITableViewRowAnimationFade;
 }
 
 -(UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
