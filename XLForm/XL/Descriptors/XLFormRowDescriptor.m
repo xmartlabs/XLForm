@@ -65,12 +65,12 @@
 @synthesize disablePredicateCache = _disablePredicateCache;
 
 
--(id)init
+-(instancetype)init
 {
     @throw [NSException exceptionWithName:NSGenericException reason:@"initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title must be used" userInfo:nil];
 }
 
--(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
+-(instancetype)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
     self = [super init];
     if (self){
@@ -96,12 +96,12 @@
     return self;
 }
 
-+(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
++(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
 {
     return [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:rowType title:nil];
 }
 
-+(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title
++(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title
 {
     return [[XLFormRowDescriptor alloc] initWithTag:tag rowType:rowType title:title];
 }

@@ -61,12 +61,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @implementation XLFormDescriptor
 
--(id)init
+-(instancetype)init
 {
     return [self initWithTitle:nil];
 }
 
--(id)initWithTitle:(NSString *)title;
+-(instancetype)initWithTitle:(NSString *)title;
 {
     self = [super init];
     if (self){
@@ -83,12 +83,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     return self;
 }
 
-+(id)formDescriptor
++(instancetype)formDescriptor
 {
     return [self formDescriptorWithTitle:nil];
 }
 
-+(id)formDescriptorWithTitle:(NSString *)title
++(instancetype)formDescriptorWithTitle:(NSString *)title
 {
     return [[XLFormDescriptor alloc] initWithTitle:title];
 }

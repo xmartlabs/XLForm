@@ -57,7 +57,7 @@
 @synthesize hidden = _hidden;
 @synthesize hidePredicateCache = _hidePredicateCache;
 
--(id)init
+-(instancetype)init
 {
     self = [super init];
     if (self){
@@ -75,7 +75,7 @@
     return self;
 }
 
--(id)initWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode{
+-(instancetype)initWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode{
     self = [self init];
     if (self){
         _sectionInsertMode = sectionInsertMode;
@@ -93,27 +93,27 @@
     return self;
 }
 
-+(id)formSection
++(instancetype)formSection
 {
     return [self formSectionWithTitle:nil];
 }
 
-+(id)formSectionWithTitle:(NSString *)title
++(instancetype)formSectionWithTitle:(NSString *)title
 {
     return [self formSectionWithTitle:title sectionOptions:XLFormSectionOptionNone];
 }
 
-+(id)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
++(instancetype)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
 {
     return [self formSectionWithTitle:title sectionOptions:(multivaluedSection ? XLFormSectionOptionCanInsert | XLFormSectionOptionCanDelete : XLFormSectionOptionNone)];
 }
 
-+(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions
++(instancetype)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions
 {
     return [self formSectionWithTitle:title sectionOptions:sectionOptions sectionInsertMode:XLFormSectionInsertModeLastRow];
 }
 
-+(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode
++(instancetype)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode
 {
     return [[XLFormSectionDescriptor alloc] initWithTitle:title sectionOptions:sectionOptions sectionInsertMode:sectionInsertMode];
 }

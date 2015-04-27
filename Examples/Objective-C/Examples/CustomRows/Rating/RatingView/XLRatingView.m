@@ -55,11 +55,8 @@
 
 - (void)customize
 {
-    UIColor * grayColor = [UIColor colorWithRed:(205/255.0) green:(201/255.0) blue:(201/255.0) alpha:1];
-    self.baseColor = grayColor;
-
-    UIColor * goldColor = [UIColor colorWithRed:(255/255.0) green:(215/255.0) blue:0 alpha:1];
-    self.highlightColor = goldColor;
+    self.baseColor = [UIColor colorWithRed:(205/255.0) green:(201/255.0) blue:(201/255.0) alpha:1];
+    self.highlightColor = [UIColor colorWithRed:(255/255.0) green:(215/255.0) blue:0 alpha:1];
     self.markFont = [UIFont systemFontOfSize:23.0f];
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.stepInterval = 1.0f;
