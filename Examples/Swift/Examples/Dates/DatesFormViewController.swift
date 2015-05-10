@@ -46,7 +46,7 @@ class DatesFormViewController: XLFormViewController {
         var section : XLFormSectionDescriptor
         var row : XLFormRowDescriptor
         
-        form = XLFormDescriptor.formDescriptorWithTitle("Dates") as XLFormDescriptor
+        form = XLFormDescriptor(title: "Dates") as XLFormDescriptor
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Inline Dates") as XLFormSectionDescriptor
         form.addFormSection(section)
