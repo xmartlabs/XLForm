@@ -98,6 +98,7 @@ extern NSString *const XLFormRowDescriptorTypeDateTime;
 extern NSString *const XLFormRowDescriptorTypeTime;
 extern NSString *const XLFormRowDescriptorTypeCountDownTimer;
 extern NSString *const XLFormRowDescriptorTypeDatePicker;
+extern NSString *const XLFormRowDescriptorTypeTimePicker;
 extern NSString *const XLFormRowDescriptorTypePicker;
 extern NSString *const XLFormRowDescriptorTypeSlider;
 extern NSString *const XLFormRowDescriptorTypeBooleanCheck;

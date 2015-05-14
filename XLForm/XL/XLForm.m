@@ -57,6 +57,7 @@ NSString *const XLFormRowDescriptorTypeDateTime = @"datetime";
 NSString *const XLFormRowDescriptorTypeTime = @"time";
 NSString *const XLFormRowDescriptorTypeCountDownTimer = @"countDownTimer";
 NSString *const XLFormRowDescriptorTypeDatePicker = @"datePicker";
+NSString *const XLFormRowDescriptorTypeTimePicker = @"timePicker";
 NSString *const XLFormRowDescriptorTypePicker = @"picker";
 NSString *const XLFormRowDescriptorTypeSlider = @"slider";
 NSString *const XLFormRowDescriptorTypeBooleanCheck = @"booleanCheck";

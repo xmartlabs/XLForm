@@ -29,7 +29,9 @@ class DatesFormViewController: XLFormViewController {
     struct tag {
         static let dateTime = "dateTime"
         static let date = "date"
+        static let datePicker = "datePicker"
         static let time = "time"
+        static let timePicker = "timePicker"
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -46,11 +48,11 @@ class DatesFormViewController: XLFormViewController {
         var section : XLFormSectionDescriptor
         var row : XLFormRowDescriptor
         
-        form = XLFormDescriptor(title: "Dates")
+        form = XLFormDescriptor(title: "Dates"  )
         
         section = XLFormSectionDescriptor.formSectionWithTitle("Inline Dates") as XLFormSectionDescriptor
         form.addFormSection(section)
-        
+
         // Date
         row = XLFormRowDescriptor(tag: tag.date, rowType: XLFormRowDescriptorTypeDateInline, title:"Date")
         row.value = NSDate()
@@ -65,6 +67,25 @@ class DatesFormViewController: XLFormViewController {
         row = XLFormRowDescriptor(tag: tag.dateTime, rowType: XLFormRowDescriptorTypeDateTimeInline, title: "Date Time")
         row.value = NSDate()
         section.addFormRow(row)
+        
+        
+        section = XLFormSectionDescriptor.formSectionWithTitle("Date Picker")
+        form.addFormSection(section)
+        
+        // Date Picker
+        row = XLFormRowDescriptor(tag: tag.datePicker, rowType: XLFormRowDescriptorTypeDatePicker, title:"Date Picker")
+        row.value = NSDate()
+        section.addFormRow(row)
+
+        section = XLFormSectionDescriptor.formSectionWithTitle("Time Picker")
+        form.addFormSection(section)
+        
+        // Time Picker
+        row = XLFormRowDescriptor(tag: tag.datePicker, rowType: XLFormRowDescriptorTypeTimePicker, title:"Time Picker")
+        row.value = NSDate()
+        section.addFormRow(row)
+
+        
         self.form = form;
     }
     

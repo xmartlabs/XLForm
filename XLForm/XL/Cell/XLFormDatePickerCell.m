@@ -44,6 +44,7 @@
     if (_datePicker) return _datePicker;
     _datePicker = [UIDatePicker autolayoutView];
     [_datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
     return _datePicker;
 }
 
@@ -66,6 +67,7 @@
 -(void)configure
 {
     [super configure];
+    
     [self.contentView addSubview:self.datePicker];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.datePicker attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[datePicker]-0-|" options:0 metrics:0 views:@{@"datePicker" : self.datePicker}]];
@@ -74,6 +76,11 @@
 -(void)update
 {
     [super update];
+    
+    if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeTimePicker) {
+        self.datePicker.datePickerMode = UIDatePickerModeTime;
+    }
+    
     [self.datePicker setUserInteractionEnabled:![self.rowDescriptor isDisabled]];
 }
 
