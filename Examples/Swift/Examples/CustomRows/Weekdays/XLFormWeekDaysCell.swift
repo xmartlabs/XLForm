@@ -28,13 +28,46 @@ let XLFormRowDescriptorTypeWeekDays = "XLFormRowDescriptorTypeWeekDays"
 
 class XLFormWeekDaysCell : XLFormBaseCell {
     
-    static let kSunday = "sunday"
-    static let kMonday = "monday"
-    static let kTuesday = "tuesday"
-    static let kWednesday = "wednesday"
-    static let kThursday = "thursday"
-    static let kFriday = "friday"
-    static let kSaturday = "saturday"
+    enum kWeekDay: Int {
+        case
+        Sunday = 1,
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday,
+        Saturday
+        
+        func description() -> String {
+            switch self {
+            case .Sunday:
+                return "Sunday"
+            case .Monday:
+                return "Monday"
+            case .Tuesday:
+                return "Tuesday"
+            case .Wednesday:
+                return "Wednesday"
+            case .Thursday:
+                return "Thursday"
+            case .Friday:
+                return "Friday"
+            case .Saturday:
+                return "Saturday"
+            }
+        }
+        
+        //Add Custom Functions 
+        
+        //Allows for iteration as needed (for in ...)
+        static let allValues = [Sunday,
+                                Monday,
+                                Tuesday,
+                                Wednesday,
+                                Thursday,
+                                Friday,
+                                Saturday]
+    }
     
     @IBOutlet weak var sundayButton: UIButton!
     @IBOutlet weak var mondayButton: UIButton!
@@ -48,14 +81,14 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     
     override func configure() {
         super.configure()
-        self.selectionStyle = UITableViewCellSelectionStyle.None
-        self.configureButtons()
+        selectionStyle = UITableViewCellSelectionStyle.None
+        configureButtons()
     }
     
     
     override func update() {
         super.update()
-        self.updateButtons()
+        updateButtons()
     }
     
     override static func formDescriptorCellHeightForRowDescriptor(rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
@@ -65,44 +98,43 @@ class XLFormWeekDaysCell : XLFormBaseCell {
 //MARK: - Action
     
     @IBAction func dayTapped(sender: UIButton) {
-        let day = self.getDayFormButton(sender)
+        let day = getDayFormButton(sender)
         sender.selected = !sender.selected
-        var newValue = self.rowDescriptor.value as! Dictionary<String, Bool>
+        var newValue = rowDescriptor.value as! Dictionary<String, Bool>
         newValue[day] = sender.selected
-        self.rowDescriptor.value = newValue
+        rowDescriptor.value = newValue
     }
     
 //MARK: - Helpers
     
     func configureButtons() {
-        for subview in self.contentView.subviews {
+        for subview in contentView.subviews {
             if let button : UIButton = subview as? UIButton {
                 button.setImage(UIImage(named: "uncheckedDay"), forState: UIControlState.Normal)
                 button.setImage(UIImage(named: "checkedDay"), forState: UIControlState.Selected)
                 button.adjustsImageWhenHighlighted = false
-                self.imageTopTitleBottom(button)
+                imageTopTitleBottom(button)
             }
         }
     
     }
     
     func updateButtons() {
-        let value = self.rowDescriptor.value as! Dictionary<String, Bool>
-        self.sundayButton.selected = value[XLFormWeekDaysCell.kSunday]!
-        self.mondayButton.selected = value[XLFormWeekDaysCell.kMonday]!
-        self.tuesdayButton.selected = value[XLFormWeekDaysCell.kTuesday]!
-        self.wednesdayButton.selected = value[XLFormWeekDaysCell.kWednesday]!
-        self.thursdayButton.selected = value[XLFormWeekDaysCell.kThursday]!
-        self.fridayButton.selected = value[XLFormWeekDaysCell.kFriday]!
-        self.saturdayButton.selected = value[XLFormWeekDaysCell.kSaturday]!
+        sundayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Sunday.description()]!
+        mondayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Monday.description()]!
+        tuesdayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Tuesday.description()]!
+        wednesdayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Wednesday.description()]!
+        thursdayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Thursday.description()]!
+        fridayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Friday.description()]!
+        saturdayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Saturday.description()]!
         
-        self.sundayButton.alpha = self.rowDescriptor.isDisabled() ? 0.6 : 1
-        self.mondayButton.alpha = self.mondayButton.alpha
-        self.tuesdayButton.alpha = self.mondayButton.alpha
-        self.wednesdayButton.alpha = self.mondayButton.alpha
-        self.thursdayButton.alpha = self.mondayButton.alpha
-        self.fridayButton.alpha = self.mondayButton.alpha
-        self.saturdayButton.alpha = self.mondayButton.alpha
+        sundayButton.alpha = rowDescriptor.isDisabled() ? 0.6 : 1
+        mondayButton.alpha = mondayButton.alpha
+        tuesdayButton.alpha = mondayButton.alpha
+        wednesdayButton.alpha = mondayButton.alpha
+        thursdayButton.alpha = mondayButton.alpha
+        fridayButton.alpha = mondayButton.alpha
+        saturdayButton.alpha = mondayButton.alpha
     }
     
     func imageTopTitleBottom(button: UIButton) {
@@ -116,19 +148,27 @@ class XLFormWeekDaysCell : XLFormBaseCell {
         
         // raise the image and push it right so it appears centered
         //  above the text
-        let titleSize : CGSize = (button.titleLabel!.text as! NSString).sizeWithAttributes([NSFontAttributeName: button.titleLabel!.font])
+        let titleSize : CGSize = (button.titleLabel!.text! as NSString).sizeWithAttributes([NSFontAttributeName: button.titleLabel!.font])
         button.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0.0, 0.0, -titleSize.width)
     }
     
-    func getDayFormButton(button: UIButton) -> String
-    {
-        if button == self.sundayButton { return XLFormWeekDaysCell.kSunday }
-        if button == self.mondayButton { return XLFormWeekDaysCell.kMonday }
-        if button == self.tuesdayButton { return XLFormWeekDaysCell.kTuesday }
-        if button == self.wednesdayButton { return XLFormWeekDaysCell.kWednesday }
-        if button == self.thursdayButton { return XLFormWeekDaysCell.kThursday }
-        if button == self.fridayButton { return XLFormWeekDaysCell.kFriday }
-        return XLFormWeekDaysCell.kSaturday
+    func getDayFormButton(button: UIButton) -> String {
+        switch button {
+        case sundayButton:
+            return XLFormWeekDaysCell.kWeekDay.Sunday.description()
+        case mondayButton:
+            return XLFormWeekDaysCell.kWeekDay.Monday.description()
+        case tuesdayButton:
+            return XLFormWeekDaysCell.kWeekDay.Tuesday.description()
+        case wednesdayButton:
+            return XLFormWeekDaysCell.kWeekDay.Wednesday.description()
+        case thursdayButton:
+            return XLFormWeekDaysCell.kWeekDay.Thursday.description()
+        case fridayButton:
+            return XLFormWeekDaysCell.kWeekDay.Friday.description()
+        default:
+            return XLFormWeekDaysCell.kWeekDay.Saturday.description()
+        }
     }
     
 }
