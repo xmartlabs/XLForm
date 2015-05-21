@@ -35,10 +35,22 @@ class DatesFormViewController: XLFormViewController {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder);
         self.initializeForm()
+        
+        let saveIcon = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "saveData")
+        navigationItem.rightBarButtonItem = saveIcon
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        //Customize Section Header
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor.blackColor()
+        header.textLabel.textColor =  UIColor(red: 0/255, green: 181/255, blue: 229/255, alpha: 1.0)
+        header.textLabel.font = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!
     }
     
     func initializeForm() {
@@ -66,6 +78,16 @@ class DatesFormViewController: XLFormViewController {
         row.value = NSDate()
         section.addFormRow(row)
         self.form = form;
+    }
+    
+    func saveData(){
+        var results = [String:String]()
+        if let date = form.formRowWithTag(tag.date).value as? NSDate {
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = NSDateFormatterStyle.MediumStyle
+            results[tag.date] = formatter.stringFromDate(date)
+        }
+        println(results)
     }
     
 }
