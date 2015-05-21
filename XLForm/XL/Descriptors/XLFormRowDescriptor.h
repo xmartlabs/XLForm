@@ -65,7 +65,6 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @property (weak) XLFormSectionDescriptor * sectionDescriptor;
 
--(instancetype)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 +(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType;
 +(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 
@@ -119,7 +118,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @end
 
 
-@protocol XLFormOptionObject <NSObject>
+@protocol XLFormOptionObject
 
 @required
 
