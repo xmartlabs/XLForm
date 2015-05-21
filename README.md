@@ -283,7 +283,7 @@ static NSString *const XLFormRowDescriptorTypeCountDownTimer = @"countDownTimer"
 
 Here is an example of how to define these row types:
 
-
+**Objective C**
 ```objc
 XLFormDescriptor * form;
 XLFormSectionDescriptor * section;
@@ -315,7 +315,40 @@ row.value = [NSDate new];
 [section addFormRow:row];
 ```
 
+**Swift**
+```Swift
 
+static let dateTime = "dateTime"
+static let date = "date"
+static let time = "time"
+
+var form : XLFormDescriptor
+var section : XLFormSectionDescriptor
+var row : XLFormRowDescriptor
+        
+form = XLFormDescriptor(title: "Dates") as XLFormDescriptor
+        
+section = XLFormSectionDescriptor.formSectionWithTitle("Inline Dates") as XLFormSectionDescriptor
+form.addFormSection(section)
+        
+// Date
+row = XLFormRowDescriptor(tag: tag.date, rowType: XLFormRowDescriptorTypeDateInline, title:"Date")
+row.value = NSDate()
+section.addFormRow(row)
+        
+// Time
+row = XLFormRowDescriptor(tag: tag.time, rowType: XLFormRowDescriptorTypeTimeInline, title: "Time")
+row.value = NSDate()
+section.addFormRow(row)
+        
+// DateTime
+row = XLFormRowDescriptor(tag: tag.dateTime, rowType: XLFormRowDescriptorTypeDateTimeInline, title: "Date Time")
+row.value = NSDate()
+section.addFormRow(row)
+        
+self.form = form;
+
+```
 ####Boolean Rows
 
 XLForms supports 2 types of boolean controls:
@@ -746,12 +779,21 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 
 Let's see how to change the color of the cell label:
 
+**Objective C**
+
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
 [row.cellConfigAtConfigure setObject:[UIColor red] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
 ```
 
+**Swift**
+```Swift
+row = XLFormRowDescriptor(tag: "title", rowType: XLFormRowDescriptorTypeText, title: "title")
+row.cellConfig.setObject(UIColor.blackColor(), forKey: "backgroundColor")
+row.cellConfig.setObject(UIColor.whiteColor(), forKey: "textLabel.textColor")
+section.addFormRow(row)
+```
 
 FAQ
 -------
@@ -799,6 +841,7 @@ You may be interested in the form values to use it as enpoint parameter. In this
 
 If you need something different, you can iterate over each row...
 
+**Objective C**
 ```objc
  NSMutableDictionary * result = [NSMutableDictionary dictionary];
  for (XLFormSectionDescriptor * section in self.form.formSections) {
@@ -822,14 +865,31 @@ If you need something different, you can iterate over each row...
  return result;
 ```
 
+**Swift**
+```Swift
+var results = [String:String]()
+if let fullName = form.formRowWithTag(tag.fullName).value as? String {
+    results[tag.fullName] = fullName
+}
+```
+
 #### How to change a UITableViewCell font
 
 You can change the font or any other table view cell property using the `cellConfig` dictionary property. XLForm will set up `cellConfig` dictionary values when the table view cell is about to be displayed.
 
+**Objective C**
 ```objc
 [row.cellConfig setObject:[UIColor greenColor] forKey:@"textLabel.textColor"];
 [row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"textLabel.font"];
 [row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"detailTextLabel.font"];
+```
+
+**Swift**
+```Swift
+row.cellConfig.setObject(UIColor.whiteColor(), forKey: "self.tintColor")
+row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, forKey: "textLabel.font")
+row.cellConfig.setObject(UIColor.whiteColor(), forKey: "textField.textColor")
+row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, forKey: "textField.font")
 ```
 
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
@@ -837,10 +897,17 @@ For further details, please take a look at [UICustomizationFormViewController.m]
 ####How to set min/max for date cells?
 
 Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a datetime row to be a value in the next three days you would do as follows:
+
+**Objective C**
 ```objc
 [row.cellConfigAtConfigure setObject:[NSDate new] forKey:@"minimumDate"];
 [row.cellConfigAtConfigure setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
 ``` 
+
+**Swift**
+```Swift
+row.cellConfig.setObject(NSDate(), forKey: "maximumDate")
+```         
 
 ####How to disable the entire form (read only mode).
 
