@@ -441,8 +441,10 @@
 
 -(void)showFormValidationError:(NSError *)error
 {
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XLFormViewController_ValidationErrorTitle", nil) message:error.localizedDescription delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-    [alertView show];
+    UIAlertController * alertView = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"XLFormViewController_ValidationErrorTitle", nil) message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
+    [alertView addAction:cancelAction];
+    [self presentViewController:alertView animated:YES completion:nil];
 }
 
 -(void)performFormSeletor:(SEL)selector withObject:(id)sender

@@ -75,7 +75,7 @@ NSString *const kCountDownTimer = @"countDownTimer";
         dateComp.hour = 0;
         dateComp.minute = 7;
         dateComp.timeZone = [NSTimeZone systemTimeZone];
-        NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         
         row.value = [calendar dateFromComponents:dateComp];
         [section addFormRow:row];
