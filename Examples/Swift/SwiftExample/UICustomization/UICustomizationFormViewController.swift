@@ -3,7 +3,7 @@
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
 //  Copyright (c) 2014-2015 Xmartlabs ( http://xmartlabs.com )
-//
+//  Swift Example Contributed by Eric Gu
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,71 +25,167 @@
 
 class UICustomizationFormViewController : XLFormViewController {
     
+    //MARK: Tags
+    
     private enum Tags : String {
-        case Name = "Name"
-        case Button = "Button"
+        case FullName = "FULLNAME"
+        case DateOfBirth = "DATEOFBIRTH"
+        case Email = "EMAIL"
+        case Button = "JOINTEAM"
     }
     
+    //MARK: Customization Constants
+    
+    private let kPrimaryColor = UIColor.whiteColor()
+    private let kSecondaryColor = UIColor(red: 0/255, green: 181/255, blue: 229/255, alpha: 1.0)
+    private let kStandardFontSize:CGFloat = 17
+    private let kStandardFontName = "AppleSDGothicNeo-Regular"
+    private let kBackgroundColor = UIColor.blackColor()
+    private let kHeaderHeight: CGFloat = 40
+    
+    //MARK: Init
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
+    
+    //MARK: View Setup
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(false)
+        view.backgroundColor = kBackgroundColor
+        tableView.separatorInset.right = tableView.separatorInset.left
+        tableView.backgroundColor = kBackgroundColor
+        tableView.rowHeight = super.tableView.rowHeight
+        tableView.tableFooterView = UIView(frame: CGRectZero)
+        navigationController?.navigationBar.backgroundColor = kBackgroundColor
+        navigationController?.navigationBar.barTintColor = kBackgroundColor
+        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: kStandardFontName, size: 20)!, NSForegroundColorAttributeName: kPrimaryColor]
+        navigationController?.navigationBar.tintColor = kPrimaryColor
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont(name: kStandardFontName, size: 15)!], forState: UIControlState.Normal)
+        navigationController?.navigationBar.barStyle = UIBarStyle.Black
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        //Optional Function - Resets Shared Nav Customization Before Returning to Examples Main Table View
+        super.viewWillDisappear(false)
+        navigationController?.navigationBar.backgroundColor = UIColor.grayColor()
+        navigationController?.navigationBar.barTintColor = UIColor.whiteColor()
+        navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18), NSForegroundColorAttributeName: UIColor.blackColor()]
+        navigationController?.navigationBar.tintColor = view.tintColor
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(17)], forState: UIControlState.Normal)
+        navigationController?.navigationBar.barStyle = UIBarStyle.Default
+    }
+    
+    //MARK: Form
     
     func initializeForm() {
         
-        let form : XLFormDescriptor
+        let customForm : XLFormDescriptor
         var section : XLFormSectionDescriptor
         var row : XLFormRowDescriptor
         
-        form = XLFormDescriptor(title: "UI Customization")
-        
-        section = XLFormSectionDescriptor()
-        form.addFormSection(section)
+        customForm = XLFormDescriptor(title: "UI Customization")
     
-        // Name
-        row = XLFormRowDescriptor(tag: Tags.Name.rawValue, rowType: XLFormRowDescriptorTypeText, title:"Name")
-        // change the background color
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor.greenColor()
-        // font
-        row.cellConfig["textLabel.font"] = UIFont.systemFontOfSize(30)
-        // background color
-        row.cellConfig["textField.backgroundColor"] = UIColor.grayColor()
-        // font
-        row.cellConfig["textField.font"] = UIFont.systemFontOfSize(25)
-        // alignment
-        row.cellConfig["textField.textAlignment"] =  NSTextAlignment.Right.rawValue
+        section = XLFormSectionDescriptor.formSectionWithTitle("Basics") as XLFormSectionDescriptor
+        customForm.addFormSection(section)
+        
+        //FULLNAME
+        row = XLFormRowDescriptor(tag: Tags.FullName.rawValue, rowType: XLFormRowDescriptorTypeText, title: "Full Name")
+        
+        row.cellConfig["backgroundColor"] = kBackgroundColor
+        row.cellConfig["textLabel.textColor"] = kPrimaryColor
+        row.cellConfig["self.tintColor"] = kPrimaryColor
+        row.cellConfig["textLabel.font"] = UIFont(name: kStandardFontName, size: kStandardFontSize)!
+        
+        row.cellConfig["textField.textColor"] = kPrimaryColor
+        row.cellConfig["textField.font"] = UIFont(name: kStandardFontName, size: kStandardFontSize)!
+        row.cellConfigAtConfigure["textField.placeholder"] = "Required..."
+        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Right.rawValue
+        row.value = "John Doe"
+        section.addFormRow(row)
+
+        // Date Of Birth
+        row = XLFormRowDescriptor(tag: Tags.DateOfBirth.rawValue, rowType: XLFormRowDescriptorTypeDateInline, title:"Date Of Birth")
+        row.value = NSDate()
+        row.cellConfig["maximumDate"] = NSDate()
+        row.cellConfig["backgroundColor"] = kBackgroundColor
+        row.cellConfig["textLabel.textColor"] = kPrimaryColor
+        row.cellConfig["self.tintColor"] = kPrimaryColor
+        
+        row.cellConfig["textLabel.font"] = UIFont(name: kStandardFontName, size: kStandardFontSize)!
+        row.cellConfig["detailTextLabel.font"] = UIFont(name: kStandardFontName, size: kStandardFontSize)!
+        row.cellConfig["detailTextLabel.textColor"] = kPrimaryColor
+        
         section.addFormRow(row)
         
+        // Email
+        row = XLFormRowDescriptor(tag: Tags.Email.rawValue, rowType: XLFormRowDescriptorTypeEmail, title: "Email")
+        row.value = "user@email.com"
+        //row.addValidator(XLFormValidator.emailValidator())
+        //row.required = true
+        
+        row.cellConfig["backgroundColor"] = kBackgroundColor
+        row.cellConfig["textLabel.textColor"] = kPrimaryColor
+        row.cellConfig["textLabel.font"] = UIFont(name: kStandardFontName, size: kStandardFontSize)!
+        row.cellConfig["self.tintColor"] = kPrimaryColor
+        
+        
+        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Right.rawValue
+        row.cellConfig["textField.textColor"] = kPrimaryColor
+        row.cellConfig["textField.font"] = UIFont(name: kStandardFontName, size: kStandardFontSize)!
+        section.addFormRow(row)
         
         // Section
-        section = XLFormSectionDescriptor()
-        form.addFormSection(section)
+        section = XLFormSectionDescriptor.formSectionWithTitle("Join Team") as XLFormSectionDescriptor
+        customForm.addFormSection(section)
         
         //Button
-        row = XLFormRowDescriptor(tag: Tags.Button.rawValue, rowType: XLFormRowDescriptorTypeButton, title:"Button")
+        row = XLFormRowDescriptor(tag: Tags.Button.rawValue, rowType: XLFormRowDescriptorTypeButton, title:"Join Team")
         row.cellConfigAtConfigure["backgroundColor"] = UIColor.purpleColor()
-        row.cellConfig["textLabel.color"] = UIColor.whiteColor()
-        row.cellConfig["textLabel.font"] = UIFont.systemFontOfSize(40)
+        row.cellConfig["textLabel.color"] = kPrimaryColor
+        row.cellConfig["textLabel.font"] = UIFont(name: kStandardFontName, size: 25)!
         section.addFormRow(row)
     
-        self.form = form
+        form = customForm
+    }
+
+    //MARK: TableView
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = kSecondaryColor
+        header.textLabel.textColor =  kPrimaryColor
+        header.textLabel.font = UIFont(name: kStandardFontName, size: 18)!
+        header.frame.size.height = tableView.rowHeight
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return kHeaderHeight
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.1
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        // change cell height of a particular cell
-        if self.form.formRowAtIndex(indexPath)?.tag == "Name" {
+        
+        if self.form.formRowAtIndex(indexPath)?.tag == Tags.Button.rawValue {
             return 60.0
         }
-        else if self.form.formRowAtIndex(indexPath)?.tag == "Button" {
-            return 100.0
+        else {
+            return super.tableView.rowHeight
         }
-        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
+    
+    
 }
 

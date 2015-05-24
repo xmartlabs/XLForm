@@ -790,8 +790,8 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 **Swift**
 ```Swift
 row = XLFormRowDescriptor(tag: "title", rowType: XLFormRowDescriptorTypeText, title: "title")
-row.cellConfig.setObject(UIColor.blackColor(), forKey: "backgroundColor")
-row.cellConfig.setObject(UIColor.whiteColor(), forKey: "textLabel.textColor")
+row.cellConfig["backgroundColor"] = UIColor.blackColor()
+row.cellConfig["textLabel.textColor"] = UIColor.whiteColor()
 section.addFormRow(row)
 ```
 
@@ -886,10 +886,10 @@ You can change the font or any other table view cell property using the `cellCon
 
 **Swift**
 ```Swift
-row.cellConfig.setObject(UIColor.whiteColor(), forKey: "self.tintColor")
-row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, forKey: "textLabel.font")
-row.cellConfig.setObject(UIColor.whiteColor(), forKey: "textField.textColor")
-row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, forKey: "textField.font")
+row.cellConfig["self.tintColor"] = UIColor.whiteColor()
+row.cellConfig["textLabel.font"] = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
+row.cellConfig["textField.textColor"] = UIColor.whiteColor()
+row.cellConfig["textField.font"] = UIFont(name: "AppleSDGothicNeo-Regular", size: 17)
 ```
 
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
@@ -906,7 +906,7 @@ Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a d
 
 **Swift**
 ```Swift
-row.cellConfig.setObject(NSDate(), forKey: "maximumDate")
+row.cellConfig["maximumDate"] = NSDate()
 ```         
 
 ####How to disable the entire form (read only mode).
