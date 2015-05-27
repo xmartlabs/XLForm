@@ -11,5 +11,6 @@
 @interface XLFormValidator : NSObject<XLFormValidatorProtocol>
 
 +(XLFormValidator *)emailValidator;
++(XLFormValidator *)websiteValidator;
 
 @end

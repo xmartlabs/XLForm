@@ -26,4 +26,9 @@
     return [XLFormRegexValidator formRegexValidatorWithMsg:NSLocalizedString(@"Invalid email address", nil) regex:@"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"];
 }
 
++(XLFormValidator *)websiteValidator
+{
+    return [XLFormRegexValidator formRegexValidatorWithMsg:NSLocalizedString(@"Invalid url", nil) regex:@"(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$"];
+}
+
 @end
