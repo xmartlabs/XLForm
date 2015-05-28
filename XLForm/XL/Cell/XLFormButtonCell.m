@@ -60,7 +60,7 @@
         self.rowDescriptor.action.formBlock(self.rowDescriptor);
     }
     else if (self.rowDescriptor.action.formSelector){
-        [controller performFormSeletor:self.rowDescriptor.action.formSelector withObject:self.rowDescriptor];
+        [controller performFormSelector:self.rowDescriptor.action.formSelector withObject:self.rowDescriptor];
     }
     else if ([self.rowDescriptor.action.formSegueIdenfifier length] != 0){
         [controller performSegueWithIdentifier:self.rowDescriptor.action.formSegueIdenfifier sender:self.rowDescriptor];
