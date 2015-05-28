@@ -2,7 +2,7 @@
 //  XLFormDateCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -34,7 +34,6 @@ typedef NS_ENUM(NSUInteger, XLFormDateDatePickerMode) {
 
 @interface XLFormDateCell : XLFormBaseCell
 
-@property (nonatomic) NSDateFormatter * dateFormatter;
 @property (nonatomic) XLFormDateDatePickerMode formDatePickerMode;
 @property (nonatomic) NSDate *minimumDate;
 @property (nonatomic) NSDate *maximumDate;

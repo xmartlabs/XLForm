@@ -2,7 +2,7 @@
 //  XLFormSelectorCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,6 +38,9 @@
 
 
 @implementation XLFormSelectorCell
+{
+    UIColor * _beforeChangeColor;
+}
 
 
 -(NSString *)valueDisplayText
@@ -69,8 +72,6 @@
                 else{
                     [descriptionArray addObject:[option displayText]];
                 }
-                
-                
             }
         }
         return [descriptionArray componentsJoinedByString:@", "];
@@ -96,6 +97,16 @@
         return self.pickerView;
     }
     return [super inputView];
+}
+
+-(BOOL)formDescriptorCellCanBecomeFirstResponder
+{
+    return (!self.rowDescriptor.isDisabled && ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]));
+}
+
+-(BOOL)formDescriptorCellBecomeFirstResponder
+{
+    return  [self becomeFirstResponder];
 }
 
 - (BOOL)canBecomeFirstResponder
@@ -128,15 +139,12 @@
 -(void)update
 {
     [super update];
-    self.accessoryType = self.rowDescriptor.disabled || !([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    self.accessoryType = self.rowDescriptor.isDisabled || !([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector]) ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;;
+    self.editingAccessoryType = self.accessoryType;
     [self.textLabel setText:self.rowDescriptor.title];
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.selectionStyle = self.rowDescriptor.disabled || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInfo] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    self.selectionStyle = self.rowDescriptor.isDisabled || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInfo] ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
-    self.detailTextLabel.text = [self valueDisplayText];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    
+    self.detailTextLabel.text = [self valueDisplayText];    
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
@@ -164,9 +172,7 @@
                 if (self.popoverController && self.popoverController.popoverVisible) {
                     [self.popoverController dismissPopoverAnimated:NO];
                 }
-                
-                UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:selectorViewController];
-                self.popoverController = [[UIPopoverController alloc] initWithContentViewController:navigationController];
+                self.popoverController = [[UIPopoverController alloc] initWithContentViewController:selectorViewController];
                 self.popoverController.delegate = self;
                 if ([selectorViewController conformsToProtocol:@protocol(XLFormRowDescriptorPopoverViewController)]){
                     ((id<XLFormRowDescriptorPopoverViewController>)selectorViewController).popoverController = self.popoverController;
@@ -247,11 +253,22 @@
         [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView]){
-        [self becomeFirstResponder];
         [controller.tableView selectRowAtIndexPath:nil animated:YES scrollPosition:UITableViewScrollPositionNone];
     }
 }
 
+-(void)highlight
+{
+    [super highlight];
+    _beforeChangeColor = self.detailTextLabel.textColor;
+    self.detailTextLabel.textColor = self.tintColor;
+}
+
+-(void)unhighlight
+{
+    [super unhighlight];
+    self.detailTextLabel.textColor = _beforeChangeColor;
+}
 
 #pragma mark - UIActionSheetDelegate
 

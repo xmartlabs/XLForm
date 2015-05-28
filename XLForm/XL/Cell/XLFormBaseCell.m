@@ -2,7 +2,7 @@
 //  XLFormBaseCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -41,22 +41,44 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self configure];
+}
 
 -(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
 {
     _rowDescriptor = rowDescriptor;
     [self update];
+    [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+        [self setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+    }];
+    if (rowDescriptor.isDisabled){
+        [rowDescriptor.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+            [self setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+        }];
+    }
 }
 
 
 - (void)configure
 {
-    //override
 }
 
 - (void)update
 {
-    // override
+    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.textLabel.textColor  = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
+}
+
+-(void)highlight
+{
+}
+
+-(void)unhighlight
+{
 }
 
 -(XLFormViewController *)formViewController
@@ -71,5 +93,40 @@
     return nil;
 }
 
+#pragma mark - Navigation Between Fields
+
+-(UIView *)inputAccessoryView
+{
+    UIView * inputAccessoryView = [self.formViewController inputAccessoryViewForRowDescriptor:self.rowDescriptor];
+    if (inputAccessoryView){
+        return inputAccessoryView;
+    }
+    return [super inputAccessoryView];
+}
+
+-(BOOL)formDescriptorCellCanBecomeFirstResponder
+{
+    return NO;
+}
+
+#pragma mark -
+
+-(BOOL)becomeFirstResponder
+{
+    BOOL result = [super becomeFirstResponder];
+    if (result){
+        [self.formViewController beginEditing:self.rowDescriptor];
+    }
+    return result;
+}
+
+-(BOOL)resignFirstResponder
+{
+    BOOL result = [super resignFirstResponder];
+    if (result){
+        [self.formViewController endEditing:self.rowDescriptor];
+    }
+    return result;
+}
 
 @end

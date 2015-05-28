@@ -2,7 +2,7 @@
 //  XLFormRowDescriptor.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,6 +33,7 @@
 @class XLFormSectionDescriptor;
 @protocol XLFormValidatorProtocol;
 @class XLFormAction;
+@class XLFormBaseCell;
 
 typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
     XLFormPresentationModeDefault = 0,
@@ -51,19 +52,23 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property UITableViewCellStyle cellStyle;
 
 @property (nonatomic) NSMutableDictionary *cellConfig;
+@property (nonatomic) NSMutableDictionary *cellConfigIfDisabled;
 @property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
-@property BOOL disabled;
-@property BOOL required;
+
+@property id disabled;
+-(BOOL)isDisabled;
+@property id hidden;
+-(BOOL)isHidden;
+@property (getter=isRequired) BOOL required;
 
 @property XLFormAction * action;
 
 @property (weak) XLFormSectionDescriptor * sectionDescriptor;
 
--(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
-+(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType;
-+(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
++(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType;
++(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 
--(UITableViewCell<XLFormDescriptorCell> *)cellForFormController:(XLFormViewController *)formController;
+-(XLFormBaseCell *)cellForFormController:(XLFormViewController *)formController;
 
 @property NSString *requireMsg;
 -(void)addValidator:(id<XLFormValidatorProtocol>)validator;
@@ -113,7 +118,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @end
 
 
-@protocol XLFormOptionObject <NSObject>
+@protocol XLFormOptionObject
 
 @required
 

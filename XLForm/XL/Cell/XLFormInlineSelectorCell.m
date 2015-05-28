@@ -2,7 +2,7 @@
 //  XLFormInlineSelectorCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,26 +28,42 @@
 
 @interface XLFormInlineSelectorCell()
 
-@property UIColor * beforeBecameFirstResponderColor;
-
 @end
 
 @implementation XLFormInlineSelectorCell
+{
+    UIColor * _beforeChangeColor;
+}
 
 - (BOOL)canBecomeFirstResponder
 {
     return YES;
 }
 
+-(BOOL)becomeFirstResponder
+{
+    _beforeChangeColor = self.detailTextLabel.textColor;
+    BOOL result = [super becomeFirstResponder];
+    if (result){
+        XLFormRowDescriptor * inlineRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes][self.rowDescriptor.rowType]];
+        UITableViewCell<XLFormDescriptorCell> * cell = [inlineRowDescriptor cellForFormController:self.formViewController];
+        NSAssert([cell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)], @"inline cell must conform to XLFormInlineRowDescriptorCell");
+        UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)cell;
+        inlineCell.inlineRowDescriptor = self.rowDescriptor;
+        [self.rowDescriptor.sectionDescriptor addFormRow:inlineRowDescriptor afterRow:self.rowDescriptor];
+    }
+    return result;
+}
+
 -(BOOL)resignFirstResponder
 {
-    self.detailTextLabel.textColor = self.beforeBecameFirstResponderColor;
     NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
     NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
     XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
     XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
+    BOOL result = [super resignFirstResponder];
     [formSection removeFormRow:nextFormRow];
-    return [super resignFirstResponder];
+    return result;
 }
 
 
@@ -62,39 +78,44 @@
 {
     [super update];
     self.accessoryType = UITableViewCellAccessoryNone;
+    self.editingAccessoryType = UITableViewCellAccessoryNone;
     [self.textLabel setText:self.rowDescriptor.title];
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    self.selectionStyle = self.rowDescriptor.isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
     self.detailTextLabel.text = [self valueDisplayText];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+}
+
+-(BOOL)formDescriptorCellCanBecomeFirstResponder
+{
+    return !(self.rowDescriptor.isDisabled);
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder
 {
-    return YES;
+
+    if ([self isFirstResponder]){
+        [self resignFirstResponder];
+        return NO;
+    }
+    return [self becomeFirstResponder];
 }
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
-    if ([self isFirstResponder]){
-        [self resignFirstResponder];
-    }
-    else{
-        [self becomeFirstResponder];
-        self.beforeBecameFirstResponderColor = self.detailTextLabel.textColor;
-        self.detailTextLabel.textColor = self.formViewController.view.tintColor;
-        XLFormRowDescriptor * inlineRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes][self.rowDescriptor.rowType]];
-        UITableViewCell<XLFormDescriptorCell> * cell = [inlineRowDescriptor cellForFormController:self.formViewController];
-        NSAssert([cell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)], @"inline cell must conform to XLFormInlineRowDescriptorCell");
-        UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)cell;
-        inlineCell.inlineRowDescriptor = self.rowDescriptor;
-        [self.rowDescriptor.sectionDescriptor addFormRow:inlineRowDescriptor afterRow:self.rowDescriptor];
-    }
     [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
 }
 
+-(void)highlight
+{
+    [super highlight];
+    self.detailTextLabel.textColor = self.tintColor;
+}
+
+-(void)unhighlight
+{
+    [super unhighlight];
+    self.detailTextLabel.textColor = _beforeChangeColor;
+}
 
 #pragma mark - Helpers
 

@@ -2,7 +2,7 @@
 //  XLFormViewController.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,12 +28,19 @@
 #import "XLFormDescriptor.h"
 #import "XLFormSectionDescriptor.h"
 #import "XLFormDescriptorDelegate.h"
-
+#import "XLFormRowNavigationAccessoryView.h"
+#import "XLFormBaseCell.h"
 
 @class XLFormViewController;
 @class XLFormRowDescriptor;
 @class XLFormSectionDescriptor;
 @class XLFormDescriptor;
+@class XLFormBaseCell;
+
+typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
+    XLFormRowNavigationDirectionPrevious = 0,
+    XLFormRowNavigationDirectionNext
+};
 
 @protocol XLFormViewControllerDelegate <NSObject>
 
@@ -42,11 +49,13 @@
 -(void)didSelectFormRow:(XLFormRowDescriptor *)formRow;
 -(void)deselectFormRow:(XLFormRowDescriptor *)formRow;
 -(void)reloadFormRow:(XLFormRowDescriptor *)formRow;
+-(XLFormBaseCell *)updateFormRow:(XLFormRowDescriptor *)formRow;
 
 -(NSDictionary *)formValues;
 -(NSDictionary *)httpParameters;
 
 -(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)formSection;
+-(void)multivaluedInsertButtonTapped:(XLFormRowDescriptor *)formRow;
 -(UIStoryboard *)storyboardForRow:(XLFormRowDescriptor *)formRow;
 
 -(NSArray *)formValidationErrors;
@@ -56,6 +65,14 @@
 -(UITableViewRowAnimation)deleteRowAnimationForRow:(XLFormRowDescriptor *)formRow;
 -(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
 -(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection;
+
+// InputAccessoryView
+-(UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
+-(XLFormRowDescriptor *)nextRowDescriptorForRow:(XLFormRowDescriptor*)currentRow withDirection:(XLFormRowNavigationDirection)direction;
+
+// highlight/unhighlight
+-(void)beginEditing:(XLFormRowDescriptor *)rowDescriptor;
+-(void)endEditing:(XLFormRowDescriptor *)rowDescriptor;
 
 @end
 

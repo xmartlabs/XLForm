@@ -2,7 +2,7 @@
 //  XLFormButtonCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -44,13 +44,13 @@
 -(void)update
 {
     [super update];
+    BOOL isDisabled = self.rowDescriptor.isDisabled;
     self.textLabel.text = self.rowDescriptor.title;
     BOOL leftAligmnment = self.rowDescriptor.action.viewControllerClass || [self.rowDescriptor.action.viewControllerStoryboardId length] != 0 || [self.rowDescriptor.action.viewControllerNibName length] != 0 || [self.rowDescriptor.action.formSegueIdenfifier length] != 0 || self.rowDescriptor.action.formSegueClass;
     self.textLabel.textAlignment = leftAligmnment ? NSTextAlignmentLeft : NSTextAlignmentCenter;
-    self.accessoryType = leftAligmnment ? UITableViewCellAccessoryDisclosureIndicator: UITableViewCellAccessoryNone;
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.selectionStyle = self.rowDescriptor.disabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
+    self.accessoryType = !leftAligmnment || isDisabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;;
+    self.editingAccessoryType = self.accessoryType;
+    self.selectionStyle = isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
 }
 
 

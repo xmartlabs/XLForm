@@ -2,7 +2,7 @@
 //  XLFormPickerCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,6 +35,17 @@
 @synthesize pickerView = _pickerView;
 @synthesize inlineRowDescriptor = _inlineRowDescriptor;
 
+-(BOOL)formDescriptorCellCanBecomeFirstResponder
+{
+    return (!self.rowDescriptor.isDisabled && (self.inlineRowDescriptor == nil));
+}
+
+-(BOOL)formDescriptorCellBecomeFirstResponder
+{
+    return [self becomeFirstResponder];
+}
+
+
 -(BOOL)canResignFirstResponder
 {
     return YES;
@@ -42,7 +53,7 @@
 
 -(BOOL)canBecomeFirstResponder
 {
-    return (self.inlineRowDescriptor == nil);
+    return [self formDescriptorCellCanBecomeFirstResponder];
 }
 
 #pragma mark - Properties
@@ -63,11 +74,15 @@
     [super configure];
     [self.contentView addSubview:self.pickerView];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pickerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[pickerView]-0-|" options:0 metrics:0 views:@{@"pickerView" : self.pickerView}]];
 }
 
 -(void)update
 {
     [super update];
+    BOOL isDisable = self.rowDescriptor.isDisabled;
+    self.userInteractionEnabled = !isDisable;
+    self.contentView.alpha = isDisable ? 0.5 : 1.0;
     [self.pickerView selectRow:[self selectedIndex] inComponent:0 animated:NO];
     [self.pickerView reloadAllComponents];
     
@@ -92,7 +107,7 @@
 {
     if (self.inlineRowDescriptor){
         self.inlineRowDescriptor.value = [self.inlineRowDescriptor.selectorOptions objectAtIndex:row];
-        [[self.inlineRowDescriptor cellForFormController:self.formViewController] update];
+        [self.formViewController updateFormRow:self.inlineRowDescriptor];
     }
     else{
         [self becomeFirstResponder];

@@ -2,7 +2,7 @@
 //  XLFormSwitchCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -36,6 +36,7 @@
     [super configure];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryView = [[UISwitch alloc] init];
+    self.editingAccessoryView = self.accessoryView;
     [self.switchControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
 
@@ -44,9 +45,7 @@
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
     self.switchControl.on = [self.rowDescriptor.value boolValue];
-    self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.switchControl.enabled = !self.rowDescriptor.disabled;
+    self.switchControl.enabled = !self.rowDescriptor.isDisabled;
 }
 
 - (UISwitch *)switchControl

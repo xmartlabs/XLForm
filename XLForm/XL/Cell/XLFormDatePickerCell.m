@@ -2,7 +2,7 @@
 //  XLFormDatePickerCell.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,6 +30,7 @@
 @implementation XLFormDatePickerCell
 
 @synthesize datePicker = _datePicker;
+@synthesize inlineRowDescriptor = _inlineRowDescriptor;
 
 -(BOOL)canResignFirstResponder
 {
@@ -42,7 +43,22 @@
 {
     if (_datePicker) return _datePicker;
     _datePicker = [UIDatePicker autolayoutView];
+    [_datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     return _datePicker;
+}
+
+#pragma mark- Target Action
+
+- (void)datePickerValueChanged:(UIDatePicker *)sender
+{
+    if (self.inlineRowDescriptor){
+        self.inlineRowDescriptor.value = sender.date;
+        [self.formViewController updateFormRow:self.inlineRowDescriptor];
+    }
+    else{
+        [self becomeFirstResponder];
+        self.rowDescriptor.value = sender.date;
+    }
 }
 
 #pragma mark - XLFormDescriptorCell
@@ -52,11 +68,13 @@
     [super configure];
     [self.contentView addSubview:self.datePicker];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.datePicker attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[datePicker]-0-|" options:0 metrics:0 views:@{@"datePicker" : self.datePicker}]];
 }
 
 -(void)update
 {
     [super update];
+    [self.datePicker setUserInteractionEnabled:![self.rowDescriptor isDisabled]];
 }
 
 

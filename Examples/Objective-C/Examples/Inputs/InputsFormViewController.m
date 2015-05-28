@@ -2,7 +2,7 @@
 //  InputsFormViewController.m
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -68,7 +68,7 @@ NSString *const kNotes = @"notes";
     
     // Twitter
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kTwitter rowType:XLFormRowDescriptorTypeTwitter title:@"Twitter"];
-    row.disabled = YES;
+    row.disabled = @YES;
     row.value = @"@no_editable";
     [section addFormRow:row];
     
@@ -121,7 +121,7 @@ NSString *const kNotes = @"notes";
 }
 
 
--(IBAction)savePressed:(UIBarButtonItem * __unused)button
+-(void)savePressed:(UIBarButtonItem * __unused)button
 {
     NSArray * validationErrors = [self formValidationErrors];
     if (validationErrors.count > 0){

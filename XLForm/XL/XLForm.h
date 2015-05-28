@@ -2,7 +2,7 @@
 //  XLForm.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -92,9 +92,11 @@ extern NSString *const XLFormRowDescriptorTypeSelectorSegmentedControl;
 extern NSString *const XLFormRowDescriptorTypeDateInline;
 extern NSString *const XLFormRowDescriptorTypeDateTimeInline;
 extern NSString *const XLFormRowDescriptorTypeTimeInline;
+extern NSString *const XLFormRowDescriptorTypeCountDownTimerInline;
 extern NSString *const XLFormRowDescriptorTypeDate;
 extern NSString *const XLFormRowDescriptorTypeDateTime;
 extern NSString *const XLFormRowDescriptorTypeTime;
+extern NSString *const XLFormRowDescriptorTypeCountDownTimer;
 extern NSString *const XLFormRowDescriptorTypeDatePicker;
 extern NSString *const XLFormRowDescriptorTypePicker;
 extern NSString *const XLFormRowDescriptorTypeSlider;

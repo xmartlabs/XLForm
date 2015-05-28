@@ -2,7 +2,7 @@
 //  XLFormDescriptorDelegate.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,11 +23,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormSectionDescriptor.h"
-
+#import "XLFormDescriptor.h"
 #import <Foundation/Foundation.h>
 
 @class XLFormSectionDescriptor;
+
+typedef NS_ENUM(NSUInteger, XLPredicateType) {
+    XLPredicateTypeDisabled = 0,
+    XLPredicateTypeHidden
+};
+
 
 @protocol XLFormDescriptorDelegate <NSObject>
 
@@ -38,5 +43,9 @@
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
+-(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow
+                                   oldValue:(id)oldValue
+                                   newValue:(id)newValue
+                              predicateType:(XLPredicateType)predicateType;
 
 @end
