@@ -120,6 +120,8 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     }
     
     func updateButtons() {
+		var value = rowDescriptor.value as! Dictionary<String, Bool>
+
         sundayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Sunday.description()]!
         mondayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Monday.description()]!
         tuesdayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Tuesday.description()]!
