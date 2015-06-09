@@ -953,9 +953,11 @@ To use xmartlabs master branch.....
 
 You can replace the repository URL for your forked version url if you wish.
 
-### How to use XLForm from Swift project
+### How to use XLForm in Swift files
 
-Install XLForm using cocoapods and add `#import <XLForm/XLForm.h>` to your bridging header file.
+If you have installed XLForm with cocoapods and have set `use_frameworks!` in your Podfile, you can add `import XLForm` to any Swift file.
+
+If you are using cocoapods but have not set `use_frameworks!` in your Podfile, add `#import <XLForm/XLForm.h>` to your bridging header file.
 
 For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift").
 
