@@ -552,7 +552,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 -(void)removeRowFromTagCollection:(XLFormRowDescriptor *)rowDescriptor
 {
-    [self.allRowsByTag removeObjectForKey:rowDescriptor];
+    [self.allRowsByTag removeObjectForKey:rowDescriptor.tag];
 }
 
 

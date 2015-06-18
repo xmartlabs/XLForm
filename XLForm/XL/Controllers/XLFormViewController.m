@@ -447,7 +447,7 @@
     [self presentViewController:alertView animated:YES completion:nil];
 }
 
--(void)performFormSeletor:(SEL)selector withObject:(id)sender
+-(void)performFormSelector:(SEL)selector withObject:(id)sender
 {
     UIResponder * responder = [self targetForAction:selector withSender:sender];;
     if (responder) {
