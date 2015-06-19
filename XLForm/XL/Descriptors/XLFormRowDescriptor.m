@@ -211,9 +211,9 @@
                 msg = self.requireMsg;
             } else {
                 // default message for required msg
-                msg = NSLocalizedString(@"%@ can't be empty", nil);
+                msg = NSLocalizedString(@"%@ is mandatory", @"Error description shown when value is empty for required field; with placeholder");
             }
-            
+          
             if (self.title != nil) {
                 valStatus.msg = [NSString stringWithFormat:msg, self.title];
             } else {
