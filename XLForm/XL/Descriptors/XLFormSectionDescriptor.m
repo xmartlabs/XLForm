@@ -95,27 +95,27 @@
 
 +(instancetype)formSection
 {
-    return [self formSectionWithTitle:nil];
+    return [[self class] formSectionWithTitle:nil];
 }
 
 +(instancetype)formSectionWithTitle:(NSString *)title
 {
-    return [self formSectionWithTitle:title sectionOptions:XLFormSectionOptionNone];
+    return [[self class] formSectionWithTitle:title sectionOptions:XLFormSectionOptionNone];
 }
 
 +(instancetype)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection
 {
-    return [self formSectionWithTitle:title sectionOptions:(multivaluedSection ? XLFormSectionOptionCanInsert | XLFormSectionOptionCanDelete : XLFormSectionOptionNone)];
+    return [[self class] formSectionWithTitle:title sectionOptions:(multivaluedSection ? XLFormSectionOptionCanInsert | XLFormSectionOptionCanDelete : XLFormSectionOptionNone)];
 }
 
 +(instancetype)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions
 {
-    return [self formSectionWithTitle:title sectionOptions:sectionOptions sectionInsertMode:XLFormSectionInsertModeLastRow];
+    return [[self class] formSectionWithTitle:title sectionOptions:sectionOptions sectionInsertMode:XLFormSectionInsertModeLastRow];
 }
 
 +(instancetype)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode
 {
-    return [[XLFormSectionDescriptor alloc] initWithTitle:title sectionOptions:sectionOptions sectionInsertMode:sectionInsertMode];
+    return [[[self class] alloc] initWithTitle:title sectionOptions:sectionOptions sectionInsertMode:sectionInsertMode];
 }
 
 -(BOOL)isMultivaluedSection

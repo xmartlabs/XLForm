@@ -98,12 +98,12 @@
 
 +(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
 {
-    return [XLFormRowDescriptor formRowDescriptorWithTag:tag rowType:rowType title:nil];
+    return [[self class] formRowDescriptorWithTag:tag rowType:rowType title:nil];
 }
 
 +(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title
 {
-    return [[XLFormRowDescriptor alloc] initWithTag:tag rowType:rowType title:title];
+    return [[[self class] alloc] initWithTag:tag rowType:rowType title:title];
 }
 
 -(XLFormBaseCell *)cellForFormController:(XLFormViewController *)formController
@@ -590,4 +590,3 @@
 }
 
 @end
-

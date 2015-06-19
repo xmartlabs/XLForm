@@ -141,4 +141,3 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic, strong) Class formSegueClass;
 
 @end
-
