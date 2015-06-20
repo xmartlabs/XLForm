@@ -27,7 +27,7 @@
 #import "OthersFormViewController.h"
 
 NSString *const kSwitchBool = @"switchBool";
-NSString *const kSwitchCheck = @"switchBool";
+NSString *const kSwitchCheck = @"switchCheck";
 NSString *const kStepCounter = @"stepCounter";
 NSString *const kSlider = @"slider";
 NSString *const kSegmentedControl = @"segmentedControl";
@@ -44,7 +44,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
 @implementation OthersFormViewController
 
 
-- (instancetype)initWithCoder:(NSCoder *)coder
+-(instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
     if (self) {
@@ -53,7 +53,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     return self;
 }
 
-- (id)init
+-(instancetype)init
 {
     self = [super init];
     if (self){
