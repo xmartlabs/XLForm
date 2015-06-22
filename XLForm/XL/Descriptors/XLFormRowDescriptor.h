@@ -50,6 +50,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic) id value;
 @property Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
+@property int maxLength;
 
 @property (nonatomic) NSMutableDictionary *cellConfig;
 @property (nonatomic) NSMutableDictionary *cellConfigIfDisabled;
@@ -141,3 +142,4 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic, strong) Class formSegueClass;
 
 @end
+
