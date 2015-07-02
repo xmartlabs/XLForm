@@ -67,6 +67,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 - (nonnull NSString *) editTextValue;
 
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfig;
+@property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigForSelector;
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigIfDisabled;
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigAtConfigure;
 

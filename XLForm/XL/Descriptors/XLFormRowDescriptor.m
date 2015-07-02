@@ -165,6 +165,14 @@ CGFloat XLFormRowInitialHeight = -2;
     return _cellConfig;
 }
 
+-(NSMutableDictionary *)cellConfigForSelector
+{
+    if (_cellConfigForSelector) return _cellConfigForSelector;
+    _cellConfigForSelector = [NSMutableDictionary dictionary];
+    return _cellConfigForSelector;
+}
+
+
 -(NSMutableDictionary *)cellConfigIfDisabled
 {
     if (_cellConfigIfDisabled) return _cellConfigIfDisabled;
