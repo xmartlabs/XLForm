@@ -31,6 +31,8 @@
 @property (nonatomic) UISlider * slider;
 @property (nonatomic) UILabel * textLabel;
 @property NSUInteger steps;
+@property UILabel * valueLabel;
+@property Boolean showValue; // if true then display the numeric value to 2 d.p.
 
 @end
 
@@ -41,13 +43,16 @@
 - (void)configure
 {
 	self.steps = 0;
+    self.showValue = false;
 	[self.slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
 	[self.contentView addSubview:self.slider];
 	[self.contentView addSubview:self.textLabel];
+    self.valueLabel = [UILabel autolayoutView];
+    [self.contentView addSubview:self.valueLabel];
     	self.selectionStyle = UITableViewCellSelectionStyleNone;
 	[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
 	[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:44]];
-	[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[textLabel]-15-|" options:0 metrics:0 views:@{@"textLabel": self.textLabel}]];
+	[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[textLabel]-15-[valueLabel]-15-|" options:0 metrics:0 views:@{@"textLabel": self.textLabel,@"valueLabel": self.valueLabel}]];
 	[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[slider]-15-|" options:0 metrics:0 views:@{@"slider": self.slider}]];
 	
 	[self valueChanged:nil];
@@ -57,6 +62,9 @@
 	
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
+    if (self.showValue) {
+        self.valueLabel.text = [NSString stringWithFormat:@"%.2f", self.slider.value];
+    }
     self.slider.value = [self.rowDescriptor.value floatValue];
     self.slider.enabled = !self.rowDescriptor.isDisabled;
     [self valueChanged:nil];
@@ -66,6 +74,9 @@
 	if(self.steps != 0) {
 		self.slider.value = roundf((self.slider.value-self.slider.minimumValue)/(self.slider.maximumValue-self.slider.minimumValue)*self.steps)*(self.slider.maximumValue-self.slider.minimumValue)/self.steps + self.slider.minimumValue;
 	}
+    if (self.showValue) {
+        self.valueLabel.text = [NSString stringWithFormat:@"%.2f", self.slider.value];
+    }
 	self.rowDescriptor.value = @(self.slider.value);
 }
 
