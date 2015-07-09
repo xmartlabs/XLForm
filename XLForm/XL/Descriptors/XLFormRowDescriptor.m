@@ -211,7 +211,7 @@
                 msg = self.requireMsg;
             } else {
                 // default message for required msg
-                msg = NSLocalizedString(@"%@ is mandatory", @"Error description shown when value is empty for required field; with placeholder");
+                msg = NSLocalizedString("Field '%@' cannot be empty", @"Error description shown when value is empty for required field; with placeholder");
             }
           
             if (self.title != nil) {
