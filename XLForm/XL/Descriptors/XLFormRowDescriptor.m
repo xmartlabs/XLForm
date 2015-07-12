@@ -85,6 +85,7 @@
         _cellConfig = [NSMutableDictionary dictionary];
         _cellConfigIfDisabled = [NSMutableDictionary dictionary];
         _cellConfigAtConfigure = [NSMutableDictionary dictionary];
+        _userInfo = [NSMutableDictionary dictionary];
         _isDirtyDisablePredicateCache = YES;
         _disablePredicateCache = nil;
         _isDirtyHidePredicateCache = YES;

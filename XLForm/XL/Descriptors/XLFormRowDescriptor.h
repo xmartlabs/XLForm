@@ -55,6 +55,8 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic) NSMutableDictionary *cellConfigIfDisabled;
 @property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
 
+@property (nonatomic) NSMutableDictionary *userInfo;
+
 @property id disabled;
 -(BOOL)isDisabled;
 @property id hidden;
