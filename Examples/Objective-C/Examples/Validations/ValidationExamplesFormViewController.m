@@ -26,10 +26,6 @@
 #import "XLForm.h"
 #import "ValidationExamplesFormViewController.h"
 
-@interface ValidationExamplesFormViewController ()
-
-@end
-
 @implementation ValidationExamplesFormViewController
 
 NSString * const kValidationName = @"kName";

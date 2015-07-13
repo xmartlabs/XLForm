@@ -68,7 +68,7 @@ NSString *const kNotes = @"notes";
     
     // Twitter
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kTwitter rowType:XLFormRowDescriptorTypeTwitter title:@"Twitter"];
-    row.disabled = YES;
+    row.disabled = @YES;
     row.value = @"@no_editable";
     [section addFormRow:row];
     

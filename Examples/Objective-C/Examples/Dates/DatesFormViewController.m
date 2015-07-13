@@ -26,13 +26,16 @@
 NSString *const kDateInline = @"dateInline";
 NSString *const kTimeInline = @"timeInline";
 NSString *const kDateTimeInline = @"dateTimeInline";
-
+NSString *const kCountDownTimerInline = @"countDownTimerInline";
+NSString *const kDatePicker = @"datePicker";
 NSString *const kDate = @"date";
 NSString *const kTime = @"time";
 NSString *const kDateTime = @"dateTime";
+NSString *const kCountDownTimer = @"countDownTimer";
 
 #import "DatesFormViewController.h"
-
+@interface DatesFormViewController() <XLFormDescriptorDelegate>
+@end
 
 @implementation DatesFormViewController
 
@@ -43,9 +46,10 @@ NSString *const kDateTime = @"dateTime";
     if (self){
         XLFormDescriptor * form;
         XLFormSectionDescriptor * section;
+        
         XLFormRowDescriptor * row;
         
-        form = [XLFormDescriptor formDescriptorWithTitle:@"Dates"];
+        form = [XLFormDescriptor formDescriptorWithTitle:@"Date & Time"];
         
         section = [XLFormSectionDescriptor formSectionWithTitle:@"Inline Dates"];
         [form addFormSection:section];
@@ -55,14 +59,25 @@ NSString *const kDateTime = @"dateTime";
         row.value = [NSDate new];
         [section addFormRow:row];
         
-        // DateTime
+        // Time
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kTimeInline rowType:XLFormRowDescriptorTypeTimeInline title:@"Time"];
         row.value = [NSDate new];
         [section addFormRow:row];
         
-        // Time
+        // DateTime
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTimeInline rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Date Time"];
         row.value = [NSDate new];
+        [section addFormRow:row];
+        
+        // CountDownTimer
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimerInline title:@"Countdown Timer"];
+        NSDateComponents * dateComp = [NSDateComponents new];
+        dateComp.hour = 0;
+        dateComp.minute = 7;
+        dateComp.timeZone = [NSTimeZone systemTimeZone];
+        NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        
+        row.value = [calendar dateFromComponents:dateComp];
         [section addFormRow:row];
         
         
@@ -76,27 +91,42 @@ NSString *const kDateTime = @"dateTime";
         [row.cellConfigAtConfigure setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
         [section addFormRow:row];
         
-        // DateTime
+        // Time
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kTime rowType:XLFormRowDescriptorTypeTime title:@"Time"];
         [row.cellConfigAtConfigure setObject:@(10) forKey:@"minuteInterval"];
         row.value = [NSDate new];
         [section addFormRow:row];
         
-        // Time
+        // DateTime
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTime rowType:XLFormRowDescriptorTypeDateTime title:@"Date Time"];
         row.value = [NSDate new];
         [section addFormRow:row];
         
+        // CountDownTimer
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimer title:@"Countdown Timer"];
+        row.value = [calendar dateFromComponents:dateComp];
+        [section addFormRow:row];
+        
         section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled Dates"];
-        section.footerTitle = @"DatesFormViewController.h";
+        //section.footerTitle = @"DatesFormViewController.h";
         [form addFormSection:section];
         
         // Date
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDate rowType:XLFormRowDescriptorTypeDate title:@"Date"];
-        row.disabled = YES;
+        row.disabled = @YES;
         row.required = YES;
         row.value = [NSDate new];
         [section addFormRow:row];
+        
+        // DatePicker
+        section = [XLFormSectionDescriptor formSectionWithTitle:@"DatePicker"];
+        [form addFormSection:section];
+        
+        row = [XLFormRowDescriptor formRowDescriptorWithTag:kDatePicker rowType:XLFormRowDescriptorTypeDatePicker];
+        [row.cellConfigAtConfigure setObject:@(UIDatePickerModeDate) forKey:@"datePicker.datePickerMode"];
+        row.value = [NSDate new];
+        [section addFormRow:row];
+        
         
         self.form = form;
     }
@@ -120,6 +150,22 @@ NSString *const kDateTime = @"dateTime";
     [button setTitle:(self.form.disabled ? @"Enable" : @"Disable")];
     [self.tableView endEditing:YES];
     [self.tableView reloadData];
+}
+
+-(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
+{
+    // super implementation must be called
+    [super formRowDescriptorValueHasChanged:formRow oldValue:oldValue newValue:newValue];
+    if([formRow.tag isEqualToString:kDatePicker])
+    {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
+                                                          message:@"Value Has changed!"
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+        
+        [message show];
+    }
 }
 
 

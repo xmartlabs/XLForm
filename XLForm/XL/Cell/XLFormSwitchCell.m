@@ -36,6 +36,7 @@
     [super configure];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.accessoryView = [[UISwitch alloc] init];
+    self.editingAccessoryView = self.accessoryView;
     [self.switchControl addTarget:self action:@selector(valueChanged) forControlEvents:UIControlEventValueChanged];
 }
 

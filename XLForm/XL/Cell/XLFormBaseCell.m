@@ -70,7 +70,7 @@
 {
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textLabel.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+    self.textLabel.textColor  = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
 }
 
 -(void)highlight
@@ -127,30 +127,6 @@
         [self.formViewController endEditing:self.rowDescriptor];
     }
     return result;
-}
-
-#pragma mark -
-
--(void)setAccessoryType:(UITableViewCellAccessoryType)accessoryType
-{
-    [super setAccessoryType:accessoryType];
-    [super setEditingAccessoryType:accessoryType];
-}
-
--(void)setAccessoryView:(UIView *)accessoryView
-{
-    [super setAccessoryView:accessoryView];
-    [super setEditingAccessoryView:accessoryView];
-}
-
--(void)setEditingAccessoryType:(UITableViewCellAccessoryType)editingAccessoryType
-{
-    [self setAccessoryType:editingAccessoryType];
-}
-
--(void)setEditingAccessoryView:(UIView *)editingAccessoryView
-{
-    [self setAccessoryView:editingAccessoryView];
 }
 
 @end

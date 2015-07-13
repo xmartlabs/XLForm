@@ -317,34 +317,6 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     row.action.viewControllerClass = [CustomSelectorsFormViewController class];
     [section addFormRow:row];
     
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Disabled & Required Selectors"];
-    [form addFormSection:section];
-    
-    
-    
-    // Disabled Selector Push
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorPushDisabled rowType:XLFormRowDescriptorTypeSelectorPush title:@"Push"];
-    row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
-    row.disabled = YES;
-    [section addFormRow:row];
-    
-    
-    
-    // --------- Disabled Selector Action Sheet
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorActionSheetDisabled rowType:XLFormRowDescriptorTypeSelectorActionSheet title:@"Sheet"];
-    row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"];
-    row.disabled = YES;
-    [section addFormRow:row];
-    
-    // --------- Disabled Selector Left Right
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorLeftRightDisabled rowType:XLFormRowDescriptorTypeSelectorLeftRight title:@"Left Right"];
-    row.leftRightSelectorLeftOptionSelected = [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"];
-    row.value = [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Right Option 4"];
-    row.disabled = YES;
-    [section addFormRow:row];
-    
     
     // --------- Selector definition types
     
@@ -360,7 +332,7 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     [section addFormRow:row];
     
     // selector with SegueId
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithSegueClass rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with Segue Idenfifier"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithSegueId rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with Segue Idenfifier"];
     row.action.formSegueIdenfifier = @"MapViewControllerSegue";
     row.valueTransformer = [CLLocationValueTrasformer class];
     row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];

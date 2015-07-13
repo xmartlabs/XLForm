@@ -78,6 +78,7 @@
 {
     [super update];
     self.accessoryType = UITableViewCellAccessoryNone;
+    self.editingAccessoryType = UITableViewCellAccessoryNone;
     [self.textLabel setText:self.rowDescriptor.title];
     self.selectionStyle = self.rowDescriptor.isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     self.textLabel.text = [NSString stringWithFormat:@"%@%@", self.rowDescriptor.title, self.rowDescriptor.required && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle ? @"*" : @""];
@@ -86,7 +87,7 @@
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder
 {
-    return (!self.rowDescriptor.disabled);
+    return !(self.rowDescriptor.isDisabled);
 }
 
 -(BOOL)formDescriptorCellBecomeFirstResponder

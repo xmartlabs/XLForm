@@ -54,12 +54,14 @@ typedef NS_ENUM(NSUInteger, XLFormSectionInsertMode) {
 
 @property (weak) XLFormDescriptor * formDescriptor;
 
+@property id hidden;
+-(BOOL)isHidden;
 
-+(id)formSection;
-+(id)formSectionWithTitle:(NSString *)title;
-+(id)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use formSectionWithTitle:sectionType: instead");
-+(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions;
-+(id)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode;
++(instancetype)formSection;
++(instancetype)formSectionWithTitle:(NSString *)title;
++(instancetype)formSectionWithTitle:(NSString *)title multivaluedSection:(BOOL)multivaluedSection DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use formSectionWithTitle:sectionType: instead");
++(instancetype)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions;
++(instancetype)formSectionWithTitle:(NSString *)title sectionOptions:(XLFormSectionOptions)sectionOptions sectionInsertMode:(XLFormSectionInsertMode)sectionInsertMode;
 
 -(BOOL)isMultivaluedSection;
 -(void)addFormRow:(XLFormRowDescriptor *)formRow;
