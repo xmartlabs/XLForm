@@ -94,7 +94,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         
         section = XLFormSectionDescriptor()
         section.title = "Validation Numbers"
-        section.footerTitle = "grather than 50 and less than 100"
+        section.footerTitle = "greater than 50 and less than 100"
         form.addFormSection(section)
         
         // Integer
@@ -102,7 +102,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Required..."
         row.cellConfigAtConfigure["textField.textAlignment"] = NSTextAlignment.Right.rawValue
         row.required = true
-        row.addValidator(XLFormRegexValidator(msg: "grather than 50 and less than 100", andRegexString: "^([5-9][0-9]|100)$"))
+        row.addValidator(XLFormRegexValidator(msg: "greater than 50 and less than 100", andRegexString: "^([5-9][0-9]|100)$"))
         section.addFormRow(row)
         
         self.form = form
