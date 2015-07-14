@@ -93,7 +93,7 @@ NSString * const kValidationInteger = @"kInteger";
     
     // number Section
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Validation Numbers"];
-    section.footerTitle = @"grather than 50 and less than 100";
+    section.footerTitle = @"greater than 50 and less than 100";
     [formDescriptor addFormSection:section];
     
     // Integer
