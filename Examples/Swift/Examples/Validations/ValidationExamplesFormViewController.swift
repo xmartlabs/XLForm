@@ -101,7 +101,7 @@ NSString * const kValidationInteger = @"kInteger";
     [row.cellConfigAtConfigure setObject:@"Required..." forKey:@"textField.placeholder"];
     [row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
     row.required = YES;
-    [row addValidator:[XLFormRegexValidator formRegexValidatorWithMsg:@"grather than 50 and less than 100" regex:@"^([5-9][0-9]|100)$"]];
+    [row addValidator:[XLFormRegexValidator formRegexValidatorWithMsg:@"greater than 50 and less than 100" regex:@"^([5-9][0-9]|100)$"]];
     [section addFormRow:row];
     
     self.form = formDescriptor;
