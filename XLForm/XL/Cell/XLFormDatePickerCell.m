@@ -43,22 +43,7 @@
 {
     if (_datePicker) return _datePicker;
     _datePicker = [UIDatePicker autolayoutView];
-    [_datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     return _datePicker;
-}
-
-#pragma mark- Target Action
-
-- (void)datePickerValueChanged:(UIDatePicker *)sender
-{
-    if (self.inlineRowDescriptor){
-        self.inlineRowDescriptor.value = sender.date;
-        [self.formViewController updateFormRow:self.inlineRowDescriptor];
-    }
-    else{
-        [self becomeFirstResponder];
-        self.rowDescriptor.value = sender.date;
-    }
 }
 
 #pragma mark - XLFormDescriptorCell
@@ -74,7 +59,6 @@
 -(void)update
 {
     [super update];
-    [self.datePicker setUserInteractionEnabled:![self.rowDescriptor isDisabled]];
 }
 
 

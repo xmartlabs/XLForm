@@ -102,12 +102,12 @@ NSString *const kSaturday = @"saturday";
     self.saturdayButton.selected = [[value objectForKey:kSaturday] boolValue];
     
     [self.sundayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
-    [self.mondayButton setAlpha:self.sundayButton.alpha];
-    [self.tuesdayButton setAlpha:self.sundayButton.alpha];
-    [self.wednesdayButton setAlpha:self.sundayButton.alpha];
-    [self.thursdayButton setAlpha:self.sundayButton.alpha];
-    [self.fridayButton setAlpha:self.sundayButton.alpha];
-    [self.saturdayButton setAlpha:self.sundayButton.alpha];
+    [self.mondayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.tuesdayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.wednesdayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.thursdayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.fridayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
+    [self.saturdayButton setAlpha:((self.rowDescriptor.isDisabled) ? .6 : 1)];
 }
 
 -(NSString *)getDayFormButton:(id)sender

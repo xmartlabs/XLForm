@@ -28,7 +28,6 @@
 extern NSString * const XLFormRowDescriptorTypeRate;
 
 @interface XLFormRatingCell : XLFormBaseCell
-
 @property (weak, nonatomic) IBOutlet UILabel *rateTitle;
 @property (weak, nonatomic) IBOutlet XLRatingView *ratingView;
 

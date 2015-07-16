@@ -3,7 +3,7 @@
 //  SwiftExample
 //
 //  Created by Martin Barreto on 3/10/15.
-//  Copyright (c) 2014-2015 Xmartlabs. All rights reserved.
+//  Copyright (c) 2015 Xmartlabs. All rights reserved.
 //
 
 import UIKit
@@ -15,21 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        // Declare custom rows
-        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeRate] =  "XLFormRatingCell"
-        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
-        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeWeekDays] = "XLFormWeekDaysCell"
-        
         // Override point for customization after application launch.
-        self.window = UIWindow.init(frame: UIScreen.mainScreen().bounds)
-        // Override point for customization after application launch.
-        self.window!.backgroundColor = UIColor.whiteColor()
-    
-        // load the initial form form Storybiard
-        let storyboard = UIStoryboard.init(name:"iPhoneStoryboard", bundle:nil)
-        self.window!.rootViewController = storyboard.instantiateInitialViewController() as? UIViewController
-        self.window!.makeKeyAndVisible()
         return true
     }
 
@@ -44,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state here you can undo many of the changes made on entering the background.
+        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

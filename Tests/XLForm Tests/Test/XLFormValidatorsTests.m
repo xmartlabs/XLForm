@@ -39,15 +39,18 @@
 
 -(void)buildForm
 {
-    XLFormDescriptor * form = [XLFormDescriptor formDescriptor];
-    XLFormSectionDescriptor * section = [XLFormSectionDescriptor formSection];
-    [form addFormSection:section];
+    self.formController = [[XLFormViewController alloc] init];
+    self.formController.form = [XLFormDescriptor formDescriptor];
     
-    XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:XLFormRowDescriptorTypeText rowType:XLFormRowDescriptorTypeText title:@"Title"];
+    XLFormSectionDescriptor * section = [XLFormSectionDescriptor formSection];
+    [self.formController.form addFormSection:section];
+    
+    XLFormRowDescriptor * row;
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:XLFormRowDescriptorTypeText rowType:XLFormRowDescriptorTypeText title:@"Required XLFormRowDescriptorTypeText"];
     row.required = YES;
     [section addFormRow:row];
     
-    self.formController.form = form;
 }
 
 @end

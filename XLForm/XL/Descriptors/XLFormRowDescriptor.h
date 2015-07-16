@@ -54,19 +54,16 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic) NSMutableDictionary *cellConfig;
 @property (nonatomic) NSMutableDictionary *cellConfigIfDisabled;
 @property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
-
-@property id disabled;
--(BOOL)isDisabled;
-@property id hidden;
--(BOOL)isHidden;
+@property (getter=isDisabled) BOOL disabled;
 @property (getter=isRequired) BOOL required;
 
 @property XLFormAction * action;
 
 @property (weak) XLFormSectionDescriptor * sectionDescriptor;
 
-+(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType;
-+(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
+-(id)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
++(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType;
++(id)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 
 -(XLFormBaseCell *)cellForFormController:(XLFormViewController *)formController;
 
@@ -118,7 +115,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @end
 
 
-@protocol XLFormOptionObject
+@protocol XLFormOptionObject <NSObject>
 
 @required
 
@@ -141,3 +138,4 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic, strong) Class formSegueClass;
 
 @end
+

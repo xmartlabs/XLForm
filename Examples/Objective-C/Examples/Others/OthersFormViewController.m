@@ -27,7 +27,7 @@
 #import "OthersFormViewController.h"
 
 NSString *const kSwitchBool = @"switchBool";
-NSString *const kSwitchCheck = @"switchCheck";
+NSString *const kSwitchCheck = @"switchBool";
 NSString *const kStepCounter = @"stepCounter";
 NSString *const kSlider = @"slider";
 NSString *const kSegmentedControl = @"segmentedControl";
@@ -44,7 +44,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
 @implementation OthersFormViewController
 
 
--(instancetype)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
     if (self) {
@@ -53,7 +53,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     return self;
 }
 
--(instancetype)init
+- (id)init
 {
     self = [super init];
     if (self){
@@ -120,14 +120,12 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     [buttonLeftAlignedRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
     [buttonLeftAlignedRow.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
     [buttonLeftAlignedRow.cellConfig setObject:@(UITableViewCellAccessoryDisclosureIndicator) forKey:@"accessoryType"];
-    
-    __typeof(self) __weak weakSelf = self;
     buttonLeftAlignedRow.action.formBlock = ^(XLFormRowDescriptor * sender){
         if ([[sender.sectionDescriptor.formDescriptor formRowWithTag:kSwitchBool].value boolValue]){
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil) message:@"Button has checked the switch value..." delegate:weakSelf cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil) message:@"Button has checked the switch value..." delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
             [alertView show];
         }
-        [weakSelf deselectFormRow:sender];
+        [self deselectFormRow:sender];
     };
     [section addFormRow:buttonLeftAlignedRow];
     

@@ -23,16 +23,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "XLFormDescriptor.h"
+#import "XLFormSectionDescriptor.h"
+
 #import <Foundation/Foundation.h>
 
 @class XLFormSectionDescriptor;
-
-typedef NS_ENUM(NSUInteger, XLPredicateType) {
-    XLPredicateTypeDisabled = 0,
-    XLPredicateTypeHidden
-};
-
 
 @protocol XLFormDescriptorDelegate <NSObject>
 
@@ -43,9 +38,5 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
--(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow
-                                   oldValue:(id)oldValue
-                                   newValue:(id)newValue
-                              predicateType:(XLPredicateType)predicateType;
 
 @end

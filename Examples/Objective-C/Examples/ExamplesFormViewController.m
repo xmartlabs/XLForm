@@ -33,14 +33,11 @@
 #import "UICustomizationFormViewController.h"
 #import "CustomRowsViewController.h"
 #import "AccessoryViewFormViewController.h"
-#import "PredicateFormViewController.h"
 
 NSString * const kTextFieldAndTextView = @"TextFieldAndTextView";
 NSString * const kSelectors = @"Selectors";
 NSString * const kOthes = @"Others";
 NSString * const kDates = @"Dates";
-NSString * const kPredicates = @"BasicPredicates";
-NSString * const kBlogExample = @"BlogPredicates";
 NSString * const kMultivalued = @"Multivalued";
 NSString * const kMultivaluedOnlyReorder = @"MultivaluedOnlyReorder";
 NSString * const kMultivaluedOnlyInsert = @"MultivaluedOnlyInsert";
@@ -109,7 +106,7 @@ NSString * const kValidations= @"Validations";
     [section addFormRow:row];
     
     // Dates
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDates rowType:XLFormRowDescriptorTypeButton title:@"Date & Time"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kDates rowType:XLFormRowDescriptorTypeButton title:@"Dates"];
     row.action.viewControllerClass = [DatesFormViewController class];
     [section addFormRow:row];
     
@@ -138,7 +135,9 @@ NSString * const kValidations= @"Validations";
     row.action.viewControllerClass = [MultivaluedOnlyDeleteViewController class];
     [section addFormRow:row];
     
-
+    
+    
+    
     section = [XLFormSectionDescriptor formSectionWithTitle:@"UI Customization"];
     [form addFormSection:section];
     
@@ -167,21 +166,6 @@ NSString * const kValidations= @"Validations";
     
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kValidations rowType:XLFormRowDescriptorTypeButton title:@"Validation Examples"];
     row.action.formSegueIdenfifier = @"ValidationExamplesFormViewControllerSegue";
-    [section addFormRow:row];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Using Predicates"];
-    [form addFormSection:section];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Very basic predicates"];
-    row.action.formSegueIdenfifier = @"BasicPredicateViewControllerSegue";
-    [section addFormRow:row];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Blog Example Hide predicates"];
-    row.action.formSegueIdenfifier = @"BlogExampleViewSegue";
-    [section addFormRow:row];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredicates rowType:XLFormRowDescriptorTypeButton title:@"Another example"];
-    row.action.formSegueIdenfifier = @"PredicateFormViewControllerSegue";
     [section addFormRow:row];
     
     self.form = form;

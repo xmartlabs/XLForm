@@ -23,15 +23,13 @@ What XLForm does
 
  * Loads a form based on a declarative [*form definition*](#how-to-create-a-form "form definition").
  * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](#dynamic-forms---how-to-change-the-form-dynamically-at-runtime "Dynamic Forms") section of this readme.
- * Supports multivalued sections allowing us to create, delete or reorder rows. For further details see [*Multivalued Sections*](#multivalued-sections-insert-delete-reorder-rows "Multivalued Sections") section bellow.
+ * Supports multivalued sections allowing us to create, delete or reorder rows. For further details see [*Multivalued Sections*](#multivalued-sections "Multivalued Sections") section bellow.
  * Supports [*custom rows definition*](#how-to-create-a-custom-row).
  * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
  * Provides several inline selectors such as date picker and picker inline selectors and brings a way to create custom inline selectors.
  * Form data validation based on form definition.
- * Ability to easily navigate among rows, fully customizable.
- * Ability to show inputAccessoryView if needed. By default a navigation input accessory view is shown.
+ * Ability to easily navigate among rows, fully customizable. * Ability to show inputAccessoryView if needed. By default a navigation input accessory view is shown.
  * Read only mode for a particular row or the entire form.
- * Rows can be hidden or shown depending on other rows values. This can be done declaratively using `NSPredicates`. (see [*Make a row or section invisible depending on other rows values*](#make-a-row-or-section-invisible-depending-on-other-rows-values "Using Predicates"))
 
 
 
@@ -242,9 +240,9 @@ This is the protocol declaration:
 ```
 
 
-####Date & Time Rows
+####Date Rows
 
-XLForms supports 3 types of dates: `Date`, `DateTime` , `Time` and `Countdown Timer` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
+XLForms supports 3 types of dates: `Date`, `DateTime` and `Time` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
 
 ![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/Dates/XLForm-Dates.gif)
 
@@ -262,10 +260,6 @@ static NSString *const XLFormRowDescriptorTypeTimeInline = @"timeInline";
 ```
 
 ```objc
-static NSString *const XLFormRowDescriptorTypeCountDownTimerInline = @"countDownTimerInline";
-```
-
-```objc
 static NSString *const XLFormRowDescriptorTypeDate = @"date";
 ```
 
@@ -277,13 +271,9 @@ static NSString *const XLFormRowDescriptorTypeDateTime = @"datetime";
 static NSString *const XLFormRowDescriptorTypeTime = @"time";
 ```
 
-```objc
-static NSString *const XLFormRowDescriptorTypeCountDownTimer = @"countDownTimer";
-```
-
 Here is an example of how to define these row types:
 
-**Objective C**
+
 ```objc
 XLFormDescriptor * form;
 XLFormSectionDescriptor * section;
@@ -308,13 +298,9 @@ row.value = [NSDate new];
 row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateTimeInline rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Date Time"];
 row.value = [NSDate new];
 [section addFormRow:row];
-
-// CountDownTimer
-row = [XLFormRowDescriptor formRowDescriptorWithTag:kCountDownTimerInline rowType:XLFormRowDescriptorTypeCountDownTimerInline title:@"Countdown Timer"];
-row.value = [NSDate new];
-[section addFormRow:row];
 ```
 
+<<<<<<< HEAD
 **Swift**
 ```Swift
 
@@ -347,8 +333,9 @@ row.value = NSDate()
 section.addFormRow(row)
 
 self.form = form;
+=======
+>>>>>>> parent of d18e3d1... Merge Conflict
 
-```
 ####Boolean Rows
 
 XLForms supports 2 types of boolean controls:
@@ -619,18 +606,16 @@ You can find the details of these examples within the example repository folder,
 Dynamic Forms - How to change the form dynamically at runtime
 -------------------------------
 
-Any change made on the `XLFormDescriptor` will be reflected on the `XLFormViewController` tableView. That means that when a section or a row is added or removed XLForm will animate the section or row accordingly.
+Any change made on the `XLFormDescriptor` will be reflected on the `XLFormViewController` tableView. That means that we can add or remove sections or rows at any time and XLForm will animate the section or row accordingly.
 
 We shouldn't have to deal with `NSIndexPaths` or add, remove `UITableViewCell` anymore. `NSIndexPath` of a specific `TableViewCell` changes along the time and this makes very hard to keep track of the `NSIndexPath` of each `UITableViewCell`.
 
 Each XLForm `XLFormRowDescriptor` row has a `tag` property that is set up in its constructor. `XLFormDescriptor` has, among other helpers, an specific one to get a `XLFormRowDescriptor` from a `tag`.
 It's much easier to manage `XLFormRowDescriptor`s using tags, the tag should be unique and it doesn't change on tableview additions modifications or deletions.
 
-It's important to keep in mind that all the `UITableView` form modifications have to be made using the descriptors and not making modifications directly on the `UITableView`.
+It's important keep in mind that all the `UITableView` form modifications have to be made using the descriptors and not making modifications directly on the `UITableView`.
 
-Usually you may want to change the form when some value change or some row or section is added or removed. For this you can set the `disabled` and `hidden` properties of the rows or sections. For more details see [*Make a row or section invisible depending on other rows values*](#make-a-row-or-section-invisible-depending-on-other-rows-values "Using Predicates").
-
-In order to stay in sync with the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
+Usually you may want to change the form when some value change or some row or section is added or removed. In order to keep posted about the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
 
 ```objc
 @protocol XLFormDescriptorDelegate <NSObject>
@@ -665,60 +650,6 @@ For instance if we want to show or hide a row depending on the value of another 
         }
     }
 ```
-
-Make a row or section invisible depending on other rows values
---------------------------------
-
-###Summary
-
-XLForm allows you to define dependencies between rows so that if the value of one row is changed, the behaviour of another one changes automatically. For example, you might have a form where you question the user if he/she has pets. If the answer is 'yes' you might want to ask how their names are.
-So you can make a row invisible and visible again based on the values of other rows. The same happens with sections.
-Take a look at the following example:
-
-![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateExamples/XLFormPredicatesBasic.gif)
-
-Of course, you could also do this manually by observing the value of some rows and deleting and adding rows accordingly, but that would be a lot of work which is already done.
-
-###How it works
-
-To make the appearance and disappearance of rows and sections automatic, there is a property in each descriptor:
-
-```objc
-@property id hidden;
-```
-
-This id object will normally be a NSPredicate or a NSNumber containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be sintactically correct.
-
-For example, you could set the following string to a row (`second`) to make it disappear when a previous row (`first`) contains the value "hide".
-
-```objc
-second.hidden = [NSString stringWithFormat:@"$%@ contains[c] 'hide'", first];
-```
-This will insert the tag of the `first` after the '$', you can do that manually as well, of course. When the predicate is evaluated every tag variable gets substituted by the corresponding row descriptor.
-
-When the argument is a NSString, a '.value' will be appended to every tag unless the tag is followed by '.isHidden' or '.isDisabled'. This means that a row (or section) might depend on the `value` or the `hidden` or `disabled` properties of another row. When the property is set with a NSPredicate directly, its formatString will not be altered (so you have to append a '.value' after each variable if you want to refer to its value). Setting a NSString is the simplest way but some complex predicates might not work so for those you should directly set a NSPredicate.
-
-You can also set this properties with a bool object which means the value of the property will not change unless manually set.
-
-To get the evaluated boolean value the `isHidden` method should be called. It will not re-evaluate the predicate each time it gets called but just when the value (or hidden/disabled status) of the rows it depends on changes. When this happens and the return value changes, it will automagically reflect that change on the form so that no other method must be called.
-
-Here is another example, this time a bit more complex:
-
-![Screenshot of hiding rows](Examples/Objective-C/Examples/PredicateExamples/XLFormPredicates.gif)
-
-
-Disabling rows (set to read-only mode)
---------------------------------
-
-Rows can be disabled so that the user can not change them. By default disabled rows have a gray text color. To disable a row the only thing that has to be done is setting its disabled property:
-
-```objc
-@property id disabled;
-```
-This property expects a NSNumber containing a BOOL, a NSString or a NSPredicate. A bool will statically disable (or enable the row). The other two work just like the hidden property explained in the section above. This means a row can be disabled and enabled depending on the values of other rows. When a NSString is set, a NSPredicate will be generated taking the string as format string so that it has to be consistent for that purpose.
-
-A difference to the hidden property is that checking the disabled status of a row does not automatically reflect that value on the form. Tharefore, the XLFormViewController's updateFormRow method should be called.
-
 
 Validations
 ------------------------------------
@@ -761,7 +692,7 @@ To get all rows validation errors we can invoke the following `XLFormViewControl
 Additional configuration of Rows
 --------------------------------
 
-`XLFormRowDescriptor` allow us to configure generic aspects of a `UITableViewCell`, for example: the `rowType`, the `label`, the `value` (default value), if the cell is `required`, `hidden` or `disabled`, and so on.
+`XLFormRowDescriptor` allow us to configure generic aspects of a `UITableViewCell`, for example: the `rowType`, the `label`, the `value` (default value), if the cell is `required` or `disabled`, and so on.
 
 You may want to set up another properties of the `UITableViewCell`. To set up another properties `XLForm` makes use of [Key-Value Coding](https://developer.apple.com/LIBRARY/IOS/documentation/Cocoa/Conceptual/KeyValueCoding/Articles/KeyValueCoding.html "Key-Value Coding") allowing the developer to set the cell properties by keyPath.
 
@@ -779,20 +710,10 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 
 Let's see how to change the color of the cell label:
 
-**Objective C**
-
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
 [row.cellConfigAtConfigure setObject:[UIColor red] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
-```
-
-**Swift**
-```Swift
-row = XLFormRowDescriptor(tag: "title", rowType: XLFormRowDescriptorTypeText, title: "title")
-row.cellConfig.setObject(UIColor.blackColor(), forKey: "backgroundColor")
-row.cellConfig.setObject(UIColor.whiteColor(), forKey: "textLabel.textColor")
-section.addFormRow(row)
 ```
 
 FAQ
@@ -841,7 +762,6 @@ You may be interested in the form values to use it as enpoint parameter. In this
 
 If you need something different, you can iterate over each row...
 
-**Objective C**
 ```objc
  NSMutableDictionary * result = [NSMutableDictionary dictionary];
  for (XLFormSectionDescriptor * section in self.form.formSections) {
@@ -865,35 +785,19 @@ If you need something different, you can iterate over each row...
  return result;
 ```
 
-**Swift**
-```Swift
-var results = [String:String]()
-if let fullName = form.formRowWithTag(tag.fullName).value as? String {
-    results[tag.fullName] = fullName
-}
-```
-
 #### How to change a UITableViewCell font
 
 You can change the font or any other table view cell property using the `cellConfig` dictionary property. XLForm will set up `cellConfig` dictionary values when the table view cell is about to be displayed.
 
-**Objective C**
 ```objc
 [row.cellConfig setObject:[UIColor greenColor] forKey:@"textLabel.textColor"];
 [row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"textLabel.font"];
 [row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"detailTextLabel.font"];
 ```
 
-**Swift**
-```Swift
-row.cellConfig.setObject(UIColor.whiteColor(), forKey: "self.tintColor")
-row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, forKey: "textLabel.font")
-row.cellConfig.setObject(UIColor.whiteColor(), forKey: "textField.textColor")
-row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, forKey: "textField.font")
-```
-
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
 
+<<<<<<< HEAD
 ####How to set min/max for date cells?
 
 Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a datetime row to be a value in the next three days you would do as follows:
@@ -909,11 +813,14 @@ Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a d
 row.cellConfig.setObject(NSDate(), forKey: "maximumDate")
 ```
 
+=======
+>>>>>>> parent of d18e3d1... Merge Conflict
 ####How to disable the entire form (read only mode).
 
-`disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ).
+`disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ). 
 Any other row added after form `disable` property is set to `YES` will reflect the disable mode automatically (no need to reload table view).
 
+<<<<<<< HEAD
 ####How to hide a row or section when another rows value changes.
 
 To hide a row or section you should set its hidden property. The easiest way of doing this is by setting a NSString to it. Let's say you want a section to hide if a previous row, which is a boolean switch, is set to 1 (or YES). Then you would do something like this:
@@ -940,6 +847,8 @@ Overriding `inputAccessoryViewForRowDescriptor:` `XLFormViewController` method.
 }
 ```
 
+=======
+>>>>>>> parent of d18e3d1... Merge Conflict
 
 Installation
 --------------------------
@@ -947,7 +856,7 @@ Installation
 The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 3.0.0'`.
+`pod 'XLForm', '~> 2.1.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
@@ -964,11 +873,9 @@ To use xmartlabs master branch.....
 
 You can replace the repository URL for your forked version url if you wish.
 
-### How to use XLForm in Swift files
+### How to use XLForm from Swift project
 
-If you have installed XLForm with cocoapods and have set `use_frameworks!` in your Podfile, you can add `import XLForm` to any Swift file.
-
-If you are using cocoapods but have not set `use_frameworks!` in your Podfile, add `#import <XLForm/XLForm.h>` to your bridging header file.
+Install XLForm using cocoapods and add `#import <XLForm/XLForm.h>` to your bridging header file.
 
 For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift").
 
@@ -982,16 +889,7 @@ Requirements
 Release Notes
 --------------
 
-Version 3.0.0 (master)
-
-* `hidden`, `disable` properties added to `XLFormRowDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide, disable de row.
-* `hidden` property added to `XLFormSectionDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide the section.
-* Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
-* Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
-
-* Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
-* Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
-
+Version 2.2.1 (master)
 
 Version 2.2.0
 

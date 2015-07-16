@@ -12,12 +12,9 @@
 #import "Expecta.h"
 
 #import <XLForm/XLForm.h>
-#import <XLForm/NSString+XLFormAdditions.h>
 
 @interface XLTestCase : XCTestCase
 
 @property (nonatomic, strong) XLFormViewController * formController;
-
--(void)buildForm;
 
 @end

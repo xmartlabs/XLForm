@@ -66,7 +66,6 @@
     [container addSubview:currentStepValue];
     
     self.accessoryView = container;
-    self.editingAccessoryView = container;
 }
  
 - (void)update
