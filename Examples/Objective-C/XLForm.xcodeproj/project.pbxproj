@@ -27,13 +27,6 @@
 		28815E2E1A8589F600B674D2 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28815E2D1A8589F600B674D2 /* MapViewController.xib */; };
 		28A7661F193248BD00D69546 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A7661E193248BD00D69546 /* CoreData.framework */; };
 		28A76625193251E500D69546 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A76624193251E500D69546 /* AppDelegate.m */; };
-		28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A7662D1932E98A00D69546 /* HTTPSessionManager.m */; };
-		28A7663B1932EA1F00D69546 /* UserLocalDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766361932EA1F00D69546 /* UserLocalDataLoader.m */; };
-		28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766381932EA1F00D69546 /* UserRemoteDataLoader.m */; };
-		28A766451932EC9C00D69546 /* CoreDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766401932EC9C00D69546 /* CoreDataStore.m */; };
-		28A766461932EC9C00D69546 /* User+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766421932EC9C00D69546 /* User+Additions.m */; };
-		28A7664A1932ED3400D69546 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 28A766481932ED3400D69546 /* Model.xcdatamodeld */; };
-		28A7664D1932EE0B00D69546 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A7664C1932EE0B00D69546 /* User.m */; };
 		28A766551932F22400D69546 /* UsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A766541932F22400D69546 /* UsersTableViewController.m */; };
 		28A7665E1932F61100D69546 /* DynamicSelectorsFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A7665D1932F61100D69546 /* DynamicSelectorsFormViewController.m */; };
 		28A8083E190D9083009D77F8 /* iPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A8083D190D9083009D77F8 /* iPhoneStoryboard.storyboard */; };
@@ -54,6 +47,7 @@
 		BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9DB1D41AE0436600B985E7 /* PredicateFormViewController.m */; };
 		BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
+		DEA6EF911B57D6CC000F4893 /* HTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA6EF901B57D6CC000F4893 /* HTTPSessionManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,19 +86,6 @@
 		28815E2D1A8589F600B674D2 /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapViewController.xib; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/MapViewController.xib; sourceTree = "<group>"; };
 		28A7661E193248BD00D69546 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		28A76624193251E500D69546 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Examples/AppDelegate.m; sourceTree = "<group>"; };
-		28A7662C1932E98A00D69546 /* HTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPSessionManager.h; path = Examples/Selectors/Helpers/HTTPSessionManager.h; sourceTree = "<group>"; };
-		28A7662D1932E98A00D69546 /* HTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPSessionManager.m; path = Examples/Selectors/Helpers/HTTPSessionManager.m; sourceTree = "<group>"; };
-		28A766351932EA1F00D69546 /* UserLocalDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLocalDataLoader.h; sourceTree = "<group>"; };
-		28A766361932EA1F00D69546 /* UserLocalDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserLocalDataLoader.m; sourceTree = "<group>"; };
-		28A766371932EA1F00D69546 /* UserRemoteDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserRemoteDataLoader.h; sourceTree = "<group>"; };
-		28A766381932EA1F00D69546 /* UserRemoteDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserRemoteDataLoader.m; sourceTree = "<group>"; };
-		28A7663F1932EC9C00D69546 /* CoreDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataStore.h; sourceTree = "<group>"; };
-		28A766401932EC9C00D69546 /* CoreDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataStore.m; sourceTree = "<group>"; };
-		28A766411932EC9C00D69546 /* User+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+Additions.h"; sourceTree = "<group>"; };
-		28A766421932EC9C00D69546 /* User+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+Additions.m"; sourceTree = "<group>"; };
-		28A766491932ED3400D69546 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		28A7664B1932EE0B00D69546 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		28A7664C1932EE0B00D69546 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		28A766531932F22400D69546 /* UsersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UsersTableViewController.h; path = Examples/Selectors/DynamicSelector/UsersTableViewController.h; sourceTree = "<group>"; };
 		28A766541932F22400D69546 /* UsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersTableViewController.m; path = Examples/Selectors/DynamicSelector/UsersTableViewController.m; sourceTree = "<group>"; };
 		28A7665C1932F61100D69546 /* DynamicSelectorsFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicSelectorsFormViewController.h; path = Examples/Selectors/DynamicSelector/DynamicSelectorsFormViewController.h; sourceTree = "<group>"; };
@@ -141,6 +122,8 @@
 		BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicPredicateViewController.m; path = Examples/PredicateExamples/BasicPredicateViewController.m; sourceTree = SOURCE_ROOT; };
 		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/CustomCells/XLFormCustomCell.h; sourceTree = "<group>"; };
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
+		DEA6EF8F1B57D6CC000F4893 /* HTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPSessionManager.h; path = Examples/Selectors/HTTPSessionManager.h; sourceTree = "<group>"; };
+		DEA6EF901B57D6CC000F4893 /* HTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPSessionManager.m; path = Examples/Selectors/HTTPSessionManager.m; sourceTree = "<group>"; };
 		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -223,7 +206,6 @@
 			children = (
 				283B59AF19531DDA000828CD /* CustomSelectors */,
 				28A766521932F1FA00D69546 /* DynamicSelector */,
-				28A7662B1932E92D00D69546 /* Helpers */,
 				2843EB4918D496F600F13E2B /* SelectorsFormViewController.h */,
 				2843EB4A18D496F600F13E2B /* SelectorsFormViewController.m */,
 			);
@@ -355,55 +337,10 @@
 			name = CustomCells;
 			sourceTree = "<group>";
 		};
-		28A7662B1932E92D00D69546 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				28A7663D1932EC9C00D69546 /* Data */,
-				28A766301932EA1F00D69546 /* DataLoaders */,
-				28A7662C1932E98A00D69546 /* HTTPSessionManager.h */,
-				28A7662D1932E98A00D69546 /* HTTPSessionManager.m */,
-			);
-			name = Helpers;
-			sourceTree = "<group>";
-		};
-		28A766301932EA1F00D69546 /* DataLoaders */ = {
-			isa = PBXGroup;
-			children = (
-				28A766351932EA1F00D69546 /* UserLocalDataLoader.h */,
-				28A766361932EA1F00D69546 /* UserLocalDataLoader.m */,
-				28A766371932EA1F00D69546 /* UserRemoteDataLoader.h */,
-				28A766381932EA1F00D69546 /* UserRemoteDataLoader.m */,
-			);
-			name = DataLoaders;
-			path = Examples/Selectors/Helpers/DataLoaders;
-			sourceTree = "<group>";
-		};
-		28A7663D1932EC9C00D69546 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				28A7663E1932EC9C00D69546 /* Store */,
-				28A766411932EC9C00D69546 /* User+Additions.h */,
-				28A766421932EC9C00D69546 /* User+Additions.m */,
-				28A766481932ED3400D69546 /* Model.xcdatamodeld */,
-				28A7664B1932EE0B00D69546 /* User.h */,
-				28A7664C1932EE0B00D69546 /* User.m */,
-			);
-			name = Data;
-			path = Examples/Selectors/Helpers/Data;
-			sourceTree = "<group>";
-		};
-		28A7663E1932EC9C00D69546 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				28A7663F1932EC9C00D69546 /* CoreDataStore.h */,
-				28A766401932EC9C00D69546 /* CoreDataStore.m */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
 		28A766521932F1FA00D69546 /* DynamicSelector */ = {
 			isa = PBXGroup;
 			children = (
+				DEA6EF8E1B57D698000F4893 /* SessionManager */,
 				28A7665A1932F55700D69546 /* XLFormRowViewController */,
 				28A7665C1932F61100D69546 /* DynamicSelectorsFormViewController.h */,
 				28A7665D1932F61100D69546 /* DynamicSelectorsFormViewController.m */,
@@ -500,6 +437,15 @@
 			);
 			name = PredicateExamples;
 			path = Examples/PredicateDisabling;
+			sourceTree = "<group>";
+		};
+		DEA6EF8E1B57D698000F4893 /* SessionManager */ = {
+			isa = PBXGroup;
+			children = (
+				DEA6EF8F1B57D6CC000F4893 /* HTTPSessionManager.h */,
+				DEA6EF901B57D6CC000F4893 /* HTTPSessionManager.m */,
+			);
+			name = SessionManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -608,15 +554,12 @@
 				283B59B7195334AF000828CD /* CustomSelectorsFormViewController.m in Sources */,
 				28A766551932F22400D69546 /* UsersTableViewController.m in Sources */,
 				3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */,
-				28A7663B1932EA1F00D69546 /* UserLocalDataLoader.m in Sources */,
+				DEA6EF911B57D6CC000F4893 /* HTTPSessionManager.m in Sources */,
 				282EB27C1AB5FF33004A736F /* AccessoryViewFormViewController.m in Sources */,
 				BF9DB1D51AE0436600B985E7 /* BlogExampleViewController.m in Sources */,
 				2850C60818D0F706002B7D0A /* main.m in Sources */,
 				D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */,
-				28A7664D1932EE0B00D69546 /* User.m in Sources */,
-				28A7664A1932ED3400D69546 /* Model.xcdatamodeld in Sources */,
 				3C3B01F01AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m in Sources */,
-				28A766461932EC9C00D69546 /* User+Additions.m in Sources */,
 				28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */,
 				28A85D5918E346C100E81A26 /* XLFormImageSelectorCell.m in Sources */,
 				28468E9818EC686500DBB015 /* NativeEventFormViewController.m in Sources */,
@@ -629,12 +572,9 @@
 				2843EB5618D4F7B700F13E2B /* DatesFormViewController.m in Sources */,
 				283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */,
 				3C3B01E21AB7499A0027CD45 /* XLRatingView.m in Sources */,
-				28A7662E1932E98A00D69546 /* HTTPSessionManager.m in Sources */,
 				283B59B219532415000828CD /* MapViewController.m in Sources */,
 				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,
-				28A766451932EC9C00D69546 /* CoreDataStore.m in Sources */,
 				BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */,
-				28A7663C1932EA1F00D69546 /* UserRemoteDataLoader.m in Sources */,
 				BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */,
 				2843EB5218D4CFC700F13E2B /* OthersFormViewController.m in Sources */,
 				2843EB4B18D496F600F13E2B /* SelectorsFormViewController.m in Sources */,
@@ -789,19 +729,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		28A766481932ED3400D69546 /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				28A766491932ED3400D69546 /* Model.xcdatamodel */,
-			);
-			currentVersion = 28A766491932ED3400D69546 /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 2850C5F018D0F706002B7D0A /* Project object */;
 }

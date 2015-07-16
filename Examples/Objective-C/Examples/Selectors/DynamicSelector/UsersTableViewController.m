@@ -24,9 +24,7 @@
 // THE SOFTWARE.
 
 #import "UsersTableViewController.h"
-#import "UserLocalDataLoader.h"
-#import "UserRemoteDataLoader.h"
-#import "User+Additions.h"
+#import "HTTPSessionManager.h"
 
 // AFNetworking
 #import <AFNetworking/UIImageView+AFNetworking.h>
@@ -110,6 +108,7 @@
                                                                         options:0
                                                                         metrics:metrics
                                                                           views:views]];
+    
     return result;
 }
 
@@ -117,56 +116,64 @@
 @end
 
 
-@interface UsersTableViewController ()
+@interface UsersTableViewController () <UISearchControllerDelegate>
+
+@property (nonatomic, readonly) UsersTableViewController * searchResultController;
+@property (nonatomic, readonly) UISearchController * searchController;
 
 @end
 
 @implementation UsersTableViewController
-
 @synthesize rowDescriptor = _rowDescriptor;
-@synthesize popoverController = __popoverController;
+@synthesize searchController = _searchController;
+@synthesize searchResultController = _searchResultController;
 
 static NSString *const kCellIdentifier = @"CellIdentifier";
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if(self)
+    {
         [self initialize];
     }
+    
     return self;
 }
 
--(void)initialize
+- (void)initialize
 {
-    // Enable the pagination
-    self.loadingPagingEnabled = YES;
-    
-    // Support Search Controller
-    self.supportSearchController = YES;
-    
-    [self setLocalDataLoader:[[UserLocalDataLoader alloc] init]];
-    [self setRemoteDataLoader:[[UserRemoteDataLoader alloc] init]];
-    
-    // Search
-    [self setSearchLocalDataLoader:[[UserLocalDataLoader alloc] init]];
-    [self setSearchRemoteDataLoader:[[UserRemoteDataLoader alloc] init]];
+    self.dataLoader =  [[XLDataLoader alloc] initWithDelegate:self URLString:@"/mobile/users.json" offsetParamName:@"offset" limitParamName:@"limit" searchStringParamName:@"filter"];
+    self.dataLoader.limit = 4;
+    self.dataLoader.collectionKeyPath = @"";
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
-    // SearchBar
-    self.tableView.tableHeaderView = self.searchDisplayController.searchBar;
-    
-    // register cells
-    [self.searchDisplayController.searchResultsTableView registerClass:[UserCell class] forCellReuseIdentifier:kCellIdentifier];
     [self.tableView registerClass:[UserCell class] forCellReuseIdentifier:kCellIdentifier];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.allowsSelection = NO;
+    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [self customizeAppearance];
+    if (!self.isSearchResultsController)
+    {
+        self.tableView.tableHeaderView = self.searchController.searchBar;
+    }
+    NSInteger space = !self.isSearchResultsController ? 0 : 44;
+    
+    NSMutableArray *constraints = [NSMutableArray new];
+    
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[top]-space-[tableview]|" options:0 metrics:@{@"space":@(space)} views:@{@"top":self.topLayoutGuide, @"tableview":self.tableView}]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tableview]|" options:0 metrics:nil views:@{@"tableview":self.tableView}]];
+    
+    [self.view addConstraints:constraints];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.searchController.searchBar sizeToFit];
 }
 
 #pragma mark - UITableViewDataSource
@@ -174,72 +181,51 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UserCell *cell = (UserCell *) [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];;
     
-    User * user = nil;
-    if (tableView == self.tableView){
-        user = (User *)[self.localDataLoader objectAtIndexPath:indexPath];
-    }
-    else{
-        user = (User *)[self.searchLocalDataLoader objectAtIndexPath:indexPath];
-    }
+    NSDictionary *dataItem = [self.dataStore dataAtIndexPath:indexPath];
     
-    cell.userName.text = user.userName;
-    NSMutableURLRequest* imageRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:user.userImageURL]];
-    [imageRequest setValue:@"image/*" forHTTPHeaderField:@"Accept"];
-    __typeof__(cell) __weak weakCell = cell;
-    [cell.userImage setImageWithURLRequest: imageRequest
-                          placeholderImage:[User defaultProfileImage]
-                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       if (image) {
-                                           [weakCell.userImage setImage:image];
-                                       }
-                                   }
-                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                   }];
-    cell.accessoryType = [[self.rowDescriptor.value formValue] isEqual:user.userId] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.userName.text = [dataItem valueForKeyPath:@"user.name"];
+    
+    [cell.userImage setImageWithURL:[NSURL URLWithString:[dataItem valueForKeyPath:@"user.imageURL"]] placeholderImage:[UIImage imageNamed:@"default-avatar"]];
     return cell;
 }
+
+#pragma mark - UITableViewDelegate
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 73.0f;
 }
 
+#pragma mark - XLDataLoaderDelegate
 
-#pragma mark - UITableViewDelegate
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(AFHTTPSessionManager *)sessionManagerForDataLoader:(XLDataLoader *)dataLoader
 {
-    User * user = nil;
-    if (tableView == self.tableView){
-        user = (User *)[self.localDataLoader objectAtIndexPath:indexPath];
-    }
-    else{
-        user = (User *)[self.searchLocalDataLoader objectAtIndexPath:indexPath];
-    }
-    self.rowDescriptor.value = user;
+    return [HTTPSessionManager sharedClient];
+}
+
+#pragma mark - UISearchController
+
+-(UISearchController *)searchController
+{
+    if (_searchController) return _searchController;
     
-    if (self.popoverController){
-        [self.popoverController dismissPopoverAnimated:YES];
-        [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
-    }
-    else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    self.definesPresentationContext = YES;
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:self.searchResultController];
+    _searchController.delegate = self;
+    _searchController.searchResultsUpdater = self.searchResultController;
+    _searchController.searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [_searchController.searchBar sizeToFit];
+    return _searchController;
 }
 
 
-#pragma mark - Helpers
-
--(void)customizeAppearance
+-(UsersTableViewController *)searchResultController
 {
-    [[self navigationItem] setTitle:@"Select a User"];
-    
-    [self.tableView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
-    
-    [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
-    [self.searchDisplayController.searchResultsTableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    if (_searchResultController) return _searchResultController;
+    _searchResultController = [[UsersTableViewController alloc]init];
+    _searchResultController.dataLoader.limit = 0; // no paging in search result
+    _searchResultController.isSearchResultsController = YES;
+    return _searchResultController;
 }
-
 
 @end
