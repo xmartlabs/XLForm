@@ -26,7 +26,7 @@
 #import "XLFormRowDescriptor.h"
 #import "XLRemoteDataStoreController.h"
 
-@interface UsersTableViewController : XLRemoteDataStoreController <XLFormRowDescriptorViewController>
+@interface UsersTableViewController : XLRemoteDataStoreController <XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController>
 
 @property BOOL isSearchResultsController;
 @property NSLayoutConstraint *topConstraint;

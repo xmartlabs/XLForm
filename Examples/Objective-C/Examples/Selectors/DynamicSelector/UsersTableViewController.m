@@ -63,7 +63,6 @@
     // Configure the view for the selected state
 }
 
-
 #pragma mark - Views
 
 -(UIImageView *)userImage
@@ -125,10 +124,21 @@
 
 @implementation UsersTableViewController
 @synthesize rowDescriptor = _rowDescriptor;
+@synthesize popoverController = __popoverController;
 @synthesize searchController = _searchController;
 @synthesize searchResultController = _searchResultController;
 
 static NSString *const kCellIdentifier = @"CellIdentifier";
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -143,31 +153,25 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 
 - (void)initialize
 {
-    self.dataLoader =  [[XLDataLoader alloc] initWithDelegate:self URLString:@"/mobile/users.json" offsetParamName:@"offset" limitParamName:@"limit" searchStringParamName:@"filter"];
+    self.dataLoader =  [[XLDataLoader alloc] initWithURLString:@"/mobile/users.json" offsetParamName:@"offset" limitParamName:@"limit" searchStringParamName:@"filter"];
+    self.dataLoader.delegate = self;
+    self.dataLoader.storeDelegate = self;
     self.dataLoader.limit = 4;
     self.dataLoader.collectionKeyPath = @"";
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self.tableView registerClass:[UserCell class] forCellReuseIdentifier:kCellIdentifier];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.tableView.allowsSelection = NO;
-    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    if (!self.isSearchResultsController)
-    {
+    if (!self.isSearchResultsController){
         self.tableView.tableHeaderView = self.searchController.searchBar;
     }
-    NSInteger space = !self.isSearchResultsController ? 0 : 44;
-    
-    NSMutableArray *constraints = [NSMutableArray new];
-    
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[top]-space-[tableview]|" options:0 metrics:@{@"space":@(space)} views:@{@"top":self.topLayoutGuide, @"tableview":self.tableView}]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[tableview]|" options:0 metrics:nil views:@{@"tableview":self.tableView}]];
-    
-    [self.view addConstraints:constraints];
+    else{
+        [self.tableView setContentInset:UIEdgeInsetsMake(64, 0, 0, 0)];
+        [self.tableView setScrollIndicatorInsets:self.tableView.contentInset];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -184,8 +188,10 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
     NSDictionary *dataItem = [self.dataStore dataAtIndexPath:indexPath];
     
     cell.userName.text = [dataItem valueForKeyPath:@"user.name"];
-    
     [cell.userImage setImageWithURL:[NSURL URLWithString:[dataItem valueForKeyPath:@"user.imageURL"]] placeholderImage:[UIImage imageNamed:@"default-avatar"]];
+    
+    cell.accessoryType = [[self.rowDescriptor.value valueForKeyPath:@"user.id"] isEqual:[dataItem valueForKeyPath:@"user.id"]] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    
     return cell;
 }
 
@@ -194,6 +200,21 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 73.0f;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *dataItem = [self.dataStore dataAtIndexPath:indexPath];
+    
+    self.rowDescriptor.value = dataItem;
+    
+    if (self.popoverController){
+        [self.popoverController dismissPopoverAnimated:YES];
+        [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
+    }
+    else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - XLDataLoaderDelegate

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="p4n-1v-pzo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="p4n-1v-pzo">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -256,7 +256,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eqB-vl-BzH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="588" y="-635"/>
+            <point key="canvasLocation" x="586" y="-654"/>
         </scene>
         <!--Basic Predicate View Controller-->
         <scene sceneID="pD4-sm-x3a">
@@ -278,8 +278,47 @@
             </objects>
             <point key="canvasLocation" x="-159" y="1151"/>
         </scene>
+        <!--Users Table View Controller-->
+        <scene sceneID="lGi-0L-kUk">
+            <objects>
+                <viewController storyboardIdentifier="UsersTableViewController" automaticallyAdjustsScrollViewInsets="NO" definesPresentationContext="YES" modalPresentationStyle="currentContext" id="MON-q2-1DB" customClass="UsersTableViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="at2-Ds-EcY"/>
+                        <viewControllerLayoutGuide type="bottom" id="uVG-bI-IMr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sMH-hT-NCg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="fLo-Gu-rqr">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="uVG-bI-IMr" firstAttribute="top" secondItem="fLo-Gu-rqr" secondAttribute="bottom" id="25A-HG-wek"/>
+                            <constraint firstItem="fLo-Gu-rqr" firstAttribute="top" secondItem="at2-Ds-EcY" secondAttribute="bottom" id="3N4-a2-LLf"/>
+                            <constraint firstAttribute="trailing" secondItem="fLo-Gu-rqr" secondAttribute="trailing" id="IXV-p6-sAw"/>
+                            <constraint firstItem="fLo-Gu-rqr" firstAttribute="leading" secondItem="sMH-hT-NCg" secondAttribute="leading" id="Xjr-w6-wlu"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="LIq-iZ-ILx"/>
+                    <connections>
+                        <outlet property="tableView" destination="fLo-Gu-rqr" id="2ES-0n-eVG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="flB-2M-8zS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1346" y="1178"/>
+        </scene>
     </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="wAD-tS-AFZ"/>
+        <segue reference="Mtw-x2-E0b"/>
     </inferredMetricsTieBreakers>
 </document>
