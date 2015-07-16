@@ -325,27 +325,27 @@ static let time = "time"
 var form : XLFormDescriptor
 var section : XLFormSectionDescriptor
 var row : XLFormRowDescriptor
-        
+
 form = XLFormDescriptor(title: "Dates") as XLFormDescriptor
-        
+
 section = XLFormSectionDescriptor.formSectionWithTitle("Inline Dates") as XLFormSectionDescriptor
 form.addFormSection(section)
-        
+
 // Date
 row = XLFormRowDescriptor(tag: tag.date, rowType: XLFormRowDescriptorTypeDateInline, title:"Date")
 row.value = NSDate()
 section.addFormRow(row)
-        
+
 // Time
 row = XLFormRowDescriptor(tag: tag.time, rowType: XLFormRowDescriptorTypeTimeInline, title: "Time")
 row.value = NSDate()
 section.addFormRow(row)
-        
+
 // DateTime
 row = XLFormRowDescriptor(tag: tag.dateTime, rowType: XLFormRowDescriptorTypeDateTimeInline, title: "Date Time")
 row.value = NSDate()
 section.addFormRow(row)
-        
+
 self.form = form;
 
 ```
@@ -902,12 +902,12 @@ Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a d
 ```objc
 [row.cellConfigAtConfigure setObject:[NSDate new] forKey:@"minimumDate"];
 [row.cellConfigAtConfigure setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
-``` 
+```
 
 **Swift**
 ```Swift
 row.cellConfig.setObject(NSDate(), forKey: "maximumDate")
-```         
+```
 
 ####How to disable the entire form (read only mode).
 
@@ -927,6 +927,17 @@ That is all!
 The only thing that is not compatible with older versions is that the `disabled` property of the `XLFormRowDescriptor` is an `id` now. So you just have to add `@` before the values you set to it like this:
 ```objc
 row.disabled = @YES; // before: row.disabled = YES;
+```
+
+##### How to disable input accessory view (navigation view)
+
+Overriding `inputAccessoryViewForRowDescriptor:` `XLFormViewController` method.
+
+```obj-c
+- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor {
+      return nil;
+      // You can use the rowDescriptor parameter to hide/customize the accessory view for a particular rowDescriptor type.
+}
 ```
 
 
