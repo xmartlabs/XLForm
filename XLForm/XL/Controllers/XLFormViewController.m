@@ -874,13 +874,10 @@
     [self.tableView endEditing:YES];
     _form = form;
     _form.delegate = self;
-<<<<<<< HEAD
     [_form forceEvaluate];
     if ([self isViewLoaded]){
         [self.tableView reloadData];
     }
-=======
->>>>>>> parent of d18e3d1... Merge Conflict
 }
 
 -(XLFormDescriptor *)form
