@@ -300,42 +300,6 @@ row.value = [NSDate new];
 [section addFormRow:row];
 ```
 
-<<<<<<< HEAD
-**Swift**
-```Swift
-
-static let dateTime = "dateTime"
-static let date = "date"
-static let time = "time"
-
-var form : XLFormDescriptor
-var section : XLFormSectionDescriptor
-var row : XLFormRowDescriptor
-
-form = XLFormDescriptor(title: "Dates") as XLFormDescriptor
-
-section = XLFormSectionDescriptor.formSectionWithTitle("Inline Dates") as XLFormSectionDescriptor
-form.addFormSection(section)
-
-// Date
-row = XLFormRowDescriptor(tag: tag.date, rowType: XLFormRowDescriptorTypeDateInline, title:"Date")
-row.value = NSDate()
-section.addFormRow(row)
-
-// Time
-row = XLFormRowDescriptor(tag: tag.time, rowType: XLFormRowDescriptorTypeTimeInline, title: "Time")
-row.value = NSDate()
-section.addFormRow(row)
-
-// DateTime
-row = XLFormRowDescriptor(tag: tag.dateTime, rowType: XLFormRowDescriptorTypeDateTimeInline, title: "Date Time")
-row.value = NSDate()
-section.addFormRow(row)
-
-self.form = form;
-=======
->>>>>>> parent of d18e3d1... Merge Conflict
-
 ####Boolean Rows
 
 XLForms supports 2 types of boolean controls:
@@ -797,58 +761,11 @@ You can change the font or any other table view cell property using the `cellCon
 
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
 
-<<<<<<< HEAD
-####How to set min/max for date cells?
-
-Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a datetime row to be a value in the next three days you would do as follows:
-
-**Objective C**
-```objc
-[row.cellConfigAtConfigure setObject:[NSDate new] forKey:@"minimumDate"];
-[row.cellConfigAtConfigure setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
-```
-
-**Swift**
-```Swift
-row.cellConfig.setObject(NSDate(), forKey: "maximumDate")
-```
-
-=======
->>>>>>> parent of d18e3d1... Merge Conflict
 ####How to disable the entire form (read only mode).
 
 `disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ). 
 Any other row added after form `disable` property is set to `YES` will reflect the disable mode automatically (no need to reload table view).
 
-<<<<<<< HEAD
-####How to hide a row or section when another rows value changes.
-
-To hide a row or section you should set its hidden property. The easiest way of doing this is by setting a NSString to it. Let's say you want a section to hide if a previous row, which is a boolean switch, is set to 1 (or YES). Then you would do something like this:
-```objc
-section.hidden = [NSString stringWithFormat:@"$%@ == 1", previousRow];
-```
-That is all!
-
-####What do I have to do to migrate from version 2.2.0 to 3.0.0?
-
-The only thing that is not compatible with older versions is that the `disabled` property of the `XLFormRowDescriptor` is an `id` now. So you just have to add `@` before the values you set to it like this:
-```objc
-row.disabled = @YES; // before: row.disabled = YES;
-```
-
-##### How to disable input accessory view (navigation view)
-
-Overriding `inputAccessoryViewForRowDescriptor:` `XLFormViewController` method.
-
-```obj-c
-- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor {
-      return nil;
-      // You can use the rowDescriptor parameter to hide/customize the accessory view for a particular rowDescriptor type.
-}
-```
-
-=======
->>>>>>> parent of d18e3d1... Merge Conflict
 
 Installation
 --------------------------
