@@ -44,7 +44,7 @@
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDate] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTime] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTime] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimer]){
         if (self.rowDescriptor.value){
-            [self.datePicker setDate:self.rowDescriptor.value];
+            [self.datePicker setDate:self.rowDescriptor.value animated:[self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimer]];
         }
         [self setModeToDatePicker:self.datePicker];
         return self.datePicker;
@@ -70,8 +70,8 @@
             XLFormRowDescriptor * datePickerRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeDatePicker];
             XLFormDatePickerCell * datePickerCell = (XLFormDatePickerCell *)[datePickerRowDescriptor cellForFormController:self.formViewController];
             [self setModeToDatePicker:datePickerCell.datePicker];
-            if (self.rowDescriptor.value){
-                [datePickerCell.datePicker setDate:self.rowDescriptor.value];
+            if (self.rowDescriptor.value){                
+                [datePickerCell.datePicker setDate:self.rowDescriptor.value animated:[self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimerInline]];
             }
             NSAssert([datePickerCell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)], @"inline cell must conform to XLFormInlineRowDescriptorCell");
             UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)datePickerCell;

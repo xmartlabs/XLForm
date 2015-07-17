@@ -61,12 +61,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @implementation XLFormDescriptor
 
--(id)init
+-(instancetype)init
 {
     return [self initWithTitle:nil];
 }
 
--(id)initWithTitle:(NSString *)title;
+-(instancetype)initWithTitle:(NSString *)title;
 {
     self = [super init];
     if (self){
@@ -83,14 +83,14 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     return self;
 }
 
-+(id)formDescriptor
++(instancetype)formDescriptor
 {
-    return [self formDescriptorWithTitle:nil];
+    return [[self class] formDescriptorWithTitle:nil];
 }
 
-+(id)formDescriptorWithTitle:(NSString *)title
++(instancetype)formDescriptorWithTitle:(NSString *)title
 {
-    return [[XLFormDescriptor alloc] initWithTitle:title];
+    return [[[self class] alloc] initWithTitle:title];
 }
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection
@@ -463,10 +463,6 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 - (void)removeObjectFromAllSectionsAtIndex:(NSUInteger)index {
     XLFormSectionDescriptor* section = [self.allSections objectAtIndex:index];
-    @try {
-        [section removeObserver:self forKeyPath:@"formRows"];
-    }
-    @catch (NSException * __unused exception) {}
     [section.allRows enumerateObjectsUsingBlock:^(id obj, NSUInteger __unused idx, BOOL *stop) {
         XLFormRowDescriptor * row = (id)obj;
         [self removeObserversOfObject:row predicateType:XLPredicateTypeDisabled];
@@ -573,7 +569,9 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 -(void)removeRowFromTagCollection:(XLFormRowDescriptor *)rowDescriptor
 {
-    [self.allRowsByTag removeObjectForKey:rowDescriptor];
+    if (rowDescriptor.tag){
+        [self.allRowsByTag removeObjectForKey:rowDescriptor.tag];
+    }
 }
 
 
@@ -633,11 +631,9 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
                 descriptor = ((XLFormRowDescriptor*)sectionOrRow).tag;
                 predicate = ((XLFormRowDescriptor*)sectionOrRow).disabled;
             }
-            else return;
-            
             break;
     }
-    if ([predicate isKindOfClass:[NSPredicate class] ]) {
+    if (descriptor && [predicate isKindOfClass:[NSPredicate class] ]) {
         NSMutableArray* tags = [predicate getPredicateVars];
         for (NSString* tag in tags) {
             NSString* auxTag = [tag formKeyForPredicateType:predicateType];

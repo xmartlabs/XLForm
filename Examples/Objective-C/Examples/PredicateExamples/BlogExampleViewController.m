@@ -31,11 +31,8 @@ NSString *const kFilm = @"films1";
 NSString *const kFilm2 = @"films2";
 NSString *const kMusic = @"music";
 
-@interface BlogExampleViewController ()
-
-@end
-
 @implementation BlogExampleViewController
+
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
@@ -74,7 +71,7 @@ NSString *const kMusic = @"music";
     [section addFormRow:hobbyRow];
     
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Some more questions"];
-    section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"$%@.value.@count = 0", hobbyRow]];
+    section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"$%@.value.@count == 0", hobbyRow]];
     section.footerTitle = @"BlogExampleViewController.m";
     [form addFormSection:section];
     

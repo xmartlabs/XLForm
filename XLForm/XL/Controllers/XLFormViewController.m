@@ -445,7 +445,7 @@
     [alertView show];
 }
 
--(void)performFormSeletor:(SEL)selector withObject:(id)sender
+-(void)performFormSelector:(SEL)selector withObject:(id)sender
 {
     UIResponder * responder = [self targetForAction:selector withSender:sender];;
     if (responder) {
@@ -933,9 +933,13 @@
 
 -(void)setForm:(XLFormDescriptor *)form
 {
+    [self.tableView endEditing:YES];
     _form = form;
     _form.delegate = self;
     [_form forceEvaluate];
+    if ([self isViewLoaded]){
+        [self.tableView reloadData];
+    }
 }
 
 -(XLFormDescriptor *)form

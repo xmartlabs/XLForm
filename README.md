@@ -23,7 +23,7 @@ What XLForm does
 
  * Loads a form based on a declarative [*form definition*](#how-to-create-a-form "form definition").
  * Keeps track of definition changes on runtime to update the form interface accordingly. Further information on [*Dynamic Forms*](#dynamic-forms---how-to-change-the-form-dynamically-at-runtime "Dynamic Forms") section of this readme.
- * Supports multivalued sections allowing us to create, delete or reorder rows. For further details see [*Multivalued Sections*](#multivalued-sections "Multivalued Sections") section bellow.
+ * Supports multivalued sections allowing us to create, delete or reorder rows. For further details see [*Multivalued Sections*](#multivalued-sections-insert-delete-reorder-rows "Multivalued Sections") section bellow.
  * Supports [*custom rows definition*](#how-to-create-a-custom-row).
  * Supports custom selectors. For further details of how to define your own selectors check [*Custom selectors*](#custom-selectors---selector-row-with-a-custom-selector-view-controller "Custom Selectors") section out.
  * Provides several inline selectors such as date picker and picker inline selectors and brings a way to create custom inline selectors.
@@ -283,7 +283,7 @@ static NSString *const XLFormRowDescriptorTypeCountDownTimer = @"countDownTimer"
 
 Here is an example of how to define these row types:
 
-
+**Objective C**
 ```objc
 XLFormDescriptor * form;
 XLFormSectionDescriptor * section;
@@ -315,7 +315,40 @@ row.value = [NSDate new];
 [section addFormRow:row];
 ```
 
+**Swift**
+```Swift
 
+static let dateTime = "dateTime"
+static let date = "date"
+static let time = "time"
+
+var form : XLFormDescriptor
+var section : XLFormSectionDescriptor
+var row : XLFormRowDescriptor
+
+form = XLFormDescriptor(title: "Dates") as XLFormDescriptor
+
+section = XLFormSectionDescriptor.formSectionWithTitle("Inline Dates") as XLFormSectionDescriptor
+form.addFormSection(section)
+
+// Date
+row = XLFormRowDescriptor(tag: tag.date, rowType: XLFormRowDescriptorTypeDateInline, title:"Date")
+row.value = NSDate()
+section.addFormRow(row)
+
+// Time
+row = XLFormRowDescriptor(tag: tag.time, rowType: XLFormRowDescriptorTypeTimeInline, title: "Time")
+row.value = NSDate()
+section.addFormRow(row)
+
+// DateTime
+row = XLFormRowDescriptor(tag: tag.dateTime, rowType: XLFormRowDescriptorTypeDateTimeInline, title: "Date Time")
+row.value = NSDate()
+section.addFormRow(row)
+
+self.form = form;
+
+```
 ####Boolean Rows
 
 XLForms supports 2 types of boolean controls:
@@ -746,12 +779,21 @@ row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDe
 
 Let's see how to change the color of the cell label:
 
+**Objective C**
+
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
 [row.cellConfigAtConfigure setObject:[UIColor red] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
 ```
 
+**Swift**
+```Swift
+row = XLFormRowDescriptor(tag: "title", rowType: XLFormRowDescriptorTypeText, title: "title")
+row.cellConfig.setObject(UIColor.blackColor(), forKey: "backgroundColor")
+row.cellConfig.setObject(UIColor.whiteColor(), forKey: "textLabel.textColor")
+section.addFormRow(row)
+```
 
 FAQ
 -------
@@ -799,6 +841,7 @@ You may be interested in the form values to use it as enpoint parameter. In this
 
 If you need something different, you can iterate over each row...
 
+**Objective C**
 ```objc
  NSMutableDictionary * result = [NSMutableDictionary dictionary];
  for (XLFormSectionDescriptor * section in self.form.formSections) {
@@ -822,17 +865,49 @@ If you need something different, you can iterate over each row...
  return result;
 ```
 
+**Swift**
+```Swift
+var results = [String:String]()
+if let fullName = form.formRowWithTag(tag.fullName).value as? String {
+    results[tag.fullName] = fullName
+}
+```
+
 #### How to change a UITableViewCell font
 
 You can change the font or any other table view cell property using the `cellConfig` dictionary property. XLForm will set up `cellConfig` dictionary values when the table view cell is about to be displayed.
 
+**Objective C**
 ```objc
 [row.cellConfig setObject:[UIColor greenColor] forKey:@"textLabel.textColor"];
 [row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"textLabel.font"];
 [row.cellConfig setObject:[UIFont fontWithName:FONT_LATO_REGULAR size:12.0] forKey:@"detailTextLabel.font"];
 ```
 
+**Swift**
+```Swift
+row.cellConfig.setObject(UIColor.whiteColor(), forKey: "self.tintColor")
+row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, forKey: "textLabel.font")
+row.cellConfig.setObject(UIColor.whiteColor(), forKey: "textField.textColor")
+row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, forKey: "textField.font")
+```
+
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
+
+####How to set min/max for date cells?
+
+Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a datetime row to be a value in the next three days you would do as follows:
+
+**Objective C**
+```objc
+[row.cellConfigAtConfigure setObject:[NSDate new] forKey:@"minimumDate"];
+[row.cellConfigAtConfigure setObject:[NSDate dateWithTimeIntervalSinceNow:(60*60*24*3)] forKey:@"maximumDate"];
+```
+
+**Swift**
+```Swift
+row.cellConfig.setObject(NSDate(), forKey: "maximumDate")
+```
 
 ####How to disable the entire form (read only mode).
 
@@ -852,6 +927,17 @@ That is all!
 The only thing that is not compatible with older versions is that the `disabled` property of the `XLFormRowDescriptor` is an `id` now. So you just have to add `@` before the values you set to it like this:
 ```objc
 row.disabled = @YES; // before: row.disabled = YES;
+```
+
+##### How to disable input accessory view (navigation view)
+
+Overriding `inputAccessoryViewForRowDescriptor:` `XLFormViewController` method.
+
+```obj-c
+- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor {
+      return nil;
+      // You can use the rowDescriptor parameter to hide/customize the accessory view for a particular rowDescriptor type.
+}
 ```
 
 
@@ -878,9 +964,11 @@ To use xmartlabs master branch.....
 
 You can replace the repository URL for your forked version url if you wish.
 
-### How to use XLForm from Swift project
+### How to use XLForm in Swift files
 
-Install XLForm using cocoapods and add `#import <XLForm/XLForm.h>` to your bridging header file.
+If you have installed XLForm with cocoapods and have set `use_frameworks!` in your Podfile, you can add `import XLForm` to any Swift file.
+
+If you are using cocoapods but have not set `use_frameworks!` in your Podfile, add `#import <XLForm/XLForm.h>` to your bridging header file.
 
 For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift").
 

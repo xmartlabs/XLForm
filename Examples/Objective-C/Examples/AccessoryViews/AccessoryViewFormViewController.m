@@ -132,8 +132,7 @@ NSString * kAccessoryViewNotes = @"notes";
 
     
     // Basic Information - Section
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"TextField Types"];
-    section.footerTitle = @"This is a long text that will appear on section footer";
+    section = [XLFormSectionDescriptor formSection];
     [formDescriptor addFormSection:section];
     
     // Name
@@ -173,7 +172,7 @@ NSString * kAccessoryViewNotes = @"notes";
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Ckeck"];
     [section addFormRow:row];
     
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"TextView With Label Example"];
+    section = [XLFormSectionDescriptor formSection];
     [formDescriptor addFormSection:section];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewNotes rowType:XLFormRowDescriptorTypeTextView title:@"Notes"];
     [section addFormRow:row];
