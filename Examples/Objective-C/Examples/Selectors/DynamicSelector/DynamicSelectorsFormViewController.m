@@ -29,8 +29,31 @@
 NSString *const kSelectorUser = @"selectorUser";
 NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
 
-@implementation DynamicSelectorsFormViewController
+@interface UserTransformer : NSValueTransformer
+@end
 
+@implementation UserTransformer
+
++ (Class)transformedValueClass
+{
+    return [NSString class];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+    return NO;
+}
+
+- (id)transformedValue:(id)value
+{
+    if (!value) return nil;
+    NSDictionary *user = (NSDictionary *) value;
+    return [user valueForKeyPath:@"user.name"];
+}
+
+@end
+
+@implementation DynamicSelectorsFormViewController
 
 -(id)init
 {
@@ -48,7 +71,8 @@ NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
         
         // Selector Push
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUser rowType:XLFormRowDescriptorTypeSelectorPush title:@"User"];
-        row.action.viewControllerClass = [UsersTableViewController class];
+        row.action.viewControllerStoryboardId = @"UsersTableViewController";
+        row.valueTransformer = [UserTransformer class];
         [section addFormRow:row];
         
         if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
@@ -62,5 +86,9 @@ NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
     return self;
 }
 
+- (UIStoryboard *)storyboardForRow:(XLFormRowDescriptor *)formRow
+{
+    return [UIStoryboard storyboardWithName:@"iPhoneStoryboard" bundle:nil];
+}
 
 @end
