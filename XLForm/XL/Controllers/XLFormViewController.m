@@ -56,7 +56,7 @@
 
 @property UITableViewStyle tableViewStyle;
 @property (nonatomic) XLFormRowNavigationAccessoryView * navigationAccessoryView;
-
+@property (nonatomic) NSNumber *defaultTableBottom;
 @end
 
 @implementation XLFormViewController
@@ -370,12 +370,12 @@
 
 -(UITableViewRowAnimation)insertRowAnimationForSection:(XLFormSectionDescriptor *)formSection
 {
-    return UITableViewRowAnimationAutomatic;
+    return UITableViewRowAnimationFade;
 }
 
 -(UITableViewRowAnimation)deleteRowAnimationForSection:(XLFormSectionDescriptor *)formSection
 {
-    return UITableViewRowAnimationAutomatic;
+    return UITableViewRowAnimationFade;
 }
 
 -(UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
@@ -472,6 +472,8 @@
         CGRect keyboardFrame = [self.tableView.window convertRect:[keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue] toView:self.tableView.superview];
         CGFloat newBottomInset = self.tableView.frame.origin.y + self.tableView.frame.size.height - keyboardFrame.origin.y;
         if (newBottomInset > 0){
+            if (!self.defaultTableBottom)
+                self.defaultTableBottom = @(self.tableView.contentInset.bottom);
             UIEdgeInsets tableContentInset = self.tableView.contentInset;
             UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
             tableContentInset.bottom = newBottomInset;
@@ -496,7 +498,7 @@
         NSDictionary *keyboardInfo = [notification userInfo];
         UIEdgeInsets tableContentInset = self.tableView.contentInset;
         UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-        tableContentInset.bottom = 0;
+        tableContentInset.bottom = self.defaultTableBottom.floatValue;
         tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
