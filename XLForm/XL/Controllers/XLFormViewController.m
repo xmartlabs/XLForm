@@ -496,7 +496,7 @@
         NSDictionary *keyboardInfo = [notification userInfo];
         UIEdgeInsets tableContentInset = self.tableView.contentInset;
         UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-        tableContentInset.bottom = 0;
+        tableContentInset.bottom = self.bottomLayoutGuide.length;
         tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
