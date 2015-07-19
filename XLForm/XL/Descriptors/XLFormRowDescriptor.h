@@ -52,6 +52,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property UITableViewCellStyle cellStyle;
 
 @property (nonatomic) NSMutableDictionary *cellConfig;
+@property (nonatomic) NSMutableDictionary *cellConfigForSelector;
 @property (nonatomic) NSMutableDictionary *cellConfigIfDisabled;
 @property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
 
