@@ -100,7 +100,7 @@
 
 +(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType
 {
-    return [[self class] formRowDescriptorWithTag:tag rowType:rowType title:@""];
+    return [[self class] formRowDescriptorWithTag:tag rowType:rowType title:nil];
 }
 
 +(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title

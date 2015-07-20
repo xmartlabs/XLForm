@@ -115,7 +115,7 @@ class OthersFormViewController : XLFormViewController {
         row.cellConfig["textLabel.textAlignment"] = NSTextAlignment.Left.rawValue
         row.cellConfig["accessoryType"] = UITableViewCellAccessoryType.DisclosureIndicator.rawValue
         row.action.formBlock = { (sender: XLFormRowDescriptor!) -> Void in
-            let switchRow = sender.sectionDescriptor.formDescriptor.formRowWithTag(Tags.SwitchBool.rawValue)!
+            let switchRow = sender.sectionDescriptor.formDescriptor!.formRowWithTag(Tags.SwitchBool.rawValue)!
             if switchRow.value != nil && switchRow.value!.boolValue == true {
                 let alertView = UIAlertView(title: "Switch is ON", message: "Button has checked the switch value...", delegate: self, cancelButtonTitle: "OK")
                 alertView.show()
@@ -157,7 +157,7 @@ class OthersFormViewController : XLFormViewController {
     
     
     func didTouchButton(sender: XLFormRowDescriptor) {
-        if sender.sectionDescriptor.formDescriptor.formRowWithTag(Tags.SwitchBool.rawValue)!.value!.boolValue == true{
+        if sender.sectionDescriptor.formDescriptor.formRowWithTag(Tags.SwitchBool.rawValue)?.value?.boolValue == true{
             let alertView = UIAlertView(title: "Switch is ON", message: "Button has checked the switch value...", delegate: self, cancelButtonTitle: "OK")
             alertView.show()
         }

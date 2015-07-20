@@ -115,11 +115,11 @@ class User: NSObject,  XLFormOptionObject {
         self.userName = userName
     }
     
-    func formDisplayText() -> String! {
+    func formDisplayText() -> String {
         return self.userName
     }
     
-    func formValue() -> AnyObject! {
+    func formValue() -> AnyObject {
         return self.userId
     }
     

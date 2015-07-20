@@ -51,8 +51,8 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @interface XLFormDescriptor()
 
-@property NSMutableArray * __nonnull formSections;
-@property (readonly) NSMutableArray * __nonnull allSections;
+@property NSMutableArray * formSections;
+@property (readonly) NSMutableArray * allSections;
 @property NSString * title;
 @property (readonly) NSMutableDictionary* allRowsByTag;
 @property NSMutableDictionary* rowObservers;
