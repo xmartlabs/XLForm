@@ -976,7 +976,7 @@ Requirements
 -----------------------------
 
 * ARC
-* iOS 7.0 and above
+* iOS 8.0 and above
 
 
 Release Notes

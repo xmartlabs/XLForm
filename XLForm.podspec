@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source   = { :git => 'https://github.com/xmartlabs/XLForm.git', :tag => 'v3.0.0' }
   s.source_files = 'XLForm/XL/**/*.{h,m}'
   s.requires_arc = true
-  s.ios.deployment_target = '7.0'
+  s.ios.deployment_target = '8.0'
   s.ios.frameworks = 'UIKit', 'Foundation', 'CoreGraphics'
   s.resource = 'XLForm/XLForm.bundle'
 end
