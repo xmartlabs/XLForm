@@ -80,7 +80,7 @@ class CustomRowsViewController : XLFormViewController {
         form.addFormSection(section)
 
         // WeekDays
-        row = XLFormRowDescriptor(tag: Tags.CustomRowWeekdays.rawValue, rowType: XLFormRowDescriptorTypeWeekDays, title: nil)
+        row = XLFormRowDescriptor(tag: Tags.CustomRowWeekdays.rawValue, rowType: XLFormRowDescriptorTypeWeekDays)
         row.value =  [
             XLFormWeekDaysCell.kWeekDay.Sunday.description(): false,
             XLFormWeekDaysCell.kWeekDay.Monday.description(): true,

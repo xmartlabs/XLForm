@@ -23,6 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import UIKit
 import MapKit
 
 class MapAnnotation : NSObject, MKAnnotation {
@@ -41,7 +42,7 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
     var rowDescriptor: XLFormRowDescriptor?
     lazy var mapView : MKMapView = {
         let mapView = MKMapView(frame: self.view.frame)
-        mapView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        mapView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
         return mapView
     }()
     

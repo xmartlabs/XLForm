@@ -71,7 +71,7 @@ class MultivaluedFormViewController : XLFormViewController {
     
     
         // Another one
-        section = XLFormSectionDescriptor.formSectionWithTitle("Multivalued Push Selector example", sectionOptions:XLFormSectionOptions.CanInsert | XLFormSectionOptions.CanDelete | XLFormSectionOptions.CanReorder, sectionInsertMode:XLFormSectionInsertMode.Button)
+        section = XLFormSectionDescriptor.formSectionWithTitle("Multivalued Push Selector example", sectionOptions: XLFormSectionOptions.CanInsert | XLFormSectionOptions.CanDelete | XLFormSectionOptions.CanReorder, sectionInsertMode:XLFormSectionInsertMode.Button)
         section.footerTitle = "MultivaluedFormViewController.swift"
         form.addFormSection(section)
         row = XLFormRowDescriptor(tag: nil, rowType: XLFormRowDescriptorTypeSelectorPush, title: "Tap to select )..")

@@ -27,20 +27,20 @@ class XLRatingView : AXRatingView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setTranslatesAutoresizingMaskIntoConstraints(false)
     }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setTranslatesAutoresizingMaskIntoConstraints(false)
     }
     
     
     func customize() {
-        self.baseColor = UIColor(red: (205/255.0), green: (201/255.0), blue: (201/255.0), alpha: 1)
-        self.highlightColor = UIColor(red: (255/255.0), green: (215/255.0), blue: 0, alpha: 1)
-        self.markFont = UIFont.systemFontOfSize(23.0)
-        self.setTranslatesAutoresizingMaskIntoConstraints(false)
-        self.stepInterval = 1.0
+        baseColor = UIColor(red: (205/255.0), green: (201/255.0), blue: (201/255.0), alpha: 1)
+        highlightColor = UIColor(red: (255/255.0), green: (215/255.0), blue: 0, alpha: 1)
+        markFont = UIFont.systemFontOfSize(23.0)
+        stepInterval = 1.0
     }
     
 }
