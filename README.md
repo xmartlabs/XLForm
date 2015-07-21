@@ -977,6 +977,7 @@ Requirements
 
 * ARC
 * iOS 7.0 and above
+* XCode 6.3+
 
 
 Release Notes
