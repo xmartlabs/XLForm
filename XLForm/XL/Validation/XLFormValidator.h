@@ -29,5 +29,5 @@
 @interface XLFormValidator : NSObject<XLFormValidatorProtocol>
 
 +(XLFormValidator *)emailValidator;
-
++(XLFormValidator *)emailValidatorLong;
 @end
