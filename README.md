@@ -10,7 +10,7 @@ Purpose
 
 XLForm is the most flexible and powerful iOS library to create dynamic table-view forms. The goal of the library is to get the same power of hand-made forms but spending 1/10 of the time.
 
-XLForm provides a very powerful DSL used to create a form. It keeps track of this specification on runtime, updating the UI on the fly.
+XLForm provides a very powerful DSL (Domain Specific Language) used to create a form. It keeps track of this specification on runtime, updating the UI on the fly.
 
 #####Let's see the iOS Calendar Event Form created using XLForm
 
