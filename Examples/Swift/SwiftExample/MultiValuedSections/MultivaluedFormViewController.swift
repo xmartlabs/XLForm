@@ -48,7 +48,7 @@ class MultivaluedFormViewController : XLFormViewController {
         
         // Multivalued section
         section = XLFormSectionDescriptor.formSectionWithTitle("Multivalued TextField", sectionOptions:XLFormSectionOptions.CanReorder | XLFormSectionOptions.CanInsert | XLFormSectionOptions.CanDelete, sectionInsertMode:XLFormSectionInsertMode.Button)
-        section.multivaluedAddButton.title = "Add New Tag"
+        section.multivaluedAddButton!.title = "Add New Tag"
         section.footerTitle = "XLFormSectionInsertModeButton sectionType adds a 'Add Item' (Add New Tag) button row as last cell."
         // set up the row template
         row = XLFormRowDescriptor(tag: nil, rowType: XLFormRowDescriptorTypeName)
@@ -71,12 +71,12 @@ class MultivaluedFormViewController : XLFormViewController {
     
     
         // Another one
-        section = XLFormSectionDescriptor.formSectionWithTitle("Multivalued Push Selector example", sectionOptions:XLFormSectionOptions.CanInsert | XLFormSectionOptions.CanDelete | XLFormSectionOptions.CanReorder, sectionInsertMode:XLFormSectionInsertMode.Button)
+        section = XLFormSectionDescriptor.formSectionWithTitle("Multivalued Push Selector example", sectionOptions: XLFormSectionOptions.CanInsert | XLFormSectionOptions.CanDelete | XLFormSectionOptions.CanReorder, sectionInsertMode:XLFormSectionInsertMode.Button)
         section.footerTitle = "MultivaluedFormViewController.swift"
         form.addFormSection(section)
         row = XLFormRowDescriptor(tag: nil, rowType: XLFormRowDescriptorTypeSelectorPush, title: "Tap to select )..")
         row.selectorOptions = ["Option 1", "Option 2", "Option 3"]
-        section.multivaluedRowTemplate = row.copy() as! XLFormRowDescriptor
+        section.multivaluedRowTemplate = row.copy() as? XLFormRowDescriptor
         section.addFormRow(row)
         
         self.form = form
@@ -267,7 +267,7 @@ class MultivaluedOnlyDeleteViewController : XLFormViewController {
         
         form = XLFormDescriptor(title: "Multivalued Only Delete")
         
-        section = XLFormSectionDescriptor.formSectionWithTitle(nil, sectionOptions:XLFormSectionOptions.CanDelete)
+        section = XLFormSectionDescriptor.formSectionWithTitle("", sectionOptions:XLFormSectionOptions.CanDelete)
         section.footerTitle = "you can swipe to delete when table.editing = NO (Not Editing)"
         form.addFormSection(section)
       
@@ -280,7 +280,7 @@ class MultivaluedOnlyDeleteViewController : XLFormViewController {
         }
     
         // Multivalued Section with inline row.
-        section = XLFormSectionDescriptor.formSectionWithTitle(nil, sectionOptions:XLFormSectionOptions.CanDelete)
+        section = XLFormSectionDescriptor.formSectionWithTitle("", sectionOptions:XLFormSectionOptions.CanDelete)
         section.footerTitle = "you can swipe to delete when table.editing = NO (Not Editing)"
         form.addFormSection(section)
         

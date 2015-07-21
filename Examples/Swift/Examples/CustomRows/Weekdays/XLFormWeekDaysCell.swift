@@ -100,9 +100,9 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     @IBAction func dayTapped(sender: UIButton) {
         let day = getDayFormButton(sender)
         sender.selected = !sender.selected
-        var newValue = rowDescriptor.value as! Dictionary<String, Bool>
+        var newValue = rowDescriptor!.value as! Dictionary<String, Bool>
         newValue[day] = sender.selected
-        rowDescriptor.value = newValue
+        rowDescriptor!.value = newValue
     }
     
 //MARK: - Helpers
@@ -120,7 +120,7 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     }
     
     func updateButtons() {
-		var value = rowDescriptor.value as! Dictionary<String, Bool>
+		var value = rowDescriptor!.value as! Dictionary<String, Bool>
 
         sundayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Sunday.description()]!
         mondayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Monday.description()]!
@@ -130,7 +130,7 @@ class XLFormWeekDaysCell : XLFormBaseCell {
         fridayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Friday.description()]!
         saturdayButton.selected = value[XLFormWeekDaysCell.kWeekDay.Saturday.description()]!
         
-        sundayButton.alpha = rowDescriptor.isDisabled() ? 0.6 : 1
+        sundayButton.alpha = rowDescriptor!.isDisabled() ? 0.6 : 1
         mondayButton.alpha = mondayButton.alpha
         tuesdayButton.alpha = mondayButton.alpha
         wednesdayButton.alpha = mondayButton.alpha

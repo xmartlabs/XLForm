@@ -125,18 +125,18 @@ class ValidationExamplesFormViewController : XLFormViewController {
         for errorItem in array {
             let error = errorItem as! NSError
             let validationStatus : XLFormValidationStatus = error.userInfo![XLValidationStatusErrorKey] as! XLFormValidationStatus
-            if validationStatus.rowDescriptor.tag == Tags.ValidationName.rawValue {
-                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)) {
+            if validationStatus.rowDescriptor!.tag == Tags.ValidationName.rawValue {
+                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)!) {
                     cell.backgroundColor = UIColor.orangeColor()
                     UIView.animateWithDuration(0.3, animations: { () -> Void in
                         cell.backgroundColor = UIColor.whiteColor()
                     })
                 }
             }
-            else if validationStatus.rowDescriptor.tag == Tags.ValidationEmail.rawValue ||
-                    validationStatus.rowDescriptor.tag == Tags.ValidationPassword.rawValue ||
-                    validationStatus.rowDescriptor.tag == Tags.ValidationInteger.rawValue {
-                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)) {
+            else if validationStatus.rowDescriptor!.tag == Tags.ValidationEmail.rawValue ||
+                    validationStatus.rowDescriptor!.tag == Tags.ValidationPassword.rawValue ||
+                    validationStatus.rowDescriptor!.tag == Tags.ValidationInteger.rawValue {
+                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)!) {
                     self.animateCell(cell)
                 }
             }

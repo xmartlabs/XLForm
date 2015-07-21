@@ -115,11 +115,11 @@ class User: NSObject,  XLFormOptionObject {
         self.userName = userName
     }
     
-    func formDisplayText() -> String! {
+    func formDisplayText() -> String {
         return self.userName
     }
     
-    func formValue() -> AnyObject! {
+    func formValue() -> AnyObject {
         return self.userId
     }
     
@@ -172,7 +172,7 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
         cell.userName.text = userData["name"] as? String
         cell.userImage.image = UIImage(named: (userData["imageName"] as? String)!)
         if self.rowDescriptor?.value != nil {
-            cell.accessoryType = self.rowDescriptor!.value.formValue().isEqual(userId) ? UITableViewCellAccessoryType.Checkmark : UITableViewCellAccessoryType.None
+            cell.accessoryType = self.rowDescriptor!.value!.formValue().isEqual(userId) ? .Checkmark : .None
         }
         return cell;
 

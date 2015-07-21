@@ -138,7 +138,7 @@ class AccessoryViewFormViewController : XLFormViewController {
         
         
         
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewTextView.rawValue, rowType:XLFormRowDescriptorTypeTextView, title: nil)
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewTextView.rawValue, rowType:XLFormRowDescriptorTypeTextView)
         row.cellConfigAtConfigure["textView.placeholder"] = "TEXT VIEW EXAMPLE"
         section.addFormRow(row)
         
@@ -168,7 +168,7 @@ class AccessoryViewFormViewController : XLFormViewController {
     override func formRowDescriptorValueHasChanged(formRow: XLFormRowDescriptor!, oldValue: AnyObject!, newValue: AnyObject!) {
         super.formRowDescriptorValueHasChanged(formRow, oldValue: oldValue, newValue: newValue)
         if formRow.tag == Tags.AccessoryViewRowNavigationStopDisableRow.rawValue {
-            if formRow.value.boolValue  == true {
+            if formRow.value!.boolValue  == true {
                 self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptions.StopDisableRow
             }
             else{
@@ -176,7 +176,7 @@ class AccessoryViewFormViewController : XLFormViewController {
             }
         }
         else if formRow.tag == Tags.AccessoryViewRowNavigationStopInlineRow.rawValue {
-            if formRow.value.boolValue  == true {
+            if formRow.value!.boolValue  == true {
                 self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptions.StopInlineRow
             }
             else{
@@ -184,7 +184,7 @@ class AccessoryViewFormViewController : XLFormViewController {
             }
         }
         else if formRow.tag == Tags.AccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow.rawValue {
-            if formRow.value.boolValue  == true {
+            if formRow.value!.boolValue  == true {
                 self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptions.SkipCanNotBecomeFirstResponderRow
             }
             else{

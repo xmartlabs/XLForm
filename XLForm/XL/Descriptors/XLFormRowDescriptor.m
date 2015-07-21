@@ -63,7 +63,9 @@
 @synthesize hidden = _hidden;
 @synthesize hidePredicateCache = _hidePredicateCache;
 @synthesize disablePredicateCache = _disablePredicateCache;
-
+@synthesize cellConfig = _cellConfig;
+@synthesize cellConfigIfDisabled = _cellConfigIfDisabled;
+@synthesize cellConfigAtConfigure = _cellConfigAtConfigure;
 
 -(instancetype)init
 {
@@ -175,8 +177,8 @@
 {
     XLFormRowDescriptor * rowDescriptorCopy = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:[self.rowType copy] title:[self.title copy]];
     rowDescriptorCopy.cellClass = [self.cellClass copy];
-    rowDescriptorCopy.cellConfig = [self.cellConfig mutableCopy];
-    rowDescriptorCopy.cellConfigAtConfigure = [self.cellConfigAtConfigure mutableCopy];
+    [rowDescriptorCopy.cellConfig addEntriesFromDictionary:self.cellConfig];
+    [rowDescriptorCopy.cellConfigAtConfigure addEntriesFromDictionary:self.cellConfigAtConfigure];
     rowDescriptorCopy->_hidden = _hidden;
     rowDescriptorCopy->_disabled = _disabled;
     rowDescriptorCopy.required = self.isRequired;
