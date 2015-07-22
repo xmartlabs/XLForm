@@ -179,27 +179,28 @@
     rowDescriptorCopy.cellClass = [self.cellClass copy];
     [rowDescriptorCopy.cellConfig addEntriesFromDictionary:self.cellConfig];
     [rowDescriptorCopy.cellConfigAtConfigure addEntriesFromDictionary:self.cellConfigAtConfigure];
+    rowDescriptorCopy.valueTransformer = [self.valueTransformer copy];
     rowDescriptorCopy->_hidden = _hidden;
     rowDescriptorCopy->_disabled = _disabled;
     rowDescriptorCopy.required = self.isRequired;
     rowDescriptorCopy.isDirtyDisablePredicateCache = YES;
     rowDescriptorCopy.isDirtyHidePredicateCache = YES;
-    
+
     // =====================
     // properties for Button
     // =====================
     rowDescriptorCopy.action = [self.action copy];
-    
-    
+
+
     // ===========================
     // property used for Selectors
     // ===========================
-    
+
     rowDescriptorCopy.noValueDisplayText = [self.noValueDisplayText copy];
     rowDescriptorCopy.selectorTitle = [self.selectorTitle copy];
     rowDescriptorCopy.selectorOptions = [self.selectorOptions copy];
     rowDescriptorCopy.leftRightSelectorLeftOptionSelected = [self.leftRightSelectorLeftOptionSelected copy];
-    
+
     return rowDescriptorCopy;
 }
 
@@ -262,7 +263,7 @@
     if ([_disabled isKindOfClass:[NSPredicate class]]){
         [self.sectionDescriptor.formDescriptor addObserversOfObject:self predicateType:XLPredicateTypeDisabled];
     }
-    
+
     [self evaluateIsDisabled];
 }
 
@@ -369,7 +370,7 @@
 {
     if (validator == nil || ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)])
         return;
-    
+
     if(![self.validators containsObject:validator]) {
         [self.validators addObject:validator];
     }
@@ -379,7 +380,7 @@
 {
     if (validator == nil|| ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)])
         return;
-    
+
     if ([self.validators containsObject:validator]) {
         [self.validators removeObject:validator];
     }
@@ -393,7 +394,7 @@
 -(XLFormValidationStatus *)doValidation
 {
     XLFormValidationStatus *valStatus = nil;
-    
+
     if (self.required) {
         // do required validation here
         if ([self valueIsEmpty]) {
@@ -405,7 +406,7 @@
                 // default message for required msg
                 msg = NSLocalizedString(@"%@ can't be empty", nil);
             }
-            
+
             if (self.title != nil) {
                 valStatus.msg = [NSString stringWithFormat:msg, self.title];
             } else {
