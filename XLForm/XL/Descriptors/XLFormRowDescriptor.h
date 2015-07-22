@@ -43,54 +43,54 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @interface XLFormRowDescriptor : NSObject
 
-@property id cellClass;
-@property (readwrite) NSString *tag;
-@property (readonly) NSString *rowType;
-@property NSString *title;
-@property (nonatomic) id value;
-@property Class valueTransformer;
+@property (nullable) id cellClass;
+@property (readwrite, nullable) NSString * tag;
+@property (readonly, nonnull) NSString * rowType;
+@property (nullable) NSString * title;
+@property (nonatomic, nullable) id value;
+@property (nullable) Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
 
-@property (nonatomic) NSMutableDictionary *cellConfig;
-@property (nonatomic) NSMutableDictionary *cellConfigIfDisabled;
-@property (nonatomic) NSMutableDictionary *cellConfigAtConfigure;
+@property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfig;
+@property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigIfDisabled;
+@property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigAtConfigure;
 
-@property id disabled;
+@property (nonnull) id disabled;
 -(BOOL)isDisabled;
-@property id hidden;
+@property (nonnull) id hidden;
 -(BOOL)isHidden;
 @property (getter=isRequired) BOOL required;
 
-@property XLFormAction * action;
+@property (nonnull) XLFormAction * action;
 
-@property (weak) XLFormSectionDescriptor * sectionDescriptor;
+@property (weak, null_unspecified) XLFormSectionDescriptor * sectionDescriptor;
 
-+(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType;
-+(instancetype)formRowDescriptorWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
++(nonnull instancetype)formRowDescriptorWithTag:(nullable NSString *)tag rowType:(nonnull NSString *)rowType;
++(nonnull instancetype)formRowDescriptorWithTag:(nullable NSString *)tag rowType:(nonnull NSString *)rowType title:(nullable NSString *)title;
 
--(XLFormBaseCell *)cellForFormController:(XLFormViewController *)formController;
+-(nonnull XLFormBaseCell *)cellForFormController:(nonnull XLFormViewController *)formController;
 
-@property NSString *requireMsg;
--(void)addValidator:(id<XLFormValidatorProtocol>)validator;
--(void)removeValidator:(id<XLFormValidatorProtocol>)validator;
--(XLFormValidationStatus *)doValidation;
+@property (nullable) NSString *requireMsg;
+-(void)addValidator:(nonnull id<XLFormValidatorProtocol>)validator;
+-(void)removeValidator:(nonnull id<XLFormValidatorProtocol>)validator;
+-(nonnull XLFormValidationStatus *)doValidation;
 
 // ===========================
 // property used for Selectors
 // ===========================
-@property NSString * noValueDisplayText;
-@property NSString * selectorTitle;
-@property NSArray * selectorOptions;
+@property (nullable) NSString * noValueDisplayText;
+@property (nullable) NSString * selectorTitle;
+@property (nullable) NSArray * selectorOptions;
 
-@property id leftRightSelectorLeftOptionSelected;
+@property (null_unspecified) id leftRightSelectorLeftOptionSelected;
 
 
 // =====================================
 // Deprecated
 // =====================================
-@property Class buttonViewController DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use action.viewControllerClass instead");
+@property (null_unspecified) Class buttonViewController DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use action.viewControllerClass instead");
 @property XLFormPresentationMode buttonViewControllerPresentationMode DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("use action.viewControllerPresentationMode instead");
-@property Class selectorControllerClass DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use action.viewControllerClass instead");
+@property (null_unspecified) Class selectorControllerClass DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use action.viewControllerClass instead");
 
 
 @end
@@ -101,18 +101,18 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 // =====================================
 @interface XLFormLeftRightSelectorOption : NSObject
 
-@property (readonly) id leftValue;
-@property (readonly) NSArray *  rightOptions;
-@property (readonly) NSString * httpParameterKey;
-@property Class rightSelectorControllerClass;
+@property (readonly, nonnull) id leftValue;
+@property (readonly, nonnull) NSArray *  rightOptions;
+@property (readonly, null_unspecified) NSString * httpParameterKey;
+@property (nullable) Class rightSelectorControllerClass;
 
-@property NSString * noValueDisplayText;
-@property NSString * selectorTitle;
+@property (nullable) NSString * noValueDisplayText;
+@property (nullable) NSString * selectorTitle;
 
 
-+(XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(id)leftValue
-                                                          httpParameterKey:(NSString *)httpParameterKey
-                                                              rightOptions:(NSArray *)rightOptions;
++(nonnull XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(nonnull id)leftValue
+                                                          httpParameterKey:(null_unspecified NSString *)httpParameterKey
+                                                              rightOptions:(nonnull NSArray *)rightOptions;
 
 
 @end
@@ -122,22 +122,22 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @required
 
--(NSString *)formDisplayText;
--(id)formValue;
+-(nonnull NSString *)formDisplayText;
+-(nonnull id)formValue;
 
 @end
 
 @interface XLFormAction : NSObject
 
-@property (nonatomic, strong) Class viewControllerClass;
-@property (nonatomic, strong) NSString * viewControllerStoryboardId;
-@property (nonatomic, strong) NSString * viewControllerNibName;
+@property (nullable, nonatomic, strong) Class viewControllerClass;
+@property (nullable, nonatomic, strong) NSString * viewControllerStoryboardId;
+@property (nullable, nonatomic, strong) NSString * viewControllerNibName;
 
 @property (nonatomic) XLFormPresentationMode viewControllerPresentationMode;
 
-@property (nonatomic, strong) void (^formBlock)(XLFormRowDescriptor * sender);
-@property (nonatomic) SEL formSelector;
-@property (nonatomic, strong) NSString * formSegueIdenfifier;
-@property (nonatomic, strong) Class formSegueClass;
+@property (nullable, nonatomic, strong) void (^formBlock)(XLFormRowDescriptor * __nonnull sender);
+@property (nullable, nonatomic) SEL formSelector;
+@property (nullable, nonatomic, strong) NSString * formSegueIdenfifier;
+@property (nullable, nonatomic, strong) Class formSegueClass;
 
 @end

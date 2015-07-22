@@ -41,16 +41,16 @@ class XLFormRatingCell : XLFormBaseCell {
     
     override func update() {
         super.update()
-        self.ratingView.value = self.rowDescriptor.value.floatValue
-        self.rateTitle.text = self.rowDescriptor.title
-        self.ratingView.alpha = self.rowDescriptor.isDisabled() ? 0.6 : 1
-        self.rateTitle.alpha = self.rowDescriptor.isDisabled() ? 0.6 : 1
+        self.ratingView.value = self.rowDescriptor!.value!.floatValue
+        self.rateTitle.text = self.rowDescriptor!.title
+        self.ratingView.alpha = self.rowDescriptor!.isDisabled() ? 0.6 : 1
+        self.rateTitle.alpha = self.rowDescriptor!.isDisabled() ? 0.6 : 1
     }
     
 //MARK: Events
     
     func rateChanged(ratingView : XLRatingView){
-        self.rowDescriptor.value = ratingView.value
+        self.rowDescriptor!.value = ratingView.value
     }
     
 }

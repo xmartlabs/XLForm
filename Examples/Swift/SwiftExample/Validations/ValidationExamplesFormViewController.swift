@@ -94,7 +94,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         
         section = XLFormSectionDescriptor()
         section.title = "Validation Numbers"
-        section.footerTitle = "grather than 50 and less than 100"
+        section.footerTitle = "greater than 50 and less than 100"
         form.addFormSection(section)
         
         // Integer
@@ -102,7 +102,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Required..."
         row.cellConfigAtConfigure["textField.textAlignment"] = NSTextAlignment.Right.rawValue
         row.required = true
-        row.addValidator(XLFormRegexValidator(msg: "grather than 50 and less than 100", andRegexString: "^([5-9][0-9]|100)$"))
+        row.addValidator(XLFormRegexValidator(msg: "greater than 50 and less than 100", andRegexString: "^([5-9][0-9]|100)$"))
         section.addFormRow(row)
         
         self.form = form
@@ -125,18 +125,18 @@ class ValidationExamplesFormViewController : XLFormViewController {
         for errorItem in array {
             let error = errorItem as! NSError
             let validationStatus : XLFormValidationStatus = error.userInfo![XLValidationStatusErrorKey] as! XLFormValidationStatus
-            if validationStatus.rowDescriptor.tag == Tags.ValidationName.rawValue {
-                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)) {
+            if validationStatus.rowDescriptor!.tag == Tags.ValidationName.rawValue {
+                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)!) {
                     cell.backgroundColor = UIColor.orangeColor()
                     UIView.animateWithDuration(0.3, animations: { () -> Void in
                         cell.backgroundColor = UIColor.whiteColor()
                     })
                 }
             }
-            else if validationStatus.rowDescriptor.tag == Tags.ValidationEmail.rawValue ||
-                    validationStatus.rowDescriptor.tag == Tags.ValidationPassword.rawValue ||
-                    validationStatus.rowDescriptor.tag == Tags.ValidationInteger.rawValue {
-                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)) {
+            else if validationStatus.rowDescriptor!.tag == Tags.ValidationEmail.rawValue ||
+                    validationStatus.rowDescriptor!.tag == Tags.ValidationPassword.rawValue ||
+                    validationStatus.rowDescriptor!.tag == Tags.ValidationInteger.rawValue {
+                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)!) {
                     self.animateCell(cell)
                 }
             }

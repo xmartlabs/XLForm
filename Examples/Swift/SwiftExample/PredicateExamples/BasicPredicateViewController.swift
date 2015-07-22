@@ -71,7 +71,7 @@ class BasicPredicateViewController : XLFormViewController {
         section.hidden = "$\(Tags.HideSection.rawValue)==0"
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.Text.rawValue, rowType: XLFormRowDescriptorTypeText, title:nil)
+        row = XLFormRowDescriptor(tag: Tags.Text.rawValue, rowType: XLFormRowDescriptorTypeText)
         row.cellConfigAtConfigure["textField.placeholder"] = "Gonna disappear soon!!"
         section.addFormRow(row)
         
