@@ -51,7 +51,7 @@
                                                                             0,
                                                                             0)];
     [stepperControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
-    UILabel *currentStepValue = [[UILabel alloc] initWithFrame:CGRectMake(0,
+    UILabel *currentStepValue = [[UILabel alloc] initWithFrame:CGRectMake(-5,
                                                                           0,
                                                                           55,
                                                                           CGRectGetHeight(stepperControl.frame))];
@@ -115,7 +115,6 @@
 - (void)valueChanged:(id)sender
 {
     UIStepper *stepper = self.stepControl;
-    
     self.rowDescriptor.value = stepper.value == 0 ? nil : @(stepper.value);
     self.currentStepValue.text = stepper.value == 0 ? nil : [NSString stringWithFormat:@"%.f", stepper.value];
 }
