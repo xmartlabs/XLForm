@@ -76,7 +76,6 @@
 -(void)update
 {
     [super update];
-	self.textLabel.numberOfLines = 0;
     self.textField.delegate = self;
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeText]){
@@ -183,9 +182,12 @@
     NSMutableArray * result = [[NSMutableArray alloc] init];
     [self.textLabel setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];    
     [self.textLabel setContentCompressionResistancePriority:1000 forAxis:UILayoutConstraintAxisHorizontal];
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(11)-[_textField]-(11)-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:NSDictionaryOfVariableBindings(_textField)]];
     
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(11)-[_textLabel]-(11)-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:NSDictionaryOfVariableBindings(_textLabel)]];
+    // Add Constraints
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=11)-[_textField]-(>=11)-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:NSDictionaryOfVariableBindings(_textField)]];
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=11)-[_textLabel]-(>=11)-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:NSDictionaryOfVariableBindings(_textLabel)]];
+    [result addObject:[NSLayoutConstraint constraintWithItem:_textField attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:self.contentView attribute:NSLayoutAttributeWidth multiplier:0.3 constant:0.0]];
+    
     return result;
 }
 
@@ -214,18 +216,6 @@
         }
     }
     [self.contentView addConstraints:self.dynamicCustomConstraints];
-
-	// make the textField min. 1/3 of the screen's width. Otherwise input will be impossible
-	self.dynamicCustomConstraints = @[[NSLayoutConstraint constraintWithItem:self.textField
-																																 attribute:NSLayoutAttributeWidth
-																																 relatedBy:NSLayoutRelationGreaterThanOrEqual
-																																		toItem:self.contentView
-																																 attribute:NSLayoutAttributeWidth
-																																multiplier:.3
-																																	constant:0.0]];
-	[self.contentView addConstraints:self.dynamicCustomConstraints];
-
-	
     [super updateConstraints];
 }
 
