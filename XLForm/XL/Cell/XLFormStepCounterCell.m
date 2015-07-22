@@ -46,20 +46,20 @@
 {
     [super configure];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    UIStepper *stepperControl = [[UIStepper alloc] initWithFrame:CGRectMake(25,
+    UIStepper *stepperControl = [[UIStepper alloc] initWithFrame:CGRectMake(60,
                                                                             0,
                                                                             0,
                                                                             0)];
     [stepperControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     UILabel *currentStepValue = [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                                           0,
-                                                                          25,
+                                                                          55,
                                                                           CGRectGetHeight(stepperControl.frame))];
     
-    currentStepValue.textAlignment = NSTextAlignmentCenter;
+    currentStepValue.textAlignment = NSTextAlignmentRight;
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                  0,
-                                                                 CGRectGetWidth(stepperControl.frame) + CGRectGetWidth(currentStepValue.frame),
+                                                                 CGRectGetWidth(stepperControl.frame) + CGRectGetWidth(currentStepValue.frame) + 5,
                                                                  CGRectGetHeight(stepperControl.frame))];
 
     [container addSubview:stepperControl];
