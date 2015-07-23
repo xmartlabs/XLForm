@@ -891,10 +891,7 @@
         UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[nextRow cellForFormController:self];
         if ([cell formDescriptorCellCanBecomeFirstResponder]){
             NSIndexPath * indexPath = [self.form indexPathOfFormRow:nextRow];
-            [self.tableView beginUpdates];
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            [self.tableView endUpdates];
-            
             [cell formDescriptorCellBecomeFirstResponder];
         }
     }
