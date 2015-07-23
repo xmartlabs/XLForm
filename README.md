@@ -379,6 +379,18 @@ XLForms supports counting using UIStepper control:
 ```objc
 static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 ```
+
+You can set the stepper paramaters easily:
+
+```objc
+	row = [XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"];
+	row.value = @50;
+	[row.cellConfigAtConfigure setObject:@YES forKey:@"stepControl.wraps"];
+	[row.cellConfigAtConfigure setObject:@10 forKey:@"stepControl.stepValue"];
+	[row.cellConfigAtConfigure setObject:@10 forKey:@"stepControl.minimumValue"];
+	[row.cellConfigAtConfigure setObject:@100 forKey:@"stepControl.maximumValue"];
+```
+
 #####Slider
 
 XLForms supports counting using UISlider control:

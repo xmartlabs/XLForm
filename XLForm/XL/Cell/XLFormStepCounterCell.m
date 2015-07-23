@@ -30,7 +30,7 @@
 
 @interface XLFormStepCounterCell ()
 
-@property (nonatomic) UIStepper *stepperControl;
+@property (nonatomic) UIStepper *stepControl;
 @property (nonatomic) UILabel *currentStepValue;
 
 @end
@@ -54,22 +54,23 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     // Add subviews
-    [self.contentView addSubview:self.stepperControl];
+    [self.contentView addSubview:self.stepControl];
     [self.contentView addSubview:self.currentStepValue];
     
     // Add constraints
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.stepperControl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.stepControl attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.currentStepValue attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.currentStepValue attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.stepperControl attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[value]-5-[control]-15-|" options:0 metrics:0 views:@{@"value": self.currentStepValue, @"control":self.stepperControl}]];
+    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.currentStepValue attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.stepControl attribute:NSLayoutAttributeHeight multiplier:1 constant:0]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[value]-5-[control]-15-|" options:0 metrics:0 views:@{@"value": self.currentStepValue, @"control":self.stepControl}]];
 }
  
 - (void)update
 {
     [super update];
     self.textLabel.text = self.rowDescriptor.title;
-    self.stepperControl.value = [self.rowDescriptor.value doubleValue];
-    [self stepperControl].enabled = !self.rowDescriptor.isDisabled;
+    self.stepControl.value = [self.rowDescriptor.value doubleValue];
+    self.currentStepValue.text = self.rowDescriptor.value ? [NSString stringWithFormat:@"%@", self.rowDescriptor.value] : nil;
+    [self stepControl].enabled = !self.rowDescriptor.isDisabled;
     [self currentStepValue].font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     CGFloat red, green, blue, alpha;
     [self.tintColor getRed:&red green:&green blue:&blue alpha:&alpha];
@@ -82,7 +83,6 @@
         [self setTintColor:[UIColor colorWithRed:red green:green blue:blue alpha:1]];
         [self currentStepValue].textColor = [UIColor colorWithRed:red green:green blue:blue alpha:1];
     }
-    [self valueChanged:nil];
 }
 
 
@@ -90,22 +90,22 @@
 
 - (void)valueChanged:(id)sender
 {
-    UIStepper *stepper = self.stepperControl;
+    UIStepper *stepper = self.stepControl;
     
-    self.rowDescriptor.value = stepper.value == 0 ? nil : @(stepper.value);
-    self.currentStepValue.text = stepper.value == 0 ? nil : [NSString stringWithFormat:@"%.f", stepper.value];
+    self.rowDescriptor.value = @(stepper.value);
+    self.currentStepValue.text = [NSString stringWithFormat:@"%.f", stepper.value];
 }
 
 
 #pragma mark - Properties
 
-- (UIStepper *)stepperControl
+- (UIStepper *)stepControl
 {
-    if (!_stepperControl) {
-        _stepperControl = [UIStepper autolayoutView];
-        [_stepperControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
+    if (!_stepControl) {
+        _stepControl = [UIStepper autolayoutView];
+        [_stepControl addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
     }
-    return _stepperControl;
+    return _stepControl;
 }
 
 -(UILabel *)currentStepValue
