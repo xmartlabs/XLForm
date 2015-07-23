@@ -53,7 +53,9 @@
 
 
 @interface XLFormViewController()
-
+{
+    CGFloat _oldBottomTableContentInset;
+}
 @property UITableViewStyle tableViewStyle;
 @property (nonatomic) XLFormRowNavigationAccessoryView * navigationAccessoryView;
 
@@ -474,6 +476,7 @@
         if (newBottomInset > 0){
             UIEdgeInsets tableContentInset = self.tableView.contentInset;
             UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+            _oldBottomTableContentInset = tableContentInset.bottom;
             tableContentInset.bottom = newBottomInset;
             tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
             [UIView beginAnimations:nil context:nil];
@@ -496,7 +499,7 @@
         NSDictionary *keyboardInfo = [notification userInfo];
         UIEdgeInsets tableContentInset = self.tableView.contentInset;
         UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-        tableContentInset.bottom = 0;
+        tableContentInset.bottom = _oldBottomTableContentInset;
         tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
