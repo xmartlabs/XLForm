@@ -75,12 +75,12 @@ NSString *const kSelectorUserPopover = @"kSelectorUserPopover";
         row.valueTransformer = [UserTransformer class];
         [section addFormRow:row];
         
-        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
-            // Selector PopOver
-            row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUserPopover rowType:XLFormRowDescriptorTypeSelectorPopover title:@"User Popover"];
-            row.action.viewControllerClass = [UsersTableViewController class];
-            [section addFormRow:row];
-        }
+//        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad){
+//            // Selector PopOver
+//            row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorUserPopover rowType:XLFormRowDescriptorTypeSelectorPopover title:@"User Popover"];
+//            row.action.viewControllerClass = [UsersTableViewController class];
+//            [section addFormRow:row];
+//        }
         self.form = form;
     }
     return self;

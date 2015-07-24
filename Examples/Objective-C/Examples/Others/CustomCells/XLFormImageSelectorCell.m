@@ -92,12 +92,80 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:NSLocalizedString(@"XLFormImageSelectorCell_ChooseExistingPhoto", @"Choose Existing Photo"), NSLocalizedString(@"XLFormImageSelectorCell_TakePicture", @"Take a Picture"), nil];
-    actionSheet.tag = self.tag;
-    [actionSheet showInView:self.formViewController.view];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
+    if (!NSClassFromString(@"UIAlertController")) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
+                                                                 delegate:self
+                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:NSLocalizedString(@"XLFormImageSelectorCell_ChooseExistingPhoto", @"Choose Existing Photo"), NSLocalizedString(@"XLFormImageSelectorCell_TakePicture", @"Take a Picture"), nil];
+        actionSheet.tag = self.tag;
+        [actionSheet showInView:self.formViewController.view];
+    }
+    else{
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:self.rowDescriptor.selectorTitle
+                                                                                  message:nil
+                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"XLFormImageSelectorCell_ChooseExistingPhoto", @"Choose Existing Photo")
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
+                                                              imagePickerController.delegate = self;
+                                                              imagePickerController.allowsEditing = YES;
+                                                              imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                              imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+                                                              [self.formViewController presentViewController:imagePickerController animated:YES completion:nil];
+                                                          }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"XLFormImageSelectorCell_TakePicture", @"Take a Picture")
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
+                                                              imagePickerController.delegate = self;
+                                                              imagePickerController.allowsEditing = YES;
+                                                              imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                              imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+                                                              [self.formViewController presentViewController:imagePickerController animated:YES completion:nil];
+                                                          }]];
+        
+        [self.formViewController presentViewController:alertController animated:YES completion:nil];
+    }
+#else
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:self.rowDescriptor.selectorTitle
+                                                                              message:nil
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"XLFormImageSelectorCell_ChooseExistingPhoto", @"Choose Existing Photo")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
+                                                          imagePickerController.delegate = self;
+                                                          imagePickerController.allowsEditing = YES;
+                                                          imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                          imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+                                                          [self.formViewController presentViewController:imagePickerController animated:YES completion:nil];
+                                                      }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"XLFormImageSelectorCell_TakePicture", @"Take a Picture")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
+                                                          imagePickerController.delegate = self;
+                                                          imagePickerController.allowsEditing = YES;
+                                                          imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                          imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+                                                          [self.formViewController presentViewController:imagePickerController animated:YES completion:nil];
+                                                      }]];
+    
+    [self.formViewController presentViewController:alertController animated:YES completion:nil];
+#endif
 }
 
 #pragma mark - LayoutConstraints
@@ -168,6 +236,8 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
     [self.textLabel removeObserver:self forKeyPath:@"text"];
 }
 
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -186,6 +256,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
         [self.formViewController presentViewController:imagePickerController animated:YES completion:nil];
     }
 }
+#endif
 
 #pragma mark - UIImagePickerControllerDelegate
 

@@ -158,13 +158,33 @@ NSString *const kCountDownTimer = @"countDownTimer";
     [super formRowDescriptorValueHasChanged:formRow oldValue:oldValue newValue:newValue];
     if([formRow.tag isEqualToString:kDatePicker])
     {
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
-                                                          message:@"Value Has changed!"
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        
-        [message show];
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0
+        if (!NSClassFromString(@"UIAlertController")) {
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
+                                                              message:@"Value Has changed!"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+            [message show];
+        }
+        else{
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"DatePicker"
+                                                                                      message:@"Value Has changed!"
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+#else
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"DatePicker"
+                                                                                      message:@"Value Has changed!"
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+#endif
     }
 }
 
