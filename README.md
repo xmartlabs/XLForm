@@ -699,7 +699,7 @@ To make the appearance and disappearance of rows and sections automatic, there i
 @property id hidden;
 ```
 
-This id object will normally be a NSPredicate or a NSNumber containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be sintactically correct.
+This id object will normally be a NSPredicate or a NSNumber containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be syntactically correct.
 
 For example, you could set the following string to a row (`second`) to make it disappear when a previous row (`first`) contains the value "hide".
 
