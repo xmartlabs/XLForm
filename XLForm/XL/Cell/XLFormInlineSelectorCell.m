@@ -42,6 +42,9 @@
 
 -(BOOL)becomeFirstResponder
 {
+    if (self.isFirstResponder){
+        return [super becomeFirstResponder];
+    }
     _beforeChangeColor = self.detailTextLabel.textColor;
     BOOL result = [super becomeFirstResponder];
     if (result){

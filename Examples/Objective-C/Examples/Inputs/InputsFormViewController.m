@@ -129,8 +129,34 @@ NSString *const kNotes = @"notes";
         return;
     }
     [self.tableView endEditing:YES];
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Valid Form", nil) message:@"No errors found" delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-    [alertView show];
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Valid Form", nil)
+                                                      message:@"No errors found"
+                                                     delegate:nil
+                                            cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                            otherButtonTitles:nil];
+    [message show];
+#else
+    if ([UIAlertController class]){
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Valid Form", nil)
+                                                                                  message:@"No errors found"
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
+    else{
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Valid Form", nil)
+                                                          message:@"No errors found"
+                                                         delegate:nil
+                                                cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                otherButtonTitles:nil];
+        [message show];
+    }
+#endif
 }
 
 @end
