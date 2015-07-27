@@ -114,8 +114,9 @@
         id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
         NSAssert(cellClass, @"Not defined XLFormRowDescriptorType: %@", self.rowType ?: @"");
         if ([cellClass isKindOfClass:[NSString class]]) {
-            if ([[NSBundle mainBundle] pathForResource:cellClass ofType:@"nib"]){
-                _cell = [[[NSBundle mainBundle] loadNibNamed:cellClass owner:nil options:nil] firstObject];
+            NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(cellClass)];
+            if ([bundle pathForResource:cellClass ofType:@"nib"]){
+                _cell = [[bundle loadNibNamed:cellClass owner:nil options:nil] firstObject];
             }
         } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
