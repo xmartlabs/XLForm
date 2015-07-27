@@ -41,6 +41,8 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
     XLFormPresentationModePresent
 };
 
+typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLFormRowDescriptor* __nonnull rowDescriptor);
+
 @interface XLFormRowDescriptor : NSObject
 
 @property (nullable) id cellClass;
@@ -50,6 +52,8 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic, nullable) id value;
 @property (nullable) Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
+
+@property (copy, nullable) XLOnChangeBlock onChangeBlock;
 
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfig;
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigIfDisabled;

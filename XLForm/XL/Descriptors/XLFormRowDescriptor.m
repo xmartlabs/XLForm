@@ -94,6 +94,7 @@
         [self addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
         [self addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
         [self addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+        
     }
     return self;
 }
@@ -234,6 +235,9 @@
             id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
             if ([keyPath isEqualToString:@"value"]){
                 [self.sectionDescriptor.formDescriptor.delegate formRowDescriptorValueHasChanged:object oldValue:oldValue newValue:newValue];
+                if (self.onChangeBlock) {
+                    self.onChangeBlock(oldValue, newValue, self);
+                }
             }
             else{
                 [self.sectionDescriptor.formDescriptor.delegate formRowDescriptorPredicateHasChanged:object oldValue:oldValue newValue:newValue predicateType:([keyPath isEqualToString:@"hidePredicateCache"] ? XLPredicateTypeHidden : XLPredicateTypeDisabled)];
