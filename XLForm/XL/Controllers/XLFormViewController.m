@@ -54,7 +54,7 @@
 
 @interface XLFormViewController()
 {
-    CGFloat _oldBottomTableContentInset;
+    NSNumber *_oldBottomTableContentInset;
 }
 @property UITableViewStyle tableViewStyle;
 @property (nonatomic) XLFormRowNavigationAccessoryView * navigationAccessoryView;
@@ -139,6 +139,7 @@
     [self.tableView setEditing:YES animated:NO];
     self.tableView.allowsSelectionDuringEditing = YES;
     self.form.delegate = self;
+    _oldBottomTableContentInset = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -500,7 +501,7 @@
         if (newBottomInset > 0){
             UIEdgeInsets tableContentInset = self.tableView.contentInset;
             UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-            _oldBottomTableContentInset = tableContentInset.bottom;
+            _oldBottomTableContentInset = _oldBottomTableContentInset ? : @(tableContentInset.bottom);
             tableContentInset.bottom = newBottomInset;
             tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
             [UIView beginAnimations:nil context:nil];
@@ -523,8 +524,9 @@
         NSDictionary *keyboardInfo = [notification userInfo];
         UIEdgeInsets tableContentInset = self.tableView.contentInset;
         UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-        tableContentInset.bottom = _oldBottomTableContentInset;
+        tableContentInset.bottom = [_oldBottomTableContentInset floatValue];
         tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
+        _oldBottomTableContentInset = nil;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
         [UIView setAnimationCurve:[keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] intValue]];
