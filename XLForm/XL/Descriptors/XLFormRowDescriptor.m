@@ -282,6 +282,9 @@
     else{
         self.disablePredicateCache = _disabled;
     }
+    if ([self.disablePredicateCache boolValue]){
+        [self.cell resignFirstResponder];
+    }
     return [self.disablePredicateCache boolValue];
 }
 
@@ -342,7 +345,13 @@
     else{
         self.hidePredicateCache = _hidden;
     }
-    [self.hidePredicateCache boolValue] ? [self.sectionDescriptor hideFormRow:self] : [self.sectionDescriptor showFormRow:self];
+    if ([self.hidePredicateCache boolValue]){
+        [self.cell resignFirstResponder];
+        [self.sectionDescriptor hideFormRow:self];
+    }
+    else{
+        [self.sectionDescriptor showFormRow:self];
+    }
     return [self.hidePredicateCache boolValue];
 }
 

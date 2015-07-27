@@ -27,6 +27,7 @@
 #import "XLFormSectionDescriptor.h"
 #import "NSPredicate+XLFormAdditions.h"
 #import "NSString+XLFormAdditions.h"
+#import "UIView+XLFormAdditions.h"
 
 
 @interface XLFormDescriptor (_XLFormSectionDescriptor)
@@ -363,7 +364,18 @@
     else{
         self.hidePredicateCache = _hidden;
     }
-    [self.hidePredicateCache boolValue] ? [self.formDescriptor hideFormSection:self] : [self.formDescriptor showFormSection:self] ;
+    if ([self.hidePredicateCache boolValue]){
+        if ([self.formDescriptor.delegate isKindOfClass:[XLFormViewController class]]){
+            XLFormBaseCell* firtResponder = (XLFormBaseCell*) [((XLFormViewController*)self.formDescriptor.delegate).tableView findFirstResponder];
+            if ([firtResponder isKindOfClass:[XLFormBaseCell class]] && firtResponder.rowDescriptor.sectionDescriptor == self){
+                [firtResponder resignFirstResponder];
+            }
+        }
+        [self.formDescriptor hideFormSection:self];
+    }
+    else{
+        [self.formDescriptor showFormSection:self];
+    }
     return [self.hidePredicateCache boolValue];
 }
 

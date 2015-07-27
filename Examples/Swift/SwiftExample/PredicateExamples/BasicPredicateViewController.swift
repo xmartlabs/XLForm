@@ -31,6 +31,7 @@ class BasicPredicateViewController : XLFormViewController {
         case HideRow = "tag1"
         case HideSection = "tag2"
         case Text = "tag3"
+        case Date = "tag4"
 
     }
     
@@ -51,18 +52,19 @@ class BasicPredicateViewController : XLFormViewController {
         var row : XLFormRowDescriptor
      
         form = XLFormDescriptor(title: "Basic Predicates")
+        self.form = form
         
         section = XLFormSectionDescriptor()
         section.title = "A Section"
         form.addFormSection(section)
         
         row = XLFormRowDescriptor(tag: Tags.HideRow.rawValue, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Show next row")
-        row.value = 0
+        row.value = 1
         section.addFormRow(row)
         
         row = XLFormRowDescriptor(tag: Tags.HideSection.rawValue, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Show B Section")
         row.hidden = "$\(Tags.HideRow.rawValue)==0"
-        row.value = 0
+        row.value = 1
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
@@ -75,7 +77,11 @@ class BasicPredicateViewController : XLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Gonna disappear soon!!"
         section.addFormRow(row)
         
-        self.form = form
+        row = XLFormRowDescriptor(tag: Tags.Date.rawValue, rowType: XLFormRowDescriptorTypeDateInline, title: "Some Date")
+        row.hidden = "$\(Tags.Text.rawValue).value contains 'aaa'"
+        section.addFormRow(row)
+        
+        
 
         
     }
