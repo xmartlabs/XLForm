@@ -95,18 +95,28 @@ class PredicateFormViewController : XLFormViewController {
         section.addFormRow(row)
         row.hidden =  NSPredicate(format: "$\(Tags.Date.rawValue).isDisabled == 1 AND $\(Tags.Text.rawValue).value contains[c] 'Out'")
         
+        
+        row.onChangeBlock = {
+            let noValue = "No Value"
+            let message = "Old value: \($0 ?? noValue), New value: \($1 ?? noValue)"
+            let alertView = UIAlertController(title: "Account Field changed", message: message, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            alertView.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            let row = $2
+            self.navigationController?.presentViewController(alertView, animated: true, completion: nil)
+        }
+        
         self.form = form
     }
     
 }
 
-    
-    
 
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
 
 

@@ -103,16 +103,14 @@ NSString *const kPredDep2 = @"preddep2";
     [section addFormRow:row];
     row.hidden = [NSString stringWithFormat:@"$%@.isDisabled == 1 AND $%@.value contains[c] 'Out'", pred4, pred];
     
+    typeof(self) __weak weakself = self;
     row.onChangeBlock = ^(id oldValue, id newValue, XLFormRowDescriptor* __unused rowDescriptor){
-        UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Account Field changed"
-                                                            message:[NSString stringWithFormat:@"Old value: %@\nNew value: %@", oldValue, newValue ]
-                                                           delegate:nil
-                                                  cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Account Field changed" message:[NSString stringWithFormat:@"Old value: %@\nNew value: %@", oldValue, newValue ] preferredStyle:UIAlertControllerStyleActionSheet];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        [weakself.navigationController presentViewController:alert animated:YES completion:nil];
     };
     
     self.form = form;
 }
-
 
 @end
