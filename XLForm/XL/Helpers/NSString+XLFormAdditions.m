@@ -38,7 +38,7 @@
     NSRange range;
     for (int i = 1; i < tokens.count; i++) {
         [new_string appendString:separator];
-        NSArray* subtokens = [[tokens[i]  componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" <>!=+-&|"]][0]
+        NSArray* subtokens = [[tokens[i] componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" <>!=+-&|()"]][0]
                               componentsSeparatedByString:@"."];
         NSString* tag = subtokens[0];
         NSString* attribute;
