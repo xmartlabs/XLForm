@@ -885,6 +885,19 @@ if let fullName = form.formRowWithTag(tag.fullName).value as? String {
 }
 ```
 
+#### How to change UITextField length
+
+You can change the length of a UITextField using the `cellConfigAtConfigure` dictionary property. This value refers to the percentage in relation to the table view cell.
+
+**Objective C**
+```objc
+[row.cellConfigAtConfigure setObject:[NSNumber numberWithFloat:0.7] forKey:XLFormTextFieldLengthPercentage];
+```
+**Swift**
+```Swift
+row.cellConfigAtConfigure.setObject(0.7, forKey:XLFormTextFieldLengthPercentage)
+```
+
 #### How to change a UITableViewCell font
 
 You can change the font or any other table view cell property using the `cellConfig` dictionary property. XLForm will set up `cellConfig` dictionary values when the table view cell is about to be displayed.
