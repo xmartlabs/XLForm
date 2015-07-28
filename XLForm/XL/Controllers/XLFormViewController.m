@@ -387,7 +387,7 @@
     if ((self.form.rowNavigationOptions & XLFormRowNavigationOptionEnabled) != XLFormRowNavigationOptionEnabled){
         return nil;
     }
-    if ([@[XLFormRowDescriptorTypeSelectorPickerViewInline, XLFormRowDescriptorTypeDateInline, XLFormRowDescriptorTypeDateTimeInline,XLFormRowDescriptorTypeTimeInline, XLFormRowDescriptorTypeCountDownTimerInline] containsObject:rowDescriptor.rowType]) {
+    if ([[[[self class] inlineRowDescriptorTypesForRowDescriptorTypes] allKeys] containsObject:rowDescriptor.rowType]) {
         return nil;
     }
     UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[rowDescriptor cellForFormController:self];
