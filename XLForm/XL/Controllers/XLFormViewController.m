@@ -307,7 +307,8 @@
     }
 }
 
--(void)updateAfterDependentRowChanged:(XLFormRowDescriptor *)formRow{
+-(void)updateAfterDependentRowChanged:(XLFormRowDescriptor *)formRow
+{
     NSMutableArray* revaluateHidden   = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeHidden]];
     NSMutableArray* revaluateDisabled = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeDisabled]];
     for (id object in revaluateDisabled) {
@@ -384,6 +385,9 @@
 -(UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
 {
     if ((self.form.rowNavigationOptions & XLFormRowNavigationOptionEnabled) != XLFormRowNavigationOptionEnabled){
+        return nil;
+    }
+    if ([@[XLFormRowDescriptorTypeSelectorPickerViewInline, XLFormRowDescriptorTypeDateInline, XLFormRowDescriptorTypeDateTimeInline,XLFormRowDescriptorTypeTimeInline, XLFormRowDescriptorTypeCountDownTimerInline] containsObject:rowDescriptor.rowType]) {
         return nil;
     }
     UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[rowDescriptor cellForFormController:self];
