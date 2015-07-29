@@ -1008,7 +1008,26 @@ Requirements
 Release Notes
 --------------
 
-Version 3.0.0 (master)
+Version 3.0.1
+
+* Improvements and bug fixes.
+* Ability to left, right align textfields. Ability to set up a minimum textField width.
+* If form is being shown, assigning a new form automatically reload the tableview.
+* Update objective-c and swift example projects.
+* Swift compatibility fixes.
+* Long email validation added.
+* Fixed row copy issue, now valueTransformer value is copied.
+* Fixed step counter row layout issues.
+* Fixed issue "Last form field hides beneath enabled navigation controller's toolbar".
+* Fixed issue "Navigating between cells using bottom navigation buttons causes table cell dividers to disappear".
+* Use UIAlertController instead UIActionSheet/UIAlertView if possible.
+* Hidden and disabled rows resign first responder before changing state.
+* onChangeBlock added to rowDescriptor.
+* use tintColor as default button row color.
+* By default accessoryView is no longer shown for inline rows.
+* Fix NSBundle issues to use XLForm as dynamic framework.
+
+Version 3.0.0
 
 * `hidden`, `disable` properties added to `XLFormRowDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide, disable de row.
 * `hidden` property added to `XLFormSectionDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide the section.
