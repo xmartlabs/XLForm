@@ -963,6 +963,7 @@
 
 -(void)setForm:(XLFormDescriptor *)form
 {
+    _form.delegate = nil;
     [self.tableView endEditing:YES];
     _form = form;
     _form.delegate = self;
