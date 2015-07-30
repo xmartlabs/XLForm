@@ -81,6 +81,7 @@
             inlineCell.inlineRowDescriptor = self.rowDescriptor;
             
             [formSection addFormRow:datePickerRowDescriptor afterRow:self.rowDescriptor];
+            [self.formViewController ensureRowIsVisible:datePickerRowDescriptor];
         }
     }
     return result;
@@ -96,6 +97,7 @@
         BOOL result = [super resignFirstResponder];
         if ([nextFormRow.rowType isEqualToString:XLFormRowDescriptorTypeDatePicker]){
             [self.rowDescriptor.sectionDescriptor removeFormRow:nextFormRow];
+            [self.formViewController inlineRowDidResignFirstResponder:nextFormRow];
         }
         return result;
     }

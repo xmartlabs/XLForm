@@ -54,6 +54,7 @@
         UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)cell;
         inlineCell.inlineRowDescriptor = self.rowDescriptor;
         [self.rowDescriptor.sectionDescriptor addFormRow:inlineRowDescriptor afterRow:self.rowDescriptor];
+        [self.formViewController ensureRowIsVisible:inlineRowDescriptor];
     }
     return result;
 }
@@ -66,6 +67,7 @@
     XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
     BOOL result = [super resignFirstResponder];
     [formSection removeFormRow:nextFormRow];
+    [self.formViewController inlineRowDidResignFirstResponder:nextFormRow];
     return result;
 }
 
