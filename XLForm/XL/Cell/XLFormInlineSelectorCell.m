@@ -67,7 +67,6 @@
     XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
     BOOL result = [super resignFirstResponder];
     [formSection removeFormRow:nextFormRow];
-    [self.formViewController inlineRowDidResignFirstResponder:nextFormRow];
     return result;
 }
 

@@ -260,7 +260,8 @@
                                                           @{XLFormRowDescriptorTypeSelectorPickerViewInline: XLFormRowDescriptorTypePicker,
                                                             XLFormRowDescriptorTypeDateInline: XLFormRowDescriptorTypeDatePicker,
                                                             XLFormRowDescriptorTypeDateTimeInline: XLFormRowDescriptorTypeDatePicker,
-                                                            XLFormRowDescriptorTypeTimeInline: XLFormRowDescriptorTypeDatePicker
+                                                            XLFormRowDescriptorTypeTimeInline: XLFormRowDescriptorTypeDatePicker,
+                                                            XLFormRowDescriptorTypeCountDownTimerInline: XLFormRowDescriptorTypeDatePicker
                                                             } mutableCopy];
     });
     return _inlineRowDescriptorTypesForRowDescriptorTypes;
@@ -451,15 +452,6 @@
     }
 }
 
--(void)inlineRowDidResignFirstResponder:(XLFormRowDescriptor *)inlineRowDescriptor
-{
-    // should be called to avoid jump animations when content offset is to high
-    double contentSizeHeight = self.tableView.contentSize.height - [inlineRowDescriptor cellForFormController:self].frame.size.height;
-    if (contentSizeHeight - self.tableView.contentOffset.y < self.tableView.frame.size.height){
-        [self.tableView setContentOffset:CGPointMake(0, contentSizeHeight - self.tableView.frame.size.height) animated:YES];
-    }
-}
-
 #pragma mark - Methods
 
 -(NSArray *)formValidationErrors
@@ -523,10 +515,10 @@
         NSDictionary *keyboardInfo = [notification userInfo];
         _keyboardFrame = [self.tableView.window convertRect:[keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue] toView:self.tableView.superview];
         CGFloat newBottomInset = self.tableView.frame.origin.y + self.tableView.frame.size.height - _keyboardFrame.origin.y;
-        if (newBottomInset > 0){
-            UIEdgeInsets tableContentInset = self.tableView.contentInset;
-            UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-            _oldBottomTableContentInset = _oldBottomTableContentInset ? : @(tableContentInset.bottom);
+        UIEdgeInsets tableContentInset = self.tableView.contentInset;
+        UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+        _oldBottomTableContentInset = _oldBottomTableContentInset ?: @(tableContentInset.bottom);
+        if (newBottomInset > [_oldBottomTableContentInset floatValue]){
             tableContentInset.bottom = newBottomInset;
             tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
             [UIView beginAnimations:nil context:nil];

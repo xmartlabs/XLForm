@@ -75,7 +75,6 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 -(void)endEditing:(XLFormRowDescriptor *)rowDescriptor;
 
 -(void)ensureRowIsVisible:(XLFormRowDescriptor *)inlineRowDescriptor;
--(void)inlineRowDidResignFirstResponder:(XLFormRowDescriptor *)inlineRowDescriptor;
 
 @end
 

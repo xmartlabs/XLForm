@@ -97,7 +97,6 @@
         BOOL result = [super resignFirstResponder];
         if ([nextFormRow.rowType isEqualToString:XLFormRowDescriptorTypeDatePicker]){
             [self.rowDescriptor.sectionDescriptor removeFormRow:nextFormRow];
-            [self.formViewController inlineRowDidResignFirstResponder:nextFormRow];
         }
         return result;
     }
