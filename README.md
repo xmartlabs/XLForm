@@ -1008,6 +1008,9 @@ Requirements
 Release Notes
 --------------
 
+Version 3.0.2 (master)
+* Fix issue when inline pickers expand beyond table.
+
 Version 3.0.1
 
 * Improvements and bug fixes.

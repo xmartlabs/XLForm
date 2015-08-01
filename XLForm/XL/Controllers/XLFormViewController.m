@@ -55,6 +55,7 @@
 @interface XLFormViewController()
 {
     NSNumber *_oldBottomTableContentInset;
+    CGRect _keyboardFrame;
 }
 @property UITableViewStyle tableViewStyle;
 @property (nonatomic) XLFormRowNavigationAccessoryView * navigationAccessoryView;
@@ -259,7 +260,8 @@
                                                           @{XLFormRowDescriptorTypeSelectorPickerViewInline: XLFormRowDescriptorTypePicker,
                                                             XLFormRowDescriptorTypeDateInline: XLFormRowDescriptorTypeDatePicker,
                                                             XLFormRowDescriptorTypeDateTimeInline: XLFormRowDescriptorTypeDatePicker,
-                                                            XLFormRowDescriptorTypeTimeInline: XLFormRowDescriptorTypeDatePicker
+                                                            XLFormRowDescriptorTypeTimeInline: XLFormRowDescriptorTypeDatePicker,
+                                                            XLFormRowDescriptorTypeCountDownTimerInline: XLFormRowDescriptorTypeDatePicker
                                                             } mutableCopy];
     });
     return _inlineRowDescriptorTypesForRowDescriptorTypes;
@@ -439,6 +441,17 @@
     }
 }
 
+-(void)ensureRowIsVisible:(XLFormRowDescriptor *)inlineRowDescriptor
+{
+    double toScroll;
+    XLFormBaseCell * inlineCell = [inlineRowDescriptor cellForFormController:self];
+    CGRect rect = [self.view.window convertRect:inlineCell.frame toView:self.tableView.superview];
+    if (!(self.tableView.contentOffset.y + self.tableView.frame.size.height > inlineCell.frame.origin.y + inlineCell.frame.size.height) && (toScroll = rect.size.height + rect.origin.y - (self.tableView.frame.size.height + self.tableView.frame.origin.y)) > 0) {
+        toScroll += _keyboardFrame.size.height;
+        [self.tableView setContentOffset:CGPointMake(0, toScroll) animated:YES];
+    }
+}
+
 #pragma mark - Methods
 
 -(NSArray *)formValidationErrors
@@ -500,12 +513,12 @@
     UITableViewCell<XLFormDescriptorCell> * cell = [firstResponderView formDescriptorCell];
     if (cell){
         NSDictionary *keyboardInfo = [notification userInfo];
-        CGRect keyboardFrame = [self.tableView.window convertRect:[keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue] toView:self.tableView.superview];
-        CGFloat newBottomInset = self.tableView.frame.origin.y + self.tableView.frame.size.height - keyboardFrame.origin.y;
-        if (newBottomInset > 0){
-            UIEdgeInsets tableContentInset = self.tableView.contentInset;
-            UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-            _oldBottomTableContentInset = _oldBottomTableContentInset ? : @(tableContentInset.bottom);
+        _keyboardFrame = [self.tableView.window convertRect:[keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue] toView:self.tableView.superview];
+        CGFloat newBottomInset = self.tableView.frame.origin.y + self.tableView.frame.size.height - _keyboardFrame.origin.y;
+        UIEdgeInsets tableContentInset = self.tableView.contentInset;
+        UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+        _oldBottomTableContentInset = _oldBottomTableContentInset ?: @(tableContentInset.bottom);
+        if (newBottomInset > [_oldBottomTableContentInset floatValue]){
             tableContentInset.bottom = newBottomInset;
             tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
             [UIView beginAnimations:nil context:nil];
@@ -525,6 +538,7 @@
     UIView * firstResponderView = [self.tableView findFirstResponder];
     UITableViewCell<XLFormDescriptorCell> * cell = [firstResponderView formDescriptorCell];
     if (cell){
+        _keyboardFrame = CGRectZero;
         NSDictionary *keyboardInfo = [notification userInfo];
         UIEdgeInsets tableContentInset = self.tableView.contentInset;
         UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
