@@ -169,7 +169,7 @@ NSString * kAccessoryViewNotes = @"notes";
     [row.cellConfigAtConfigure setObject:@"TEXT VIEW EXAMPLE" forKey:@"textView.placeholder"];
     [section addFormRow:row];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Ckeck"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kAccessoryViewCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"];
     [section addFormRow:row];
     
     section = [XLFormSectionDescriptor formSection];
