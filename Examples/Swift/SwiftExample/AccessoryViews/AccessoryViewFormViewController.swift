@@ -142,7 +142,7 @@ class AccessoryViewFormViewController : XLFormViewController {
         row.cellConfigAtConfigure["textView.placeholder"] = "TEXT VIEW EXAMPLE"
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewCheck.rawValue, rowType:XLFormRowDescriptorTypeBooleanCheck, title:"Ckeck")
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewCheck.rawValue, rowType:XLFormRowDescriptorTypeBooleanCheck, title:"Check")
         section.addFormRow(row)
 
         section = XLFormSectionDescriptor()
