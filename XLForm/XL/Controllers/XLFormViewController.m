@@ -576,6 +576,7 @@
 {
     XLFormBaseCell * cell = [formRow cellForFormController:self];
     cell.rowDescriptor = formRow;
+    [cell setNeedsUpdateConstraints];
     [cell setNeedsLayout];
     return cell;
 }
