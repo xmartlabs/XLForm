@@ -72,6 +72,9 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 -(void)removeValidator:(id<XLFormValidatorProtocol>)validator;
 -(XLFormValidationStatus *)doValidation;
 
+@property (nonatomic, copy) NSNumber *kmlMinimum;
+@property (nonatomic, copy) NSNumber *kmlMaximum;
+
 // ===========================
 // property used for Selectors
 // ===========================
