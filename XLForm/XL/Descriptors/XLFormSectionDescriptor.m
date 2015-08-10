@@ -395,5 +395,13 @@
     }
     [self evaluateIsHidden]; // check and update if this row should be hidden.
 }
-
+-(void)rowsDisable:(BOOL)disable;
+{
+    NSArray* listRows =self.formRows;
+    [listRows enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        XLFormRowDescriptor *row =obj;
+        [row setDisabled:[NSPredicate predicateWithFormat:@"a!=a"]];
+    }];
+    
+}
 @end
