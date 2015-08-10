@@ -400,7 +400,12 @@
     NSArray* listRows =self.formRows;
     [listRows enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         XLFormRowDescriptor *row =obj;
-        [row setDisabled:[NSPredicate predicateWithFormat:@"a!=a"]];
+        if (disable) {
+            [row setDisabled:[NSPredicate predicateWithFormat:@"a!=a"]];
+        }else{
+            [row setDisabled:[NSPredicate predicateWithFormat:@"a=a"]];
+        }
+
     }];
     
 }
