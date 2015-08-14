@@ -444,12 +444,10 @@
 
 -(void)ensureRowIsVisible:(XLFormRowDescriptor *)inlineRowDescriptor
 {
-    double toScroll;
     XLFormBaseCell * inlineCell = [inlineRowDescriptor cellForFormController:self];
-    CGRect rect = [self.view.window convertRect:inlineCell.frame toView:self.tableView.superview];
-    if (!(self.tableView.contentOffset.y + self.tableView.frame.size.height > inlineCell.frame.origin.y + inlineCell.frame.size.height) && (toScroll = rect.size.height + rect.origin.y - (self.tableView.frame.size.height + self.tableView.frame.origin.y)) > 0) {
-        toScroll += _keyboardFrame.size.height;
-        [self.tableView setContentOffset:CGPointMake(0, toScroll) animated:YES];
+    NSIndexPath * indexOfOutOfWindowCell = [self.form indexPathOfFormRow:inlineRowDescriptor];
+    if(!inlineCell.window || (self.tableView.contentOffset.y + self.tableView.frame.size.height <= inlineCell.frame.origin.y + inlineCell.frame.size.height)){
+        [self.tableView scrollToRowAtIndexPath:indexOfOutOfWindowCell atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
 
