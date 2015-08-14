@@ -149,7 +149,8 @@
     NSIndexPath *selected = [self.tableView indexPathForSelectedRow];
     if (selected){
         // Trigger a cell refresh
-        [self tableView:self.tableView cellForRowAtIndexPath:selected];
+        XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:selected];
+        [self updateFormRow:rowDescriptor];
         [self.tableView selectRowAtIndexPath:selected animated:NO scrollPosition:UITableViewScrollPositionNone];
         [self.tableView deselectRowAtIndexPath:selected animated:YES];
     }
