@@ -73,6 +73,8 @@
             [self setModeToDatePicker:datePickerCell.datePicker];
             if (self.rowDescriptor.value){
                 [datePickerCell.datePicker setDate:self.rowDescriptor.value];
+            } else if (self.defaultDate) {
+              [datePickerCell.datePicker setDate:self.defaultDate];
             }
             [datePickerCell.datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
             
