@@ -66,6 +66,7 @@
 @synthesize cellConfig = _cellConfig;
 @synthesize cellConfigIfDisabled = _cellConfigIfDisabled;
 @synthesize cellConfigAtConfigure = _cellConfigAtConfigure;
+@synthesize cellConfigForInlineCell = _cellConfigForInlineCell;
 
 -(instancetype)init
 {
@@ -87,6 +88,7 @@
         _cellConfig = [NSMutableDictionary dictionary];
         _cellConfigIfDisabled = [NSMutableDictionary dictionary];
         _cellConfigAtConfigure = [NSMutableDictionary dictionary];
+        _cellConfigForInlineCell = [NSMutableDictionary dictionary];
         _isDirtyDisablePredicateCache = YES;
         _disablePredicateCache = nil;
         _isDirtyHidePredicateCache = YES;
@@ -154,6 +156,13 @@
     if (_cellConfigAtConfigure) return _cellConfigAtConfigure;
     _cellConfigAtConfigure = [NSMutableDictionary dictionary];
     return _cellConfigAtConfigure;
+}
+
+-(NSMutableDictionary *)cellConfigForInlineCell
+{
+    if (_cellConfigForInlineCell) return _cellConfigForInlineCell;
+    _cellConfigForInlineCell = [NSMutableDictionary dictionary];
+    return _cellConfigForInlineCell;
 }
 
 -(NSString *)description

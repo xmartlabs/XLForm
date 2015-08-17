@@ -71,6 +71,9 @@
             NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:(selectedRowPath.row + 1) inSection:selectedRowPath.section];
             XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
             XLFormRowDescriptor * datePickerRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeDatePicker];
+            [self.rowDescriptor.cellConfigForInlineCell enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
+                [datePickerRowDescriptor.cellConfigAtConfigure setObject:(value == [NSNull null]) ? nil : value forKey:keyPath];
+            }];
             XLFormDatePickerCell * datePickerCell = (XLFormDatePickerCell *)[datePickerRowDescriptor cellForFormController:self.formViewController];
             [self setModeToDatePicker:datePickerCell.datePicker];
             if (self.rowDescriptor.value){                
