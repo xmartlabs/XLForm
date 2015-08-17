@@ -934,12 +934,12 @@ Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a d
 row.cellConfig.setObject(NSDate(), forKey: "maximumDate")
 ```
 
-####How to disable the entire form (read only mode).
+#### How to disable the entire form (read only mode).
 
 `disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ).
 Any other row added after form `disable` property is set to `YES` will reflect the disable mode automatically (no need to reload table view).
 
-####How to hide a row or section when another rows value changes.
+#### How to hide a row or section when another rows value changes.
 
 To hide a row or section you should set its hidden property. The easiest way of doing this is by setting a NSString to it. Let's say you want a section to hide if a previous row, which is a boolean switch, is set to 1 (or YES). Then you would do something like this:
 ```objc
@@ -947,14 +947,14 @@ section.hidden = [NSString stringWithFormat:@"$%@ == 1", previousRow];
 ```
 That is all!
 
-####What do I have to do to migrate from version 2.2.0 to 3.0.0?
+#### What do I have to do to migrate from version 2.2.0 to 3.0.0?
 
 The only thing that is not compatible with older versions is that the `disabled` property of the `XLFormRowDescriptor` is an `id` now. So you just have to add `@` before the values you set to it like this:
 ```objc
 row.disabled = @YES; // before: row.disabled = YES;
 ```
 
-##### How to change input accessory view (navigation view)
+#### How to change input accessory view (navigation view)
 
 Overriding `inputAccessoryViewForRowDescriptor:` `XLFormViewController` method.
 If you want to disable it completely you can return nil. But you can also customize its whole appearance here.
@@ -975,6 +975,9 @@ The view controller that will be pushed must conform to the `XLFormRowDescriptor
 ```
 This rowDescriptor refers to the selected row of the previous view controller and will be set before the transition to the new controller so that it will be accessible for example in its `viewDidLoad` method. That is where that view controller should be set up.
 
+#### How to change the default appearance of a certain cell
+
+The best way to do this is to extend the class of that cell and override its update and/or configure methods. To make this work you should also update the `cellClassesForRowDescriptorTypes` dictionary in your subclass of XLFormViewController by setting your custom class instead of the class of the cell you wanted to change.
 
 Installation
 --------------------------
