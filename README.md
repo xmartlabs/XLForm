@@ -954,16 +954,26 @@ The only thing that is not compatible with older versions is that the `disabled`
 row.disabled = @YES; // before: row.disabled = YES;
 ```
 
-##### How to disable input accessory view (navigation view)
+##### How to change input accessory view (navigation view)
 
 Overriding `inputAccessoryViewForRowDescriptor:` `XLFormViewController` method.
+If you want to disable it completely you can return nil. But you can also customize its whole appearance here.
 
 ```obj-c
-- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor {
-      return nil;
+- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor 
+{
+      return nil; //will hide it completely
       // You can use the rowDescriptor parameter to hide/customize the accessory view for a particular rowDescriptor type.
 }
 ```
+
+#### How to set up a pushed view controller?
+
+The view controller that will be pushed must conform to the `XLFormRowDescriptorViewController` protocol which consists of the following property:
+```objc
+@property (nonatomic) XLFormRowDescriptor * rowDescriptor;
+```
+This rowDescriptor refers to the selected row of the previous view controller and will be set before the transition to the new controller so that it will be accessible for example in its `viewDidLoad` method. That is where that view controller should be set up.
 
 
 Installation
