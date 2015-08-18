@@ -4,6 +4,7 @@ XLForm
 By [XMARTLABS](http://xmartlabs.com).
 
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
+[![license](https://img.shields.io/badge/pod-3.0.2-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
 
 Purpose
 --------------
@@ -960,7 +961,7 @@ Overriding `inputAccessoryViewForRowDescriptor:` `XLFormViewController` method.
 If you want to disable it completely you can return nil. But you can also customize its whole appearance here.
 
 ```obj-c
-- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor 
+- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
 {
       return nil; //will hide it completely
       // You can use the rowDescriptor parameter to hide/customize the accessory view for a particular rowDescriptor type.
@@ -985,7 +986,7 @@ Installation
 The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 3.0.0'`.
+`pod 'XLForm', '~> 3.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
@@ -1021,7 +1022,7 @@ Requirements
 Release Notes
 --------------
 
-Version 3.0.2 (master)
+Version 3.0.2
 * Fix issue when inline pickers expand beyond table.
 
 Version 3.0.1
