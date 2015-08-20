@@ -52,6 +52,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nonatomic, nullable) id value;
 @property (nullable) Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
+@property int maxLength;
 
 @property (copy, nullable) XLOnChangeBlock onChangeBlock;
 
@@ -145,3 +146,4 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nullable, nonatomic, strong) Class formSegueClass;
 
 @end
+

@@ -38,6 +38,8 @@ NSString *const kPhone = @"phone";
 NSString *const kUrl = @"url";
 NSString *const kTextView = @"textView";
 NSString *const kNotes = @"notes";
+NSString *const kCCLast4Digits = @"ccLast4Digits";
+NSString *const kCCExpiryDate = @"ccExpiryDate";
 
 
 @implementation InputsFormViewController
@@ -108,6 +110,18 @@ NSString *const kNotes = @"notes";
     section = [XLFormSectionDescriptor formSectionWithTitle:@"TextView With Label Example"];
     [formDescriptor addFormSection:section];
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kNotes rowType:XLFormRowDescriptorTypeTextView title:@"Notes"];
+    [section addFormRow:row];
+    
+    // Credit Card additions
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Credit Card Example"];
+    [formDescriptor addFormSection:section];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCCLast4Digits rowType:XLFormRowDescriptorTypeInteger title:@"Last 4 Digits"];
+    row.maxLength = 4;
+    [section addFormRow:row];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCCExpiryDate rowType:XLFormRowDescriptorTypeCreditCardExpiryDate title:@"Expiry Date"];
+    [row.cellConfigAtConfigure setObject:@"MM/YY" forKey:@"textField.placeholder"];
     [section addFormRow:row];
     
     return [super initWithForm:formDescriptor];

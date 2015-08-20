@@ -105,6 +105,7 @@ extern NSString *const XLFormRowDescriptorTypeBooleanSwitch;
 extern NSString *const XLFormRowDescriptorTypeButton;
 extern NSString *const XLFormRowDescriptorTypeInfo;
 extern NSString *const XLFormRowDescriptorTypeStepCounter;
+extern NSString *const XLFormRowDescriptorTypeCreditCardExpiryDate;
 
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)

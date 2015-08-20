@@ -85,12 +85,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 +(instancetype)formDescriptor
 {
-    return [[self class] formDescriptorWithTitle:nil];
+    return [self formDescriptorWithTitle:nil];
 }
 
 +(instancetype)formDescriptorWithTitle:(NSString *)title
 {
-    return [[[self class] alloc] initWithTitle:title];
+    return [[XLFormDescriptor alloc] initWithTitle:title];
 }
 
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection

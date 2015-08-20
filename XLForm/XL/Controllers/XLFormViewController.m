@@ -243,7 +243,8 @@
                                                XLFormRowDescriptorTypePicker : [XLFormPickerCell class],
                                                XLFormRowDescriptorTypeSlider : [XLFormSliderCell class],
                                                XLFormRowDescriptorTypeSelectorLeftRight : [XLFormLeftRightSelectorCell class],
-                                               XLFormRowDescriptorTypeStepCounter: [XLFormStepCounterCell class]
+                                               XLFormRowDescriptorTypeStepCounter: [XLFormStepCounterCell class],
+                                               XLFormRowDescriptorTypeCreditCardExpiryDate: [XLFormTextFieldCell class]
                                                } mutableCopy];
     });
     return _cellClassesForRowDescriptorTypes;
