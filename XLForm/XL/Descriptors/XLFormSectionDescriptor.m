@@ -67,6 +67,7 @@
         _sectionInsertMode = XLFormSectionInsertModeLastRow;
         _sectionOptions = XLFormSectionOptionNone;
         _title = nil;
+        _titleView = nil;
         _footerTitle = nil;
         _hidden = @NO;
         _hidePredicateCache = @NO;
@@ -82,6 +83,7 @@
         _sectionInsertMode = sectionInsertMode;
         _sectionOptions = sectionOptions;
         _title = title;
+        _titleView = nil;
         if ([self canInsertUsingButton]){
             _multivaluedAddButton = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeButton title:@"Add Item"];
             [_multivaluedAddButton.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
