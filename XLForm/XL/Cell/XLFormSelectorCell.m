@@ -266,6 +266,7 @@
             }
             [self.formViewController presentViewController:alertController animated:YES completion:nil];
         }
+#ifndef XL_APP_EXTENSIONS
         else{
             UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
                                                                       delegate:self
@@ -279,6 +280,7 @@
             actionSheet.tag = [self.rowDescriptor hash];
             [actionSheet showInView:controller.view];
         }
+#endif
 #endif
         [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
     }
@@ -316,6 +318,7 @@
             [controller presentViewController:alertController animated:YES completion:nil];
 
         }
+#ifndef XL_APP_EXTENSIONS
         else{
             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:self.rowDescriptor.selectorTitle
                                                                  message:nil
@@ -329,6 +332,7 @@
             alertView.tag = [self.rowDescriptor hash];
             [alertView show];
         }
+#endif
 #endif
         [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
     }
