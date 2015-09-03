@@ -162,7 +162,7 @@
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
@@ -203,7 +203,7 @@
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes
 {
     static NSMutableDictionary * _cellClassesForRowDescriptorTypes;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _cellClassesForRowDescriptorTypes = [@{XLFormRowDescriptorTypeText:[XLFormTextFieldCell class],
@@ -217,6 +217,7 @@
                                                XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeDecimal: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeZipCode: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
@@ -254,7 +255,7 @@
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes
 {
     static NSMutableDictionary * _inlineRowDescriptorTypesForRowDescriptorTypes;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _inlineRowDescriptorTypesForRowDescriptorTypes = [
@@ -652,7 +653,7 @@
         self.tableView.editing = !self.tableView.editing;
         self.tableView.editing = !self.tableView.editing;
     });
-    
+
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -787,7 +788,7 @@
             return [NSIndexPath indexPathForRow:proposedDestinationIndexPath.row - 1 inSection:sourceIndexPath.section];
         }
     }
-    
+
     if ((sectionDescriptor.sectionInsertMode == XLFormSectionInsertModeButton && sectionDescriptor.sectionOptions & XLFormSectionOptionCanInsert)){
         if (proposedDestinationIndexPath.row == sectionDescriptor.formRows.count - 1){
             return [NSIndexPath indexPathForRow:(sectionDescriptor.formRows.count - 2) inSection:sourceIndexPath.section];

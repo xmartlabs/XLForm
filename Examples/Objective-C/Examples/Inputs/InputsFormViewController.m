@@ -30,6 +30,7 @@
 NSString *const kName = @"name";
 NSString *const kEmail = @"email";
 NSString *const kTwitter = @"twitter";
+NSString *const kZipCode = @"zipCode";
 NSString *const kNumber = @"number";
 NSString *const kInteger = @"integer";
 NSString *const kDecimal = @"decimal";
@@ -72,6 +73,10 @@ NSString *const kNotes = @"notes";
     row.value = @"@no_editable";
     [section addFormRow:row];
     
+    // Zip Code
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kZipCode rowType:XLFormRowDescriptorTypeZipCode title:@"Zip Code"];
+    [section addFormRow:row];
+
     // Number
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kNumber rowType:XLFormRowDescriptorTypeNumber title:@"Number"];
     [section addFormRow:row];
