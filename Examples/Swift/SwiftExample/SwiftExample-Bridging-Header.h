@@ -11,7 +11,9 @@
 
 
 #import <XLForm/XLForm.h>
+#import <XLForm/UIView+XLFormAdditions.h>
 #import <AXRatingView/AXRatingView.h>
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 #endif
