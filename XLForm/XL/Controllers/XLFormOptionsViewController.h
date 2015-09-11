@@ -30,6 +30,8 @@
 
 @interface XLFormOptionsViewController : UITableViewController<XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController>
 
+@property (nonatomic, copy) void (^didSelectedOption)(id option);
+
 - (id)initWithStyle:(UITableViewStyle)style;
 
 
