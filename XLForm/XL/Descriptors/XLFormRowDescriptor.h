@@ -122,12 +122,16 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @end
 
 
-@protocol XLFormOptionObject
+@protocol XLFormOptionObject <NSObject>
 
-@required
+@property (nonatomic, readonly, nonnull) NSString *formDisplayText;
+@property (nonatomic, readonly, nonnull) id formValue;
 
--(nonnull NSString *)formDisplayText;
--(nonnull id)formValue;
+@optional
+
+-(void)configureCell:(nonnull id)optionCell;
+
+@property (nonatomic, readonly, nonnull) NSString *cellReuseIdentifier;
 
 @end
 
