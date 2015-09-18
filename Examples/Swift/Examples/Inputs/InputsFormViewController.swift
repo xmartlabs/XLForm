@@ -37,6 +37,7 @@ class InputsFormViewController : XLFormViewController {
         case Password = "password"
         case Phone = "phone"
         case Url = "url"
+        case ZipCode = "zipCode"
         case TextView = "textView"
         case Notes = "notes"
     }
@@ -82,6 +83,10 @@ class InputsFormViewController : XLFormViewController {
         row.value = "@no_editable"
         section.addFormRow(row)
         
+        // Zip Code
+        row = XLFormRowDescriptor(tag: Tags.ZipCode.rawValue, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
+        section.addFormRow(row)
+
         // Number
         row = XLFormRowDescriptor(tag: Tags.Number.rawValue, rowType: XLFormRowDescriptorTypeNumber, title: "Number")
         section.addFormRow(row)

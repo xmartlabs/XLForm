@@ -66,7 +66,9 @@
     XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
     XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
     BOOL result = [super resignFirstResponder];
-    [formSection removeFormRow:nextFormRow];
+    if (result) {
+        [formSection removeFormRow:nextFormRow];
+    }
     return result;
 }
 

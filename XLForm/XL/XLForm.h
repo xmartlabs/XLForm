@@ -79,6 +79,7 @@ extern NSString *const XLFormRowDescriptorTypeAccount;
 extern NSString *const XLFormRowDescriptorTypeInteger;
 extern NSString *const XLFormRowDescriptorTypeDecimal;
 extern NSString *const XLFormRowDescriptorTypeTextView;
+extern NSString *const XLFormRowDescriptorTypeZipCode;
 extern NSString *const XLFormRowDescriptorTypeSelectorPush;
 extern NSString *const XLFormRowDescriptorTypeSelectorPopover;
 extern NSString *const XLFormRowDescriptorTypeSelectorActionSheet;
