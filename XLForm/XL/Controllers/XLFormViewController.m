@@ -193,6 +193,14 @@
     }
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.top = self.topLayoutGuide.length;
+    self.tableView.contentInset = insets;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
