@@ -76,6 +76,8 @@ extern NSString *const XLFormRowDescriptorTypeNumber;
 extern NSString *const XLFormRowDescriptorTypePhone;
 extern NSString *const XLFormRowDescriptorTypeTwitter;
 extern NSString *const XLFormRowDescriptorTypeAccount;
+extern NSString *const XLFormRowDescriptorTypeCurrencyDecimal;
+extern NSString *const XLFormRowDescriptorTypeCurrencyInteger;
 extern NSString *const XLFormRowDescriptorTypeInteger;
 extern NSString *const XLFormRowDescriptorTypeDecimal;
 extern NSString *const XLFormRowDescriptorTypeTextView;

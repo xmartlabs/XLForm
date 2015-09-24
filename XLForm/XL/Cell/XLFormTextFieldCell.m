@@ -42,6 +42,8 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 
 @synthesize textField = _textField;
 @synthesize textLabel = _textLabel;
+@synthesize currencyFormatter = _currencyFormatter;
+@synthesize currencyEditFormatter = _currencyEditFormatter;
 
 
 #pragma mark - KVO
@@ -106,6 +108,12 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
         self.textField.keyboardType = UIKeyboardTypeDecimalPad;
     }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCurrencyDecimal]){
+        self.textField.keyboardType = UIKeyboardTypeDecimalPad;
+    }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCurrencyInteger]){
+        self.textField.keyboardType = UIKeyboardTypeNumberPad;
+    }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePassword]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -138,7 +146,14 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 
     self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title] : self.rowDescriptor.title);
 
-    self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
+    if ([self isRowTypeCurrency]){
+        if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCurrencyInteger]){
+            self.currencyFormatter.maximumFractionDigits = 0;
+        }
+        self.textField.text = [self.currencyFormatter stringFromNumber:self.rowDescriptor.value];
+    } else {
+        self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
+    }
     [self.textField setEnabled:!self.rowDescriptor.isDisabled];
     self.textField.textColor = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
@@ -180,6 +195,24 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
     if (_textField) return _textField;
     _textField = [UITextField autolayoutView];
     return _textField;
+}
+
+-(NSNumberFormatter *)currencyFormatter
+{
+    if (_currencyFormatter) return _currencyFormatter;
+    _currencyFormatter = [[NSNumberFormatter alloc] init];
+    _currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    _currencyFormatter.locale = [NSLocale currentLocale];
+    return _currencyFormatter;
+}
+
+-(NSNumberFormatter *)currencyEditFormatter
+{
+    if (_currencyEditFormatter) return _currencyEditFormatter;
+    _currencyEditFormatter = [[NSNumberFormatter alloc] init];
+    _currencyEditFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    _currencyFormatter.locale = [NSLocale currentLocale];
+    return _currencyEditFormatter;
 }
 
 #pragma mark - LayoutConstraints
@@ -263,6 +296,9 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    if ([self isRowTypeCurrency]){
+        textField.text = [self prepareCurrencyForEditing];
+    }
     [self.formViewController beginEditing:self.rowDescriptor];
     [self.formViewController textFieldDidBeginEditing:textField];
 }
@@ -279,7 +315,15 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 
 - (void)textFieldDidChange:(UITextField *)textField{
     if([self.textField.text length] > 0) {
-        if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
+        if ([self isRowTypeCurrency]){
+            // Sanitize the text input and convert it into a NSDecimalNumber.
+            // The reason we use NSDecimalNumber instead of NSNumber is because NSNumber
+            // introduces rounding errors. Remember, we're dealing with money here, so accuracy
+            // is super important.
+            NSString *sanitized = [self prepareCurrencyForEditing];
+            NSDecimalNumber *number = [NSDecimalNumber decimalNumberWithString:sanitized locale:self.currencyFormatter.locale];
+            self.rowDescriptor.value = number;
+        } else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
             self.rowDescriptor.value =  @([self.textField.text doubleValue]);
         } else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
             self.rowDescriptor.value = @([self.textField.text integerValue]);
@@ -299,6 +343,36 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 -(UIReturnKeyType)returnKeyType
 {
     return self.textField.returnKeyType;
+}
+
+-(BOOL)isRowTypeCurrency
+{
+    return [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCurrencyDecimal] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCurrencyInteger];
+}
+
+-(NSString *)prepareCurrencyForEditing
+{
+    NSString *text = self.textField.text;
+
+    // Just in case zeroSymbol is "FREE" or something crazy, we can start out with
+    // "0" instead of an empty text field. It's more intuitive.
+    if ([text isEqualToString:self.currencyFormatter.zeroSymbol]){
+        return @"0";
+    }
+
+    // Remove characters not relevant to the value (i.e., currency symbol, spaces, etc.)
+    NSMutableCharacterSet *allowed = [NSMutableCharacterSet decimalDigitCharacterSet];
+    [allowed addCharactersInString:self.currencyFormatter.currencyDecimalSeparator];
+    text = [[text componentsSeparatedByCharactersInSet:[allowed invertedSet]] componentsJoinedByString:@""];
+
+    // Remove trailing zeros and separators. Helps user not have to type backspace a lot if
+    // cents are visible.
+    if ([text containsString:self.currencyFormatter.decimalSeparator]){
+        NSString *separator = [NSString stringWithFormat:@"\\%@$", self.currencyFormatter.decimalSeparator];
+        text = [text stringByReplacingOccurrencesOfString:@"0+$" withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, text.length)];
+        text = [text stringByReplacingOccurrencesOfString:separator withString:@"" options:NSRegularExpressionSearch range:NSMakeRange(0, text.length)];
+    }
+    return text;
 }
 
 @end
