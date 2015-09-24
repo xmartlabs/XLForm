@@ -213,6 +213,8 @@
                                                XLFormRowDescriptorTypeEmail: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeTwitter: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeAccount: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeCurrencyDecimal: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeCurrencyInteger: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypePassword: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],

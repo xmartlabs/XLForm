@@ -34,6 +34,8 @@ NSString *const kZipCode = @"zipCode";
 NSString *const kNumber = @"number";
 NSString *const kInteger = @"integer";
 NSString *const kDecimal = @"decimal";
+NSString *const kCurrencyDecimal = @"currencyDecimal";
+NSString *const kCurrencyInteger = @"currencyInteger";
 NSString *const kPassword = @"password";
 NSString *const kPhone = @"phone";
 NSString *const kUrl = @"url";
@@ -87,6 +89,15 @@ NSString *const kNotes = @"notes";
 	
     // Decimal
     row = [XLFormRowDescriptor formRowDescriptorWithTag:kDecimal rowType:XLFormRowDescriptorTypeDecimal title:@"Decimal"];
+    [section addFormRow:row];
+
+    // Currency Integer
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCurrencyInteger rowType:XLFormRowDescriptorTypeCurrencyInteger title:@"Currency Integer"];
+    [section addFormRow:row];
+
+    // Currency Decimal
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCurrencyDecimal rowType:XLFormRowDescriptorTypeCurrencyDecimal title:@"Currency Decimal"];
+    row.cellConfigAtConfigure[@"currencyFormatter.zeroSymbol"] = @"FREE";
     [section addFormRow:row];
     
     // Password
