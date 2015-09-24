@@ -207,18 +207,18 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 
     if (self.imageView.image){
         if (self.textLabel.text.length > 0){
-            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-(rightMargin)-|" options:0 metrics:metrics views:views]];
+            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-|" options:0 metrics:metrics views:views]];
         }
         else{
-            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[textField]-(rightMargin)-|" options:0 metrics:metrics views:views]];
+            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[textField]-|" options:0 metrics:metrics views:views]];
         }
     }
     else{
         if (self.textLabel.text.length > 0){
-            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(leftMargin)-[label]-[textField]-(rightMargin)-|" options:0 metrics:metrics views:views]];
+            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textField]-|" options:0 metrics:metrics views:views]];
         }
         else{
-            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(leftMargin)-[textField]-(rightMargin)-|" options:0 metrics:metrics views:views]];
+            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textField]-|" options:0 metrics:metrics views:views]];
         }
     }
 

@@ -154,7 +154,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
     
     NSDictionary *metrics = @{@"margin":@5.0};
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[text]" options:0 metrics:metrics views:uiComponents]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
     
     
