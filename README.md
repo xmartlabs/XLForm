@@ -6,6 +6,8 @@ By [XMARTLABS](http://xmartlabs.com).
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
 [![license](https://img.shields.io/badge/pod-3.0.2-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
 
+**If you are looking for Swift 2 native implementation we have recently created [Eureka], a complete re-design of XLForm in Swift 2.** *Do not panic, We will continue maintaining and improving XLForm, obj-c rocks!!*
+
 Purpose
 --------------
 
@@ -1140,3 +1142,5 @@ Contact
 Any suggestion or question? Please create a Github issue or reach us out.
 
 [xmartlabs.com](http://xmartlabs.com) ([@xmartlabs](http://twitter.com/xmartlabs "@xmartlabs"))
+
+[Eureka]: https://github.com/xmartlabs/Eureka
