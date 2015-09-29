@@ -42,7 +42,7 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
     var rowDescriptor: XLFormRowDescriptor?
     lazy var mapView : MKMapView = {
         let mapView = MKMapView(frame: self.view.frame)
-        mapView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+        mapView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         return mapView
     }()
     
@@ -51,7 +51,7 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
 
         super.init(coder: aDecoder)
     }
@@ -76,7 +76,7 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
     
 //MARK - - MKMapViewDelegate
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
 
         let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
         pinAnnotationView.pinColor =  MKPinAnnotationColor.Red
@@ -84,12 +84,14 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
         pinAnnotationView.animatesDrop = true
         return pinAnnotationView
     }
-  
     
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         if (newState == MKAnnotationViewDragState.Ending){
-            self.rowDescriptor!.value = CLLocation(latitude:view.annotation.coordinate.latitude, longitude:view.annotation.coordinate.longitude)
-            self.title = String(format: "%0.4f, %0.4f", view.annotation.coordinate.latitude, view.annotation.coordinate.longitude)
+            if let rowDescriptor = rowDescriptor, let annotation = view.annotation {
+                rowDescriptor.value = CLLocation(latitude:annotation.coordinate.latitude, longitude:annotation.coordinate.longitude)
+                self.title = String(format: "%0.4f, %0.4f", annotation.coordinate.latitude, annotation.coordinate.longitude)
+            }
         }
     }
     

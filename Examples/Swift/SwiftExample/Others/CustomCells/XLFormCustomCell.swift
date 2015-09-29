@@ -31,7 +31,7 @@ class XLFormCustomCell : XLFormBaseCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -42,14 +42,25 @@ class XLFormCustomCell : XLFormBaseCell {
     override func update() {
         super.update()
         // override
-        self.textLabel!.text = self.rowDescriptor.value != nil ? self.rowDescriptor.value as? String : "Am a custom cell, select me!"
+        if let string = self.rowDescriptor?.value as? String {
+            self.textLabel?.text = string
+        }
+        else {
+            self.textLabel?.text = "Am a custom cell, select me!"
+        }
     }
    
     
     override func formDescriptorCellDidSelectedWithFormController(controller: XLFormViewController!) {
         // custom code here
         // i.e new behaviour when cell has been selected
-        self.rowDescriptor.value = self.rowDescriptor.value as? String == "I can do any custom behaviour..." ? "Am a custom cell, select me!" : "I can do any custom behaviour..."
+        if let string = self.rowDescriptor?.value as? String where string == "Am a custom cell, select me!" {
+            self.rowDescriptor?.value = string
+        }
+        else {
+            self.rowDescriptor?.value = "I can do any custom behaviour..."
+        }
+        
         self.update()
         controller.tableView .selectRowAtIndexPath(nil, animated: true, scrollPosition: UITableViewScrollPosition.None)
     }

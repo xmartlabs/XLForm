@@ -366,6 +366,8 @@
 		2847A6961AAF2679000A2ABE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = Xmartlabs;
 				TargetAttributes = {
