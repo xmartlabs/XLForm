@@ -33,8 +33,8 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
     
     
     lazy var floatLabeledTextField: JVFloatLabeledTextField  = {
-        let result  = JVFloatLabeledTextField(frame: CGRect.zeroRect)
-        result.setTranslatesAutoresizingMaskIntoConstraints(false)
+        let result  = JVFloatLabeledTextField(frame: CGRect.zero)
+        result.translatesAutoresizingMaskIntoConstraints = false
         result.font = UIFont.systemFontOfSize(kFontSize)
         result.floatingLabel.font = UIFont.boldSystemFontOfSize(kFontSize)
         result.clearButtonMode = UITextFieldViewMode.WhileEditing
@@ -48,26 +48,28 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.contentView.addSubview(self.floatLabeledTextField)
         self.floatLabeledTextField.delegate = self
-        self.contentView.addConstraints(self.layoutConstraints())
+        self.contentView.addConstraints((self.layoutConstraints() as! [NSLayoutConstraint]))
     }
     
     override func update() {
         super.update()
-        self.floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: self.rowDescriptor.title ?? "" , attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        if let rowDescriptor = rowDescriptor {
+            self.floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: rowDescriptor.title ?? "" , attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()])
     
-        if let value: AnyObject = self.rowDescriptor.value {
+        if let value: AnyObject = rowDescriptor.value {
             self.floatLabeledTextField.text = value.displayText()
         }
         else {
-            self.floatLabeledTextField.text = self.rowDescriptor.noValueDisplayText
+            self.floatLabeledTextField.text = rowDescriptor.noValueDisplayText
         }
-        self.floatLabeledTextField.enabled = !self.rowDescriptor.isDisabled()
+        self.floatLabeledTextField.enabled = !rowDescriptor.isDisabled()
         self.floatLabeledTextField.floatingLabelTextColor = UIColor.lightGrayColor()
-        self.floatLabeledTextField.alpha = self.rowDescriptor.isDisabled() ? 0.6 : 1.0
+        self.floatLabeledTextField.alpha = rowDescriptor.isDisabled() ? 0.6 : 1.0
+        }
     }
     
     override func formDescriptorCellCanBecomeFirstResponder() -> Bool {
-        return !self.rowDescriptor.isDisabled()
+        return self.rowDescriptor?.isDisabled() == false
     }
     
     
@@ -95,10 +97,12 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
     
     func textFieldDidChange(textField : UITextField) {
         if self.floatLabeledTextField == textField {
-            if self.floatLabeledTextField.text.isEmpty == false {
-                self.rowDescriptor.value = self.floatLabeledTextField.text
-            } else {
-                self.rowDescriptor.value = nil
+            if let rowDescriptor = rowDescriptor, let text = self.floatLabeledTextField.text {
+                if text.isEmpty == false {
+                    rowDescriptor.value = self.floatLabeledTextField.text
+                } else {
+                    rowDescriptor.value = nil
+                }
             }
         }
     }

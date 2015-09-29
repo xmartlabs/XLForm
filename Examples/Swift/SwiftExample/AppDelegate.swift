@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         // load the initial form form Storybiard
         let storyboard = UIStoryboard.init(name:"iPhoneStoryboard", bundle:nil)
-        self.window!.rootViewController = storyboard.instantiateInitialViewController() as? UIViewController
+        self.window!.rootViewController = storyboard.instantiateInitialViewController()
         self.window!.makeKeyAndVisible()
         return true
     }

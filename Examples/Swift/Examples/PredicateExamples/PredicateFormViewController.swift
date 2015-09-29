@@ -39,7 +39,7 @@ class PredicateFormViewController : XLFormViewController {
         self.initializeForm()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initializeForm()
     }
@@ -77,7 +77,7 @@ class PredicateFormViewController : XLFormViewController {
         
         // Predicate Disabling
         row = XLFormRowDescriptor(tag: Tags.Date.rawValue, rowType: XLFormRowDescriptorTypeDateInline, title:"Disabled")
-        row.value = NSDate.new()
+        row.value = NSDate()
         section.addFormRow(row)
         row.disabled = NSPredicate(format: "$\(Tags.Text.rawValue).value contains[c] 'disable' OR ($\(Tags.Integer.rawValue).value between {18, 60}) OR ($\(Tags.Switch.rawValue).value == 0)")
         section.hidden = NSPredicate(format: "($\(Tags.Text.rawValue).value contains[c] 'disable') AND ($\(Tags.Integer.rawValue).value between {18, 60}) AND ($\(Tags.Switch.rawValue).value == 0)")
