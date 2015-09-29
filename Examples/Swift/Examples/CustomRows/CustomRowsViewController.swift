@@ -30,6 +30,7 @@ class CustomRowsViewController : XLFormViewController {
         case CustomRowFloatLabeledTextFieldTag = "CustomRowFloatLabeledTextFieldTag"
         case CustomRowWeekdays = "CustomRowWeekdays"
         case CustomRowText = "CustomText"
+        case CustomRowImage = "CustomImage"
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -100,6 +101,11 @@ class CustomRowsViewController : XLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.CustomRowText.rawValue, rowType: XLFormRowDescriptorTypeCustom)
         // Must set custom cell or add custom cell to cellClassesForRowDescriptorTypes dictionary before XLFormViewController loaded
         row.cellClass = XLFormCustomCell.self
+        section.addFormRow(row)
+        
+        row = XLFormRowDescriptor(tag: Tags.CustomRowImage.rawValue, rowType: XLFormRowDescriptorTypeCustom)
+        row.cellClass = XLFormImageSelectorCell.self
+        row.value = UIImage(named:"default-avatar")
         section.addFormRow(row)
         
         self.form = form

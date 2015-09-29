@@ -38,6 +38,7 @@
 		28D8326C1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8326B1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift */; };
 		28D8326F1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8326E1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift */; };
 		28F490221AAFBBC600C8E0CC /* DatesFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */; };
+		C987699F1BA0B64600DE2D92 /* XLFormImageSelectorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C987699E1BA0B64600DE2D92 /* XLFormImageSelectorCell.swift */; };
 		DD7B43598E698717584375E9 /* libPods-SwiftExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		2EB9C638FC2450A0B9786D1E /* Pods-SwiftExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.release.xcconfig"; sourceTree = "<group>"; };
 		420D9BAB7B0D2AF9487DD060 /* Pods-SwiftExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.debug.xcconfig"; sourceTree = "<group>"; };
 		9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C987699E1BA0B64600DE2D92 /* XLFormImageSelectorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLFormImageSelectorCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				286E8B7C1AE86C8900F2767A /* XLFormCustomCell.swift */,
+				C987699E1BA0B64600DE2D92 /* XLFormImageSelectorCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				286E8B861AE9286B00F2767A /* CustomSelectorsFormViewController.swift in Sources */,
 				2886461F1AE5FEB5007A8B9B /* DateAndTimeValueTrasformer.swift in Sources */,
 				28B920751AE6F02F00BD6382 /* InputsFormViewController.swift in Sources */,
+				C987699F1BA0B64600DE2D92 /* XLFormImageSelectorCell.swift in Sources */,
 				28D832631AEBE4E4009E3B3F /* BasicPredicateViewController.swift in Sources */,
 				286E8B751AE809EF00F2767A /* DynamicSelectorsFormViewController.swift in Sources */,
 				286E8B881AE9286B00F2767A /* MapViewController.swift in Sources */,
