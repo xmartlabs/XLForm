@@ -76,7 +76,7 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
     
 //MARK - - MKMapViewDelegate
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 
         let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
         pinAnnotationView.pinColor =  MKPinAnnotationColor.Red

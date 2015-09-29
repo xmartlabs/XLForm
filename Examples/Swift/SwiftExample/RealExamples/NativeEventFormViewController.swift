@@ -26,8 +26,6 @@
 
 class NativeEventFormViewController : XLFormViewController {
 
-
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initializeForm()
@@ -38,14 +36,12 @@ class NativeEventFormViewController : XLFormViewController {
         self.initializeForm()
     }
 
-
     func initializeForm() {
         
         let form : XLFormDescriptor
         var section : XLFormSectionDescriptor
         var row : XLFormRowDescriptor
 
-        
         form = XLFormDescriptor(title: "Add Event")
         
         section = XLFormSectionDescriptor.formSection()
@@ -172,14 +168,14 @@ class NativeEventFormViewController : XLFormViewController {
             if formRow.value!.valueData() as? Bool == true {
                 startDateDescriptor.valueTransformer = DateValueTrasformer.self
                 endDateDescriptor.valueTransformer = DateValueTrasformer.self
-                dateStartCell.formDatePickerMode = XLFormDateDatePickerMode.Date
-                dateEndCell.formDatePickerMode = XLFormDateDatePickerMode.Date
+                dateStartCell.formDatePickerMode = .Date
+                dateEndCell.formDatePickerMode = .Date
             }
             else{
                 startDateDescriptor.valueTransformer = DateTimeValueTrasformer.self
                 endDateDescriptor.valueTransformer = DateTimeValueTrasformer.self
-                dateStartCell.formDatePickerMode = XLFormDateDatePickerMode.DateTime
-                dateEndCell.formDatePickerMode = XLFormDateDatePickerMode.DateTime
+                dateStartCell.formDatePickerMode = .DateTime
+                dateEndCell.formDatePickerMode = .DateTime
             }
             self.updateFormRow(startDateDescriptor)
             self.updateFormRow(endDateDescriptor)
@@ -187,8 +183,6 @@ class NativeEventFormViewController : XLFormViewController {
         else if formRow.tag == "starts" {
             let startDateDescriptor = self.form.formRowWithTag("starts")!
             let endDateDescriptor = self.form.formRowWithTag("ends")!
-            let dateStartCell: XLFormDateCell = startDateDescriptor.cellForFormController(self) as! XLFormDateCell
-            let dateEndCell: XLFormDateCell = endDateDescriptor.cellForFormController(self) as! XLFormDateCell
             if startDateDescriptor.value!.compare(endDateDescriptor.value as! NSDate) == NSComparisonResult.OrderedDescending {
                 // startDateDescriptor is later than endDateDescriptor
                 endDateDescriptor.value = NSDate(timeInterval: 60*60*24, sinceDate: startDateDescriptor.value as! NSDate)

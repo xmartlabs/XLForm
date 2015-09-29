@@ -25,9 +25,9 @@
 
 class UICustomizationFormViewController : XLFormViewController {
     
-    private enum Tags : String {
-        case Name = "Name"
-        case Button = "Button"
+    private struct Tags {
+        static let Name = "Name"
+        static let Button = "Button"
     }
     
     
@@ -53,7 +53,7 @@ class UICustomizationFormViewController : XLFormViewController {
         form.addFormSection(section)
     
         // Name
-        row = XLFormRowDescriptor(tag: Tags.Name.rawValue, rowType: XLFormRowDescriptorTypeText, title:"Name")
+        row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeText, title:"Name")
         // change the background color
         row.cellConfigAtConfigure["backgroundColor"] = UIColor.greenColor()
         // font
@@ -72,7 +72,7 @@ class UICustomizationFormViewController : XLFormViewController {
         form.addFormSection(section)
         
         //Button
-        row = XLFormRowDescriptor(tag: Tags.Button.rawValue, rowType: XLFormRowDescriptorTypeButton, title:"Button")
+        row = XLFormRowDescriptor(tag: Tags.Button, rowType: XLFormRowDescriptorTypeButton, title:"Button")
         row.cellConfigAtConfigure["backgroundColor"] = UIColor.purpleColor()
         row.cellConfig["textLabel.color"] = UIColor.whiteColor()
         row.cellConfig["textLabel.font"] = UIFont.systemFontOfSize(40)
@@ -83,10 +83,10 @@ class UICustomizationFormViewController : XLFormViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         // change cell height of a particular cell
-        if self.form.formRowAtIndex(indexPath)?.tag == "Name" {
+        if form.formRowAtIndex(indexPath)?.tag == "Name" {
             return 60.0
         }
-        else if self.form.formRowAtIndex(indexPath)?.tag == "Button" {
+        else if form.formRowAtIndex(indexPath)?.tag == "Button" {
             return 100.0
         }
         return super.tableView(tableView, heightForRowAtIndexPath: indexPath)

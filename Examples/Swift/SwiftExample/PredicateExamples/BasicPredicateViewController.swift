@@ -26,23 +26,23 @@
 
 class BasicPredicateViewController : XLFormViewController {
 
-    private enum Tags : String {
+    private struct Tags {
         
-        case HideRow = "tag1"
-        case HideSection = "tag2"
-        case Text = "tag3"
-        case Date = "tag4"
+        static let HideRow = "tag1"
+        static let HideSection = "tag2"
+        static let Text = "tag3"
+        static let Date = "tag4"
 
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
     
     func initializeForm() {
@@ -58,32 +58,27 @@ class BasicPredicateViewController : XLFormViewController {
         section.title = "A Section"
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.HideRow.rawValue, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Show next row")
+        row = XLFormRowDescriptor(tag: Tags.HideRow, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Show next row")
         row.value = 1
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.HideSection.rawValue, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Show B Section")
-        row.hidden = "$\(Tags.HideRow.rawValue)==0"
+        row = XLFormRowDescriptor(tag: Tags.HideSection, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Show B Section")
+        row.hidden = "$\(Tags.HideRow)==0"
         row.value = 1
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
         section.title = "B Section"
         section.footerTitle = "BasicPredicateViewController.swift"
-        section.hidden = "$\(Tags.HideSection.rawValue)==0"
+        section.hidden = "$\(Tags.HideSection)==0"
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.Text.rawValue, rowType: XLFormRowDescriptorTypeText)
+        row = XLFormRowDescriptor(tag: Tags.Text, rowType: XLFormRowDescriptorTypeText)
         row.cellConfigAtConfigure["textField.placeholder"] = "Gonna disappear soon!!"
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.Date.rawValue, rowType: XLFormRowDescriptorTypeDateInline, title: "Some Date")
-        row.hidden = "$\(Tags.Text.rawValue).value contains 'aaa'"
+        row = XLFormRowDescriptor(tag: Tags.Date, rowType: XLFormRowDescriptorTypeDateInline, title: "Some Date")
+        row.hidden = "$\(Tags.Text).value contains 'aaa'"
         section.addFormRow(row)
-        
-        
-
-        
     }
-    
 }

@@ -26,22 +26,22 @@
 
 class PredicateFormViewController : XLFormViewController {
 
-    private enum Tags : String {
-        case Text = "text"
-        case Integer = "integer"
-        case Switch = "switch"
-        case Date = "date"
-        case Account = "account"
+    private struct Tags {
+        static let Text = "text"
+        static let Integer = "integer"
+        static let Switch = "switch"
+        static let Date = "date"
+        static let Account = "account"
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
     
     func initializeForm() {
@@ -56,15 +56,15 @@ class PredicateFormViewController : XLFormViewController {
         section.title = "Independent rows"
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.Text.rawValue, rowType: XLFormRowDescriptorTypeAccount, title:"Text")
+        row = XLFormRowDescriptor(tag: Tags.Text, rowType: XLFormRowDescriptorTypeAccount, title:"Text")
         row.cellConfigAtConfigure["textField.placeholder"] = "Type disable"
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.Integer.rawValue, rowType: XLFormRowDescriptorTypeInteger, title:"Integer")
-        row.hidden = NSPredicate(format: "$\(Tags.Switch.rawValue).value==0")
+        row = XLFormRowDescriptor(tag: Tags.Integer, rowType: XLFormRowDescriptorTypeInteger, title:"Integer")
+        row.hidden = NSPredicate(format: "$\(Tags.Switch).value==0")
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.Switch.rawValue, rowType: XLFormRowDescriptorTypeBooleanSwitch, title:"Boolean")
+        row = XLFormRowDescriptor(tag: Tags.Switch, rowType: XLFormRowDescriptorTypeBooleanSwitch, title:"Boolean")
         row.value = true
         section.addFormRow(row)
         
@@ -76,11 +76,11 @@ class PredicateFormViewController : XLFormViewController {
         form.addFormSection(section)
         
         // Predicate Disabling
-        row = XLFormRowDescriptor(tag: Tags.Date.rawValue, rowType: XLFormRowDescriptorTypeDateInline, title:"Disabled")
+        row = XLFormRowDescriptor(tag: Tags.Date, rowType: XLFormRowDescriptorTypeDateInline, title:"Disabled")
         row.value = NSDate()
         section.addFormRow(row)
-        row.disabled = NSPredicate(format: "$\(Tags.Text.rawValue).value contains[c] 'disable' OR ($\(Tags.Integer.rawValue).value between {18, 60}) OR ($\(Tags.Switch.rawValue).value == 0)")
-        section.hidden = NSPredicate(format: "($\(Tags.Text.rawValue).value contains[c] 'disable') AND ($\(Tags.Integer.rawValue).value between {18, 60}) AND ($\(Tags.Switch.rawValue).value == 0)")
+        row.disabled = NSPredicate(format: "$\(Tags.Text).value contains[c] 'disable' OR ($\(Tags.Integer).value between {18, 60}) OR ($\(Tags.Switch).value == 0)")
+        section.hidden = NSPredicate(format: "($\(Tags.Text).value contains[c] 'disable') AND ($\(Tags.Integer).value between {18, 60}) AND ($\(Tags.Switch).value == 0)")
         
         
         
@@ -93,16 +93,15 @@ class PredicateFormViewController : XLFormViewController {
         
         row = XLFormRowDescriptor(tag: "thirds", rowType:XLFormRowDescriptorTypeAccount, title:"Account")
         section.addFormRow(row)
-        row.hidden =  NSPredicate(format: "$\(Tags.Date.rawValue).isDisabled == 1 AND $\(Tags.Text.rawValue).value contains[c] 'Out'")
+        row.hidden =  NSPredicate(format: "$\(Tags.Date).isDisabled == 1 AND $\(Tags.Text).value contains[c] 'Out'")
         
         
-        row.onChangeBlock = {
+        row.onChangeBlock = { [weak self] oldValue, newValue, _ in
             let noValue = "No Value"
-            let message = "Old value: \($0 ?? noValue), New value: \($1 ?? noValue)"
-            let alertView = UIAlertController(title: "Account Field changed", message: message, preferredStyle: UIAlertControllerStyle.ActionSheet)
-            alertView.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
-            let row = $2
-            self.navigationController?.presentViewController(alertView, animated: true, completion: nil)
+            let message = "Old value: \(oldValue ?? noValue), New value: \(newValue ?? noValue)"
+            let alertView = UIAlertController(title: "Account Field changed", message: message, preferredStyle: .ActionSheet)
+            alertView.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            self?.navigationController?.presentViewController(alertView, animated: true, completion: nil)
         }
         
         self.form = form
