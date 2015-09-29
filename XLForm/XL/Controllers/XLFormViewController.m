@@ -149,7 +149,8 @@
     NSIndexPath *selected = [self.tableView indexPathForSelectedRow];
     if (selected){
         // Trigger a cell refresh
-        [self tableView:self.tableView cellForRowAtIndexPath:selected];
+        XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:selected];
+        [self updateFormRow:rowDescriptor];
         [self.tableView selectRowAtIndexPath:selected animated:NO scrollPosition:UITableViewScrollPositionNone];
         [self.tableView deselectRowAtIndexPath:selected animated:YES];
     }
@@ -161,7 +162,7 @@
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
@@ -202,7 +203,7 @@
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes
 {
     static NSMutableDictionary * _cellClassesForRowDescriptorTypes;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _cellClassesForRowDescriptorTypes = [@{XLFormRowDescriptorTypeText:[XLFormTextFieldCell class],
@@ -216,6 +217,7 @@
                                                XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeDecimal: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeZipCode: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorPopover: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeSelectorActionSheet: [XLFormSelectorCell class],
@@ -253,7 +255,7 @@
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes
 {
     static NSMutableDictionary * _inlineRowDescriptorTypesForRowDescriptorTypes;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _inlineRowDescriptorTypesForRowDescriptorTypes = [
@@ -443,12 +445,10 @@
 
 -(void)ensureRowIsVisible:(XLFormRowDescriptor *)inlineRowDescriptor
 {
-    double toScroll;
     XLFormBaseCell * inlineCell = [inlineRowDescriptor cellForFormController:self];
-    CGRect rect = [self.view.window convertRect:inlineCell.frame toView:self.tableView.superview];
-    if (!(self.tableView.contentOffset.y + self.tableView.frame.size.height > inlineCell.frame.origin.y + inlineCell.frame.size.height) && (toScroll = rect.size.height + rect.origin.y - (self.tableView.frame.size.height + self.tableView.frame.origin.y)) > 0) {
-        toScroll += _keyboardFrame.size.height;
-        [self.tableView setContentOffset:CGPointMake(0, toScroll) animated:YES];
+    NSIndexPath * indexOfOutOfWindowCell = [self.form indexPathOfFormRow:inlineRowDescriptor];
+    if(!inlineCell.window || (self.tableView.contentOffset.y + self.tableView.frame.size.height <= inlineCell.frame.origin.y + inlineCell.frame.size.height)){
+        [self.tableView scrollToRowAtIndexPath:indexOfOutOfWindowCell atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
 
@@ -653,7 +653,7 @@
         self.tableView.editing = !self.tableView.editing;
         self.tableView.editing = !self.tableView.editing;
     });
-    
+
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -788,7 +788,7 @@
             return [NSIndexPath indexPathForRow:proposedDestinationIndexPath.row - 1 inSection:sourceIndexPath.section];
         }
     }
-    
+
     if ((sectionDescriptor.sectionInsertMode == XLFormSectionInsertModeButton && sectionDescriptor.sectionOptions & XLFormSectionOptionCanInsert)){
         if (proposedDestinationIndexPath.row == sectionDescriptor.formRows.count - 1){
             return [NSIndexPath indexPathForRow:(sectionDescriptor.formRows.count - 2) inSection:sourceIndexPath.section];
