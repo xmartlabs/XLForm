@@ -25,7 +25,7 @@
 
 let XLFormRowDescriptorTypeRate = "XLFormRowDescriptorTypeRate"
 
-@objc
+
 class XLFormRatingCell : XLFormBaseCell {
     
     @IBOutlet weak var rateTitle: UILabel!

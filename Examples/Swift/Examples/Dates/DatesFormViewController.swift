@@ -43,7 +43,7 @@ class DatesFormViewController: XLFormViewController {
         self.initializeForm()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initializeForm()
     }
