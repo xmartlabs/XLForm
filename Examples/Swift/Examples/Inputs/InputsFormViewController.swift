@@ -26,30 +26,29 @@
 
 class InputsFormViewController : XLFormViewController {
 
-    
-    private enum Tags : String {
-        case Name = "name"
-        case Email = "email"
-        case Twitter = "twitter"
-        case Number = "number"
-        case Integer = "integer"
-        case Decimal = "decimal"
-        case Password = "password"
-        case Phone = "phone"
-        case Url = "url"
-        case ZipCode = "zipCode"
-        case TextView = "textView"
-        case Notes = "notes"
+    private struct Tags {
+        static let Name = "name"
+        static let Email = "email"
+        static let Twitter = "twitter"
+        static let Number = "number"
+        static let Integer = "integer"
+        static let Decimal = "decimal"
+        static let Password = "password"
+        static let Phone = "phone"
+        static let Url = "url"
+        static let ZipCode = "zipCode"
+        static let TextView = "textView"
+        static let Notes = "notes"
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
 
     func initializeForm() {
@@ -67,48 +66,48 @@ class InputsFormViewController : XLFormViewController {
         
         
         // Name
-        row = XLFormRowDescriptor(tag: Tags.Name.rawValue, rowType: XLFormRowDescriptorTypeText, title: "Name")
+        row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeText, title: "Name")
         row.required = true
         section.addFormRow(row)
         
         // Email
-        row = XLFormRowDescriptor(tag: Tags.Email.rawValue, rowType: XLFormRowDescriptorTypeEmail, title: "Email")
+        row = XLFormRowDescriptor(tag: Tags.Email, rowType: XLFormRowDescriptorTypeEmail, title: "Email")
         // validate the email
         row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         
         // Twitter
-        row = XLFormRowDescriptor(tag: Tags.Name.rawValue, rowType: XLFormRowDescriptorTypeTwitter, title: "Twitter")
+        row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeTwitter, title: "Twitter")
         row.disabled = NSNumber(bool: true)
         row.value = "@no_editable"
         section.addFormRow(row)
         
         // Zip Code
-        row = XLFormRowDescriptor(tag: Tags.ZipCode.rawValue, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
+        row = XLFormRowDescriptor(tag: Tags.ZipCode, rowType: XLFormRowDescriptorTypeZipCode, title: "Zip Code")
         section.addFormRow(row)
 
         // Number
-        row = XLFormRowDescriptor(tag: Tags.Number.rawValue, rowType: XLFormRowDescriptorTypeNumber, title: "Number")
+        row = XLFormRowDescriptor(tag: Tags.Number, rowType: XLFormRowDescriptorTypeNumber, title: "Number")
         section.addFormRow(row)
         
         // Integer
-        row = XLFormRowDescriptor(tag: Tags.Integer.rawValue, rowType: XLFormRowDescriptorTypeInteger, title: "Integer")
+        row = XLFormRowDescriptor(tag: Tags.Integer, rowType: XLFormRowDescriptorTypeInteger, title: "Integer")
         section.addFormRow(row)
         
         // Decimal
-        row = XLFormRowDescriptor(tag: Tags.Decimal.rawValue, rowType: XLFormRowDescriptorTypeDecimal, title: "Decimal")
+        row = XLFormRowDescriptor(tag: Tags.Decimal, rowType: XLFormRowDescriptorTypeDecimal, title: "Decimal")
         section.addFormRow(row)
         
         // Password
-        row = XLFormRowDescriptor(tag: Tags.Password.rawValue, rowType: XLFormRowDescriptorTypePassword, title: "Password")
+        row = XLFormRowDescriptor(tag: Tags.Password, rowType: XLFormRowDescriptorTypePassword, title: "Password")
         section.addFormRow(row)
         
         // Phone
-        row = XLFormRowDescriptor(tag: Tags.Phone.rawValue, rowType: XLFormRowDescriptorTypePhone, title: "Phone")
+        row = XLFormRowDescriptor(tag: Tags.Phone, rowType: XLFormRowDescriptorTypePhone, title: "Phone")
         section.addFormRow(row)
         
         // Url
-        row = XLFormRowDescriptor(tag: Tags.Url.rawValue, rowType: XLFormRowDescriptorTypeURL, title: "Url")
+        row = XLFormRowDescriptor(tag: Tags.Url, rowType: XLFormRowDescriptorTypeURL, title: "Url")
         section.addFormRow(row)
         
         
@@ -117,7 +116,7 @@ class InputsFormViewController : XLFormViewController {
         
         
         // TextView
-        row = XLFormRowDescriptor(tag: Tags.TextView.rawValue, rowType: XLFormRowDescriptorTypeTextView)
+        row = XLFormRowDescriptor(tag: Tags.TextView, rowType: XLFormRowDescriptorTypeTextView)
         row.cellConfigAtConfigure["textView.placeholder"] = "TEXT VIEW EXAMPLE"
         section.addFormRow(row)
         
@@ -125,7 +124,7 @@ class InputsFormViewController : XLFormViewController {
         section = XLFormSectionDescriptor.formSectionWithTitle("TextView With Label Example")
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.Number.rawValue, rowType: XLFormRowDescriptorTypeTextView, title: "Notes")
+        row = XLFormRowDescriptor(tag: Tags.Number, rowType: XLFormRowDescriptorTypeTextView, title: "Notes")
         section.addFormRow(row)
         
         self.form = form
@@ -135,7 +134,7 @@ class InputsFormViewController : XLFormViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Save, target: self, action: "savePressed:")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "savePressed:")
     }
     
     func savePressed(button: UIBarButtonItem)

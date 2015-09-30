@@ -46,10 +46,9 @@ class UserCell : UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Initialization code
     
-        self.contentView.addSubview(self.userImage)
-        self.contentView.addSubview(self.userName)
-    
-        self.contentView.addConstraints((self.layoutConstraints() as! [NSLayoutConstraint]))
+        contentView.addSubview(userImage)
+        contentView.addSubview(userName)
+        contentView.addConstraints(layoutConstraints())
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -63,11 +62,11 @@ class UserCell : UITableViewCell {
     
 // MARK: - Layout Constraints
 
-    func layoutConstraints() -> [AnyObject]{
+    func layoutConstraints() -> [NSLayoutConstraint]{
         let views = ["image": self.userImage, "name": self.userName ]
         let metrics = [ "imgSize": 50.0, "margin": 12.0]
         
-        var result = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(margin)-[image(imgSize)]-[name]", options:NSLayoutFormatOptions.AlignAllTop, metrics: metrics, views: views)
+        var result = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(margin)-[image(imgSize)]-[name]", options:.AlignAllTop, metrics: metrics, views: views)
         result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(margin)-[image(imgSize)]", options:NSLayoutFormatOptions(), metrics:metrics, views: views)
         return result
     }
@@ -157,8 +156,8 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.registerClass(UserCell.self, forCellReuseIdentifier: self.kUserCellIdentifier)
-        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        tableView.registerClass(UserCell.self, forCellReuseIdentifier: kUserCellIdentifier)
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
 // MARK: UITableViewDataSource
@@ -178,8 +177,8 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
         let userId = userData["id"] as! Int
         cell.userName.text = userData["name"] as? String
         cell.userImage.image = UIImage(named: (userData["imageName"] as? String)!)
-        if self.rowDescriptor?.value != nil {
-            cell.accessoryType = self.rowDescriptor!.value!.formValue().isEqual(userId) ? .Checkmark : .None
+        if let value = rowDescriptor?.value {
+            cell.accessoryType = value.formValue().isEqual(userId) ? .Checkmark : .None
         }
         return cell;
 
@@ -202,8 +201,8 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
             porpOver.dismissPopoverAnimated(true)
             porpOver.delegate?.popoverControllerDidDismissPopover!(porpOver)
         }
-        else if self.parentViewController is UINavigationController {
-            self.navigationController?.popViewControllerAnimated(true)
+        else if parentViewController is UINavigationController {
+            navigationController?.popViewControllerAnimated(true)
         }
     }
     

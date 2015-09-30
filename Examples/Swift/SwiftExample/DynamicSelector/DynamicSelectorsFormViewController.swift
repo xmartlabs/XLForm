@@ -27,12 +27,12 @@ class DynamicSelectorsFormViewController : XLFormViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
     
     func initializeForm() {
@@ -51,7 +51,7 @@ class DynamicSelectorsFormViewController : XLFormViewController {
         row.action.viewControllerClass = UsersTableViewController.self
         section.addFormRow(row)
         
-        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
             // Selector PopOver
             row = XLFormRowDescriptor(tag: "selectorUserPopover", rowType:XLFormRowDescriptorTypeSelectorPopover, title:"User Popover")
             row.action.viewControllerClass = UsersTableViewController.self
