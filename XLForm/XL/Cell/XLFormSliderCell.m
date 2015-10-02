@@ -28,38 +28,79 @@
 
 @interface XLFormSliderCell ()
 
-@property (nonatomic) UISlider * slider;
-@property (nonatomic) UILabel * textLabel;
+@property NSMutableArray * dynamicCustomConstraints;
+@property UISlider* slider;
+@property UILabel* textField;
 @property NSUInteger steps;
 
 @end
 
 @implementation XLFormSliderCell
 
-@synthesize textLabel = _textLabel;
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+  if (object == self.textField && [keyPath isEqualToString:@"text"]){
+    if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
+      [self.contentView setNeedsUpdateConstraints];
+    }
+  }
+}
 
 - (void)configure
 {
+
 	self.steps = 0;
+
+	self.slider = [UISlider autolayoutView];
 	[self.slider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventValueChanged];
 	[self.contentView addSubview:self.slider];
-	[self.contentView addSubview:self.textLabel];
-    	self.selectionStyle = UITableViewCellSelectionStyleNone;
-	[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
-	[self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:44]];
-	[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[textLabel]-15-|" options:0 metrics:0 views:@{@"textLabel": self.textLabel}]];
-	[self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[slider]-15-|" options:0 metrics:0 views:@{@"slider": self.slider}]];
-	
+	self.selectionStyle = UITableViewCellSelectionStyleNone;
+
+	self.textField = [UILabel autolayoutView];
+	[self.contentView addSubview:self.textField];
+  [self.contentView addConstraints:[self layoutConstraints]];
+
 	[self valueChanged:nil];
 }
 
 -(void)update {
-	
+
     [super update];
-    self.textLabel.text = self.rowDescriptor.title;
+    self.textField.text = self.rowDescriptor.title;
+    self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.slider.value = [self.rowDescriptor.value floatValue];
-    self.slider.enabled = !self.rowDescriptor.isDisabled;
+    self.slider.enabled = !self.rowDescriptor.disabled;
+    self.textField.textColor  = self.rowDescriptor.disabled ? [UIColor grayColor] : [UIColor blackColor];
+
     [self valueChanged:nil];
+}
+
+#pragma mark - LayoutConstraints
+
+-(NSArray *)layoutConstraints
+{
+  NSMutableArray * result = [[NSMutableArray alloc] init];
+  [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[textField]-15-|" options:0 metrics:0 views:@{@"textField": self.textField}]];
+  [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[slider]-15-|" options:0 metrics:0 views:@{@"slider": self.slider}]];
+  return result;
+}
+
+-(void)updateConstraints
+{
+  if (self.dynamicCustomConstraints){
+    [self.contentView removeConstraints:self.dynamicCustomConstraints];
+  }
+  self.dynamicCustomConstraints = [NSMutableArray array];
+  if (self.rowDescriptor.title == nil || [self.rowDescriptor.title isEqualToString:@""]) {
+    [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+    [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:self.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
+  } else {
+    [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:10]];
+    [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:self.slider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeTop multiplier:1 constant:44]];
+  }
+
+  [self.contentView addConstraints:self.dynamicCustomConstraints];
+  [super updateConstraints];
 }
 
 -(void)valueChanged:(UISlider*)_slider {
@@ -70,22 +111,11 @@
 }
 
 +(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor {
-	return 88;
-}
-
-
--(UILabel *)textLabel
-{
-    if (_textLabel) return _textLabel;
-    _textLabel = [UILabel autolayoutView];
-    return _textLabel;
-}
-
--(UISlider *)slider
-{
-    if (_slider) return _slider;
-    _slider = [UISlider autolayoutView];
-    return _slider;
+  if (rowDescriptor.title == nil || [rowDescriptor.title isEqualToString:@""]) {
+    return 40;
+  } else {
+    return 88;
+  }
 }
 
 @end
