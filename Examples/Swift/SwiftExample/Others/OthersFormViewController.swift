@@ -88,6 +88,7 @@ class OthersFormViewController : XLFormViewController {
         row.cellConfigAtConfigure["slider.maximumValue"] = 100
         row.cellConfigAtConfigure["slider.minimumValue"] = 10
         row.cellConfigAtConfigure["steps"] = 4
+        row.cellConfigAtConfigure["showValue"] = true;
         section.addFormRow(row)
         
 
