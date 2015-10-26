@@ -84,20 +84,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    XLFormRightDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
-    id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row];
-    cell.textLabel.text = [self valueDisplayTextForOption:cellObject];
+    id<XLFormOptionObject> optionObject =  [[self selectorOptions] objectAtIndex:indexPath.row];
+
+    NSString *cellIdentifier = [optionObject respondsToSelector:@selector(cellReuseIdentifier)]
+    ? optionObject.cellReuseIdentifier
+    : CELL_REUSE_IDENTIFIER;
+
+    XLFormRightDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+
+    cell.textLabel.text = [self valueDisplayTextForOption:optionObject];
+
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]){
-        cell.accessoryType = ([self selectedValuesContainsOption:cellObject] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
+        cell.accessoryType = ([self selectedValuesContainsOption:optionObject] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
     }
     else{
-        if ([[self.rowDescriptor.value valueData] isEqual:[cellObject valueData]]){
+        if ([[self.rowDescriptor.value valueData] isEqual:[(NSObject *)optionObject valueData]]){
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
         else{
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
+
+    if ([optionObject respondsToSelector:@selector(configureCell:)]) {
+        [optionObject configureCell:cell];
+    }
+
     return cell;
 }
 
@@ -197,7 +209,7 @@
 
 
 
--(NSString *)valueDisplayTextForOption:(id)option
+-(NSString *)valueDisplayTextForOption:(id<XLFormOptionObject>)option
 {
     if (self.rowDescriptor.valueTransformer){
         NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
@@ -207,7 +219,7 @@
             return transformedValue;
         }
     }
-    return [option displayText];
+    return [(NSObject *)option displayText];
 }
 
 #pragma mark - Helpers

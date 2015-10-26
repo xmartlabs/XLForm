@@ -141,7 +141,6 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
     self.textField.text = self.rowDescriptor.value ? [self.rowDescriptor.value displayText] : self.rowDescriptor.noValueDisplayText;
     [self.textField setEnabled:!self.rowDescriptor.isDisabled];
     self.textField.textColor = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
-    self.textField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 }
 
 -(BOOL)formDescriptorCellCanBecomeFirstResponder

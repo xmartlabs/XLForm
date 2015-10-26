@@ -120,8 +120,7 @@
         self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
                                                       style:self.tableViewStyle];
         self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    }
-    if (!self.tableView.superview){
+
         [self.view addSubview:self.tableView];
     }
     if (!self.tableView.delegate){
