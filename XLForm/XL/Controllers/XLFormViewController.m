@@ -134,6 +134,10 @@
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 44.0;
     }
+    if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0"))
+    {
+        self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+    }
     if (self.form.title){
         self.title = self.form.title;
     }
