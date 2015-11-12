@@ -105,7 +105,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:self.rowDescriptor.selectorTitle
                                                                                   message:nil
                                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil]];
         __weak __typeof(self)weakSelf = self;
