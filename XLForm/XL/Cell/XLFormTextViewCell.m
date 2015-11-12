@@ -155,10 +155,10 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     }
     NSDictionary * views = @{@"label": self.textLabel, @"textView": self.textView};
     if (!self.textLabel.text || [self.textLabel.text isEqualToString:@""]){
-        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textView]-16-|" options:0 metrics:0 views:views]];
+        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textView]-|" options:0 metrics:0 views:views]];
     }
     else{
-        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textView]-4-|" options:0 metrics:0 views:views]];
+        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textView]-|" options:0 metrics:0 views:views]];
     }
     [self.contentView addConstraints:_dynamicCustomConstraints];
     [super updateConstraints];
