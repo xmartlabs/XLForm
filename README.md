@@ -985,7 +985,7 @@ The best way to do this is to extend the class of that cell and override its upd
 Installation
 --------------------------
 
-The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
+## Cocoapods
 
 1. Add the following line in the project's Podfile file:
 `pod 'XLForm', '~> 3.0'`.
@@ -993,6 +993,13 @@ The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.or
 
 XLForm **has no** dependencies over other pods.
 
+## Carthage
+
+In your `Cartfile` add:
+
+```
+github "xmartlabs/XLForm" ~> 3.0
+```
 
 ### How to use master branch
 
