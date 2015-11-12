@@ -31,7 +31,6 @@
 
 NSString * const XLFormRowDescriptorTypeFloatLabeledTextField = @"XLFormRowDescriptorTypeFloatLabeledTextField";
 
-const static CGFloat kHMargin = 15.0f;
 const static CGFloat kVMargin = 8.0f;
 const static CGFloat kFloatingLabelFontSize = 11.0f;
 
