@@ -203,22 +203,20 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
         [self.contentView removeConstraints:self.dynamicCustomConstraints];
     }
     NSDictionary * views = @{@"label": self.textLabel, @"textField": self.textField, @"image": self.imageView};
-    NSDictionary *metrics = @{@"leftMargin" : @16.0, @"rightMargin" : self.textField.textAlignment == NSTextAlignmentRight ? @16.0 : @4.0};
-
     if (self.imageView.image){
         if (self.textLabel.text.length > 0){
-            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-|" options:0 metrics:metrics views:views]];
+            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-|" options:0 metrics:nil views:views]];
         }
         else{
-            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[textField]-|" options:0 metrics:metrics views:views]];
+            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[textField]-|" options:0 metrics:nil views:views]];
         }
     }
     else{
         if (self.textLabel.text.length > 0){
-            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textField]-|" options:0 metrics:metrics views:views]];
+            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textField]-|" options:0 metrics:nil views:views]];
         }
         else{
-            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textField]-|" options:0 metrics:metrics views:views]];
+            self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textField]-|" options:0 metrics:nil views:views]];
         }
     }
 
