@@ -85,5 +85,27 @@
 {
     return _formValue;
 }
-
+#pragma mark - NSCoding
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    
+    [encoder encodeObject:self.formValue
+                   forKey:@"formValue"];
+    [encoder encodeObject:self.formDisplayText
+                   forKey:@"formDisplayText"];
+}
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    if ((self=[super init])) {
+        
+        [self setValue:[decoder decodeObjectForKey:@"formValue"]
+                forKey:@"formValue"];
+        [self setValue:[decoder decodeObjectForKey:@"formDisplayText"]
+                forKey:@"formDisplaytext"];
+        
+    }
+    
+    return self;
+    
+}
 @end
