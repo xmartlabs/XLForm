@@ -230,6 +230,7 @@
                                                XLFormRowDescriptorTypeSelectorSegmentedControl: [XLFormSegmentedCell class],
                                                XLFormRowDescriptorTypeMultipleSelector: [XLFormSelectorCell class],
                                                XLFormRowDescriptorTypeMultipleSelectorPopover: [XLFormSelectorCell class],
+                                               XLFormRowDescriptorTypeImage: [XLFormImageCell class],
                                                XLFormRowDescriptorTypeTextView: [XLFormTextViewCell class],
                                                XLFormRowDescriptorTypeButton: [XLFormButtonCell class],
                                                XLFormRowDescriptorTypeInfo: [XLFormSelectorCell class],
