@@ -192,6 +192,7 @@
             XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
             optionsViewController.rowDescriptor = self.rowDescriptor;
             optionsViewController.title = self.rowDescriptor.selectorTitle;
+            optionsViewController.tableView.tintColor = self.rowDescriptor.selectorOptionsTintColor;
 			
 			if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
 				self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
@@ -215,6 +216,7 @@
         XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
         optionsViewController.rowDescriptor = self.rowDescriptor;
         optionsViewController.title = self.rowDescriptor.selectorTitle;
+        optionsViewController.tableView.tintColor = self.rowDescriptor.selectorOptionsTintColor;
         
         if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) {
             self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];

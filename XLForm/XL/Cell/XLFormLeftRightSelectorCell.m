@@ -156,6 +156,7 @@
         if (option.rightOptions){
             XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc]  initWithStyle:UITableViewStyleGrouped];
             optionsViewController.title = option.selectorTitle;
+            optionsViewController.tableView.tintColor = self.rowDescriptor.selectorOptionsTintColor;
             optionsViewController.rowDescriptor = self.rowDescriptor;
             [controller.navigationController pushViewController:optionsViewController animated:YES];
         }

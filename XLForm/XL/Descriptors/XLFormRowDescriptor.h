@@ -85,6 +85,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nullable) NSString * noValueDisplayText;
 @property (nullable) NSString * selectorTitle;
 @property (nullable) NSArray * selectorOptions;
+@property (nullable) UIColor * selectorOptionsTintColor;
 
 @property (null_unspecified) id leftRightSelectorLeftOptionSelected;
 
