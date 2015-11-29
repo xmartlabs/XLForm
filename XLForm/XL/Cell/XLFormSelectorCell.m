@@ -193,7 +193,10 @@
             optionsViewController.rowDescriptor = self.rowDescriptor;
             optionsViewController.title = self.rowDescriptor.selectorTitle;
             optionsViewController.tableView.tintColor = self.rowDescriptor.selectorOptionsTintColor;
-			
+            optionsViewController.editingOptionsEnabled = self.rowDescriptor.selectorOptionsEditingEnabled;
+            optionsViewController.editingOptionsAddNewOptionTitle = self.rowDescriptor.selectorOptionsAddNewOptionTitle;
+            optionsViewController.editingOptionsNewTextForOptionTitle = self.rowDescriptor.selectorOptionsNewTextForOptionTitle;
+
 			if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
 				self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
                 self.popoverController.delegate = self;

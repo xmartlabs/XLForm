@@ -37,5 +37,8 @@
     titleHeaderSection:(NSString *)titleHeaderSection
     titleFooterSection:(NSString *)titleFooterSection;
 
+@property (getter=isEditingEnabled, nonatomic) BOOL editingOptionsEnabled;
+@property (nonatomic) NSString *editingOptionsNewTextForOptionTitle;
+@property (nonatomic) NSString *editingOptionsAddNewOptionTitle;
 
 @end

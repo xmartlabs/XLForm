@@ -246,6 +246,24 @@
     }
 }
 
+- (void)optionsViewControllerDidCreateSelectorOption:(id)option {
+    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didCreateSelectorOption:option];
+}
+
+- (void)optionsViewControllerDidRemoveSelectorOption:(id)option {
+    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didRemoveSelectorOption:option];
+    
+}
+
+- (void)optionsViewControllerDidChangeSelectorOption:(id)option newText:(NSString *)newText {
+    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didChangeSelectorOption:option newText:newText];
+}
+
+- (void)optionsViewControllerDidChangeSelectorOption:(id)option fromPosition:(int)fromPosition toPosition:(int)toPosition {
+    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didChangeSelectorOption:option fromPosition:fromPosition toPosition:toPosition];
+}
+
+
 #pragma mark - Disable Predicate functions
 
 -(BOOL)isDisabled

@@ -86,9 +86,16 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nullable) NSString * selectorTitle;
 @property (nullable) NSArray * selectorOptions;
 @property (nullable) UIColor * selectorOptionsTintColor;
+@property (getter=isSelectorOptionsEditingEnabled) BOOL selectorOptionsEditingEnabled;
+@property (nullable) NSString * selectorOptionsAddNewOptionTitle;
+@property (nullable) NSString * selectorOptionsNewTextForOptionTitle;
 
 @property (null_unspecified) id leftRightSelectorLeftOptionSelected;
 
+- (void)optionsViewControllerDidCreateSelectorOption:(nonnull id)option;
+- (void)optionsViewControllerDidRemoveSelectorOption:(nonnull id)option;
+- (void)optionsViewControllerDidChangeSelectorOption:(nonnull id)option newText:(nonnull NSString *)newText;
+- (void)optionsViewControllerDidChangeSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition;
 
 // =====================================
 // Deprecated
