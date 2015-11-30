@@ -34,6 +34,7 @@ NSString *const kSegmentedControl = @"segmentedControl";
 NSString *const kCustom = @"custom";
 NSString *const kInfo = @"info";
 NSString *const kButton = @"button";
+NSString *const kImage = @"image";
 NSString *const kButtonLeftAligned = @"buttonLeftAligned";
 NSString *const kButtonWithSegueId = @"buttonWithSegueId";
 NSString *const kButtonWithSegueClass = @"buttonWithSegueClass";
@@ -102,6 +103,10 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     [row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
     [section addFormRow:row];
     
+    // Image
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kImage rowType:XLFormRowDescriptorTypeImage title:@"Image"];
+    row.value = [UIImage imageNamed:@"default_avatar"];
+    [section addFormRow:row];
 
     // Info cell
     XLFormRowDescriptor *infoRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kInfo rowType:XLFormRowDescriptorTypeInfo];
