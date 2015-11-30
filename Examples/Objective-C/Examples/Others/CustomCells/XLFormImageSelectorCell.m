@@ -105,7 +105,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:self.rowDescriptor.selectorTitle
                                                                                   message:nil
                                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil]];
         __weak __typeof(self)weakSelf = self;
@@ -154,7 +154,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
     
     NSDictionary *metrics = @{@"margin":@5.0};
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[text]" options:0 metrics:metrics views:uiComponents]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
     
     

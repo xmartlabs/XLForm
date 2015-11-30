@@ -501,7 +501,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     NSUInteger indexOfRow = [row.sectionDescriptor.formRows indexOfObject:row];
     if (indexOfRow != NSNotFound){
-        if ([row.sectionDescriptor.formRows indexOfObject:row] + 1 < row.sectionDescriptor.formRows.count){
+        if (indexOfRow + 1 < row.sectionDescriptor.formRows.count){
             return [row.sectionDescriptor.formRows objectAtIndex:++indexOfRow];
         }
         else{
@@ -525,7 +525,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     NSUInteger indexOfRow = [row.sectionDescriptor.formRows indexOfObject:row];
     if (indexOfRow != NSNotFound){
-        if ([row.sectionDescriptor.formRows indexOfObject:row] > 0 ){
+        if (indexOfRow > 0 ){
             return [row.sectionDescriptor.formRows objectAtIndex:--indexOfRow];
         }
         else{

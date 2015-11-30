@@ -27,11 +27,16 @@
 
 //Descriptors
 #import "XLFormDescriptor.h"
-#import "XLFormSectionDescriptor.h"
 #import "XLFormRowDescriptor.h"
+#import "XLFormSectionDescriptor.h"
 
 // Categories
+#import "NSArray+XLFormAdditions.h"
+#import "NSExpression+XLFormAdditions.h"
 #import "NSObject+XLFormAdditions.h"
+#import "NSPredicate+XLFormAdditions.h"
+#import "NSString+XLFormAdditions.h"
+#import "UIView+XLFormAdditions.h"
 
 //helpers
 #import "XLFormOptionsObject.h"
@@ -47,64 +52,68 @@
 
 //Cells
 #import "XLFormBaseCell.h"
+#import "XLFormButtonCell.h"
+#import "XLFormCheckCell.h"
+#import "XLFormDateCell.h"
+#import "XLFormDatePickerCell.h"
 #import "XLFormInlineSelectorCell.h"
+#import "XLFormLeftRightSelectorCell.h"
+#import "XLFormPickerCell.h"
+#import "XLFormRightDetailCell.h"
+#import "XLFormRightImageButton.h"
+#import "XLFormSegmentedCell.h"
+#import "XLFormSelectorCell.h"
+#import "XLFormSliderCell.h"
+#import "XLFormStepCounterCell.h"
+#import "XLFormSwitchCell.h"
 #import "XLFormTextFieldCell.h"
 #import "XLFormTextViewCell.h"
-#import "XLFormSelectorCell.h"
-#import "XLFormDatePickerCell.h"
-#import "XLFormButtonCell.h"
-#import "XLFormSwitchCell.h"
-#import "XLFormCheckCell.h"
-#import "XLFormDatePickerCell.h"
-#import "XLFormPickerCell.h"
-#import "XLFormLeftRightSelectorCell.h"
-#import "XLFormDateCell.h"
-#import "XLFormStepCounterCell.h"
-#import "XLFormSegmentedCell.h"
-#import "XLFormSliderCell.h"
+#import "XLFormImageCell.h"
 
 //Validation
 #import "XLFormRegexValidator.h"
 
 
-extern NSString *const XLFormRowDescriptorTypeText;
-extern NSString *const XLFormRowDescriptorTypeName;
-extern NSString *const XLFormRowDescriptorTypeURL;
-extern NSString *const XLFormRowDescriptorTypeEmail;
-extern NSString *const XLFormRowDescriptorTypePassword;
-extern NSString *const XLFormRowDescriptorTypeNumber;
-extern NSString *const XLFormRowDescriptorTypePhone;
-extern NSString *const XLFormRowDescriptorTypeTwitter;
 extern NSString *const XLFormRowDescriptorTypeAccount;
-extern NSString *const XLFormRowDescriptorTypeInteger;
-extern NSString *const XLFormRowDescriptorTypeDecimal;
-extern NSString *const XLFormRowDescriptorTypeTextView;
-extern NSString *const XLFormRowDescriptorTypeSelectorPush;
-extern NSString *const XLFormRowDescriptorTypeSelectorPopover;
-extern NSString *const XLFormRowDescriptorTypeSelectorActionSheet;
-extern NSString *const XLFormRowDescriptorTypeSelectorAlertView;
-extern NSString *const XLFormRowDescriptorTypeSelectorPickerView;
-extern NSString *const XLFormRowDescriptorTypeSelectorPickerViewInline;
-extern NSString *const XLFormRowDescriptorTypeMultipleSelector;
-extern NSString *const XLFormRowDescriptorTypeMultipleSelectorPopover;
-extern NSString *const XLFormRowDescriptorTypeSelectorLeftRight;
-extern NSString *const XLFormRowDescriptorTypeSelectorSegmentedControl;
-extern NSString *const XLFormRowDescriptorTypeDateInline;
-extern NSString *const XLFormRowDescriptorTypeDateTimeInline;
-extern NSString *const XLFormRowDescriptorTypeTimeInline;
-extern NSString *const XLFormRowDescriptorTypeCountDownTimerInline;
-extern NSString *const XLFormRowDescriptorTypeDate;
-extern NSString *const XLFormRowDescriptorTypeDateTime;
-extern NSString *const XLFormRowDescriptorTypeTime;
-extern NSString *const XLFormRowDescriptorTypeCountDownTimer;
-extern NSString *const XLFormRowDescriptorTypeDatePicker;
-extern NSString *const XLFormRowDescriptorTypePicker;
-extern NSString *const XLFormRowDescriptorTypeSlider;
 extern NSString *const XLFormRowDescriptorTypeBooleanCheck;
 extern NSString *const XLFormRowDescriptorTypeBooleanSwitch;
 extern NSString *const XLFormRowDescriptorTypeButton;
+extern NSString *const XLFormRowDescriptorTypeCountDownTimer;
+extern NSString *const XLFormRowDescriptorTypeCountDownTimerInline;
+extern NSString *const XLFormRowDescriptorTypeDate;
+extern NSString *const XLFormRowDescriptorTypeDateInline;
+extern NSString *const XLFormRowDescriptorTypeDatePicker;
+extern NSString *const XLFormRowDescriptorTypeDateTime;
+extern NSString *const XLFormRowDescriptorTypeDateTimeInline;
+extern NSString *const XLFormRowDescriptorTypeDecimal;
+extern NSString *const XLFormRowDescriptorTypeEmail;
+extern NSString *const XLFormRowDescriptorTypeImage;
 extern NSString *const XLFormRowDescriptorTypeInfo;
+extern NSString *const XLFormRowDescriptorTypeInteger;
+extern NSString *const XLFormRowDescriptorTypeMultipleSelector;
+extern NSString *const XLFormRowDescriptorTypeMultipleSelectorPopover;
+extern NSString *const XLFormRowDescriptorTypeName;
+extern NSString *const XLFormRowDescriptorTypeNumber;
+extern NSString *const XLFormRowDescriptorTypePassword;
+extern NSString *const XLFormRowDescriptorTypePhone;
+extern NSString *const XLFormRowDescriptorTypePicker;
+extern NSString *const XLFormRowDescriptorTypeSelectorActionSheet;
+extern NSString *const XLFormRowDescriptorTypeSelectorAlertView;
+extern NSString *const XLFormRowDescriptorTypeSelectorLeftRight;
+extern NSString *const XLFormRowDescriptorTypeSelectorPickerView;
+extern NSString *const XLFormRowDescriptorTypeSelectorPickerViewInline;
+extern NSString *const XLFormRowDescriptorTypeSelectorPopover;
+extern NSString *const XLFormRowDescriptorTypeSelectorPush;
+extern NSString *const XLFormRowDescriptorTypeSelectorSegmentedControl;
+extern NSString *const XLFormRowDescriptorTypeSlider;
 extern NSString *const XLFormRowDescriptorTypeStepCounter;
+extern NSString *const XLFormRowDescriptorTypeText;
+extern NSString *const XLFormRowDescriptorTypeTextView;
+extern NSString *const XLFormRowDescriptorTypeTime;
+extern NSString *const XLFormRowDescriptorTypeTimeInline;
+extern NSString *const XLFormRowDescriptorTypeTwitter;
+extern NSString *const XLFormRowDescriptorTypeURL;
+extern NSString *const XLFormRowDescriptorTypeZipCode;
 
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)

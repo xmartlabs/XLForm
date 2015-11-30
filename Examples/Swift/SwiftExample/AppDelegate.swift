@@ -24,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window = UIWindow.init(frame: UIScreen.mainScreen().bounds)
         // Override point for customization after application launch.
-        self.window!.backgroundColor = UIColor.whiteColor()
+        self.window!.backgroundColor = .whiteColor()
     
         // load the initial form form Storybiard
         let storyboard = UIStoryboard.init(name:"iPhoneStoryboard", bundle:nil)
-        self.window!.rootViewController = storyboard.instantiateInitialViewController() as? UIViewController
+        self.window!.rootViewController = storyboard.instantiateInitialViewController()
         self.window!.makeKeyAndVisible()
         return true
     }

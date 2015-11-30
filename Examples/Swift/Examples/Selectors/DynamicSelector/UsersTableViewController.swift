@@ -28,7 +28,7 @@ class UserCell : UITableViewCell {
 
     lazy var userImage : UIImageView = {
         let tempUserImage = UIImageView()
-        tempUserImage.setTranslatesAutoresizingMaskIntoConstraints(false)
+        tempUserImage.translatesAutoresizingMaskIntoConstraints = false
         tempUserImage.layer.masksToBounds = true
         tempUserImage.layer.cornerRadius = 10.0
         return tempUserImage
@@ -37,7 +37,7 @@ class UserCell : UITableViewCell {
     
     lazy var userName : UILabel = {
         let tempUserName = UILabel()
-        tempUserName.setTranslatesAutoresizingMaskIntoConstraints(false)
+        tempUserName.translatesAutoresizingMaskIntoConstraints = false
         tempUserName.font = UIFont.systemFontOfSize(15.0)
         return tempUserName
     }()
@@ -46,13 +46,12 @@ class UserCell : UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Initialization code
     
-        self.contentView.addSubview(self.userImage)
-        self.contentView.addSubview(self.userName)
-    
-        self.contentView.addConstraints(self.layoutConstraints())
+        contentView.addSubview(userImage)
+        contentView.addSubview(userName)
+        contentView.addConstraints(layoutConstraints())
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -63,12 +62,12 @@ class UserCell : UITableViewCell {
     
 // MARK: - Layout Constraints
 
-    func layoutConstraints() -> [AnyObject]{
+    func layoutConstraints() -> [NSLayoutConstraint]{
         let views = ["image": self.userImage, "name": self.userName ]
         let metrics = [ "imgSize": 50.0, "margin": 12.0]
         
-        var result = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(margin)-[image(imgSize)]-[name]", options:NSLayoutFormatOptions.AlignAllTop, metrics: metrics, views: views)
-        result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(margin)-[image(imgSize)]", options:NSLayoutFormatOptions.allZeros, metrics:metrics, views: views)
+        var result = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(margin)-[image(imgSize)]-[name]", options:.AlignAllTop, metrics: metrics, views: views)
+        result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(margin)-[image(imgSize)]", options:NSLayoutFormatOptions(), metrics:metrics, views: views)
         return result
     }
     
@@ -93,7 +92,14 @@ class UsersJSONSerialization {
         "{\"id\":5,\"name\":\"Ned Flanders\",\"imageName\":\"Ned_Flanders.png\"}," +
         "{\"id\":6,\"name\":\"Otto Mann\",\"imageName\":\"Otto_Mann.png\"}]"
         let jsonData = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-        return NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.allZeros, error: nil) as! Array<AnyObject>?
+        do {
+            let result = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions()) as! Array<AnyObject>
+            return result
+        }
+        catch let error as NSError {
+            print("\(error)")
+        }
+        return nil
     }()
     
     class var sharedInstance: UsersJSONSerialization {
@@ -140,18 +146,18 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
         super.init(style: style);
     }
     
-    override init!(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.registerClass(UserCell.self, forCellReuseIdentifier: self.kUserCellIdentifier)
-        self.tableView.tableFooterView = UIView(frame: CGRect.zeroRect)
+        tableView.registerClass(UserCell.self, forCellReuseIdentifier: kUserCellIdentifier)
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
 // MARK: UITableViewDataSource
@@ -171,8 +177,8 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
         let userId = userData["id"] as! Int
         cell.userName.text = userData["name"] as? String
         cell.userImage.image = UIImage(named: (userData["imageName"] as? String)!)
-        if self.rowDescriptor?.value != nil {
-            cell.accessoryType = self.rowDescriptor!.value!.formValue().isEqual(userId) ? .Checkmark : .None
+        if let value = rowDescriptor?.value {
+            cell.accessoryType = value.formValue().isEqual(userId) ? .Checkmark : .None
         }
         return cell;
 
@@ -195,8 +201,8 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
             porpOver.dismissPopoverAnimated(true)
             porpOver.delegate?.popoverControllerDidDismissPopover!(porpOver)
         }
-        else if self.parentViewController is UINavigationController {
-            self.navigationController?.popViewControllerAnimated(true)
+        else if parentViewController is UINavigationController {
+            navigationController?.popViewControllerAnimated(true)
         }
     }
     

@@ -1,7 +1,8 @@
-//  XLRatingView.swift
+//
+//  XLFormBaseCell.h
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2014-2015 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,27 +23,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "XLFormBaseCell.h"
 
-class XLRatingView : AXRatingView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    
-    func customize() {
-        baseColor = UIColor(red: (205/255.0), green: (201/255.0), blue: (201/255.0), alpha: 1)
-        highlightColor = UIColor(red: (255/255.0), green: (215/255.0), blue: 0, alpha: 1)
-        markFont = UIFont.systemFontOfSize(23.0)
-        stepInterval = 1.0
-    }
-    
-}
+@interface XLFormImageCell : XLFormBaseCell
+
+@end
+
 
 
