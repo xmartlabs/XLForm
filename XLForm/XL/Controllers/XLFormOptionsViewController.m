@@ -76,6 +76,8 @@
 
 - (void)setEditingOptionsEnabled:(BOOL)editingOptionsEnabled
 {
+    NSAssert(self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
+
     if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight){
         // not handled yet
     } else {
@@ -89,6 +91,8 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
+    NSAssert(self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
+
     if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight){
         // not handled yet
     } else {
@@ -141,7 +145,7 @@
             // update selector options
             self.rowDescriptor.selectorOptions = selectorOptions;
             // callback
-            [self.rowDescriptor optionsViewControllerDidChangeSelectorOption:sourceCellObject fromPosition:(int)sourceIndexPath.row toPosition:(int)destinationIndexPath.row];
+            [self.rowDescriptor optionsViewControllerDidSortSelectorOption:sourceCellObject fromPosition:(int)sourceIndexPath.row toPosition:(int)destinationIndexPath.row];
         }
     }
 }
@@ -204,7 +208,7 @@
                                                                      self.rowDescriptor.selectorOptions = selectorOptions;
                                                                      
                                                                      // callback
-                                                                     [self.rowDescriptor optionsViewControllerDidCreateSelectorOption:newOption];
+                                                                     [self.rowDescriptor optionsViewControllerDidAddSelectorOption:newOption];
                                                                      
                                                                      // reload table
                                                                      [self.tableView reloadData];
@@ -233,7 +237,7 @@
             self.rowDescriptor.selectorOptions = selectorOptions;
 
             // callback
-            [self.rowDescriptor optionsViewControllerDidRemoveSelectorOption:cellObject];
+            [self.rowDescriptor optionsViewControllerDidDeleteSelectorOption:cellObject];
 
             // reload table
             [self.tableView reloadData];
@@ -265,6 +269,9 @@
     XLFormRightDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
     
     if (self.editing) {
+        
+        NSAssert(self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
+        
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Add new";
             cell.editingAccessoryType = UITableViewCellAccessoryNone;
@@ -313,6 +320,8 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if (self.editing) {
+        
+        NSAssert(self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
         
         id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row - 1]; // ignore "add new" row
         

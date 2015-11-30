@@ -92,10 +92,10 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 
 @property (null_unspecified) id leftRightSelectorLeftOptionSelected;
 
-- (void)optionsViewControllerDidCreateSelectorOption:(nonnull id)option;
-- (void)optionsViewControllerDidRemoveSelectorOption:(nonnull id)option;
+- (void)optionsViewControllerDidAddSelectorOption:(nonnull id)option;
+- (void)optionsViewControllerDidDeleteSelectorOption:(nonnull id)option;
 - (void)optionsViewControllerDidChangeSelectorOption:(nonnull id)option newText:(nonnull NSString *)newText;
-- (void)optionsViewControllerDidChangeSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition;
+- (void)optionsViewControllerDidSortSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition;
 
 // =====================================
 // Deprecated

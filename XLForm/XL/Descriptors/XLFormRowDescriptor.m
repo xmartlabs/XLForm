@@ -246,12 +246,12 @@
     }
 }
 
-- (void)optionsViewControllerDidCreateSelectorOption:(id)option {
-    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didCreateSelectorOption:option];
+- (void)optionsViewControllerDidAddSelectorOption:(id)option {
+    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didAddSelectorOption:option];
 }
 
-- (void)optionsViewControllerDidRemoveSelectorOption:(id)option {
-    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didRemoveSelectorOption:option];
+- (void)optionsViewControllerDidDeleteSelectorOption:(id)option {
+    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didDeleteSelectorOption:option];
     
 }
 
@@ -259,8 +259,8 @@
     [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didChangeSelectorOption:option newText:newText];
 }
 
-- (void)optionsViewControllerDidChangeSelectorOption:(id)option fromPosition:(int)fromPosition toPosition:(int)toPosition {
-    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didChangeSelectorOption:option fromPosition:fromPosition toPosition:toPosition];
+- (void)optionsViewControllerDidSortSelectorOption:(id)option fromPosition:(int)fromPosition toPosition:(int)toPosition {
+    [self.sectionDescriptor.formDescriptor.delegate formRowDescriptor:self didSortSelectorOption:option fromPosition:fromPosition toPosition:toPosition];
 }
 
 

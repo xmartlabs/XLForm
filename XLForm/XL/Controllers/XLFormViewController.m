@@ -319,7 +319,7 @@
     [self updateAfterDependentRowChanged:formRow];
 }
 
-- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didRemoveSelectorOption:(nonnull id)option
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didDeleteSelectorOption:(nonnull id)option
 {
     [self updateAfterDependentRowChanged:formRow];
 }
@@ -329,7 +329,7 @@
     [self updateAfterDependentRowChanged:formRow];
 }
 
-- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didChangeSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didSortSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition
 {
     [self updateAfterDependentRowChanged:formRow];
 }

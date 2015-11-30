@@ -48,9 +48,9 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
                                    newValue:(nonnull id)newValue
                               predicateType:(XLPredicateType)predicateType;
 
-- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didCreateSelectorOption:(nonnull id)option;
-- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didRemoveSelectorOption:(nonnull id)option;
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didAddSelectorOption:(nonnull id)option;
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didDeleteSelectorOption:(nonnull id)option;
 - (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didChangeSelectorOption:(nonnull id)option newText:(nonnull NSString *)newText;
-- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didChangeSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition;
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didSortSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition;
 
 @end
