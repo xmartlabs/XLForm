@@ -314,7 +314,7 @@
     }
 }
 
-- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didCreateSelectorOption:(nonnull id)option
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didAddSelectorOption:(nonnull id)option
 {
     [self updateAfterDependentRowChanged:formRow];
 }
