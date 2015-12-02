@@ -76,7 +76,7 @@
 
 - (void)setEditingOptionsEnabled:(BOOL)editingOptionsEnabled
 {
-    NSAssert(self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
+    NSAssert(self.rowDescriptor.rowType != XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
 
     if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight){
         // not handled yet
@@ -91,7 +91,7 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    NSAssert(self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
+    NSAssert(self.rowDescriptor.rowType != XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
 
     if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight){
         // not handled yet
@@ -270,7 +270,7 @@
     
     if (self.editing) {
         
-        NSAssert(self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
+        NSAssert(self.rowDescriptor.rowType != XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
         
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Add new";
@@ -321,7 +321,7 @@
     
     if (self.editing) {
         
-        NSAssert(self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
+        NSAssert(self.rowDescriptor.rowType != XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
         
         id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row - 1]; // ignore "add new" row
         
