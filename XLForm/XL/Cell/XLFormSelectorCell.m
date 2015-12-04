@@ -194,9 +194,12 @@
             optionsViewController.title = self.rowDescriptor.selectorTitle;
             optionsViewController.tableView.tintColor = self.rowDescriptor.selectorOptionsTintColor;
             optionsViewController.editingOptionsEnabled = self.rowDescriptor.selectorOptionsEditingEnabled;
-            optionsViewController.editingOptionsAddNewOptionTitle = self.rowDescriptor.selectorOptionsAddNewOptionTitle;
-            optionsViewController.editingOptionsNewTextForOptionTitle = self.rowDescriptor.selectorOptionsNewTextForOptionTitle;
-
+            if (self.rowDescriptor.selectorOptionsEditingEnabled) {
+                NSAssert(![self.rowDescriptor.selectorOptionsAddNewOptionTitle isEqualToString:@""], @"selectorOptionsAddNewOptionTitle string must not be empty when selectorOptionsEditingEnabled is true");
+                optionsViewController.editingOptionsAddNewOptionTitle = self.rowDescriptor.selectorOptionsAddNewOptionTitle;
+                NSAssert(![self.rowDescriptor.selectorOptionsNewTextForOptionTitle isEqualToString:@""], @"selectorOptionsNewTextForOptionTitle string must not be empty when selectorOptionsEditingEnabled is true");
+                optionsViewController.editingOptionsNewTextForOptionTitle = self.rowDescriptor.selectorOptionsNewTextForOptionTitle;
+            }
 			if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
 				self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
                 self.popoverController.delegate = self;
@@ -215,7 +218,7 @@
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover])
     {
-        NSAssert(self.rowDescriptor.selectorOptions, @"selectorOptions property shopuld not be nil");
+        NSAssert(self.rowDescriptor.selectorOptions, @"selectorOptions property should not be nil");
         XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
         optionsViewController.rowDescriptor = self.rowDescriptor;
         optionsViewController.title = self.rowDescriptor.selectorTitle;
