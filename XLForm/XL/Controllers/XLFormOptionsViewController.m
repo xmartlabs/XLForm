@@ -228,19 +228,40 @@
         } else if (editingStyle == UITableViewCellEditingStyleDelete) {
             // retrieve selector options
             NSMutableArray *selectorOptions = [[self selectorOptions] mutableCopy];
-            id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row - 1]; // ignore "add new" row
             
-            // move selector option from source to destination row
-            [selectorOptions removeObjectAtIndex:indexPath.row - 1];
+            if ([selectorOptions count] > 1) {
+                id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row - 1]; // ignore "add new" row
+                
+                // move selector option from source to destination row
+                [selectorOptions removeObjectAtIndex:indexPath.row - 1];
+                
+                // update selector options
+                self.rowDescriptor.selectorOptions = selectorOptions;
+                
+                // callback
+                [self.rowDescriptor optionsViewControllerDidDeleteSelectorOption:cellObject];
+                
+                // reload table
+                [self.tableView reloadData];
+                
+            } else {
+                // avoid deleting last selector option
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Warning"
+                                                                               message:@"Can't delete last option. Add another option and then try again."
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+                // ok action does nothing
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
+                                                                       style:UIAlertActionStyleDefault
+                                                                     handler:nil];
+                [alert addAction:okAction];
+                
+                // show alert
+                [self presentViewController:alert animated:YES completion:nil];
+                
+                // reload table
+                [self.tableView reloadData];
+            }
             
-            // update selector options
-            self.rowDescriptor.selectorOptions = selectorOptions;
-
-            // callback
-            [self.rowDescriptor optionsViewControllerDidDeleteSelectorOption:cellObject];
-
-            // reload table
-            [self.tableView reloadData];
         }
     }
 }
