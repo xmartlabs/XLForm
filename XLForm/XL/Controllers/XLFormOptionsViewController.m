@@ -76,14 +76,13 @@
 
 - (void)setEditingOptionsEnabled:(BOOL)editingOptionsEnabled
 {
-    NSAssert(self.rowDescriptor.rowType != XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
-
-    if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight){
+    _editingOptionsEnabled = editingOptionsEnabled;
+   if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight){
         // not handled yet
+       NSAssert(editingOptionsEnabled, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
     } else {
-        _editingOptionsEnabled = editingOptionsEnabled;
-        // enable editing
-        if (_editingOptionsEnabled) {
+        // add edit button
+        if (editingOptionsEnabled) {
             self.navigationItem.rightBarButtonItem = self.editButtonItem;
         }
     }
@@ -91,10 +90,9 @@
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
-    NSAssert(self.rowDescriptor.rowType != XLFormRowDescriptorTypeSelectorLeftRight, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
-
     if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight){
         // not handled yet
+        NSAssert(editing, @"Editing selector options is currently not allowed for XLFormRowDescriptorTypeSelectorLeftRight row types.");
     } else {
         [super setEditing:editing animated:animated];
         
