@@ -223,9 +223,16 @@
         optionsViewController.rowDescriptor = self.rowDescriptor;
         optionsViewController.title = self.rowDescriptor.selectorTitle;
         optionsViewController.tableView.tintColor = self.rowDescriptor.selectorOptionsTintColor;
-        
+        optionsViewController.editingOptionsEnabled = self.rowDescriptor.selectorOptionsEditingEnabled;
+        if (self.rowDescriptor.selectorOptionsEditingEnabled) {
+            NSAssert(![self.rowDescriptor.selectorOptionsAddNewOptionTitle isEqualToString:@""], @"selectorOptionsAddNewOptionTitle string must not be empty when selectorOptionsEditingEnabled is true");
+            optionsViewController.editingOptionsAddNewOptionTitle = self.rowDescriptor.selectorOptionsAddNewOptionTitle;
+            NSAssert(![self.rowDescriptor.selectorOptionsNewTextForOptionTitle isEqualToString:@""], @"selectorOptionsNewTextForOptionTitle string must not be empty when selectorOptionsEditingEnabled is true");
+            optionsViewController.editingOptionsNewTextForOptionTitle = self.rowDescriptor.selectorOptionsNewTextForOptionTitle;
+        }
         if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) {
-            self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
+            self.popoverController = [[UIPopoverController alloc]
+                initWithContentViewController:optionsViewController];
             self.popoverController.delegate = self;
             optionsViewController.popoverController = self.popoverController;
             if (self.detailTextLabel.window){
