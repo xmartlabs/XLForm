@@ -231,8 +231,7 @@
             optionsViewController.editingOptionsNewTextForOptionTitle = self.rowDescriptor.selectorOptionsNewTextForOptionTitle;
         }
         if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) {
-            self.popoverController = [[UIPopoverController alloc]
-                initWithContentViewController:optionsViewController];
+            self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
             self.popoverController.delegate = self;
             optionsViewController.popoverController = self.popoverController;
             if (self.detailTextLabel.window){
