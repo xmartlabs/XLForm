@@ -173,7 +173,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     
     // Button with SegueId
     XLFormRowDescriptor * buttonWithSegueId = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonWithSegueClass rowType:XLFormRowDescriptorTypeButton title:@"Button with Segue Idenfifier"];
-    buttonWithSegueId.action.formSegueIdenfifier = @"MapViewControllerSegue";
+    buttonWithSegueId.action.formSegueIdentifier = @"MapViewControllerSegue";
     [section addFormRow:buttonWithSegueId];
     
     

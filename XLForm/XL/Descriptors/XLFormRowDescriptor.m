@@ -542,8 +542,8 @@
     else if (self.formSelector){
         actionCopy.formSelector = self.formSelector;
     }
-    else if (self.formSegueIdenfifier){
-        actionCopy.formSegueIdenfifier = [self.formSegueIdenfifier copy];
+    else if (self.formSegueIdentifier){
+        actionCopy.formSegueIdentifier = [self.formSegueIdentifier copy];
     }
     else if (self.formSegueClass){
         actionCopy.formSegueClass = [self.formSegueClass copy];
@@ -577,7 +577,7 @@
 {
     _formBlock = nil;
     _formSegueClass = nil;
-    _formSegueIdenfifier = nil;
+    _formSegueIdentifier = nil;
     _formSelector = formSelector;
 }
 
@@ -585,7 +585,7 @@
 -(void)setFormBlock:(void (^)(XLFormRowDescriptor *))formBlock
 {
     _formSegueClass = nil;
-    _formSegueIdenfifier = nil;
+    _formSegueIdentifier = nil;
     _formSelector = nil;
     _formBlock = formBlock;
 }
@@ -594,16 +594,27 @@
 {
     _formSelector = nil;
     _formBlock = nil;
-    _formSegueIdenfifier = nil;
+    _formSegueIdentifier = nil;
     _formSegueClass = formSegueClass;
 }
 
--(void)setFormSegueIdenfifier:(NSString *)formSegueIdenfifier
+-(void)setFormSegueIdentifier:(NSString *)formSegueIdentifier
 {
     _formSelector = nil;
     _formBlock = nil;
     _formSegueClass = nil;
-    _formSegueIdenfifier = formSegueIdenfifier;
+    _formSegueIdentifier = formSegueIdentifier;
+}
+
+// Deprecated:
+-(void)setFormSegueIdenfifier:(NSString *)formSegueIdenfifier
+{
+    self.formSegueIdentifier = formSegueIdenfifier;
+}
+
+-(NSString *)formSegueIdenfifier
+{
+    return self.formSegueIdentifier;
 }
 
 @end

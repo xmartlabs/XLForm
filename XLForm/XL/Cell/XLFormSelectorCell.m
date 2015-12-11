@@ -150,8 +150,8 @@
 {
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]){
         UIViewController * controllerToPresent = nil;
-        if (self.rowDescriptor.action.formSegueIdenfifier){
-            [controller performSegueWithIdentifier:self.rowDescriptor.action.formSegueIdenfifier sender:self.rowDescriptor];
+        if (self.rowDescriptor.action.formSegueIdentifier){
+            [controller performSegueWithIdentifier:self.rowDescriptor.action.formSegueIdentifier sender:self.rowDescriptor];
         }
         else if (self.rowDescriptor.action.formSegueClass){
             UIViewController * controllerToPresent = [self controllerToPresent];
