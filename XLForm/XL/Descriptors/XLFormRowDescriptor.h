@@ -141,7 +141,8 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 
 @property (nullable, nonatomic, strong) void (^formBlock)(XLFormRowDescriptor * __nonnull sender);
 @property (nullable, nonatomic) SEL formSelector;
-@property (nullable, nonatomic, strong) NSString * formSegueIdenfifier;
+@property (nullable, nonatomic, strong) NSString * formSegueIdenfifier DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use formSegueIdentifier instead");
+@property (nullable, nonatomic, strong) NSString * formSegueIdentifier;
 @property (nullable, nonatomic, strong) Class formSegueClass;
 
 @end

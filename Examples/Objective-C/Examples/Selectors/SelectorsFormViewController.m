@@ -332,8 +332,8 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     [section addFormRow:row];
     
     // selector with SegueId
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithSegueId rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with Segue Idenfifier"];
-    row.action.formSegueIdenfifier = @"MapViewControllerSegue";
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithSegueId rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with Segue Identifier"];
+    row.action.formSegueIdentifier = @"MapViewControllerSegue";
     row.valueTransformer = [CLLocationValueTrasformer class];
     row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
     [section addFormRow:row];
