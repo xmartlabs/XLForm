@@ -30,7 +30,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    return [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    return [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 }
 
 
@@ -60,6 +60,7 @@
     else{
         self.textLabel.textColor = nil;
     }
+    self.detailTextLabel.text = self.rowDescriptor.value;
 }
 
 
