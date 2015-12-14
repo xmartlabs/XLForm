@@ -82,7 +82,7 @@
         _hidden = @NO;
         _rowType = rowType;
         _title = title;
-        _cellStyle = UITableViewCellStyleValue1;
+        _cellStyle = [rowType isEqualToString:XLFormRowDescriptorTypeButton] ? UITableViewCellStyleDefault : UITableViewCellStyleValue1;
         _validators = [NSMutableArray new];
         _cellConfig = [NSMutableDictionary dictionary];
         _cellConfigIfDisabled = [NSMutableDictionary dictionary];
