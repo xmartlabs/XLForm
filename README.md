@@ -1040,6 +1040,12 @@ Requirements
 Release Notes
 --------------
 
+Version 3.1.0
+* Added Carthage support
+* Added NSCoding protocol
+* Allowed HTTP connections
+* Several bugfixes and improvements.
+
 Version 3.0.2
 * Fix issue when inline pickers expand beyond table.
 
