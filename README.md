@@ -982,6 +982,15 @@ This rowDescriptor refers to the selected row of the previous view controller an
 
 The best way to do this is to extend the class of that cell and override its update and/or configure methods. To make this work you should also update the `cellClassesForRowDescriptorTypes` dictionary in your subclass of XLFormViewController by setting your custom class instead of the class of the cell you wanted to change.
 
+#### How to change the returnKeyType of a cell
+
+To change the returnKeyType of a cell you can set the `returnKeyType` and `nextReturnKeyType` properties. The former will be used if there is no navigation enabled or if there is no row after this row. In the other case the latter will be used.
+If you create a custom cell and want to use these you should conform to the `XLFormReturnKeyProtocol` protocol.
+This is how you can set them:
+```
+[row.cellConfigAtConfigure setObject:@(UIReturnKeyGo) forKey:@"nextReturnKeyType"];
+```
+
 Installation
 --------------------------
 

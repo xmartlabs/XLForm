@@ -40,4 +40,11 @@
 @end
 
 
+@protocol XLFormReturnKeyProtocol
+
+@property UIReturnKeyType returnKeyType;
+@property UIReturnKeyType nextReturnKeyType;
+
+@end
+
 

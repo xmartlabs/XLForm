@@ -849,9 +849,17 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    UITableViewCell<XLFormDescriptorCell>* cell = textField.formDescriptorCell;
     XLFormRowDescriptor * nextRow     = [self nextRowDescriptorForRow:textField.formDescriptorCell.rowDescriptor
                                                         withDirection:XLFormRowNavigationDirectionNext];
-    textField.returnKeyType = nextRow ? UIReturnKeyNext : UIReturnKeyDefault;
+    
+    
+    if ([cell conformsToProtocol:@protocol(XLFormReturnKeyProtocol)]) {
+        textField.returnKeyType = nextRow ? ((id<XLFormReturnKeyProtocol>)cell).nextReturnKeyType : ((id<XLFormReturnKeyProtocol>)cell).returnKeyType;
+    }
+    else {
+        textField.returnKeyType = nextRow ? UIReturnKeyNext : UIReturnKeyDefault;
+    }
     return YES;
 }
 

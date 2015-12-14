@@ -34,7 +34,6 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 @interface XLFormTextFieldCell() <UITextFieldDelegate>
 
 @property NSMutableArray * dynamicCustomConstraints;
-@property UIReturnKeyType returnKeyType;
 
 @end
 
@@ -42,6 +41,8 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 
 @synthesize textField = _textField;
 @synthesize textLabel = _textLabel;
+@synthesize returnKeyType = _returnKeyType;
+@synthesize nextReturnKeyType = _nextReturnKeyType;
 
 
 #pragma mark - KVO
@@ -53,6 +54,16 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
             [self.contentView setNeedsUpdateConstraints];
         }
     }
+}
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        _returnKeyType = UIReturnKeyDefault;
+        _nextReturnKeyType = UIReturnKeyNext;
+    }
+    return self;
 }
 
 -(void)dealloc
@@ -291,12 +302,13 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 
 -(void)setReturnKeyType:(UIReturnKeyType)returnKeyType
 {
+    _returnKeyType = returnKeyType;
     self.textField.returnKeyType = returnKeyType;
 }
 
 -(UIReturnKeyType)returnKeyType
 {
-    return self.textField.returnKeyType;
+    return _returnKeyType;
 }
 
 @end
