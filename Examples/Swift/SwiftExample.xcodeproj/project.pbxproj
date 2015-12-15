@@ -114,19 +114,19 @@
 		2847A6A01AAF2679000A2ABE /* SwiftExample */ = {
 			isa = PBXGroup;
 			children = (
-				286067311AEDBD4A002F1E04 /* CustomRows */,
-				28D8326D1AEC2D1B009E3B3F /* UICustomization */,
-				28D8326A1AEC177E009E3B3F /* Validations */,
-				28D8325F1AEBE4E4009E3B3F /* PredicateExamples */,
 				28D832551AEBC4A7009E3B3F /* AccessoryViews */,
+				286067311AEDBD4A002F1E04 /* CustomRows */,
+				28F490201AAFBBC600C8E0CC /* Dates */,
+				28B920711AE6EB6100BD6382 /* Inputs */,
 				286E8B8A1AE9993F00F2767A /* MultiValuedSections */,
 				286E8B7A1AE86C8900F2767A /* Others */,
-				28B920761AE7378400BD6382 /* Selectors */,
-				28B920711AE6EB6100BD6382 /* Inputs */,
+				28D8325F1AEBE4E4009E3B3F /* PredicateExamples */,
 				288646191AE5C958007A8B9B /* RealExamples */,
+				28B920761AE7378400BD6382 /* Selectors */,
 				288646161AE5C7EA007A8B9B /* StoryboardExample */,
+				28D8326D1AEC2D1B009E3B3F /* UICustomization */,
+				28D8326A1AEC177E009E3B3F /* Validations */,
 				288646141AE59474007A8B9B /* ExamplesFormViewController.swift */,
-				28F490201AAFBBC600C8E0CC /* Dates */,
 				2847A6A31AAF2679000A2ABE /* AppDelegate.swift */,
 				2847A6A11AAF2679000A2ABE /* Supporting Files */,
 			);
