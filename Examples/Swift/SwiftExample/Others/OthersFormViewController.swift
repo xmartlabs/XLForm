@@ -140,7 +140,7 @@ class OthersFormViewController : XLFormViewController {
         
         // Button with SegueId
         row = XLFormRowDescriptor(tag: Tags.ButtonWithSegueId, rowType: XLFormRowDescriptorTypeButton, title: "Button with Segue Idenfifier")
-        row.action.formSegueIdenfifier = "MapViewControllerSegue"
+        row.action.formSegueIdentifier = "MapViewControllerSegue"
         row.value = CLLocation(latitude: -33, longitude: -56)
         section.addFormRow(row)
         

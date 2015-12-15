@@ -71,7 +71,7 @@ class ExamplesFormViewController : XLFormViewController {
         
         // NativeEventFormViewController
         row = XLFormRowDescriptor(tag: Tags.RealExample, rowType: XLFormRowDescriptorTypeButton, title: "iOS Calendar Event Form")
-        row.action.formSegueIdenfifier = "NativeEventNavigationViewControllerSegue"
+        row.action.formSegueIdentifier = "NativeEventNavigationViewControllerSegue"
         section.addFormRow(row)
 
         section = XLFormSectionDescriptor.formSectionWithTitle("This form is actually an example")
@@ -87,7 +87,7 @@ class ExamplesFormViewController : XLFormViewController {
     
         // Selectors
         row = XLFormRowDescriptor(tag: Tags.Selectors, rowType: XLFormRowDescriptorTypeButton, title: "Selectors")
-        row.action.formSegueIdenfifier = "SelectorsFormViewControllerSegue"
+        row.action.formSegueIdentifier = "SelectorsFormViewControllerSegue"
         section.addFormRow(row)
         
     
@@ -98,7 +98,7 @@ class ExamplesFormViewController : XLFormViewController {
         
         // Others
         row = XLFormRowDescriptor(tag: Tags.Othes, rowType: XLFormRowDescriptorTypeButton, title: "Other Rows")
-        row.action.formSegueIdenfifier = "OthersFormViewControllerSegue"
+        row.action.formSegueIdentifier = "OthersFormViewControllerSegue"
         section.addFormRow(row)
         
         
@@ -151,7 +151,7 @@ class ExamplesFormViewController : XLFormViewController {
         
         
         row = XLFormRowDescriptor(tag: Tags.Validations, rowType: XLFormRowDescriptorTypeButton, title: "Validation Examples")
-        row.action.formSegueIdenfifier = "ValidationExamplesFormViewControllerSegue"
+        row.action.formSegueIdentifier = "ValidationExamplesFormViewControllerSegue"
         section.addFormRow(row)
 
         section = XLFormSectionDescriptor.formSectionWithTitle("Using Predicates")
@@ -159,17 +159,17 @@ class ExamplesFormViewController : XLFormViewController {
         
         
         row = XLFormRowDescriptor(tag: Tags.Predicates, rowType: XLFormRowDescriptorTypeButton, title: "Very basic predicates")
-        row.action.formSegueIdenfifier = "BasicPredicateViewControllerSegue"
+        row.action.formSegueIdentifier = "BasicPredicateViewControllerSegue"
         section.addFormRow(row)
         
         
         row = XLFormRowDescriptor(tag: Tags.Predicates, rowType: XLFormRowDescriptorTypeButton, title: "Blog Example Hide predicates")
-        row.action.formSegueIdenfifier = "BlogExampleViewSegue"
+        row.action.formSegueIdentifier = "BlogExampleViewSegue"
         section.addFormRow(row)
         
         
         row = XLFormRowDescriptor(tag: Tags.Predicates, rowType: XLFormRowDescriptorTypeButton, title: "Another example")
-        row.action.formSegueIdenfifier = "PredicateFormViewControllerSegue"
+        row.action.formSegueIdentifier = "PredicateFormViewControllerSegue"
         section.addFormRow(row)
         
         self.form = form
