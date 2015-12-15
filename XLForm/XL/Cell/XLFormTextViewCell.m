@@ -30,6 +30,7 @@
 #import "XLFormTextViewCell.h"
 
 NSString *const kFormTextViewCellPlaceholder = @"placeholder";
+NSString *const XLFormTextViewLengthPercentage = @"textViewLengthPercentage";
 
 @interface XLFormTextViewCell() <UITextViewDelegate>
 
@@ -159,6 +160,15 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     }
     else{
         [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textView]-|" options:0 metrics:0 views:views]];
+        if (self.textViewLengthPercentage) {
+            [_dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textView
+                                                                              attribute:NSLayoutAttributeWidth
+                                                                              relatedBy:NSLayoutRelationEqual
+                                                                                 toItem:self.contentView
+                                                                              attribute:NSLayoutAttributeWidth
+                                                                             multiplier:[self.textViewLengthPercentage floatValue]
+                                                                               constant:0.0]];
+        }
     }
     [self.contentView addConstraints:_dynamicCustomConstraints];
     [super updateConstraints];
