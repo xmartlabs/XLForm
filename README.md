@@ -647,6 +647,8 @@ Usually you may want to change the form when some value change or some row or se
 
 In order to stay in sync with the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
 
+> Note: It is important to always call the `[super ...]` method when overriding this delegate's methods.
+
 ```objc
 @protocol XLFormDescriptorDelegate <NSObject>
 
@@ -657,6 +659,10 @@ In order to stay in sync with the form descriptor modifications your `XLFormView
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
+-(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow
+                                   oldValue:(id)oldValue
+                                   newValue:(id)newValue
+                              predicateType:(XLPredicateType)predicateType;
 
 @end
 ```
