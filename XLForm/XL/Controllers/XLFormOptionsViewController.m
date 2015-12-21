@@ -269,7 +269,10 @@
     if (self.rowDescriptor.rowType == XLFormRowDescriptorTypeSelectorLeftRight){
         // not handled yet
     } else {
-        return proposedDestinationIndexPath;
+        // avoid targeting "add new" row
+        if (proposedDestinationIndexPath.row == 0) {
+            return sourceIndexPath;
+        }
     }
     return proposedDestinationIndexPath;
 }
