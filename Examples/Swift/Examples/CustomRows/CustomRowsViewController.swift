@@ -30,6 +30,7 @@ class CustomRowsViewController : XLFormViewController {
         static let CustomRowFloatLabeledTextFieldTag = "CustomRowFloatLabeledTextFieldTag"
         static let CustomRowWeekdays = "CustomRowWeekdays"
         static let CustomRowText = "CustomText"
+        static let CustomRowInline = "CustomRowInline"
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -92,6 +93,15 @@ class CustomRowsViewController : XLFormViewController {
         ]
         section.addFormRow(row)
 
+        section = XLFormSectionDescriptor.formSectionWithTitle("Custom inline row")
+        form.addFormSection(section)
+        
+        // Inline
+        row = XLFormRowDescriptor(tag: Tags.CustomRowInline, rowType: XLFormRowDescriptorTypeSegmentedInline)
+        row.title = "You support..."
+        row.selectorOptions = ["Uruguay", "Brazil", "Argentina", "Chile"]
+        row.value = "Uruguay"
+        section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
         form.addFormSection(section)

@@ -42,6 +42,7 @@
 		3C3B01F01AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01EF1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m */; };
 		3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */; };
 		66B6266E1AE0055100007886 /* DateAndTimeValueTrasformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B6266D1AE0055100007886 /* DateAndTimeValueTrasformer.m */; };
+		BF01E9281C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF01E9271C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m */; };
 		BF9DB1D51AE0436600B985E7 /* BlogExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9DB1D21AE0436600B985E7 /* BlogExampleViewController.m */; };
 		BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9DB1D41AE0436600B985E7 /* PredicateFormViewController.m */; };
 		BFA5F4B11BB48F8E00D045BD /* XLFormRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B01D41AB741EF0027CD45 /* XLFormRatingCell.xib */; };
@@ -114,6 +115,8 @@
 		66B6266D1AE0055100007886 /* DateAndTimeValueTrasformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateAndTimeValueTrasformer.m; path = Examples/Dates/DateAndTimeValueTrasformer.m; sourceTree = "<group>"; };
 		7B0D2D6A86E2A41ED22E8A35 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		976A33EE62A018A7257B4878 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		BF01E9261C21F0BB00BDE045 /* XLFormInlineSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormInlineSegmentedCell.h; path = "Inline Segmented/XLFormInlineSegmentedCell.h"; sourceTree = "<group>"; };
+		BF01E9271C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormInlineSegmentedCell.m; path = "Inline Segmented/XLFormInlineSegmentedCell.m"; sourceTree = "<group>"; };
 		BF9DB1D11AE0436600B985E7 /* BlogExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlogExampleViewController.h; path = Examples/PredicateExamples/BlogExampleViewController.h; sourceTree = SOURCE_ROOT; };
 		BF9DB1D21AE0436600B985E7 /* BlogExampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BlogExampleViewController.m; path = Examples/PredicateExamples/BlogExampleViewController.m; sourceTree = SOURCE_ROOT; };
 		BF9DB1D31AE0436600B985E7 /* PredicateFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PredicateFormViewController.h; path = Examples/PredicateExamples/PredicateFormViewController.h; sourceTree = SOURCE_ROOT; };
@@ -416,6 +419,7 @@
 		3CDAFC741AB0AEE5000F75B6 /* CustomRows */ = {
 			isa = PBXGroup;
 			children = (
+				BF01E9251C21F02D00BDE045 /* Inline Segmented */,
 				3C3B01D01AB741C40027CD45 /* Rating */,
 				3C3B01E31AB74AC10027CD45 /* FloatLabeledTextField */,
 				3C3B01D11AB741CC0027CD45 /* Weekdays */,
@@ -423,6 +427,15 @@
 				3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */,
 			);
 			name = CustomRows;
+			sourceTree = "<group>";
+		};
+		BF01E9251C21F02D00BDE045 /* Inline Segmented */ = {
+			isa = PBXGroup;
+			children = (
+				BF01E9261C21F0BB00BDE045 /* XLFormInlineSegmentedCell.h */,
+				BF01E9271C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m */,
+			);
+			name = "Inline Segmented";
 			sourceTree = "<group>";
 		};
 		BFD5D6F41AD2FFC1006F04FA /* PredicateExamples */ = {
@@ -590,6 +603,7 @@
 				3C3B01E21AB7499A0027CD45 /* XLRatingView.m in Sources */,
 				283B59B219532415000828CD /* MapViewController.m in Sources */,
 				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,
+				BF01E9281C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m in Sources */,
 				BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */,
 				BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */,
 				2843EB5218D4CFC700F13E2B /* OthersFormViewController.m in Sources */,
