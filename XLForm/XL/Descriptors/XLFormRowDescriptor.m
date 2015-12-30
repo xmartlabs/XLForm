@@ -118,7 +118,7 @@
             NSString *cellClassString = cellClass;
             NSString *cellResource = nil;
             NSBundle *bundle = nil;
-            if ([cellClassString containsString:@"/"]) {
+            if ([cellClassString rangeOfString:@"/"].location != NSNotFound) {
                 NSArray *components = [cellClassString componentsSeparatedByString:@"/"];
                 cellResource = [components lastObject];
                 NSString *folderName = [components firstObject];
