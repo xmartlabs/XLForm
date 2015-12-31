@@ -99,7 +99,7 @@
 -(UIBarButtonItem *)resetButton
 {
     if (_resetButton) return _resetButton;
-    _resetButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:nil action:nil];
+    _resetButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Remove", nil) style:UIBarButtonItemStylePlain target:nil action:nil];
     return _resetButton;
 }
 
