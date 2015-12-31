@@ -76,6 +76,13 @@
                                                           message: nil
                                                    preferredStyle: UIAlertControllerStyleActionSheet];
     
+    // Cancel
+    [alertController addAction:[UIAlertAction actionWithTitle: NSLocalizedString(@"Cancel", nil)
+                                                        style: UIAlertActionStyleCancel
+                                                      handler: ^(UIAlertAction * _Nonnull action) {
+                                                          [alertController dismissViewControllerAnimated:YES completion:nil];
+                                                      }]];
+    
     [alertController addAction:[UIAlertAction actionWithTitle: NSLocalizedString(@"Choose From Library", nil)
                                                         style: UIAlertActionStyleDefault
                                                       handler: ^(UIAlertAction * _Nonnull action) {
@@ -89,6 +96,13 @@
                                                               [self openImage:UIImagePickerControllerSourceTypeCamera];
                                                           }]];
     }
+    
+    // Delete
+    [alertController addAction:[UIAlertAction actionWithTitle: NSLocalizedString(@"Delete", nil)
+                                                        style: UIAlertActionStyleDestructive
+                                                      handler: ^(UIAlertAction * _Nonnull action) {
+                                                          [self deleteImage];
+                                                      }]];
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         alertController.modalPresentationStyle = UIModalPresentationPopover;
@@ -119,6 +133,11 @@
                                               animated: YES
                                             completion: nil];
     }
+}
+
+-(void)deleteImage
+{
+    [self chooseImage:nil];
 }
 
 #pragma mark -  UIImagePickerControllerDelegate
