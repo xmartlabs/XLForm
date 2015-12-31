@@ -466,7 +466,7 @@
 -(void)showFormValidationError:(NSError *)error
 {
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XLFormViewController_ValidationErrorTitle", nil)
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Validation error", nil)
                                                          message:error.localizedDescription
                                                         delegate:self
                                                cancelButtonTitle:NSLocalizedString(@"OK", nil)
@@ -474,7 +474,7 @@
     [alertView show];
 #else
     if ([UIAlertController class]){
-        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"XLFormViewController_ValidationErrorTitle", nil)
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Validation error", nil)
                                                                                   message:error.localizedDescription
                                                                            preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
@@ -483,7 +483,7 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
     else{
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XLFormViewController_ValidationErrorTitle", nil)
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Validation error", nil)
                                                              message:error.localizedDescription
                                                             delegate:self
                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
