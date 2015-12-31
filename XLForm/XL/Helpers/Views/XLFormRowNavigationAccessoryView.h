@@ -30,5 +30,6 @@
 @property (nonatomic) UIBarButtonItem *previousButton;
 @property (nonatomic) UIBarButtonItem *nextButton;
 @property (nonatomic) UIBarButtonItem *doneButton;
+@property (nonatomic) UIBarButtonItem *resetButton;
 
 @end
