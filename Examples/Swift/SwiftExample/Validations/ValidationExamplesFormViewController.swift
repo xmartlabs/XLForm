@@ -26,22 +26,22 @@
 
 class ValidationExamplesFormViewController : XLFormViewController {
 
-    private enum Tags : String {
-        case ValidationName = "Name"
-        case ValidationEmail = "Email"
-        case ValidationPassword = "Password"
-        case ValidationInteger = "Integer"
+    private struct Tags {
+        static let ValidationName = "Name"
+        static let ValidationEmail = "Email"
+        static let ValidationPassword = "Password"
+        static let ValidationInteger = "Integer"
     }
     
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
     
     func initializeForm() {
@@ -58,7 +58,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         
         
         // Name
-        row = XLFormRowDescriptor(tag: Tags.ValidationName.rawValue, rowType: XLFormRowDescriptorTypeText, title:"Name")
+        row = XLFormRowDescriptor(tag: Tags.ValidationName, rowType: XLFormRowDescriptorTypeText, title:"Name")
         row.cellConfigAtConfigure["textField.placeholder"] = "Required..."
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Right.rawValue
         row.required = true
@@ -70,7 +70,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         form.addFormSection(section)
         
         // Email
-        row = XLFormRowDescriptor(tag: Tags.ValidationEmail.rawValue, rowType: XLFormRowDescriptorTypeText, title:"Email")
+        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeText, title:"Email")
         row.cellConfigAtConfigure["textField.textAlignment"] = NSTextAlignment.Right.rawValue
         row.required = false
         row.value = "not valid email"
@@ -84,7 +84,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         form.addFormSection(section)
         
         // Password
-        row = XLFormRowDescriptor(tag: Tags.ValidationPassword.rawValue, rowType: XLFormRowDescriptorTypePassword, title:"Password")
+        row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypePassword, title:"Password")
         row.cellConfigAtConfigure["textField.placeholder"] = "Required..."
         row.cellConfigAtConfigure["textField.textAlignment"] = NSTextAlignment.Right.rawValue
         row.required = true
@@ -98,7 +98,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         form.addFormSection(section)
         
         // Integer
-        row = XLFormRowDescriptor(tag: Tags.ValidationInteger.rawValue, rowType:XLFormRowDescriptorTypeInteger, title:"Integer")
+        row = XLFormRowDescriptor(tag: Tags.ValidationInteger, rowType:XLFormRowDescriptorTypeInteger, title:"Integer")
         row.cellConfigAtConfigure["textField.placeholder"] = "Required..."
         row.cellConfigAtConfigure["textField.textAlignment"] = NSTextAlignment.Right.rawValue
         row.required = true
@@ -106,14 +106,12 @@ class ValidationExamplesFormViewController : XLFormViewController {
         section.addFormRow(row)
         
         self.form = form
-    
-    
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem?.target = self
-        self.navigationItem.rightBarButtonItem?.action = "validateForm:"
+        navigationItem.rightBarButtonItem?.target = self
+        navigationItem.rightBarButtonItem?.action = "validateForm:"
     }
     
 
@@ -121,22 +119,22 @@ class ValidationExamplesFormViewController : XLFormViewController {
 //MARK: Actions
     
     func validateForm(buttonItem: UIBarButtonItem) {
-        let array = self.formValidationErrors()
+        let array = formValidationErrors()
         for errorItem in array {
             let error = errorItem as! NSError
-            let validationStatus : XLFormValidationStatus = error.userInfo![XLValidationStatusErrorKey] as! XLFormValidationStatus
-            if validationStatus.rowDescriptor!.tag == Tags.ValidationName.rawValue {
-                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)!) {
-                    cell.backgroundColor = UIColor.orangeColor()
+            let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
+            if validationStatus.rowDescriptor!.tag == Tags.ValidationName {
+                if let rowDescriptor = validationStatus.rowDescriptor, let indexPath = form.indexPathOfFormRow(rowDescriptor), let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                    cell.backgroundColor = .orangeColor()
                     UIView.animateWithDuration(0.3, animations: { () -> Void in
-                        cell.backgroundColor = UIColor.whiteColor()
+                        cell.backgroundColor = .whiteColor()
                     })
                 }
             }
-            else if validationStatus.rowDescriptor!.tag == Tags.ValidationEmail.rawValue ||
-                    validationStatus.rowDescriptor!.tag == Tags.ValidationPassword.rawValue ||
-                    validationStatus.rowDescriptor!.tag == Tags.ValidationInteger.rawValue {
-                if let cell = self.tableView.cellForRowAtIndexPath(self.form.indexPathOfFormRow(validationStatus.rowDescriptor)!) {
+            else if validationStatus.rowDescriptor!.tag == Tags.ValidationEmail ||
+                    validationStatus.rowDescriptor!.tag == Tags.ValidationPassword ||
+                    validationStatus.rowDescriptor!.tag == Tags.ValidationInteger {
+                if let rowDescriptor = validationStatus.rowDescriptor, let indexPath = form.indexPathOfFormRow(rowDescriptor), let cell = tableView.cellForRowAtIndexPath(indexPath) {
                     self.animateCell(cell)
                 }
             }

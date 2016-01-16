@@ -28,19 +28,19 @@ import MapKit
 
 class CustomSelectorsFormViewController : XLFormViewController {
 
-    private enum Tags : String {
-        case SelectorMap = "selectorMap"
-        case SelectorMapPopover = "selectorMapPopover"
+    private struct Tags {
+        static let SelectorMap = "selectorMap"
+        static let SelectorMapPopover = "selectorMapPopover"
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
     
     func initializeForm() {
@@ -56,15 +56,15 @@ class CustomSelectorsFormViewController : XLFormViewController {
         form.addFormSection(section)
     
         // Selector Push
-        row = XLFormRowDescriptor(tag: Tags.SelectorMap.rawValue, rowType: XLFormRowDescriptorTypeSelectorPush, title: "Coordinate")
+        row = XLFormRowDescriptor(tag: Tags.SelectorMap, rowType: XLFormRowDescriptorTypeSelectorPush, title: "Coordinate")
         row.action.viewControllerClass = MapViewController.self
         row.valueTransformer = CLLocationValueTrasformer.self
         row.value = CLLocation(latitude: -33, longitude: -56)
         section.addFormRow(row)
         
-        if UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad {
+        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
             // Selector PopOver
-            row = XLFormRowDescriptor(tag: Tags.SelectorMapPopover.rawValue, rowType: XLFormRowDescriptorTypeSelectorPopover, title: "Coordinate PopOver")
+            row = XLFormRowDescriptor(tag: Tags.SelectorMapPopover, rowType: XLFormRowDescriptorTypeSelectorPopover, title: "Coordinate PopOver")
             row.action.viewControllerClass = MapViewController.self
             row.valueTransformer = CLLocationValueTrasformer.self
             row.value = CLLocation(latitude: -33, longitude: -56)

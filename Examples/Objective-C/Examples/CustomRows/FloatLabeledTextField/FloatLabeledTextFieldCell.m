@@ -31,7 +31,6 @@
 
 NSString * const XLFormRowDescriptorTypeFloatLabeledTextField = @"XLFormRowDescriptorTypeFloatLabeledTextField";
 
-const static CGFloat kHMargin = 15.0f;
 const static CGFloat kVMargin = 8.0f;
 const static CGFloat kFloatingLabelFontSize = 11.0f;
 
@@ -155,10 +154,9 @@ const static CGFloat kFloatingLabelFontSize = 11.0f;
     NSMutableArray * result = [[NSMutableArray alloc] init];
 
     NSDictionary * views = @{@"floatLabeledTextField": self.floatLabeledTextField};
-    NSDictionary *metrics = @{@"hMargin":@(kHMargin),
-                              @"vMargin":@(kVMargin)};
+    NSDictionary *metrics = @{@"vMargin":@(kVMargin)};
     
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(hMargin)-[floatLabeledTextField]-(hMargin)-|"
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[floatLabeledTextField]-|"
                                                                                                options:0
                                                                                                metrics:metrics
                                                                                                  views:views]];

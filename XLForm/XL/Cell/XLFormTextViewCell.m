@@ -30,6 +30,7 @@
 #import "XLFormTextViewCell.h"
 
 NSString *const kFormTextViewCellPlaceholder = @"placeholder";
+NSString *const XLFormTextViewLengthPercentage = @"textViewLengthPercentage";
 
 @interface XLFormTextViewCell() <UITextViewDelegate>
 
@@ -155,10 +156,19 @@ NSString *const kFormTextViewCellPlaceholder = @"placeholder";
     }
     NSDictionary * views = @{@"label": self.textLabel, @"textView": self.textView};
     if (!self.textLabel.text || [self.textLabel.text isEqualToString:@""]){
-        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[textView]-16-|" options:0 metrics:0 views:views]];
+        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textView]-|" options:0 metrics:0 views:views]];
     }
     else{
-        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-[textView]-4-|" options:0 metrics:0 views:views]];
+        [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textView]-|" options:0 metrics:0 views:views]];
+        if (self.textViewLengthPercentage) {
+            [_dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textView
+                                                                              attribute:NSLayoutAttributeWidth
+                                                                              relatedBy:NSLayoutRelationEqual
+                                                                                 toItem:self.contentView
+                                                                              attribute:NSLayoutAttributeWidth
+                                                                             multiplier:[self.textViewLengthPercentage floatValue]
+                                                                               constant:0.0]];
+        }
     }
     [self.contentView addConstraints:_dynamicCustomConstraints];
     [super updateConstraints];

@@ -61,6 +61,9 @@
 
 -(BOOL)resignFirstResponder
 {
+    if (![self isFirstResponder]) {
+        return [super resignFirstResponder];
+    }
     NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
     NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
     XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];

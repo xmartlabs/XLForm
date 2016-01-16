@@ -25,7 +25,7 @@
 
 let XLFormRowDescriptorTypeRate = "XLFormRowDescriptorTypeRate"
 
-@objc
+
 class XLFormRatingCell : XLFormBaseCell {
     
     @IBOutlet weak var rateTitle: UILabel!
@@ -34,23 +34,23 @@ class XLFormRatingCell : XLFormBaseCell {
         
     override func configure() {
         super.configure()
-        self.selectionStyle = UITableViewCellSelectionStyle.None
-        self.ratingView.addTarget(self, action: "rateChanged:", forControlEvents:UIControlEvents.ValueChanged)
+        selectionStyle = .None
+        ratingView.addTarget(self, action: "rateChanged:", forControlEvents:.ValueChanged)
     }
     
     
     override func update() {
         super.update()
-        self.ratingView.value = self.rowDescriptor!.value!.floatValue
-        self.rateTitle.text = self.rowDescriptor!.title
-        self.ratingView.alpha = self.rowDescriptor!.isDisabled() ? 0.6 : 1
-        self.rateTitle.alpha = self.rowDescriptor!.isDisabled() ? 0.6 : 1
+        ratingView.value = rowDescriptor!.value!.floatValue
+        rateTitle.text = rowDescriptor!.title
+        ratingView.alpha = rowDescriptor!.isDisabled() ? 0.6 : 1
+        rateTitle.alpha = rowDescriptor!.isDisabled() ? 0.6 : 1
     }
     
 //MARK: Events
     
     func rateChanged(ratingView : XLRatingView){
-        self.rowDescriptor!.value = ratingView.value
+        rowDescriptor!.value = ratingView.value
     }
     
 }

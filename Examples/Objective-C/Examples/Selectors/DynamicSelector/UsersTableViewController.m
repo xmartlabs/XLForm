@@ -98,7 +98,7 @@
     NSDictionary *metrics = @{@"imgSize":@50.0,
                               @"margin" :@12.0};
     
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[image(imgSize)]-[name]"
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[image(imgSize)]-[name]"
                                                                         options:NSLayoutFormatAlignAllTop
                                                                         metrics:metrics
                                                                           views:views]];
