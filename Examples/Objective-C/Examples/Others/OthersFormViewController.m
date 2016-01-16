@@ -34,6 +34,7 @@ NSString *const kSegmentedControl = @"segmentedControl";
 NSString *const kCustom = @"custom";
 NSString *const kInfo = @"info";
 NSString *const kButton = @"button";
+NSString *const kImage = @"image";
 NSString *const kButtonLeftAligned = @"buttonLeftAligned";
 NSString *const kButtonWithSegueId = @"buttonWithSegueId";
 NSString *const kButtonWithSegueClass = @"buttonWithSegueClass";
@@ -102,6 +103,10 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     [row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
     [section addFormRow:row];
     
+    // Image
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kImage rowType:XLFormRowDescriptorTypeImage title:@"Image"];
+    row.value = [UIImage imageNamed:@"default_avatar"];
+    [section addFormRow:row];
 
     // Info cell
     XLFormRowDescriptor *infoRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kInfo rowType:XLFormRowDescriptorTypeInfo];
@@ -122,7 +127,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     
     // Left Button
     XLFormRowDescriptor * buttonLeftAlignedRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonLeftAligned rowType:XLFormRowDescriptorTypeButton title:@"Button with Block"];
-    [buttonLeftAlignedRow.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
+    [buttonLeftAlignedRow.cellConfig setObject:@(NSTextAlignmentNatural) forKey:@"textLabel.textAlignment"];
     [buttonLeftAlignedRow.cellConfig setObject:@(UITableViewCellAccessoryDisclosureIndicator) forKey:@"accessoryType"];
     
     __typeof(self) __weak weakSelf = self;
@@ -168,7 +173,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     
     // Button with SegueId
     XLFormRowDescriptor * buttonWithSegueId = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonWithSegueClass rowType:XLFormRowDescriptorTypeButton title:@"Button with Segue Idenfifier"];
-    buttonWithSegueId.action.formSegueIdenfifier = @"MapViewControllerSegue";
+    buttonWithSegueId.action.formSegueIdentifier = @"MapViewControllerSegue";
     [section addFormRow:buttonWithSegueId];
     
     

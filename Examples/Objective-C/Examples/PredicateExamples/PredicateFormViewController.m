@@ -106,7 +106,7 @@ NSString *const kPredDep2 = @"preddep2";
     typeof(self) __weak weakself = self;
     row.onChangeBlock = ^(id oldValue, id newValue, XLFormRowDescriptor* __unused rowDescriptor){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Account Field changed" message:[NSString stringWithFormat:@"Old value: %@\nNew value: %@", oldValue, newValue ] preferredStyle:UIAlertControllerStyleActionSheet];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:nil]];
         [weakself.navigationController presentViewController:alert animated:YES completion:nil];
     };
     

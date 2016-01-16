@@ -24,12 +24,13 @@
 
 class CustomRowsViewController : XLFormViewController {
     
-    private enum Tags : String {
-        case CustomRowFirstRatingTag = "CustomRowFirstRatingTag"
-        case CustomRowSecondRatingTag = "CustomRowSecondRatingTag"
-        case CustomRowFloatLabeledTextFieldTag = "CustomRowFloatLabeledTextFieldTag"
-        case CustomRowWeekdays = "CustomRowWeekdays"
-        case CustomRowText = "CustomText"
+    private struct Tags {
+        static let CustomRowFirstRatingTag = "CustomRowFirstRatingTag"
+        static let CustomRowSecondRatingTag = "CustomRowSecondRatingTag"
+        static let CustomRowFloatLabeledTextFieldTag = "CustomRowFloatLabeledTextFieldTag"
+        static let CustomRowWeekdays = "CustomRowWeekdays"
+        static let CustomRowText = "CustomText"
+        static let CustomRowInline = "CustomRowInline"
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -37,7 +38,7 @@ class CustomRowsViewController : XLFormViewController {
         self.initializeForm()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.initializeForm()
     }
@@ -54,11 +55,11 @@ class CustomRowsViewController : XLFormViewController {
         section.title = "Ratings"
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.CustomRowFirstRatingTag.rawValue, rowType: XLFormRowDescriptorTypeRate, title: "First Rating")
+        row = XLFormRowDescriptor(tag: Tags.CustomRowFirstRatingTag, rowType: XLFormRowDescriptorTypeRate, title: "First Rating")
         row.value = 3
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.CustomRowSecondRatingTag.rawValue, rowType: XLFormRowDescriptorTypeRate, title: "First Rating")
+        row = XLFormRowDescriptor(tag: Tags.CustomRowSecondRatingTag, rowType: XLFormRowDescriptorTypeRate, title: "First Rating")
         row.value = 1
         section.addFormRow(row)
         
@@ -66,13 +67,13 @@ class CustomRowsViewController : XLFormViewController {
         section = XLFormSectionDescriptor.formSectionWithTitle("Float Labeled Text Field")
         form.addFormSection(section)
 
-        row = XLFormRowDescriptor(tag: Tags.CustomRowFloatLabeledTextFieldTag.rawValue, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title: "Title")
+        row = XLFormRowDescriptor(tag: Tags.CustomRowFloatLabeledTextFieldTag, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title: "Title")
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.CustomRowFloatLabeledTextFieldTag.rawValue, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title: "First Name")
+        row = XLFormRowDescriptor(tag: Tags.CustomRowFloatLabeledTextFieldTag, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title: "First Name")
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.CustomRowFloatLabeledTextFieldTag.rawValue, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title: "Last Name")
+        row = XLFormRowDescriptor(tag: Tags.CustomRowFloatLabeledTextFieldTag, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title: "Last Name")
         section.addFormRow(row)
         
 
@@ -80,7 +81,7 @@ class CustomRowsViewController : XLFormViewController {
         form.addFormSection(section)
 
         // WeekDays
-        row = XLFormRowDescriptor(tag: Tags.CustomRowWeekdays.rawValue, rowType: XLFormRowDescriptorTypeWeekDays)
+        row = XLFormRowDescriptor(tag: Tags.CustomRowWeekdays, rowType: XLFormRowDescriptorTypeWeekDays)
         row.value =  [
             XLFormWeekDaysCell.kWeekDay.Sunday.description(): false,
             XLFormWeekDaysCell.kWeekDay.Monday.description(): true,
@@ -92,12 +93,21 @@ class CustomRowsViewController : XLFormViewController {
         ]
         section.addFormRow(row)
 
+        section = XLFormSectionDescriptor.formSectionWithTitle("Custom inline row")
+        form.addFormSection(section)
+        
+        // Inline
+        row = XLFormRowDescriptor(tag: Tags.CustomRowInline, rowType: XLFormRowDescriptorTypeSegmentedInline)
+        row.title = "You support..."
+        row.selectorOptions = ["Uruguay", "Brazil", "Argentina", "Chile"]
+        row.value = "Uruguay"
+        section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
         form.addFormSection(section)
         
         
-        row = XLFormRowDescriptor(tag: Tags.CustomRowText.rawValue, rowType: XLFormRowDescriptorTypeCustom)
+        row = XLFormRowDescriptor(tag: Tags.CustomRowText, rowType: XLFormRowDescriptorTypeCustom)
         // Must set custom cell or add custom cell to cellClassesForRowDescriptorTypes dictionary before XLFormViewController loaded
         row.cellClass = XLFormCustomCell.self
         section.addFormRow(row)

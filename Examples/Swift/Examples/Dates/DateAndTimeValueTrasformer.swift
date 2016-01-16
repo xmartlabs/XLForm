@@ -23,8 +23,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
-
 class DateValueTrasformer : NSValueTransformer {
 
     override class func transformedValueClass() -> AnyClass {
@@ -36,21 +34,16 @@ class DateValueTrasformer : NSValueTransformer {
         return false
     }
     
-    
     override func transformedValue(value: AnyObject?) -> AnyObject? {
-        if let valueData: AnyObject = value {
-            if valueData.isKindOfClass(NSDate) {
-                let date = valueData as! NSDate
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateStyle = NSDateFormatterStyle.FullStyle
-                dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
-                return dateFormatter.stringFromDate(date)
-            }
+        if let date = value as? NSDate {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = .FullStyle
+            dateFormatter.timeStyle = .NoStyle
+            return dateFormatter.stringFromDate(date)
         }
         return nil
     }
 }
-
 
 class DateTimeValueTrasformer: NSValueTransformer {
 
@@ -64,14 +57,11 @@ class DateTimeValueTrasformer: NSValueTransformer {
     }
 
     override func transformedValue(value: AnyObject?) -> AnyObject? {
-        if let valueData: AnyObject = value {
-            if valueData.isKindOfClass(NSDate) {
-                let date = valueData as! NSDate
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
-                dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-                return dateFormatter.stringFromDate(date)
-            }
+        if let date = value as? NSDate {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateStyle = .MediumStyle
+            dateFormatter.timeStyle = .ShortStyle
+            return dateFormatter.stringFromDate(date)
         }
         return nil
     }

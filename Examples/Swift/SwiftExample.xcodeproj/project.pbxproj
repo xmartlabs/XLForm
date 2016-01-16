@@ -38,6 +38,7 @@
 		28D8326C1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8326B1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift */; };
 		28D8326F1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8326E1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift */; };
 		28F490221AAFBBC600C8E0CC /* DatesFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */; };
+		BF01E92B1C21FF2800BDE045 /* InlineSegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */; };
 		DD7B43598E698717584375E9 /* libPods-SwiftExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		2EB9C638FC2450A0B9786D1E /* Pods-SwiftExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.release.xcconfig"; sourceTree = "<group>"; };
 		420D9BAB7B0D2AF9487DD060 /* Pods-SwiftExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.debug.xcconfig"; sourceTree = "<group>"; };
 		9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InlineSegmentedCell.swift; path = InlineSegmentedCell/InlineSegmentedCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,19 +116,19 @@
 		2847A6A01AAF2679000A2ABE /* SwiftExample */ = {
 			isa = PBXGroup;
 			children = (
-				286067311AEDBD4A002F1E04 /* CustomRows */,
-				28D8326D1AEC2D1B009E3B3F /* UICustomization */,
-				28D8326A1AEC177E009E3B3F /* Validations */,
-				28D8325F1AEBE4E4009E3B3F /* PredicateExamples */,
 				28D832551AEBC4A7009E3B3F /* AccessoryViews */,
+				286067311AEDBD4A002F1E04 /* CustomRows */,
+				28F490201AAFBBC600C8E0CC /* Dates */,
+				28B920711AE6EB6100BD6382 /* Inputs */,
 				286E8B8A1AE9993F00F2767A /* MultiValuedSections */,
 				286E8B7A1AE86C8900F2767A /* Others */,
-				28B920761AE7378400BD6382 /* Selectors */,
-				28B920711AE6EB6100BD6382 /* Inputs */,
+				28D8325F1AEBE4E4009E3B3F /* PredicateExamples */,
 				288646191AE5C958007A8B9B /* RealExamples */,
+				28B920761AE7378400BD6382 /* Selectors */,
 				288646161AE5C7EA007A8B9B /* StoryboardExample */,
+				28D8326D1AEC2D1B009E3B3F /* UICustomization */,
+				28D8326A1AEC177E009E3B3F /* Validations */,
 				288646141AE59474007A8B9B /* ExamplesFormViewController.swift */,
-				28F490201AAFBBC600C8E0CC /* Dates */,
 				2847A6A31AAF2679000A2ABE /* AppDelegate.swift */,
 				2847A6A11AAF2679000A2ABE /* Supporting Files */,
 			);
@@ -146,6 +148,7 @@
 		286067311AEDBD4A002F1E04 /* CustomRows */ = {
 			isa = PBXGroup;
 			children = (
+				BF01E9291C21FEF700BDE045 /* Inline Segmented */,
 				286067321AEDBD4A002F1E04 /* CustomRowsViewController.swift */,
 				286067331AEDBD4A002F1E04 /* FloatLabeledTextField */,
 				286067351AEDBD4A002F1E04 /* Rating */,
@@ -338,6 +341,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BF01E9291C21FEF700BDE045 /* Inline Segmented */ = {
+			isa = PBXGroup;
+			children = (
+				BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */,
+			);
+			name = "Inline Segmented";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -366,7 +377,9 @@
 		2847A6961AAF2679000A2ABE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Xmartlabs;
 				TargetAttributes = {
 					2847A69D1AAF2679000A2ABE = {
@@ -447,6 +460,7 @@
 			files = (
 				28B920781AE73AA600BD6382 /* SelectorsFormViewController.swift in Sources */,
 				28D832671AEBEAA0009E3B3F /* BlogExampleViewController.swift in Sources */,
+				BF01E92B1C21FF2800BDE045 /* InlineSegmentedCell.swift in Sources */,
 				28D8326C1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift in Sources */,
 				286067411AEDBD4A002F1E04 /* XLFormRatingCell.swift in Sources */,
 				28F490221AAFBBC600C8E0CC /* DatesFormViewController.swift in Sources */,
@@ -497,6 +511,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -564,6 +579,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SwiftExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExample/SwiftExample-Bridging-Header.h";
 			};
@@ -577,6 +593,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = SwiftExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExample/SwiftExample-Bridging-Header.h";
 			};

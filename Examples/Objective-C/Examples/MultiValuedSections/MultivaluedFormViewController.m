@@ -88,7 +88,7 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
     UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                               delegate:self
-                                                     cancelButtonTitle:@"Cancel"
+                                                     cancelButtonTitle:NSLocalizedString(@"Cancel")
                                                 destructiveButtonTitle:@"Remove Last Section"
                                                      otherButtonTitles:@"Add a section at the end", self.form.isDisabled ? @"Enable Form" : @"Disable Form", nil];
     [actionSheet showInView:self.view];
@@ -97,7 +97,7 @@
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil
                                                                                   message:nil
                                                                            preferredStyle:UIAlertControllerStyleActionSheet];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                             style:UIAlertActionStyleCancel
                                                           handler:nil]];
         __weak __typeof(self)weakSelf = self;
@@ -135,7 +135,7 @@
     else{
         UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                                   delegate:self
-                                                         cancelButtonTitle:@"Cancel"
+                                                         cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                                     destructiveButtonTitle:@"Remove Last Section"
                                                          otherButtonTitles:@"Add a section at the end", self.form.isDisabled ? @"Enable Form" : @"Disable Form", nil];
         [actionSheet showInView:self.view];
@@ -165,7 +165,7 @@
         [newSection addFormRow:newRow];
         [self.form addFormSection:newSection];
     }
-    else if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Cancel"]){
+    else if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"Cancel")]){
         self.form.disabled = !self.form.disabled;
         [self.tableView endEditing:YES];
         [self.tableView reloadData];

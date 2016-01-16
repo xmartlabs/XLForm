@@ -33,11 +33,11 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
     
     
     lazy var floatLabeledTextField: JVFloatLabeledTextField  = {
-        let result  = JVFloatLabeledTextField(frame: CGRect.zeroRect)
-        result.setTranslatesAutoresizingMaskIntoConstraints(false)
+        let result  = JVFloatLabeledTextField(frame: CGRect.zero)
+        result.translatesAutoresizingMaskIntoConstraints = false
         result.font = UIFont.systemFontOfSize(kFontSize)
-        result.floatingLabel.font = UIFont.boldSystemFontOfSize(kFontSize)
-        result.clearButtonMode = UITextFieldViewMode.WhileEditing
+        result.floatingLabel.font = .boldSystemFontOfSize(kFontSize)
+        result.clearButtonMode = .WhileEditing
         return result
     }()
 
@@ -45,29 +45,30 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
     
     override func configure() {
         super.configure()
-        self.selectionStyle = UITableViewCellSelectionStyle.None
-        self.contentView.addSubview(self.floatLabeledTextField)
-        self.floatLabeledTextField.delegate = self
-        self.contentView.addConstraints(self.layoutConstraints())
+        selectionStyle = .None
+        contentView.addSubview(self.floatLabeledTextField)
+        floatLabeledTextField.delegate = self
+        contentView.addConstraints(layoutConstraints())
     }
     
     override func update() {
         super.update()
-        self.floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: self.rowDescriptor.title ?? "" , attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()])
-    
-        if let value: AnyObject = self.rowDescriptor.value {
-            self.floatLabeledTextField.text = value.displayText()
+        if let rowDescriptor = rowDescriptor {
+            floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: rowDescriptor.title ?? "" , attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+            if let value = rowDescriptor.value {
+                floatLabeledTextField.text = value.displayText()
+            }
+            else {
+                floatLabeledTextField.text = rowDescriptor.noValueDisplayText
+            }
+            floatLabeledTextField.enabled = !rowDescriptor.isDisabled()
+            floatLabeledTextField.floatingLabelTextColor = .lightGrayColor()
+            floatLabeledTextField.alpha = rowDescriptor.isDisabled() ? 0.6 : 1.0
         }
-        else {
-            self.floatLabeledTextField.text = self.rowDescriptor.noValueDisplayText
-        }
-        self.floatLabeledTextField.enabled = !self.rowDescriptor.isDisabled()
-        self.floatLabeledTextField.floatingLabelTextColor = UIColor.lightGrayColor()
-        self.floatLabeledTextField.alpha = self.rowDescriptor.isDisabled() ? 0.6 : 1.0
     }
     
     override func formDescriptorCellCanBecomeFirstResponder() -> Bool {
-        return !self.rowDescriptor.isDisabled()
+        return rowDescriptor?.isDisabled() == false
     }
     
     
@@ -82,23 +83,22 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
     
 //MARK: Helpers
     
-    func layoutConstraints() -> [AnyObject]{
-        let views = ["floatLabeledTextField" : self.floatLabeledTextField]
+    func layoutConstraints() -> [NSLayoutConstraint]{
+        let views = ["floatLabeledTextField" : floatLabeledTextField]
         let metrics = ["hMargin": 15.0, "vMargin": 8.0]
-        var result =  NSLayoutConstraint.constraintsWithVisualFormat("H:|-(hMargin)-[floatLabeledTextField]-(hMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterY, metrics:metrics, views:views)
-        result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(vMargin)-[floatLabeledTextField]-(vMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterX, metrics:metrics, views:views)
+        var result =  NSLayoutConstraint.constraintsWithVisualFormat("H:|-(hMargin)-[floatLabeledTextField]-(hMargin)-|", options:.AlignAllCenterY, metrics:metrics, views:views)
+        result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(vMargin)-[floatLabeledTextField]-(vMargin)-|", options:.AlignAllCenterX, metrics:metrics, views:views)
         return result
     }
 
-    
-    
-    
     func textFieldDidChange(textField : UITextField) {
-        if self.floatLabeledTextField == textField {
-            if self.floatLabeledTextField.text.isEmpty == false {
-                self.rowDescriptor.value = self.floatLabeledTextField.text
-            } else {
-                self.rowDescriptor.value = nil
+        if floatLabeledTextField == textField {
+            if let rowDescriptor = rowDescriptor, let text = self.floatLabeledTextField.text {
+                if text.isEmpty == false {
+                    rowDescriptor.value = self.floatLabeledTextField.text
+                } else {
+                    rowDescriptor.value = nil
+                }
             }
         }
     }
