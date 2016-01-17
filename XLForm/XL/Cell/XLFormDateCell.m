@@ -59,6 +59,9 @@
 
 -(BOOL)becomeFirstResponder
 {
+    if (self.isFirstResponder){
+        return [super becomeFirstResponder];
+    }
     _beforeChangeColor = self.detailTextLabel.textColor;
     BOOL result = [super becomeFirstResponder];
     if (result){
@@ -85,6 +88,7 @@
             });
             
             [formSection addFormRow:datePickerRowDescriptor afterRow:self.rowDescriptor];
+            [self.formViewController ensureRowIsVisible:datePickerRowDescriptor];
         }
     }
     return result;
@@ -235,7 +239,7 @@
 - (void)datePickerValueChanged:(UIDatePicker *)sender
 {
     self.rowDescriptor.value = sender.date;
-    self.detailTextLabel.text = [self valueDisplayText];
+    [self update];
     [self setNeedsLayout];
     
 }

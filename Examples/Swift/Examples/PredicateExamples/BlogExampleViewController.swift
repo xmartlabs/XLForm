@@ -23,27 +23,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
-
-
 class BlogExampleViewController : XLFormViewController {
 
-    private enum Tags : String {
-        case Hobbies = "hobbies"
-        case Sport = "sport"
-        case Film = "films1"
-        case Film2 = "films2"
-        case Music = "music"
+    private struct Tags {
+        static let Hobbies = "hobbies"
+        static let Sport = "sport"
+        static let Film = "films1"
+        static let Film2 = "films2"
+        static let Music = "music"
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
     
     func initializeForm() {
@@ -59,7 +56,7 @@ class BlogExampleViewController : XLFormViewController {
         form.addFormSection(section)
         
         
-        row = XLFormRowDescriptor(tag: Tags.Hobbies.rawValue, rowType: XLFormRowDescriptorTypeMultipleSelector, title:"Select Hobbies")
+        row = XLFormRowDescriptor(tag: Tags.Hobbies, rowType: XLFormRowDescriptorTypeMultipleSelector, title:"Select Hobbies")
         row.selectorOptions = ["Sport", "Music", "Films"]
         row.value = []
         section.addFormRow(row)
@@ -70,20 +67,20 @@ class BlogExampleViewController : XLFormViewController {
         section.footerTitle = "BlogExampleViewController.swift"
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.Sport.rawValue, rowType: XLFormRowDescriptorTypeTextView, title:"Your favourite sportsman?")
-        row.hidden = "NOT $\(Tags.Hobbies.rawValue).value contains 'Sport'"
+        row = XLFormRowDescriptor(tag: Tags.Sport, rowType: XLFormRowDescriptorTypeTextView, title:"Your favourite sportsman?")
+        row.hidden = "NOT $\(Tags.Hobbies).value contains 'Sport'"
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.Film.rawValue, rowType:XLFormRowDescriptorTypeTextView, title: "Your favourite film?")
-        row.hidden = "NOT $\(Tags.Hobbies.rawValue) contains 'Films'"
+        row = XLFormRowDescriptor(tag: Tags.Film, rowType:XLFormRowDescriptorTypeTextView, title: "Your favourite film?")
+        row.hidden = "NOT $\(Tags.Hobbies) contains 'Films'"
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.Film2.rawValue, rowType:XLFormRowDescriptorTypeTextView, title:"Your favourite actor?")
-        row.hidden = "NOT $\(Tags.Hobbies.rawValue) contains 'Films'"
+        row = XLFormRowDescriptor(tag: Tags.Film2, rowType:XLFormRowDescriptorTypeTextView, title:"Your favourite actor?")
+        row.hidden = "NOT $\(Tags.Hobbies) contains 'Films'"
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.Music.rawValue, rowType:XLFormRowDescriptorTypeTextView, title:"Your favourite singer?")
-        row.hidden = "NOT $\(Tags.Hobbies.rawValue) contains 'Music'"
+        row = XLFormRowDescriptor(tag: Tags.Music, rowType:XLFormRowDescriptorTypeTextView, title:"Your favourite singer?")
+        row.hidden = "NOT $\(Tags.Hobbies) contains 'Music'"
         section.addFormRow(row)
         
         self.form = form

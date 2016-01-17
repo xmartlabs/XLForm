@@ -28,30 +28,30 @@
 class AccessoryViewFormViewController : XLFormViewController {
 
 
-    private enum Tags : String {
-        case AccessoryViewRowNavigationEnabled = "RowNavigationEnabled"
-        case AccessoryViewRowNavigationShowAccessoryView     = "RowNavigationShowAccessoryView"
-        case AccessoryViewRowNavigationStopDisableRow        = "rowNavigationStopDisableRow"
-        case AccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow = "rowNavigationSkipCanNotBecomeFirstResponderRow"
-        case AccessoryViewRowNavigationStopInlineRow = "rowNavigationStopInlineRow"
-        case AccessoryViewName = "name"
-        case AccessoryViewEmail = "email"
-        case AccessoryViewTwitter = "twitter"
-        case AccessoryViewUrl = "url"
-        case AccessoryViewDate = "date"
-        case AccessoryViewTextView = "textView"
-        case AccessoryViewCheck = "check"
-        case AccessoryViewNotes = "notes"
+    private struct Tags {
+        static let AccessoryViewRowNavigationEnabled = "RowNavigationEnabled"
+        static let AccessoryViewRowNavigationShowAccessoryView     = "RowNavigationShowAccessoryView"
+        static let AccessoryViewRowNavigationStopDisableRow        = "rowNavigationStopDisableRow"
+        static let AccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow = "rowNavigationSkipCanNotBecomeFirstResponderRow"
+        static let AccessoryViewRowNavigationStopInlineRow = "rowNavigationStopInlineRow"
+        static let AccessoryViewName = "name"
+        static let AccessoryViewEmail = "email"
+        static let AccessoryViewTwitter = "twitter"
+        static let AccessoryViewUrl = "url"
+        static let AccessoryViewDate = "date"
+        static let AccessoryViewTextView = "textView"
+        static let AccessoryViewCheck = "check"
+        static let AccessoryViewNotes = "notes"
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
+        initializeForm()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
+        initializeForm()
     }
 
     func initializeForm() {
@@ -61,7 +61,7 @@ class AccessoryViewFormViewController : XLFormViewController {
         var row : XLFormRowDescriptor
         
         form = XLFormDescriptor(title: "Accessory View")
-        form.rowNavigationOptions = XLFormRowNavigationOptions.Enabled
+        form.rowNavigationOptions = .Enabled
     
         // Configuration section
         section = XLFormSectionDescriptor()
@@ -70,65 +70,62 @@ class AccessoryViewFormViewController : XLFormViewController {
         form.addFormSection(section)
     
         // RowNavigationEnabled
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationEnabled.rawValue, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Row Navigation Enabled?")
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationEnabled, rowType: XLFormRowDescriptorTypeBooleanSwitch, title: "Row Navigation Enabled?")
         row.value = true
         section.addFormRow(row)
     
         // RowNavigationShowAccessoryView
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationShowAccessoryView.rawValue, rowType:XLFormRowDescriptorTypeBooleanCheck, title:"Show input accessory row?")
-        row.value = (form.rowNavigationOptions & XLFormRowNavigationOptions.Enabled) == XLFormRowNavigationOptions.Enabled
-        row.hidden = "$\(Tags.AccessoryViewRowNavigationEnabled.rawValue) == 0"
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationShowAccessoryView, rowType:XLFormRowDescriptorTypeBooleanCheck, title:"Show input accessory row?")
+        row.value = form.rowNavigationOptions.contains(.Enabled)
+        row.hidden = "$\(Tags.AccessoryViewRowNavigationEnabled) == 0"
         section.addFormRow(row)
 
         // RowNavigationStopDisableRow
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationStopDisableRow.rawValue, rowType: XLFormRowDescriptorTypeBooleanCheck, title:"Stop when reach disabled row?")
-        row.value = (form.rowNavigationOptions & XLFormRowNavigationOptions.StopDisableRow) == XLFormRowNavigationOptions.StopDisableRow
-        row.hidden = "$\(Tags.AccessoryViewRowNavigationEnabled.rawValue) == 0"
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationStopDisableRow, rowType: XLFormRowDescriptorTypeBooleanCheck, title:"Stop when reach disabled row?")
+        row.value = form.rowNavigationOptions.contains(.StopDisableRow)
+        row.hidden = "$\(Tags.AccessoryViewRowNavigationEnabled) == 0"
         section.addFormRow(row)
     
         // RowNavigationStopInlineRow
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationStopInlineRow.rawValue, rowType: XLFormRowDescriptorTypeBooleanCheck, title: "Stop when reach inline row?")
-        row.value = (form.rowNavigationOptions & XLFormRowNavigationOptions.StopInlineRow) == XLFormRowNavigationOptions.StopInlineRow
-        row.hidden = "$\(Tags.AccessoryViewRowNavigationEnabled.rawValue) == 0"
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationStopInlineRow, rowType: XLFormRowDescriptorTypeBooleanCheck, title: "Stop when reach inline row?")
+        row.value = form.rowNavigationOptions.contains(.StopInlineRow)
+        row.hidden = "$\(Tags.AccessoryViewRowNavigationEnabled) == 0"
         section.addFormRow(row)
         
         // RowNavigationSkipCanNotBecomeFirstResponderRow
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow.rawValue, rowType:XLFormRowDescriptorTypeBooleanCheck, title:"Skip Can Not Become First Responder Row?")
-        row.value = (form.rowNavigationOptions & XLFormRowNavigationOptions.SkipCanNotBecomeFirstResponderRow) == XLFormRowNavigationOptions.SkipCanNotBecomeFirstResponderRow
-        row.hidden = "$\(Tags.AccessoryViewRowNavigationEnabled.rawValue) == 0"
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow, rowType:XLFormRowDescriptorTypeBooleanCheck, title:"Skip Can Not Become First Responder Row?")
+        row.value = form.rowNavigationOptions.contains(XLFormRowNavigationOptions.SkipCanNotBecomeFirstResponderRow)
+        row.hidden = "$\(Tags.AccessoryViewRowNavigationEnabled) == 0"
         section.addFormRow(row)
-        
-        
         
         section = XLFormSectionDescriptor()
         form.addFormSection(section)
         
-        
         // Name
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewName.rawValue, rowType: XLFormRowDescriptorTypeText, title: "Name")
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewName, rowType: XLFormRowDescriptorTypeText, title: "Name")
         row.required = true
         section.addFormRow(row)
         
         // Email
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewEmail.rawValue, rowType: XLFormRowDescriptorTypeEmail, title: "Email")
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewEmail, rowType: XLFormRowDescriptorTypeEmail, title: "Email")
         // validate the email
         row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         
         // Twitter
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewTwitter.rawValue, rowType: XLFormRowDescriptorTypeTwitter, title: "Twitter")
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewTwitter, rowType: XLFormRowDescriptorTypeTwitter, title: "Twitter")
         row.disabled = NSNumber(bool: true)
         row.value = "@no_editable"
         section.addFormRow(row)
     
         // Url
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewUrl.rawValue, rowType: XLFormRowDescriptorTypeURL, title: "Url")
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewUrl, rowType: XLFormRowDescriptorTypeURL, title: "Url")
         section.addFormRow(row)
         
     
         // Date
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewDate.rawValue, rowType:XLFormRowDescriptorTypeDateInline, title:"Date Inline")
-        row.value = NSDate.new()
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewDate, rowType:XLFormRowDescriptorTypeDateInline, title:"Date Inline")
+        row.value = NSDate()
         section.addFormRow(row)
 
         
@@ -138,17 +135,17 @@ class AccessoryViewFormViewController : XLFormViewController {
         
         
         
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewTextView.rawValue, rowType:XLFormRowDescriptorTypeTextView)
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewTextView, rowType:XLFormRowDescriptorTypeTextView)
         row.cellConfigAtConfigure["textView.placeholder"] = "TEXT VIEW EXAMPLE"
         section.addFormRow(row)
         
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewCheck.rawValue, rowType:XLFormRowDescriptorTypeBooleanCheck, title:"Ckeck")
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewCheck, rowType:XLFormRowDescriptorTypeBooleanCheck, title:"Check")
         section.addFormRow(row)
 
         section = XLFormSectionDescriptor()
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.AccessoryViewNotes.rawValue, rowType:XLFormRowDescriptorTypeTextView, title:"Notes")
+        row = XLFormRowDescriptor(tag: Tags.AccessoryViewNotes, rowType:XLFormRowDescriptorTypeTextView, title:"Notes")
         section.addFormRow(row)
     
         self.form = form
@@ -156,7 +153,7 @@ class AccessoryViewFormViewController : XLFormViewController {
 
     
     override func inputAccessoryViewForRowDescriptor(rowDescriptor: XLFormRowDescriptor!) -> UIView! {
-        if self.form.formRowWithTag(Tags.AccessoryViewRowNavigationShowAccessoryView.rawValue)!.value!.boolValue == false {
+        if form.formRowWithTag(Tags.AccessoryViewRowNavigationShowAccessoryView)!.value!.boolValue == false {
             return nil
         }
         return super.inputAccessoryViewForRowDescriptor(rowDescriptor)
@@ -167,28 +164,32 @@ class AccessoryViewFormViewController : XLFormViewController {
     
     override func formRowDescriptorValueHasChanged(formRow: XLFormRowDescriptor!, oldValue: AnyObject!, newValue: AnyObject!) {
         super.formRowDescriptorValueHasChanged(formRow, oldValue: oldValue, newValue: newValue)
-        if formRow.tag == Tags.AccessoryViewRowNavigationStopDisableRow.rawValue {
+        if formRow.tag == Tags.AccessoryViewRowNavigationStopDisableRow {
             if formRow.value!.boolValue  == true {
-                self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptions.StopDisableRow
+                form.rowNavigationOptions = form.rowNavigationOptions.union(.StopDisableRow)
             }
             else{
-                self.form.rowNavigationOptions = self.form.rowNavigationOptions & (~XLFormRowNavigationOptions.StopDisableRow)
+                form.rowNavigationOptions = form.rowNavigationOptions.subtract(.StopDisableRow)
             }
         }
-        else if formRow.tag == Tags.AccessoryViewRowNavigationStopInlineRow.rawValue {
+        else if formRow.tag == Tags.AccessoryViewRowNavigationStopInlineRow {
             if formRow.value!.boolValue  == true {
-                self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptions.StopInlineRow
+                form.rowNavigationOptions = form.rowNavigationOptions.union(.StopInlineRow)
             }
             else{
-                self.form.rowNavigationOptions = self.form.rowNavigationOptions & (~XLFormRowNavigationOptions.StopInlineRow)
+                var options = form.rowNavigationOptions
+                options = options.subtract(XLFormRowNavigationOptions.StopInlineRow)
+                form.rowNavigationOptions = options
             }
         }
-        else if formRow.tag == Tags.AccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow.rawValue {
+        else if formRow.tag == Tags.AccessoryViewRowNavigationSkipCanNotBecomeFirstResponderRow {
             if formRow.value!.boolValue  == true {
-                self.form.rowNavigationOptions = self.form.rowNavigationOptions | XLFormRowNavigationOptions.SkipCanNotBecomeFirstResponderRow
+                form.rowNavigationOptions = form.rowNavigationOptions.union(.SkipCanNotBecomeFirstResponderRow)
             }
             else{
-                self.form.rowNavigationOptions = self.form.rowNavigationOptions & (~XLFormRowNavigationOptions.SkipCanNotBecomeFirstResponderRow)
+                var options = form.rowNavigationOptions
+                options = options.subtract(.SkipCanNotBecomeFirstResponderRow)
+                form.rowNavigationOptions = options
             }
         }
         

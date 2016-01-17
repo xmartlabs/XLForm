@@ -75,8 +75,7 @@ NSString *const kCountDownTimer = @"countDownTimer";
         dateComp.hour = 0;
         dateComp.minute = 7;
         dateComp.timeZone = [NSTimeZone systemTimeZone];
-        NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        
+        NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
         row.value = [calendar dateFromComponents:dateComp];
         [section addFormRow:row];
         
@@ -158,13 +157,32 @@ NSString *const kCountDownTimer = @"countDownTimer";
     [super formRowDescriptorValueHasChanged:formRow oldValue:oldValue newValue:newValue];
     if([formRow.tag isEqualToString:kDatePicker])
     {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
                                                           message:@"Value Has changed!"
                                                          delegate:nil
                                                 cancelButtonTitle:@"OK"
                                                 otherButtonTitles:nil];
-        
         [message show];
+#else
+        if ([UIAlertController class]) {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"DatePicker"
+                                                                                      message:@"Value Has changed!"
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        else{
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
+                                                              message:@"Value Has changed!"
+                                                             delegate:nil
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+            [message show];
+        }
+#endif
     }
 }
 

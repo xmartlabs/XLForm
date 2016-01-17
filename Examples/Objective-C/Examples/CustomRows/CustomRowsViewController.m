@@ -28,11 +28,13 @@
 #import "XLFormRatingCell.h"
 #import "FloatLabeledTextFieldCell.h"
 #import "XLFormCustomCell.h"
+#import "XLFormInlineSegmentedCell.h"
 
 static NSString * const kCustomRowFirstRatingTag = @"CustomRowFirstRatingTag";
 static NSString * const kCustomRowSecondRatingTag = @"CustomRowSecondRatingTag";
 static NSString * const kCustomRowFloatLabeledTextFieldTag = @"CustomRowFloatLabeledTextFieldTag";
 static NSString * const kCustomRowWeekdays = @"CustomRowWeekdays";
+static NSString * const kCustomInline = @"kCustomInline";
 static NSString * const kCustomRowText = @"kCustomText";
 
 @implementation CustomRowsViewController
@@ -94,6 +96,16 @@ static NSString * const kCustomRowText = @"kCustomText";
                    };
     [section addFormRow:row];
     
+    // Custom Inline Segmented row
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Custom Inline"];
+    [form addFormSection:section];
+    
+    // Inline segmented
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomInline rowType:XLFormRowDescriptorTypeSegmentedInline];
+    row.title = @"You support...";
+    row.selectorOptions = @[@"Uruguay", @"Brazil", @"Argentina", @"Chile"];
+    row.value = @"Uruguay";
+    [section addFormRow:row];
     
     section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];

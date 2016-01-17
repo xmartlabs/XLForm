@@ -30,12 +30,6 @@
 
 @implementation NativeEventNavigationViewController
 
--(id)init
-{
-    self = [super initWithRootViewController:[[NativeEventFormViewController alloc] init]];
-    return  self;
-}
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];

@@ -42,6 +42,9 @@
 
 -(BOOL)becomeFirstResponder
 {
+    if (self.isFirstResponder){
+        return [super becomeFirstResponder];
+    }
     _beforeChangeColor = self.detailTextLabel.textColor;
     BOOL result = [super becomeFirstResponder];
     if (result){
@@ -51,18 +54,24 @@
         UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)cell;
         inlineCell.inlineRowDescriptor = self.rowDescriptor;
         [self.rowDescriptor.sectionDescriptor addFormRow:inlineRowDescriptor afterRow:self.rowDescriptor];
+        [self.formViewController ensureRowIsVisible:inlineRowDescriptor];
     }
     return result;
 }
 
 -(BOOL)resignFirstResponder
 {
+    if (![self isFirstResponder]) {
+        return [super resignFirstResponder];
+    }
     NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
     NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
     XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
     XLFormSectionDescriptor * formSection = [self.formViewController.form.formSections objectAtIndex:nextRowPath.section];
     BOOL result = [super resignFirstResponder];
-    [formSection removeFormRow:nextFormRow];
+    if (result) {
+        [formSection removeFormRow:nextFormRow];
+    }
     return result;
 }
 

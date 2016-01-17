@@ -4,6 +4,9 @@ XLForm
 By [XMARTLABS](http://xmartlabs.com).
 
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
+[![license](https://img.shields.io/badge/pod-3.0.2-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
+
+**If you are looking for Swift 2 native implementation we have recently created [Eureka], a complete re-design of XLForm in Swift 2.** *Do not panic, We will continue maintaining and improving XLForm, obj-c rocks!!*
 
 Purpose
 --------------
@@ -379,6 +382,18 @@ XLForms supports counting using UIStepper control:
 ```objc
 static NSString *const XLFormRowDescriptorTypeStepCounter = @"stepCounter";
 ```
+
+You can set the stepper paramaters easily:
+
+```objc
+	row = [XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"];
+	row.value = @50;
+	[row.cellConfigAtConfigure setObject:@YES forKey:@"stepControl.wraps"];
+	[row.cellConfigAtConfigure setObject:@10 forKey:@"stepControl.stepValue"];
+	[row.cellConfigAtConfigure setObject:@10 forKey:@"stepControl.minimumValue"];
+	[row.cellConfigAtConfigure setObject:@100 forKey:@"stepControl.maximumValue"];
+```
+
 #####Slider
 
 XLForms supports counting using UISlider control:
@@ -632,6 +647,8 @@ Usually you may want to change the form when some value change or some row or se
 
 In order to stay in sync with the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
 
+> Note: It is important to always call the `[super ...]` method when overriding this delegate's methods.
+
 ```objc
 @protocol XLFormDescriptorDelegate <NSObject>
 
@@ -642,6 +659,10 @@ In order to stay in sync with the form descriptor modifications your `XLFormView
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
+-(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow
+                                   oldValue:(id)oldValue
+                                   newValue:(id)newValue
+                              predicateType:(XLPredicateType)predicateType;
 
 @end
 ```
@@ -687,7 +708,7 @@ To make the appearance and disappearance of rows and sections automatic, there i
 @property id hidden;
 ```
 
-This id object will normally be a NSPredicate or a NSNumber containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be sintactically correct.
+This id object will normally be a NSPredicate or a NSNumber containing a BOOL. It can be set using  any of them or eventually a NSString from which a NSPredicate will be created. In order for this to work the string has to be syntactically correct.
 
 For example, you could set the following string to a row (`second`) to make it disappear when a previous row (`first`) contains the value "hide".
 
@@ -873,6 +894,21 @@ if let fullName = form.formRowWithTag(tag.fullName).value as? String {
 }
 ```
 
+#### How to change UITextField length
+
+You can change the length of a UITextField using the `cellConfigAtConfigure` dictionary property. This value refers to the percentage in relation to the table view cell.
+
+**Objective C**
+```objc
+[row.cellConfigAtConfigure setObject:[NSNumber numberWithFloat:0.7] forKey:XLFormTextFieldLengthPercentage];
+```
+**Swift**
+```Swift
+row.cellConfigAtConfigure.setObject(0.7, forKey:XLFormTextFieldLengthPercentage)
+```
+
+**Note:**The same can be achieved for the UITextView when using `XLFormRowDescriptorTypeTextView`; just set your percentage for the key `XLFormTextViewLengthPercentage`.
+
 #### How to change a UITableViewCell font
 
 You can change the font or any other table view cell property using the `cellConfig` dictionary property. XLForm will set up `cellConfig` dictionary values when the table view cell is about to be displayed.
@@ -909,12 +945,12 @@ Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a d
 row.cellConfig.setObject(NSDate(), forKey: "maximumDate")
 ```
 
-####How to disable the entire form (read only mode).
+#### How to disable the entire form (read only mode).
 
 `disable` XLFormDescriptor property can be used to disable the entire form. In order to make the displayed cell to take effect we should reload the visible cells ( [self.tableView reloadData] ).
 Any other row added after form `disable` property is set to `YES` will reflect the disable mode automatically (no need to reload table view).
 
-####How to hide a row or section when another rows value changes.
+#### How to hide a row or section when another rows value changes.
 
 To hide a row or section you should set its hidden property. The easiest way of doing this is by setting a NSString to it. Let's say you want a section to hide if a previous row, which is a boolean switch, is set to 1 (or YES). Then you would do something like this:
 ```objc
@@ -922,36 +958,65 @@ section.hidden = [NSString stringWithFormat:@"$%@ == 1", previousRow];
 ```
 That is all!
 
-####What do I have to do to migrate from version 2.2.0 to 3.0.0?
+#### What do I have to do to migrate from version 2.2.0 to 3.0.0?
 
 The only thing that is not compatible with older versions is that the `disabled` property of the `XLFormRowDescriptor` is an `id` now. So you just have to add `@` before the values you set to it like this:
 ```objc
 row.disabled = @YES; // before: row.disabled = YES;
 ```
 
-##### How to disable input accessory view (navigation view)
+#### How to change input accessory view (navigation view)
 
 Overriding `inputAccessoryViewForRowDescriptor:` `XLFormViewController` method.
+If you want to disable it completely you can return nil. But you can also customize its whole appearance here.
 
 ```obj-c
-- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor {
-      return nil;
+- (UIView *)inputAccessoryViewForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
+{
+      return nil; //will hide it completely
       // You can use the rowDescriptor parameter to hide/customize the accessory view for a particular rowDescriptor type.
 }
 ```
 
+#### How to set up a pushed view controller?
+
+The view controller that will be pushed must conform to the `XLFormRowDescriptorViewController` protocol which consists of the following property:
+```objc
+@property (nonatomic) XLFormRowDescriptor * rowDescriptor;
+```
+This rowDescriptor refers to the selected row of the previous view controller and will be set before the transition to the new controller so that it will be accessible for example in its `viewDidLoad` method. That is where that view controller should be set up.
+
+#### How to change the default appearance of a certain cell
+
+The best way to do this is to extend the class of that cell and override its update and/or configure methods. To make this work you should also update the `cellClassesForRowDescriptorTypes` dictionary in your subclass of XLFormViewController by setting your custom class instead of the class of the cell you wanted to change.
+
+#### How to change the returnKeyType of a cell
+
+To change the returnKeyType of a cell you can set the `returnKeyType` and `nextReturnKeyType` properties. The former will be used if there is no navigation enabled or if there is no row after this row. In the other case the latter will be used.
+If you create a custom cell and want to use these you should conform to the `XLFormReturnKeyProtocol` protocol.
+This is how you can set them:
+```
+[row.cellConfigAtConfigure setObject:@(UIReturnKeyGo) forKey:@"nextReturnKeyType"];
+```
 
 Installation
 --------------------------
 
-The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
+## Cocoapods
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 3.0.0'`.
+`pod 'XLForm', '~> 3.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
 
+## Carthage
+
+In your `Cartfile` add:
+
+```
+github "xmartlabs/XLForm" ~> 3.0
+```
 
 ### How to use master branch
 
@@ -983,7 +1048,35 @@ Requirements
 Release Notes
 --------------
 
-Version 3.0.0 (master)
+Version 3.1.0
+* Added Carthage support
+* Added NSCoding protocol
+* Allowed HTTP connections
+* Several bugfixes and improvements.
+
+Version 3.0.2
+* Fix issue when inline pickers expand beyond table.
+
+Version 3.0.1
+
+* Improvements and bug fixes.
+* Ability to left, right align textfields. Ability to set up a minimum textField width.
+* If form is being shown, assigning a new form automatically reload the tableview.
+* Update objective-c and swift example projects.
+* Swift compatibility fixes.
+* Long email validation added.
+* Fixed row copy issue, now valueTransformer value is copied.
+* Fixed step counter row layout issues.
+* Fixed issue "Last form field hides beneath enabled navigation controller's toolbar".
+* Fixed issue "Navigating between cells using bottom navigation buttons causes table cell dividers to disappear".
+* Use UIAlertController instead UIActionSheet/UIAlertView if possible.
+* Hidden and disabled rows resign first responder before changing state.
+* onChangeBlock added to rowDescriptor.
+* use tintColor as default button row color.
+* By default accessoryView is no longer shown for inline rows.
+* Fix NSBundle issues to use XLForm as dynamic framework.
+
+Version 3.0.0
 
 * `hidden`, `disable` properties added to `XLFormRowDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide, disable de row.
 * `hidden` property added to `XLFormSectionDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide the section.
@@ -1079,3 +1172,5 @@ Contact
 Any suggestion or question? Please create a Github issue or reach us out.
 
 [xmartlabs.com](http://xmartlabs.com) ([@xmartlabs](http://twitter.com/xmartlabs "@xmartlabs"))
+
+[Eureka]: https://github.com/xmartlabs/Eureka

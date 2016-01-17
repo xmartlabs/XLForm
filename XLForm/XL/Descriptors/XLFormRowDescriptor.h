@@ -41,6 +41,8 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
     XLFormPresentationModePresent
 };
 
+typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLFormRowDescriptor* __nonnull rowDescriptor);
+
 @interface XLFormRowDescriptor : NSObject
 
 @property (nullable) id cellClass;
@@ -50,6 +52,8 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 @property (nonatomic, nullable) id value;
 @property (nullable) Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
+
+@property (copy, nullable) XLOnChangeBlock onChangeBlock;
 
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfig;
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigIfDisabled;
@@ -67,6 +71,7 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 +(nonnull instancetype)formRowDescriptorWithTag:(nullable NSString *)tag rowType:(nonnull NSString *)rowType;
 +(nonnull instancetype)formRowDescriptorWithTag:(nullable NSString *)tag rowType:(nonnull NSString *)rowType title:(nullable NSString *)title;
+-(nonnull instancetype)initWithTag:(nullable NSString *)tag rowType:(nonnull NSString *)rowType title:(nullable NSString *)title;
 
 -(nonnull XLFormBaseCell *)cellForFormController:(nonnull XLFormViewController *)formController;
 
@@ -137,7 +142,8 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
 
 @property (nullable, nonatomic, strong) void (^formBlock)(XLFormRowDescriptor * __nonnull sender);
 @property (nullable, nonatomic) SEL formSelector;
-@property (nullable, nonatomic, strong) NSString * formSegueIdenfifier;
+@property (nullable, nonatomic, strong) NSString * formSegueIdenfifier DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use formSegueIdentifier instead");
+@property (nullable, nonatomic, strong) NSString * formSegueIdentifier;
 @property (nullable, nonatomic, strong) Class formSegueClass;
 
 @end

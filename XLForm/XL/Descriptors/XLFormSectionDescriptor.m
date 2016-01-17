@@ -27,6 +27,7 @@
 #import "XLFormSectionDescriptor.h"
 #import "NSPredicate+XLFormAdditions.h"
 #import "NSString+XLFormAdditions.h"
+#import "UIView+XLFormAdditions.h"
 
 
 @interface XLFormDescriptor (_XLFormSectionDescriptor)
@@ -83,8 +84,7 @@
         _title = title;
         if ([self canInsertUsingButton]){
             _multivaluedAddButton = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeButton title:@"Add Item"];
-            [_multivaluedAddButton.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
-            [_multivaluedAddButton.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
+            [_multivaluedAddButton.cellConfig setObject:@(NSTextAlignmentNatural) forKey:@"textLabel.textAlignment"];
             _multivaluedAddButton.action.formSelector = NSSelectorFromString(@"multivaluedInsertButtonTapped:");
             [self insertObject:_multivaluedAddButton inFormRowsAtIndex:0];
             [self insertObject:_multivaluedAddButton inAllRowsAtIndex:0];
@@ -352,18 +352,33 @@
 -(BOOL)evaluateIsHidden
 {
     if ([_hidden isKindOfClass:[NSPredicate class]]) {
-        @try {
-            self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.formDescriptor.allRowsByTag ?: @{}]);
-        }
-        @catch (NSException *exception) {
-            // predicate syntax error.
+        if (!self.formDescriptor) {
             self.isDirtyHidePredicateCache = YES;
-        };
+        } else {
+            @try {
+                self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.formDescriptor.allRowsByTag ?: @{}]);
+            }
+            @catch (NSException *exception) {
+                // predicate syntax error.
+                self.isDirtyHidePredicateCache = YES;
+            };
+        }
     }
     else{
         self.hidePredicateCache = _hidden;
     }
-    [self.hidePredicateCache boolValue] ? [self.formDescriptor hideFormSection:self] : [self.formDescriptor showFormSection:self] ;
+    if ([self.hidePredicateCache boolValue]){
+        if ([self.formDescriptor.delegate isKindOfClass:[XLFormViewController class]]){
+            XLFormBaseCell* firtResponder = (XLFormBaseCell*) [((XLFormViewController*)self.formDescriptor.delegate).tableView findFirstResponder];
+            if ([firtResponder isKindOfClass:[XLFormBaseCell class]] && firtResponder.rowDescriptor.sectionDescriptor == self){
+                [firtResponder resignFirstResponder];
+            }
+        }
+        [self.formDescriptor hideFormSection:self];
+    }
+    else{
+        [self.formDescriptor showFormSection:self];
+    }
     return [self.hidePredicateCache boolValue];
 }
 

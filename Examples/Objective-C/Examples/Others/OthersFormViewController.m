@@ -34,6 +34,7 @@ NSString *const kSegmentedControl = @"segmentedControl";
 NSString *const kCustom = @"custom";
 NSString *const kInfo = @"info";
 NSString *const kButton = @"button";
+NSString *const kImage = @"image";
 NSString *const kButtonLeftAligned = @"buttonLeftAligned";
 NSString *const kButtonWithSegueId = @"buttonWithSegueId";
 NSString *const kButtonWithSegueClass = @"buttonWithSegueClass";
@@ -79,10 +80,16 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kSwitchCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"]];
     
     // step counter
-    [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"]];
+    XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"];
+    row.value = @50;
+    [row.cellConfigAtConfigure setObject:@YES forKey:@"stepControl.wraps"];
+    [row.cellConfigAtConfigure setObject:@10 forKey:@"stepControl.stepValue"];
+    [row.cellConfigAtConfigure setObject:@10 forKey:@"stepControl.minimumValue"];
+    [row.cellConfigAtConfigure setObject:@100 forKey:@"stepControl.maximumValue"];
+    [section addFormRow:row];
     
     // Segmented Control
-    XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:kSegmentedControl rowType:XLFormRowDescriptorTypeSelectorSegmentedControl title:@"Fruits"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSegmentedControl rowType:XLFormRowDescriptorTypeSelectorSegmentedControl title:@"Fruits"];
     row.selectorOptions = @[@"Apple", @"Orange", @"Pear"];
     row.value = @"Pear";
     [section addFormRow:row];
@@ -96,6 +103,10 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     [row.cellConfigAtConfigure setObject:@(4) forKey:@"steps"];
     [section addFormRow:row];
     
+    // Image
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kImage rowType:XLFormRowDescriptorTypeImage title:@"Image"];
+    row.value = [UIImage imageNamed:@"default_avatar"];
+    [section addFormRow:row];
 
     // Info cell
     XLFormRowDescriptor *infoRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:kInfo rowType:XLFormRowDescriptorTypeInfo];
@@ -110,22 +121,44 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     
     // Button
     XLFormRowDescriptor * buttonRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButton rowType:XLFormRowDescriptorTypeButton title:@"Button"];
-    [buttonRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
     buttonRow.action.formSelector = @selector(didTouchButton:);
     [section addFormRow:buttonRow];
     
     
     // Left Button
     XLFormRowDescriptor * buttonLeftAlignedRow = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonLeftAligned rowType:XLFormRowDescriptorTypeButton title:@"Button with Block"];
-    [buttonLeftAlignedRow.cellConfig setObject:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0] forKey:@"textLabel.textColor"];
-    [buttonLeftAlignedRow.cellConfig setObject:@(NSTextAlignmentLeft) forKey:@"textLabel.textAlignment"];
+    [buttonLeftAlignedRow.cellConfig setObject:@(NSTextAlignmentNatural) forKey:@"textLabel.textAlignment"];
     [buttonLeftAlignedRow.cellConfig setObject:@(UITableViewCellAccessoryDisclosureIndicator) forKey:@"accessoryType"];
     
     __typeof(self) __weak weakSelf = self;
     buttonLeftAlignedRow.action.formBlock = ^(XLFormRowDescriptor * sender){
         if ([[sender.sectionDescriptor.formDescriptor formRowWithTag:kSwitchBool].value boolValue]){
-            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil) message:@"Button has checked the switch value..." delegate:weakSelf cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-            [alertView show];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil)
+                                                              message:@"Button has checked the switch value..."
+                                                             delegate:weakSelf
+                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                    otherButtonTitles:nil];
+            [message show];
+#else
+            if ([UIAlertController class]) {
+                UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Switch is ON", nil)
+                                                                                          message:@"Button has checked the switch value..."
+                                                                                   preferredStyle:UIAlertControllerStyleAlert];
+                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                    style:UIAlertActionStyleDefault
+                                                                  handler:nil]];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }
+            else{
+                UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil)
+                                                                  message:@"Button has checked the switch value..."
+                                                                 delegate:weakSelf
+                                                        cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                        otherButtonTitles:nil];
+                [message show];
+            }
+#endif
         }
         [weakSelf deselectFormRow:sender];
     };
@@ -140,7 +173,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     
     // Button with SegueId
     XLFormRowDescriptor * buttonWithSegueId = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonWithSegueClass rowType:XLFormRowDescriptorTypeButton title:@"Button with Segue Idenfifier"];
-    buttonWithSegueId.action.formSegueIdenfifier = @"MapViewControllerSegue";
+    buttonWithSegueId.action.formSegueIdentifier = @"MapViewControllerSegue";
     [section addFormRow:buttonWithSegueId];
     
     
@@ -162,8 +195,33 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
 -(void)didTouchButton:(XLFormRowDescriptor *)sender
 {
     if ([[sender.sectionDescriptor.formDescriptor formRowWithTag:kSwitchBool].value boolValue]){
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil) message:@"Button has checked the switch value..." delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil];
-        [alertView show];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil)
+                                                          message:@"Button has checked the switch value..."
+                                                         delegate:self
+                                                cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                otherButtonTitles:nil];
+        [message show];
+#else
+        if ([UIAlertController class]) {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Switch is ON", nil)
+                                                                                      message:@"Button has checked the switch value..."
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+
+        }
+        else{
+            UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil)
+                                                              message:@"Button has checked the switch value..."
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                    otherButtonTitles:nil];
+            [message show];
+        }
+#endif
     }
     [self deselectFormRow:sender];
 }

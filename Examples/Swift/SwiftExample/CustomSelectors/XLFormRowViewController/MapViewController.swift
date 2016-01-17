@@ -31,7 +31,7 @@ class MapAnnotation : NSObject, MKAnnotation {
     @objc var coordinate : CLLocationCoordinate2D
     
     override init() {
-        self.coordinate = CLLocationCoordinate2D(latitude: -33.0, longitude: -56.0)
+        coordinate = CLLocationCoordinate2D(latitude: -33.0, longitude: -56.0)
         super.init()
     }
 }
@@ -40,43 +40,37 @@ class MapAnnotation : NSObject, MKAnnotation {
 class MapViewController : UIViewController, XLFormRowDescriptorViewController, MKMapViewDelegate {
 
     var rowDescriptor: XLFormRowDescriptor?
-    lazy var mapView : MKMapView = {
+    lazy var mapView : MKMapView = { [unowned self] in
         let mapView = MKMapView(frame: self.view.frame)
-        mapView.autoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
+        mapView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
         return mapView
     }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
-    required init(coder aDecoder: NSCoder) {
-
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.addSubview(self.mapView)
-        self.mapView.delegate = self
-        if let rowDesc = self.rowDescriptor {
-            if rowDesc.value != nil {
-                let coordinate = (self.rowDescriptor!.value as! CLLocation).coordinate
-                self.mapView.setCenterCoordinate(coordinate, animated: false)
-                self.title = String(format: "%0.4f, %0.4f", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude)
-                let annotation = MapAnnotation()
-                annotation.coordinate = coordinate
-                self.mapView.addAnnotation(annotation)
-            }
+        view.addSubview(mapView)
+        mapView.delegate = self
+        if let value = rowDescriptor?.value as? CLLocation {
+            mapView.setCenterCoordinate(value.coordinate, animated: false)
+            title = String(format: "%0.4f, %0.4f", mapView.centerCoordinate.latitude, mapView.centerCoordinate.longitude)
+            let annotation = MapAnnotation()
+            annotation.coordinate = value.coordinate
+            self.mapView.addAnnotation(annotation)
         }
     }
     
-    
 //MARK - - MKMapViewDelegate
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 
         let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
         pinAnnotationView.pinColor =  MKPinAnnotationColor.Red
@@ -84,12 +78,14 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
         pinAnnotationView.animatesDrop = true
         return pinAnnotationView
     }
-  
     
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
-        if (newState == MKAnnotationViewDragState.Ending){
-            self.rowDescriptor!.value = CLLocation(latitude:view.annotation.coordinate.latitude, longitude:view.annotation.coordinate.longitude)
-            self.title = String(format: "%0.4f, %0.4f", view.annotation.coordinate.latitude, view.annotation.coordinate.longitude)
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        if (newState == .Ending){
+            if let rowDescriptor = rowDescriptor, let annotation = view.annotation {
+                rowDescriptor.value = CLLocation(latitude:annotation.coordinate.latitude, longitude:annotation.coordinate.longitude)
+                self.title = String(format: "%0.4f, %0.4f", annotation.coordinate.latitude, annotation.coordinate.longitude)
+            }
         }
     }
     
