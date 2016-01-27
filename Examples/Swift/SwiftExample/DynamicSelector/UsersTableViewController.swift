@@ -1,8 +1,8 @@
 //
-//  UsersTableViewController.m
+//  UsersTableViewController.swift
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2014-2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,223 +23,188 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "UsersTableViewController.h"
-#import "UserLocalDataLoader.h"
-#import "UserRemoteDataLoader.h"
-#import "User+Additions.h"
 
-// AFNetworking
-#import <AFNetworking/UIImageView+AFNetworking.h>
+class UserCell : UITableViewCell {
 
+    lazy var userImage : UIImageView = {
+        let tempUserImage = UIImageView()
+        tempUserImage.translatesAutoresizingMaskIntoConstraints = false
+        tempUserImage.layer.masksToBounds = true
+        tempUserImage.layer.cornerRadius = 10.0
+        return tempUserImage
+    }()
 
-@interface UserCell : UITableViewCell
+    
+    lazy var userName : UILabel = {
+        let tempUserName = UILabel()
+        tempUserName.translatesAutoresizingMaskIntoConstraints = false
+        tempUserName.font = UIFont.systemFontOfSize(15.0)
+        return tempUserName
+    }()
 
-@property (nonatomic) UIImageView * userImage;
-@property (nonatomic) UILabel * userName;
-
-@end
-
-@implementation UserCell
-
-@synthesize userImage = _userImage;
-@synthesize userName  = _userName;
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Initialization code
+    
+        contentView.addSubview(userImage)
+        contentView.addSubview(userName)
+        contentView.addConstraints(layoutConstraints())
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
         
-        [self.contentView addSubview:self.userImage];
-        [self.contentView addSubview:self.userName];
+    }
+    
+// MARK: - Layout Constraints
+
+    func layoutConstraints() -> [NSLayoutConstraint]{
+        let views = ["image": self.userImage, "name": self.userName ]
+        let metrics = [ "imgSize": 50.0, "margin": 12.0]
         
-        [self.contentView addConstraints:[self layoutConstraints]];
-    }
-    return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-    
-    // Configure the view for the selected state
-}
-
-
-#pragma mark - Views
-
--(UIImageView *)userImage
-{
-    if (_userImage) return _userImage;
-    _userImage = [UIImageView new];
-    [_userImage setTranslatesAutoresizingMaskIntoConstraints:NO];
-    _userImage.layer.masksToBounds = YES;
-    _userImage.layer.cornerRadius = 10.0f;
-    return _userImage;
-}
-
--(UILabel *)userName
-{
-    if (_userName) return _userName;
-    _userName = [UILabel new];
-    [_userName setTranslatesAutoresizingMaskIntoConstraints:NO];
-    _userName.font = [UIFont fontWithName:@"HelveticaNeue" size:15.f];
-    
-    return _userName;
-}
-
-#pragma mark - Layout Constraints
-
--(NSArray *)layoutConstraints{
-    
-    NSMutableArray * result = [NSMutableArray array];
-    
-    NSDictionary * views = @{ @"image": self.userImage,
-                              @"name": self.userName};
-    
-    
-    NSDictionary *metrics = @{@"imgSize":@50.0,
-                              @"margin" :@12.0};
-    
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[image(imgSize)]-[name]"
-                                                                        options:NSLayoutFormatAlignAllTop
-                                                                        metrics:metrics
-                                                                          views:views]];
-    
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin)-[image(imgSize)]"
-                                                                        options:0
-                                                                        metrics:metrics
-                                                                          views:views]];
-    return result;
-}
-
-
-@end
-
-
-@interface UsersTableViewController ()
-
-@end
-
-@implementation UsersTableViewController
-
-@synthesize rowDescriptor = _rowDescriptor;
-@synthesize popoverController = __popoverController;
-
-static NSString *const kCellIdentifier = @"CellIdentifier";
-
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        [self initialize];
-    }
-    return self;
-}
-
--(void)initialize
-{
-    // Enable the pagination
-    self.loadingPagingEnabled = YES;
-    
-    // Support Search Controller
-    self.supportSearchController = YES;
-    
-    [self setLocalDataLoader:[[UserLocalDataLoader alloc] init]];
-    [self setRemoteDataLoader:[[UserRemoteDataLoader alloc] init]];
-    
-    // Search
-    [self setSearchLocalDataLoader:[[UserLocalDataLoader alloc] init]];
-    [self setSearchRemoteDataLoader:[[UserRemoteDataLoader alloc] init]];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
-    // SearchBar
-    self.tableView.tableHeaderView = self.searchDisplayController.searchBar;
-    
-    // register cells
-    [self.searchDisplayController.searchResultsTableView registerClass:[UserCell class] forCellReuseIdentifier:kCellIdentifier];
-    [self.tableView registerClass:[UserCell class] forCellReuseIdentifier:kCellIdentifier];
-    
-    [self customizeAppearance];
-}
-
-#pragma mark - UITableViewDataSource
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserCell *cell = (UserCell *) [tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];;
-    
-    User * user = nil;
-    if (tableView == self.tableView){
-        user = (User *)[self.localDataLoader objectAtIndexPath:indexPath];
-    }
-    else{
-        user = (User *)[self.searchLocalDataLoader objectAtIndexPath:indexPath];
+        var result = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(margin)-[image(imgSize)]-[name]", options:.AlignAllTop, metrics: metrics, views: views)
+        result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(margin)-[image(imgSize)]", options:NSLayoutFormatOptions(), metrics:metrics, views: views)
+        return result
     }
     
-    cell.userName.text = user.userName;
-    NSMutableURLRequest* imageRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:user.userImageURL]];
-    [imageRequest setValue:@"image/*" forHTTPHeaderField:@"Accept"];
-    __typeof__(cell) __weak weakCell = cell;
-    [cell.userImage setImageWithURLRequest: imageRequest
-                          placeholderImage:[User defaultProfileImage]
-                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       if (image) {
-                                           [weakCell.userImage setImage:image];
-                                       }
-                                   }
-                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                                   }];
-    cell.accessoryType = [[self.rowDescriptor.value formValue] isEqual:user.userId] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    return cell;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 73.0f;
-}
-
-
-#pragma mark - UITableViewDelegate
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    User * user = nil;
-    if (tableView == self.tableView){
-        user = (User *)[self.localDataLoader objectAtIndexPath:indexPath];
-    }
-    else{
-        user = (User *)[self.searchLocalDataLoader objectAtIndexPath:indexPath];
-    }
-    self.rowDescriptor.value = user;
     
-    if (self.popoverController){
-        [self.popoverController dismissPopoverAnimated:YES];
-        [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
-    }
-    else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
-        [self.navigationController popViewControllerAnimated:YES];
-    }
 }
 
 
-#pragma mark - Helpers
+private let _UsersJSONSerializationSharedInstance = UsersJSONSerialization()
 
--(void)customizeAppearance
-{
-    [[self navigationItem] setTitle:@"Select a User"];
+class UsersJSONSerialization {
     
-    [self.tableView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
-    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    lazy var userData : Array<AnyObject>? = {
+        let dataString =
+        "[" +
+        "{\"id\":1,\"name\":\"Apu Nahasapeemapetilon\",\"imageName\":\"Apu_Nahasapeemapetilon.png\"}," +
+        "{\"id\":7,\"name\":\"Bart Simpsons\",\"imageName\":\"Bart_Simpsons.png\"}," +
+        "{\"id\":8,\"name\":\"Homer Simpsons\",\"imageName\":\"Homer_Simpsons.png\"}," +
+        "{\"id\":9,\"name\":\"Lisa Simpsons\",\"imageName\":\"Lisa_Simpsons.png\"}," +
+        "{\"id\":2,\"name\":\"Maggie Simpsons\",\"imageName\":\"Maggie_Simpsons.png\"}," +
+        "{\"id\":3,\"name\":\"Marge Simpsons\",\"imageName\":\"Marge_Simpsons.png\"}," +
+        "{\"id\":4,\"name\":\"Montgomery Burns\",\"imageName\":\"Montgomery_Burns.png\"}," +
+        "{\"id\":5,\"name\":\"Ned Flanders\",\"imageName\":\"Ned_Flanders.png\"}," +
+        "{\"id\":6,\"name\":\"Otto Mann\",\"imageName\":\"Otto_Mann.png\"}]"
+        let jsonData = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        do {
+            let result = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions()) as! Array<AnyObject>
+            return result
+        }
+        catch let error as NSError {
+            print("\(error)")
+        }
+        return nil
+    }()
     
-    [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithWhite:0.9 alpha:1.0]];
-    [self.searchDisplayController.searchResultsTableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+    class var sharedInstance: UsersJSONSerialization {
+        return _UsersJSONSerializationSharedInstance
+    }
+
+    
 }
 
+class User: NSObject,  XLFormOptionObject {
+    
+    let userId: Int
+    let userName : String
+    let userImage: String
+    
+    init(userId: Int,  userName: String, userImage: String){
+        self.userId = userId
+        self.userImage = userImage
+        self.userName = userName
+    }
+    
+    func formDisplayText() -> String {
+        return self.userName
+    }
+    
+    func formValue() -> AnyObject {
+        return self.userId
+    }
+    
+}
 
-@end
+class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController {
+
+    
+    var rowDescriptor : XLFormRowDescriptor?
+    var popoverController : UIPopoverController?
+    
+    var userCell : UserCell?
+    
+    private let kUserCellIdentifier = "UserCell"
+    
+    
+    override init(style: UITableViewStyle) {
+        super.init(style: style);
+    }
+    
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.registerClass(UserCell.self, forCellReuseIdentifier: kUserCellIdentifier)
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+    }
+    
+// MARK: UITableViewDataSource
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return UsersJSONSerialization.sharedInstance.userData!.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: UserCell = tableView.dequeueReusableCellWithIdentifier(self.kUserCellIdentifier, forIndexPath: indexPath) as! UserCell
+        let usersData = UsersJSONSerialization.sharedInstance.userData! as! Array<Dictionary<String, AnyObject>>
+        let userData = usersData[indexPath.row] as Dictionary<String, AnyObject>
+        let userId = userData["id"] as! Int
+        cell.userName.text = userData["name"] as? String
+        cell.userImage.image = UIImage(named: (userData["imageName"] as? String)!)
+        if let value = rowDescriptor?.value {
+            cell.accessoryType = value.formValue().isEqual(userId) ? .Checkmark : .None
+        }
+        return cell;
+
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 73.0
+    }
+    
+
+//MARK: UITableViewDelegate
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let usersData = UsersJSONSerialization.sharedInstance.userData! as! Array<Dictionary<String, AnyObject>>
+        let userData = usersData[indexPath.row] as Dictionary<String, AnyObject>
+        let user = User(userId: (userData["id"] as! Int), userName: userData["name"] as! String, userImage: userData["imageName"] as! String)
+        self.rowDescriptor!.value = user;
+        if let porpOver = self.popoverController {
+            porpOver.dismissPopoverAnimated(true)
+            porpOver.delegate?.popoverControllerDidDismissPopover!(porpOver)
+        }
+        else if parentViewController is UINavigationController {
+            navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
+    
+}

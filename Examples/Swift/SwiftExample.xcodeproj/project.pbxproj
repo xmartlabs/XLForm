@@ -56,7 +56,7 @@
 		2860673D1AEDBD4A002F1E04 /* XLFormWeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XLFormWeekDaysCell.xib; sourceTree = "<group>"; };
 		286067451AEDC3D7002F1E04 /* XLRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLRatingView.swift; sourceTree = "<group>"; };
 		286E8B731AE809EF00F2767A /* DynamicSelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DynamicSelectorsFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		286E8B771AE80C4300F2767A /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsersTableViewController.swift; path = Examples/Selectors/DynamicSelector/UsersTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		286E8B771AE80C4300F2767A /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsersTableViewController.swift; path = SwiftExample/DynamicSelector/UsersTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		286E8B7C1AE86C8900F2767A /* XLFormCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLFormCustomCell.swift; sourceTree = "<group>"; };
 		286E8B7D1AE86C8900F2767A /* OthersFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = OthersFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		286E8B811AE9286B00F2767A /* CustomSelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomSelectorsFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -68,12 +68,12 @@
 		288646171AE5C7EA007A8B9B /* iPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
 		2886461A1AE5C958007A8B9B /* NativeEventFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NativeEventFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2886461E1AE5FEB5007A8B9B /* DateAndTimeValueTrasformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateAndTimeValueTrasformer.swift; sourceTree = "<group>"; };
-		28B920741AE6F02F00BD6382 /* InputsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InputsFormViewController.swift; path = Examples/Inputs/InputsFormViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		28B920741AE6F02F00BD6382 /* InputsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InputsFormViewController.swift; path = SwiftExample/Inputs/InputsFormViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		28B920771AE73AA600BD6382 /* SelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectorsFormViewController.swift; sourceTree = "<group>"; };
 		28D832561AEBC4A7009E3B3F /* AccessoryViewFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AccessoryViewFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		28D832601AEBE4E4009E3B3F /* BasicPredicateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicPredicateViewController.swift; sourceTree = "<group>"; };
-		28D832661AEBEAA0009E3B3F /* BlogExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlogExampleViewController.swift; path = Examples/PredicateExamples/BlogExampleViewController.swift; sourceTree = SOURCE_ROOT; };
-		28D832681AEBFE9F009E3B3F /* PredicateFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PredicateFormViewController.swift; path = Examples/PredicateExamples/PredicateFormViewController.swift; sourceTree = SOURCE_ROOT; };
+		28D832661AEBEAA0009E3B3F /* BlogExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlogExampleViewController.swift; path = SwiftExample/PredicateExamples/BlogExampleViewController.swift; sourceTree = SOURCE_ROOT; };
+		28D832681AEBFE9F009E3B3F /* PredicateFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PredicateFormViewController.swift; path = SwiftExample/PredicateExamples/PredicateFormViewController.swift; sourceTree = SOURCE_ROOT; };
 		28D8326B1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationExamplesFormViewController.swift; sourceTree = "<group>"; };
 		28D8326E1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomizationFormViewController.swift; sourceTree = "<group>"; };
 		28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DatesFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -155,7 +155,7 @@
 				2860673B1AEDBD4A002F1E04 /* Weekdays */,
 			);
 			name = CustomRows;
-			path = Examples/CustomRows;
+			path = SwiftExample/CustomRows;
 			sourceTree = SOURCE_ROOT;
 		};
 		286067331AEDBD4A002F1E04 /* FloatLabeledTextField */ = {
@@ -321,7 +321,7 @@
 				28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */,
 			);
 			name = Dates;
-			path = Examples/Dates;
+			path = SwiftExample/Dates;
 			sourceTree = SOURCE_ROOT;
 		};
 		402AE3EC1FACD058DCF0A2D3 /* Frameworks */ = {
