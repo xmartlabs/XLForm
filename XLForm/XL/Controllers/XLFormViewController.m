@@ -900,6 +900,10 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     //dismiss keyboard
+    if (NO == self.form.endEditingTableViewOnScroll) {
+        return;
+    }
+
     UIView * firstResponder = [self.tableView findFirstResponder];
     if ([firstResponder conformsToProtocol:@protocol(XLFormDescriptorCell)]){
         id<XLFormDescriptorCell> cell = (id<XLFormDescriptorCell>)firstResponder;
