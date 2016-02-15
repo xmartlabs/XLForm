@@ -1002,7 +1002,7 @@ This is how you can set them:
 Installation
 --------------------------
 
-## Cocoapods
+## CocoaPods
 
 1. Add the following line in the project's Podfile file:
 `pod 'XLForm', '~> 3.0'`.
