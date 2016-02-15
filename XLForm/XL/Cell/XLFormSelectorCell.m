@@ -263,6 +263,9 @@
                                                                       [weakSelf.formViewController.tableView reloadData];
                                                                   }]];
             }
+            if ([alertController respondsToSelector:@selector(popoverPresentationController)]) {
+                alertController.popoverPresentationController.sourceView = [controller.tableView cellForRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor]];
+            }
             [self.formViewController presentViewController:alertController animated:YES completion:nil];
         }
         else{
