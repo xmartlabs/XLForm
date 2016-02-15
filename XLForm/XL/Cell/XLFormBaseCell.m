@@ -80,7 +80,7 @@
 {
     id responder = self;
     while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
+        if ([responder isKindOfClass:[XLFormViewController class]]){
             return responder;
         }
         responder = [responder nextResponder];
