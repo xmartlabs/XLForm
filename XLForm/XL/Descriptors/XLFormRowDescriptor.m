@@ -203,6 +203,7 @@
     rowDescriptorCopy.required = self.isRequired;
     rowDescriptorCopy.isDirtyDisablePredicateCache = YES;
     rowDescriptorCopy.isDirtyHidePredicateCache = YES;
+    rowDescriptorCopy.validators = [self.validators copy];
 
     // =====================
     // properties for Button
