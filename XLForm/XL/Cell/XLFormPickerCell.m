@@ -98,8 +98,25 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     if (self.inlineRowDescriptor){
+		if (self.inlineRowDescriptor.valueTransformer){
+			NSAssert([self.inlineRowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+			NSValueTransformer * valueTransformer = [self.inlineRowDescriptor.valueTransformer new];
+			NSString * tranformedValue = [valueTransformer transformedValue:[[self.inlineRowDescriptor.selectorOptions objectAtIndex:row] valueData]];
+			if (tranformedValue){
+				return tranformedValue;
+			}
+		}
         return [[self.inlineRowDescriptor.selectorOptions objectAtIndex:row] displayText];
     }
+	
+	if (self.rowDescriptor.valueTransformer){
+		NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+		NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+		NSString * tranformedValue = [valueTransformer transformedValue:[[self.rowDescriptor.selectorOptions objectAtIndex:row] valueData]];
+		if (tranformedValue){
+			return tranformedValue;
+		}
+	}
     return [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
 }
 

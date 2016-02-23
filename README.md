@@ -4,7 +4,7 @@ XLForm
 By [XMARTLABS](http://xmartlabs.com).
 
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
-[![license](https://img.shields.io/badge/pod-3.0.2-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
+[![license](https://img.shields.io/badge/pod-3.1.1-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
 
 **If you are looking for Swift 2 native implementation we have recently created [Eureka], a complete re-design of XLForm in Swift 2.** *Do not panic, We will continue maintaining and improving XLForm, obj-c rocks!!*
 
@@ -1002,7 +1002,7 @@ This is how you can set them:
 Installation
 --------------------------
 
-## Cocoapods
+## CocoaPods
 
 1. Add the following line in the project's Podfile file:
 `pod 'XLForm', '~> 3.0'`.
@@ -1047,6 +1047,13 @@ Requirements
 
 Release Notes
 --------------
+
+Version 3.1.1
+* Allow setting width percentage on UITextView
+* Added custom inline row example
+* Fixed bug where XLFormImageCell was not added to project
+* Add ability to `end editing` on scroll
+* Other bugs and refactor
 
 Version 3.1.0
 * Added Carthage support

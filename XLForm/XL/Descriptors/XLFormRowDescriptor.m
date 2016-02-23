@@ -137,6 +137,7 @@
         } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
         }
+        _cell.rowDescriptor = self;
         NSAssert([_cell isKindOfClass:[XLFormBaseCell class]], @"UITableViewCell must extend from XLFormBaseCell");
         [self configureCellAtCreationTime];
     }
@@ -202,6 +203,7 @@
     rowDescriptorCopy.required = self.isRequired;
     rowDescriptorCopy.isDirtyDisablePredicateCache = YES;
     rowDescriptorCopy.isDirtyHidePredicateCache = YES;
+    rowDescriptorCopy.validators = [self.validators copy];
 
     // =====================
     // properties for Button
