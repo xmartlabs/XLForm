@@ -107,6 +107,7 @@
         }
         return result;
     }
+    self.datePicker = nil; // Discard any outdated picker on dismiss
     return [super resignFirstResponder];
 }
 
