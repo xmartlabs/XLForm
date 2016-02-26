@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeRate] =  "XLFormRatingCell"
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeWeekDays] = "XLFormWeekDaysCell"
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeSegmentedInline] = InlineSegmentedCell.self
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeSegmentedControl] = InlineSegmentedControl.self
+        XLFormViewController.inlineRowDescriptorTypesForRowDescriptorTypes()[XLFormRowDescriptorTypeSegmentedInline] = XLFormRowDescriptorTypeSegmentedControl
         
         // Override point for customization after application launch.
         self.window = UIWindow.init(frame: UIScreen.mainScreen().bounds)

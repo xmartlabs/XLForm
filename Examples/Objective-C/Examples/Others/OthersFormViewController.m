@@ -74,13 +74,14 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     [form addFormSection:section];
     
     // Switch
-    [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kSwitchBool rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Switch"]];
-    
+    XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:kSwitchBool rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Switch"];
+    [row.cellConfigAtConfigure setObject:[UIColor redColor] forKey:@"switchControl.onTintColor"];
+    [section addFormRow:row];
     // check
     [section addFormRow:[XLFormRowDescriptor formRowDescriptorWithTag:kSwitchCheck rowType:XLFormRowDescriptorTypeBooleanCheck title:@"Check"]];
     
     // step counter
-    XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kStepCounter rowType:XLFormRowDescriptorTypeStepCounter title:@"Step counter"];
     row.value = @50;
     [row.cellConfigAtConfigure setObject:@YES forKey:@"stepControl.wraps"];
     [row.cellConfigAtConfigure setObject:@10 forKey:@"stepControl.stepValue"];
@@ -173,7 +174,7 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     
     // Button with SegueId
     XLFormRowDescriptor * buttonWithSegueId = [XLFormRowDescriptor formRowDescriptorWithTag:kButtonWithSegueClass rowType:XLFormRowDescriptorTypeButton title:@"Button with Segue Idenfifier"];
-    buttonWithSegueId.action.formSegueIdenfifier = @"MapViewControllerSegue";
+    buttonWithSegueId.action.formSegueIdentifier = @"MapViewControllerSegue";
     [section addFormRow:buttonWithSegueId];
     
     

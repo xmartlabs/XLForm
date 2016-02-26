@@ -30,7 +30,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    return [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    return [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 }
 
 
@@ -46,7 +46,7 @@
     [super update];
     BOOL isDisabled = self.rowDescriptor.isDisabled;
     self.textLabel.text = self.rowDescriptor.title;
-    BOOL notASimpleAction = self.rowDescriptor.action.viewControllerClass || [self.rowDescriptor.action.viewControllerStoryboardId length] != 0 || [self.rowDescriptor.action.viewControllerNibName length] != 0 || [self.rowDescriptor.action.formSegueIdenfifier length] != 0 || self.rowDescriptor.action.formSegueClass;
+    BOOL notASimpleAction = self.rowDescriptor.action.viewControllerClass || [self.rowDescriptor.action.viewControllerStoryboardId length] != 0 || [self.rowDescriptor.action.viewControllerNibName length] != 0 || [self.rowDescriptor.action.formSegueIdentifier length] != 0 || self.rowDescriptor.action.formSegueClass;
     self.textLabel.textAlignment = notASimpleAction ? NSTextAlignmentNatural : NSTextAlignmentCenter;
     self.accessoryType = !notASimpleAction || isDisabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     self.editingAccessoryType = self.accessoryType;
@@ -60,6 +60,7 @@
     else{
         self.textLabel.textColor = nil;
     }
+    self.detailTextLabel.text = self.rowDescriptor.value;
 }
 
 
@@ -71,8 +72,8 @@
     else if (self.rowDescriptor.action.formSelector){
         [controller performFormSelector:self.rowDescriptor.action.formSelector withObject:self.rowDescriptor];
     }
-    else if ([self.rowDescriptor.action.formSegueIdenfifier length] != 0){
-        [controller performSegueWithIdentifier:self.rowDescriptor.action.formSegueIdenfifier sender:self.rowDescriptor];
+    else if ([self.rowDescriptor.action.formSegueIdentifier length] != 0){
+        [controller performSegueWithIdentifier:self.rowDescriptor.action.formSegueIdentifier sender:self.rowDescriptor];
     }
     else if (self.rowDescriptor.action.formSegueClass){
         UIViewController * controllerToPresent = [self controllerToPresent];

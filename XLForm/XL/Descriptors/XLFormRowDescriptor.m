@@ -82,7 +82,7 @@
         _hidden = @NO;
         _rowType = rowType;
         _title = title;
-        _cellStyle = UITableViewCellStyleValue1;
+        _cellStyle = [rowType isEqualToString:XLFormRowDescriptorTypeButton] ? UITableViewCellStyleDefault : UITableViewCellStyleValue1;
         _validators = [NSMutableArray new];
         _cellConfig = [NSMutableDictionary dictionary];
         _cellConfigIfDisabled = [NSMutableDictionary dictionary];
@@ -115,13 +115,29 @@
         id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
         NSAssert(cellClass, @"Not defined XLFormRowDescriptorType: %@", self.rowType ?: @"");
         if ([cellClass isKindOfClass:[NSString class]]) {
-            NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(cellClass)];
-            if ([bundle pathForResource:cellClass ofType:@"nib"]){
-                _cell = [[bundle loadNibNamed:cellClass owner:nil options:nil] firstObject];
+            NSString *cellClassString = cellClass;
+            NSString *cellResource = nil;
+            NSBundle *bundle = nil;
+            if ([cellClassString rangeOfString:@"/"].location != NSNotFound) {
+                NSArray *components = [cellClassString componentsSeparatedByString:@"/"];
+                cellResource = [components lastObject];
+                NSString *folderName = [components firstObject];
+                NSString *bundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
+                bundle = [NSBundle bundleWithPath:bundlePath];
+            } else {
+                bundle = [NSBundle bundleForClass:NSClassFromString(cellClass)];
+                cellResource = cellClassString;
+            }
+            NSParameterAssert(bundle != nil);
+            NSParameterAssert(cellResource != nil);
+            
+            if ([bundle pathForResource:cellResource ofType:@"nib"]){
+                _cell = [[bundle loadNibNamed:cellResource owner:nil options:nil] firstObject];
             }
         } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
         }
+        _cell.rowDescriptor = self;
         NSAssert([_cell isKindOfClass:[XLFormBaseCell class]], @"UITableViewCell must extend from XLFormBaseCell");
         [self configureCellAtCreationTime];
     }
@@ -187,6 +203,7 @@
     rowDescriptorCopy.required = self.isRequired;
     rowDescriptorCopy.isDirtyDisablePredicateCache = YES;
     rowDescriptorCopy.isDirtyHidePredicateCache = YES;
+    rowDescriptorCopy.validators = [self.validators copy];
 
     // =====================
     // properties for Button
@@ -275,13 +292,17 @@
 -(BOOL)evaluateIsDisabled
 {
     if ([_disabled isKindOfClass:[NSPredicate class]]) {
-        @try {
-            self.disablePredicateCache = @([_disabled evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
-        }
-        @catch (NSException *exception) {
-            // predicate syntax error.
+        if (!self.sectionDescriptor.formDescriptor) {
             self.isDirtyDisablePredicateCache = YES;
-        };
+        } else {
+            @try {
+                self.disablePredicateCache = @([_disabled evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
+            }
+            @catch (NSException *exception) {
+                // predicate syntax error.
+                self.isDirtyDisablePredicateCache = YES;
+            };
+        }
     }
     else{
         self.disablePredicateCache = _disabled;
@@ -338,13 +359,17 @@
 -(BOOL)evaluateIsHidden
 {
     if ([_hidden isKindOfClass:[NSPredicate class]]) {
-        @try {
-            self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
-        }
-        @catch (NSException *exception) {
-            // predicate syntax error.
+        if (!self.sectionDescriptor.formDescriptor) {
             self.isDirtyHidePredicateCache = YES;
-        };
+        } else {
+            @try {
+                self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
+            }
+            @catch (NSException *exception) {
+                // predicate syntax error or for has not finished loading.
+                self.isDirtyHidePredicateCache = YES;
+            };
+        }
     }
     else{
         self.hidePredicateCache = _hidden;
@@ -542,8 +567,8 @@
     else if (self.formSelector){
         actionCopy.formSelector = self.formSelector;
     }
-    else if (self.formSegueIdenfifier){
-        actionCopy.formSegueIdenfifier = [self.formSegueIdenfifier copy];
+    else if (self.formSegueIdentifier){
+        actionCopy.formSegueIdentifier = [self.formSegueIdentifier copy];
     }
     else if (self.formSegueClass){
         actionCopy.formSegueClass = [self.formSegueClass copy];
@@ -577,7 +602,7 @@
 {
     _formBlock = nil;
     _formSegueClass = nil;
-    _formSegueIdenfifier = nil;
+    _formSegueIdentifier = nil;
     _formSelector = formSelector;
 }
 
@@ -585,7 +610,7 @@
 -(void)setFormBlock:(void (^)(XLFormRowDescriptor *))formBlock
 {
     _formSegueClass = nil;
-    _formSegueIdenfifier = nil;
+    _formSegueIdentifier = nil;
     _formSelector = nil;
     _formBlock = formBlock;
 }
@@ -594,16 +619,27 @@
 {
     _formSelector = nil;
     _formBlock = nil;
-    _formSegueIdenfifier = nil;
+    _formSegueIdentifier = nil;
     _formSegueClass = formSegueClass;
 }
 
--(void)setFormSegueIdenfifier:(NSString *)formSegueIdenfifier
+-(void)setFormSegueIdentifier:(NSString *)formSegueIdentifier
 {
     _formSelector = nil;
     _formBlock = nil;
     _formSegueClass = nil;
-    _formSegueIdenfifier = formSegueIdenfifier;
+    _formSegueIdentifier = formSegueIdentifier;
+}
+
+// Deprecated:
+-(void)setFormSegueIdenfifier:(NSString *)formSegueIdenfifier
+{
+    self.formSegueIdentifier = formSegueIdenfifier;
+}
+
+-(NSString *)formSegueIdenfifier
+{
+    return self.formSegueIdentifier;
 }
 
 @end

@@ -257,7 +257,7 @@ class SelectorsFormViewController : XLFormViewController {
         
         // selector with SegueId
         row = XLFormRowDescriptor(tag: Tags.SelectorWithSegueId, rowType: XLFormRowDescriptorTypeSelectorPush, title: "Selector with Segue Idenfifier")
-        row.action.formSegueIdenfifier = "MapViewControllerSegue";
+        row.action.formSegueIdentifier = "MapViewControllerSegue";
         row.valueTransformer = CLLocationValueTrasformer.self
         row.value = CLLocation(latitude: -33, longitude: -56)
         section.addFormRow(row)

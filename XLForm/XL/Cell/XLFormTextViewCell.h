@@ -27,10 +27,14 @@
 #import "XLFormBaseCell.h"
 #import <UIKit/UIKit.h>
 
+extern NSString *const XLFormTextViewLengthPercentage;
+
 @interface XLFormTextViewCell : XLFormBaseCell
 
 @property (nonatomic, readonly) UILabel * label DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use textLabel instead");
 @property (nonatomic, readonly) UILabel * textLabel;
 @property (nonatomic, readonly) XLFormTextView * textView;
+
+@property (nonatomic) NSNumber *textViewLengthPercentage;
 
 @end

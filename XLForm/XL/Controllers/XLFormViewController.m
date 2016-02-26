@@ -579,10 +579,23 @@
 -(XLFormBaseCell *)updateFormRow:(XLFormRowDescriptor *)formRow
 {
     XLFormBaseCell * cell = [formRow cellForFormController:self];
-    cell.rowDescriptor = formRow;
+    [self configureCell:cell];
     [cell setNeedsUpdateConstraints];
     [cell setNeedsLayout];
     return cell;
+}
+
+-(void)configureCell:(XLFormBaseCell*) cell
+{
+    [cell update];
+    [cell.rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+        [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+    }];
+    if (cell.rowDescriptor.isDisabled){
+        [cell.rowDescriptor.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+        }];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -864,9 +877,17 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    UITableViewCell<XLFormDescriptorCell>* cell = textField.formDescriptorCell;
     XLFormRowDescriptor * nextRow     = [self nextRowDescriptorForRow:textField.formDescriptorCell.rowDescriptor
                                                         withDirection:XLFormRowNavigationDirectionNext];
-    textField.returnKeyType = nextRow ? UIReturnKeyNext : UIReturnKeyDefault;
+    
+    
+    if ([cell conformsToProtocol:@protocol(XLFormReturnKeyProtocol)]) {
+        textField.returnKeyType = nextRow ? ((id<XLFormReturnKeyProtocol>)cell).nextReturnKeyType : ((id<XLFormReturnKeyProtocol>)cell).returnKeyType;
+    }
+    else {
+        textField.returnKeyType = nextRow ? UIReturnKeyNext : UIReturnKeyDefault;
+    }
     return YES;
 }
 
@@ -907,6 +928,10 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     //dismiss keyboard
+    if (NO == self.form.endEditingTableViewOnScroll) {
+        return;
+    }
+
     UIView * firstResponder = [self.tableView findFirstResponder];
     if ([firstResponder conformsToProtocol:@protocol(XLFormDescriptorCell)]){
         id<XLFormDescriptorCell> cell = (id<XLFormDescriptorCell>)firstResponder;
@@ -1033,3 +1058,4 @@
 }
 
 @end
+

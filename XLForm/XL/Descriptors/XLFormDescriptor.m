@@ -77,6 +77,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         _title = title;
         _addAsteriskToRequiredRowsTitle = NO;
         _disabled = NO;
+        _endEditingTableViewOnScroll = YES;
         _rowNavigationOptions = XLFormRowNavigationOptionEnabled;
         [self addObserver:self forKeyPath:@"formSections" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:0];
     }

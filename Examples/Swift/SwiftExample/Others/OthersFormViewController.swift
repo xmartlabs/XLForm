@@ -36,6 +36,7 @@ class OthersFormViewController : XLFormViewController {
         static let Custom = "custom"
         static let Info = "info"
         static let Button = "button"
+		static let Image = "image"
         static let ButtonLeftAligned = "buttonLeftAligned"
         static let ButtonWithSegueId = "buttonWithSegueId"
         static let ButtonWithSegueClass = "buttonWithSegueClass"
@@ -89,7 +90,11 @@ class OthersFormViewController : XLFormViewController {
         row.cellConfigAtConfigure["slider.minimumValue"] = 10
         row.cellConfigAtConfigure["steps"] = 4
         section.addFormRow(row)
-        
+		
+		// Image
+		row = XLFormRowDescriptor(tag: Tags.Image, rowType: XLFormRowDescriptorTypeImage, title: "Image")
+		row.value = UIImage(named: "default_avatar")
+		section.addFormRow(row)
 
         // Info cell
         row = XLFormRowDescriptor(tag: Tags.Info, rowType: XLFormRowDescriptorTypeInfo)
@@ -135,7 +140,7 @@ class OthersFormViewController : XLFormViewController {
         
         // Button with SegueId
         row = XLFormRowDescriptor(tag: Tags.ButtonWithSegueId, rowType: XLFormRowDescriptorTypeButton, title: "Button with Segue Idenfifier")
-        row.action.formSegueIdenfifier = "MapViewControllerSegue"
+        row.action.formSegueIdentifier = "MapViewControllerSegue"
         row.value = CLLocation(latitude: -33, longitude: -56)
         section.addFormRow(row)
         

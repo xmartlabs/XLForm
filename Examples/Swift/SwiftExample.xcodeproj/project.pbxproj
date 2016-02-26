@@ -38,6 +38,7 @@
 		28D8326C1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8326B1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift */; };
 		28D8326F1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8326E1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift */; };
 		28F490221AAFBBC600C8E0CC /* DatesFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */; };
+		BF01E92B1C21FF2800BDE045 /* InlineSegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */; };
 		DD7B43598E698717584375E9 /* libPods-SwiftExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +56,7 @@
 		2860673D1AEDBD4A002F1E04 /* XLFormWeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XLFormWeekDaysCell.xib; sourceTree = "<group>"; };
 		286067451AEDC3D7002F1E04 /* XLRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLRatingView.swift; sourceTree = "<group>"; };
 		286E8B731AE809EF00F2767A /* DynamicSelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DynamicSelectorsFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		286E8B771AE80C4300F2767A /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsersTableViewController.swift; path = Examples/Selectors/DynamicSelector/UsersTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		286E8B771AE80C4300F2767A /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsersTableViewController.swift; path = SwiftExample/DynamicSelector/UsersTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		286E8B7C1AE86C8900F2767A /* XLFormCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLFormCustomCell.swift; sourceTree = "<group>"; };
 		286E8B7D1AE86C8900F2767A /* OthersFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = OthersFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		286E8B811AE9286B00F2767A /* CustomSelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomSelectorsFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -67,18 +68,19 @@
 		288646171AE5C7EA007A8B9B /* iPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
 		2886461A1AE5C958007A8B9B /* NativeEventFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NativeEventFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2886461E1AE5FEB5007A8B9B /* DateAndTimeValueTrasformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateAndTimeValueTrasformer.swift; sourceTree = "<group>"; };
-		28B920741AE6F02F00BD6382 /* InputsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InputsFormViewController.swift; path = Examples/Inputs/InputsFormViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		28B920741AE6F02F00BD6382 /* InputsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InputsFormViewController.swift; path = SwiftExample/Inputs/InputsFormViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		28B920771AE73AA600BD6382 /* SelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectorsFormViewController.swift; sourceTree = "<group>"; };
 		28D832561AEBC4A7009E3B3F /* AccessoryViewFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AccessoryViewFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		28D832601AEBE4E4009E3B3F /* BasicPredicateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicPredicateViewController.swift; sourceTree = "<group>"; };
-		28D832661AEBEAA0009E3B3F /* BlogExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlogExampleViewController.swift; path = Examples/PredicateExamples/BlogExampleViewController.swift; sourceTree = SOURCE_ROOT; };
-		28D832681AEBFE9F009E3B3F /* PredicateFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PredicateFormViewController.swift; path = Examples/PredicateExamples/PredicateFormViewController.swift; sourceTree = SOURCE_ROOT; };
+		28D832661AEBEAA0009E3B3F /* BlogExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlogExampleViewController.swift; path = SwiftExample/PredicateExamples/BlogExampleViewController.swift; sourceTree = SOURCE_ROOT; };
+		28D832681AEBFE9F009E3B3F /* PredicateFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PredicateFormViewController.swift; path = SwiftExample/PredicateExamples/PredicateFormViewController.swift; sourceTree = SOURCE_ROOT; };
 		28D8326B1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationExamplesFormViewController.swift; sourceTree = "<group>"; };
 		28D8326E1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomizationFormViewController.swift; sourceTree = "<group>"; };
 		28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DatesFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2EB9C638FC2450A0B9786D1E /* Pods-SwiftExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.release.xcconfig"; sourceTree = "<group>"; };
 		420D9BAB7B0D2AF9487DD060 /* Pods-SwiftExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.debug.xcconfig"; sourceTree = "<group>"; };
 		9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InlineSegmentedCell.swift; path = InlineSegmentedCell/InlineSegmentedCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,19 +116,19 @@
 		2847A6A01AAF2679000A2ABE /* SwiftExample */ = {
 			isa = PBXGroup;
 			children = (
-				286067311AEDBD4A002F1E04 /* CustomRows */,
-				28D8326D1AEC2D1B009E3B3F /* UICustomization */,
-				28D8326A1AEC177E009E3B3F /* Validations */,
-				28D8325F1AEBE4E4009E3B3F /* PredicateExamples */,
 				28D832551AEBC4A7009E3B3F /* AccessoryViews */,
+				286067311AEDBD4A002F1E04 /* CustomRows */,
+				28F490201AAFBBC600C8E0CC /* Dates */,
+				28B920711AE6EB6100BD6382 /* Inputs */,
 				286E8B8A1AE9993F00F2767A /* MultiValuedSections */,
 				286E8B7A1AE86C8900F2767A /* Others */,
-				28B920761AE7378400BD6382 /* Selectors */,
-				28B920711AE6EB6100BD6382 /* Inputs */,
+				28D8325F1AEBE4E4009E3B3F /* PredicateExamples */,
 				288646191AE5C958007A8B9B /* RealExamples */,
+				28B920761AE7378400BD6382 /* Selectors */,
 				288646161AE5C7EA007A8B9B /* StoryboardExample */,
+				28D8326D1AEC2D1B009E3B3F /* UICustomization */,
+				28D8326A1AEC177E009E3B3F /* Validations */,
 				288646141AE59474007A8B9B /* ExamplesFormViewController.swift */,
-				28F490201AAFBBC600C8E0CC /* Dates */,
 				2847A6A31AAF2679000A2ABE /* AppDelegate.swift */,
 				2847A6A11AAF2679000A2ABE /* Supporting Files */,
 			);
@@ -146,13 +148,14 @@
 		286067311AEDBD4A002F1E04 /* CustomRows */ = {
 			isa = PBXGroup;
 			children = (
+				BF01E9291C21FEF700BDE045 /* Inline Segmented */,
 				286067321AEDBD4A002F1E04 /* CustomRowsViewController.swift */,
 				286067331AEDBD4A002F1E04 /* FloatLabeledTextField */,
 				286067351AEDBD4A002F1E04 /* Rating */,
 				2860673B1AEDBD4A002F1E04 /* Weekdays */,
 			);
 			name = CustomRows;
-			path = Examples/CustomRows;
+			path = SwiftExample/CustomRows;
 			sourceTree = SOURCE_ROOT;
 		};
 		286067331AEDBD4A002F1E04 /* FloatLabeledTextField */ = {
@@ -318,7 +321,7 @@
 				28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */,
 			);
 			name = Dates;
-			path = Examples/Dates;
+			path = SwiftExample/Dates;
 			sourceTree = SOURCE_ROOT;
 		};
 		402AE3EC1FACD058DCF0A2D3 /* Frameworks */ = {
@@ -336,6 +339,14 @@
 				2EB9C638FC2450A0B9786D1E /* Pods-SwiftExample.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		BF01E9291C21FEF700BDE045 /* Inline Segmented */ = {
+			isa = PBXGroup;
+			children = (
+				BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */,
+			);
+			name = "Inline Segmented";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -449,6 +460,7 @@
 			files = (
 				28B920781AE73AA600BD6382 /* SelectorsFormViewController.swift in Sources */,
 				28D832671AEBEAA0009E3B3F /* BlogExampleViewController.swift in Sources */,
+				BF01E92B1C21FF2800BDE045 /* InlineSegmentedCell.swift in Sources */,
 				28D8326C1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift in Sources */,
 				286067411AEDBD4A002F1E04 /* XLFormRatingCell.swift in Sources */,
 				28F490221AAFBBC600C8E0CC /* DatesFormViewController.swift in Sources */,
