@@ -133,9 +133,10 @@
     if (!self.tableView.dataSource){
         self.tableView.dataSource = self;
     }
+    self.tableView.rowHeight = 44.0;
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
+        self.tableView.estimatedRowHeight = self.tableView.rowHeight;
         self.tableView.rowHeight = UITableViewAutomaticDimension;
-        self.tableView.estimatedRowHeight = 44.0;
     }
     if (self.form.title){
         self.title = self.form.title;
@@ -617,12 +618,36 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:indexPath];
-    return [rowDescriptor cellForFormController:self];
+    XLFormBaseCell *cell = [rowDescriptor cellForFormController:self];
+    
+    // if cell is self-sizing, configure it now instead of in willDisplayCell so that it has correct content
+    // when the autolayout pass happens that determines its initial size
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
+        Class cellClass = [[rowDescriptor cellForFormController:self] class];
+        if ([cellClass respondsToSelector:@selector(formDescriptorCellPrefersSelfSizingForRowDescriptor:withFormController:)]){
+            if ([cellClass formDescriptorCellPrefersSelfSizingForRowDescriptor:rowDescriptor withFormController:self]){
+                [self configureCell:cell];
+            }
+        }
+    }
+    
+    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:indexPath];
+    
+    // if cell is self-sizing, it was configured already in cellForRowAtIndexPath, so can skip doing it again
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
+        Class cellClass = [[rowDescriptor cellForFormController:self] class];
+        if ([cellClass respondsToSelector:@selector(formDescriptorCellPrefersSelfSizingForRowDescriptor:withFormController:)]){
+            if ([cellClass formDescriptorCellPrefersSelfSizingForRowDescriptor:rowDescriptor withFormController:self]){
+                return;
+            }
+        }
+    }
+    
     [self updateFormRow:rowDescriptor];
 }
 
@@ -731,9 +756,39 @@
 {
     XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
     Class cellClass = [[rowDescriptor cellForFormController:self] class];
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
+        // return automatic if cell uses self-sizing
+        if ([cellClass respondsToSelector:@selector(formDescriptorCellPrefersSelfSizingForRowDescriptor:withFormController:)]){
+            if ([cellClass formDescriptorCellPrefersSelfSizingForRowDescriptor:rowDescriptor withFormController:self])
+                return UITableViewAutomaticDimension;
+        }
+        
+        // use cell's method to calculate height if implemented, passing in tableview's default
+        if ([cellClass respondsToSelector:@selector(formDescriptorCalculateCellHeight:forRowDescriptor:withFormController:)]){
+            CGFloat height = (self.tableView.rowHeight != UITableViewAutomaticDimension ? self.tableView.rowHeight :
+                              (self.tableView.estimatedRowHeight != UITableViewAutomaticDimension ? self.tableView.estimatedRowHeight : 0));
+            
+            if ([cellClass formDescriptorCalculateCellHeight:&height forRowDescriptor:rowDescriptor withFormController:self])
+                return height;
+        }
+    }
+    else{
+        // use cell's method to calculate height if implemented, passing in tableview's default
+        if ([cellClass respondsToSelector:@selector(formDescriptorCalculateCellHeight:forRowDescriptor:withFormController:)]){
+            CGFloat height = self.tableView.rowHeight;
+            
+            if ([cellClass formDescriptorCalculateCellHeight:&height forRowDescriptor:rowDescriptor withFormController:self])
+                return height;
+        }
+    }
+    
+    // for backwards compatibility with cells coded to 3.10 & older, cells not implementing this method
+    // leads to returning rowHeight which by default is 44 on iOS7, UITableViewAutomaticDimension on >=iOS8
     if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
         return [cellClass formDescriptorCellHeightForRowDescriptor:rowDescriptor];
     }
+    
     return self.tableView.rowHeight;
 }
 
@@ -741,13 +796,25 @@
 {
     XLFormRowDescriptor *rowDescriptor = [self.form formRowAtIndex:indexPath];
     Class cellClass = [[rowDescriptor cellForFormController:self] class];
+    
+    // use cell's method to calculate estimate if implemented, passing in tableview's default
+    if ([cellClass respondsToSelector:@selector(formDescriptorCalculateCellHeightEstimate:forRowDescriptor:withFormController:)]){
+        CGFloat height = self.tableView.rowHeight;
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0") && height == UITableViewAutomaticDimension)
+            height = (self.tableView.estimatedRowHeight != UITableViewAutomaticDimension ? self.tableView.estimatedRowHeight : 0);
+        
+        if ([cellClass formDescriptorCalculateCellHeightEstimate:&height forRowDescriptor:rowDescriptor withFormController:self])
+            return height;
+    }
+    
+    // for backwards compatibility with cells coded to 3.10 & older, although on iOS7,
+    // not implementing this method used to lead to always returning 44 but now returns
+    // estimatedRowHeight or UITableViewAutomaticDimension if that's 0
     if ([cellClass respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
         return [cellClass formDescriptorCellHeightForRowDescriptor:rowDescriptor];
     }
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
-        return self.tableView.estimatedRowHeight;
-    }
-    return 44;
+    
+    return self.tableView.estimatedRowHeight != 0 ? self.tableView.estimatedRowHeight : UITableViewAutomaticDimension;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
