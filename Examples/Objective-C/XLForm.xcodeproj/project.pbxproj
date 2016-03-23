@@ -33,7 +33,6 @@
 		28A85D5918E346C100E81A26 /* XLFormImageSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */; };
 		28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DBB04018D76FDC00FB8A8B /* MultivaluedFormViewController.m */; };
 		28F89F2E1AA4EA5600E90218 /* ValidationExamplesFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28F89F2D1AA4EA5600E90218 /* ValidationExamplesFormViewController.m */; };
-		2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6DF43B7BBF44F72A4493E8E /* libPods.a */; };
 		3C0357F01AB0D82300200C8A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C0357EF1AB0D82300200C8A /* Images.xcassets */; };
 		3C3B01D51AB741EF0027CD45 /* XLFormRatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01D31AB741EF0027CD45 /* XLFormRatingCell.m */; };
 		3C3B01DA1AB7497D0027CD45 /* XLFormWeekDaysCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01D81AB7497D0027CD45 /* XLFormWeekDaysCell.m */; };
@@ -113,8 +112,6 @@
 		3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomRowsViewController.m; path = Examples/CustomRows/CustomRowsViewController.m; sourceTree = "<group>"; };
 		66B6266C1AE0055100007886 /* DateAndTimeValueTrasformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateAndTimeValueTrasformer.h; path = Examples/Dates/DateAndTimeValueTrasformer.h; sourceTree = "<group>"; };
 		66B6266D1AE0055100007886 /* DateAndTimeValueTrasformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateAndTimeValueTrasformer.m; path = Examples/Dates/DateAndTimeValueTrasformer.m; sourceTree = "<group>"; };
-		7B0D2D6A86E2A41ED22E8A35 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		976A33EE62A018A7257B4878 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BF01E9261C21F0BB00BDE045 /* XLFormInlineSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormInlineSegmentedCell.h; path = "Inline Segmented/XLFormInlineSegmentedCell.h"; sourceTree = "<group>"; };
 		BF01E9271C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormInlineSegmentedCell.m; path = "Inline Segmented/XLFormInlineSegmentedCell.m"; sourceTree = "<group>"; };
 		BF9DB1D11AE0436600B985E7 /* BlogExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlogExampleViewController.h; path = Examples/PredicateExamples/BlogExampleViewController.h; sourceTree = SOURCE_ROOT; };
@@ -127,7 +124,6 @@
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
 		DEA6EF8F1B57D6CC000F4893 /* HTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPSessionManager.h; path = Examples/Selectors/HTTPSessionManager.h; sourceTree = "<group>"; };
 		DEA6EF901B57D6CC000F4893 /* HTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPSessionManager.m; path = Examples/Selectors/HTTPSessionManager.m; sourceTree = "<group>"; };
-		F6DF43B7BBF44F72A4493E8E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,22 +135,12 @@
 				2850C5FE18D0F706002B7D0A /* CoreGraphics.framework in Frameworks */,
 				2850C60018D0F706002B7D0A /* UIKit.framework in Frameworks */,
 				2850C5FC18D0F706002B7D0A /* Foundation.framework in Frameworks */,
-				2CA9A3FC06E94345A2FDE415 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		15E61D225B0D27FAB51BDD90 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7B0D2D6A86E2A41ED22E8A35 /* Pods.debug.xcconfig */,
-				976A33EE62A018A7257B4878 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		282C5EEF18D33C1800A5D47C /* Inputs */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,7 +247,6 @@
 				2850C60118D0F706002B7D0A /* XLForm */,
 				2850C5FA18D0F706002B7D0A /* Frameworks */,
 				2850C5F918D0F706002B7D0A /* Products */,
-				15E61D225B0D27FAB51BDD90 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -280,7 +265,6 @@
 				2850C5FB18D0F706002B7D0A /* Foundation.framework */,
 				2850C5FD18D0F706002B7D0A /* CoreGraphics.framework */,
 				2850C5FF18D0F706002B7D0A /* UIKit.framework */,
-				F6DF43B7BBF44F72A4493E8E /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -468,12 +452,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2850C62418D0F707002B7D0A /* Build configuration list for PBXNativeTarget "XLForm" */;
 			buildPhases = (
-				0EA9FCE3DA0D444498836D37 /* Check Pods Manifest.lock */,
 				2850C5F418D0F706002B7D0A /* Sources */,
 				2850C5F518D0F706002B7D0A /* Frameworks */,
 				2850C5F618D0F706002B7D0A /* Resources */,
-				CFE72E068B5F4D9BB45FB757 /* Copy Pods Resources */,
-				734CC62A7A974D37CC982576 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -526,54 +507,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0EA9FCE3DA0D444498836D37 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		734CC62A7A974D37CC982576 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CFE72E068B5F4D9BB45FB757 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2850C5F418D0F706002B7D0A /* Sources */ = {
@@ -708,7 +641,6 @@
 		};
 		2850C62518D0F707002B7D0A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B0D2D6A86E2A41ED22E8A35 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -725,7 +657,6 @@
 		};
 		2850C62618D0F707002B7D0A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 976A33EE62A018A7257B4878 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
