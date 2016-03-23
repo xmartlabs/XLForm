@@ -28,6 +28,8 @@
 #import "XLFormRatingCell.h"
 #import "FloatLabeledTextFieldCell.h"
 #import "XLFormCustomCell.h"
+#import "XLFormDynamicHeightCell.h"
+#import "XLFormSelfSizingCell.h"
 #import "XLFormInlineSegmentedCell.h"
 
 static NSString * const kCustomRowFirstRatingTag = @"CustomRowFirstRatingTag";
@@ -36,6 +38,8 @@ static NSString * const kCustomRowFloatLabeledTextFieldTag = @"CustomRowFloatLab
 static NSString * const kCustomRowWeekdays = @"CustomRowWeekdays";
 static NSString * const kCustomInline = @"kCustomInline";
 static NSString * const kCustomRowText = @"kCustomText";
+static NSString * const kDynamicHeightRowTag = @"kDynamicHeightTag";
+static NSString * const kSelfSizingRowTag = @"kSelfSizingRowTag";
 
 @implementation CustomRowsViewController
 
@@ -114,6 +118,35 @@ static NSString * const kCustomRowText = @"kCustomText";
     // Must set custom cell or add custom cell to cellClassesForRowDescriptorTypes dictionary before XLFormViewController loaded
     customRowDescriptor.cellClass = [XLFormCustomCell class];
     [section addFormRow:customRowDescriptor];
+    
+    // Dynamic Height rows
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Custom Dynamic-Height Cells"];
+    [form addFormSection:section];
+    
+    XLFormRowDescriptor *dynamicHeightRowDescriptor1 = [XLFormRowDescriptor formRowDescriptorWithTag:kDynamicHeightRowTag rowType:@"XLFormRowDescriptorTypeCustom"];
+    dynamicHeightRowDescriptor1.cellClass = [XLFormDynamicHeightCell class];
+    dynamicHeightRowDescriptor1.value = @"These cells use their row descriptor value as their text contents. They use text measurement APIs to determine cell height, and are compatible with iOS7.";
+    [section addFormRow:dynamicHeightRowDescriptor1];
+    
+    XLFormRowDescriptor *dynamicHeightRowDescriptor2 = [XLFormRowDescriptor formRowDescriptorWithTag:kDynamicHeightRowTag rowType:@"XLFormRowDescriptorTypeCustom"];
+    dynamicHeightRowDescriptor2.cellClass = [XLFormDynamicHeightCell class];
+    dynamicHeightRowDescriptor2.value = @"This one uses same cell but has a much shorter value.";
+    [section addFormRow:dynamicHeightRowDescriptor2];
+    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
+        section = [XLFormSectionDescriptor formSectionWithTitle:nil];
+        [form addFormSection:section];
+        
+        XLFormRowDescriptor *selfsizingRowDescriptor1 = [XLFormRowDescriptor formRowDescriptorWithTag:kSelfSizingRowTag rowType:@"XLFormRowDescriptorTypeCustom"];
+        selfsizingRowDescriptor1.cellClass = [XLFormSelfSizingCell class];
+        selfsizingRowDescriptor1.value = @"Similar cell using iOS8 self-sizing.";
+        [section addFormRow:selfsizingRowDescriptor1];
+        
+        XLFormRowDescriptor *selfsizingRowDescriptor2 = [XLFormRowDescriptor formRowDescriptorWithTag:kSelfSizingRowTag rowType:@"XLFormRowDescriptorTypeCustom"];
+        selfsizingRowDescriptor2.cellClass = [XLFormSelfSizingCell class];
+        selfsizingRowDescriptor2.value = @"These self-sizing cells don't implement a height calculation method in order to get the correct height, they instead rely on autolayout constraints to have the tableview do the calculatation.";
+        [section addFormRow:selfsizingRowDescriptor2];
+    }
     
     self.form = form;
 }

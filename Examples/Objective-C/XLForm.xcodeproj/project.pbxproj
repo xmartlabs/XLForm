@@ -42,6 +42,8 @@
 		3C3B01F01AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3B01EF1AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m */; };
 		3CDAFC7A1AB0AFA4000F75B6 /* CustomRowsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */; };
 		66B6266E1AE0055100007886 /* DateAndTimeValueTrasformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B6266D1AE0055100007886 /* DateAndTimeValueTrasformer.m */; };
+		8FEE89D21CA21067008D7237 /* XLFormDynamicHeightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEE89CF1CA21067008D7237 /* XLFormDynamicHeightCell.m */; };
+		8FEE89D31CA21067008D7237 /* XLFormSelfSizingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FEE89D11CA21067008D7237 /* XLFormSelfSizingCell.m */; };
 		BF01E9281C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF01E9271C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m */; };
 		BF9DB1D51AE0436600B985E7 /* BlogExampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9DB1D21AE0436600B985E7 /* BlogExampleViewController.m */; };
 		BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9DB1D41AE0436600B985E7 /* PredicateFormViewController.m */; };
@@ -115,6 +117,10 @@
 		66B6266D1AE0055100007886 /* DateAndTimeValueTrasformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateAndTimeValueTrasformer.m; path = Examples/Dates/DateAndTimeValueTrasformer.m; sourceTree = "<group>"; };
 		7B0D2D6A86E2A41ED22E8A35 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		976A33EE62A018A7257B4878 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		8FEE89CE1CA21067008D7237 /* XLFormDynamicHeightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormDynamicHeightCell.h; path = Examples/Others/CustomCells/XLFormDynamicHeightCell.h; sourceTree = "<group>"; };
+		8FEE89CF1CA21067008D7237 /* XLFormDynamicHeightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormDynamicHeightCell.m; path = Examples/Others/CustomCells/XLFormDynamicHeightCell.m; sourceTree = "<group>"; };
+		8FEE89D01CA21067008D7237 /* XLFormSelfSizingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormSelfSizingCell.h; path = Examples/Others/CustomCells/XLFormSelfSizingCell.h; sourceTree = "<group>"; };
+		8FEE89D11CA21067008D7237 /* XLFormSelfSizingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormSelfSizingCell.m; path = Examples/Others/CustomCells/XLFormSelfSizingCell.m; sourceTree = "<group>"; };
 		BF01E9261C21F0BB00BDE045 /* XLFormInlineSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormInlineSegmentedCell.h; path = "Inline Segmented/XLFormInlineSegmentedCell.h"; sourceTree = "<group>"; };
 		BF01E9271C21F0BB00BDE045 /* XLFormInlineSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormInlineSegmentedCell.m; path = "Inline Segmented/XLFormInlineSegmentedCell.m"; sourceTree = "<group>"; };
 		BF9DB1D11AE0436600B985E7 /* BlogExampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlogExampleViewController.h; path = Examples/PredicateExamples/BlogExampleViewController.h; sourceTree = SOURCE_ROOT; };
@@ -336,6 +342,10 @@
 				28A85D5818E346C100E81A26 /* XLFormImageSelectorCell.m */,
 				D51B8B2A19126664008C0478 /* XLFormCustomCell.h */,
 				D51B8B2B19126664008C0478 /* XLFormCustomCell.m */,
+				8FEE89CE1CA21067008D7237 /* XLFormDynamicHeightCell.h */,
+				8FEE89CF1CA21067008D7237 /* XLFormDynamicHeightCell.m */,
+				8FEE89D01CA21067008D7237 /* XLFormSelfSizingCell.h */,
+				8FEE89D11CA21067008D7237 /* XLFormSelfSizingCell.m */,
 			);
 			name = CustomCells;
 			sourceTree = "<group>";
@@ -587,6 +597,7 @@
 				282EB27C1AB5FF33004A736F /* AccessoryViewFormViewController.m in Sources */,
 				BF9DB1D51AE0436600B985E7 /* BlogExampleViewController.m in Sources */,
 				2850C60818D0F706002B7D0A /* main.m in Sources */,
+				8FEE89D31CA21067008D7237 /* XLFormSelfSizingCell.m in Sources */,
 				D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */,
 				3C3B01F01AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m in Sources */,
 				28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */,
@@ -600,6 +611,7 @@
 				281E5BE919538F4A006D93C5 /* CLLocationValueTrasformer.m in Sources */,
 				2843EB5618D4F7B700F13E2B /* DatesFormViewController.m in Sources */,
 				283C6B7D1999BAF100A5283D /* UICustomizationFormViewController.m in Sources */,
+				8FEE89D21CA21067008D7237 /* XLFormDynamicHeightCell.m in Sources */,
 				3C3B01E21AB7499A0027CD45 /* XLRatingView.m in Sources */,
 				283B59B219532415000828CD /* MapViewController.m in Sources */,
 				2843EB4718D4915800F13E2B /* ExamplesFormViewController.m in Sources */,
