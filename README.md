@@ -804,7 +804,7 @@ Let's see how to change the color of the cell label:
 
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:[UIColor red] forKey:@"textLabel.textColor"];
+[row.cellConfigAtConfigure setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
 ```
 
