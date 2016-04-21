@@ -98,12 +98,6 @@
         if (self.rowDescriptor.value && [self.rowDescriptor.value isKindOfClass:[XLFormOptionsObject class]]){
             XLFormOptionsObject * optionObject = (XLFormOptionsObject *)self.rowDescriptor.value;
             
-            NSLog(@"self.rowDescriptor.value %@", self.rowDescriptor.value);
-            NSLog(@"self.rowDescriptor.value class %@", [self.rowDescriptor.value class]);
-            NSLog(@"self.rowDescriptor.value formValue %@", optionObject.formValue);
-            NSLog(@"self.rowDescriptor.value formDisplayText %@", optionObject.formDisplayText);
-            NSLog(@"self.rowDescriptor.value displayText %@", [self.rowDescriptor.value displayText]);
-            
             return [optionObject displayText];
         }
     }
