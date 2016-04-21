@@ -76,6 +76,38 @@
         }
         return [descriptionArray componentsJoinedByString:@", "];
     }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorActionSheet] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorAlertView] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerViewInline])
+    {
+        if (!self.rowDescriptor.value){
+            return self.rowDescriptor.noValueDisplayText;
+        }
+        if (self.rowDescriptor.valueTransformer){
+            NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+            NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+            NSString * tranformedValue = [valueTransformer transformedValue:self.rowDescriptor.value];
+            if (tranformedValue){
+                return tranformedValue;
+            }
+        }
+        
+        if (self.rowDescriptor.value && [self.rowDescriptor.value isKindOfClass:[XLFormOptionsObject class]]){
+            XLFormOptionsObject * optionObject = (XLFormOptionsObject *)self.rowDescriptor.value;
+            
+            NSLog(@"self.rowDescriptor.value %@", self.rowDescriptor.value);
+            NSLog(@"self.rowDescriptor.value class %@", [self.rowDescriptor.value class]);
+            NSLog(@"self.rowDescriptor.value formValue %@", optionObject.formValue);
+            NSLog(@"self.rowDescriptor.value formDisplayText %@", optionObject.formDisplayText);
+            NSLog(@"self.rowDescriptor.value displayText %@", [self.rowDescriptor.value displayText]);
+            
+            return [optionObject displayText];
+        }
+    }
+    
     if (!self.rowDescriptor.value){
         return self.rowDescriptor.noValueDisplayText;
     }
