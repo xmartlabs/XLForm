@@ -67,7 +67,14 @@
 
 - (UIImageView *)imageView
 {
-    return (UIImageView *)self.accessoryView;
+    if ([self isKindOfClass:[XLFormImageCell class]])
+    {
+        return (UIImageView *)self.accessoryView;
+    }
+    else
+    {
+        [super imageView];
+    }
 }
 
 - (void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
