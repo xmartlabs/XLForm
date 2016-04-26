@@ -38,6 +38,7 @@
 @synthesize previousButton = _previousButton;
 @synthesize nextButton = _nextButton;
 @synthesize doneButton = _doneButton;
+@synthesize resetButton = _resetButton;
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -48,6 +49,8 @@
         NSArray * items = [NSArray arrayWithObjects:self.previousButton,
                            self.fixedSpace,
                            self.nextButton,
+                           self.flexibleSpace,
+                           self.resetButton,
                            self.flexibleSpace,
                            self.doneButton, nil];
         [self setItems:items];
@@ -91,6 +94,13 @@
     if (_doneButton) return _doneButton;
     _doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nil action:nil];
     return _doneButton;
+}
+
+-(UIBarButtonItem *)resetButton
+{
+    if (_resetButton) return _resetButton;
+    _resetButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Remove", nil) style:UIBarButtonItemStylePlain target:nil action:nil];
+    return _resetButton;
 }
 
 #pragma mark - Helpers

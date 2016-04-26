@@ -76,6 +76,32 @@
         }
         return [descriptionArray componentsJoinedByString:@", "];
     }
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorActionSheet] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorAlertView] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerView] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPickerViewInline])
+    {
+        if (!self.rowDescriptor.value){
+            return self.rowDescriptor.noValueDisplayText;
+        }
+        if (self.rowDescriptor.valueTransformer){
+            NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+            NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+            NSString * tranformedValue = [valueTransformer transformedValue:self.rowDescriptor.value];
+            if (tranformedValue){
+                return tranformedValue;
+            }
+        }
+        
+        if (self.rowDescriptor.value && [self.rowDescriptor.value isKindOfClass:[XLFormOptionsObject class]]){
+            XLFormOptionsObject * optionObject = (XLFormOptionsObject *)self.rowDescriptor.value;
+            
+            return [optionObject displayText];
+        }
+    }
+    
     if (!self.rowDescriptor.value){
         return self.rowDescriptor.noValueDisplayText;
     }
@@ -148,7 +174,10 @@
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
-    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]){
+    if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPush] ||
+        [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] ||
+        [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] ||
+        [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]){
         UIViewController * controllerToPresent = nil;
         if (self.rowDescriptor.action.formSegueIdentifier){
             [controller performSegueWithIdentifier:self.rowDescriptor.action.formSegueIdentifier sender:self.rowDescriptor];
@@ -193,7 +222,7 @@
             optionsViewController.rowDescriptor = self.rowDescriptor;
             optionsViewController.title = self.rowDescriptor.selectorTitle;
 			
-			if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
+			if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) {
 				self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
                 self.popoverController.delegate = self;
                 optionsViewController.popoverController = self.popoverController;
@@ -209,7 +238,7 @@
 			}
         }
     }
-    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover])
+    /*else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover])
     {
         NSAssert(self.rowDescriptor.selectorOptions, @"selectorOptions property shopuld not be nil");
         XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
@@ -230,7 +259,7 @@
         } else {
             [controller.navigationController pushViewController:optionsViewController animated:YES];
         }
-    }
+    }*/
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorActionSheet]){
         
         
