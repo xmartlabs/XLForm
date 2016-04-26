@@ -117,7 +117,7 @@
 {
     [super viewDidLoad];
     if (!self.tableView){
-        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
+      self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
                                                       style:self.tableViewStyle];
         self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         if([self.tableView respondsToSelector:@selector(cellLayoutMarginsFollowReadableWidth)]){
