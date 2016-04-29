@@ -100,12 +100,20 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 
 @end
 
+typedef NS_ENUM(NSUInteger, XLFormLeftRightSelectorOptionLeftValueChangePolicy)
+{
+    XLFormLeftRightSelectorOptionLeftValueChangePolicyNullifyRightValue,
+    XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseFirstOption,
+    XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseLastOption
+};
+
 
 // =====================================
 // helper object used for LEFTRIGHTSelector Descriptor
 // =====================================
 @interface XLFormLeftRightSelectorOption : NSObject
 
+@property (nonatomic, assign) XLFormLeftRightSelectorOptionLeftValueChangePolicy leftValueChangePolicy;
 @property (readonly, nonnull) id leftValue;
 @property (readonly, nonnull) NSArray *  rightOptions;
 @property (readonly, null_unspecified) NSString * httpParameterKey;
