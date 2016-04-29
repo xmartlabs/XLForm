@@ -102,7 +102,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 
 typedef NS_ENUM(NSUInteger, XLFormLeftRightSelectorOptionLeftValueChangePolicy)
 {
-    XLFormLeftRightSelectorOptionLeftValueChangePolicyNullifyRightValue,
+    XLFormLeftRightSelectorOptionLeftValueChangePolicyNullifyRightValue = 0,
     XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseFirstOption,
     XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseLastOption
 };
