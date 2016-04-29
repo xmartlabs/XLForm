@@ -255,7 +255,7 @@
     if ([actionSheet cancelButtonIndex] != buttonIndex){
         NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
         if (![self.rowDescriptor.leftRightSelectorLeftOptionSelected isEqual:[self leftOptionForDescription:title].leftValue]){            
-            self.rowDescriptor.value = [self chooseNewRightValueFromOption:leftOption];
+            self.rowDescriptor.value = [self chooseNewRightValueFromOption:[self leftOptionForDescription:title]];
             self.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:title].leftValue;
             [self.formViewController updateFormRow:self.rowDescriptor];
         }
