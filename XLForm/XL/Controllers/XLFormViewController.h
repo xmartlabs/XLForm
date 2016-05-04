@@ -83,8 +83,9 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 @property XLFormDescriptor * form;
 @property IBOutlet UITableView * tableView;
 
--(id)initWithForm:(XLFormDescriptor *)form;
--(id)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style;
+-(instancetype)initWithForm:(XLFormDescriptor *)form;
+-(instancetype)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style NS_DESIGNATED_INITIALIZER;
+-(instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes;
 +(NSMutableDictionary *)inlineRowDescriptorTypesForRowDescriptorTypes;
 
