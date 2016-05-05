@@ -176,6 +176,19 @@
     return option.httpParameterKey;
 }
 
+- (id) chooseNewRightValueFromOption:(XLFormLeftRightSelectorOption*)option
+{
+    switch (option.leftValueChangePolicy) {
+        case XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseLastOption:
+            return [option.rightOptions lastObject];
+        case XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseFirstOption:
+            return [option.rightOptions firstObject];
+        case XLFormLeftRightSelectorOptionLeftValueChangePolicyNullifyRightValue:
+            return nil;
+    }
+    return nil;
+}
+
 
 #pragma mark - Actions
 
@@ -207,7 +220,7 @@
             [alertController addAction:[UIAlertAction actionWithTitle:[leftOption.leftValue displayText]
                                                                 style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction *action) {
-                                                                  weakSelf.rowDescriptor.value = nil;
+                                                                  weakSelf.rowDescriptor.value = [self chooseNewRightValueFromOption:leftOption];
                                                                   weakSelf.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:[leftOption.leftValue displayText]].leftValue;
                                                                   [weakSelf.formViewController updateFormRow:weakSelf.rowDescriptor];
                                                               }]];
@@ -242,7 +255,7 @@
     if ([actionSheet cancelButtonIndex] != buttonIndex){
         NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
         if (![self.rowDescriptor.leftRightSelectorLeftOptionSelected isEqual:[self leftOptionForDescription:title].leftValue]){            
-            self.rowDescriptor.value = nil;
+            self.rowDescriptor.value = [self chooseNewRightValueFromOption:[self leftOptionForDescription:title]];
             self.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:title].leftValue;
             [self.formViewController updateFormRow:self.rowDescriptor];
         }
