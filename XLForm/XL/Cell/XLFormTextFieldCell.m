@@ -94,12 +94,10 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeText]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeDefault;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-        self.textField.keyboardType = UIKeyboardTypeDefault;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeName]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-        self.textField.keyboardType = UIKeyboardTypeDefault;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeEmail]){
         self.textField.keyboardType = UIKeyboardTypeEmailAddress;
