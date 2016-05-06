@@ -75,7 +75,7 @@
 
 -(id)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style
 {
-    self = [super initWithNibName:nil bundle:nil];
+    self = [self initWithNibName:nil bundle:nil];
     if (self){
         _tableViewStyle = style;
         _form = form;
@@ -83,9 +83,14 @@
     return self;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    return [self initWithForm:nil style:UITableViewStyleGrouped];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self){
+        _form = nil;
+        _tableViewStyle = UITableViewStyleGrouped;
+    }
+    return self;
 }
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder
