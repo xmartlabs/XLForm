@@ -39,7 +39,16 @@
 
 @optional
 
+// if return YES, only formDescriptorCalculateCellHeightEstimate.. (below) is used and height is derived from autolayout
++(BOOL)formDescriptorCellPrefersSelfSizingForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor withFormController:(XLFormViewController *)controller;
+
+// height passed-in is table's default, update height if desired and return YES to use it
++(BOOL)formDescriptorCalculateCellHeight:(inout CGFloat *)height forRowDescriptor:(XLFormRowDescriptor *)rowDescriptor withFormController:(XLFormViewController *)controller;
++(BOOL)formDescriptorCalculateCellHeightEstimate:(inout CGFloat *)heightEstimate forRowDescriptor:(XLFormRowDescriptor *)rowDescriptor withFormController:(XLFormViewController *)controller;
+
+// legacy cell height method, not called if methods above are implamented instead
 +(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor;
+
 -(BOOL)formDescriptorCellCanBecomeFirstResponder;
 -(BOOL)formDescriptorCellBecomeFirstResponder;
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;
