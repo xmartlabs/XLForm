@@ -206,4 +206,8 @@ NSString *const XLFormTextViewLengthPercentage = @"textViewLengthPercentage";
     }
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+	return [self.formViewController textView:textView shouldChangeTextInRange:range replacementText:text];
+}
+
 @end
