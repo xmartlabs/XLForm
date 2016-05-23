@@ -46,20 +46,18 @@
     [super update];
     BOOL isDisabled = self.rowDescriptor.isDisabled;
     self.textLabel.text = self.rowDescriptor.title;
-    BOOL notASimpleAction = self.rowDescriptor.action.viewControllerClass || [self.rowDescriptor.action.viewControllerStoryboardId length] != 0 || [self.rowDescriptor.action.viewControllerNibName length] != 0 || [self.rowDescriptor.action.formSegueIdentifier length] != 0 || self.rowDescriptor.action.formSegueClass;
-    self.textLabel.textAlignment = notASimpleAction ? NSTextAlignmentNatural : NSTextAlignmentCenter;
-    self.accessoryType = !notASimpleAction || isDisabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+    BOOL simpleAction = !(self.rowDescriptor.action.viewControllerClass || [self.rowDescriptor.action.viewControllerStoryboardId length] != 0 || [self.rowDescriptor.action.viewControllerNibName length] != 0 || [self.rowDescriptor.action.formSegueIdentifier length] != 0 || self.rowDescriptor.action.formSegueClass);
+    self.textLabel.textAlignment = !simpleAction ? NSTextAlignmentNatural : NSTextAlignmentCenter;
+    self.accessoryType = simpleAction || isDisabled ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
     self.editingAccessoryType = self.accessoryType;
     self.selectionStyle = isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     
-    if (!notASimpleAction){
+    if (simpleAction){
         CGFloat red, green, blue, alpha;
         [self.tintColor getRed:&red green:&green blue:&blue alpha:&alpha];
         self.textLabel.textColor  = [UIColor colorWithRed:red green:green blue:blue alpha:(isDisabled ? 0.3 : 1.0)];
     }
-    else{
-        self.textLabel.textColor = nil;
-    }
+    
     self.detailTextLabel.text = self.rowDescriptor.value;
 }
 
