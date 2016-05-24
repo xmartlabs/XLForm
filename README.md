@@ -1048,7 +1048,7 @@ Requirements
 Release Notes
 --------------
 
-Have a look at the [CHANGELOG](https://github.com/xmartlabs/XLForm/CHANGELOG.md)
+Have a look at the [CHANGELOG](https://github.com/xmartlabs/XLForm/blob/master/CHANGELOG.md)
 
 Author
 -----------------
