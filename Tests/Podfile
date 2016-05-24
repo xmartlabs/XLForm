@@ -1,7 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
-xcodeproj 'XLForm Tests'
+project 'XLForm Tests'
 inhibit_all_warnings!
 
 platform :ios, '7.0'
-pod 'Expecta', '~> 0.3.0'
-pod 'XLForm', :path => '../'
+target 'XLForm Tests' do
+	pod 'Expecta', '~> 0.3.0'
+	pod 'XLForm', :path => '../'
+end
