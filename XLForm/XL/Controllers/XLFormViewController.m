@@ -423,7 +423,7 @@
     if (formSection.multivaluedRowTemplate){
         return [formSection.multivaluedRowTemplate copy];
     }
-    XLFormRowDescriptor * formRowDescriptor = [[formSection.formRows objectAtIndex:0] copy];
+    XLFormRowDescriptor * formRowDescriptor = [[formSection.formRows lastObject] copy];
     formRowDescriptor.tag = nil;
     return formRowDescriptor;
 }
