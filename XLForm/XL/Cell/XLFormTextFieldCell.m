@@ -211,8 +211,9 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
     if (self.dynamicCustomConstraints){
         [self.contentView removeConstraints:self.dynamicCustomConstraints];
     }
-    NSDictionary * views = @{@"label": self.textLabel, @"textField": self.textField, @"image": self.imageView};
+    NSMutableDictionary * views = [[NSMutableDictionary alloc] initWithDictionary: @{@"label": self.textLabel, @"textField": self.textField}];
     if (self.imageView.image){
+        views[@"image"] = self.imageView;
         if (self.textLabel.text.length > 0){
             self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-|" options:0 metrics:nil views:views]];
             [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textField
