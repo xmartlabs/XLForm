@@ -212,11 +212,13 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     mutableRightOptions = [rightOptions mutableCopy];
     [mutableRightOptions removeObjectAtIndex:1];
     leftRightSelectorOption = [XLFormLeftRightSelectorOption formLeftRightSelectorOptionWithLeftValue:[XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"] httpParameterKey:@"option_2" rightOptions:mutableRightOptions];
+    leftRightSelectorOption.leftValueChangePolicy = XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseFirstOption;
     [leftRightSelectorOptions addObject:leftRightSelectorOption];
     
     mutableRightOptions = [rightOptions mutableCopy];
     [mutableRightOptions removeObjectAtIndex:2];
     leftRightSelectorOption = [XLFormLeftRightSelectorOption formLeftRightSelectorOptionWithLeftValue:[XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"]  httpParameterKey:@"option_3" rightOptions:mutableRightOptions];
+    leftRightSelectorOption.leftValueChangePolicy = XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseLastOption;
     [leftRightSelectorOptions addObject:leftRightSelectorOption];
     
     mutableRightOptions = [rightOptions mutableCopy];

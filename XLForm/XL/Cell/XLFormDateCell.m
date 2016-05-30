@@ -227,9 +227,7 @@
 - (void)datePickerValueChanged:(UIDatePicker *)sender
 {
     self.rowDescriptor.value = sender.date;
-    [self update];
-    [self setNeedsLayout];
-    
+    [self.formViewController updateFormRow:self.rowDescriptor];
 }
 
 -(void)setFormDatePickerMode:(XLFormDateDatePickerMode)formDatePickerMode

@@ -83,28 +83,25 @@
     return self;
 }
 
--(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self){
-        [self defaultInitialize];
+        _form = nil;
+        _tableViewStyle = UITableViewStyleGrouped;
     }
     return self;
 }
 
--(id)initWithCoder:(NSCoder *)aDecoder
+-(instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
-    if (self){
-        [self defaultInitialize];
+    if (self) {
+        _form = nil;
+        _tableViewStyle = UITableViewStyleGrouped;
     }
+    
     return self;
-}
-
--(void)defaultInitialize
-{
-    _form = nil;
-    _tableViewStyle = UITableViewStyleGrouped;
 }
 
 - (void)dealloc
@@ -617,13 +614,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:indexPath];
-    return [rowDescriptor cellForFormController:self];
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:indexPath];
     [self updateFormRow:rowDescriptor];
+    return [rowDescriptor cellForFormController:self];
 }
 
 
