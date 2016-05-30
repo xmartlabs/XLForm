@@ -215,6 +215,13 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
     if (self.imageView.image){
         if (self.textLabel.text.length > 0){
             self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-|" options:0 metrics:nil views:views]];
+            [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textField
+                                                                                  attribute:NSLayoutAttributeWidth
+                                                                                  relatedBy:self.textFieldLengthPercentage ? NSLayoutRelationEqual : NSLayoutRelationGreaterThanOrEqual
+                                                                                     toItem:self.contentView
+                                                                                  attribute:NSLayoutAttributeWidth
+                                                                                 multiplier:self.textFieldLengthPercentage ? [self.textFieldLengthPercentage floatValue] : 0.3
+                                                                                   constant:0.0]];
         }
         else{
             self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[textField]-|" options:0 metrics:nil views:views]];
@@ -223,19 +230,18 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
     else{
         if (self.textLabel.text.length > 0){
             self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textField]-|" options:0 metrics:nil views:views]];
+            [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textField
+                                                                                  attribute:NSLayoutAttributeWidth
+                                                                                  relatedBy:self.textFieldLengthPercentage ? NSLayoutRelationEqual : NSLayoutRelationGreaterThanOrEqual
+                                                                                     toItem:self.contentView
+                                                                                  attribute:NSLayoutAttributeWidth
+                                                                                 multiplier:self.textFieldLengthPercentage ? [self.textFieldLengthPercentage floatValue] : 0.3
+                                                                                   constant:0.0]];
         }
         else{
             self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textField]-|" options:0 metrics:nil views:views]];
         }
     }
-
-    [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textField
-                                                                          attribute:NSLayoutAttributeWidth
-                                                                          relatedBy:self.textFieldLengthPercentage ? NSLayoutRelationEqual : NSLayoutRelationGreaterThanOrEqual
-                                                                             toItem:self.contentView
-                                                                          attribute:NSLayoutAttributeWidth
-                                                                         multiplier:self.textFieldLengthPercentage ? [self.textFieldLengthPercentage floatValue] : 0.3
-                                                                           constant:0.0]];
 
     [self.contentView addConstraints:self.dynamicCustomConstraints];
     [super updateConstraints];
