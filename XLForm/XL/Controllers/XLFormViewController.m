@@ -479,6 +479,7 @@
                                                           handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
+#ifndef XL_APP_EXTENSIONS
     else{
         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XLFormViewController_ValidationErrorTitle", nil)
                                                              message:error.localizedDescription
@@ -487,6 +488,7 @@
                                                    otherButtonTitles:nil];
         [alertView show];
     }
+#endif
 #endif
 }
 
