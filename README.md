@@ -38,8 +38,75 @@ What XLForm does
 
 
 
-How to create a form
------------------------------
+## How to create a form
+
+#### Create an instance of XLFormViewController
+
+##### Swift
+
+```swift
+class CalendarEventFormViewController : XLFormViewController {
+
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    self.initializeForm()
+  }
+
+
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    self.initializeForm()
+  }
+
+  func initializeForm() {
+    // Implementation details covered in the next section.
+  }
+
+}
+
+```
+
+##### Objective-C
+
+```objc
+#import "XLFormViewController.h"
+
+@interface CalendarEventFormViewController: XLFormViewController
+
+@end
+```
+
+```objc
+@interface ExamplesFormViewController ()
+
+@end
+
+@implementation ExamplesFormViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
+}
+
+- (void)initializeForm {
+  // Implementation details covered in the next section.
+}
+
+@end
+```
+
+##### Implementing the initializeForm method
 
 To create a form we should declare it through a `XLFormDescriptor` instance and assign it to a `XLFormViewController` instance. As we said XLForm works based on a DSL that hides complex and boilerplate stuff without losing the power and flexibility of hand-made forms.
 
@@ -51,49 +118,55 @@ To define a form we use 3 classes:
 
 A form definition is a `XLFormDescriptor` instance that contains one or more sections (`XLFormSectionDescriptor` instances) and each section contains several rows (`XLFormRowDescriptor` instance). As you may have noticed the DSL structure is analog to the structure of a `UITableView` (Table -->> Sections -- >> Rows). The resulting table-view form's structure (sections and rows order) mirrors the definition's structure.
 
-#####Let's see part of the iOS Calendar Event Form definition.
-
+##### Let's see an example implementation of initializeForm to define the iOS Calendar Event Form
 
 ```objc
-XLFormDescriptor * form;
-XLFormSectionDescriptor * section;
-XLFormRowDescriptor * row;
+- (void)initializeForm {
+  XLFormDescriptor * form;
+  XLFormSectionDescriptor * section;
+  XLFormRowDescriptor * row;
 
-form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
+  form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
 
-// First section
-section = [XLFormSectionDescriptor formSection];
-[form addFormSection:section];
+  // First section
+  section = [XLFormSectionDescriptor formSection];
+  [form addFormSection:section];
 
-// Title
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
-[section addFormRow:row];
+  // Title
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
+  [row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
+  [section addFormRow:row];
 
-// Location
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:@"Location" forKey:@"textField.placeholder"];
-[section addFormRow:row];
+  // Location
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRowDescriptorTypeText];
+  [row.cellConfigAtConfigure setObject:@"Location" forKey:@"textField.placeholder"];
+  [section addFormRow:row];
 
-// Second Section
-section = [XLFormSectionDescriptor formSection];
-[form addFormSection:section];
+  // Second Section
+  section = [XLFormSectionDescriptor formSection];
+  [form addFormSection:section];
 
-// All-day
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"all-day" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"All-day"];
-[section addFormRow:row];
+  // All-day
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"all-day" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"All-day"];
+  [section addFormRow:row];
 
-// Starts
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
-row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
-[section addFormRow:row];
+  // Starts
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
+  row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
+  [section addFormRow:row];
+}
 ```
 
 XLForm will load the table-view form from the previously explained definition. The most interesting part is that it will update the table-view form based on the form definition modifications.
 That means that we are able to make changes on the table-view form adding or removing section definitions or row  definitions to the form definition on runtime and you will never need to care again about `NSIndexPath`, `UITableViewDelegate`, `UITableViewDataSource` or other complexities.
 
-
 **To see more complex form definitions take a look at the example application in the Examples folder of this repository. You can also run the examples on your own device if you wish.** XLForm **has no** dependencies over other pods, anyway the examples  project makes use of some cocoapods to show advanced XLForm features.
+
+## Using XLForm with Storyboards
+
+* Perform the steps from **How to create a form**
+* In Interface Builder (IB), drag-and-drop a **UIViewController** onto the Storyboard
+* Associate your custom form class to the **UIViewController** using the **Identity Inspector**
 
 How to run XLForm examples
 ---------------------------------
