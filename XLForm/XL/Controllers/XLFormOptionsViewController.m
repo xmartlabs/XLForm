@@ -156,6 +156,9 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
+    if (self.didSelectedOption != nil) {
+        self.didSelectedOption(cellObject);
+    }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
