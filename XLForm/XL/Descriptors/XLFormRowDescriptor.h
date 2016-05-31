@@ -78,7 +78,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nullable) NSString *requireMsg;
 -(void)addValidator:(nonnull id<XLFormValidatorProtocol>)validator;
 -(void)removeValidator:(nonnull id<XLFormValidatorProtocol>)validator;
--(nonnull XLFormValidationStatus *)doValidation;
+-(nullable XLFormValidationStatus *)doValidation;
 
 // ===========================
 // property used for Selectors
