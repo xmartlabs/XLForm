@@ -356,11 +356,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2847A6BD1AAF2679000A2ABE /* Build configuration list for PBXNativeTarget "SwiftExample" */;
 			buildPhases = (
-				21FCE00817B1AE1029F382A4 /* Check Pods Manifest.lock */,
+				21FCE00817B1AE1029F382A4 /* 📦 Check Pods Manifest.lock */,
 				2847A69A1AAF2679000A2ABE /* Sources */,
 				2847A69B1AAF2679000A2ABE /* Frameworks */,
 				2847A69C1AAF2679000A2ABE /* Resources */,
-				A0F2DA95250A4C3E69515D96 /* Copy Pods Resources */,
+				A0F2DA95250A4C3E69515D96 /* 📦 Copy Pods Resources */,
+				DCA1F7B1D7E04613B3E151C1 /* 📦 Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -421,14 +422,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		21FCE00817B1AE1029F382A4 /* Check Pods Manifest.lock */ = {
+		21FCE00817B1AE1029F382A4 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,19 +437,34 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A0F2DA95250A4C3E69515D96 /* Copy Pods Resources */ = {
+		A0F2DA95250A4C3E69515D96 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DCA1F7B1D7E04613B3E151C1 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
