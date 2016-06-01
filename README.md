@@ -688,6 +688,8 @@ XLForm sets up `rowDescriptor` property using the `XLFormRowDescriptor` instance
 
 The developer is responsible for update its views with the `rowDescriptor` value as well as set the selected value to `rowDescriptor` from within the custom selector view controller.
 
+> Note: the properties `viewControllerClass`, `viewControllerNibName` or `viewControllerStoryboardId` are mutually exclusive and are used by `XLFormButtonCell` and `XLFormSelectorCell`. If you create a custom cell then you are responsible for using them. 
+
 
 #### Another example
 
@@ -877,7 +879,7 @@ Let's see how to change the color of the cell label:
 
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
+[row.cellConfig setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
 ```
 
@@ -1083,15 +1085,7 @@ Installation
 
 XLForm **has no** dependencies over other pods.
 
-## Carthage
-
-In your `Cartfile` add:
-
-```
-github "xmartlabs/XLForm" ~> 3.0
-```
-
-### How to use master branch
+#### How to use master branch
 
 Often master branch contains most recent features and latest fixes. On the other hand this features was not fully tested and changes on master may occur at any time. For the previous reasons I stongly recommend to fork the repository and manage the updates from master on your own making the proper pull on demand.
 
@@ -1102,13 +1096,38 @@ To use xmartlabs master branch.....
 
 You can replace the repository URL for your forked version url if you wish.
 
-### How to use XLForm in Swift files
+#### How to use XLForm in Swift files
 
 If you have installed XLForm with cocoapods and have set `use_frameworks!` in your Podfile, you can add `import XLForm` to any Swift file.
 
 If you are using cocoapods but have not set `use_frameworks!` in your Podfile, add `#import <XLForm/XLForm.h>` to your bridging header file.
 
 For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift").
+
+
+## Carthage
+
+In your `Cartfile` add:
+
+```
+github "xmartlabs/XLForm" ~> 3.0
+```
+
+## Using git submodules
+
+* Clone XLForm as a git [submodule](http://git-scm.com/docs/git-submodule) by running the following command from your project root git folder.
+
+```bash
+$ git submodule add https://github.com/xmartlabs/XLForm.git
+```
+
+* Open XLForm folder that was created by the previous git submodule command and drag the XLForm.xcodeproj into the Project Navigator of your application's Xcode project.
+
+* Select the XLForm.xcodeproj in the Project Navigator and verify the deployment target matches with your application deployment target.
+
+* Select your project in the Xcode Navigation and then select your application target from the sidebar. Next select the "General" tab and click on the + button under the "Embedded Binaries" section.
+
+* Select `XLForm.framework` and we are done!
 
 Requirements
 -----------------------------
