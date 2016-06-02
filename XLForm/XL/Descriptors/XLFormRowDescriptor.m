@@ -28,6 +28,9 @@
 #import "XLFormRowDescriptor.h"
 #import "NSString+XLFormAdditions.h"
 
+CGFloat XLFormUnspecifiedCellHeight = -1.0;
+CGFloat XLFormRowInitialHeight = -2;
+
 @interface XLFormDescriptor (_XLFormRowDescriptor)
 
 @property (readonly) NSDictionary* allRowsByTag;
@@ -68,6 +71,7 @@
 @synthesize cellConfig = _cellConfig;
 @synthesize cellConfigIfDisabled = _cellConfigIfDisabled;
 @synthesize cellConfigAtConfigure = _cellConfigAtConfigure;
+@synthesize height = _height;
 
 -(instancetype)init
 {
@@ -93,6 +97,7 @@
         _disablePredicateCache = nil;
         _isDirtyHidePredicateCache = YES;
         _hidePredicateCache = nil;
+        _height = XLFormRowInitialHeight;
         [self addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
         [self addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
         [self addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
@@ -225,6 +230,22 @@
 -(void)setAction:(XLFormAction *)action
 {
     _action = action;
+}
+
+-(CGFloat)height
+{
+    if (_height == XLFormRowInitialHeight){
+        if ([[self.cell class] respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
+            return [[self.cell class] formDescriptorCellHeightForRowDescriptor:self];
+        } else {
+            _height = XLFormUnspecifiedCellHeight;
+        }
+    }
+    return _height;
+}
+
+-(void)setHeight:(CGFloat)height {
+    _height = height;
 }
 
 // In the implementation
