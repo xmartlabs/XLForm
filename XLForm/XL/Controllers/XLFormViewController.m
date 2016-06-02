@@ -312,6 +312,26 @@
     }
 }
 
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didAddSelectorOption:(nonnull id)option
+{
+    [self updateAfterDependentRowChanged:formRow];
+}
+
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didDeleteSelectorOption:(nonnull id)option
+{
+    [self updateAfterDependentRowChanged:formRow];
+}
+
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didChangeSelectorOption:(nonnull id)option newText:(nonnull NSString *)newText
+{
+    [self updateAfterDependentRowChanged:formRow];
+}
+
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didSortSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition
+{
+    [self updateAfterDependentRowChanged:formRow];
+}
+
 -(void)updateAfterDependentRowChanged:(XLFormRowDescriptor *)formRow
 {
     NSMutableArray* revaluateHidden   = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeHidden]];

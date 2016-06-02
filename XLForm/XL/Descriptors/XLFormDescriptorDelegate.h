@@ -38,14 +38,19 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 
 @required
 
--(void)formSectionHasBeenRemoved:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
--(void)formSectionHasBeenAdded:(XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
--(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
--(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
--(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
--(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow
-                                   oldValue:(id)oldValue
-                                   newValue:(id)newValue
+-(void)formSectionHasBeenRemoved:(nonnull XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+-(void)formSectionHasBeenAdded:(nonnull XLFormSectionDescriptor *)formSection atIndex:(NSUInteger)index;
+-(void)formRowHasBeenAdded:(nonnull XLFormRowDescriptor *)formRow atIndexPath:(nonnull NSIndexPath *)indexPath;
+-(void)formRowHasBeenRemoved:(nonnull XLFormRowDescriptor *)formRow atIndexPath:(nonnull NSIndexPath *)indexPath;
+-(void)formRowDescriptorValueHasChanged:(nonnull XLFormRowDescriptor *)formRow oldValue:(nonnull id)oldValue newValue:(nonnull id)newValue;
+-(void)formRowDescriptorPredicateHasChanged:(nonnull XLFormRowDescriptor *)formRow
+                                   oldValue:(nonnull id)oldValue
+                                   newValue:(nonnull id)newValue
                               predicateType:(XLPredicateType)predicateType;
+
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didAddSelectorOption:(nonnull id)option;
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didDeleteSelectorOption:(nonnull id)option;
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didChangeSelectorOption:(nonnull id)option newText:(nonnull NSString *)newText;
+- (void)formRowDescriptor:(nonnull XLFormRowDescriptor *)formRow didSortSelectorOption:(nonnull id)option fromPosition:(int)fromPosition toPosition:(int)toPosition;
 
 @end
