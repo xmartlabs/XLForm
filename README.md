@@ -1074,6 +1074,15 @@ This is how you can set them:
 [row.cellConfigAtConfigure setObject:@(UIReturnKeyGo) forKey:@"nextReturnKeyType"];
 ```
 
+#### How to change the height of one cell
+
+If you want to change the height for all cells of one class you should subclass that cell and override the class method `formDescriptorCellHeightForRowDescriptor`. 
+If you want to change the height of one individual cell then you can set that height to the `height` property of XLFormRowDescripto like this:
+```
+XLFormRowDescriptor* row = ... 
+row.height = 55;
+```
+
 Installation
 --------------------------
 

@@ -29,6 +29,8 @@
 #import "XLFormValidatorProtocol.h"
 #import "XLFormValidationStatus.h"
 
+extern CGFloat XLFormUnspecifiedCellHeight;
+
 @class XLFormViewController;
 @class XLFormSectionDescriptor;
 @protocol XLFormValidatorProtocol;
@@ -52,6 +54,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nonatomic, nullable) id value;
 @property (nullable) Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
+@property (nonatomic) CGFloat height;
 
 @property (copy, nullable) XLOnChangeBlock onChangeBlock;
 @property BOOL useValueFormatterDuringInput;
