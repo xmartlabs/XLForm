@@ -275,7 +275,7 @@
 						optionTitle = transformedValue;
 					}
 				}
-                [alertController addAction:[UIAlertAction actionWithTitle:[option displayText]
+                [alertController addAction:[UIAlertAction actionWithTitle:optionTitle
                                                                     style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction *action) {
                                                                       [weakSelf.rowDescriptor setValue:option];
