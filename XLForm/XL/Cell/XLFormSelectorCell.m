@@ -266,6 +266,15 @@
             alertController.popoverPresentationController.sourceRect = [formViewController.tableView convertRect:v.frame fromView:self];
             __weak __typeof(self)weakSelf = self;
             for (id option in self.rowDescriptor.selectorOptions) {
+				NSString *optionTitle = [option displayText];
+				if (self.rowDescriptor.valueTransformer){
+					NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+					NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+					NSString * transformedValue = [valueTransformer transformedValue:[option valueData]];
+					if (transformedValue) {
+						optionTitle = transformedValue;
+					}
+				}
                 [alertController addAction:[UIAlertAction actionWithTitle:[option displayText]
                                                                     style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction *action) {
@@ -274,6 +283,8 @@
                                                                   }]];
             }
             [formViewController presentViewController:alertController animated:YES completion:nil];
+            // Fix for "Snapshotting a view that has not been rendered results in an empty snapshot." bug
+            [[alertController view] layoutIfNeeded];
         }
 #ifndef XL_APP_EXTENSIONS
         else{
