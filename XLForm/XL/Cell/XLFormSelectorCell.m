@@ -283,8 +283,6 @@
                                                                   }]];
             }
             [formViewController presentViewController:alertController animated:YES completion:nil];
-            // Fix for "Snapshotting a view that has not been rendered results in an empty snapshot." bug
-            [[alertController view] layoutIfNeeded];
         }
 #ifndef XL_APP_EXTENSIONS
         else{
