@@ -266,7 +266,16 @@
             alertController.popoverPresentationController.sourceRect = [formViewController.tableView convertRect:v.frame fromView:self];
             __weak __typeof(self)weakSelf = self;
             for (id option in self.rowDescriptor.selectorOptions) {
-                [alertController addAction:[UIAlertAction actionWithTitle:[option displayText]
+				NSString *optionTitle = [option displayText];
+				if (self.rowDescriptor.valueTransformer){
+					NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+					NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+					NSString * transformedValue = [valueTransformer transformedValue:[option valueData]];
+					if (transformedValue) {
+						optionTitle = transformedValue;
+					}
+				}
+                [alertController addAction:[UIAlertAction actionWithTitle:optionTitle
                                                                     style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction *action) {
                                                                       [weakSelf.rowDescriptor setValue:option];
