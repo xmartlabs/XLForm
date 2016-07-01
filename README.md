@@ -154,6 +154,8 @@ A form definition is a `XLFormDescriptor` instance that contains one or more sec
   row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
   row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
   [section addFormRow:row];
+  
+  self.form = form;
 }
 ```
 
