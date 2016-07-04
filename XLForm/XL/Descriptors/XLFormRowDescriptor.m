@@ -580,7 +580,7 @@ CGFloat XLFormRowInitialHeight = -2;
 }
 
 
--(id)initWithLeftValue:(NSString *)leftValue httpParameterKey:(NSString *)httpParameterKey rightOptions:(NSArray *)rightOptions
+-(instancetype)initWithLeftValue:(NSString *)leftValue httpParameterKey:(NSString *)httpParameterKey rightOptions:(NSArray *)rightOptions
 {
     self = [super init];
     if (self){
