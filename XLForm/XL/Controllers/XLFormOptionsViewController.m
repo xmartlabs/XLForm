@@ -47,7 +47,7 @@
 @synthesize rowDescriptor = _rowDescriptor;
 @synthesize popoverController = __popoverController;
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self){
@@ -57,7 +57,7 @@
     return self;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style titleHeaderSection:(NSString *)titleHeaderSection titleFooterSection:(NSString *)titleFooterSection
+- (instancetype)initWithStyle:(UITableViewStyle)style titleHeaderSection:(NSString *)titleHeaderSection titleFooterSection:(NSString *)titleFooterSection
 {
     self = [self initWithStyle:style];
     if (self){

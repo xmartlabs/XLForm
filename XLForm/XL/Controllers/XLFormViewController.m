@@ -68,12 +68,12 @@
 
 #pragma mark - Initialization
 
--(id)initWithForm:(XLFormDescriptor *)form
+-(instancetype)initWithForm:(XLFormDescriptor *)form
 {
     return [self initWithForm:form style:UITableViewStyleGrouped];
 }
 
--(id)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style
+-(instancetype)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style
 {
     self = [self initWithNibName:nil bundle:nil];
     if (self){
