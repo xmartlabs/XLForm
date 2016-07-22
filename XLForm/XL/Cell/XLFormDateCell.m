@@ -208,6 +208,10 @@
     
     if (self.maximumDate)
         datePicker.maximumDate = self.maximumDate;
+    
+    if (self.locale) {
+        datePicker.locale = self.locale;
+    }
 }
 
 #pragma mark - Properties
