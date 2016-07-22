@@ -28,7 +28,7 @@
 #import "XLFormRowDescriptor.h"
 #import "NSString+XLFormAdditions.h"
 
-CGFloat XLFormUnspecifiedCellHeight = -1.0;
+CGFloat XLFormUnspecifiedCellHeight = -3.0;
 CGFloat XLFormRowInitialHeight = -2;
 
 @interface XLFormDescriptor (_XLFormRowDescriptor)
