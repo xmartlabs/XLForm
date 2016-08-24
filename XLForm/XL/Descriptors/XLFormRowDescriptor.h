@@ -47,6 +47,9 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 
 @interface XLFormRowDescriptor : NSObject
 
+@property (nonatomic, copy) NSNumber *kmlMinimum;
+@property (nonatomic, copy) NSNumber *kmlMaximum;
+
 @property (nullable) id cellClass;
 @property (readwrite, nullable) NSString * tag;
 @property (readonly, nonnull) NSString * rowType;

@@ -59,9 +59,6 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
 
 @property (weak, nullable) id<XLFormDescriptorDelegate> delegate;
 
-@property (nonatomic, copy) NSNumber *kmlMinimum;
-@property (nonatomic, copy) NSNumber *kmlMaximum;
-
 +(nonnull instancetype)formDescriptor;
 +(nonnull instancetype)formDescriptorWithTitle:(nullable NSString *)title;
 
