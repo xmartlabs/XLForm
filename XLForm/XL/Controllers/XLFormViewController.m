@@ -100,7 +100,7 @@
         _form = nil;
         _tableViewStyle = UITableViewStyleGrouped;
     }
-    
+
     return self;
 }
 
@@ -861,8 +861,8 @@
     UITableViewCell<XLFormDescriptorCell>* cell = textField.formDescriptorCell;
     XLFormRowDescriptor * nextRow     = [self nextRowDescriptorForRow:textField.formDescriptorCell.rowDescriptor
                                                         withDirection:XLFormRowNavigationDirectionNext];
-    
-    
+
+
     if ([cell conformsToProtocol:@protocol(XLFormReturnKeyProtocol)]) {
         textField.returnKeyType = nextRow ? ((id<XLFormReturnKeyProtocol>)cell).nextReturnKeyType : ((id<XLFormReturnKeyProtocol>)cell).returnKeyType;
     }
@@ -1017,10 +1017,6 @@
     [self.tableView endEditing:YES];
     _form = form;
     _form.delegate = self;
-    [_form forceEvaluate];
-    if ([self isViewLoaded]){
-        [self.tableView reloadData];
-    }
 }
 
 -(XLFormDescriptor *)form
