@@ -73,13 +73,15 @@
             XLFormRowDescriptor * datePickerRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeDatePicker];
             XLFormDatePickerCell * datePickerCell = (XLFormDatePickerCell *)[datePickerRowDescriptor cellForFormController:self.formViewController];
             [self setModeToDatePicker:datePickerCell.datePicker];
-            if (self.rowDescriptor.value){                
+            if (self.rowDescriptor.value){
                 [datePickerCell.datePicker setDate:self.rowDescriptor.value animated:[self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimerInline]];
+            } else if (self.defaultDate) {
+                [datePickerCell.datePicker setDate:self.defaultDate];
             }
             NSAssert([datePickerCell conformsToProtocol:@protocol(XLFormInlineRowDescriptorCell)], @"inline cell must conform to XLFormInlineRowDescriptorCell");
             UITableViewCell<XLFormInlineRowDescriptorCell> * inlineCell = (UITableViewCell<XLFormInlineRowDescriptorCell> *)datePickerCell;
             inlineCell.inlineRowDescriptor = self.rowDescriptor;
-            
+
             [formSection addFormRow:datePickerRowDescriptor afterRow:self.rowDescriptor];
             [self.formViewController ensureRowIsVisible:datePickerRowDescriptor];
         }
@@ -199,16 +201,16 @@
     else{
         datePicker.datePickerMode = UIDatePickerModeDateAndTime;
     }
-    
+
     if (self.minuteInterval)
         datePicker.minuteInterval = self.minuteInterval;
-    
+
     if (self.minimumDate)
         datePicker.minimumDate = self.minimumDate;
-    
+
     if (self.maximumDate)
         datePicker.maximumDate = self.maximumDate;
-    
+
     if (self.locale) {
         datePicker.locale = self.locale;
     }
