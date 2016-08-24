@@ -101,7 +101,7 @@ CGFloat XLFormRowInitialHeight = -2;
         [self addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
         [self addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
         [self addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-        
+
     }
     return self;
 }
@@ -137,7 +137,7 @@ CGFloat XLFormRowInitialHeight = -2;
             }
             NSParameterAssert(bundle != nil);
             NSParameterAssert(cellResource != nil);
-            
+
             if ([bundle pathForResource:cellResource ofType:@"nib"]){
                 _cell = [[bundle loadNibNamed:cellResource owner:nil options:nil] firstObject];
             }
@@ -502,7 +502,7 @@ CGFloat XLFormRowInitialHeight = -2;
                 msg = self.requireMsg;
             } else {
                 // default message for required msg
-                msg = NSLocalizedString(@"%@ can't be empty", nil);
+                msg = NSLocalizedString(@"Field '%@' cannot be empty", @"Error description shown when value is empty for required field; with placeholder");
             }
 
             if (self.title != nil) {
