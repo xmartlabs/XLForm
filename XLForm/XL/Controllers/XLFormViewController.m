@@ -780,6 +780,14 @@
     if (section.sectionOptions & XLFormSectionOptionCanDelete){
         return UITableViewCellEditingStyleDelete;
     }
+
+    // This allows the delete button to be shown when an area on the body
+    // map has been selected. I.E. an indication.
+    if ([row.tag hasPrefix:@"2/"] == YES) {
+        return UITableViewCellEditingStyleDelete;
+    }
+
+
     return UITableViewCellEditingStyleNone;
 }
 
