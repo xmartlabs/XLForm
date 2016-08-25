@@ -1034,7 +1034,7 @@
     _navigationAccessoryView.nextButton.action = @selector(rowNavigationAction:);
     _navigationAccessoryView.doneButton.target = self;
     _navigationAccessoryView.doneButton.action = @selector(rowNavigationDone:);
-    _navigationAccessoryView.tintColor = self.view.tintColor;
+    _navigationAccessoryView.tintColor = [UIColor colorWithRed:0.16 green:0.16 blue:0.16 alpha:1];
     return _navigationAccessoryView;
 }
 
