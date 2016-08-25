@@ -360,7 +360,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
             }
         }
     }
-    
+
     return result;
 }
 
@@ -467,7 +467,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         row.disabled = row.disabled;
     }];
 
-    
+
 }
 
 #pragma mark - EvaluateForm
@@ -503,7 +503,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     NSUInteger indexOfRow = [row.sectionDescriptor.formRows indexOfObject:row];
     if (indexOfRow != NSNotFound){
         if (indexOfRow + 1 < row.sectionDescriptor.formRows.count){
-            return [row.sectionDescriptor.formRows objectAtIndex:++indexOfRow];
+            XLFormRowDescriptor *nextRow = [row.sectionDescriptor.formRows objectAtIndex:++indexOfRow];
+            if ([[nextRow.cellClass description] isEqualToString:@"KMLSpacerCell"]) {
+                // ignore the spacerCell; check if there's a next cell
+                return [self nextRowDescriptorForRow:nextRow];
+            }
+            return nextRow;
         }
         else{
             NSUInteger sectionIndex = [self.formSections indexOfObject:row.sectionDescriptor];
@@ -527,7 +532,12 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     NSUInteger indexOfRow = [row.sectionDescriptor.formRows indexOfObject:row];
     if (indexOfRow != NSNotFound){
         if (indexOfRow > 0 ){
-            return [row.sectionDescriptor.formRows objectAtIndex:--indexOfRow];
+            XLFormRowDescriptor *previousRow = [row.sectionDescriptor.formRows objectAtIndex:--indexOfRow];
+            if ([[previousRow.cellClass description] isEqualToString:@"KMLSpacerCell"]) {
+                // ignore the spacerCell; check if there's a previous cell
+                return [self previousRowDescriptorForRow:previousRow];
+            }
+            return previousRow;
         }
         else{
             NSUInteger sectionIndex = [self.formSections indexOfObject:row.sectionDescriptor];
@@ -580,7 +590,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
                 predicate = ((XLFormRowDescriptor*)sectionOrRow).disabled;
             }
             else return;
-            
+
             break;
     }
     NSMutableArray* tags = [predicate getPredicateVars];
@@ -592,7 +602,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         if (![self.rowObservers[auxTag] containsObject:descriptor])
             [self.rowObservers[auxTag] addObject:descriptor];
     }
-    
+
 }
 
 -(void)removeObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType
