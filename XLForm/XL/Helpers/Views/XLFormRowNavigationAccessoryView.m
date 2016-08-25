@@ -61,6 +61,7 @@
 {
     if (_previousButton) return _previousButton;
     _previousButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:105 target:nil action:nil];
+    _nextButton.accessibilityIdentifier = @"previous";
     return _previousButton;
 }
 
@@ -76,6 +77,7 @@
 {
     if (_nextButton) return _nextButton;
     _nextButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:106 target:nil action:nil];
+    _nextButton.accessibilityIdentifier = @"next";
     return _nextButton;
 }
 
