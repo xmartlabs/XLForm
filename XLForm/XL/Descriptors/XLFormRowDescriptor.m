@@ -116,7 +116,7 @@ CGFloat XLFormRowInitialHeight = -2;
     return [[[self class] alloc] initWithTag:tag rowType:rowType title:title];
 }
 
--(XLFormBaseCell *)cellForFormController:(XLFormViewController * __unused)formController
+-(XLFormBaseCell *)cellForFormController:(XLFormViewController *)formController
 {
     if (!_cell){
         id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
@@ -143,6 +143,7 @@ CGFloat XLFormRowInitialHeight = -2;
             }
         } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
+			_cell.tintColor = formController.view.tintColor;
         }
         _cell.rowDescriptor = self;
         NSAssert([_cell isKindOfClass:[XLFormBaseCell class]], @"UITableViewCell must extend from XLFormBaseCell");
