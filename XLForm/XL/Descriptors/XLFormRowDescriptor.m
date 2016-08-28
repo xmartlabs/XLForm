@@ -143,7 +143,7 @@ CGFloat XLFormRowInitialHeight = -2;
             }
         } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
-			_cell.tintColor = formController.view.tintColor;
+            _cell.tintColor = formController.view.tintColor;
         }
         _cell.rowDescriptor = self;
         NSAssert([_cell isKindOfClass:[XLFormBaseCell class]], @"UITableViewCell must extend from XLFormBaseCell");
