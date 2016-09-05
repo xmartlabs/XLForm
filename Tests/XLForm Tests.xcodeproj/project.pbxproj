@@ -17,6 +17,7 @@
 		28657A54199154EE00CE8180 /* XLFormValidatorsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28657A53199154EE00CE8180 /* XLFormValidatorsTests.m */; };
 		3C5B9B7A1AC0BA33000AF1BA /* XLFormExampleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B9B791AC0BA33000AF1BA /* XLFormExampleTest.m */; };
 		3C9817861AC30616003F6ABD /* UITextField+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9817851AC30616003F6ABD /* UITextField+Test.m */; };
+		6233D65F1D7DF022000E7716 /* XLTestTextViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6233D65E1D7DF022000E7716 /* XLTestTextViewProperties.m */; };
 		BFD111841AD8323900943D23 /* XLTestHideAndShow.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD111831AD8323900943D23 /* XLTestHideAndShow.m */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		3C5B9B791AC0BA33000AF1BA /* XLFormExampleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormExampleTest.m; path = Test/XLFormExampleTest.m; sourceTree = "<group>"; };
 		3C9817841AC30616003F6ABD /* UITextField+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+Test.h"; path = "Helpers/UITextField+Test.h"; sourceTree = "<group>"; };
 		3C9817851AC30616003F6ABD /* UITextField+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+Test.m"; path = "Helpers/UITextField+Test.m"; sourceTree = "<group>"; };
+		6233D65E1D7DF022000E7716 /* XLTestTextViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLTestTextViewProperties.m; path = Test/XLTestTextViewProperties.m; sourceTree = "<group>"; };
 		8ADC094C94CA7ABBB8134573 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BFD111831AD8323900943D23 /* XLTestHideAndShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLTestHideAndShow.m; path = Test/XLTestHideAndShow.m; sourceTree = "<group>"; };
 		C6B20EA1A9D9591335BEE81F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				28657A5119914F9700CE8180 /* XLTestCase.m */,
 				28657A53199154EE00CE8180 /* XLFormValidatorsTests.m */,
 				03885A901D7DD3BD00CC183A /* XLTestTextFieldProperties.m */,
+				6233D65E1D7DF022000E7716 /* XLTestTextViewProperties.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				28657A5219914F9700CE8180 /* XLTestCase.m in Sources */,
 				03885A911D7DD3BD00CC183A /* XLTestTextFieldProperties.m in Sources */,
 				BFD111841AD8323900943D23 /* XLTestHideAndShow.m in Sources */,
+				6233D65F1D7DF022000E7716 /* XLTestTextViewProperties.m in Sources */,
 				3C5B9B7A1AC0BA33000AF1BA /* XLFormExampleTest.m in Sources */,
 				3C9817861AC30616003F6ABD /* UITextField+Test.m in Sources */,
 			);

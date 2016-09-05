@@ -28,6 +28,7 @@
 #import <UIKit/UIKit.h>
 
 extern NSString *const XLFormTextViewLengthPercentage;
+extern NSString *const XLFormTextViewMaxNumberOfCharacters;
 
 @interface XLFormTextViewCell : XLFormBaseCell
 
@@ -36,5 +37,6 @@ extern NSString *const XLFormTextViewLengthPercentage;
 @property (nonatomic, readonly) XLFormTextView * textView;
 
 @property (nonatomic) NSNumber *textViewLengthPercentage;
+@property (nonatomic) NSNumber *textViewMaxNumberOfCharacters;
 
 @end

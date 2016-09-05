@@ -1,5 +1,5 @@
 //
-//  XLFormViewControllerTestCase.m
+//  XLTestTextFieldProperties.m
 //  XLForm Tests
 //
 //  Created by Claus on 9/5/16.
