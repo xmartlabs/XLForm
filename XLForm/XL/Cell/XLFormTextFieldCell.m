@@ -30,6 +30,7 @@
 #import "XLFormTextFieldCell.h"
 
 NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
+NSString *const XLFormTextFieldMaxNumberOfCharacters = @"textFieldMaxNumberOfCharacters";
 
 @interface XLFormTextFieldCell() <UITextFieldDelegate>
 
@@ -278,6 +279,15 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (self.textFieldMaxNumberOfCharacters) {
+        // Check maximum length requirement
+        NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        if (newString.length > self.textFieldMaxNumberOfCharacters.integerValue) {
+            return NO;
+        }
+    }
+
+    // Otherwise, leave response to view controller
     return [self.formViewController textField:textField shouldChangeCharactersInRange:range replacementString:string];
 }
 
