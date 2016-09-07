@@ -29,8 +29,8 @@
 #import "XLFormTextView.h"
 #import "XLFormTextViewCell.h"
 
-NSString *const kFormTextViewCellPlaceholder = @"placeholder";
 NSString *const XLFormTextViewLengthPercentage = @"textViewLengthPercentage";
+NSString *const XLFormTextViewMaxNumberOfCharacters = @"textViewMaxNumberOfCharacters";
 
 @interface XLFormTextViewCell() <UITextViewDelegate>
 
@@ -207,6 +207,15 @@ NSString *const XLFormTextViewLengthPercentage = @"textViewLengthPercentage";
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if (self.textViewMaxNumberOfCharacters) {
+        // Check maximum length requirement
+        NSString *newText = [textView.text stringByReplacingCharactersInRange:range withString:text];
+        if (newText.length > self.textViewMaxNumberOfCharacters.integerValue) {
+            return NO;
+        }
+    }
+    
+    // Otherwise, leave response to view controller
 	return [self.formViewController textView:textView shouldChangeTextInRange:range replacementText:text];
 }
 

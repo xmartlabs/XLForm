@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03885A911D7DD3BD00CC183A /* XLTestTextFieldProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 03885A901D7DD3BD00CC183A /* XLTestTextFieldProperties.m */; };
 		17538872B9BB29167787CF50 /* libPods-XLForm Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E68572C5C8328F0F177BBCA1 /* libPods-XLForm Tests.a */; };
 		28657A3E1990879200CE8180 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28657A3D1990879200CE8180 /* XCTest.framework */; };
 		28657A401990879200CE8180 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28657A3F1990879200CE8180 /* Foundation.framework */; };
@@ -16,10 +17,12 @@
 		28657A54199154EE00CE8180 /* XLFormValidatorsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 28657A53199154EE00CE8180 /* XLFormValidatorsTests.m */; };
 		3C5B9B7A1AC0BA33000AF1BA /* XLFormExampleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5B9B791AC0BA33000AF1BA /* XLFormExampleTest.m */; };
 		3C9817861AC30616003F6ABD /* UITextField+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9817851AC30616003F6ABD /* UITextField+Test.m */; };
+		6233D65F1D7DF022000E7716 /* XLTestTextViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6233D65E1D7DF022000E7716 /* XLTestTextViewProperties.m */; };
 		BFD111841AD8323900943D23 /* XLTestHideAndShow.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD111831AD8323900943D23 /* XLTestHideAndShow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03885A901D7DD3BD00CC183A /* XLTestTextFieldProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLTestTextFieldProperties.m; path = Test/XLTestTextFieldProperties.m; sourceTree = "<group>"; };
 		28657A3A1990879200CE8180 /* XLForm Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "XLForm Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28657A3D1990879200CE8180 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		28657A3F1990879200CE8180 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -35,6 +38,7 @@
 		3C5B9B791AC0BA33000AF1BA /* XLFormExampleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormExampleTest.m; path = Test/XLFormExampleTest.m; sourceTree = "<group>"; };
 		3C9817841AC30616003F6ABD /* UITextField+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+Test.h"; path = "Helpers/UITextField+Test.h"; sourceTree = "<group>"; };
 		3C9817851AC30616003F6ABD /* UITextField+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+Test.m"; path = "Helpers/UITextField+Test.m"; sourceTree = "<group>"; };
+		6233D65E1D7DF022000E7716 /* XLTestTextViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLTestTextViewProperties.m; path = Test/XLTestTextViewProperties.m; sourceTree = "<group>"; };
 		8ADC094C94CA7ABBB8134573 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		BFD111831AD8323900943D23 /* XLTestHideAndShow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLTestHideAndShow.m; path = Test/XLTestHideAndShow.m; sourceTree = "<group>"; };
 		C6B20EA1A9D9591335BEE81F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				28657A5019914F9700CE8180 /* XLTestCase.h */,
 				28657A5119914F9700CE8180 /* XLTestCase.m */,
 				28657A53199154EE00CE8180 /* XLFormValidatorsTests.m */,
+				03885A901D7DD3BD00CC183A /* XLTestTextFieldProperties.m */,
+				6233D65E1D7DF022000E7716 /* XLTestTextViewProperties.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -146,12 +152,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 28657A4C1990879200CE8180 /* Build configuration list for PBXNativeTarget "XLForm Tests" */;
 			buildPhases = (
-				6B058765CC1143829C6943B9 /* 📦 Check Pods Manifest.lock */,
+				6B058765CC1143829C6943B9 /* [CP] Check Pods Manifest.lock */,
 				28657A361990879200CE8180 /* Sources */,
 				28657A371990879200CE8180 /* Frameworks */,
 				28657A381990879200CE8180 /* Resources */,
-				3E5FCF05A57F40C6AF367F6D /* 📦 Copy Pods Resources */,
-				6A2C507B76209618EDA57426 /* 📦 Embed Pods Frameworks */,
+				3E5FCF05A57F40C6AF367F6D /* [CP] Copy Pods Resources */,
+				6A2C507B76209618EDA57426 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -199,14 +205,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3E5FCF05A57F40C6AF367F6D /* 📦 Copy Pods Resources */ = {
+		3E5FCF05A57F40C6AF367F6D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,14 +220,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XLForm Tests/Pods-XLForm Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6A2C507B76209618EDA57426 /* 📦 Embed Pods Frameworks */ = {
+		6A2C507B76209618EDA57426 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,19 +235,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XLForm Tests/Pods-XLForm Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6B058765CC1143829C6943B9 /* 📦 Check Pods Manifest.lock */ = {
+		6B058765CC1143829C6943B9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -253,7 +259,9 @@
 			files = (
 				28657A54199154EE00CE8180 /* XLFormValidatorsTests.m in Sources */,
 				28657A5219914F9700CE8180 /* XLTestCase.m in Sources */,
+				03885A911D7DD3BD00CC183A /* XLTestTextFieldProperties.m in Sources */,
 				BFD111841AD8323900943D23 /* XLTestHideAndShow.m in Sources */,
+				6233D65F1D7DF022000E7716 /* XLTestTextViewProperties.m in Sources */,
 				3C5B9B7A1AC0BA33000AF1BA /* XLFormExampleTest.m in Sources */,
 				3C9817861AC30616003F6ABD /* UITextField+Test.m in Sources */,
 			);
