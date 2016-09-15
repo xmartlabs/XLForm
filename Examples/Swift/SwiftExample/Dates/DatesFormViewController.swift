@@ -26,7 +26,7 @@
 
 class DatesFormViewController: XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         static let DateInline = "dateInline"
         static let TimeInline = "timeInline"
         static let DateTimeInline = "dateTimeInline"
@@ -38,7 +38,7 @@ class DatesFormViewController: XLFormViewController {
         static let CountDownTimer = "countDownTimer"
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -50,15 +50,15 @@ class DatesFormViewController: XLFormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let barButton = UIBarButtonItem(title: "Disable", style: .Plain, target: self, action: "disableEnable:")
+        let barButton = UIBarButtonItem(title: "Disable", style: .plain, target: self, action: #selector(DatesFormViewController.disableEnable(_:)))
         barButton.possibleTitles = Set(["Disable", "Enable"])
         navigationItem.rightBarButtonItem = barButton
     }
     
     
-    func disableEnable(button : UIBarButtonItem){
-        form.disabled = !form.disabled
-        button.title = form.disabled ? "Enable" : "Disable"
+    func disableEnable(_ button : UIBarButtonItem){
+        form.isDisabled = !form.isDisabled
+        button.title = form.isDisabled ? "Enable" : "Disable"
         tableView.endEditing(true)
         tableView.reloadData()
     }
@@ -70,78 +70,78 @@ class DatesFormViewController: XLFormViewController {
         
         form = XLFormDescriptor(title: "Date & Time")
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Inline Dates")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Inline Dates")
         form.addFormSection(section)
         
         // Date
         row = XLFormRowDescriptor(tag: Tags.DateInline, rowType: XLFormRowDescriptorTypeDateInline, title:"Date")
-        row.value = NSDate()
+        row.value = Date()
         section.addFormRow(row)
         
         // Time
         row = XLFormRowDescriptor(tag: Tags.TimeInline, rowType: XLFormRowDescriptorTypeTimeInline, title: "Time")
-        row.value = NSDate()
+        row.value = Date()
         section.addFormRow(row)
         
         // DateTime
         row = XLFormRowDescriptor(tag: Tags.DateTimeInline, rowType: XLFormRowDescriptorTypeDateTimeInline, title: "Date Time")
-        row.value = NSDate()
+        row.value = Date()
         section.addFormRow(row)
         
         // CountDownTimer
         row = XLFormRowDescriptor(tag: Tags.CountDownTimerInline, rowType:XLFormRowDescriptorTypeCountDownTimerInline, title:"Countdown Timer")
-        row.value = NSDate()
+        row.value = Date()
         section.addFormRow(row)
         
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("Dates") //
+        section = XLFormSectionDescriptor.formSection(withTitle: "Dates") //
         form.addFormSection(section)
 
         
         // Date
         row = XLFormRowDescriptor(tag: Tags.Date, rowType:XLFormRowDescriptorTypeDate, title:"Date")
-        row.value = NSDate()
-        row.cellConfigAtConfigure["minimumDate"] = NSDate()
-        row.cellConfigAtConfigure["maximumDate"] = NSDate(timeIntervalSinceNow: 60*60*24*3)
+        row.value = Date()
+        row.cellConfigAtConfigure["minimumDate"] = Date()
+        row.cellConfigAtConfigure["maximumDate"] = Date(timeIntervalSinceNow: 60*60*24*3)
         section.addFormRow(row)
         
         // Time
         row = XLFormRowDescriptor(tag: Tags.Time, rowType: XLFormRowDescriptorTypeTime, title: "Time")
         row.cellConfigAtConfigure["minuteInterval"] = 10
-        row.value = NSDate()
+        row.value = Date()
         section.addFormRow(row)
         
         // DateTime
         row = XLFormRowDescriptor(tag: Tags.DateTime, rowType: XLFormRowDescriptorTypeDateTime, title: "Date Time")
-        row.value = NSDate()
+        row.value = Date()
         section.addFormRow(row)
         
         // CountDownTimer
         row = XLFormRowDescriptor(tag: Tags.CountDownTimer, rowType: XLFormRowDescriptorTypeCountDownTimer, title: "Countdown Timer")
-        row.value = NSDate()
+        row.value = Date()
         section.addFormRow(row)
         
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Disabled Dates")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Disabled Dates")
         section.footerTitle = "DatesFormViewController.swift"
         form.addFormSection(section)
         
         // Date
         row = XLFormRowDescriptor(tag: nil, rowType: XLFormRowDescriptorTypeDate, title: "Date")
-        row.disabled = NSNumber(bool: true)
-        row.required = true
-        row.value = NSDate()
+        row.disabled = NSNumber(value: true as Bool)
+        row.isRequired = true
+        row.value = Date()
         section.addFormRow(row)
 
         
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("DatePicker")
+        section = XLFormSectionDescriptor.formSection(withTitle: "DatePicker")
         form.addFormSection(section)
 
         // DatePicker
         row = XLFormRowDescriptor(tag: Tags.DatePicker, rowType:XLFormRowDescriptorTypeDatePicker)
-        row.cellConfigAtConfigure["datePicker.datePickerMode"] = UIDatePickerMode.Date.rawValue
-        row.value = NSDate()
+        row.cellConfigAtConfigure["datePicker.datePickerMode"] = UIDatePickerMode.date.rawValue
+        row.value = Date()
         section.addFormRow(row)
         
         
@@ -150,8 +150,7 @@ class DatesFormViewController: XLFormViewController {
     
     
 // MARK: - XLFormDescriptorDelegate
-    
-    override func formRowDescriptorValueHasChanged(formRow: XLFormRowDescriptor!, oldValue: AnyObject!, newValue: AnyObject!) {
+    override func formRowDescriptorValueHasChanged(_ formRow: XLFormRowDescriptor!, oldValue: Any!, newValue: Any!) {
         super.formRowDescriptorValueHasChanged(formRow, oldValue: oldValue, newValue: newValue)
         if formRow.tag ==  Tags.DatePicker {
             let alertView = UIAlertView(title: "DatePicker", message: "Value Has changed!", delegate: self, cancelButtonTitle: "OK")

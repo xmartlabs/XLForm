@@ -26,7 +26,7 @@
 
 class InputsFormViewController : XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         static let Name = "name"
         static let Email = "email"
         static let Twitter = "twitter"
@@ -41,7 +41,7 @@ class InputsFormViewController : XLFormViewController {
         static let Notes = "notes"
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -60,25 +60,25 @@ class InputsFormViewController : XLFormViewController {
         form = XLFormDescriptor(title: "Text Fields")
         form.assignFirstResponderOnShow = true
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("TextField Types")
+        section = XLFormSectionDescriptor.formSection(withTitle: "TextField Types")
         section.footerTitle = "This is a long text that will appear on section footer"
         form.addFormSection(section)
         
         
         // Name
         row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeText, title: "Name")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Email
         row = XLFormRowDescriptor(tag: Tags.Email, rowType: XLFormRowDescriptorTypeEmail, title: "Email")
         // validate the email
-        row.addValidator(XLFormValidator.emailValidator())
+        row.addValidator(XLFormValidator.email())
         section.addFormRow(row)
         
         // Twitter
         row = XLFormRowDescriptor(tag: Tags.Name, rowType: XLFormRowDescriptorTypeTwitter, title: "Twitter")
-        row.disabled = NSNumber(bool: true)
+        row.disabled = NSNumber(value: true as Bool)
         row.value = "@no_editable"
         section.addFormRow(row)
         
@@ -121,7 +121,7 @@ class InputsFormViewController : XLFormViewController {
         section.addFormRow(row)
         
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("TextView With Label Example")
+        section = XLFormSectionDescriptor.formSection(withTitle: "TextView With Label Example")
         form.addFormSection(section)
         
         row = XLFormRowDescriptor(tag: Tags.Number, rowType: XLFormRowDescriptorTypeTextView, title: "Notes")
@@ -134,10 +134,10 @@ class InputsFormViewController : XLFormViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "savePressed:")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(InputsFormViewController.savePressed(_:)))
     }
     
-    func savePressed(button: UIBarButtonItem)
+    func savePressed(_ button: UIBarButtonItem)
     {
         let validationErrors : Array<NSError> = self.formValidationErrors() as! Array<NSError>
         if (validationErrors.count > 0){

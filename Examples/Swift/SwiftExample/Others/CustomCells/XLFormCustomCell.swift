@@ -50,10 +50,10 @@ class XLFormCustomCell : XLFormBaseCell {
         }
     }
    
-    override func formDescriptorCellDidSelectedWithFormController(controller: XLFormViewController!) {
+    override func formDescriptorCellDidSelected(withForm controller: XLFormViewController!) {
         // custom code here
         // i.e new behaviour when cell has been selected
-        if let string = rowDescriptor?.value as? String where string == "Am a custom cell, select me!" {
+        if let string = rowDescriptor?.value as? String , string == "Am a custom cell, select me!" {
             self.rowDescriptor?.value = string
         }
         else {
@@ -61,7 +61,7 @@ class XLFormCustomCell : XLFormBaseCell {
         }
         
         update()
-        controller.tableView.selectRowAtIndexPath(nil, animated: true, scrollPosition: .None)
+        controller.tableView.selectRow(at: nil, animated: true, scrollPosition: .none)
     }
     
 }

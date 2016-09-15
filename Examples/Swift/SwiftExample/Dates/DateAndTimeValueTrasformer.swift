@@ -23,7 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-class DateValueTrasformer : NSValueTransformer {
+class DateValueTrasformer : ValueTransformer {
 
     override class func transformedValueClass() -> AnyClass {
         return NSString.self
@@ -34,18 +34,18 @@ class DateValueTrasformer : NSValueTransformer {
         return false
     }
     
-    override func transformedValue(value: AnyObject?) -> AnyObject? {
-        if let date = value as? NSDate {
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = .FullStyle
-            dateFormatter.timeStyle = .NoStyle
-            return dateFormatter.stringFromDate(date)
+    override func transformedValue(_ value: Any?) -> Any? {
+        if let date = value as? Date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .full
+            dateFormatter.timeStyle = .none
+            return dateFormatter.string(from: date)
         }
         return nil
     }
 }
 
-class DateTimeValueTrasformer: NSValueTransformer {
+class DateTimeValueTrasformer: ValueTransformer {
 
     override class func transformedValueClass() -> AnyClass {
         return NSString.self
@@ -56,12 +56,12 @@ class DateTimeValueTrasformer: NSValueTransformer {
         return false
     }
 
-    override func transformedValue(value: AnyObject?) -> AnyObject? {
-        if let date = value as? NSDate {
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateStyle = .MediumStyle
-            dateFormatter.timeStyle = .ShortStyle
-            return dateFormatter.stringFromDate(date)
+    override func transformedValue(_ value: Any?) -> Any? {
+        if let date = value as? Date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .short
+            return dateFormatter.string(from: date)
         }
         return nil
     }

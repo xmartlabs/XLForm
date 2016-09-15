@@ -30,29 +30,29 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     
     enum kWeekDay: Int {
         case
-        Sunday = 1,
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday,
-        Saturday
+        sunday = 1,
+        monday,
+        tuesday,
+        wednesday,
+        thursday,
+        friday,
+        saturday
         
         func description() -> String {
             switch self {
-            case .Sunday:
+            case .sunday:
                 return "Sunday"
-            case .Monday:
+            case .monday:
                 return "Monday"
-            case .Tuesday:
+            case .tuesday:
                 return "Tuesday"
-            case .Wednesday:
+            case .wednesday:
                 return "Wednesday"
-            case .Thursday:
+            case .thursday:
                 return "Thursday"
-            case .Friday:
+            case .friday:
                 return "Friday"
-            case .Saturday:
+            case .saturday:
                 return "Saturday"
             }
         }
@@ -60,13 +60,13 @@ class XLFormWeekDaysCell : XLFormBaseCell {
         //Add Custom Functions 
         
         //Allows for iteration as needed (for in ...)
-        static let allValues = [Sunday,
-                                Monday,
-                                Tuesday,
-                                Wednesday,
-                                Thursday,
-                                Friday,
-                                Saturday]
+        static let allValues = [sunday,
+                                monday,
+                                tuesday,
+                                wednesday,
+                                thursday,
+                                friday,
+                                saturday]
     }
     
     @IBOutlet weak var sundayButton: UIButton!
@@ -81,7 +81,7 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     
     override func configure() {
         super.configure()
-        selectionStyle = .None
+        selectionStyle = .none
         configureButtons()
     }
     
@@ -91,17 +91,17 @@ class XLFormWeekDaysCell : XLFormBaseCell {
         updateButtons()
     }
     
-    override static func formDescriptorCellHeightForRowDescriptor(rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
+    override static func formDescriptorCellHeight(for rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
         return 60
     }
     
 //MARK: - Action
     
-    @IBAction func dayTapped(sender: UIButton) {
+    @IBAction func dayTapped(_ sender: UIButton) {
         let day = getDayFormButton(sender)
-        sender.selected = !sender.selected
+        sender.isSelected = !sender.isSelected
         var newValue = rowDescriptor!.value as! Dictionary<String, Bool>
-        newValue[day] = sender.selected
+        newValue[day] = sender.isSelected
         rowDescriptor!.value = newValue
     }
     
@@ -110,8 +110,8 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     func configureButtons() {
         for subview in contentView.subviews {
             if let button = subview as? UIButton {
-                button.setImage(UIImage(named: "uncheckedDay"), forState: .Normal)
-                button.setImage(UIImage(named: "checkedDay"), forState: .Selected)
+                button.setImage(UIImage(named: "uncheckedDay"), for: UIControlState())
+                button.setImage(UIImage(named: "checkedDay"), for: .selected)
                 button.adjustsImageWhenHighlighted = false
                 imageTopTitleBottom(button)
             }
@@ -122,13 +122,13 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     func updateButtons() {
 		var value = rowDescriptor!.value as! Dictionary<String, Bool>
 
-        sundayButton.selected = value[kWeekDay.Sunday.description()]!
-        mondayButton.selected = value[kWeekDay.Monday.description()]!
-        tuesdayButton.selected = value[kWeekDay.Tuesday.description()]!
-        wednesdayButton.selected = value[kWeekDay.Wednesday.description()]!
-        thursdayButton.selected = value[kWeekDay.Thursday.description()]!
-        fridayButton.selected = value[kWeekDay.Friday.description()]!
-        saturdayButton.selected = value[kWeekDay.Saturday.description()]!
+        sundayButton.isSelected = value[kWeekDay.sunday.description()]!
+        mondayButton.isSelected = value[kWeekDay.monday.description()]!
+        tuesdayButton.isSelected = value[kWeekDay.tuesday.description()]!
+        wednesdayButton.isSelected = value[kWeekDay.wednesday.description()]!
+        thursdayButton.isSelected = value[kWeekDay.thursday.description()]!
+        fridayButton.isSelected = value[kWeekDay.friday.description()]!
+        saturdayButton.isSelected = value[kWeekDay.saturday.description()]!
         
         sundayButton.alpha = rowDescriptor!.isDisabled() ? 0.6 : 1
         mondayButton.alpha = mondayButton.alpha
@@ -139,7 +139,7 @@ class XLFormWeekDaysCell : XLFormBaseCell {
         saturdayButton.alpha = mondayButton.alpha
     }
     
-    func imageTopTitleBottom(button: UIButton) {
+    func imageTopTitleBottom(_ button: UIButton) {
         // the space between the image and text
         let spacing : CGFloat = 3.0
         
@@ -150,26 +150,26 @@ class XLFormWeekDaysCell : XLFormBaseCell {
         
         // raise the image and push it right so it appears centered
         //  above the text
-        let titleSize : CGSize = (button.titleLabel!.text! as NSString).sizeWithAttributes([NSFontAttributeName: button.titleLabel!.font])
+        let titleSize : CGSize = (button.titleLabel!.text! as NSString).size(attributes: [NSFontAttributeName: button.titleLabel!.font])
         button.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0.0, 0.0, -titleSize.width)
     }
     
-    func getDayFormButton(button: UIButton) -> String {
+    func getDayFormButton(_ button: UIButton) -> String {
         switch button {
         case sundayButton:
-            return kWeekDay.Sunday.description()
+            return kWeekDay.sunday.description()
         case mondayButton:
-            return kWeekDay.Monday.description()
+            return kWeekDay.monday.description()
         case tuesdayButton:
-            return kWeekDay.Tuesday.description()
+            return kWeekDay.tuesday.description()
         case wednesdayButton:
-            return kWeekDay.Wednesday.description()
+            return kWeekDay.wednesday.description()
         case thursdayButton:
-            return kWeekDay.Thursday.description()
+            return kWeekDay.thursday.description()
         case fridayButton:
-            return kWeekDay.Friday.description()
+            return kWeekDay.friday.description()
         default:
-            return kWeekDay.Saturday.description()
+            return kWeekDay.saturday.description()
         }
     }
     

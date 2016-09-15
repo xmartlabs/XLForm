@@ -28,7 +28,7 @@
 
 class ExamplesFormViewController : XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         static let RealExample = "RealExamples"
         static let TextFieldAndTextView = "TextFieldAndTextView"
         static let Selectors = "Selectors"
@@ -46,7 +46,7 @@ class ExamplesFormViewController : XLFormViewController {
         static let AccessoryView = "Accessory View"
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -66,7 +66,7 @@ class ExamplesFormViewController : XLFormViewController {
                 
         form = XLFormDescriptor()
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Real examples")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Real examples")
         form.addFormSection(section)
         
         // NativeEventFormViewController
@@ -74,7 +74,7 @@ class ExamplesFormViewController : XLFormViewController {
         row.action.formSegueIdentifier = "NativeEventNavigationViewControllerSegue"
         section.addFormRow(row)
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("This form is actually an example")
+        section = XLFormSectionDescriptor.formSection(withTitle: "This form is actually an example")
         section.footerTitle = "ExamplesFormViewController.swift, Select an option to view another example"
         form.addFormSection(section)
         
@@ -102,7 +102,7 @@ class ExamplesFormViewController : XLFormViewController {
         section.addFormRow(row)
         
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Multivalued example")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Multivalued example")
         form.addFormSection(section)
         
         
@@ -123,14 +123,14 @@ class ExamplesFormViewController : XLFormViewController {
         section.addFormRow(row)
         
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("UI Customization")
+        section = XLFormSectionDescriptor.formSection(withTitle: "UI Customization")
         form.addFormSection(section)
         
         row = XLFormRowDescriptor(tag: Tags.UICusomization, rowType: XLFormRowDescriptorTypeButton, title:"UI Customization")
         row.action.viewControllerClass = UICustomizationFormViewController.self
         section.addFormRow(row)
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Custom Rows")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Custom Rows")
         form.addFormSection(section)
 
         
@@ -138,7 +138,7 @@ class ExamplesFormViewController : XLFormViewController {
         row.action.viewControllerClass = CustomRowsViewController.self
         section.addFormRow(row)
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Accessory View")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Accessory View")
         form.addFormSection(section)
 
         row = XLFormRowDescriptor(tag: Tags.AccessoryView, rowType: XLFormRowDescriptorTypeButton, title:"Accessory Views")
@@ -146,7 +146,7 @@ class ExamplesFormViewController : XLFormViewController {
         section.addFormRow(row)
         
     
-        section = XLFormSectionDescriptor.formSectionWithTitle("Validation Examples")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Validation Examples")
         form.addFormSection(section)
         
         
@@ -154,7 +154,7 @@ class ExamplesFormViewController : XLFormViewController {
         row.action.formSegueIdentifier = "ValidationExamplesFormViewControllerSegue"
         section.addFormRow(row)
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("Using Predicates")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Using Predicates")
         form.addFormSection(section)
         
         
