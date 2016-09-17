@@ -94,6 +94,11 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
     return [[[self class] alloc] initWithTitle:title];
 }
 
+-(NSArray *)allFormSections
+{
+    return [NSArray arrayWithArray:_allSections];
+}
+
 -(void)addFormSection:(XLFormSectionDescriptor *)formSection
 {
     [self insertObject:formSection inAllSectionsAtIndex:[self.allSections count]];
