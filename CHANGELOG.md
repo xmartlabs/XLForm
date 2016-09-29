@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ### Latest:
+* Added XL_APP_EXTENSIONS macro to allow app extensions (@MuscleRumble #357)
+* Added shouldChangeTextInRange delegate call for UITextView. (@kiancheong #782)
+* Added support for NSFormatter (@ziogaschr, @fwhenin, @bhirt-bpl #306)
+* Added `height` property to XLFormRowDescriptor to allow setting height of individual cells.
+
+### Version 3.1.2:
 * Update row in `cellForRowAtIndexPath` instead of `willDisplayCell`
 * Added cancel action to image selector (by koenpunt)
 * Other minor fixes

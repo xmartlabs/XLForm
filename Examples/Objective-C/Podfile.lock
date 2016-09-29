@@ -1,0 +1,78 @@
+PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - AXRatingView (1.0.3)
+  - JVFloatLabeledTextField (1.0.2)
+  - SHSPhoneComponent (2.15)
+  - XLData (2.0.0):
+    - XLData/Core (= 2.0.0)
+    - XLData/CoreData (= 2.0.0)
+    - XLData/CoreRemote (= 2.0.0)
+    - XLData/DataStore (= 2.0.0)
+    - XLData/RemoteCoreData (= 2.0.0)
+    - XLData/RemoteDataStore (= 2.0.0)
+  - XLData/Core (2.0.0)
+  - XLData/CoreData (2.0.0):
+    - XLData/Core
+  - XLData/CoreRemote (2.0.0):
+    - AFNetworking (~> 2.0)
+  - XLData/DataStore (2.0.0):
+    - XLData/Core
+  - XLData/RemoteCoreData (2.0.0):
+    - XLData/CoreData
+    - XLData/CoreRemote
+  - XLData/RemoteDataStore (2.0.0):
+    - XLData/CoreRemote
+    - XLData/DataStore
+  - XLForm (3.1.2)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.0)
+  - AXRatingView (= 1.0.3)
+  - JVFloatLabeledTextField (= 1.0.2)
+  - SHSPhoneComponent
+  - XLData (from `https://github.com/xmartlabs/XLData.git`, commit `1f9019b56242a2019c7f7e11ec4ef823c397ebcf`)
+  - XLForm (from `../../`)
+
+EXTERNAL SOURCES:
+  XLData:
+    :commit: 1f9019b56242a2019c7f7e11ec4ef823c397ebcf
+    :git: https://github.com/xmartlabs/XLData.git
+  XLForm:
+    :path: ../../
+
+CHECKOUT OPTIONS:
+  XLData:
+    :commit: 1f9019b56242a2019c7f7e11ec4ef823c397ebcf
+    :git: https://github.com/xmartlabs/XLData.git
+
+SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  AXRatingView: ccaadc1bbda99a4b7e1d556059482d2b933a9f4e
+  JVFloatLabeledTextField: 58a3a32cfb800e5b224f676987e7c13abf50a14d
+  SHSPhoneComponent: 4cec0653a150ad63cbc52b0c8b29ce2d3c9c26f0
+  XLData: df725c6179e2e0c80bf56a1ecad9afd169707a6d
+  XLForm: 6bb3c20857e2983cf494cb8b4d666c2a24673d5e
+
+PODFILE CHECKSUM: 80615792e859be64c95add3bb57c1596234faf95
+
+COCOAPODS: 1.0.0

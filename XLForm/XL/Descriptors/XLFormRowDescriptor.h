@@ -29,6 +29,8 @@
 #import "XLFormValidatorProtocol.h"
 #import "XLFormValidationStatus.h"
 
+extern CGFloat XLFormUnspecifiedCellHeight;
+
 @class XLFormViewController;
 @class XLFormSectionDescriptor;
 @protocol XLFormValidatorProtocol;
@@ -52,8 +54,17 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nonatomic, nullable) id value;
 @property (nullable) Class valueTransformer;
 @property UITableViewCellStyle cellStyle;
+@property (nonatomic) CGFloat height;
 
 @property (copy, nullable) XLOnChangeBlock onChangeBlock;
+@property BOOL useValueFormatterDuringInput;
+@property (nullable) NSFormatter *valueFormatter;
+
+// returns the display text for the row descriptor, taking into account NSFormatters and default placeholder values
+- (nonnull NSString *) displayTextValue;
+
+// returns the editing text value for the row descriptor, taking into account NSFormatters.
+- (nonnull NSString *) editTextValue;
 
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfig;
 @property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigIfDisabled;
@@ -78,7 +89,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nullable) NSString *requireMsg;
 -(void)addValidator:(nonnull id<XLFormValidatorProtocol>)validator;
 -(void)removeValidator:(nonnull id<XLFormValidatorProtocol>)validator;
--(nonnull XLFormValidationStatus *)doValidation;
+-(nullable XLFormValidationStatus *)doValidation;
 
 // ===========================
 // property used for Selectors

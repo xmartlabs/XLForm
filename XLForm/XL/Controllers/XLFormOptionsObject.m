@@ -36,7 +36,7 @@
     return [[XLFormOptionsObject alloc] initWithValue:value displayText:displayText];
 }
 
--(id)initWithValue:(id)value displayText:(NSString *)displayText
+-(instancetype)initWithValue:(id)value displayText:(NSString *)displayText
 {
     self = [super init];
     if (self){
@@ -94,7 +94,7 @@
     [encoder encodeObject:self.formDisplayText
                    forKey:@"formDisplayText"];
 }
--(id)initWithCoder:(NSCoder *)decoder
+-(instancetype)initWithCoder:(NSCoder *)decoder
 {
     if ((self=[super init])) {
         

@@ -228,6 +228,7 @@
         
         [self.formViewController presentViewController:alertController animated:YES completion:nil];
     }
+#ifndef XL_APP_EXTENSIONS
     else{
         UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
                                                                   delegate:self cancelButtonTitle:nil
@@ -243,6 +244,7 @@
         
         
     }
+#endif
 #endif
 }
 

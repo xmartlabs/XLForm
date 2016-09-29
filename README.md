@@ -4,7 +4,7 @@ XLForm
 By [XMARTLABS](http://xmartlabs.com).
 
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
-[![license](https://img.shields.io/badge/pod-3.1.1-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
+[![license](https://img.shields.io/badge/pod-3.2.0-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
 
 **If you are looking for Swift 2 native implementation we have recently created [Eureka], a complete re-design of XLForm in Swift 2.** *Do not panic, We will continue maintaining and improving XLForm, obj-c rocks!!*
 
@@ -38,8 +38,75 @@ What XLForm does
 
 
 
-How to create a form
------------------------------
+## How to create a form
+
+#### Create an instance of XLFormViewController
+
+##### Swift
+
+```swift
+class CalendarEventFormViewController : XLFormViewController {
+
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    self.initializeForm()
+  }
+
+
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    self.initializeForm()
+  }
+
+  func initializeForm() {
+    // Implementation details covered in the next section.
+  }
+
+}
+
+```
+
+##### Objective-C
+
+```objc
+#import "XLFormViewController.h"
+
+@interface CalendarEventFormViewController: XLFormViewController
+
+@end
+```
+
+```objc
+@interface ExamplesFormViewController ()
+
+@end
+
+@implementation ExamplesFormViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
+}
+
+- (void)initializeForm {
+  // Implementation details covered in the next section.
+}
+
+@end
+```
+
+##### Implementing the initializeForm method
 
 To create a form we should declare it through a `XLFormDescriptor` instance and assign it to a `XLFormViewController` instance. As we said XLForm works based on a DSL that hides complex and boilerplate stuff without losing the power and flexibility of hand-made forms.
 
@@ -51,49 +118,57 @@ To define a form we use 3 classes:
 
 A form definition is a `XLFormDescriptor` instance that contains one or more sections (`XLFormSectionDescriptor` instances) and each section contains several rows (`XLFormRowDescriptor` instance). As you may have noticed the DSL structure is analog to the structure of a `UITableView` (Table -->> Sections -- >> Rows). The resulting table-view form's structure (sections and rows order) mirrors the definition's structure.
 
-#####Let's see part of the iOS Calendar Event Form definition.
-
+##### Let's see an example implementation of initializeForm to define the iOS Calendar Event Form
 
 ```objc
-XLFormDescriptor * form;
-XLFormSectionDescriptor * section;
-XLFormRowDescriptor * row;
+- (void)initializeForm {
+  XLFormDescriptor * form;
+  XLFormSectionDescriptor * section;
+  XLFormRowDescriptor * row;
 
-form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
+  form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
 
-// First section
-section = [XLFormSectionDescriptor formSection];
-[form addFormSection:section];
+  // First section
+  section = [XLFormSectionDescriptor formSection];
+  [form addFormSection:section];
 
-// Title
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
-[section addFormRow:row];
+  // Title
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
+  [row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
+  [section addFormRow:row];
 
-// Location
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:@"Location" forKey:@"textField.placeholder"];
-[section addFormRow:row];
+  // Location
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRowDescriptorTypeText];
+  [row.cellConfigAtConfigure setObject:@"Location" forKey:@"textField.placeholder"];
+  [section addFormRow:row];
 
-// Second Section
-section = [XLFormSectionDescriptor formSection];
-[form addFormSection:section];
+  // Second Section
+  section = [XLFormSectionDescriptor formSection];
+  [form addFormSection:section];
 
-// All-day
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"all-day" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"All-day"];
-[section addFormRow:row];
+  // All-day
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"all-day" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"All-day"];
+  [section addFormRow:row];
 
-// Starts
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
-row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
-[section addFormRow:row];
+  // Starts
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
+  row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
+  [section addFormRow:row];
+  
+  self.form = form;
+}
 ```
 
 XLForm will load the table-view form from the previously explained definition. The most interesting part is that it will update the table-view form based on the form definition modifications.
 That means that we are able to make changes on the table-view form adding or removing section definitions or row  definitions to the form definition on runtime and you will never need to care again about `NSIndexPath`, `UITableViewDelegate`, `UITableViewDataSource` or other complexities.
 
-
 **To see more complex form definitions take a look at the example application in the Examples folder of this repository. You can also run the examples on your own device if you wish.** XLForm **has no** dependencies over other pods, anyway the examples  project makes use of some cocoapods to show advanced XLForm features.
+
+## Using XLForm with Storyboards
+
+* Perform the steps from **How to create a form**
+* In Interface Builder (IB), drag-and-drop a **UIViewController** onto the Storyboard
+* Associate your custom form class to the **UIViewController** using the **Identity Inspector**
 
 How to run XLForm examples
 ---------------------------------
@@ -615,6 +690,8 @@ XLForm sets up `rowDescriptor` property using the `XLFormRowDescriptor` instance
 
 The developer is responsible for update its views with the `rowDescriptor` value as well as set the selected value to `rowDescriptor` from within the custom selector view controller.
 
+> Note: the properties `viewControllerClass`, `viewControllerNibName` or `viewControllerStoryboardId` are mutually exclusive and are used by `XLFormButtonCell` and `XLFormSelectorCell`. If you create a custom cell then you are responsible for using them. 
+
 
 #### Another example
 
@@ -804,7 +881,7 @@ Let's see how to change the color of the cell label:
 
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
+[row.cellConfig setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
 ```
 
@@ -999,6 +1076,15 @@ This is how you can set them:
 [row.cellConfigAtConfigure setObject:@(UIReturnKeyGo) forKey:@"nextReturnKeyType"];
 ```
 
+#### How to change the height of one cell
+
+If you want to change the height for all cells of one class you should subclass that cell and override the class method `formDescriptorCellHeightForRowDescriptor`. 
+If you want to change the height of one individual cell then you can set that height to the `height` property of XLFormRowDescripto like this:
+```
+XLFormRowDescriptor* row = ... 
+row.height = 55;
+```
+
 Installation
 --------------------------
 
@@ -1010,15 +1096,7 @@ Installation
 
 XLForm **has no** dependencies over other pods.
 
-## Carthage
-
-In your `Cartfile` add:
-
-```
-github "xmartlabs/XLForm" ~> 3.0
-```
-
-### How to use master branch
+#### How to use master branch
 
 Often master branch contains most recent features and latest fixes. On the other hand this features was not fully tested and changes on master may occur at any time. For the previous reasons I stongly recommend to fork the repository and manage the updates from master on your own making the proper pull on demand.
 
@@ -1029,13 +1107,38 @@ To use xmartlabs master branch.....
 
 You can replace the repository URL for your forked version url if you wish.
 
-### How to use XLForm in Swift files
+#### How to use XLForm in Swift files
 
 If you have installed XLForm with cocoapods and have set `use_frameworks!` in your Podfile, you can add `import XLForm` to any Swift file.
 
 If you are using cocoapods but have not set `use_frameworks!` in your Podfile, add `#import <XLForm/XLForm.h>` to your bridging header file.
 
 For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift").
+
+
+## Carthage
+
+In your `Cartfile` add:
+
+```
+github "xmartlabs/XLForm" ~> 3.0
+```
+
+## Using git submodules
+
+* Clone XLForm as a git [submodule](http://git-scm.com/docs/git-submodule) by running the following command from your project root git folder.
+
+```bash
+$ git submodule add https://github.com/xmartlabs/XLForm.git
+```
+
+* Open XLForm folder that was created by the previous git submodule command and drag the XLForm.xcodeproj into the Project Navigator of your application's Xcode project.
+
+* Select the XLForm.xcodeproj in the Project Navigator and verify the deployment target matches with your application deployment target.
+
+* Select your project in the Xcode Navigation and then select your application target from the sidebar. Next select the "General" tab and click on the + button under the "Embedded Binaries" section.
+
+* Select `XLForm.framework` and we are done!
 
 Requirements
 -----------------------------
