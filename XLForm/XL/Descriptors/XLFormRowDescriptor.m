@@ -69,6 +69,7 @@ CGFloat XLFormRowInitialHeight = -2;
 @synthesize hidePredicateCache = _hidePredicateCache;
 @synthesize disablePredicateCache = _disablePredicateCache;
 @synthesize cellConfig = _cellConfig;
+@synthesize cellConfigForSelector = _cellConfigForSelector;
 @synthesize cellConfigIfDisabled = _cellConfigIfDisabled;
 @synthesize cellConfigAtConfigure = _cellConfigAtConfigure;
 @synthesize height = _height;
