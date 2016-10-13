@@ -69,6 +69,7 @@ CGFloat XLFormRowInitialHeight = -2;
 @synthesize hidePredicateCache = _hidePredicateCache;
 @synthesize disablePredicateCache = _disablePredicateCache;
 @synthesize cellConfig = _cellConfig;
+@synthesize cellConfigForSelector = _cellConfigForSelector;
 @synthesize cellConfigIfDisabled = _cellConfigIfDisabled;
 @synthesize cellConfigAtConfigure = _cellConfigAtConfigure;
 @synthesize height = _height;
@@ -164,6 +165,14 @@ CGFloat XLFormRowInitialHeight = -2;
     _cellConfig = [NSMutableDictionary dictionary];
     return _cellConfig;
 }
+
+-(NSMutableDictionary *)cellConfigForSelector
+{
+    if (_cellConfigForSelector) return _cellConfigForSelector;
+    _cellConfigForSelector = [NSMutableDictionary dictionary];
+    return _cellConfigForSelector;
+}
+
 
 -(NSMutableDictionary *)cellConfigIfDisabled
 {
