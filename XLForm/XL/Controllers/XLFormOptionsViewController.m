@@ -138,8 +138,8 @@
         if ([[self.rowDescriptor.value valueData] isEqual:[cellObject valueData]]){
             if (!self.rowDescriptor.required){
                 self.rowDescriptor.value = nil;
+				cell.accessoryType = UITableViewCellAccessoryNone;
             }
-            cell.accessoryType = UITableViewCellAccessoryNone;
         }
         else{
             if (self.rowDescriptor.value){
