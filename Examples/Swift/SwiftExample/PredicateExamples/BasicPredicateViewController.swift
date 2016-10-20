@@ -26,7 +26,7 @@
 
 class BasicPredicateViewController : XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         
         static let HideRow = "tag1"
         static let HideSection = "tag2"
@@ -35,7 +35,7 @@ class BasicPredicateViewController : XLFormViewController {
 
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }

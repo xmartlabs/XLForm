@@ -14,18 +14,18 @@ let XLFormRowDescriptorTypeSegmentedControl = "XLFormRowDescriptorTypeSegmentedC
 
 class InlineSegmentedCell : XLFormBaseCell {
     
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return true
     }
     
     override func becomeFirstResponder() -> Bool {
-        if isFirstResponder() {
+        if isFirstResponder {
             return super.becomeFirstResponder()
         }
         let result = super.becomeFirstResponder()
         if result {
             let inlineRowDescriptor : XLFormRowDescriptor = XLFormRowDescriptor(tag: nil, rowType: XLFormViewController.inlineRowDescriptorTypesForRowDescriptorTypes()![rowDescriptor!.rowType] as! String)
-            let cell = inlineRowDescriptor.cellForFormController(formViewController())
+            let cell = inlineRowDescriptor.cell(forForm: formViewController())
             let inlineCell = cell as? XLFormInlineRowDescriptorCell
             inlineCell?.inlineRowDescriptor = rowDescriptor
             rowDescriptor?.sectionDescriptor.addFormRow(inlineRowDescriptor, afterRow: rowDescriptor!)
@@ -35,13 +35,13 @@ class InlineSegmentedCell : XLFormBaseCell {
     }
     
     override func resignFirstResponder() -> Bool {
-        if isFirstResponder() {
+        if !isFirstResponder {
             return super.resignFirstResponder()
         }
-        let selectedRowPath : NSIndexPath = formViewController().form.indexPathOfFormRow(rowDescriptor!)!
-        let nextRowPath = NSIndexPath(forRow: selectedRowPath.row + 1, inSection: selectedRowPath.section)
-        let nextFormRow = formViewController().form.formRowAtIndex(nextRowPath)
-        let section : XLFormSectionDescriptor = formViewController().form.formSectionAtIndex(UInt(nextRowPath.section))!
+        let selectedRowPath : IndexPath = formViewController().form.indexPath(ofFormRow: rowDescriptor!)!
+        let nextRowPath = IndexPath(row: (selectedRowPath as NSIndexPath).row + 1, section: (selectedRowPath as NSIndexPath).section)
+        let nextFormRow = formViewController().form.formRow(atIndex: nextRowPath)
+        let section : XLFormSectionDescriptor = formViewController().form.formSection(at: UInt((nextRowPath as NSIndexPath).section))!
         let result = super.resignFirstResponder()
         if result {
             section.removeFormRow(nextFormRow!)
@@ -56,7 +56,7 @@ class InlineSegmentedCell : XLFormBaseCell {
     }
     
     override func formDescriptorCellBecomeFirstResponder() -> Bool {
-        if isFirstResponder() {
+        if isFirstResponder {
             resignFirstResponder()
             return false
         }
@@ -65,20 +65,20 @@ class InlineSegmentedCell : XLFormBaseCell {
     
     override func update() {
         super.update()
-        accessoryType = .None
-        editingAccessoryType = .None
-        selectionStyle = .None
+        accessoryType = .none
+        editingAccessoryType = .none
+        selectionStyle = .none
         textLabel?.text = rowDescriptor?.title
         detailTextLabel?.text = valueDisplayText()
     }
 
-    override  func formDescriptorCellDidSelectedWithFormController(controller: XLFormViewController!) {
-        controller.tableView.deselectRowAtIndexPath(controller.form.indexPathOfFormRow(rowDescriptor!)!, animated: true)
+    override  func formDescriptorCellDidSelected(withForm controller: XLFormViewController!) {
+        controller.tableView.deselectRow(at: controller.form.indexPath(ofFormRow: rowDescriptor!)!, animated: true)
     }
     
     func valueDisplayText() -> String? {
         if let value = rowDescriptor?.value {
-            return value.displayText()
+            return (value as AnyObject).displayText()
         }
         return rowDescriptor?.noValueDisplayText
     }
@@ -93,17 +93,17 @@ class InlineSegmentedControl : XLFormBaseCell, XLFormInlineRowDescriptorCell {
     
     override func configure() {
         super.configure()
-        selectionStyle = .None
+        selectionStyle = .none
         contentView.addSubview(segmentedControl)
-        contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[segmentedControl]-|", options: .AlignAllCenterY, metrics: nil, views: ["segmentedControl": segmentedControl]))
-        segmentedControl.addTarget(self, action: "valueChanged", forControlEvents: .ValueChanged)
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[segmentedControl]-|", options: .alignAllCenterY, metrics: nil, views: ["segmentedControl": segmentedControl]))
+        segmentedControl.addTarget(self, action: #selector(InlineSegmentedControl.valueChanged), for: .valueChanged)
     }
     
     override func update() {
         super.update()
         updateSegmentedControl()
         segmentedControl.selectedSegmentIndex = selectedIndex()
-        segmentedControl.enabled = rowDescriptor?.isDisabled() == false
+        segmentedControl.isEnabled = rowDescriptor?.isDisabled() == false
     }
     
     //MARK: Actions
@@ -118,24 +118,24 @@ class InlineSegmentedControl : XLFormBaseCell, XLFormInlineRowDescriptorCell {
     func getItems() -> NSMutableArray {
         let result = NSMutableArray()
         for option in inlineRowDescriptor!.selectorOptions! {
-            result.addObject(option.displayText())
+            result.add((option as AnyObject).displayText())
         }
         return result
     }
     
     func updateSegmentedControl() {
         segmentedControl.removeAllSegments()
-        getItems().enumerateObjectsUsingBlock { [weak self] object, index, stop in
-            self?.segmentedControl.insertSegmentWithTitle(object.displayText(), atIndex: index, animated: false)
-        }
+        getItems().enumerateObjects({ [weak self] (object, index, stop) in
+            self?.segmentedControl.insertSegment(withTitle: (object as AnyObject).displayText(), at: index, animated: false)
+        })
     }
     
     func selectedIndex() -> Int {
         let formRow = inlineRowDescriptor ?? rowDescriptor
-        if let value = formRow?.value {
+        if let value = formRow?.value as? NSObject {
             for option in (formRow?.selectorOptions)! {
-                if option.valueData().isEqual(value.valueData()){
-                    return formRow?.selectorOptions?.indexOf({ $0.isEqual(option) }) ?? -1
+                if ((option as! NSObject).valueData() as AnyObject) === (value.valueData() as AnyObject) {
+                    return formRow?.selectorOptions?.index(where: { ($0 as! NSObject) == (option as! NSObject) } ) ?? -1
                 }
             }
         }

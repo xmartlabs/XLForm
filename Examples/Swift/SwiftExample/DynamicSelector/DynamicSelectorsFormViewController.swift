@@ -25,7 +25,7 @@
 
 class DynamicSelectorsFormViewController : XLFormViewController {
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -42,7 +42,7 @@ class DynamicSelectorsFormViewController : XLFormViewController {
         var row : XLFormRowDescriptor
         
         // Basic Information
-        section = XLFormSectionDescriptor.formSectionWithTitle("Dynamic Selectors")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Dynamic Selectors")
         section.footerTitle = "DynamicSelectorsFormViewController.swift"
         form.addFormSection(section)
         
@@ -51,7 +51,7 @@ class DynamicSelectorsFormViewController : XLFormViewController {
         row.action.viewControllerClass = UsersTableViewController.self
         section.addFormRow(row)
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             // Selector PopOver
             row = XLFormRowDescriptor(tag: "selectorUserPopover", rowType:XLFormRowDescriptorTypeSelectorPopover, title:"User Popover")
             row.action.viewControllerClass = UsersTableViewController.self

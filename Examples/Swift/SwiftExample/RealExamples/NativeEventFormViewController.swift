@@ -31,7 +31,7 @@ class NativeEventFormViewController : XLFormViewController {
         initializeForm()
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -50,7 +50,7 @@ class NativeEventFormViewController : XLFormViewController {
         // Title
         row = XLFormRowDescriptor(tag: "title", rowType: XLFormRowDescriptorTypeText)
         row.cellConfigAtConfigure["textField.placeholder"] = "Title"
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Location
@@ -67,12 +67,12 @@ class NativeEventFormViewController : XLFormViewController {
         
         // Starts
         row = XLFormRowDescriptor(tag: "starts", rowType: XLFormRowDescriptorTypeDateTimeInline, title: "Starts")
-        row.value = NSDate(timeIntervalSinceNow: 60*60*24)
+        row.value = Date(timeIntervalSinceNow: 60*60*24)
         section.addFormRow(row)
         
         // Ends
         row = XLFormRowDescriptor(tag: "ends", rowType: XLFormRowDescriptorTypeDateTimeInline, title: "Ends")
-        row.value = NSDate(timeIntervalSinceNow: 60*60*25)
+        row.value = Date(timeIntervalSinceNow: 60*60*25)
         section.addFormRow(row)
 
         section = XLFormSectionDescriptor.formSection()
@@ -139,83 +139,83 @@ class NativeEventFormViewController : XLFormViewController {
 
     override func viewDidLoad(){
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelPressed:")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "savePressed:")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(NativeEventFormViewController.cancelPressed(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(NativeEventFormViewController.savePressed(_:)))
     }
 
 // MARK: XLFormDescriptorDelegate
 
-    override func formRowDescriptorValueHasChanged(formRow: XLFormRowDescriptor!, oldValue: AnyObject!, newValue: AnyObject!) {
+    override func formRowDescriptorValueHasChanged(_ formRow: XLFormRowDescriptor!, oldValue: Any!, newValue: Any!) {
         super.formRowDescriptorValueHasChanged(formRow, oldValue: oldValue, newValue: newValue)
         if formRow.tag == "alert" {
-            if !formRow.value!.valueData().isEqual(0) && oldValue.valueData().isEqual(0) {
+            if !((formRow.value! as AnyObject).valueData() as AnyObject).isEqual(0) && ((oldValue as AnyObject).valueData() as AnyObject).isEqual(0) {
             
                 let newRow = formRow.copy() as! XLFormRowDescriptor
                 newRow.tag = "secondAlert"
                 newRow.title = "Second Alert"
                 form.addFormRow(newRow, afterRow:formRow)
             }
-            else if !oldValue.valueData().isEqual(0) && newValue.valueData().isEqual(0) {
-                form.removeFormRowWithTag("secondAlert")
+            else if !((oldValue as AnyObject).valueData() as AnyObject).isEqual(0) && ((newValue as AnyObject).valueData() as AnyObject).isEqual(0) {
+                form.removeFormRow(withTag: "secondAlert")
             }
         }
         else if formRow.tag == "all-day" {
-            let startDateDescriptor = form.formRowWithTag("starts")!
-            let endDateDescriptor = form.formRowWithTag("ends")!
-            let dateStartCell: XLFormDateCell = startDateDescriptor.cellForFormController(self) as! XLFormDateCell
-            let dateEndCell: XLFormDateCell = endDateDescriptor.cellForFormController(self) as! XLFormDateCell
-            if formRow.value!.valueData() as? Bool == true {
+            let startDateDescriptor = form.formRow(withTag: "starts")!
+            let endDateDescriptor = form.formRow(withTag: "ends")!
+            let dateStartCell: XLFormDateCell = startDateDescriptor.cell(forForm: self) as! XLFormDateCell
+            let dateEndCell: XLFormDateCell = endDateDescriptor.cell(forForm: self) as! XLFormDateCell
+            if (formRow.value! as AnyObject).valueData() as? Bool == true {
                 startDateDescriptor.valueTransformer = DateValueTrasformer.self
                 endDateDescriptor.valueTransformer = DateValueTrasformer.self
-                dateStartCell.formDatePickerMode = .Date
-                dateEndCell.formDatePickerMode = .Date
+                dateStartCell.formDatePickerMode = .date
+                dateEndCell.formDatePickerMode = .date
             }
             else{
                 startDateDescriptor.valueTransformer = DateTimeValueTrasformer.self
                 endDateDescriptor.valueTransformer = DateTimeValueTrasformer.self
-                dateStartCell.formDatePickerMode = .DateTime
-                dateEndCell.formDatePickerMode = .DateTime
+                dateStartCell.formDatePickerMode = .dateTime
+                dateEndCell.formDatePickerMode = .dateTime
             }
             updateFormRow(startDateDescriptor)
             updateFormRow(endDateDescriptor)
         }
         else if formRow.tag == "starts" {
-            let startDateDescriptor = form.formRowWithTag("starts")!
-            let endDateDescriptor = form.formRowWithTag("ends")!
-            if startDateDescriptor.value!.compare(endDateDescriptor.value as! NSDate) == .OrderedDescending {
+            let startDateDescriptor = form.formRow(withTag: "starts")!
+            let endDateDescriptor = form.formRow(withTag: "ends")!
+            if (startDateDescriptor.value! as AnyObject).compare(endDateDescriptor.value as! Date) == .orderedDescending {
                 // startDateDescriptor is later than endDateDescriptor
-                endDateDescriptor.value = NSDate(timeInterval: 60*60*24, sinceDate: startDateDescriptor.value as! NSDate)
-                endDateDescriptor.cellConfig.removeObjectForKey("detailTextLabel.attributedText")
+                endDateDescriptor.value = Date(timeInterval: 60*60*24, since: startDateDescriptor.value as! Date)
+                endDateDescriptor.cellConfig.removeObject(forKey: "detailTextLabel.attributedText")
                 updateFormRow(endDateDescriptor)
             }
         }
         else if formRow.tag == "ends" {
-            let startDateDescriptor = form.formRowWithTag("starts")!
-            let endDateDescriptor = form.formRowWithTag("ends")!
-            let dateEndCell = endDateDescriptor.cellForFormController(self) as! XLFormDateCell
-            if startDateDescriptor.value!.compare(endDateDescriptor.value as! NSDate) == .OrderedDescending {
+            let startDateDescriptor = form.formRow(withTag: "starts")!
+            let endDateDescriptor = form.formRow(withTag: "ends")!
+            let dateEndCell = endDateDescriptor.cell(forForm: self) as! XLFormDateCell
+            if (startDateDescriptor.value! as AnyObject).compare(endDateDescriptor.value as! Date) == .orderedDescending {
                 // startDateDescriptor is later than endDateDescriptor
                 dateEndCell.update()
                 let newDetailText =  dateEndCell.detailTextLabel!.text!
-                let strikeThroughAttribute = [NSStrikethroughStyleAttributeName : NSUnderlineStyle.StyleSingle.rawValue]
+                let strikeThroughAttribute = [NSStrikethroughStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue]
                 let strikeThroughText = NSAttributedString(string: newDetailText, attributes: strikeThroughAttribute)
                 endDateDescriptor.cellConfig["detailTextLabel.attributedText"] = strikeThroughText
                 updateFormRow(endDateDescriptor)
             }
             else{
-                let endDateDescriptor = self.form.formRowWithTag("ends")!
-                endDateDescriptor.cellConfig.removeObjectForKey("detailTextLabel.attributedText")
+                let endDateDescriptor = self.form.formRow(withTag: "ends")!
+                endDateDescriptor.cellConfig.removeObject(forKey: "detailTextLabel.attributedText")
                 updateFormRow(endDateDescriptor)
             }
         }
     }
 
-    func cancelPressed(button: UIBarButtonItem){
-        dismissViewControllerAnimated(true, completion: nil)
+    func cancelPressed(_ button: UIBarButtonItem){
+        dismiss(animated: true, completion: nil)
     }
 
 
-    func savePressed(button: UIBarButtonItem){
+    func savePressed(_ button: UIBarButtonItem){
         let validationErrors : Array<NSError> = formValidationErrors() as! Array<NSError>
         if (validationErrors.count > 0){
             showFormValidationError(validationErrors.first)
@@ -230,7 +230,7 @@ class NativeEventNavigationViewController : UINavigationController {
     
     override func viewDidLoad(){
         super.viewDidLoad()
-        view.tintColor = .redColor()
+        view.tintColor = .red
     }
     
 }

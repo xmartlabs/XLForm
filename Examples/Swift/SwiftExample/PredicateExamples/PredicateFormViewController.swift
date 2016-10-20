@@ -26,7 +26,7 @@
 
 class PredicateFormViewController : XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         static let Text = "text"
         static let Integer = "integer"
         static let Switch = "switch"
@@ -34,7 +34,7 @@ class PredicateFormViewController : XLFormViewController {
         static let Account = "account"
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -77,7 +77,7 @@ class PredicateFormViewController : XLFormViewController {
         
         // Predicate Disabling
         row = XLFormRowDescriptor(tag: Tags.Date, rowType: XLFormRowDescriptorTypeDateInline, title:"Disabled")
-        row.value = NSDate()
+        row.value = Date()
         section.addFormRow(row)
         row.disabled = NSPredicate(format: "$\(Tags.Text).value contains[c] 'disable' OR ($\(Tags.Integer).value between {18, 60}) OR ($\(Tags.Switch).value == 0)")
         section.hidden = NSPredicate(format: "($\(Tags.Text).value contains[c] 'disable') AND ($\(Tags.Integer).value between {18, 60}) AND ($\(Tags.Switch).value == 0)")
@@ -99,9 +99,9 @@ class PredicateFormViewController : XLFormViewController {
         row.onChangeBlock = { [weak self] oldValue, newValue, _ in
             let noValue = "No Value"
             let message = "Old value: \(oldValue ?? noValue), New value: \(newValue ?? noValue)"
-            let alertView = UIAlertController(title: "Account Field changed", message: message, preferredStyle: .ActionSheet)
-            alertView.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-            self?.navigationController?.presentViewController(alertView, animated: true, completion: nil)
+            let alertView = UIAlertController(title: "Account Field changed", message: message, preferredStyle: .actionSheet)
+            alertView.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self?.navigationController?.present(alertView, animated: true, completion: nil)
         }
         
         self.form = form

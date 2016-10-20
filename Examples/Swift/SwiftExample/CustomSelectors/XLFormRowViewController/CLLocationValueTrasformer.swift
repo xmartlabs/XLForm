@@ -26,7 +26,7 @@
 
 import MapKit
 
-class CLLocationValueTrasformer : NSValueTransformer {
+class CLLocationValueTrasformer : ValueTransformer {
 
     override class func transformedValueClass() -> AnyClass {
         return NSString.self
@@ -37,7 +37,7 @@ class CLLocationValueTrasformer : NSValueTransformer {
         return false
     }
     
-    override func transformedValue(value: AnyObject?) -> AnyObject? {
+    override func transformedValue(_ value: Any?) -> Any? {
         if let valueData = value, let location = valueData as? CLLocation{
             return String(format: "%0.4f, %0.4f", location.coordinate.latitude, location.coordinate.longitude)
         }

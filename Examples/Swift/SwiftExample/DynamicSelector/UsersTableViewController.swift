@@ -38,7 +38,7 @@ class UserCell : UITableViewCell {
     lazy var userName : UILabel = {
         let tempUserName = UILabel()
         tempUserName.translatesAutoresizingMaskIntoConstraints = false
-        tempUserName.font = UIFont.systemFontOfSize(15.0)
+        tempUserName.font = UIFont.systemFont(ofSize: 15.0)
         return tempUserName
     }()
 
@@ -55,7 +55,7 @@ class UserCell : UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
     }
@@ -63,11 +63,11 @@ class UserCell : UITableViewCell {
 // MARK: - Layout Constraints
 
     func layoutConstraints() -> [NSLayoutConstraint]{
-        let views = ["image": self.userImage, "name": self.userName ]
+        let views = ["image": self.userImage, "name": self.userName ] as [String : Any]
         let metrics = [ "imgSize": 50.0, "margin": 12.0]
         
-        var result = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(margin)-[image(imgSize)]-[name]", options:.AlignAllTop, metrics: metrics, views: views)
-        result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(margin)-[image(imgSize)]", options:NSLayoutFormatOptions(), metrics:metrics, views: views)
+        var result = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(margin)-[image(imgSize)]-[name]", options:.alignAllTop, metrics: metrics, views: views)
+        result += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(margin)-[image(imgSize)]", options:NSLayoutFormatOptions(), metrics:metrics, views: views)
         return result
     }
     
@@ -91,9 +91,9 @@ class UsersJSONSerialization {
         "{\"id\":4,\"name\":\"Montgomery Burns\",\"imageName\":\"Montgomery_Burns.png\"}," +
         "{\"id\":5,\"name\":\"Ned Flanders\",\"imageName\":\"Ned_Flanders.png\"}," +
         "{\"id\":6,\"name\":\"Otto Mann\",\"imageName\":\"Otto_Mann.png\"}]"
-        let jsonData = dataString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        let jsonData = dataString.data(using: String.Encoding.utf8, allowLossyConversion: true)
         do {
-            let result = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions()) as! Array<AnyObject>
+            let result = try JSONSerialization.jsonObject(with: jsonData!, options: JSONSerialization.ReadingOptions()) as! Array<AnyObject>
             return result
         }
         catch let error as NSError {
@@ -124,9 +124,9 @@ class User: NSObject,  XLFormOptionObject {
     func formDisplayText() -> String {
         return self.userName
     }
-    
-    func formValue() -> AnyObject {
-        return self.userId
+
+    func formValue() -> Any {
+        return self.userId as Any
     }
     
 }
@@ -139,14 +139,14 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
     
     var userCell : UserCell?
     
-    private let kUserCellIdentifier = "UserCell"
+    fileprivate let kUserCellIdentifier = "UserCell"
     
     
     override init(style: UITableViewStyle) {
         super.init(style: style);
     }
     
-    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: NSBundle!) {
+    override init(nibName nibNameOrNil: String!, bundle nibBundleOrNil: Bundle!) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -156,53 +156,53 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerClass(UserCell.self, forCellReuseIdentifier: kUserCellIdentifier)
+        tableView.register(UserCell.self, forCellReuseIdentifier: kUserCellIdentifier)
         tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
     
 // MARK: UITableViewDataSource
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return UsersJSONSerialization.sharedInstance.userData!.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UserCell = tableView.dequeueReusableCellWithIdentifier(self.kUserCellIdentifier, forIndexPath: indexPath) as! UserCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UserCell = tableView.dequeueReusableCell(withIdentifier: self.kUserCellIdentifier, for: indexPath) as! UserCell
         let usersData = UsersJSONSerialization.sharedInstance.userData! as! Array<Dictionary<String, AnyObject>>
-        let userData = usersData[indexPath.row] as Dictionary<String, AnyObject>
+        let userData = usersData[(indexPath as NSIndexPath).row] as Dictionary<String, AnyObject>
         let userId = userData["id"] as! Int
         cell.userName.text = userData["name"] as? String
         cell.userImage.image = UIImage(named: (userData["imageName"] as? String)!)
         if let value = rowDescriptor?.value {
-            cell.accessoryType = value.formValue().isEqual(userId) ? .Checkmark : .None
+            cell.accessoryType = ((value as? XLFormOptionObject)?.formValue() as? Int) == userId ? .checkmark : .none
         }
         return cell;
 
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 73.0
     }
     
 
 //MARK: UITableViewDelegate
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let usersData = UsersJSONSerialization.sharedInstance.userData! as! Array<Dictionary<String, AnyObject>>
-        let userData = usersData[indexPath.row] as Dictionary<String, AnyObject>
+        let userData = usersData[(indexPath as NSIndexPath).row] as Dictionary<String, AnyObject>
         let user = User(userId: (userData["id"] as! Int), userName: userData["name"] as! String, userImage: userData["imageName"] as! String)
         self.rowDescriptor!.value = user;
         if let porpOver = self.popoverController {
-            porpOver.dismissPopoverAnimated(true)
+            porpOver.dismiss(animated: true)
             porpOver.delegate?.popoverControllerDidDismissPopover!(porpOver)
         }
-        else if parentViewController is UINavigationController {
-            navigationController?.popViewControllerAnimated(true)
+        else if parent is UINavigationController {
+            navigationController?.popViewController(animated: true)
         }
     }
     

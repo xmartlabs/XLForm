@@ -34,14 +34,14 @@ class XLFormRatingCell : XLFormBaseCell {
         
     override func configure() {
         super.configure()
-        selectionStyle = .None
-        ratingView.addTarget(self, action: "rateChanged:", forControlEvents:.ValueChanged)
+        selectionStyle = .none
+        ratingView.addTarget(self, action: #selector(XLFormRatingCell.rateChanged(_:)), for:.valueChanged)
     }
     
     
     override func update() {
         super.update()
-        ratingView.value = rowDescriptor!.value!.floatValue
+        ratingView.value = (rowDescriptor!.value! as AnyObject).floatValue
         rateTitle.text = rowDescriptor!.title
         ratingView.alpha = rowDescriptor!.isDisabled() ? 0.6 : 1
         rateTitle.alpha = rowDescriptor!.isDisabled() ? 0.6 : 1
@@ -49,7 +49,7 @@ class XLFormRatingCell : XLFormBaseCell {
     
 //MARK: Events
     
-    func rateChanged(ratingView : XLRatingView){
+    func rateChanged(_ ratingView : XLRatingView){
         rowDescriptor!.value = ratingView.value
     }
     

@@ -27,7 +27,7 @@ import MapKit
 
 // Mark -  NSValueTransformer
 
-class NSArrayValueTrasformer : NSValueTransformer {
+class NSArrayValueTrasformer : ValueTransformer {
 
     override class func transformedValueClass() -> AnyClass {
         return NSString.self
@@ -37,7 +37,7 @@ class NSArrayValueTrasformer : NSValueTransformer {
         return false
     }
     
-    override func transformedValue(value: AnyObject?) -> AnyObject? {
+    override func transformedValue(_ value: Any?) -> Any? {
         if let arrayValue = value as? Array<AnyObject> {
             return String(format: "%d Item%@", arrayValue.count, arrayValue.count > 1 ? "s" : "")
         }
@@ -48,7 +48,7 @@ class NSArrayValueTrasformer : NSValueTransformer {
     }
 }
 
-class ISOLanguageCodesValueTranformer : NSValueTransformer {
+class ISOLanguageCodesValueTranformer : ValueTransformer {
  
     override class func transformedValueClass() -> AnyClass {
         return NSString.self
@@ -59,9 +59,9 @@ class ISOLanguageCodesValueTranformer : NSValueTransformer {
         return false
     }
     
-    override func transformedValue(value: AnyObject?) -> AnyObject? {
+    override func transformedValue(_ value: Any?) -> Any? {
         if let stringValue = value as? String {
-            return NSLocale.currentLocale().displayNameForKey(NSLocaleLanguageCode, value: stringValue)
+            return (Locale.current as NSLocale).displayName(forKey: NSLocale.Key.languageCode, value: stringValue)
         }
         return nil
     }
@@ -71,7 +71,7 @@ class ISOLanguageCodesValueTranformer : NSValueTransformer {
 
 class SelectorsFormViewController : XLFormViewController {
     
-    private struct Tags {
+    fileprivate struct Tags {
         static let Push = "selectorPush"
         static let Popover = "selectorPopover"
         static let ActionSheet = "selectorActionSheet"
@@ -90,7 +90,7 @@ class SelectorsFormViewController : XLFormViewController {
     }
     
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -102,15 +102,15 @@ class SelectorsFormViewController : XLFormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let barButton = UIBarButtonItem(title: "Disable", style: .Plain, target: self, action: "disableEnable:")
+        let barButton = UIBarButtonItem(title: "Disable", style: .plain, target: self, action: #selector(SelectorsFormViewController.disableEnable(_:)))
         barButton.possibleTitles = Set(["Disable", "Enable"])
         navigationItem.rightBarButtonItem = barButton
     }
     
-    func disableEnable(button : UIBarButtonItem)
+    func disableEnable(_ button : UIBarButtonItem)
     {
-        form.disabled = !form.disabled
-        button.title = form.disabled ? "Enable" : "Disable"
+        form.isDisabled = !form.isDisabled
+        button.title = form.isDisabled ? "Enable" : "Disable"
         tableView.endEditing(true)
         tableView.reloadData()
     }
@@ -122,7 +122,7 @@ class SelectorsFormViewController : XLFormViewController {
         var row : XLFormRowDescriptor
         
         form = XLFormDescriptor(title: "Selectors")
-        section = XLFormSectionDescriptor.formSectionWithTitle("Selectors")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Selectors")
         section.footerTitle = "SelectorsFormViewController.swift"
         form.addFormSection(section)
         
@@ -140,7 +140,7 @@ class SelectorsFormViewController : XLFormViewController {
 
         
         // Selector Popover
-        if (UIDevice.currentDevice().userInterfaceIdiom == UIUserInterfaceIdiom.Pad){
+        if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad){
             row = XLFormRowDescriptor(tag: Tags.Popover, rowType:XLFormRowDescriptorTypeSelectorPopover, title:"PopOver")
             row.selectorOptions = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5", "Option 6"]
             row.value = "Option 2"
@@ -169,7 +169,7 @@ class SelectorsFormViewController : XLFormViewController {
         
         
         // --------- Fixed Controls
-        section = XLFormSectionDescriptor.formSectionWithTitle("Fixed Controls")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Fixed Controls")
         form.addFormSection(section)
         
         row = XLFormRowDescriptor(tag: Tags.Picker, rowType:XLFormRowDescriptorTypePicker)
@@ -178,7 +178,7 @@ class SelectorsFormViewController : XLFormViewController {
         section.addFormRow(row)
         
         // --------- Inline Selectors
-        section = XLFormSectionDescriptor.formSectionWithTitle("Inline Selectors")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Inline Selectors")
         form.addFormSection(section)
         
         row = XLFormRowDescriptor(tag: Tags.MultipleSelector, rowType:XLFormRowDescriptorTypeSelectorPickerViewInline, title:"Inline Picker View")
@@ -187,7 +187,7 @@ class SelectorsFormViewController : XLFormViewController {
         section.addFormRow(row)
         
         // --------- MultipleSelector
-        section = XLFormSectionDescriptor.formSectionWithTitle("Multiple Selectors")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Multiple Selectors")
         form.addFormSection(section)
         
         row = XLFormRowDescriptor(tag: Tags.MultipleSelector, rowType:XLFormRowDescriptorTypeMultipleSelector, title:"Multiple Selector")
@@ -206,26 +206,26 @@ class SelectorsFormViewController : XLFormViewController {
         
         // Language multiple selector
         row = XLFormRowDescriptor(tag: Tags.MultipleSelector, rowType:XLFormRowDescriptorTypeMultipleSelector, title:"Multiple Selector")
-        row.selectorOptions = NSLocale.ISOLanguageCodes()
+        row.selectorOptions = Locale.isoLanguageCodes
         row.selectorTitle = "Languages"
         row.valueTransformer = ISOLanguageCodesValueTranformer.self
-        row.value = NSLocale.preferredLanguages()
+        row.value = Locale.preferredLanguages
         section.addFormRow(row)
 
     
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             // Language multiple selector popover
             row = XLFormRowDescriptor(tag: Tags.MultipleSelectorPopover, rowType:XLFormRowDescriptorTypeMultipleSelectorPopover, title:"Multiple Selector PopOver")
-            row.selectorOptions = NSLocale.ISOLanguageCodes()
+            row.selectorOptions = Locale.isoLanguageCodes
             row.valueTransformer = ISOLanguageCodesValueTranformer.self
-            row.value = NSLocale.preferredLanguages()
+            row.value = Locale.preferredLanguages
             section.addFormRow(row)
         }
         
     
     
         // --------- Dynamic Selectors
-        section = XLFormSectionDescriptor.formSectionWithTitle("Dynamic Selectors")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Dynamic Selectors")
         form.addFormSection(section)
 
         row = XLFormRowDescriptor(tag: Tags.DynamicSelectors, rowType:XLFormRowDescriptorTypeButton, title:"Dynamic Selectors")
@@ -235,7 +235,7 @@ class SelectorsFormViewController : XLFormViewController {
         
     
         // --------- Custom Selectors
-        section = XLFormSectionDescriptor.formSectionWithTitle("Custom Selectors")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Custom Selectors")
         form.addFormSection(section)
         
         row = XLFormRowDescriptor(tag: Tags.CustomSelectors, rowType:XLFormRowDescriptorTypeButton, title:"Custom Selectors")
@@ -244,7 +244,7 @@ class SelectorsFormViewController : XLFormViewController {
         
 
         // --------- Selector definition types
-        section = XLFormSectionDescriptor.formSectionWithTitle("Selectors")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Selectors")
         form.addFormSection(section)
         
         // selector with segue class
@@ -280,7 +280,7 @@ class SelectorsFormViewController : XLFormViewController {
     }
     
     
-    override func storyboardForRow(formRow: XLFormRowDescriptor!) -> UIStoryboard! {
+    override func storyboard(forRow formRow: XLFormRowDescriptor!) -> UIStoryboard! {
         return UIStoryboard(name: "iPhoneStoryboard", bundle:nil)
     }
 
