@@ -4,7 +4,7 @@ XLForm
 By [XMARTLABS](http://xmartlabs.com).
 
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
-[![license](https://img.shields.io/badge/pod-3.2.0-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
+<a href="https://cocoapods.org/pods/XLForm"><img src="https://img.shields.io/cocoapods/v/XLForm.svg" alt="CocoaPods compatible" /></a>
 
 **If you are looking for Swift native implementation we have recently created [Eureka], a complete re-design of XLForm in Swift.** *Do not panic, We will continue maintaining and improving XLForm, obj-c rocks!!*
 
@@ -866,6 +866,7 @@ You may want to set up another properties of the `UITableViewCell`. To set up an
 You just have to add the properties to `cellConfig` or `cellConfigAtConfigure` dictionary property of `XLFormRowDescriptor`.
 The main difference between `cellConfig` and `cellConfigAtConfigure` is the time when the property is set up. `cellConfig` properties are set up each time a cell is about to be displayed. `cellConfigAtConfigure`, on the other hand, set up the property just after the init method of the cell is called and only one time.
 
+Since version 3.3.0 you can also use `cellConfigForSelector` to configure how the cells of the `XLFormOptionsViewController` look like when it is shown for a selector row.
 
 For instance if you want to set up the placeholder you can do the following:
 
@@ -1083,6 +1084,21 @@ If you want to change the height of one individual cell then you can set that he
 ```
 XLFormRowDescriptor* row = ... 
 row.height = 55;
+```
+
+#### How to change the appearance of the cells of a selector view controller (XLFormOptionsViewController)
+
+To change the appearance of the cells of a XLFormOptionsViewController you can use the `cellConfigForSelector` property on the row descriptor.
+Example:
+```
+[row.cellConfigForSelector setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
+```
+
+#### How to limit the characters of a XLFormTextFieldCell or a XLFormTextViewCell
+
+You can make this happen using the `textFieldMaxNumberOfCharacters` and the `textViewMaxNumberOfCharacters` respectively.
+```
+[row.cellConfigAtConfigure setObject:@(20) forKey:@"textViewMaxNumberOfCharacters"];
 ```
 
 Installation
