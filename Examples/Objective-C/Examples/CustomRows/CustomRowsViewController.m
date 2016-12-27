@@ -29,6 +29,7 @@
 #import "FloatLabeledTextFieldCell.h"
 #import "XLFormCustomCell.h"
 #import "XLFormInlineSegmentedCell.h"
+#import "XLFormMultipleButtonsCell.h"
 
 static NSString * const kCustomRowFirstRatingTag = @"CustomRowFirstRatingTag";
 static NSString * const kCustomRowSecondRatingTag = @"CustomRowSecondRatingTag";
@@ -115,6 +116,18 @@ static NSString * const kCustomRowText = @"kCustomText";
     customRowDescriptor.cellClass = [XLFormCustomCell class];
     [section addFormRow:customRowDescriptor];
     
+    // Section Multiple Buttons
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Multiple Buttons"];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"buttons" rowType:XLFormRowDescriptorTypeMultipleButtons title:nil];
+    row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Never"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Every Day"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Every Week"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(3) displayText:@"Every 2 Weeks"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(4) displayText:@"Every Month"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(5) displayText:@"Every Year"],
+                            ];
+    [section addFormRow:row];
     self.form = form;
 }
 

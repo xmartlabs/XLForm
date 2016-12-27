@@ -47,6 +47,7 @@
 		BF9DB1D61AE0436600B985E7 /* PredicateFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9DB1D41AE0436600B985E7 /* PredicateFormViewController.m */; };
 		BFA5F4B11BB48F8E00D045BD /* XLFormRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B01D41AB741EF0027CD45 /* XLFormRatingCell.xib */; };
 		BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */; };
+		C1914A771E12D9550096F672 /* XLFormMultipleButtonsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1914A761E12D9550096F672 /* XLFormMultipleButtonsCell.m */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 		DEA6EF911B57D6CC000F4893 /* HTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA6EF901B57D6CC000F4893 /* HTTPSessionManager.m */; };
 		DEB8235C1AD5529A00AF9FE2 /* FormattersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB8235B1AD5529A00AF9FE2 /* FormattersViewController.m */; };
@@ -125,6 +126,8 @@
 		BF9DB1D41AE0436600B985E7 /* PredicateFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PredicateFormViewController.m; path = Examples/PredicateExamples/PredicateFormViewController.m; sourceTree = SOURCE_ROOT; };
 		BFE91AF91AE159B200DE5231 /* BasicPredicateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicPredicateViewController.h; path = Examples/PredicateExamples/BasicPredicateViewController.h; sourceTree = SOURCE_ROOT; };
 		BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicPredicateViewController.m; path = Examples/PredicateExamples/BasicPredicateViewController.m; sourceTree = SOURCE_ROOT; };
+		C1914A751E12D9550096F672 /* XLFormMultipleButtonsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormMultipleButtonsCell.h; sourceTree = "<group>"; };
+		C1914A761E12D9550096F672 /* XLFormMultipleButtonsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormMultipleButtonsCell.m; sourceTree = "<group>"; };
 		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/CustomCells/XLFormCustomCell.h; sourceTree = "<group>"; };
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
 		DEA6EF8F1B57D6CC000F4893 /* HTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPSessionManager.h; path = Examples/Selectors/HTTPSessionManager.h; sourceTree = "<group>"; };
@@ -414,6 +417,7 @@
 		3CDAFC741AB0AEE5000F75B6 /* CustomRows */ = {
 			isa = PBXGroup;
 			children = (
+				C1914A741E12D9550096F672 /* Multiple Buttons */,
 				BF01E9251C21F02D00BDE045 /* Inline Segmented */,
 				3C3B01D01AB741C40027CD45 /* Rating */,
 				3C3B01E31AB74AC10027CD45 /* FloatLabeledTextField */,
@@ -456,6 +460,15 @@
 			path = Examples/PredicateDisabling;
 			sourceTree = "<group>";
 		};
+		C1914A741E12D9550096F672 /* Multiple Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				C1914A751E12D9550096F672 /* XLFormMultipleButtonsCell.h */,
+				C1914A761E12D9550096F672 /* XLFormMultipleButtonsCell.m */,
+			);
+			path = "Multiple Buttons";
+			sourceTree = "<group>";
+		};
 		DEA6EF8E1B57D698000F4893 /* SessionManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,12 +495,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2850C62418D0F707002B7D0A /* Build configuration list for PBXNativeTarget "XLForm" */;
 			buildPhases = (
-				EBE0335CCC7588D83B89A92A /* 📦 Check Pods Manifest.lock */,
+				EBE0335CCC7588D83B89A92A /* [CP] Check Pods Manifest.lock */,
 				2850C5F418D0F706002B7D0A /* Sources */,
 				2850C5F518D0F706002B7D0A /* Frameworks */,
 				2850C5F618D0F706002B7D0A /* Resources */,
-				32EB30E0A90A4E91864B1D3C /* 📦 Embed Pods Frameworks */,
-				DE3D12F5596780A66C6C3D4A /* 📦 Copy Pods Resources */,
+				32EB30E0A90A4E91864B1D3C /* [CP] Embed Pods Frameworks */,
+				DE3D12F5596780A66C6C3D4A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -542,14 +555,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		32EB30E0A90A4E91864B1D3C /* 📦 Embed Pods Frameworks */ = {
+		32EB30E0A90A4E91864B1D3C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -557,14 +570,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XLForm/Pods-XLForm-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE3D12F5596780A66C6C3D4A /* 📦 Copy Pods Resources */ = {
+		DE3D12F5596780A66C6C3D4A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,14 +585,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XLForm/Pods-XLForm-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EBE0335CCC7588D83B89A92A /* 📦 Check Pods Manifest.lock */ = {
+		EBE0335CCC7588D83B89A92A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,6 +616,7 @@
 				2850C60818D0F706002B7D0A /* main.m in Sources */,
 				D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */,
 				3C3B01F01AB74BDC0027CD45 /* FloatLabeledTextFieldCell.m in Sources */,
+				C1914A771E12D9550096F672 /* XLFormMultipleButtonsCell.m in Sources */,
 				28DBB04118D76FDC00FB8A8B /* MultivaluedFormViewController.m in Sources */,
 				28A85D5918E346C100E81A26 /* XLFormImageSelectorCell.m in Sources */,
 				28468E9818EC686500DBB015 /* NativeEventFormViewController.m in Sources */,
