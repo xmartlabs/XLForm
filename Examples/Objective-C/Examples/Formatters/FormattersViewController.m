@@ -105,6 +105,11 @@
     [row.cellConfigAtConfigure setObject:@(NSTextAlignmentRight) forKey:@"textField.textAlignment"];
     [section addFormRow:row];
     
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"megabytes" rowType:XLFormRowDescriptorTypeInfo title:@"Megabytes"];
+    row.valueFormatter = [NSByteCountFormatter new];
+    row.value = @(1024);
+    [section addFormRow:row];
+    
     section = [XLFormSectionDescriptor formSection];
     [formDescriptor addFormSection:section];
     
