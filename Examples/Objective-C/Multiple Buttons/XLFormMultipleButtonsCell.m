@@ -13,32 +13,39 @@
 NSString * const XLFormRowDescriptorTypeMultipleButtons = @"XLFormRowDescriptorTypeMultipleButtons";
 NSString * const XLFormRowDescriptorTypeMultipleButtonsControl = @"XLFormRowDescriptorTypeMultipleButtonsControl";
 
+@interface XLFormMultipleButtonsCell ()
+-(UIButton *)buttonWithTitle:(NSString *) title;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCancel;
+@property (weak, nonatomic) IBOutlet UIButton *buttonOk;
+
+@end
+
 @implementation XLFormMultipleButtonsCell
 {
     UITextField * _constraintTextField;
 }
-@synthesize button = _button;
 
 +(void)load
 {
-    [XLFormViewController.cellClassesForRowDescriptorTypes setObject:[XLFormMultipleButtonsCell class] forKey:XLFormRowDescriptorTypeMultipleButtons];
+    [XLFormViewController.cellClassesForRowDescriptorTypes setObject:NSStringFromClass([XLFormMultipleButtonsCell class]) forKey:XLFormRowDescriptorTypeMultipleButtons];
     [XLFormViewController.inlineRowDescriptorTypesForRowDescriptorTypes setObject:XLFormRowDescriptorTypeMultipleButtonsControl forKey:XLFormRowDescriptorTypeMultipleButtons];
 }
 
 #pragma mark - Properties
 
--(UIButton *)button
+-(UIButton *)buttonWithTitle:(NSString *) title;
 {
-    if (_button) return _button;
-    _button = [[UIButton alloc] init];
-    [_button setTranslatesAutoresizingMaskIntoConstraints:NO];
+    UIButton *button = [[UIButton alloc] init];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitle:title forState:UIControlStateDisabled];
+    [button setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_button setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-    [_button setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
-    
-    _button.layer.cornerRadius = 5;
-    return _button;
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    //    [button setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
+    button.backgroundColor = [UIColor grayColor];
+    button.layer.cornerRadius = 5;
+    return button;
 }
 
 
@@ -47,24 +54,21 @@ NSString * const XLFormRowDescriptorTypeMultipleButtonsControl = @"XLFormRowDesc
 -(void)configure
 {
     [super configure];
-    [self.contentView addSubview:self.button];
+    self.buttonOk.layer.cornerRadius = 5;
+    self.buttonCancel.layer.cornerRadius = 5;
     
-    [self.button addTarget:self action:@selector(leftButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    for (id option in self.rowDescriptor.selectorOptions) {
-//        [actionSheet addButtonWithTitle:[option displayText]];
-//    }
-    NSDictionary * views = @{@"button" : self.button};
-    [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0.0f]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-10-[button]-10-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+    
 }
 
 -(void)update
 {
     [super update];
-    self.button.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    [self.button setTitle:[self.rowDescriptor title] forState:UIControlStateNormal];
-    [self.button setEnabled:!self.rowDescriptor.isDisabled];
-    
+    if (self.rowDescriptor.selectorOptions.count == 2) { // We have only 2 buttons
+        [self.buttonCancel setTitle:[self.rowDescriptor.selectorOptions[0] displayText] forState:UIControlStateNormal];
+        [self.buttonCancel setTitle:[self.rowDescriptor.selectorOptions[0] displayText] forState:UIControlStateDisabled];
+        [self.buttonOk setTitle:[self.rowDescriptor.selectorOptions[1] displayText] forState:UIControlStateNormal];
+        [self.buttonOk setTitle:[self.rowDescriptor.selectorOptions[1] displayText] forState:UIControlStateDisabled];
+    }
     self.selectionStyle = self.rowDescriptor.isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
 }
 
@@ -72,8 +76,9 @@ NSString * const XLFormRowDescriptorTypeMultipleButtonsControl = @"XLFormRowDesc
 #pragma mark - Actions
 
 
--(void)leftButtonPressed:(UIButton *)leftButton
+-(IBAction)buttonPressed:(UIButton *)button
 {
+    self.rowDescriptor.value = @(button.tag);
     [self.formViewController didSelectFormRow:self.rowDescriptor];
 }
 

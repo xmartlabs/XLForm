@@ -48,6 +48,7 @@
 		BFA5F4B11BB48F8E00D045BD /* XLFormRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3B01D41AB741EF0027CD45 /* XLFormRatingCell.xib */; };
 		BFE91AFB1AE159B200DE5231 /* BasicPredicateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */; };
 		C1914A771E12D9550096F672 /* XLFormMultipleButtonsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C1914A761E12D9550096F672 /* XLFormMultipleButtonsCell.m */; };
+		C196986A1E13A7D000EA014D /* XLFormMultipleButtonsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C19698691E13A7D000EA014D /* XLFormMultipleButtonsCell.xib */; };
 		D51B8B2C19126664008C0478 /* XLFormCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B8B2B19126664008C0478 /* XLFormCustomCell.m */; };
 		DEA6EF911B57D6CC000F4893 /* HTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DEA6EF901B57D6CC000F4893 /* HTTPSessionManager.m */; };
 		DEB8235C1AD5529A00AF9FE2 /* FormattersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB8235B1AD5529A00AF9FE2 /* FormattersViewController.m */; };
@@ -128,6 +129,7 @@
 		BFE91AFA1AE159B200DE5231 /* BasicPredicateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BasicPredicateViewController.m; path = Examples/PredicateExamples/BasicPredicateViewController.m; sourceTree = SOURCE_ROOT; };
 		C1914A751E12D9550096F672 /* XLFormMultipleButtonsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLFormMultipleButtonsCell.h; sourceTree = "<group>"; };
 		C1914A761E12D9550096F672 /* XLFormMultipleButtonsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLFormMultipleButtonsCell.m; sourceTree = "<group>"; };
+		C19698691E13A7D000EA014D /* XLFormMultipleButtonsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XLFormMultipleButtonsCell.xib; sourceTree = "<group>"; };
 		D51B8B2A19126664008C0478 /* XLFormCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XLFormCustomCell.h; path = Examples/Others/CustomCells/XLFormCustomCell.h; sourceTree = "<group>"; };
 		D51B8B2B19126664008C0478 /* XLFormCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XLFormCustomCell.m; path = Examples/Others/CustomCells/XLFormCustomCell.m; sourceTree = "<group>"; };
 		DEA6EF8F1B57D6CC000F4893 /* HTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPSessionManager.h; path = Examples/Selectors/HTTPSessionManager.h; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 		C1914A741E12D9550096F672 /* Multiple Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				C19698691E13A7D000EA014D /* XLFormMultipleButtonsCell.xib */,
 				C1914A751E12D9550096F672 /* XLFormMultipleButtonsCell.h */,
 				C1914A761E12D9550096F672 /* XLFormMultipleButtonsCell.m */,
 			);
@@ -543,6 +546,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28468EA718EF594900DBB015 /* Localizable.strings in Resources */,
+				C196986A1E13A7D000EA014D /* XLFormMultipleButtonsCell.xib in Resources */,
 				2850C60618D0F706002B7D0A /* InfoPlist.strings in Resources */,
 				BFA5F4B11BB48F8E00D045BD /* XLFormRatingCell.xib in Resources */,
 				28815E2E1A8589F600B674D2 /* MapViewController.xib in Resources */,

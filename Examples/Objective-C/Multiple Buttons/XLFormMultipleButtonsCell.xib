@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="OGo-4x-YLf" customClass="XLFormMultipleButtonsCell">
+            <rect key="frame" x="0.0" y="0.0" width="478" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="OGo-4x-YLf" id="hV6-xt-6pq">
+                <rect key="frame" x="0.0" y="0.0" width="478" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lfa-iz-sZq">
+                        <rect key="frame" x="8" y="6" width="228" height="30"/>
+                        <color key="backgroundColor" red="0.86443984510000005" green="0.42204666140000002" blue="0.033364512030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonPressed:" destination="OGo-4x-YLf" eventType="touchUpInside" id="7iV-yk-qPj"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PL0-NR-Mqc">
+                        <rect key="frame" x="242" y="7" width="228" height="30"/>
+                        <color key="backgroundColor" red="0.59602659940000002" green="0.59611284730000003" blue="0.59599941970000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <state key="normal">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="buttonPressed:" destination="OGo-4x-YLf" eventType="touchUpInside" id="1fF-U4-B11"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Lfa-iz-sZq" firstAttribute="width" secondItem="PL0-NR-Mqc" secondAttribute="width" id="2ql-Mj-WGu"/>
+                    <constraint firstItem="PL0-NR-Mqc" firstAttribute="centerY" secondItem="hV6-xt-6pq" secondAttribute="centerY" id="3vY-wa-g6v"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="Lfa-iz-sZq" secondAttribute="leading" id="5xP-sB-mgf"/>
+                    <constraint firstItem="PL0-NR-Mqc" firstAttribute="leading" secondItem="Lfa-iz-sZq" secondAttribute="trailing" constant="6" id="9fb-uN-tSr"/>
+                    <constraint firstItem="Lfa-iz-sZq" firstAttribute="centerY" secondItem="hV6-xt-6pq" secondAttribute="centerY" id="faP-c7-6Pe"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="PL0-NR-Mqc" secondAttribute="trailing" id="imo-tP-SRZ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="buttonCancel" destination="Lfa-iz-sZq" id="gXi-cB-5qb"/>
+                <outlet property="buttonOk" destination="PL0-NR-Mqc" id="VcO-11-Ycj"/>
+            </connections>
+            <point key="canvasLocation" x="301" y="260"/>
+        </tableViewCell>
+    </objects>
+</document>

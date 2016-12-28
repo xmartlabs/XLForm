@@ -14,5 +14,4 @@ extern NSString * const XLFormRowDescriptorTypeMultipleButtons;
 extern NSString * const XLFormRowDescriptorTypeMultipleButtonsControl;
 
 @interface XLFormMultipleButtonsCell : XLFormBaseCell
-@property (nonatomic, readonly) UIButton * button;
 @end
