@@ -42,7 +42,6 @@
     XLFormDescriptor * form = [XLFormDescriptor formDescriptor];
     XLFormSectionDescriptor * section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];
-    
     XLFormRowDescriptor * row = [XLFormRowDescriptor formRowDescriptorWithTag:XLFormRowDescriptorTypeText rowType:XLFormRowDescriptorTypeText title:@"Title"];
     row.required = YES;
     [section addFormRow:row];
