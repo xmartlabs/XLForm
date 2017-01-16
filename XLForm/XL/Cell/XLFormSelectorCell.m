@@ -87,7 +87,7 @@
             return tranformedValue;
         }
     }
-    return [self.rowDescriptor.value displayText];
+    return self.rowDescriptor.displayTextValue;
 }
 
 
