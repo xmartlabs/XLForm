@@ -208,6 +208,9 @@
     
     if (self.maximumDate)
         datePicker.maximumDate = self.maximumDate;
+
+    if (self.timeZone)
+        datePicker.timeZone = self.timeZone;
 }
 
 #pragma mark - Properties
