@@ -57,6 +57,7 @@ NSString *const kCountDownTimer = @"countDownTimer";
         // Date
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateInline rowType:XLFormRowDescriptorTypeDateInline title:@"Date"];
         row.value = [NSDate new];
+        [row.cellConfigAtConfigure setObject:[NSLocale localeWithLocaleIdentifier:@"FR_fr" ] forKey:@"locale"];
         [section addFormRow:row];
         
         // Time

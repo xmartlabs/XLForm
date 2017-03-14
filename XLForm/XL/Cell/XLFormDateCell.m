@@ -37,6 +37,7 @@
 @implementation XLFormDateCell
 {
     UIColor * _beforeChangeColor;
+    NSDateFormatter *_dateFormatter;
 }
 
 
@@ -109,6 +110,7 @@
 {
     [super configure];
     self.formDatePickerMode = XLFormDateDatePickerModeGetFromRowDescriptor;
+    _dateFormatter = [[NSDateFormatter alloc] init];
 }
 
 -(void)update
@@ -173,10 +175,14 @@
         }
     }
     if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDate] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateInline]){
-        return [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle];
+        _dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+        _dateFormatter.timeStyle = NSDateFormatterNoStyle;
+        return [_dateFormatter stringFromDate:date];
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTime] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTimeInline]){
-        return [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle];
+        _dateFormatter.dateStyle = NSDateFormatterNoStyle;
+        _dateFormatter.timeStyle = NSDateFormatterShortStyle;
+        return [_dateFormatter stringFromDate:date];
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimer] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimerInline]){
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -184,7 +190,9 @@
         NSDateComponents *time = [calendar components:NSCalendarUnitHour | NSCalendarUnitMinute fromDate:date];
         return [NSString stringWithFormat:@"%ld%@ %ldmin", (long)[time hour], (long)[time hour] == 1 ? @"hour" : @"hours", (long)[time minute]];
     }
-    return [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
+    _dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    _dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    return [_dateFormatter stringFromDate:date];
 }
 
 -(void)setModeToDatePicker:(UIDatePicker *)datePicker
@@ -228,6 +236,11 @@
     return _datePicker;
 }
 
+-(void)setLocale:(NSLocale *)locale
+{
+    _locale = locale;
+    _dateFormatter.locale = locale;
+}
 
 #pragma mark - Target Action
 

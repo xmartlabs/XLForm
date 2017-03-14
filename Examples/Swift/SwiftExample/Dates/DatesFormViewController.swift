@@ -76,6 +76,7 @@ class DatesFormViewController: XLFormViewController {
         // Date
         row = XLFormRowDescriptor(tag: Tags.DateInline, rowType: XLFormRowDescriptorTypeDateInline, title:"Date")
         row.value = Date()
+        row.cellConfigAtConfigure["locale"] =  Locale(identifier: "FR_fr")
         section.addFormRow(row)
         
         // Time
