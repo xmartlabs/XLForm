@@ -1008,7 +1008,7 @@ row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, fo
 
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
 
-####How to set min/max for date cells?
+#### How to set min/max for date cells?
 
 Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a datetime row to be a value in the next three days you would do as follows:
 
