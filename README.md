@@ -15,7 +15,7 @@ XLForm is the most flexible and powerful iOS library to create dynamic table-vie
 
 XLForm provides a very powerful DSL (Domain Specific Language) used to create a form. It keeps track of this specification on runtime, updating the UI on the fly.
 
-#####Let's see the iOS Calendar Event Form created using XLForm
+##### Let's see the iOS Calendar Event Form created using XLForm
 
 
 ![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/RealExamples/XLForm.gif)
@@ -182,7 +182,7 @@ How to run XLForm examples
 
 Rows
 ---------------------
-####Input Rows
+#### Input Rows
 
 ![Screenshot of Input Examples](Examples/Objective-C/Examples/Inputs/XLForm-Inputs.gif)
 
@@ -253,7 +253,7 @@ Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `U
 
 
 
-####Selector Rows
+#### Selector Rows
 
 Selector rows allow us to select a value or values from a list. XLForm supports 8 types of selectors out of the box:
 
@@ -320,7 +320,7 @@ This is the protocol declaration:
 ```
 
 
-####Date & Time Rows
+#### Date & Time Rows
 
 XLForms supports 3 types of dates: `Date`, `DateTime` , `Time` and `Countdown Timer` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
 
@@ -427,7 +427,7 @@ section.addFormRow(row)
 self.form = form;
 
 ```
-####Boolean Rows
+#### Boolean Rows
 
 XLForms supports 2 types of boolean controls:
 
@@ -445,9 +445,9 @@ static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 We can also simulate other types of Boolean rows using any of the Selector Row Types introduced in the [Selector Rows section](#selector-rows).
 
 
-####Other Rows
+#### Other Rows
 
-#####Stepper
+##### Stepper
 
 XLForms supports counting using UIStepper control:
 
@@ -469,7 +469,7 @@ You can set the stepper paramaters easily:
 	[row.cellConfigAtConfigure setObject:@100 forKey:@"stepControl.maximumValue"];
 ```
 
-#####Slider
+##### Slider
 
 XLForms supports counting using UISlider control:
 
@@ -490,11 +490,11 @@ You can adjust the slider for your own interests very easily:
 
 Set `steps` to `@(0)` to disable the steps functionality.
 
-#####Info
+##### Info
 
 Sometimes our apps needs to show data that are not editable. XLForm provides us with `XLFormRowDescriptorTypeInfo` row type to display not editable info. An example of usage would be showing the app version in the settings part of an app.  
 
-#####Button
+##### Button
 
 Apart from data entry rows, not editable rows and selectors, XLForm has a button row `XLFormRowDescriptorTypeButton` that allows us to do any action when selected. It can be configured using a block (clousure), a selector, a segue identifier, segue class or specifing a view controller to be presented. ViewController specification could be done by setting up the view controller class, the view controller storyboard Id or a nib name. Nib name must match view controller class name.
 
@@ -767,7 +767,7 @@ For instance if we want to show or hide a row depending on the value of another 
 Make a row or section invisible depending on other rows values
 --------------------------------
 
-###Summary
+### Summary
 
 XLForm allows you to define dependencies between rows so that if the value of one row is changed, the behaviour of another one changes automatically. For example, you might have a form where you question the user if he/she has pets. If the answer is 'yes' you might want to ask how their names are.
 So you can make a row invisible and visible again based on the values of other rows. The same happens with sections.
@@ -777,7 +777,7 @@ Take a look at the following example:
 
 Of course, you could also do this manually by observing the value of some rows and deleting and adding rows accordingly, but that would be a lot of work which is already done.
 
-###How it works
+### How it works
 
 To make the appearance and disappearance of rows and sections automatic, there is a property in each descriptor:
 
@@ -1008,7 +1008,7 @@ row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, fo
 
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
 
-####How to set min/max for date cells?
+#### How to set min/max for date cells?
 
 Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a datetime row to be a value in the next three days you would do as follows:
 
