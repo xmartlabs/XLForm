@@ -897,6 +897,25 @@ section.addFormRow(row)
 FAQ
 -------
 
+#### How to customize the header and/or footer of a section
+
+For this you should use the UITableViewDelegate methods in your XLFormViewController.
+This means you should implement one or both of these:
+
+```objc
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+```
+
+Also you might want to implement the following methods to specify the height for these views:
+
+```objc
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+```
+
 #### How to assign the first responder on form appearance
 
 Assign the first responder when the form is shown is as simple as setting the property `assignFirstResponderOnShow` to `YES`. By default the value of the property is `NO`.
