@@ -513,7 +513,7 @@
     }
 #ifndef XL_APP_EXTENSIONS
     else{
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"XLFormViewController_ValidationErrorTitle", nil)
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(title, nil)
                                                              message:error.localizedDescription
                                                             delegate:self
                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
