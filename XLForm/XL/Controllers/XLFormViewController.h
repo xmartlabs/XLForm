@@ -60,6 +60,7 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 
 -(NSArray *)formValidationErrors;
 -(void)showFormValidationError:(NSError *)error;
+-(void)showFormValidationError:(NSError *)error withTitle:(NSString*)title;
 
 -(UITableViewRowAnimation)insertRowAnimationForRow:(XLFormRowDescriptor *)formRow;
 -(UITableViewRowAnimation)deleteRowAnimationForRow:(XLFormRowDescriptor *)formRow;
