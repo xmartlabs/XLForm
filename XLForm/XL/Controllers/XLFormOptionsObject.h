@@ -28,6 +28,9 @@
 
 @interface XLFormOptionsObject : NSObject <XLFormOptionObject,NSCoding>
 
+@property (nonatomic) NSString * formDisplaytext;
+@property (nonatomic) id formValue;
+
 +(XLFormOptionsObject *)formOptionsObjectWithValue:(id)value displayText:(NSString *)displayText;
 +(XLFormOptionsObject *)formOptionsOptionForValue:(id)value fromOptions:(NSArray *)options;
 +(XLFormOptionsObject *)formOptionsOptionForDisplayText:(NSString *)displayText fromOptions:(NSArray *)options;
