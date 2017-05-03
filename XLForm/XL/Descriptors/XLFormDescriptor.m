@@ -187,6 +187,11 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 {
     for (XLFormSectionDescriptor * section in self.formSections){
         if ([section.formRows containsObject:formRow]){
+            if ([formRow.rowType isKindOfClass:[XLFormRowDescriptorTypeDateInline class]] || [formRow.rowType isKindOfClass:[XLFormRowDescriptorTypeDateTimeInline class]]) {
+                if ([((XLFormRowDescriptor *)[section.formRows objectAtIndex:([section.formRows indexOfObject:formRow]+1)]).rowType isEqualToString:@"datePicker"]) {
+                    [section removeFormRowAtIndex:[section.formRows indexOfObject:formRow]+1];
+                }
+            }
             [section removeFormRow:formRow];
         }
     }
