@@ -126,6 +126,10 @@
     _pickerView.delegate = self;
     _pickerView.dataSource = self;
     [_pickerView selectRow:[self selectedIndex] inComponent:0 animated:NO];
+    
+    // Propagate the default value back 
+    [self pickerView:_pickerView didSelectRow:0 inComponent:0];
+    
     return _pickerView;
 }
 
