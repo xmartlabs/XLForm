@@ -205,15 +205,16 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dataItem = [self.dataStore dataAtIndexPath:indexPath];
-    
+
     self.rowDescriptor.value = dataItem;
     
-    if (self.popoverController){
+    if (self.popoverController) {
         [self.popoverController dismissPopoverAnimated:YES];
         [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
-    }
-    else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
+    } else if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
         [self.navigationController popViewControllerAnimated:YES];
+    } else if ([self.presentingViewController isKindOfClass:[UsersTableViewController class]]) {
+        [[self.presentingViewController navigationController] popViewControllerAnimated:YES];
     }
 }
 
@@ -243,7 +244,9 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 -(UsersTableViewController *)searchResultController
 {
     if (_searchResultController) return _searchResultController;
-    _searchResultController = [[UsersTableViewController alloc]init];
+    UsersTableViewController *usersViewController = [[UsersTableViewController alloc] init];
+    usersViewController.rowDescriptor = self.rowDescriptor;
+    _searchResultController = usersViewController;
     _searchResultController.dataLoader.limit = 0; // no paging in search result
     _searchResultController.isSearchResultsController = YES;
     return _searchResultController;
