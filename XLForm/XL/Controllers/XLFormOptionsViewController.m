@@ -74,6 +74,13 @@
     [self.tableView registerClass:[XLFormRightDetailCell class] forCellReuseIdentifier:CELL_REUSE_IDENTIFIER];
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    UIEdgeInsets newContentInset = self.tableView.contentInset;
+    newContentInset.top = self.topLayoutGuide.length;
+    self.tableView.contentInset = newContentInset;
+}
 
 #pragma mark - UITableViewDataSource
 
