@@ -134,6 +134,20 @@
         self.tableView.rowHeight = UITableViewAutomaticDimension;
         self.tableView.estimatedRowHeight = 44.0;
     }
+// Temporary commented until Travis will be moved to Xcode 7.0 with iOS SDK 9.0
+//    if([self.tableView respondsToSelector:@selector(cellLayoutMarginsFollowReadableWidth)])
+//    {
+//        self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+//    }
+    NSMethodSignature* signature = [[self.tableView class] instanceMethodSignatureForSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)];
+    NSInvocation* invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setTarget:self.tableView];
+    [invocation setSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)];
+
+    BOOL boolValue = NO;
+    [invocation setArgument:&boolValue atIndex: 2];
+    [invocation invoke];
+
     if (self.form.title){
         self.title = self.form.title;
     }
