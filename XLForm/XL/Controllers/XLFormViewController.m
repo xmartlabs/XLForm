@@ -60,6 +60,8 @@
 @property UITableViewStyle tableViewStyle;
 @property (nonatomic) XLFormRowNavigationAccessoryView * navigationAccessoryView;
 
+@property UIEdgeInsets cachedInset;
+
 @end
 
 @implementation XLFormViewController
@@ -559,6 +561,7 @@
             [UIView beginAnimations:nil context:nil];
             [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
             [UIView setAnimationCurve:[keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] intValue]];
+            self.cachedInset = self.tableView.contentInset;
             self.tableView.contentInset = tableContentInset;
             self.tableView.scrollIndicatorInsets = tableScrollIndicatorInsets;
             NSIndexPath *selectedRow = [self.tableView indexPathForCell:cell];
@@ -583,7 +586,7 @@
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
         [UIView setAnimationCurve:[keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] intValue]];
-        self.tableView.contentInset = tableContentInset;
+        self.tableView.contentInset = self.cachedInset;
         self.tableView.scrollIndicatorInsets = tableScrollIndicatorInsets;
         [UIView commitAnimations];
     }
