@@ -6,7 +6,7 @@ By [XMARTLABS](http://xmartlabs.com).
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
 <a href="https://cocoapods.org/pods/XLForm"><img src="https://img.shields.io/cocoapods/v/XLForm.svg" alt="CocoaPods compatible" /></a>
 
-**If you are looking for Swift native implementation we have recently created [Eureka], a complete re-design of XLForm in Swift.** *Do not panic, We will continue maintaining and improving XLForm, obj-c rocks!!*
+**If you are working in Swift then you should have a look at [Eureka], a complete re-design of XLForm in Swift.** *Do not panic, we will continue maintaining and improving XLForm, obj-c rocks!!*
 
 Purpose
 --------------
