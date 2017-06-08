@@ -337,6 +337,7 @@
             [section evaluateIsHidden];
         }
     }
+    [self updateFormRow:formRow];
 }
 
 #pragma mark - XLFormViewControllerDelegate
