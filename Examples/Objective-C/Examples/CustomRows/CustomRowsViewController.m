@@ -29,6 +29,7 @@
 #import "FloatLabeledTextFieldCell.h"
 #import "XLFormCustomCell.h"
 #import "XLFormInlineSegmentedCell.h"
+#import "XLFormMultipleButtonsCell.h"
 
 static NSString * const kCustomRowFirstRatingTag = @"CustomRowFirstRatingTag";
 static NSString * const kCustomRowSecondRatingTag = @"CustomRowSecondRatingTag";
@@ -115,7 +116,28 @@ static NSString * const kCustomRowText = @"kCustomText";
     customRowDescriptor.cellClass = [XLFormCustomCell class];
     [section addFormRow:customRowDescriptor];
     
+    // Section Multiple Buttons
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Multiple Buttons"];
+    [form addFormSection:section];
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"buttons" rowType:XLFormRowDescriptorTypeMultipleButtons title:nil];
+    row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Zero"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"One"],
+                            ];
+    [section addFormRow:row];
+    
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"buttons" rowType:XLFormRowDescriptorTypeMultipleButtons title:nil];
+    row.selectorOptions = @[[XLFormOptionsObject formOptionsObjectWithValue:@(0) displayText:@"Done"],
+                            [XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Cancel"],
+                            ];
+    [section addFormRow:row];
     self.form = form;
+}
+
+-(void)didSelectFormRow:(XLFormRowDescriptor *)formRow {
+    [super didSelectFormRow:formRow];
+    if ([formRow.value intValue] == 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end
