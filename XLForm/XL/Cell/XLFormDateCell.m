@@ -95,10 +95,10 @@
         NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
         NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
         XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
-        BOOL result = [super resignFirstResponder];
         if ([nextFormRow.rowType isEqualToString:XLFormRowDescriptorTypeDatePicker]){
             [self.rowDescriptor.sectionDescriptor removeFormRow:nextFormRow];
         }
+        BOOL result = [super resignFirstResponder];
         return result;
     }
     return [super resignFirstResponder];
