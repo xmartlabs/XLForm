@@ -32,11 +32,14 @@
 
 #define CELL_REUSE_IDENTIFIER  @"OptionCell"
 
-@interface XLFormOptionsViewController () <UITableViewDataSource>
+@interface XLFormOptionsViewController () <UITableViewDataSource, UISearchResultsUpdating>
 
 @property NSString * titleHeaderSection;
 @property NSString * titleFooterSection;
 
+@property UISearchController *searchController;
+@property NSArray *filteredItems;
+@property BOOL searchEnabled;
 
 @end
 
@@ -46,34 +49,88 @@
 @synthesize titleFooterSection = _titleFooterSection;
 @synthesize rowDescriptor = _rowDescriptor;
 @synthesize popoverController = __popoverController;
+@synthesize searchEnabled = _searchEnabled;
+@synthesize filteredItems = _filteredItems;
+@synthesize searchController = _searchController;
 
 - (instancetype)initWithStyle:(UITableViewStyle)style
+                       search:(BOOL)enableSearch
 {
     self = [super initWithStyle:style];
     if (self){
         _titleFooterSection = nil;
         _titleHeaderSection = nil;
+        _searchEnabled = enableSearch;
     }
     return self;
 }
 
-- (instancetype)initWithStyle:(UITableViewStyle)style titleHeaderSection:(NSString *)titleHeaderSection titleFooterSection:(NSString *)titleFooterSection
+- (instancetype)initWithStyle:(UITableViewStyle)style
+           titleHeaderSection:(NSString *)titleHeaderSection
+           titleFooterSection:(NSString *)titleFooterSection
+                       search:(BOOL)enableSearch
 {
     self = [self initWithStyle:style];
     if (self){
         _titleFooterSection = titleFooterSection;
         _titleHeaderSection = titleHeaderSection;
+        _searchEnabled = enableSearch;
     }
     return self;
+}
+
+- (void)dealloc {
+    [self.searchController.searchBar removeFromSuperview];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //self.extendedLayoutIncludesOpaqueBars = !self.navigationController.navigationBar.translucent;
+    
+    if (self.searchEnabled && self.rowDescriptor.selectorOptions.count) {
+        // Build the search controller
+        self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+        self.searchController.searchResultsUpdater = self;
+        self.searchController.hidesNavigationBarDuringPresentation = YES;
+        self.searchController.dimsBackgroundDuringPresentation = NO;
+        if ([self.searchController respondsToSelector:@selector(obscuresBackgroundDuringPresentation)]) {
+            self.searchController.obscuresBackgroundDuringPresentation = NO;
+        }
+        
+        self.navigationController.navigationBar.translucent = YES;
+        self.tableView.tableHeaderView = self.searchController.searchBar;
+    }
+    
     // register option cell
     [self.tableView registerClass:[XLFormRightDetailCell class] forCellReuseIdentifier:CELL_REUSE_IDENTIFIER];
 }
 
+#pragma mark - UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *text = searchController.searchBar.text.lowercaseString;
+    // Empty text -> show all the items
+    if (! text.length) {
+        self.filteredItems = [self.rowDescriptor.selectorOptions copy];
+        return;
+    }
+    
+    NSMutableArray *filtered = [NSMutableArray new];
+    for (id item in self.rowDescriptor.selectorOptions) {
+        if ([item isKindOfClass:[NSString class]]) {
+            NSString *parsedItem = (NSString *)item;
+            if ([parsedItem.lowercaseString  containsString:text]) {
+                [filtered addObject:item];
+            }
+        }
+    }
+    
+    self.filteredItems = [filtered copy];
+    
+    [self.tableView reloadData];
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -86,7 +143,7 @@
 {
     XLFormRightDetailCell * cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_IDENTIFIER forIndexPath:indexPath];
     id cellObject =  [[self selectorOptions] objectAtIndex:indexPath.row];
-
+    
     [self.rowDescriptor.cellConfigForSelector enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
         [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
     }];
@@ -105,7 +162,6 @@
     }
     return cell;
 }
-
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
@@ -138,7 +194,7 @@
         if ([[self.rowDescriptor.value valueData] isEqual:[cellObject valueData]]){
             if (!self.rowDescriptor.required){
                 self.rowDescriptor.value = nil;
-				cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
         }
         else{
@@ -223,8 +279,14 @@
         XLFormLeftRightSelectorOption * option = [self leftOptionForOption:self.rowDescriptor.leftRightSelectorLeftOptionSelected];
         return option.rightOptions;
     }
-    else{
-        return self.rowDescriptor.selectorOptions;
+    else
+    {
+        if (self.searchController.active && self.searchController.searchBar.text.length) {
+            return self.filteredItems;
+        }
+        else {
+            return self.rowDescriptor.selectorOptions;
+        }
     }
 }
 

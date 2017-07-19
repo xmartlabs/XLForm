@@ -87,7 +87,7 @@
             return tranformedValue;
         }
     }
-    return self.rowDescriptor.displayTextValue;
+    return [self.rowDescriptor.value displayText];
 }
 
 
@@ -166,7 +166,7 @@
             UIViewController<XLFormRowDescriptorViewController> *selectorViewController = (UIViewController<XLFormRowDescriptorViewController> *)controllerToPresent;
             selectorViewController.rowDescriptor = self.rowDescriptor;
             selectorViewController.title = self.rowDescriptor.selectorTitle;
-
+            
             if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
                 if (self.popoverController && self.popoverController.popoverVisible) {
                     [self.popoverController dismissPopoverAnimated:NO];
@@ -189,12 +189,12 @@
             }
         }
         else if (self.rowDescriptor.selectorOptions){
-            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+            XLFormOptionsViewController * optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil search:self.rowDescriptor.searchable];
             optionsViewController.rowDescriptor = self.rowDescriptor;
             optionsViewController.title = self.rowDescriptor.selectorTitle;
-
-			if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
-				self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
+            
+            if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover]) {
+                self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
                 self.popoverController.delegate = self;
                 optionsViewController.popoverController = self.popoverController;
                 if (self.detailTextLabel.window){
@@ -204,9 +204,9 @@
                     [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
                 }
                 [controller.tableView deselectRowAtIndexPath:[controller.tableView indexPathForCell:self] animated:YES];
-			} else {
-				[controller.navigationController pushViewController:optionsViewController animated:YES];
-			}
+            } else {
+                [controller.navigationController pushViewController:optionsViewController animated:YES];
+            }
         }
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelector] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover])
@@ -217,11 +217,11 @@
         if ((controllerToPresent = [self controllerToPresent])){
             optionsViewController = (XLFormOptionsViewController *)controllerToPresent;
         } else {
-            optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil];
+            optionsViewController = [[XLFormOptionsViewController alloc] initWithStyle:UITableViewStyleGrouped titleHeaderSection:nil titleFooterSection:nil search:self.rowDescriptor.searchable];
         }
         optionsViewController.rowDescriptor = self.rowDescriptor;
         optionsViewController.title = self.rowDescriptor.selectorTitle;
-
+        
         if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) {
             self.popoverController = [[UIPopoverController alloc] initWithContentViewController:optionsViewController];
             self.popoverController.delegate = self;
@@ -238,8 +238,8 @@
         }
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorActionSheet]){
-
-
+        
+        
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
         UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
                                                                   delegate:self
@@ -266,15 +266,15 @@
             alertController.popoverPresentationController.sourceRect = [formViewController.tableView convertRect:v.frame fromView:self];
             __weak __typeof(self)weakSelf = self;
             for (id option in self.rowDescriptor.selectorOptions) {
-				NSString *optionTitle = [option displayText];
-				if (self.rowDescriptor.valueTransformer){
-					NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
-					NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
-					NSString * transformedValue = [valueTransformer transformedValue:[option valueData]];
-					if (transformedValue) {
-						optionTitle = transformedValue;
-					}
-				}
+                NSString *optionTitle = [option displayText];
+                if (self.rowDescriptor.valueTransformer){
+                    NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+                    NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+                    NSString * transformedValue = [valueTransformer transformedValue:[option valueData]];
+                    if (transformedValue) {
+                        optionTitle = transformedValue;
+                    }
+                }
                 [alertController addAction:[UIAlertAction actionWithTitle:optionTitle
                                                                     style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction *action) {
@@ -303,7 +303,7 @@
         [controller.tableView deselectRowAtIndexPath:[controller.form indexPathOfFormRow:self.rowDescriptor] animated:YES];
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeSelectorAlertView]){
-
+        
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:self.rowDescriptor.selectorTitle
                                                              message:nil
@@ -334,7 +334,7 @@
                                                                 style:UIAlertActionStyleCancel
                                                               handler:nil]];
             [controller presentViewController:alertController animated:YES completion:nil];
-
+            
         }
 #ifndef XL_APP_EXTENSIONS
         else{
@@ -417,15 +417,15 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-	if (self.rowDescriptor.valueTransformer){
-		NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
-		NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
-		NSString * tranformedValue = [valueTransformer transformedValue:[[self.rowDescriptor.selectorOptions objectAtIndex:row] valueData]];
-		if (tranformedValue){
-			return tranformedValue;
-		}
-	}
-	return [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
+    if (self.rowDescriptor.valueTransformer){
+        NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+        NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+        NSString * tranformedValue = [valueTransformer transformedValue:[[self.rowDescriptor.selectorOptions objectAtIndex:row] valueData]];
+        if (tranformedValue){
+            return tranformedValue;
+        }
+    }
+    return [[self.rowDescriptor.selectorOptions objectAtIndex:row] displayText];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component

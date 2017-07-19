@@ -98,6 +98,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 @property (nullable) NSString * noValueDisplayText;
 @property (nullable) NSString * selectorTitle;
 @property (nullable) NSArray * selectorOptions;
+@property BOOL searchable;
 
 @property (null_unspecified) id leftRightSelectorLeftOptionSelected;
 
@@ -136,8 +137,8 @@ typedef NS_ENUM(NSUInteger, XLFormLeftRightSelectorOptionLeftValueChangePolicy)
 
 
 +(nonnull XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(nonnull id)leftValue
-                                                          httpParameterKey:(null_unspecified NSString *)httpParameterKey
-                                                              rightOptions:(nonnull NSArray *)rightOptions;
+                                                                  httpParameterKey:(null_unspecified NSString *)httpParameterKey
+                                                                      rightOptions:(nonnull NSArray *)rightOptions;
 
 
 @end
