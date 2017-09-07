@@ -713,15 +713,19 @@
 
 #pragma mark - UITableViewDelegate
 
+#define ENSURE_VALID_SECTION if (section >= [self.form.formSections count]) return nil
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    ENSURE_VALID_SECTION;
     return [[self.form.formSections objectAtIndex:section] title];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
+    ENSURE_VALID_SECTION;
     return [[self.form.formSections objectAtIndex:section] footerTitle];
 }
+#undef ENSURE_VALID_SECTION
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
