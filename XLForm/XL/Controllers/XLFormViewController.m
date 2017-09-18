@@ -509,6 +509,9 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
+    if (_form.rowNavigationOptions == XLFormRowNavigationOption3rdParty)
+        return;
+
     UIView * firstResponderView = [self.tableView findFirstResponder];
     UITableViewCell<XLFormDescriptorCell> * cell = [firstResponderView formDescriptorCell];
     if (cell){
@@ -535,6 +538,9 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    if (_form.rowNavigationOptions == XLFormRowNavigationOption3rdParty)
+        return;
+
     UIView * firstResponderView = [self.tableView findFirstResponder];
     UITableViewCell<XLFormDescriptorCell> * cell = [firstResponderView formDescriptorCell];
     if (cell){
