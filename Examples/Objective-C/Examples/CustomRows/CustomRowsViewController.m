@@ -29,13 +29,15 @@
 #import "FloatLabeledTextFieldCell.h"
 #import "XLFormCustomCell.h"
 #import "XLFormInlineSegmentedCell.h"
+#import "TZPhotoCell.h"
 
-static NSString * const kCustomRowFirstRatingTag = @"CustomRowFirstRatingTag";
-static NSString * const kCustomRowSecondRatingTag = @"CustomRowSecondRatingTag";
+static NSString * const kCustomRowFirstRatingTag           = @"CustomRowFirstRatingTag";
+static NSString * const kCustomRowSecondRatingTag          = @"CustomRowSecondRatingTag";
 static NSString * const kCustomRowFloatLabeledTextFieldTag = @"CustomRowFloatLabeledTextFieldTag";
-static NSString * const kCustomRowWeekdays = @"CustomRowWeekdays";
-static NSString * const kCustomInline = @"kCustomInline";
-static NSString * const kCustomRowText = @"kCustomText";
+static NSString * const kCustomRowWeekdays                 = @"CustomRowWeekdays";
+static NSString * const kCustomInline                      = @"kCustomInline";
+static NSString * const kCustomPhoto                       = @"kCustomPhoto";
+static NSString * const kCustomRowText                     = @"kCustomText";
 
 @implementation CustomRowsViewController
 
@@ -58,11 +60,11 @@ static NSString * const kCustomRowText = @"kCustomText";
     section = [XLFormSectionDescriptor formSectionWithTitle:@"Ratings"];
     [form addFormSection:section];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowFirstRatingTag rowType:XLFormRowDescriptorTypeRate title:@"First Rating"];
+    row       = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowFirstRatingTag rowType:XLFormRowDescriptorTypeRate title:@"First Rating"];
     row.value = @(3);
     [section addFormRow:row];
     
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowSecondRatingTag rowType:XLFormRowDescriptorTypeRate title:@"Second Rating"];
+    row       = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowSecondRatingTag rowType:XLFormRowDescriptorTypeRate title:@"Second Rating"];
     row.value = @(1);
     [section addFormRow:row];
     
@@ -84,16 +86,16 @@ static NSString * const kCustomRowText = @"kCustomText";
     [form addFormSection:section];
     
     // WeekDays
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowWeekdays rowType:XLFormRowDescriptorTypeWeekDays];
-    row.value =  @{
-                   kSunday: @(NO),
-                   kMonday: @(YES),
-                   kTuesday: @(YES),
-                   kWednesday: @(NO),
-                   kThursday: @(NO),
-                   kFriday: @(NO),
-                   kSaturday: @(NO)
-                   };
+    row       = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomRowWeekdays rowType:XLFormRowDescriptorTypeWeekDays];
+    row.value = @{
+                  kSunday: @(NO),
+                  kMonday: @(YES),
+                  kTuesday: @(YES),
+                  kWednesday: @(NO),
+                  kThursday: @(NO),
+                  kFriday: @(NO),
+                  kSaturday: @(NO)
+                  };
     [section addFormRow:row];
     
     // Custom Inline Segmented row
@@ -101,11 +103,21 @@ static NSString * const kCustomRowText = @"kCustomText";
     [form addFormSection:section];
     
     // Inline segmented
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomInline rowType:XLFormRowDescriptorTypeSegmentedInline];
-    row.title = @"You support...";
+    row                 = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomInline rowType:XLFormRowDescriptorTypeSegmentedInline];
+    row.title           = @"You support...";
     row.selectorOptions = @[@"Uruguay", @"Brazil", @"Argentina", @"Chile"];
-    row.value = @"Uruguay";
+    row.value           = @"Uruguay";
     [section addFormRow:row];
+    
+    
+    // Custom Photo row
+    section = [XLFormSectionDescriptor formSectionWithTitle:@"Custom Photo"];
+    [form addFormSection:section];
+    
+    XLFormRowDescriptor *rowDesc = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomPhoto rowType:XLFormRowDescriptorTypePhotoView];
+    rowDesc.cellClass            = [TZPhotoCell class];
+    [section addFormRow:rowDesc];
+    
     
     section = [XLFormSectionDescriptor formSection];
     [form addFormSection:section];
