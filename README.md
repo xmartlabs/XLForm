@@ -2,7 +2,7 @@ XLFormPhotoView
 ---------------
 
 
-![Screenshot of photo Example](select-photo.gif.gif)
+![Screenshot of photo Example](./select-photo.gif.gif)
 
 
 Installation
