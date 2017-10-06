@@ -17,8 +17,8 @@ XLFormPhotoView
 
 代码位置
 --------------------------
-检出代码后，xcode运行可在Custom Row里看到效果，例子在XLFormPhotoView/Examples/Objective-C/Examples/CustomRows/TZImagePicker/目录下
-使用方法：
+检出代码后，xcode运行可在Custom Row里看到效果，例子在：（https://github.com/qd-hzc/XLFormPhotoView/tree/master/Examples/Objective-C/Examples/CustomRows/TZImagePicker）
+使用方法在：(https://github.com/qd-hzc/XLFormPhotoView/blob/master/Examples/Objective-C/Examples/CustomRows/CustomRowsViewController.m)
 
 
 传送门
