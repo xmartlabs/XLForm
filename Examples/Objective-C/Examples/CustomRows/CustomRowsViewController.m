@@ -116,6 +116,7 @@ static NSString * const kCustomRowText                     = @"kCustomText";
     
     XLFormRowDescriptor *rowDesc = [XLFormRowDescriptor formRowDescriptorWithTag:kCustomPhoto rowType:XLFormRowDescriptorTypePhotoView];
     rowDesc.cellClass            = [TZPhotoCell class];
+    //    TODO 待实现功能：回显网络图片、取图批量上传
     [section addFormRow:rowDesc];
     
     

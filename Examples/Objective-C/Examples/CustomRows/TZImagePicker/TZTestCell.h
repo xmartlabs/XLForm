@@ -2,8 +2,8 @@
 //  TZTestCell.h
 //  TZImagePickerController
 //
-//  Created by 谭真 on 16/1/3.
-//  Copyright © 2016年 谭真. All rights reserved.
+//  Created by 尹彬 on 17/10/7.
+//  Copyright © 2017年 尹彬. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

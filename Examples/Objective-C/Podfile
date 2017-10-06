@@ -3,7 +3,7 @@ platform :ios, '8.0'
 
 target 'XLForm' do
 
-pod 'XLForm', :path => '../../'
+
 
 #Following pods are used for custom row examples
 pod 'AFNetworking', '~> 2.0', :inhibit_warnings => true
@@ -11,4 +11,7 @@ pod 'XLData', :git => 'https://github.com/xmartlabs/XLData.git', :commit => '1f9
 pod 'JVFloatLabeledTextField', '1.0.2', :inhibit_warnings => true
 pod 'AXRatingView', '1.0.3', :inhibit_warnings => true
 pod 'SHSPhoneComponent'
+pod 'TZImagePickerController'
+pod 'XLForm'
+
 end
