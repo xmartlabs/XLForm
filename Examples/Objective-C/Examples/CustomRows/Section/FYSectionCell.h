@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FYSectionCell : UITableViewCell
+@interface FYSectionCell : UITableViewHeaderFooterView
 
 @end

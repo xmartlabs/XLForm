@@ -10,6 +10,8 @@
 		06377AFA1F87F3AB003D0078 /* LxGridViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 06377AF51F87F3AB003D0078 /* LxGridViewFlowLayout.m */; };
 		06377AFB1F87F3AB003D0078 /* TZPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06377AF71F87F3AB003D0078 /* TZPhotoCell.m */; };
 		06377AFC1F87F3AB003D0078 /* TZTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06377AF91F87F3AB003D0078 /* TZTestCell.m */; };
+		06536E131F8870160066BC2F /* FYSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06536E111F8870160066BC2F /* FYSectionCell.m */; };
+		06536E141F8870160066BC2F /* FYSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06536E121F8870160066BC2F /* FYSectionCell.xib */; };
 		281E5BE919538F4A006D93C5 /* CLLocationValueTrasformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 281E5BE819538F4A006D93C5 /* CLLocationValueTrasformer.m */; };
 		282EB27C1AB5FF33004A736F /* AccessoryViewFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282EB27B1AB5FF33004A736F /* AccessoryViewFormViewController.m */; };
 		283B59B219532415000828CD /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 283B59B119532415000828CD /* MapViewController.m */; };
@@ -62,6 +64,9 @@
 		06377AF71F87F3AB003D0078 /* TZPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoCell.m; sourceTree = "<group>"; };
 		06377AF81F87F3AB003D0078 /* TZTestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZTestCell.h; sourceTree = "<group>"; };
 		06377AF91F87F3AB003D0078 /* TZTestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZTestCell.m; sourceTree = "<group>"; };
+		06536E101F8870160066BC2F /* FYSectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYSectionCell.h; sourceTree = "<group>"; };
+		06536E111F8870160066BC2F /* FYSectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYSectionCell.m; sourceTree = "<group>"; };
+		06536E121F8870160066BC2F /* FYSectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FYSectionCell.xib; sourceTree = "<group>"; };
 		19383D268EF8024CB33FCCA4 /* libPods-XLForm.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XLForm.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		281E5BE719538F4A006D93C5 /* CLLocationValueTrasformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CLLocationValueTrasformer.h; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/CLLocationValueTrasformer.h; sourceTree = "<group>"; };
 		281E5BE819538F4A006D93C5 /* CLLocationValueTrasformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CLLocationValueTrasformer.m; path = Examples/Selectors/CustomSelectors/XLFormRowViewController/CLLocationValueTrasformer.m; sourceTree = "<group>"; };
@@ -170,6 +175,17 @@
 			);
 			name = TZImagePicker;
 			path = Examples/CustomRows/TZImagePicker;
+			sourceTree = "<group>";
+		};
+		06536E0F1F886FE70066BC2F /* Section */ = {
+			isa = PBXGroup;
+			children = (
+				06536E101F8870160066BC2F /* FYSectionCell.h */,
+				06536E111F8870160066BC2F /* FYSectionCell.m */,
+				06536E121F8870160066BC2F /* FYSectionCell.xib */,
+			);
+			name = Section;
+			path = Examples/CustomRows/Section;
 			sourceTree = "<group>";
 		};
 		282C5EEF18D33C1800A5D47C /* Inputs */ = {
@@ -442,6 +458,7 @@
 				3C3B01E31AB74AC10027CD45 /* FloatLabeledTextField */,
 				3C3B01D11AB741CC0027CD45 /* Weekdays */,
 				06377AF31F87F3AB003D0078 /* TZImagePicker */,
+				06536E0F1F886FE70066BC2F /* Section */,
 				3CDAFC781AB0AFA4000F75B6 /* CustomRowsViewController.h */,
 				3CDAFC791AB0AFA4000F75B6 /* CustomRowsViewController.m */,
 			);
@@ -559,6 +576,7 @@
 				28815E2E1A8589F600B674D2 /* MapViewController.xib in Resources */,
 				3C0357F01AB0D82300200C8A /* Images.xcassets in Resources */,
 				3C3B01DB1AB7497D0027CD45 /* XLFormWeekDaysCell.xib in Resources */,
+				06536E141F8870160066BC2F /* FYSectionCell.xib in Resources */,
 				28A8083E190D9083009D77F8 /* iPhoneStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -640,6 +658,7 @@
 				28468E9818EC686500DBB015 /* NativeEventFormViewController.m in Sources */,
 				06377AFA1F87F3AB003D0078 /* LxGridViewFlowLayout.m in Sources */,
 				3C3B01DA1AB7497D0027CD45 /* XLFormWeekDaysCell.m in Sources */,
+				06536E131F8870160066BC2F /* FYSectionCell.m in Sources */,
 				28F89F2E1AA4EA5600E90218 /* ValidationExamplesFormViewController.m in Sources */,
 				66B6266E1AE0055100007886 /* DateAndTimeValueTrasformer.m in Sources */,
 				3C3B01D51AB741EF0027CD45 /* XLFormRatingCell.m in Sources */,

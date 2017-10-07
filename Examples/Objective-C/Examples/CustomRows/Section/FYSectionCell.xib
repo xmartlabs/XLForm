@@ -1,19 +1,41 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="FYSectionCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FYSectionCell" rowHeight="48" id="KGk-i7-Jjw" customClass="FYSectionCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDO-la-IR9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <items>
+                            <tabBarItem systemItem="favorites" id="vVO-5m-ZP5"/>
+                            <tabBarItem systemItem="more" id="I6U-RN-b3b"/>
+                        </items>
+                    </tabBar>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="pDO-la-IR9" secondAttribute="trailing" id="KWH-Ys-oz8"/>
+                    <constraint firstItem="pDO-la-IR9" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NBM-wu-e5K"/>
+                    <constraint firstAttribute="bottom" secondItem="pDO-la-IR9" secondAttribute="bottom" id="eMi-Ua-gci"/>
+                    <constraint firstItem="pDO-la-IR9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uYF-PG-7al"/>
+                </constraints>
             </tableViewCellContentView>
+            <point key="canvasLocation" x="-798" y="-239"/>
         </tableViewCell>
     </objects>
 </document>

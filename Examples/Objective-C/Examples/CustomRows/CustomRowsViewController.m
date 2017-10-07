@@ -30,6 +30,7 @@
 #import "XLFormCustomCell.h"
 #import "XLFormInlineSegmentedCell.h"
 #import "TZPhotoCell.h"
+#import "FYSectionCell.h"
 
 static NSString * const kCustomRowFirstRatingTag           = @"CustomRowFirstRatingTag";
 static NSString * const kCustomRowSecondRatingTag          = @"CustomRowSecondRatingTag";
@@ -129,6 +130,21 @@ static NSString * const kCustomRowText                     = @"kCustomText";
     [section addFormRow:customRowDescriptor];
     
     self.form = form;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (section == 1) {
+        FYSectionCell *sectionCell = [[NSBundle mainBundle]loadNibNamed:@"FYSectionCell" owner:nil options:nil].lastObject;
+        return sectionCell;
+    }
+    return nil;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if(section == 1){
+        return 50;
+    }
+    return 0;
 }
 
 @end
