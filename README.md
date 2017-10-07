@@ -13,6 +13,22 @@ CocoaPods方式安装
 2. Run the command `pod install` from the Podfile folder directory.
 
 
+建议安装方式
+--------------------------
+1. 检出源码
+2. 运行例子，查看效果
+3. 复制代码到你的xcode项目，参照“代码位置”
+4. info.plist中设置图片访问权限
+```
+ <key>NSCameraUsageDescription</key>
+	<string>访问相机以拍照</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>允许定位以把位置保存到照片中</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>访问相册以选择照片</string>
+```
+
+
 
 代码位置
 --------------------------
