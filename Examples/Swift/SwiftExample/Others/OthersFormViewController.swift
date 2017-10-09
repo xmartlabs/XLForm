@@ -126,8 +126,10 @@ class OthersFormViewController : XLFormViewController {
         row.action.formBlock = { [weak self] (sender: XLFormRowDescriptor!) -> Void in
             let switchRow = sender.sectionDescriptor.formDescriptor!.formRow(withTag: Tags.SwitchBool)!
             if let value = switchRow.value , (value as AnyObject).boolValue == true {
-                let alertView = UIAlertView(title: "Switch is ON", message: "Button has checked the switch value...", delegate: self, cancelButtonTitle: "OK")
-                alertView.show()
+                let alert = UIAlertController(title: "Switch is ON", message: "Button has checked the switch value...", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                self?.present(alert, animated: true, completion: nil)
             }
             self?.deselectFormRow(sender)
         }
@@ -164,10 +166,12 @@ class OthersFormViewController : XLFormViewController {
         self.form = form
     }
     
-    func didTouchButton(_ sender: XLFormRowDescriptor) {
+    @objc func didTouchButton(_ sender: XLFormRowDescriptor) {
         if (sender.sectionDescriptor.formDescriptor.formRow(withTag: Tags.SwitchBool)?.value as AnyObject).boolValue == true{
-            let alertView = UIAlertView(title: "Switch is ON", message: "Button has checked the switch value...", delegate: self, cancelButtonTitle: "OK")
-            alertView.show()
+            let alert = UIAlertController(title: "Switch is ON", message: "Button has checked the switch value...", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            present(alert, animated: true, completion: nil)
         }
         self.deselectFormRow(sender)
     }
@@ -183,7 +187,7 @@ class OthersFormViewController : XLFormViewController {
     }
     
     
-    func disableEnable(_ button : UIBarButtonItem) {
+    @objc func disableEnable(_ button : UIBarButtonItem) {
         form.isDisabled = !form.isDisabled
         button.title = form.isDisabled ? "Enable" : "Disable"
         tableView.endEditing(true)

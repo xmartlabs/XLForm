@@ -83,41 +83,44 @@ class MultivaluedFormViewController : XLFormViewController {
     
 //MARK: - Actions
     
-    func addDidTouch(_ sender: UIBarButtonItem) {
-        let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: "Remove Last Section", otherButtonTitles: "Add a section at the end", self.form!.isDisabled ? "Enable Form" : "Disable Form")
-        actionSheet.show(in: view)
-    }
-
-//MARK: - UIActionSheetDelegate
-
-
-    override func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
-        if actionSheet.destructiveButtonIndex == buttonIndex {
-            if form.formSections.count > 0 {
+    @objc func addDidTouch(_ sender: UIBarButtonItem) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let removeAction = UIAlertAction(title: "Remove Last Section", style: .destructive, handler: { [weak self] alert in
+            guard let `self` = self else { return }
+            
+            if self.form.formSections.count > 0 {
                 // remove last section
-                form.removeFormSection(at: UInt(form.formSections.count - 1))
+                self.form.removeFormSection(at: UInt(self.form.formSections.count - 1))
             }
-        }
-        else if actionSheet.buttonTitle(at: buttonIndex) == "Add a section at the end" {
-            // add a new section
-//            let dateString = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.ShortStyle)
+        })
+        let addSectionAction = UIAlertAction(title: "Add a section at the end", style: .default, handler: { [weak self] alert in
+            guard let `self` = self else { return }
+            
             let newSection  = XLFormSectionDescriptor.formSection(withTitle: "Section created at \(DateFormatter.localizedString(from: Date(), dateStyle: DateFormatter.Style.short, timeStyle: DateFormatter.Style.short))", sectionOptions:XLFormSectionOptions.canInsert.union(.canDelete))
             newSection.multivaluedTag = "multivaluedPushSelector_\(self.form.formSections.count)"
             let newRow = XLFormRowDescriptor(tag: nil, rowType: XLFormRowDescriptorTypeSelectorPush, title: "Tap to select )..")
             newRow.selectorOptions = ["Option 1", "Option 2", "Option 3"]
             newSection.addFormRow(newRow)
-            form.addFormSection(newSection)
-        }
-        else {
-            form.isDisabled = !self.form.isDisabled
-            tableView.endEditing(true)
-            tableView.reloadData()
-        }
+            self.form.addFormSection(newSection)
+        })
+        let toggleAction = UIAlertAction(title: self.form!.isDisabled ? "Enable Form" : "Disable Form", style: .default, handler: { [weak self] alert in
+            guard let `self` = self else { return }
+            
+            self.form.isDisabled = !self.form.isDisabled
+            self.tableView.endEditing(true)
+            self.tableView.reloadData()
+        })
+        
+        actionSheet.addAction(addSectionAction)
+        actionSheet.addAction(removeAction)
+        actionSheet.addAction(cancelAction)
+        actionSheet.addAction(toggleAction)
+        
+        present(actionSheet, animated: true, completion: nil)
     }
 }
-
-
-
 
 class MultivaluedOnlyReorderViewController : XLFormViewController {
     
@@ -245,7 +248,7 @@ class MultivaluedOnlyDeleteViewController : XLFormViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Editing", style: .plain, target: self, action: #selector(MultivaluedOnlyDeleteViewController.toggleEditing(_:)))
     }
     
-    func toggleEditing(_ sender : UIBarButtonItem) {
+    @objc func toggleEditing(_ sender : UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
         sender.title = tableView.isEditing ? "Editing" : "Not Editing"
     }

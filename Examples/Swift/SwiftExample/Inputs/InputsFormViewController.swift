@@ -137,7 +137,7 @@ class InputsFormViewController : XLFormViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(InputsFormViewController.savePressed(_:)))
     }
     
-    func savePressed(_ button: UIBarButtonItem)
+    @objc func savePressed(_ button: UIBarButtonItem)
     {
         let validationErrors : Array<NSError> = self.formValidationErrors() as! Array<NSError>
         if (validationErrors.count > 0){
@@ -145,8 +145,11 @@ class InputsFormViewController : XLFormViewController {
             return
         }
         self.tableView.endEditing(true)
-        let alertView = UIAlertView(title: "Valid Form", message: "No errors found", delegate: self, cancelButtonTitle: "OK")
-        alertView.show()
+        
+        let alert = UIAlertController(title: "Valid Form", message: "No errors found!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
 
 }

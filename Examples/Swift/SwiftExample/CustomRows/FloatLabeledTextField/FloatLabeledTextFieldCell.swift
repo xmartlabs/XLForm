@@ -35,8 +35,8 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
     lazy var floatLabeledTextField: JVFloatLabeledTextField  = {
         let result  = JVFloatLabeledTextField(frame: CGRect.zero)
         result.translatesAutoresizingMaskIntoConstraints = false
-        result.font = UIFont.systemFont(ofSize: kFontSize)
-        result.floatingLabel.font = .boldSystemFont(ofSize: kFontSize)
+        result.font = UIFont.systemFont(ofSize: FloatLabeledTextFieldCell.kFontSize)
+        result.floatingLabel.font = .boldSystemFont(ofSize: FloatLabeledTextFieldCell.kFontSize)
         result.clearButtonMode = .whileEditing
         return result
     }()
@@ -54,7 +54,7 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
     override func update() {
         super.update()
         if let rowDescriptor = rowDescriptor {
-            floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: rowDescriptor.title ?? "" , attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+            floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: rowDescriptor.title ?? "" , attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
             if let value = rowDescriptor.value {
                 floatLabeledTextField.text = (value as AnyObject).displayText()
             }

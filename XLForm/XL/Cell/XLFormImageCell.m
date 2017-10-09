@@ -29,7 +29,6 @@
 
 @interface XLFormImageCell() <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
-    UIPopoverController *popoverController;
     UIImagePickerController *imagePickerController;
     UIAlertController *alertController;
 }
@@ -113,16 +112,15 @@
     imagePickerController.sourceType = source;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        popoverController = [[UIPopoverController alloc] initWithContentViewController:imagePickerController];
-        [popoverController presentPopoverFromRect: self.contentView.frame
-                                           inView: self.formViewController.view
-                         permittedArrowDirections: UIPopoverArrowDirectionAny
-                                         animated: YES];
-    } else {
-        [self.formViewController presentViewController: imagePickerController
-                                              animated: YES
-                                            completion: nil];
+        imagePickerController.modalPresentationStyle = UIModalPresentationPopover;
+        imagePickerController.popoverPresentationController.sourceRect = self.contentView.frame;
+        imagePickerController.popoverPresentationController.sourceView = self.formViewController.view;
+        imagePickerController.popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
     }
+    
+    [self.formViewController presentViewController: imagePickerController
+                                          animated: YES
+                                        completion: nil];
 }
 
 #pragma mark -  UIImagePickerControllerDelegate
@@ -138,8 +136,8 @@
     }
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        if (popoverController && popoverController.isPopoverVisible) {
-            [popoverController dismissPopoverAnimated: YES];
+        if (self.formViewController.presentedViewController && self.formViewController.presentedViewController.modalPresentationStyle == UIModalPresentationPopover) {
+            [self.formViewController dismissViewControllerAnimated:YES completion:nil];
         }
     } else {
         [self.formViewController dismissViewControllerAnimated: YES completion: nil];

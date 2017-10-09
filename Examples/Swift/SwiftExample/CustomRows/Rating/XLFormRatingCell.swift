@@ -49,7 +49,7 @@ class XLFormRatingCell : XLFormBaseCell {
     
 //MARK: Events
     
-    func rateChanged(_ ratingView : XLRatingView){
+    @objc func rateChanged(_ ratingView : XLRatingView){
         rowDescriptor!.value = ratingView.value
     }
     

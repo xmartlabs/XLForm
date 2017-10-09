@@ -124,7 +124,6 @@
 
 @implementation UsersTableViewController
 @synthesize rowDescriptor = _rowDescriptor;
-@synthesize popoverController = __popoverController;
 @synthesize searchController = _searchController;
 @synthesize searchResultController = _searchResultController;
 
@@ -208,9 +207,9 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 
     self.rowDescriptor.value = dataItem;
     
-    if (self.popoverController) {
-        [self.popoverController dismissPopoverAnimated:YES];
-        [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
+    UIViewController *popoverController = self.presentedViewController;
+    if (popoverController && popoverController.modalPresentationStyle == UIModalPresentationPopover) {
+        [self dismissViewControllerAnimated:YES completion:nil];
     } else if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
         [self.navigationController popViewControllerAnimated:YES];
     } else if ([self.presentingViewController isKindOfClass:[UsersTableViewController class]]) {

@@ -134,32 +134,13 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
     __typeof(self) __weak weakSelf = self;
     buttonLeftAlignedRow.action.formBlock = ^(XLFormRowDescriptor * sender){
         if ([[sender.sectionDescriptor.formDescriptor formRowWithTag:kSwitchBool].value boolValue]){
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil)
-                                                              message:@"Button has checked the switch value..."
-                                                             delegate:weakSelf
-                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                    otherButtonTitles:nil];
-            [message show];
-#else
-            if ([UIAlertController class]) {
-                UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Switch is ON", nil)
-                                                                                          message:@"Button has checked the switch value..."
-                                                                                   preferredStyle:UIAlertControllerStyleAlert];
-                [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                    style:UIAlertActionStyleDefault
-                                                                  handler:nil]];
-                [self presentViewController:alertController animated:YES completion:nil];
-            }
-            else{
-                UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil)
-                                                                  message:@"Button has checked the switch value..."
-                                                                 delegate:weakSelf
-                                                        cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                        otherButtonTitles:nil];
-                [message show];
-            }
-#endif
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Switch is ON", nil)
+                                                                                      message:@"Button has checked the switch value..."
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                                style:UIAlertActionStyleDefault
+                                                              handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
         }
         [weakSelf deselectFormRow:sender];
     };
@@ -196,33 +177,13 @@ NSString *const kButtonWithStoryboardId = @"buttonWithStoryboardId";
 -(void)didTouchButton:(XLFormRowDescriptor *)sender
 {
     if ([[sender.sectionDescriptor.formDescriptor formRowWithTag:kSwitchBool].value boolValue]){
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil)
-                                                          message:@"Button has checked the switch value..."
-                                                         delegate:self
-                                                cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                otherButtonTitles:nil];
-        [message show];
-#else
-        if ([UIAlertController class]) {
-            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Switch is ON", nil)
-                                                                                      message:@"Button has checked the switch value..."
-                                                                               preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:nil]];
-            [self presentViewController:alertController animated:YES completion:nil];
-
-        }
-        else{
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Switch is ON", nil)
-                                                              message:@"Button has checked the switch value..."
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                                    otherButtonTitles:nil];
-            [message show];
-        }
-#endif
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Switch is ON", nil)
+                                                                                  message:@"Button has checked the switch value..."
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     [self deselectFormRow:sender];
 }

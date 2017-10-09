@@ -131,12 +131,8 @@ class User: NSObject,  XLFormOptionObject {
     
 }
 
-class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewController, XLFormRowDescriptorPopoverViewController {
-
-    
+class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewController {
     var rowDescriptor : XLFormRowDescriptor?
-    var popoverController : UIPopoverController?
-    
     var userCell : UserCell?
     
     fileprivate let kUserCellIdentifier = "UserCell"
@@ -197,9 +193,9 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
         let userData = usersData[(indexPath as NSIndexPath).row] as Dictionary<String, AnyObject>
         let user = User(userId: (userData["id"] as! Int), userName: userData["name"] as! String, userImage: userData["imageName"] as! String)
         self.rowDescriptor!.value = user;
-        if let porpOver = self.popoverController {
-            porpOver.dismiss(animated: true)
-            porpOver.delegate?.popoverControllerDidDismissPopover!(porpOver)
+        
+        if let popOver = self.presentedViewController, popOver.modalPresentationStyle == .popover {
+            dismiss(animated: true, completion: nil)
         }
         else if parent is UINavigationController {
             navigationController?.popViewController(animated: true)
