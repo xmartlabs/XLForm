@@ -118,7 +118,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
     
 //MARK: Actions
     
-    func validateForm(_ buttonItem: UIBarButtonItem) {
+    @objc func validateForm(_ buttonItem: UIBarButtonItem) {
         let array = formValidationErrors()
         for errorItem in array! {
             let error = errorItem as! NSError

@@ -25,7 +25,7 @@
 
 #import "XLForm.h"
 #import "SelectorsFormViewController.h"
-#import "MultiValuedFormViewController.h"
+#import "MultivaluedFormViewController.h"
 
 
 @implementation MultivaluedFormViewController
@@ -85,94 +85,44 @@
 
 -(void)addDidTouch:(UIBarButtonItem * __unused)sender
 {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                              delegate:self
-                                                     cancelButtonTitle:NSLocalizedString(@"Cancel")
-                                                destructiveButtonTitle:@"Remove Last Section"
-                                                     otherButtonTitles:@"Add a section at the end", self.form.isDisabled ? @"Enable Form" : @"Disable Form", nil];
-    [actionSheet showInView:self.view];
-#else
-    if ([UIAlertController class]){
-        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil
-                                                                                  message:nil
-                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                            style:UIAlertActionStyleCancel
-                                                          handler:nil]];
-        __weak __typeof(self)weakSelf = self;
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Remove Last Section"
-                                                            style:UIAlertActionStyleDestructive
-                                                          handler:^(UIAlertAction *action) {
-                                                              if (weakSelf.form.formSections.count > 0){
-                                                                  // remove last section
-                                                                  [weakSelf.form removeFormSectionAtIndex:(weakSelf.form.formSections.count - 1)];
-                                                              }
-                                                          }]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Add a section at the end"
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              // add a new section
-                                                              XLFormSectionDescriptor * newSection = [XLFormSectionDescriptor formSectionWithTitle:[NSString stringWithFormat:@"Section created at %@", [NSDateFormatter localizedStringFromDate:[NSDate new] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]] sectionOptions:XLFormSectionOptionCanInsert | XLFormSectionOptionCanDelete];
-                                                              newSection.multivaluedTag = [NSString stringWithFormat:@"multivaluedPushSelector_%@", @(weakSelf.form.formSections.count)];
-                                                              XLFormRowDescriptor * newRow = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeSelectorPush title:@"Tap to select ;).."];
-                                                              newRow.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3"];
-                                                              [newSection addFormRow:newRow];
-                                                              [weakSelf.form addFormSection:newSection];
-                                                          }]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:self.form.isDisabled ? @"Enable Form" : @"Disable Form"
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              weakSelf.form.disabled = !weakSelf.form.disabled;
-                                                              [weakSelf.tableView endEditing:YES];
-                                                              [weakSelf.tableView reloadData];
-                                                          }]];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
-    else{
-        UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                                  delegate:self
-                                                         cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                    destructiveButtonTitle:@"Remove Last Section"
-                                                         otherButtonTitles:@"Add a section at the end", self.form.isDisabled ? @"Enable Form" : @"Disable Form", nil];
-        [actionSheet showInView:self.view];
-    }
-#endif
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                              message:nil
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    __weak __typeof(self)weakSelf = self;
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Remove Last Section"
+                                                        style:UIAlertActionStyleDestructive
+                                                      handler:^(UIAlertAction *action) {
+                                                          if (weakSelf.form.formSections.count > 0){
+                                                              // remove last section
+                                                              [weakSelf.form removeFormSectionAtIndex:(weakSelf.form.formSections.count - 1)];
+                                                          }
+                                                      }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add a section at the end"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          // add a new section
+                                                          XLFormSectionDescriptor * newSection = [XLFormSectionDescriptor formSectionWithTitle:[NSString stringWithFormat:@"Section created at %@", [NSDateFormatter localizedStringFromDate:[NSDate new] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]] sectionOptions:XLFormSectionOptionCanInsert | XLFormSectionOptionCanDelete];
+                                                          newSection.multivaluedTag = [NSString stringWithFormat:@"multivaluedPushSelector_%@", @(weakSelf.form.formSections.count)];
+                                                          XLFormRowDescriptor * newRow = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeSelectorPush title:@"Tap to select ;).."];
+                                                          newRow.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3"];
+                                                          [newSection addFormRow:newRow];
+                                                          [weakSelf.form addFormSection:newSection];
+                                                      }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:self.form.isDisabled ? @"Enable Form" : @"Disable Form"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          weakSelf.form.disabled = !weakSelf.form.disabled;
+                                                          [weakSelf.tableView endEditing:YES];
+                                                          [weakSelf.tableView reloadData];
+                                                      }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
-
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if ([actionSheet destructiveButtonIndex] == buttonIndex){
-        if (self.form.formSections.count > 0){
-            // remove last section
-            [self.form removeFormSectionAtIndex:(self.form.formSections.count - 1)];
-        }
-    }
-    else if ([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Add a section at the end"]){
-        // add a new section
-        XLFormSectionDescriptor * newSection = [XLFormSectionDescriptor formSectionWithTitle:[NSString stringWithFormat:@"Section created at %@", [NSDateFormatter localizedStringFromDate:[NSDate new] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]] sectionOptions:XLFormSectionOptionCanInsert | XLFormSectionOptionCanDelete];
-        newSection.multivaluedTag = [NSString stringWithFormat:@"multivaluedPushSelector_%@", @(self.form.formSections.count)];
-        XLFormRowDescriptor * newRow = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeSelectorPush title:@"Tap to select ;).."];
-        newRow.selectorOptions = @[@"Option 1", @"Option 2", @"Option 3"];
-        [newSection addFormRow:newRow];
-        [self.form addFormSection:newSection];
-    }
-    else if (![[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:NSLocalizedString(@"Cancel")]){
-        self.form.disabled = !self.form.disabled;
-        [self.tableView endEditing:YES];
-        [self.tableView reloadData];
-    }
-}
-
-#endif
 
 @end
 

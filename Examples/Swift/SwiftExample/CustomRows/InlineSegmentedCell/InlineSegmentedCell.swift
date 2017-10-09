@@ -108,7 +108,7 @@ class InlineSegmentedControl : XLFormBaseCell, XLFormInlineRowDescriptorCell {
     
     //MARK: Actions
     
-    func valueChanged() {
+    @objc func valueChanged() {
         inlineRowDescriptor!.value = inlineRowDescriptor!.selectorOptions![segmentedControl.selectedSegmentIndex]
         formViewController().updateFormRow(inlineRowDescriptor)
     }

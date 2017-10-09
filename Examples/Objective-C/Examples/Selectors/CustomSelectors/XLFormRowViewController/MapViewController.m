@@ -89,7 +89,7 @@
     
     MKPinAnnotationView *pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                                              reuseIdentifier:@"annotation"];
-    pinAnnotationView.pinColor = MKPinAnnotationColorRed;
+    pinAnnotationView.pinTintColor = [UIColor redColor];
     pinAnnotationView.draggable = YES;
     pinAnnotationView.animatesDrop = YES;
     return pinAnnotationView;

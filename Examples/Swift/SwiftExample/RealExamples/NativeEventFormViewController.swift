@@ -197,7 +197,7 @@ class NativeEventFormViewController : XLFormViewController {
                 // startDateDescriptor is later than endDateDescriptor
                 dateEndCell.update()
                 let newDetailText =  dateEndCell.detailTextLabel!.text!
-                let strikeThroughAttribute = [NSStrikethroughStyleAttributeName : NSUnderlineStyle.styleSingle.rawValue]
+                let strikeThroughAttribute = [NSAttributedStringKey.strikethroughStyle : NSUnderlineStyle.styleSingle.rawValue]
                 let strikeThroughText = NSAttributedString(string: newDetailText, attributes: strikeThroughAttribute)
                 endDateDescriptor.cellConfig["detailTextLabel.attributedText"] = strikeThroughText
                 updateFormRow(endDateDescriptor)
@@ -210,12 +210,12 @@ class NativeEventFormViewController : XLFormViewController {
         }
     }
 
-    func cancelPressed(_ button: UIBarButtonItem){
+    @objc func cancelPressed(_ button: UIBarButtonItem){
         dismiss(animated: true, completion: nil)
     }
 
 
-    func savePressed(_ button: UIBarButtonItem){
+    @objc func savePressed(_ button: UIBarButtonItem){
         let validationErrors : Array<NSError> = formValidationErrors() as! Array<NSError>
         if (validationErrors.count > 0){
             showFormValidationError(validationErrors.first)

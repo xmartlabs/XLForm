@@ -28,11 +28,6 @@
 #import "NSObject+XLFormAdditions.h"
 #import "XLFormLeftRightSelectorCell.h"
 
-@interface XLFormLeftRightSelectorCell() <UIActionSheetDelegate>
-
-@end
-
-
 @implementation XLFormLeftRightSelectorCell
 {
     UITextField * _constraintTextField;
@@ -195,76 +190,24 @@
 
 -(void)leftButtonPressed:(UIButton *)leftButton
 {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
-    UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
-                                                              delegate:self cancelButtonTitle:nil
-                                                destructiveButtonTitle:nil
-                                                     otherButtonTitles:nil];
-    
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:self.rowDescriptor.selectorTitle
+                                                                              message:nil
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    __weak __typeof(self)weakSelf = self;
     for (XLFormLeftRightSelectorOption * leftOption in self.rowDescriptor.selectorOptions) {
-        [actionSheet addButtonWithTitle:[leftOption.leftValue displayText]];
+        [alertController addAction:[UIAlertAction actionWithTitle:[leftOption.leftValue displayText]
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              weakSelf.rowDescriptor.value = [self chooseNewRightValueFromOption:leftOption];
+                                                              weakSelf.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:[leftOption.leftValue displayText]].leftValue;
+                                                              [weakSelf.formViewController updateFormRow:weakSelf.rowDescriptor];
+                                                          }]];
     }
-    actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    actionSheet.tag = [self.rowDescriptor hash];
-    [actionSheet showInView:self.formViewController.view];
-#else
-    if ([UIAlertController class]) {
-        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:self.rowDescriptor.selectorTitle
-                                                                                  message:nil
-                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
-                                                            style:UIAlertActionStyleCancel
-                                                          handler:nil]];
-        __weak __typeof(self)weakSelf = self;
-        for (XLFormLeftRightSelectorOption * leftOption in self.rowDescriptor.selectorOptions) {
-            [alertController addAction:[UIAlertAction actionWithTitle:[leftOption.leftValue displayText]
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:^(UIAlertAction *action) {
-                                                                  weakSelf.rowDescriptor.value = [self chooseNewRightValueFromOption:leftOption];
-                                                                  weakSelf.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:[leftOption.leftValue displayText]].leftValue;
-                                                                  [weakSelf.formViewController updateFormRow:weakSelf.rowDescriptor];
-                                                              }]];
-        }
-        
-        [self.formViewController presentViewController:alertController animated:YES completion:nil];
-    }
-#ifndef XL_APP_EXTENSIONS
-    else{
-        UIActionSheet * actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
-                                                                  delegate:self cancelButtonTitle:nil
-                                                    destructiveButtonTitle:nil
-                                                         otherButtonTitles:nil];
-        
-        for (XLFormLeftRightSelectorOption * leftOption in self.rowDescriptor.selectorOptions) {
-            [actionSheet addButtonWithTitle:[leftOption.leftValue displayText]];
-        }
-        actionSheet.cancelButtonIndex = [actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-        actionSheet.tag = [self.rowDescriptor hash];
-        [actionSheet showInView:self.formViewController.view];
-        
-        
-    }
-#endif
-#endif
+    
+    [self.formViewController presentViewController:alertController animated:YES completion:nil];
 }
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if ([actionSheet cancelButtonIndex] != buttonIndex){
-        NSString * title = [actionSheet buttonTitleAtIndex:buttonIndex];
-        if (![self.rowDescriptor.leftRightSelectorLeftOptionSelected isEqual:[self leftOptionForDescription:title].leftValue]){            
-            self.rowDescriptor.value = [self chooseNewRightValueFromOption:[self leftOptionForDescription:title]];
-            self.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:title].leftValue;
-            [self.formViewController updateFormRow:self.rowDescriptor];
-        }
-    }
-}
-
-#endif
-
 
 @end

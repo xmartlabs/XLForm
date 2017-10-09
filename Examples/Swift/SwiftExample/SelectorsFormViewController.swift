@@ -107,7 +107,7 @@ class SelectorsFormViewController : XLFormViewController {
         navigationItem.rightBarButtonItem = barButton
     }
     
-    func disableEnable(_ button : UIBarButtonItem)
+    @objc func disableEnable(_ button : UIBarButtonItem)
     {
         form.isDisabled = !form.isDisabled
         button.title = form.isDisabled ? "Enable" : "Disable"

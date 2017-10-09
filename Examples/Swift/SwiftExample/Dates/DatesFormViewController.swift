@@ -56,7 +56,7 @@ class DatesFormViewController: XLFormViewController {
     }
     
     
-    func disableEnable(_ button : UIBarButtonItem){
+    @objc func disableEnable(_ button : UIBarButtonItem){
         form.isDisabled = !form.isDisabled
         button.title = form.isDisabled ? "Enable" : "Disable"
         tableView.endEditing(true)
@@ -154,8 +154,10 @@ class DatesFormViewController: XLFormViewController {
     override func formRowDescriptorValueHasChanged(_ formRow: XLFormRowDescriptor!, oldValue: Any!, newValue: Any!) {
         super.formRowDescriptorValueHasChanged(formRow, oldValue: oldValue, newValue: newValue)
         if formRow.tag ==  Tags.DatePicker {
-            let alertView = UIAlertView(title: "DatePicker", message: "Value Has changed!", delegate: self, cancelButtonTitle: "OK")
-            alertView.show()
+            let alert = UIAlertController(title: "DatePicker", message: "Values has changed!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            present(alert, animated: true, completion: nil)
         }
     }
 

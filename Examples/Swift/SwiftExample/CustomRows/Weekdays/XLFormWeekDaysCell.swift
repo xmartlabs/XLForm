@@ -150,7 +150,7 @@ class XLFormWeekDaysCell : XLFormBaseCell {
         
         // raise the image and push it right so it appears centered
         //  above the text
-        let titleSize : CGSize = (button.titleLabel!.text! as NSString).size(attributes: [NSFontAttributeName: button.titleLabel!.font])
+        let titleSize : CGSize = (button.titleLabel!.text! as NSString).size(withAttributes: [NSAttributedStringKey.font: button.titleLabel!.font])
         button.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0.0, 0.0, -titleSize.width)
     }
     
