@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+### Version 4.0.0:
+* Adds support for Xcode 9.
+* Deprecated UIAlertView, UIActionSheet, UIPopoverController.
+* Bumped minimum iOS version to 9.0.
+
 ### Version 3.3.0:
 * Added `cellConfigForSelector` to style XLFormOptionsViewController
 * Added properties to **limit number of characters** in `XLFormTextFieldCell` and `XLFormTextViewCell`
