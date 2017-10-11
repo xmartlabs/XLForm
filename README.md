@@ -1180,7 +1180,7 @@ Requirements
 
 * ARC
 * iOS 9.0 and above
-* XCode 7.3+
+* XCode 9.0+
 
 
 Release Notes
