@@ -57,7 +57,7 @@ class InlineSegmentedCell : XLFormBaseCell {
     
     override func formDescriptorCellBecomeFirstResponder() -> Bool {
         if isFirstResponder {
-            resignFirstResponder()
+            _ = resignFirstResponder()
             return false
         }
         return becomeFirstResponder()
