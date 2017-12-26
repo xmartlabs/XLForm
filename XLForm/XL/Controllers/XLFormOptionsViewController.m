@@ -29,6 +29,7 @@
 #import "XLForm.h"
 #import "NSObject+XLFormAdditions.h"
 #import "NSArray+XLFormAdditions.h"
+#import "XLFormViewController.h"
 
 #define CELL_REUSE_IDENTIFIER  @"OptionCell"
 
@@ -157,6 +158,8 @@
         }
         else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
             [self.navigationController popViewControllerAnimated:YES];
+            XLFormViewController *vc = (XLFormViewController *)self.navigationController.topViewController;
+            [vc.tableView reloadData];
         }
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
