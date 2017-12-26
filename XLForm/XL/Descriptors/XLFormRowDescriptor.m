@@ -318,6 +318,7 @@ CGFloat XLFormRowInitialHeight = -2;
             id newValue = [change objectForKey:NSKeyValueChangeNewKey];
             id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
             if ([keyPath isEqualToString:@"value"]){
+                [self.sectionDescriptor.formDescriptor forceEvaluate];
                 [self.sectionDescriptor.formDescriptor.delegate formRowDescriptorValueHasChanged:object oldValue:oldValue newValue:newValue];
                 if (self.onChangeBlock) {
                     self.onChangeBlock(oldValue, newValue, self);
@@ -363,6 +364,18 @@ CGFloat XLFormRowInitialHeight = -2;
             self.isDirtyDisablePredicateCache = YES;
         } else {
             @try {
+                NSMutableDictionary *d = [self.sectionDescriptor.formDescriptor.allRowsByTag mutableCopy] ?: [[NSMutableDictionary alloc] init];
+                for (NSString *k in [d allKeys]) {
+                    XLFormRowDescriptor *r = [d objectForKey:k];
+                    if (r.value == nil) {
+                        continue;
+                    } else if ([r.value isKindOfClass:[XLFormOptionsObject class]]) {
+                        [d setObject:[(XLFormOptionsObject *)r.value formDisplaytext] forKey:k];
+                    } else {
+                        [d setObject:r.value forKey:k];
+                    }
+                }
+                self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:[d copy]]);
                 self.disablePredicateCache = @([_disabled evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
             }
             @catch (NSException *exception) {

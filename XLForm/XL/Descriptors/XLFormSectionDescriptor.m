@@ -364,7 +364,18 @@
             self.isDirtyHidePredicateCache = YES;
         } else {
             @try {
-                self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.formDescriptor.allRowsByTag ?: @{}]);
+                NSMutableDictionary *d = [self.formDescriptor.allRowsByTag mutableCopy] ?: [[NSMutableDictionary alloc] init];
+                for (NSString *k in [d allKeys]) {
+                    XLFormRowDescriptor *r = [d objectForKey:k];
+                    if (r.value == nil) {
+                        continue;
+                    } else if ([r.value isKindOfClass:[XLFormOptionsObject class]]) {
+                        [d setObject:[(XLFormOptionsObject *)r.value formDisplaytext] forKey:k];
+                    } else {
+                        [d setObject:r.value forKey:k];
+                    }
+                }
+                self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:[d copy]]);
             }
             @catch (NSException *exception) {
                 // predicate syntax error.
