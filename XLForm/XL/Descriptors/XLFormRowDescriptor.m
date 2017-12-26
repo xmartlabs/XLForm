@@ -376,7 +376,6 @@ CGFloat XLFormRowInitialHeight = -2;
                     }
                 }
                 self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:[d copy]]);
-                self.disablePredicateCache = @([_disabled evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
             }
             @catch (NSException *exception) {
                 // predicate syntax error.
