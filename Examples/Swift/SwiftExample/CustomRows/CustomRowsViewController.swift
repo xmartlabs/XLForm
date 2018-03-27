@@ -24,7 +24,7 @@
 
 class CustomRowsViewController : XLFormViewController {
     
-    private struct Tags {
+    fileprivate struct Tags {
         static let CustomRowFirstRatingTag = "CustomRowFirstRatingTag"
         static let CustomRowSecondRatingTag = "CustomRowSecondRatingTag"
         static let CustomRowFloatLabeledTextFieldTag = "CustomRowFloatLabeledTextFieldTag"
@@ -33,7 +33,7 @@ class CustomRowsViewController : XLFormViewController {
         static let CustomRowInline = "CustomRowInline"
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.initializeForm()
     }
@@ -64,7 +64,7 @@ class CustomRowsViewController : XLFormViewController {
         section.addFormRow(row)
         
         // Section Float Labeled Text Field
-        section = XLFormSectionDescriptor.formSectionWithTitle("Float Labeled Text Field")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Float Labeled Text Field")
         form.addFormSection(section)
 
         row = XLFormRowDescriptor(tag: Tags.CustomRowFloatLabeledTextFieldTag, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title: "Title")
@@ -77,23 +77,23 @@ class CustomRowsViewController : XLFormViewController {
         section.addFormRow(row)
         
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("Weekdays")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Weekdays")
         form.addFormSection(section)
 
         // WeekDays
         row = XLFormRowDescriptor(tag: Tags.CustomRowWeekdays, rowType: XLFormRowDescriptorTypeWeekDays)
         row.value =  [
-            XLFormWeekDaysCell.kWeekDay.Sunday.description(): false,
-            XLFormWeekDaysCell.kWeekDay.Monday.description(): true,
-            XLFormWeekDaysCell.kWeekDay.Tuesday.description(): true,
-            XLFormWeekDaysCell.kWeekDay.Wednesday.description(): false,
-            XLFormWeekDaysCell.kWeekDay.Thursday.description(): false,
-            XLFormWeekDaysCell.kWeekDay.Friday.description(): false,
-            XLFormWeekDaysCell.kWeekDay.Saturday.description(): false
+            XLFormWeekDaysCell.kWeekDay.sunday.description(): false,
+            XLFormWeekDaysCell.kWeekDay.monday.description(): true,
+            XLFormWeekDaysCell.kWeekDay.tuesday.description(): true,
+            XLFormWeekDaysCell.kWeekDay.wednesday.description(): false,
+            XLFormWeekDaysCell.kWeekDay.thursday.description(): false,
+            XLFormWeekDaysCell.kWeekDay.friday.description(): false,
+            XLFormWeekDaysCell.kWeekDay.saturday.description(): false
         ]
         section.addFormRow(row)
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("Custom inline row")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Custom inline row")
         form.addFormSection(section)
         
         // Inline

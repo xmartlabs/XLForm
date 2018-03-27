@@ -38,6 +38,7 @@
 @implementation XLFormDateCell
 {
     UIColor * _beforeChangeColor;
+    NSDateFormatter *_dateFormatter;
 }
 
 
@@ -137,6 +138,7 @@
 {
     [super configure];
     self.formDatePickerMode = XLFormDateDatePickerModeGetFromRowDescriptor;
+    _dateFormatter = [[NSDateFormatter alloc] init];
 }
 
 -(void)update
@@ -252,6 +254,7 @@
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimer] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimerInline]){
         datePicker.datePickerMode = UIDatePickerModeCountDownTimer;
+        datePicker.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     }
     else{
         datePicker.datePickerMode = UIDatePickerModeDateAndTime;
@@ -268,6 +271,10 @@
 
     if (self.timeZone)
         datePicker.timeZone = self.timeZone;
+    
+    if (self.locale) {
+        datePicker.locale = self.locale;
+    }
 }
 
 #pragma mark - Properties
@@ -281,6 +288,11 @@
     return _datePicker;
 }
 
+-(void)setLocale:(NSLocale *)locale
+{
+    _locale = locale;
+    _dateFormatter.locale = locale;
+}
 
 #pragma mark - Target Action
 

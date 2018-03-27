@@ -42,11 +42,11 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
     var rowDescriptor: XLFormRowDescriptor?
     lazy var mapView : MKMapView = { [unowned self] in
         let mapView = MKMapView(frame: self.view.frame)
-        mapView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+        mapView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
         return mapView
     }()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -60,7 +60,7 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
         view.addSubview(mapView)
         mapView.delegate = self
         if let value = rowDescriptor?.value as? CLLocation {
-            mapView.setCenterCoordinate(value.coordinate, animated: false)
+            mapView.setCenter(value.coordinate, animated: false)
             title = String(format: "%0.4f, %0.4f", mapView.centerCoordinate.latitude, mapView.centerCoordinate.longitude)
             let annotation = MapAnnotation()
             annotation.coordinate = value.coordinate
@@ -70,18 +70,18 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
     
 //MARK - - MKMapViewDelegate
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 
         let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
-        pinAnnotationView.pinColor =  MKPinAnnotationColor.Red
-        pinAnnotationView.draggable = true
+        pinAnnotationView.pinColor =  MKPinAnnotationColor.red
+        pinAnnotationView.isDraggable = true
         pinAnnotationView.animatesDrop = true
         return pinAnnotationView
     }
     
     
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
-        if (newState == .Ending){
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        if (newState == .ending){
             if let rowDescriptor = rowDescriptor, let annotation = view.annotation {
                 rowDescriptor.value = CLLocation(latitude:annotation.coordinate.latitude, longitude:annotation.coordinate.longitude)
                 self.title = String(format: "%0.4f, %0.4f", annotation.coordinate.latitude, annotation.coordinate.longitude)

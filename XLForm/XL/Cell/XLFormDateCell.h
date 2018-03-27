@@ -39,5 +39,6 @@ typedef NS_ENUM(NSUInteger, XLFormDateDatePickerMode) {
 @property (nonatomic) NSDate *maximumDate;
 @property (nonatomic) NSInteger minuteInterval;
 @property (nonatomic) NSTimeZone* timeZone;
+@property (nonatomic) NSLocale *locale;
 
 @end

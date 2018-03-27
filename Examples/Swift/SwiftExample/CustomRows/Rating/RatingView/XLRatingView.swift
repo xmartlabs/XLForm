@@ -39,7 +39,7 @@ class XLRatingView : AXRatingView {
     func customize() {
         baseColor = UIColor(red: (205/255.0), green: (201/255.0), blue: (201/255.0), alpha: 1)
         highlightColor = UIColor(red: (255/255.0), green: (215/255.0), blue: 0, alpha: 1)
-        markFont = UIFont.systemFontOfSize(23.0)
+        markFont = UIFont.systemFont(ofSize: 23.0)
         stepInterval = 1.0
     }
     

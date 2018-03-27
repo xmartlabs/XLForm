@@ -31,11 +31,11 @@
 
 -(NSString *)displayText
 {
-    if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSNumber class]]){
-        return [self description];
-    }
     if ([self conformsToProtocol:@protocol(XLFormOptionObject)]){
         return [(id<XLFormOptionObject>)self formDisplayText];
+    }
+    if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSNumber class]]){
+        return [self description];
     }
     return nil;
 }

@@ -33,11 +33,3 @@
 @property (nonatomic) XLFormRowDescriptor * rowDescriptor;
 
 @end
-
-@protocol XLFormRowDescriptorPopoverViewController <NSObject>
-
-@required
-@property (nonatomic) UIPopoverController * popoverController;
-
-
-@end

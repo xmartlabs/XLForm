@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'XLForm'
-  s.version  = '3.1.1'
+  s.version  = '4.0.0'
   s.license  = { :type => 'MIT' }
   s.summary  = 'XLForm is the most flexible and powerful iOS library to create dynamic table-view forms.'
   s.description = <<-DESC
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.source   = { :git => 'https://github.com/xmartlabs/XLForm.git', :tag => s.version }
   s.source_files = 'XLForm/XL/**/*.{h,m}'
   s.requires_arc = true
-  s.ios.deployment_target = '7.0'
+  s.ios.deployment_target = '9.0'
   s.ios.frameworks = 'UIKit', 'Foundation', 'CoreGraphics'
   s.resource = 'XLForm/XLForm.bundle'
 end

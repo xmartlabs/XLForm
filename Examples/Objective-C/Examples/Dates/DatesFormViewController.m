@@ -57,6 +57,7 @@ NSString *const kCountDownTimer = @"countDownTimer";
         // Date
         row = [XLFormRowDescriptor formRowDescriptorWithTag:kDateInline rowType:XLFormRowDescriptorTypeDateInline title:@"Date"];
         row.value = [NSDate new];
+        [row.cellConfigAtConfigure setObject:[NSLocale localeWithLocaleIdentifier:@"FR_fr" ] forKey:@"locale"];
         [section addFormRow:row];
         
         // Time
@@ -153,38 +154,13 @@ NSString *const kCountDownTimer = @"countDownTimer";
 
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue
 {
-    // super implementation must be called
-    [super formRowDescriptorValueHasChanged:formRow oldValue:oldValue newValue:newValue];
-    if([formRow.tag isEqualToString:kDatePicker])
-    {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
-                                                          message:@"Value Has changed!"
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-        [message show];
-#else
-        if ([UIAlertController class]) {
-            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"DatePicker"
-                                                                                      message:@"Value Has changed!"
-                                                                               preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
-                                                                style:UIAlertActionStyleDefault
-                                                              handler:nil]];
-            [self presentViewController:alertController animated:YES completion:nil];
-        }
-        else{
-            UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"DatePicker"
-                                                              message:@"Value Has changed!"
-                                                             delegate:nil
-                                                    cancelButtonTitle:@"OK"
-                                                    otherButtonTitles:nil];
-            [message show];
-        }
-#endif
-    }
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"DatePicker"
+                                                                              message:@"Value Has changed!"
+                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
-
 
 @end

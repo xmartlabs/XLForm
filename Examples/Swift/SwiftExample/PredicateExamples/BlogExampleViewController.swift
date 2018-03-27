@@ -25,7 +25,7 @@
 
 class BlogExampleViewController : XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         static let Hobbies = "hobbies"
         static let Sport = "sport"
         static let Film = "films1"
@@ -33,7 +33,7 @@ class BlogExampleViewController : XLFormViewController {
         static let Music = "music"
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
