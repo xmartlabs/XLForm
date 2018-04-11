@@ -110,7 +110,8 @@ NSString *const XLFormTextFieldMaxNumberOfCharacters = @"textFieldMaxNumberOfCha
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
-    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
+    else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger] ||
+             [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeIntegerText]){
         self.textField.keyboardType = UIKeyboardTypeNumberPad;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
@@ -320,33 +321,12 @@ NSString *const XLFormTextFieldMaxNumberOfCharacters = @"textFieldMaxNumberOfCha
 
 - (void)textFieldDidChange:(UITextField *)textField{
     if([self.textField.text length] > 0) {
-        BOOL didUseFormatter = NO;
-        
-        if (self.rowDescriptor.valueFormatter && self.rowDescriptor.useValueFormatterDuringInput)
-        {
-            // use generic getObjectValue:forString:errorDescription and stringForObjectValue
-            NSString *errorDescription = nil;
-            NSString *objectValue = nil;
-            
-            if ([ self.rowDescriptor.valueFormatter getObjectValue:&objectValue forString:textField.text errorDescription:&errorDescription]) {
-                NSString *formattedValue = [self.rowDescriptor.valueFormatter stringForObjectValue:objectValue];
-                
-                self.rowDescriptor.value = objectValue;
-                textField.text = formattedValue;
-                didUseFormatter = YES;
-            }
-        }
-        
-        // only do this conversion if we didn't use the formatter
-        if (!didUseFormatter)
-        {
-            if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
-                self.rowDescriptor.value =  [NSDecimalNumber decimalNumberWithString:self.textField.text locale:NSLocale.currentLocale];
-            } else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
-                self.rowDescriptor.value = @([self.textField.text integerValue]);
-            } else {
-                self.rowDescriptor.value = self.textField.text;
-            }
+        if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeNumber] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
+            self.rowDescriptor.value =  @([self.textField.text doubleValue]);
+        } else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
+            self.rowDescriptor.value = @([self.textField.text longLongValue]);
+        } else {
+            self.rowDescriptor.value = self.textField.text;
         }
     } else {
         self.rowDescriptor.value = nil;

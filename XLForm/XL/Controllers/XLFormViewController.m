@@ -75,32 +75,11 @@
 
 -(instancetype)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style
 {
-    self = [self initWithNibName:nil bundle:nil];
+    self = [super initWithNibName:nil bundle:nil];
     if (self){
         _tableViewStyle = style;
         _form = form;
     }
-    return self;
-}
-
--(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self){
-        _form = nil;
-        _tableViewStyle = UITableViewStyleGrouped;
-    }
-    return self;
-}
-
--(instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        _form = nil;
-        _tableViewStyle = UITableViewStyleGrouped;
-    }
-    
     return self;
 }
 
@@ -216,6 +195,7 @@
                                                XLFormRowDescriptorTypePassword: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeNumber: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeInteger: [XLFormTextFieldCell class],
+                                               XLFormRowDescriptorTypeIntegerText: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeDecimal: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeZipCode: [XLFormTextFieldCell class],
                                                XLFormRowDescriptorTypeSelectorPush: [XLFormSelectorCell class],
@@ -505,44 +485,47 @@
     UIView * firstResponderView = [self.tableView findFirstResponder];
     UITableViewCell<XLFormDescriptorCell> * cell = [firstResponderView formDescriptorCell];
     if (cell){
+        _oldBottomTableContentInset = @(self.tableView.contentInset.bottom);
         NSDictionary *keyboardInfo = [notification userInfo];
-        _keyboardFrame = [self.tableView.window convertRect:[keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue] toView:self.tableView.superview];
-        CGFloat newBottomInset = self.tableView.frame.origin.y + self.tableView.frame.size.height - _keyboardFrame.origin.y;
-        UIEdgeInsets tableContentInset = self.tableView.contentInset;
-        UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-        _oldBottomTableContentInset = _oldBottomTableContentInset ?: @(tableContentInset.bottom);
-        if (newBottomInset > [_oldBottomTableContentInset floatValue]){
-            tableContentInset.bottom = newBottomInset;
-            tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
-            [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
-            [UIView setAnimationCurve:[keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] intValue]];
-            self.tableView.contentInset = tableContentInset;
-            self.tableView.scrollIndicatorInsets = tableScrollIndicatorInsets;
-            NSIndexPath *selectedRow = [self.tableView indexPathForCell:cell];
-            [self.tableView scrollToRowAtIndexPath:selectedRow atScrollPosition:UITableViewScrollPositionNone animated:NO];
-            [UIView commitAnimations];
+        _keyboardFrame = [keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        CGFloat newBottomInset = firstResponderView.inputAccessoryView != nil ? _keyboardFrame.size.height + firstResponderView.inputAccessoryView.frame.size.height: _keyboardFrame.size.height;
+        
+        if ([_oldBottomTableContentInset floatValue] > newBottomInset) {
+            newBottomInset = [_oldBottomTableContentInset floatValue];
         }
+        
+        self.tableView.contentInset = UIEdgeInsetsMake(self.tableView.contentInset.top,
+                                                       self.tableView.contentInset.left,
+                                                       newBottomInset,
+                                                       self.tableView.contentInset.right);
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.tableView.scrollIndicatorInsets.top,
+                                                                self.tableView.scrollIndicatorInsets.left,
+                                                                newBottomInset,
+                                                                self.tableView.scrollIndicatorInsets.right);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSIndexPath *selectedRow = [self.tableView indexPathForCell:cell];
+            [self.tableView scrollToRowAtIndexPath:selectedRow atScrollPosition:UITableViewScrollPositionNone animated:YES];
+        });
     }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
+    NSDictionary *keyboardInfo = [notification userInfo];
     UIView * firstResponderView = [self.tableView findFirstResponder];
     UITableViewCell<XLFormDescriptorCell> * cell = [firstResponderView formDescriptorCell];
     if (cell){
-        _keyboardFrame = CGRectZero;
-        NSDictionary *keyboardInfo = [notification userInfo];
-        UIEdgeInsets tableContentInset = self.tableView.contentInset;
-        UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
-        tableContentInset.bottom = [_oldBottomTableContentInset floatValue];
-        tableScrollIndicatorInsets.bottom = tableContentInset.bottom;
-        _oldBottomTableContentInset = nil;
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
         [UIView setAnimationCurve:[keyboardInfo[UIKeyboardAnimationCurveUserInfoKey] intValue]];
-        self.tableView.contentInset = tableContentInset;
-        self.tableView.scrollIndicatorInsets = tableScrollIndicatorInsets;
+        self.tableView.contentInset = UIEdgeInsetsMake(self.tableView.contentInset.top,
+                                                       self.tableView.contentInset.left,
+                                                       [_oldBottomTableContentInset floatValue],
+                                                       self.tableView.contentInset.right);
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(self.tableView.scrollIndicatorInsets.top,
+                                                                self.tableView.scrollIndicatorInsets.left,
+                                                                [_oldBottomTableContentInset floatValue],
+                                                                self.tableView.scrollIndicatorInsets.right);
         [UIView commitAnimations];
     }
 }
@@ -701,15 +684,19 @@
 
 #pragma mark - UITableViewDelegate
 
+#define ENSURE_VALID_SECTION if (section >= [self.form.formSections count]) return nil
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    ENSURE_VALID_SECTION;
     return [[self.form.formSections objectAtIndex:section] title];
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
+    ENSURE_VALID_SECTION;
     return [[self.form.formSections objectAtIndex:section] footerTitle];
 }
+#undef ENSURE_VALID_SECTION
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

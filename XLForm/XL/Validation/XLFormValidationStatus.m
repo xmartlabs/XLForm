@@ -34,9 +34,9 @@
 -(instancetype)initWithMsg:(NSString*)msg status:(BOOL)isValid rowDescriptor:(XLFormRowDescriptor *)row {
     self = [super init];
     if (self) {
-        self.msg = msg;
-        self.isValid = isValid;
-        self.rowDescriptor = row;
+        _msg = msg;
+        _isValid = isValid;
+        _rowDescriptor = row;
     }
     
     return self;

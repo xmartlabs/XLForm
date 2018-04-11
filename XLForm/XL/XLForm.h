@@ -90,6 +90,7 @@ extern NSString *const XLFormRowDescriptorTypeEmail;
 extern NSString *const XLFormRowDescriptorTypeImage;
 extern NSString *const XLFormRowDescriptorTypeInfo;
 extern NSString *const XLFormRowDescriptorTypeInteger;
+extern NSString *const XLFormRowDescriptorTypeIntegerText;
 extern NSString *const XLFormRowDescriptorTypeMultipleSelector;
 extern NSString *const XLFormRowDescriptorTypeMultipleSelectorPopover;
 extern NSString *const XLFormRowDescriptorTypeName;

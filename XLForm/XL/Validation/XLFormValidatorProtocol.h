@@ -31,6 +31,6 @@
 
 @required
 
--(XLFormValidationStatus *)isValid:(XLFormRowDescriptor *)row;
+-(nonnull XLFormValidationStatus *)isValid:(nonnull XLFormRowDescriptor *)row;
 
 @end
