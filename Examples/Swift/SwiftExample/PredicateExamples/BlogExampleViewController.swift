@@ -1,8 +1,8 @@
 //
-//  BlogExampleViewController.m
+//  BlogExampleViewController.swift
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 //
-//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2014-2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,87 +23,67 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "BlogExampleViewController.h"
+class BlogExampleViewController : XLFormViewController {
 
-NSString *const kHobbies = @"hobbies";
-NSString *const kSport = @"sport";
-NSString *const kFilm = @"films1";
-NSString *const kFilm2 = @"films2";
-NSString *const kMusic = @"music";
-
-@interface BlogExampleViewController ()
-
-@end
-
-@implementation BlogExampleViewController
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self initializeForm];
+    fileprivate struct Tags {
+        static let Hobbies = "hobbies"
+        static let Sport = "sport"
+        static let Film = "films1"
+        static let Film2 = "films2"
+        static let Music = "music"
     }
-    return self;
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self initializeForm];
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        initializeForm()
     }
-    return self;
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initializeForm()
+    }
+    
+    func initializeForm() {
+        
+        let form : XLFormDescriptor
+        var section : XLFormSectionDescriptor
+        var row : XLFormRowDescriptor
+        
+        form = XLFormDescriptor(title: "Blog Example: Hobbies")
+        
+        section = XLFormSectionDescriptor()
+        section.title = "Hobbies"
+        form.addFormSection(section)
+        
+        
+        row = XLFormRowDescriptor(tag: Tags.Hobbies, rowType: XLFormRowDescriptorTypeMultipleSelector, title:"Select Hobbies")
+        row.selectorOptions = ["Sport", "Music", "Films"]
+        row.value = []
+        section.addFormRow(row)
+        
+        section = XLFormSectionDescriptor()
+        section.title = "Some more questions"
+        section.hidden = NSPredicate(format: "$\(row.description).value.@count == 0")
+        section.footerTitle = "BlogExampleViewController.swift"
+        form.addFormSection(section)
+        
+        row = XLFormRowDescriptor(tag: Tags.Sport, rowType: XLFormRowDescriptorTypeTextView, title:"Your favourite sportsman?")
+        row.hidden = "NOT $\(Tags.Hobbies).value contains 'Sport'"
+        section.addFormRow(row)
+        
+        row = XLFormRowDescriptor(tag: Tags.Film, rowType:XLFormRowDescriptorTypeTextView, title: "Your favourite film?")
+        row.hidden = "NOT $\(Tags.Hobbies) contains 'Films'"
+        section.addFormRow(row)
+        
+        row = XLFormRowDescriptor(tag: Tags.Film2, rowType:XLFormRowDescriptorTypeTextView, title:"Your favourite actor?")
+        row.hidden = "NOT $\(Tags.Hobbies) contains 'Films'"
+        section.addFormRow(row)
+        
+        row = XLFormRowDescriptor(tag: Tags.Music, rowType:XLFormRowDescriptorTypeTextView, title:"Your favourite singer?")
+        row.hidden = "NOT $\(Tags.Hobbies) contains 'Music'"
+        section.addFormRow(row)
+        
+        self.form = form
+    }
+    
 }
-
-
-- (void)initializeForm
-{
-    XLFormDescriptor * form;
-    XLFormSectionDescriptor * section;
-    XLFormRowDescriptor * row;
-    
-    form = [XLFormDescriptor formDescriptorWithTitle:@"Blog Example: Hobbies"];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Hobbies"];
-    [form addFormSection:section];
-    
-    XLFormRowDescriptor* hobbyRow = [XLFormRowDescriptor formRowDescriptorWithTag:kHobbies
-                                                                          rowType:XLFormRowDescriptorTypeMultipleSelector
-                                                                            title:@"Select Hobbies"];
-    hobbyRow.selectorOptions = @[@"Sport", @"Music", @"Films"];
-    hobbyRow.value = @[];
-    [section addFormRow:hobbyRow];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Some more questions"];
-    section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"$%@.value.@count = 0", hobbyRow]];
-    section.footerTitle = @"BlogExampleViewController.m";
-    [form addFormSection:section];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSport
-                                                rowType:XLFormRowDescriptorTypeTextView
-                                                  title:@"Your favourite sportsman?"];
-    row.hidden = [NSString stringWithFormat:@"NOT $%@.value contains 'Sport'", hobbyRow];
-    [section addFormRow:row];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kFilm
-                                                rowType:XLFormRowDescriptorTypeTextView
-                                                  title:@"Your favourite film?"];
-    row.hidden = [NSString stringWithFormat:@"NOT $%@ contains 'Films'", hobbyRow];
-    [section addFormRow:row];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kFilm2
-                                                rowType:XLFormRowDescriptorTypeTextView
-                                                  title:@"Your favourite actor?"];
-    row.hidden = [NSString stringWithFormat:@"NOT $%@ contains 'Films'", hobbyRow];
-    [section addFormRow:row];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kMusic
-                                                rowType:XLFormRowDescriptorTypeTextView
-                                                  title:@"Your favourite singer?"];
-    row.hidden = [NSString stringWithFormat:@"NOT $%@ contains 'Music'", hobbyRow];
-    [section addFormRow:row];
-    
-    self.form = form;
-}
-
-
-@end

@@ -212,11 +212,13 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     mutableRightOptions = [rightOptions mutableCopy];
     [mutableRightOptions removeObjectAtIndex:1];
     leftRightSelectorOption = [XLFormLeftRightSelectorOption formLeftRightSelectorOptionWithLeftValue:[XLFormOptionsObject formOptionsObjectWithValue:@(1) displayText:@"Option 2"] httpParameterKey:@"option_2" rightOptions:mutableRightOptions];
+    leftRightSelectorOption.leftValueChangePolicy = XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseFirstOption;
     [leftRightSelectorOptions addObject:leftRightSelectorOption];
     
     mutableRightOptions = [rightOptions mutableCopy];
     [mutableRightOptions removeObjectAtIndex:2];
     leftRightSelectorOption = [XLFormLeftRightSelectorOption formLeftRightSelectorOptionWithLeftValue:[XLFormOptionsObject formOptionsObjectWithValue:@(2) displayText:@"Option 3"]  httpParameterKey:@"option_3" rightOptions:mutableRightOptions];
+    leftRightSelectorOption.leftValueChangePolicy = XLFormLeftRightSelectorOptionLeftValueChangePolicyChooseLastOption;
     [leftRightSelectorOptions addObject:leftRightSelectorOption];
     
     mutableRightOptions = [rightOptions mutableCopy];
@@ -332,8 +334,8 @@ NSString *const kSelectorWithStoryboardId = @"selectorWithStoryboardId";
     [section addFormRow:row];
     
     // selector with SegueId
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithSegueId rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with Segue Idenfifier"];
-    row.action.formSegueIdenfifier = @"MapViewControllerSegue";
+    row = [XLFormRowDescriptor formRowDescriptorWithTag:kSelectorWithSegueId rowType:XLFormRowDescriptorTypeSelectorPush title:@"Selector with Segue Identifier"];
+    row.action.formSegueIdentifier = @"MapViewControllerSegue";
     row.valueTransformer = [CLLocationValueTrasformer class];
     row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
     [section addFormRow:row];

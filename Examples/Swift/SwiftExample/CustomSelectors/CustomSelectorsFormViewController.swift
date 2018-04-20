@@ -28,12 +28,12 @@ import MapKit
 
 class CustomSelectorsFormViewController : XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         static let SelectorMap = "selectorMap"
         static let SelectorMapPopover = "selectorMapPopover"
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -51,7 +51,7 @@ class CustomSelectorsFormViewController : XLFormViewController {
         
         form = XLFormDescriptor(title: "Custom Selectors")
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("TextField Types")
+        section = XLFormSectionDescriptor.formSection(withTitle: "TextField Types")
         section.footerTitle = "CustomSelectorsFormViewController.swift"
         form.addFormSection(section)
     
@@ -62,7 +62,7 @@ class CustomSelectorsFormViewController : XLFormViewController {
         row.value = CLLocation(latitude: -33, longitude: -56)
         section.addFormRow(row)
         
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        if UIDevice.current.userInterfaceIdiom == .pad {
             // Selector PopOver
             row = XLFormRowDescriptor(tag: Tags.SelectorMapPopover, rowType: XLFormRowDescriptorTypeSelectorPopover, title: "Coordinate PopOver")
             row.action.viewControllerClass = MapViewController.self

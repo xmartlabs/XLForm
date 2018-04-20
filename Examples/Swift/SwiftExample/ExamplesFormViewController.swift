@@ -28,7 +28,7 @@
 
 class ExamplesFormViewController : XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         static let RealExample = "RealExamples"
         static let TextFieldAndTextView = "TextFieldAndTextView"
         static let Selectors = "Selectors"
@@ -46,7 +46,7 @@ class ExamplesFormViewController : XLFormViewController {
         static let AccessoryView = "Accessory View"
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -66,15 +66,15 @@ class ExamplesFormViewController : XLFormViewController {
                 
         form = XLFormDescriptor()
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Real examples")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Real examples")
         form.addFormSection(section)
         
         // NativeEventFormViewController
         row = XLFormRowDescriptor(tag: Tags.RealExample, rowType: XLFormRowDescriptorTypeButton, title: "iOS Calendar Event Form")
-        row.action.formSegueIdenfifier = "NativeEventNavigationViewControllerSegue"
+        row.action.formSegueIdentifier = "NativeEventNavigationViewControllerSegue"
         section.addFormRow(row)
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("This form is actually an example")
+        section = XLFormSectionDescriptor.formSection(withTitle: "This form is actually an example")
         section.footerTitle = "ExamplesFormViewController.swift, Select an option to view another example"
         form.addFormSection(section)
         
@@ -87,7 +87,7 @@ class ExamplesFormViewController : XLFormViewController {
     
         // Selectors
         row = XLFormRowDescriptor(tag: Tags.Selectors, rowType: XLFormRowDescriptorTypeButton, title: "Selectors")
-        row.action.formSegueIdenfifier = "SelectorsFormViewControllerSegue"
+        row.action.formSegueIdentifier = "SelectorsFormViewControllerSegue"
         section.addFormRow(row)
         
     
@@ -98,11 +98,11 @@ class ExamplesFormViewController : XLFormViewController {
         
         // Others
         row = XLFormRowDescriptor(tag: Tags.Othes, rowType: XLFormRowDescriptorTypeButton, title: "Other Rows")
-        row.action.formSegueIdenfifier = "OthersFormViewControllerSegue"
+        row.action.formSegueIdentifier = "OthersFormViewControllerSegue"
         section.addFormRow(row)
         
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Multivalued example")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Multivalued example")
         form.addFormSection(section)
         
         
@@ -123,14 +123,14 @@ class ExamplesFormViewController : XLFormViewController {
         section.addFormRow(row)
         
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("UI Customization")
+        section = XLFormSectionDescriptor.formSection(withTitle: "UI Customization")
         form.addFormSection(section)
         
         row = XLFormRowDescriptor(tag: Tags.UICusomization, rowType: XLFormRowDescriptorTypeButton, title:"UI Customization")
         row.action.viewControllerClass = UICustomizationFormViewController.self
         section.addFormRow(row)
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Custom Rows")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Custom Rows")
         form.addFormSection(section)
 
         
@@ -138,7 +138,7 @@ class ExamplesFormViewController : XLFormViewController {
         row.action.viewControllerClass = CustomRowsViewController.self
         section.addFormRow(row)
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Accessory View")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Accessory View")
         form.addFormSection(section)
 
         row = XLFormRowDescriptor(tag: Tags.AccessoryView, rowType: XLFormRowDescriptorTypeButton, title:"Accessory Views")
@@ -146,30 +146,30 @@ class ExamplesFormViewController : XLFormViewController {
         section.addFormRow(row)
         
     
-        section = XLFormSectionDescriptor.formSectionWithTitle("Validation Examples")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Validation Examples")
         form.addFormSection(section)
         
         
         row = XLFormRowDescriptor(tag: Tags.Validations, rowType: XLFormRowDescriptorTypeButton, title: "Validation Examples")
-        row.action.formSegueIdenfifier = "ValidationExamplesFormViewControllerSegue"
+        row.action.formSegueIdentifier = "ValidationExamplesFormViewControllerSegue"
         section.addFormRow(row)
 
-        section = XLFormSectionDescriptor.formSectionWithTitle("Using Predicates")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Using Predicates")
         form.addFormSection(section)
         
         
         row = XLFormRowDescriptor(tag: Tags.Predicates, rowType: XLFormRowDescriptorTypeButton, title: "Very basic predicates")
-        row.action.formSegueIdenfifier = "BasicPredicateViewControllerSegue"
+        row.action.formSegueIdentifier = "BasicPredicateViewControllerSegue"
         section.addFormRow(row)
         
         
         row = XLFormRowDescriptor(tag: Tags.Predicates, rowType: XLFormRowDescriptorTypeButton, title: "Blog Example Hide predicates")
-        row.action.formSegueIdenfifier = "BlogExampleViewSegue"
+        row.action.formSegueIdentifier = "BlogExampleViewSegue"
         section.addFormRow(row)
         
         
         row = XLFormRowDescriptor(tag: Tags.Predicates, rowType: XLFormRowDescriptorTypeButton, title: "Another example")
-        row.action.formSegueIdenfifier = "PredicateFormViewControllerSegue"
+        row.action.formSegueIdentifier = "PredicateFormViewControllerSegue"
         section.addFormRow(row)
         
         self.form = form

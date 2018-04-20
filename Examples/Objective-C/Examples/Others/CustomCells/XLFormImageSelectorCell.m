@@ -32,7 +32,7 @@
 NSString *const kFormImageSelectorCellDefaultImage = @"defaultImage";
 NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 
-@interface XLFormImageSelectorCell() <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface XLFormImageSelectorCell() <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic) UIImage * defaultImage;
 @property (nonatomic) NSURLRequest * imageRequest;
@@ -92,57 +92,36 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 
 -(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED < 80000
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
-                                                             delegate:self
-                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:NSLocalizedString(@"XLFormImageSelectorCell_ChooseExistingPhoto", @"Choose Existing Photo"), NSLocalizedString(@"XLFormImageSelectorCell_TakePicture", @"Take a Picture"), nil];
-    actionSheet.tag = self.tag;
-    [actionSheet showInView:self.formViewController.view];
-#else
-    if ([UIAlertController class]) {
-        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:self.rowDescriptor.selectorTitle
-                                                                                  message:nil
-                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                            style:UIAlertActionStyleCancel
-                                                          handler:nil]];
-        __weak __typeof(self)weakSelf = self;
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"XLFormImageSelectorCell_ChooseExistingPhoto", @"Choose Existing Photo")
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
-                                                              imagePickerController.delegate = weakSelf;
-                                                              imagePickerController.allowsEditing = YES;
-                                                              imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                                                              imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
-                                                              [weakSelf.formViewController presentViewController:imagePickerController animated:YES completion:nil];
-                                                          }]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"XLFormImageSelectorCell_TakePicture", @"Take a Picture")
-                                                            style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction *action) {
-                                                              UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
-                                                              imagePickerController.delegate = weakSelf;
-                                                              imagePickerController.allowsEditing = YES;
-                                                              imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                                                              imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
-                                                              [weakSelf.formViewController presentViewController:imagePickerController animated:YES completion:nil];
-                                                          }]];
-        
-        [self.formViewController presentViewController:alertController animated:YES completion:nil];
-    }
-    else{
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:self.rowDescriptor.selectorTitle
-                                                                 delegate:self
-                                                        cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                   destructiveButtonTitle:nil
-                                                        otherButtonTitles:NSLocalizedString(@"XLFormImageSelectorCell_ChooseExistingPhoto", @"Choose Existing Photo"), NSLocalizedString(@"XLFormImageSelectorCell_TakePicture", @"Take a Picture"), nil];
-        actionSheet.tag = self.tag;
-        [actionSheet showInView:self.formViewController.view];
-    }
-#endif
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:self.rowDescriptor.selectorTitle
+                                                                              message:nil
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    __weak __typeof(self)weakSelf = self;
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"XLFormImageSelectorCell_ChooseExistingPhoto", @"Choose Existing Photo")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
+                                                          imagePickerController.delegate = weakSelf;
+                                                          imagePickerController.allowsEditing = YES;
+                                                          imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                                                          imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+                                                          [weakSelf.formViewController presentViewController:imagePickerController animated:YES completion:nil];
+                                                      }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"XLFormImageSelectorCell_TakePicture", @"Take a Picture")
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action) {
+                                                          UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
+                                                          imagePickerController.delegate = weakSelf;
+                                                          imagePickerController.allowsEditing = YES;
+                                                          imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                                                          imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
+                                                          [weakSelf.formViewController presentViewController:imagePickerController animated:YES completion:nil];
+                                                      }]];
+    
+    [self.formViewController presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - LayoutConstraints
@@ -154,7 +133,7 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
     
     NSDictionary *metrics = @{@"margin":@5.0};
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[text]" options:0 metrics:metrics views:uiComponents]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(margin)-[text]" options:0 metrics:metrics views:uiComponents]];
     
     
@@ -212,32 +191,6 @@ NSString *const kFormImageSelectorCellImageRequest = @"imageRequest";
 {
     [self.textLabel removeObserver:self forKeyPath:@"text"];
 }
-
-
-
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 80000
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet * __unused)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
-    imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = YES;
-    if (buttonIndex == 0){
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
-        [self.formViewController presentViewController:imagePickerController animated:YES completion:nil];
-    }
-    else if (buttonIndex == 1){
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        imagePickerController.mediaTypes = @[(NSString *)kUTTypeImage];
-        [self.formViewController presentViewController:imagePickerController animated:YES completion:nil];
-    }
-}
-
-#endif
 
 #pragma mark - UIImagePickerControllerDelegate
 

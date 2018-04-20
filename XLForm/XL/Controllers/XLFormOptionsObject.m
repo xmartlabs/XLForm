@@ -26,17 +26,13 @@
 #import "XLFormOptionsObject.h"
 
 @implementation XLFormOptionsObject
-{
-    NSString * _formDisplaytext;
-    id _formValue;
-}
 
 +(XLFormOptionsObject *)formOptionsObjectWithValue:(id)value displayText:(NSString *)displayText
 {
     return [[XLFormOptionsObject alloc] initWithValue:value displayText:displayText];
 }
 
--(id)initWithValue:(id)value displayText:(NSString *)displayText
+-(instancetype)initWithValue:(id)value displayText:(NSString *)displayText
 {
     self = [super init];
     if (self){
@@ -84,6 +80,31 @@
 -(id)formValue
 {
     return _formValue;
+}
+
+#pragma mark - NSCoding
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    
+    [encoder encodeObject:self.formValue
+                   forKey:@"formValue"];
+    [encoder encodeObject:self.formDisplayText
+                   forKey:@"formDisplayText"];
+}
+
+-(instancetype)initWithCoder:(NSCoder *)decoder
+{
+    if ((self=[super init])) {
+        
+        [self setValue:[decoder decodeObjectForKey:@"formValue"]
+                forKey:@"formValue"];
+        [self setValue:[decoder decodeObjectForKey:@"formDisplayText"]
+                forKey:@"formDisplaytext"];
+        
+    }
+    
+    return self;
+    
 }
 
 @end

@@ -1,8 +1,8 @@
 //
-//  PredicateFormViewController.m
+//  PredicateFormViewController.swift
 //  XLForm ( https://github.com/xmartlabs/XLForm )
 // 
-//  Copyright (c) 2015 Xmartlabs ( http://xmartlabs.com )
+//  Copyright (c) 2014-2015 Xmartlabs ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,91 +23,99 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-NSString *const kPred = @"pred";
-NSString *const kPredDep = @"preddep";
-NSString *const kPredDep2 = @"preddep2";
 
-#import "PredicateFormViewController.h"
+class PredicateFormViewController : XLFormViewController {
 
-@implementation PredicateFormViewController
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super initWithCoder:coder];
-    if (self) {
-        [self initializeForm];
+    fileprivate struct Tags {
+        static let Text = "text"
+        static let Integer = "integer"
+        static let Switch = "switch"
+        static let Date = "date"
+        static let Account = "account"
     }
-    return self;
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self initializeForm];
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        initializeForm()
     }
-    return self;
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initializeForm()
+    }
+    
+    func initializeForm() {
+        
+        let form : XLFormDescriptor
+        var section : XLFormSectionDescriptor
+        var row : XLFormRowDescriptor
+
+        form = XLFormDescriptor(title: "Predicates example")
+        
+        section = XLFormSectionDescriptor()
+        section.title = "Independent rows"
+        form.addFormSection(section)
+        
+        row = XLFormRowDescriptor(tag: Tags.Text, rowType: XLFormRowDescriptorTypeAccount, title:"Text")
+        row.cellConfigAtConfigure["textField.placeholder"] = "Type disable"
+        section.addFormRow(row)
+        
+        row = XLFormRowDescriptor(tag: Tags.Integer, rowType: XLFormRowDescriptorTypeInteger, title:"Integer")
+        row.hidden = NSPredicate(format: "$\(Tags.Switch).value==0")
+        section.addFormRow(row)
+        
+        row = XLFormRowDescriptor(tag: Tags.Switch, rowType: XLFormRowDescriptorTypeBooleanSwitch, title:"Boolean")
+        row.value = true
+        section.addFormRow(row)
+        
+        form.addFormSection(section)
+        
+        section = XLFormSectionDescriptor()
+        section.title = "Dependent section"
+        section.footerTitle = "Type disable in the textfield, a number between 18 and 60 in the integer field or use the switch to disable the last row. By doing all three the last section will hide.\nThe integer field hides when the boolean switch is set to 0."
+        form.addFormSection(section)
+        
+        // Predicate Disabling
+        row = XLFormRowDescriptor(tag: Tags.Date, rowType: XLFormRowDescriptorTypeDateInline, title:"Disabled")
+        row.value = Date()
+        section.addFormRow(row)
+        row.disabled = NSPredicate(format: "$\(Tags.Text).value contains[c] 'disable' OR ($\(Tags.Integer).value between {18, 60}) OR ($\(Tags.Switch).value == 0)")
+        section.hidden = NSPredicate(format: "($\(Tags.Text).value contains[c] 'disable') AND ($\(Tags.Integer).value between {18, 60}) AND ($\(Tags.Switch).value == 0)")
+        
+        
+        
+        section = XLFormSectionDescriptor()
+        section.title = "More predicates..."
+        section.footerTitle = "This row hides when the row of the previous section is disabled and the textfield in the first section contains \"out\"\n\nPredicateFormViewController.swift"
+        form.addFormSection(section)
+        
+        
+        
+        row = XLFormRowDescriptor(tag: "thirds", rowType:XLFormRowDescriptorTypeAccount, title:"Account")
+        section.addFormRow(row)
+        row.hidden =  NSPredicate(format: "$\(Tags.Date).isDisabled == 1 AND $\(Tags.Text).value contains[c] 'Out'")
+        
+        
+        row.onChangeBlock = { [weak self] oldValue, newValue, _ in
+            let noValue = "No Value"
+            let message = "Old value: \(oldValue ?? noValue), New value: \(newValue ?? noValue)"
+            let alertView = UIAlertController(title: "Account Field changed", message: message, preferredStyle: .actionSheet)
+            alertView.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self?.navigationController?.present(alertView, animated: true, completion: nil)
+        }
+        
+        self.form = form
+    }
+    
 }
 
 
-- (void)initializeForm
-{
-    XLFormDescriptor * form;
-    XLFormSectionDescriptor * section;
-    XLFormRowDescriptor * row;
-    XLFormRowDescriptor * pred, *pred3, *pred4;
-    
-    form = [XLFormDescriptor formDescriptorWithTitle:@"Predicates example"];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Independent rows"];
-    
-
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredDep rowType:XLFormRowDescriptorTypeAccount title:@"Text"];
-    [row.cellConfigAtConfigure setObject:@"Type disable" forKey:@"textField.placeholder"];
-    pred = row;
-    [section addFormRow:row];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPredDep2 rowType:XLFormRowDescriptorTypeInteger title:@"Integer"];
-    row.hidden = [NSString stringWithFormat:@"$switch==0"];
-    [section addFormRow:row];
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"switch" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"Boolean"];
-    row.value = @1;
-    pred3 = row;
-    [section addFormRow:row];
-    
-    [form addFormSection:section];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"Dependent section"];
-    section.footerTitle = @"Type disable in the textfield, a number between 18 and 60 in the integer field or use the switch to disable the last row. By doing all three the last section will hide.\nThe integer field hides when the boolean switch is set to 0.";
-    [form addFormSection:section];
-    
-    // Predicate Disabling
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:kPred rowType:XLFormRowDescriptorTypeDateInline title:@"Disabled"];
-    row.value = [NSDate new];
-    [section addFormRow:row];
-    
-    row.disabled = [NSString stringWithFormat:@"$%@ contains[c] 'disable' OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred, kPredDep2, pred3];
-    //[NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] %%@) OR ($%@.value between {18, 60}) OR ($%@.value == 0)", pred, pred2, pred3],  @"disable"] ];
-    pred4 = row;
-
-    section.hidden = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"($%@.value contains[c] 'disable') AND ($%@.value between {18, 60}) AND ($%@.value == 0)", pred, kPredDep2, pred3]];
-    
-    section = [XLFormSectionDescriptor formSectionWithTitle:@"More predicates..."];
-    section.footerTitle = @"This row hides when the row of the previous section is disabled and the textfield in the first section contains \"out\"\n\nPredicateFormViewController.m";
-    [form addFormSection:section];
-    
-
-    
-    row = [XLFormRowDescriptor formRowDescriptorWithTag:@"thirds" rowType:XLFormRowDescriptorTypeAccount title:@"Account"];
-    [section addFormRow:row];
-    row.hidden = [NSString stringWithFormat:@"$%@.isDisabled == 1 AND $%@.value contains[c] 'Out'", pred4, pred];
-    
-    
-    
-    
-    self.form = form;
-}
 
 
-@end
+
+
+
+
+
+
+

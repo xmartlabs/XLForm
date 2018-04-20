@@ -38,7 +38,8 @@
 		28D8326C1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8326B1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift */; };
 		28D8326F1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8326E1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift */; };
 		28F490221AAFBBC600C8E0CC /* DatesFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */; };
-		DD7B43598E698717584375E9 /* libPods-SwiftExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */; };
+		649437BA8D5B7C59BBDB7B92 /* libPods-SwiftExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E006C7F7FF8E967AA8661BC9 /* libPods-SwiftExample.a */; };
+		BF01E92B1C21FF2800BDE045 /* InlineSegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +56,7 @@
 		2860673D1AEDBD4A002F1E04 /* XLFormWeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XLFormWeekDaysCell.xib; sourceTree = "<group>"; };
 		286067451AEDC3D7002F1E04 /* XLRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLRatingView.swift; sourceTree = "<group>"; };
 		286E8B731AE809EF00F2767A /* DynamicSelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DynamicSelectorsFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		286E8B771AE80C4300F2767A /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsersTableViewController.swift; path = Examples/Selectors/DynamicSelector/UsersTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		286E8B771AE80C4300F2767A /* UsersTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UsersTableViewController.swift; path = SwiftExample/DynamicSelector/UsersTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		286E8B7C1AE86C8900F2767A /* XLFormCustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLFormCustomCell.swift; sourceTree = "<group>"; };
 		286E8B7D1AE86C8900F2767A /* OthersFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = OthersFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		286E8B811AE9286B00F2767A /* CustomSelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CustomSelectorsFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -67,18 +68,19 @@
 		288646171AE5C7EA007A8B9B /* iPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
 		2886461A1AE5C958007A8B9B /* NativeEventFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = NativeEventFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2886461E1AE5FEB5007A8B9B /* DateAndTimeValueTrasformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateAndTimeValueTrasformer.swift; sourceTree = "<group>"; };
-		28B920741AE6F02F00BD6382 /* InputsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InputsFormViewController.swift; path = Examples/Inputs/InputsFormViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		28B920741AE6F02F00BD6382 /* InputsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = InputsFormViewController.swift; path = SwiftExample/Inputs/InputsFormViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		28B920771AE73AA600BD6382 /* SelectorsFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectorsFormViewController.swift; sourceTree = "<group>"; };
 		28D832561AEBC4A7009E3B3F /* AccessoryViewFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AccessoryViewFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		28D832601AEBE4E4009E3B3F /* BasicPredicateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicPredicateViewController.swift; sourceTree = "<group>"; };
-		28D832661AEBEAA0009E3B3F /* BlogExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlogExampleViewController.swift; path = Examples/PredicateExamples/BlogExampleViewController.swift; sourceTree = SOURCE_ROOT; };
-		28D832681AEBFE9F009E3B3F /* PredicateFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PredicateFormViewController.swift; path = Examples/PredicateExamples/PredicateFormViewController.swift; sourceTree = SOURCE_ROOT; };
+		28D832661AEBEAA0009E3B3F /* BlogExampleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlogExampleViewController.swift; path = SwiftExample/PredicateExamples/BlogExampleViewController.swift; sourceTree = SOURCE_ROOT; };
+		28D832681AEBFE9F009E3B3F /* PredicateFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PredicateFormViewController.swift; path = SwiftExample/PredicateExamples/PredicateFormViewController.swift; sourceTree = SOURCE_ROOT; };
 		28D8326B1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationExamplesFormViewController.swift; sourceTree = "<group>"; };
 		28D8326E1AEC2D1B009E3B3F /* UICustomizationFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICustomizationFormViewController.swift; sourceTree = "<group>"; };
 		28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DatesFormViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		2EB9C638FC2450A0B9786D1E /* Pods-SwiftExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.release.xcconfig"; sourceTree = "<group>"; };
-		420D9BAB7B0D2AF9487DD060 /* Pods-SwiftExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.debug.xcconfig"; sourceTree = "<group>"; };
-		9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InlineSegmentedCell.swift; path = InlineSegmentedCell/InlineSegmentedCell.swift; sourceTree = "<group>"; };
+		CD0A6F89B9CD5843CA297E52 /* Pods-SwiftExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.release.xcconfig"; sourceTree = "<group>"; };
+		E006C7F7FF8E967AA8661BC9 /* libPods-SwiftExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwiftExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F019783EE34BD17E2BA41467 /* Pods-SwiftExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD7B43598E698717584375E9 /* libPods-SwiftExample.a in Frameworks */,
+				649437BA8D5B7C59BBDB7B92 /* libPods-SwiftExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,8 +100,8 @@
 			children = (
 				2847A6A01AAF2679000A2ABE /* SwiftExample */,
 				2847A69F1AAF2679000A2ABE /* Products */,
-				7A12A831117D9B4D152E0A51 /* Pods */,
-				402AE3EC1FACD058DCF0A2D3 /* Frameworks */,
+				E9F3DD7ACEF5AAF92FCE6E24 /* Pods */,
+				3D93F92C6A8B49B82B452B67 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,19 +116,19 @@
 		2847A6A01AAF2679000A2ABE /* SwiftExample */ = {
 			isa = PBXGroup;
 			children = (
-				286067311AEDBD4A002F1E04 /* CustomRows */,
-				28D8326D1AEC2D1B009E3B3F /* UICustomization */,
-				28D8326A1AEC177E009E3B3F /* Validations */,
-				28D8325F1AEBE4E4009E3B3F /* PredicateExamples */,
 				28D832551AEBC4A7009E3B3F /* AccessoryViews */,
+				286067311AEDBD4A002F1E04 /* CustomRows */,
+				28F490201AAFBBC600C8E0CC /* Dates */,
+				28B920711AE6EB6100BD6382 /* Inputs */,
 				286E8B8A1AE9993F00F2767A /* MultiValuedSections */,
 				286E8B7A1AE86C8900F2767A /* Others */,
-				28B920761AE7378400BD6382 /* Selectors */,
-				28B920711AE6EB6100BD6382 /* Inputs */,
+				28D8325F1AEBE4E4009E3B3F /* PredicateExamples */,
 				288646191AE5C958007A8B9B /* RealExamples */,
+				28B920761AE7378400BD6382 /* Selectors */,
 				288646161AE5C7EA007A8B9B /* StoryboardExample */,
+				28D8326D1AEC2D1B009E3B3F /* UICustomization */,
+				28D8326A1AEC177E009E3B3F /* Validations */,
 				288646141AE59474007A8B9B /* ExamplesFormViewController.swift */,
-				28F490201AAFBBC600C8E0CC /* Dates */,
 				2847A6A31AAF2679000A2ABE /* AppDelegate.swift */,
 				2847A6A11AAF2679000A2ABE /* Supporting Files */,
 			);
@@ -146,13 +148,14 @@
 		286067311AEDBD4A002F1E04 /* CustomRows */ = {
 			isa = PBXGroup;
 			children = (
+				BF01E9291C21FEF700BDE045 /* Inline Segmented */,
 				286067321AEDBD4A002F1E04 /* CustomRowsViewController.swift */,
 				286067331AEDBD4A002F1E04 /* FloatLabeledTextField */,
 				286067351AEDBD4A002F1E04 /* Rating */,
 				2860673B1AEDBD4A002F1E04 /* Weekdays */,
 			);
 			name = CustomRows;
-			path = Examples/CustomRows;
+			path = SwiftExample/CustomRows;
 			sourceTree = SOURCE_ROOT;
 		};
 		286067331AEDBD4A002F1E04 /* FloatLabeledTextField */ = {
@@ -318,22 +321,30 @@
 				28F490211AAFBBC600C8E0CC /* DatesFormViewController.swift */,
 			);
 			name = Dates;
-			path = Examples/Dates;
+			path = SwiftExample/Dates;
 			sourceTree = SOURCE_ROOT;
 		};
-		402AE3EC1FACD058DCF0A2D3 /* Frameworks */ = {
+		3D93F92C6A8B49B82B452B67 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9CFB9BA3A82D5F6FE7CCE5A5 /* libPods-SwiftExample.a */,
+				E006C7F7FF8E967AA8661BC9 /* libPods-SwiftExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7A12A831117D9B4D152E0A51 /* Pods */ = {
+		BF01E9291C21FEF700BDE045 /* Inline Segmented */ = {
 			isa = PBXGroup;
 			children = (
-				420D9BAB7B0D2AF9487DD060 /* Pods-SwiftExample.debug.xcconfig */,
-				2EB9C638FC2450A0B9786D1E /* Pods-SwiftExample.release.xcconfig */,
+				BF01E92A1C21FF2800BDE045 /* InlineSegmentedCell.swift */,
+			);
+			name = "Inline Segmented";
+			sourceTree = "<group>";
+		};
+		E9F3DD7ACEF5AAF92FCE6E24 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F019783EE34BD17E2BA41467 /* Pods-SwiftExample.debug.xcconfig */,
+				CD0A6F89B9CD5843CA297E52 /* Pods-SwiftExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -345,11 +356,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2847A6BD1AAF2679000A2ABE /* Build configuration list for PBXNativeTarget "SwiftExample" */;
 			buildPhases = (
-				21FCE00817B1AE1029F382A4 /* Check Pods Manifest.lock */,
+				89E8536C00EFF5D0377E1AE9 /* [CP] Check Pods Manifest.lock */,
 				2847A69A1AAF2679000A2ABE /* Sources */,
 				2847A69B1AAF2679000A2ABE /* Frameworks */,
 				2847A69C1AAF2679000A2ABE /* Resources */,
-				A0F2DA95250A4C3E69515D96 /* Copy Pods Resources */,
+				9BD9BF77E99A8DF4A44D2DB8 /* [CP] Embed Pods Frameworks */,
+				DC50100813F1902A0CFCE009 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -368,11 +380,12 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Xmartlabs;
 				TargetAttributes = {
 					2847A69D1AAF2679000A2ABE = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -410,30 +423,51 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		21FCE00817B1AE1029F382A4 /* Check Pods Manifest.lock */ = {
+		89E8536C00EFF5D0377E1AE9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SwiftExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9BD9BF77E99A8DF4A44D2DB8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A0F2DA95250A4C3E69515D96 /* Copy Pods Resources */ = {
+		DC50100813F1902A0CFCE009 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SwiftExample/Pods-SwiftExample-resources.sh",
+				"${PODS_ROOT}/../../../XLForm/XLForm.bundle",
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -449,6 +483,7 @@
 			files = (
 				28B920781AE73AA600BD6382 /* SelectorsFormViewController.swift in Sources */,
 				28D832671AEBEAA0009E3B3F /* BlogExampleViewController.swift in Sources */,
+				BF01E92B1C21FF2800BDE045 /* InlineSegmentedCell.swift in Sources */,
 				28D8326C1AEC177E009E3B3F /* ValidationExamplesFormViewController.swift in Sources */,
 				286067411AEDBD4A002F1E04 /* XLFormRatingCell.swift in Sources */,
 				28F490221AAFBBC600C8E0CC /* DatesFormViewController.swift in Sources */,
@@ -487,13 +522,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -502,6 +545,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -514,7 +558,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -531,13 +575,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -545,15 +597,17 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -561,7 +615,7 @@
 		};
 		2847A6BE1AAF2679000A2ABE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 420D9BAB7B0D2AF9487DD060 /* Pods-SwiftExample.debug.xcconfig */;
+			baseConfigurationReference = F019783EE34BD17E2BA41467 /* Pods-SwiftExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -570,12 +624,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExample/SwiftExample-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		2847A6BF1AAF2679000A2ABE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EB9C638FC2450A0B9786D1E /* Pods-SwiftExample.release.xcconfig */;
+			baseConfigurationReference = CD0A6F89B9CD5843CA297E52 /* Pods-SwiftExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -584,6 +640,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftExample/SwiftExample-Bridging-Header.h";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

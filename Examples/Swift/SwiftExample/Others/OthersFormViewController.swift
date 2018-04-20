@@ -27,7 +27,7 @@ import MapKit
 
 class OthersFormViewController : XLFormViewController {
 
-    private struct Tags {
+    fileprivate struct Tags {
         static let SwitchBool = "switchBool"
         static let SwitchCheck = "switchCheck"
         static let StepCounter = "stepCounter"
@@ -36,6 +36,7 @@ class OthersFormViewController : XLFormViewController {
         static let Custom = "custom"
         static let Info = "info"
         static let Button = "button"
+		static let Image = "image"
         static let ButtonLeftAligned = "buttonLeftAligned"
         static let ButtonWithSegueId = "buttonWithSegueId"
         static let ButtonWithSegueClass = "buttonWithSegueClass"
@@ -45,12 +46,10 @@ class OthersFormViewController : XLFormViewController {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initializeForm()
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.initializeForm()
     }
 
 
@@ -62,7 +61,7 @@ class OthersFormViewController : XLFormViewController {
         
         form = XLFormDescriptor(title: "Other Cells")
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Other Cells")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Other Cells")
         section.footerTitle = "OthersFormViewController.swift"
         form.addFormSection(section)
         
@@ -80,6 +79,12 @@ class OthersFormViewController : XLFormViewController {
         row.selectorOptions = ["Apple", "Orange", "Pear"]
         row.value = "Pear"
         section.addFormRow(row)
+
+        row = XLFormRowDescriptor(tag: Tags.SegmentedControl, rowType: XLFormRowDescriptorTypeSegmentedInline, title: "Fruits Inline")
+        row.selectorOptions = ["Apple", "Orange", "Pear"]
+        row.value = "Pear"
+        section.addFormRow(row)
+
         
         
         // Slider
@@ -89,36 +94,42 @@ class OthersFormViewController : XLFormViewController {
         row.cellConfigAtConfigure["slider.minimumValue"] = 10
         row.cellConfigAtConfigure["steps"] = 4
         section.addFormRow(row)
-        
+		
+		// Image
+		row = XLFormRowDescriptor(tag: Tags.Image, rowType: XLFormRowDescriptorTypeImage, title: "Image")
+		row.value = UIImage(named: "default_avatar")
+		section.addFormRow(row)
 
         // Info cell
         row = XLFormRowDescriptor(tag: Tags.Info, rowType: XLFormRowDescriptorTypeInfo)
         row.title = "Version"
-        row.value = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]
+        row.value = Bundle.main.infoDictionary!["CFBundleShortVersionString"]
         section.addFormRow(row)
         
         
-        section = XLFormSectionDescriptor.formSectionWithTitle("Buttons")
+        section = XLFormSectionDescriptor.formSection(withTitle: "Buttons")
         section.footerTitle = "Blue buttons will show a message when Switch is ON"
         form.addFormSection(section)
     
         // Button
         row = XLFormRowDescriptor(tag: Tags.Button, rowType: XLFormRowDescriptorTypeButton, title: "Button")
         row.cellConfig["textLabel.textColor"] = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
-        row.action.formSelector = "didTouchButton:"
+        row.action.formSelector = #selector(OthersFormViewController.didTouchButton(_:))
         section.addFormRow(row)
         
         
         // Left Button
         row = XLFormRowDescriptor(tag: Tags.ButtonLeftAligned, rowType: XLFormRowDescriptorTypeButton, title: "Button with Block")
         row.cellConfig["textLabel.textColor"] = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
-        row.cellConfig["textLabel.textAlignment"] = NSTextAlignment.Left.rawValue
-        row.cellConfig["accessoryType"] = UITableViewCellAccessoryType.DisclosureIndicator.rawValue
+        row.cellConfig["textLabel.textAlignment"] = NSTextAlignment.left.rawValue
+        row.cellConfig["accessoryType"] = UITableViewCellAccessoryType.disclosureIndicator.rawValue
         row.action.formBlock = { [weak self] (sender: XLFormRowDescriptor!) -> Void in
-            let switchRow = sender.sectionDescriptor.formDescriptor!.formRowWithTag(Tags.SwitchBool)!
-            if let value = switchRow.value where value.boolValue == true {
-                let alertView = UIAlertView(title: "Switch is ON", message: "Button has checked the switch value...", delegate: self, cancelButtonTitle: "OK")
-                alertView.show()
+            let switchRow = sender.sectionDescriptor.formDescriptor!.formRow(withTag: Tags.SwitchBool)!
+            if let value = switchRow.value , (value as AnyObject).boolValue == true {
+                let alert = UIAlertController(title: "Switch is ON", message: "Button has checked the switch value...", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                self?.present(alert, animated: true, completion: nil)
             }
             self?.deselectFormRow(sender)
         }
@@ -135,7 +146,7 @@ class OthersFormViewController : XLFormViewController {
         
         // Button with SegueId
         row = XLFormRowDescriptor(tag: Tags.ButtonWithSegueId, rowType: XLFormRowDescriptorTypeButton, title: "Button with Segue Idenfifier")
-        row.action.formSegueIdenfifier = "MapViewControllerSegue"
+        row.action.formSegueIdentifier = "MapViewControllerSegue"
         row.value = CLLocation(latitude: -33, longitude: -56)
         section.addFormRow(row)
         
@@ -155,26 +166,30 @@ class OthersFormViewController : XLFormViewController {
         self.form = form
     }
     
-    
-    func didTouchButton(sender: XLFormRowDescriptor) {
-        if sender.sectionDescriptor.formDescriptor.formRowWithTag(Tags.SwitchBool)?.value?.boolValue == true{
-            let alertView = UIAlertView(title: "Switch is ON", message: "Button has checked the switch value...", delegate: self, cancelButtonTitle: "OK")
-            alertView.show()
+    @objc func didTouchButton(_ sender: XLFormRowDescriptor) {
+        if (sender.sectionDescriptor.formDescriptor.formRow(withTag: Tags.SwitchBool)?.value as AnyObject).boolValue == true{
+            let alert = UIAlertController(title: "Switch is ON", message: "Button has checked the switch value...", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            present(alert, animated: true, completion: nil)
         }
         self.deselectFormRow(sender)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let barButton = UIBarButtonItem(title: "Disable", style: .Plain, target: self, action: "disableEnable:")
+
+        initializeForm()
+
+        let barButton = UIBarButtonItem(title: "Disable", style: .plain, target: self, action: #selector(OthersFormViewController.disableEnable(_:)))
         barButton.possibleTitles = Set(["Disable", "Enable"])
         navigationItem.rightBarButtonItem = barButton
     }
     
     
-    func disableEnable(button : UIBarButtonItem) {
-        form.disabled = !form.disabled
-        button.title = form.disabled ? "Enable" : "Disable"
+    @objc func disableEnable(_ button : UIBarButtonItem) {
+        form.isDisabled = !form.isDisabled
+        button.title = form.isDisabled ? "Enable" : "Disable"
         tableView.endEditing(true)
         tableView.reloadData()
     }

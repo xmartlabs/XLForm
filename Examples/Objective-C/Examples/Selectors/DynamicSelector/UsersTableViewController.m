@@ -98,7 +98,7 @@
     NSDictionary *metrics = @{@"imgSize":@50.0,
                               @"margin" :@12.0};
     
-    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(margin)-[image(imgSize)]-[name]"
+    [result addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[image(imgSize)]-[name]"
                                                                         options:NSLayoutFormatAlignAllTop
                                                                         metrics:metrics
                                                                           views:views]];
@@ -124,7 +124,6 @@
 
 @implementation UsersTableViewController
 @synthesize rowDescriptor = _rowDescriptor;
-@synthesize popoverController = __popoverController;
 @synthesize searchController = _searchController;
 @synthesize searchResultController = _searchResultController;
 
@@ -205,15 +204,16 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *dataItem = [self.dataStore dataAtIndexPath:indexPath];
-    
+
     self.rowDescriptor.value = dataItem;
     
-    if (self.popoverController){
-        [self.popoverController dismissPopoverAnimated:YES];
-        [self.popoverController.delegate popoverControllerDidDismissPopover:self.popoverController];
-    }
-    else if ([self.parentViewController isKindOfClass:[UINavigationController class]]){
+    UIViewController *popoverController = self.presentedViewController;
+    if (popoverController && popoverController.modalPresentationStyle == UIModalPresentationPopover) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else if ([self.parentViewController isKindOfClass:[UINavigationController class]]) {
         [self.navigationController popViewControllerAnimated:YES];
+    } else if ([self.presentingViewController isKindOfClass:[UsersTableViewController class]]) {
+        [[self.presentingViewController navigationController] popViewControllerAnimated:YES];
     }
 }
 
@@ -243,7 +243,9 @@ static NSString *const kCellIdentifier = @"CellIdentifier";
 -(UsersTableViewController *)searchResultController
 {
     if (_searchResultController) return _searchResultController;
-    _searchResultController = [[UsersTableViewController alloc]init];
+    UsersTableViewController *usersViewController = [[UsersTableViewController alloc] init];
+    usersViewController.rowDescriptor = self.rowDescriptor;
+    _searchResultController = usersViewController;
     _searchResultController.dataLoader.limit = 0; // no paging in search result
     _searchResultController.isSearchResultsController = YES;
     return _searchResultController;

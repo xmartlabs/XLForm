@@ -4,9 +4,9 @@ XLForm
 By [XMARTLABS](http://xmartlabs.com).
 
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
-[![license](https://img.shields.io/badge/pod-3.0.2-blue.svg)](https://github.com/xmartlabs/XLForm/releases)
+<a href="https://cocoapods.org/pods/XLForm"><img src="https://img.shields.io/cocoapods/v/XLForm.svg" alt="CocoaPods compatible" /></a>
 
-**If you are looking for Swift 2 native implementation we have recently created [Eureka], a complete re-design of XLForm in Swift 2.** *Do not panic, We will continue maintaining and improving XLForm, obj-c rocks!!*
+**If you are working in Swift then you should have a look at [Eureka], a complete re-design of XLForm in Swift.** *Do not panic, we will continue maintaining and improving XLForm, obj-c rocks!!*
 
 Purpose
 --------------
@@ -15,7 +15,7 @@ XLForm is the most flexible and powerful iOS library to create dynamic table-vie
 
 XLForm provides a very powerful DSL (Domain Specific Language) used to create a form. It keeps track of this specification on runtime, updating the UI on the fly.
 
-#####Let's see the iOS Calendar Event Form created using XLForm
+##### Let's see the iOS Calendar Event Form created using XLForm
 
 
 ![Screenshot of native Calendar Event Example](Examples/Objective-C/Examples/RealExamples/XLForm.gif)
@@ -38,8 +38,75 @@ What XLForm does
 
 
 
-How to create a form
------------------------------
+## How to create a form
+
+#### Create an instance of XLFormViewController
+
+##### Swift
+
+```swift
+class CalendarEventFormViewController : XLFormViewController {
+
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    self.initializeForm()
+  }
+
+
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    self.initializeForm()
+  }
+
+  func initializeForm() {
+    // Implementation details covered in the next section.
+  }
+
+}
+
+```
+
+##### Objective-C
+
+```objc
+#import "XLFormViewController.h"
+
+@interface CalendarEventFormViewController: XLFormViewController
+
+@end
+```
+
+```objc
+@interface ExamplesFormViewController ()
+
+@end
+
+@implementation ExamplesFormViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self){
+        [self initializeForm];
+    }
+    return self;
+}
+
+- (void)initializeForm {
+  // Implementation details covered in the next section.
+}
+
+@end
+```
+
+##### Implementing the initializeForm method
 
 To create a form we should declare it through a `XLFormDescriptor` instance and assign it to a `XLFormViewController` instance. As we said XLForm works based on a DSL that hides complex and boilerplate stuff without losing the power and flexibility of hand-made forms.
 
@@ -51,49 +118,57 @@ To define a form we use 3 classes:
 
 A form definition is a `XLFormDescriptor` instance that contains one or more sections (`XLFormSectionDescriptor` instances) and each section contains several rows (`XLFormRowDescriptor` instance). As you may have noticed the DSL structure is analog to the structure of a `UITableView` (Table -->> Sections -- >> Rows). The resulting table-view form's structure (sections and rows order) mirrors the definition's structure.
 
-#####Let's see part of the iOS Calendar Event Form definition.
-
+##### Let's see an example implementation of initializeForm to define the iOS Calendar Event Form
 
 ```objc
-XLFormDescriptor * form;
-XLFormSectionDescriptor * section;
-XLFormRowDescriptor * row;
+- (void)initializeForm {
+  XLFormDescriptor * form;
+  XLFormSectionDescriptor * section;
+  XLFormRowDescriptor * row;
 
-form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
+  form = [XLFormDescriptor formDescriptorWithTitle:@"Add Event"];
 
-// First section
-section = [XLFormSectionDescriptor formSection];
-[form addFormSection:section];
+  // First section
+  section = [XLFormSectionDescriptor formSection];
+  [form addFormSection:section];
 
-// Title
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
-[section addFormRow:row];
+  // Title
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
+  [row.cellConfigAtConfigure setObject:@"Title" forKey:@"textField.placeholder"];
+  [section addFormRow:row];
 
-// Location
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:@"Location" forKey:@"textField.placeholder"];
-[section addFormRow:row];
+  // Location
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"location" rowType:XLFormRowDescriptorTypeText];
+  [row.cellConfigAtConfigure setObject:@"Location" forKey:@"textField.placeholder"];
+  [section addFormRow:row];
 
-// Second Section
-section = [XLFormSectionDescriptor formSection];
-[form addFormSection:section];
+  // Second Section
+  section = [XLFormSectionDescriptor formSection];
+  [form addFormSection:section];
 
-// All-day
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"all-day" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"All-day"];
-[section addFormRow:row];
+  // All-day
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"all-day" rowType:XLFormRowDescriptorTypeBooleanSwitch title:@"All-day"];
+  [section addFormRow:row];
 
-// Starts
-row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
-row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
-[section addFormRow:row];
+  // Starts
+  row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
+  row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
+  [section addFormRow:row];
+  
+  self.form = form;
+}
 ```
 
 XLForm will load the table-view form from the previously explained definition. The most interesting part is that it will update the table-view form based on the form definition modifications.
 That means that we are able to make changes on the table-view form adding or removing section definitions or row  definitions to the form definition on runtime and you will never need to care again about `NSIndexPath`, `UITableViewDelegate`, `UITableViewDataSource` or other complexities.
 
-
 **To see more complex form definitions take a look at the example application in the Examples folder of this repository. You can also run the examples on your own device if you wish.** XLForm **has no** dependencies over other pods, anyway the examples  project makes use of some cocoapods to show advanced XLForm features.
+
+## Using XLForm with Storyboards
+
+* Perform the steps from **How to create a form**
+* In Interface Builder (IB), drag-and-drop a **UIViewController** onto the Storyboard
+* Associate your custom form class to the **UIViewController** using the **Identity Inspector**
 
 How to run XLForm examples
 ---------------------------------
@@ -107,7 +182,7 @@ How to run XLForm examples
 
 Rows
 ---------------------
-####Input Rows
+#### Input Rows
 
 ![Screenshot of Input Examples](Examples/Objective-C/Examples/Inputs/XLForm-Inputs.gif)
 
@@ -178,7 +253,7 @@ Will be represented by a `UITextView` with `UITextAutocorrectionTypeDefault`, `U
 
 
 
-####Selector Rows
+#### Selector Rows
 
 Selector rows allow us to select a value or values from a list. XLForm supports 8 types of selectors out of the box:
 
@@ -245,7 +320,7 @@ This is the protocol declaration:
 ```
 
 
-####Date & Time Rows
+#### Date & Time Rows
 
 XLForms supports 3 types of dates: `Date`, `DateTime` , `Time` and `Countdown Timer` and it's able to present the `UIDatePicker` control in 2 different ways, inline and non-inline.
 
@@ -352,7 +427,7 @@ section.addFormRow(row)
 self.form = form;
 
 ```
-####Boolean Rows
+#### Boolean Rows
 
 XLForms supports 2 types of boolean controls:
 
@@ -370,9 +445,9 @@ static NSString *const XLFormRowDescriptorTypeBooleanSwitch = @"booleanSwitch";
 We can also simulate other types of Boolean rows using any of the Selector Row Types introduced in the [Selector Rows section](#selector-rows).
 
 
-####Other Rows
+#### Other Rows
 
-#####Stepper
+##### Stepper
 
 XLForms supports counting using UIStepper control:
 
@@ -394,7 +469,7 @@ You can set the stepper paramaters easily:
 	[row.cellConfigAtConfigure setObject:@100 forKey:@"stepControl.maximumValue"];
 ```
 
-#####Slider
+##### Slider
 
 XLForms supports counting using UISlider control:
 
@@ -415,11 +490,11 @@ You can adjust the slider for your own interests very easily:
 
 Set `steps` to `@(0)` to disable the steps functionality.
 
-#####Info
+##### Info
 
 Sometimes our apps needs to show data that are not editable. XLForm provides us with `XLFormRowDescriptorTypeInfo` row type to display not editable info. An example of usage would be showing the app version in the settings part of an app.  
 
-#####Button
+##### Button
 
 Apart from data entry rows, not editable rows and selectors, XLForm has a button row `XLFormRowDescriptorTypeButton` that allows us to do any action when selected. It can be configured using a block (clousure), a selector, a segue identifier, segue class or specifing a view controller to be presented. ViewController specification could be done by setting up the view controller class, the view controller storyboard Id or a nib name. Nib name must match view controller class name.
 
@@ -615,6 +690,8 @@ XLForm sets up `rowDescriptor` property using the `XLFormRowDescriptor` instance
 
 The developer is responsible for update its views with the `rowDescriptor` value as well as set the selected value to `rowDescriptor` from within the custom selector view controller.
 
+> Note: the properties `viewControllerClass`, `viewControllerNibName` or `viewControllerStoryboardId` are mutually exclusive and are used by `XLFormButtonCell` and `XLFormSelectorCell`. If you create a custom cell then you are responsible for using them. 
+
 
 #### Another example
 
@@ -647,6 +724,8 @@ Usually you may want to change the form when some value change or some row or se
 
 In order to stay in sync with the form descriptor modifications your `XLFormViewController` subclass should override the `XLFormDescriptorDelegate` methods of 'XLFormViewController'.
 
+> Note: It is important to always call the `[super ...]` method when overriding this delegate's methods.
+
 ```objc
 @protocol XLFormDescriptorDelegate <NSObject>
 
@@ -657,6 +736,10 @@ In order to stay in sync with the form descriptor modifications your `XLFormView
 -(void)formRowHasBeenAdded:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowHasBeenRemoved:(XLFormRowDescriptor *)formRow atIndexPath:(NSIndexPath *)indexPath;
 -(void)formRowDescriptorValueHasChanged:(XLFormRowDescriptor *)formRow oldValue:(id)oldValue newValue:(id)newValue;
+-(void)formRowDescriptorPredicateHasChanged:(XLFormRowDescriptor *)formRow
+                                   oldValue:(id)oldValue
+                                   newValue:(id)newValue
+                              predicateType:(XLPredicateType)predicateType;
 
 @end
 ```
@@ -684,7 +767,7 @@ For instance if we want to show or hide a row depending on the value of another 
 Make a row or section invisible depending on other rows values
 --------------------------------
 
-###Summary
+### Summary
 
 XLForm allows you to define dependencies between rows so that if the value of one row is changed, the behaviour of another one changes automatically. For example, you might have a form where you question the user if he/she has pets. If the answer is 'yes' you might want to ask how their names are.
 So you can make a row invisible and visible again based on the values of other rows. The same happens with sections.
@@ -694,7 +777,7 @@ Take a look at the following example:
 
 Of course, you could also do this manually by observing the value of some rows and deleting and adding rows accordingly, but that would be a lot of work which is already done.
 
-###How it works
+### How it works
 
 To make the appearance and disappearance of rows and sections automatic, there is a property in each descriptor:
 
@@ -783,6 +866,7 @@ You may want to set up another properties of the `UITableViewCell`. To set up an
 You just have to add the properties to `cellConfig` or `cellConfigAtConfigure` dictionary property of `XLFormRowDescriptor`.
 The main difference between `cellConfig` and `cellConfigAtConfigure` is the time when the property is set up. `cellConfig` properties are set up each time a cell is about to be displayed. `cellConfigAtConfigure`, on the other hand, set up the property just after the init method of the cell is called and only one time.
 
+Since version 3.3.0 you can also use `cellConfigForSelector` to configure how the cells of the `XLFormOptionsViewController` look like when it is shown for a selector row.
 
 For instance if you want to set up the placeholder you can do the following:
 
@@ -798,7 +882,7 @@ Let's see how to change the color of the cell label:
 
 ```objc
 row = [XLFormRowDescriptor formRowDescriptorWithTag:@"title" rowType:XLFormRowDescriptorTypeText];
-[row.cellConfigAtConfigure setObject:[UIColor red] forKey:@"textLabel.textColor"];
+[row.cellConfig setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
 [section addFormRow:row];
 ```
 
@@ -812,6 +896,25 @@ section.addFormRow(row)
 
 FAQ
 -------
+
+#### How to customize the header and/or footer of a section
+
+For this you should use the UITableViewDelegate methods in your XLFormViewController.
+This means you should implement one or both of these:
+
+```objc
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+```
+
+Also you might want to implement the following methods to specify the height for these views:
+
+```objc
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+```
 
 #### How to assign the first responder on form appearance
 
@@ -901,6 +1004,8 @@ You can change the length of a UITextField using the `cellConfigAtConfigure` dic
 row.cellConfigAtConfigure.setObject(0.7, forKey:XLFormTextFieldLengthPercentage)
 ```
 
+**Note:**The same can be achieved for the UITextView when using `XLFormRowDescriptorTypeTextView`; just set your percentage for the key `XLFormTextViewLengthPercentage`.
+
 #### How to change a UITableViewCell font
 
 You can change the font or any other table view cell property using the `cellConfig` dictionary property. XLForm will set up `cellConfig` dictionary values when the table view cell is about to be displayed.
@@ -922,7 +1027,7 @@ row.cellConfig.setObject(UIFont(name: "AppleSDGothicNeo-Regular", size: 17)!, fo
 
 For further details, please take a look at [UICustomizationFormViewController.m](/Examples/Objective-C/Examples/UICustomization/UICustomizationFormViewController.m) example.
 
-####How to set min/max for date cells?
+#### How to set min/max for date cells?
 
 Each XLFormDateCell has a `minimumDate` and a `maximumDate` property. To set a datetime row to be a value in the next three days you would do as follows:
 
@@ -982,19 +1087,51 @@ This rowDescriptor refers to the selected row of the previous view controller an
 
 The best way to do this is to extend the class of that cell and override its update and/or configure methods. To make this work you should also update the `cellClassesForRowDescriptorTypes` dictionary in your subclass of XLFormViewController by setting your custom class instead of the class of the cell you wanted to change.
 
+#### How to change the returnKeyType of a cell
+
+To change the returnKeyType of a cell you can set the `returnKeyType` and `nextReturnKeyType` properties. The former will be used if there is no navigation enabled or if there is no row after this row. In the other case the latter will be used.
+If you create a custom cell and want to use these you should conform to the `XLFormReturnKeyProtocol` protocol.
+This is how you can set them:
+```
+[row.cellConfigAtConfigure setObject:@(UIReturnKeyGo) forKey:@"nextReturnKeyType"];
+```
+
+#### How to change the height of one cell
+
+If you want to change the height for all cells of one class you should subclass that cell and override the class method `formDescriptorCellHeightForRowDescriptor`. 
+If you want to change the height of one individual cell then you can set that height to the `height` property of XLFormRowDescripto like this:
+```
+XLFormRowDescriptor* row = ... 
+row.height = 55;
+```
+
+#### How to change the appearance of the cells of a selector view controller (XLFormOptionsViewController)
+
+To change the appearance of the cells of a XLFormOptionsViewController you can use the `cellConfigForSelector` property on the row descriptor.
+Example:
+```
+[row.cellConfigForSelector setObject:[UIColor redColor] forKey:@"textLabel.textColor"];
+```
+
+#### How to limit the characters of a XLFormTextFieldCell or a XLFormTextViewCell
+
+You can make this happen using the `textFieldMaxNumberOfCharacters` and the `textViewMaxNumberOfCharacters` respectively.
+```
+[row.cellConfigAtConfigure setObject:@(20) forKey:@"textViewMaxNumberOfCharacters"];
+```
+
 Installation
 --------------------------
 
-The easiest way to use XLForm in your app is via [CocoaPods](http://cocoapods.org/ "CocoaPods").
+## CocoaPods
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 3.0'`.
+`pod 'XLForm', '~> 4.0'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
 
-
-### How to use master branch
+#### How to use master branch
 
 Often master branch contains most recent features and latest fixes. On the other hand this features was not fully tested and changes on master may occur at any time. For the previous reasons I stongly recommend to fork the repository and manage the updates from master on your own making the proper pull on demand.
 
@@ -1005,7 +1142,7 @@ To use xmartlabs master branch.....
 
 You can replace the repository URL for your forked version url if you wish.
 
-### How to use XLForm in Swift files
+#### How to use XLForm in Swift files
 
 If you have installed XLForm with cocoapods and have set `use_frameworks!` in your Podfile, you can add `import XLForm` to any Swift file.
 
@@ -1013,122 +1150,43 @@ If you are using cocoapods but have not set `use_frameworks!` in your Podfile, a
 
 For further details on how to create and configure the bridging header file visit [*Importing Objective-C into Swift*](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html "Importing Objective-C into Swift").
 
+
+## Carthage
+
+In your `Cartfile` add:
+
+```
+github "xmartlabs/XLForm" ~> 4.0
+```
+
+## Using git submodules
+
+* Clone XLForm as a git [submodule](http://git-scm.com/docs/git-submodule) by running the following command from your project root git folder.
+
+```bash
+$ git submodule add https://github.com/xmartlabs/XLForm.git
+```
+
+* Open XLForm folder that was created by the previous git submodule command and drag the XLForm.xcodeproj into the Project Navigator of your application's Xcode project.
+
+* Select the XLForm.xcodeproj in the Project Navigator and verify the deployment target matches with your application deployment target.
+
+* Select your project in the Xcode Navigation and then select your application target from the sidebar. Next select the "General" tab and click on the + button under the "Embedded Binaries" section.
+
+* Select `XLForm.framework` and we are done!
+
 Requirements
 -----------------------------
 
 * ARC
-* iOS 7.0 and above
-* XCode 6.3+
+* iOS 9.0 and above
+* XCode 9.0+
 
 
 Release Notes
 --------------
 
-Version 3.0.2
-* Fix issue when inline pickers expand beyond table.
-
-Version 3.0.1
-
-* Improvements and bug fixes.
-* Ability to left, right align textfields. Ability to set up a minimum textField width.
-* If form is being shown, assigning a new form automatically reload the tableview.
-* Update objective-c and swift example projects.
-* Swift compatibility fixes.
-* Long email validation added.
-* Fixed row copy issue, now valueTransformer value is copied.
-* Fixed step counter row layout issues.
-* Fixed issue "Last form field hides beneath enabled navigation controller's toolbar".
-* Fixed issue "Navigating between cells using bottom navigation buttons causes table cell dividers to disappear".
-* Use UIAlertController instead UIActionSheet/UIAlertView if possible.
-* Hidden and disabled rows resign first responder before changing state.
-* onChangeBlock added to rowDescriptor.
-* use tintColor as default button row color.
-* By default accessoryView is no longer shown for inline rows.
-* Fix NSBundle issues to use XLForm as dynamic framework.
-
-Version 3.0.0
-
-* `hidden`, `disable` properties added to `XLFormRowDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide, disable de row.
-* `hidden` property added to `XLFormSectionDescriptor`. `@YES` `@NO` or a `NSPredicate` can be used to hide the section.
-* Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
-* Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
-
-* Added `XLFormRowDescriptorTypeCountDownTimerInline` and `XLFormRowDescriptorTypeCountDownTimer` row type with an example.
-* Deleted `dateFormatter` property and added support to use the `NSValueTransformer` to convert the selected object to a NSString in the XLFormDateCell class.
-
-
-Version 2.2.0
-
-* Fixed "(null)" caption when `XLFormRowDescriptorTypeSelectorLeftRight` row required error message is shown.
-* Refresh the cell content instead of recreating one, when the form get back from a selection.
-* Added XLFormRowDescriptor to validations error to easily show an error mask.
-* Use row tag in validation error message if row does not have a title. It is also possible to set up a custom message if needed
-* Added a convenience method to add a XLFormRowDescriptor instance before another one.
-* Allow nil values in cellConfig and cellConfigAtConfigure.
-* Fix constraints for textFieldCell when it is configured to be right aligned.
-* Add asterisk to required segmentedCells if needed.
-* Fail validation for empty strings and NSNull on required rows.
-* Segue support added to buttons and selectors.
-* Ability to configure a storyboardId or a viewController nibName to by used by button and selector rows as presented view controller.
-* Fix scrolling to top when status bar is tapped.
-* Fix wrong type of XLFormRowDescriptorTypeDecimal row. Now it's converted to NSNumber.
-* Fix issue: XLFormRegexValidator only checks regex validation for NSStrings, not working for number.
-* Callconfigure method from awakeFromNib on XLFormBaseCell.
-* Assign form.delegate from inside setForm: method.
-* Added custom cell, validation, reordering, can insert, can delete examples.
-* Added support for inputAccessoryView. Default input accessory view allows to navigate among rows. Fully optionally and customizable.
-* Added suport for row navigation. Fully optionally and customizable.
-* beginEditing: endEditing: methods added. These method are called each time a row gains / loses firstResponder. They bring the ability to do UI changes.
-* Read Only mode added. `disable` property added to XLFormDescriptor class.
-* Rename `label` XLFormTextViewCell property as `textLabel`.
-* fix position of multivalued section accessory view.
-* Can delete, can delete, can reorder section mode added. it's possible to enable some of them, don't need to enable all modes.
-
-Version 2.1.0
-
-* Change `XLFormRowDescriptorTypeText`, `XLFormRowDescriptorTypeName` and `XLFormRowDescriptorTypeTextView` keyboard type to `UIKeyboardTypeDefault`.
-* Added `XLFormRowDescriptorTypeInfo` row type and example.
-* Added `XLFormRowDescriptorTypeSelectorPopover` row type and example.
-* CI added. Created Test project into Tests folder and set up Travis.
-* Documented how to customize UI. Added an example.
-* Now XLFormViewController extends from UIViewController instead of UITableViewController.
-* Added tableView property as a XLFormViewController IBOutlet.
-* Added support for storyboard reuse identifier and nib file.
-* Button selection can be handled using a selector or block.
-* Added addAsteriskToRequiredRowsTitle property to XLFormDescriptor. NO is used as value by default.
-* Image cell has been removed because it depends on AFNetworking and now needs to be implemented as a custom cell. You can find the image custom cell in Examples/Others/CustomCells.
-
-Version 2.0.0 (cocoaPod)
-
-* Added `XLFormRowDescriptorTypeMultipleSelector` row type and example.
-* Added `XLFormRowDescriptorTypeSelectorPickerView` row type and example.
-* Added `XLFormRowDescriptorTypeSelectorPickerViewInline` row type and example.
-* Added generic way to create inline selector rows.
-* Ability to customize row animations.
-* `(NSDictionary *)formValues;` XLFormViewController method added in order to get raw form data.
-* Added `XLFormRowDescriptorTypeSelectorSegmentedControl` row type and example.
-* AFNetworking dependency removed.
-* Added `XLFormRowDescriptorTypeStepCounter` row type and related example.
-
-
-Version 1.0.1 (cocoaPod)
-
-* Added storyboard example.
-* Added button `XLFormRowDescriptorTypeButton` example.
-* Documented how to add a custom row.
-* Fixed issues: [#2](https://github.com/xmartlabs/XLForm/issues/2 "#2"), [#3](https://github.com/xmartlabs/XLForm/issues/3 "#3"), [#27](https://github.com/xmartlabs/XLForm/issues/27 "#27"), [#38](https://github.com/xmartlabs/XLForm/issues/38 "#38").
-* Fixed crash caused by inline date rows. [#6](https://github.com/xmartlabs/XLForm/issues/6 "#6")
-* Fixed ipad issue *invalid cell layout*. [#10](https://github.com/xmartlabs/XLForm/issues/10 "#10")
-* New convenience methods to insert sections dinamically. [#13](https://github.com/xmartlabs/XLForm/pull/13 "#13")
-* Change default label style to `UIFontTextStyleBody`. [#18](https://github.com/xmartlabs/XLForm/issues/18 "#18")
-* Added step counter row, `XLFormRowDescriptorTypeStepCounter`.
-* Added `initWithCoder` initializer to `XLFormViewController`. [#32](https://github.com/xmartlabs/XLForm/issues/32 "#32").
-* Added a convenience method to deselect a `XLFormRowDescriptor`. `-(void)deselectFormRow:(XLFormRowDescriptor *)row;`. [#33](https://github.com/xmartlabs/XLForm/issues/33 "#33").
-
-
-Version 1.0.0 (cocoaPod)
-
-* Initial release
+Have a look at the [CHANGELOG](https://github.com/xmartlabs/XLForm/blob/master/CHANGELOG.md)
 
 Author
 -----------------

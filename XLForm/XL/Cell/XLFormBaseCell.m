@@ -27,12 +27,7 @@
 
 @implementation XLFormBaseCell
 
-- (id)init
-{
-    return [self initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
-}
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -46,21 +41,6 @@
     [super awakeFromNib];
     [self configure];
 }
-
--(void)setRowDescriptor:(XLFormRowDescriptor *)rowDescriptor
-{
-    _rowDescriptor = rowDescriptor;
-    [self update];
-    [rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-        [self setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-    }];
-    if (rowDescriptor.isDisabled){
-        [rowDescriptor.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-            [self setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-        }];
-    }
-}
-
 
 - (void)configure
 {
@@ -85,7 +65,7 @@
 {
     id responder = self;
     while (responder){
-        if ([responder isKindOfClass:[UIViewController class]]){
+        if ([responder isKindOfClass:[XLFormViewController class]]){
             return responder;
         }
         responder = [responder nextResponder];

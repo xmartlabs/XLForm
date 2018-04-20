@@ -52,6 +52,7 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
 
 @property (readonly, nonatomic, nonnull) NSMutableArray * formSections;
 @property (readonly, nullable) NSString * title;
+@property (nonatomic) BOOL endEditingTableViewOnScroll;
 @property (nonatomic) BOOL assignFirstResponderOnShow;
 @property (nonatomic) BOOL addAsteriskToRequiredRowsTitle;
 @property (getter=isDisabled) BOOL disabled;
