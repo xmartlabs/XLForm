@@ -314,8 +314,8 @@
 
 -(void)updateAfterDependentRowChanged:(XLFormRowDescriptor *)formRow
 {
-    NSMutableArray* revaluateHidden   = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeHidden]];
-    NSMutableArray* revaluateDisabled = self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeDisabled]];
+    NSMutableArray* revaluateHidden   = [self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeHidden]] mutableCopy];
+    NSMutableArray* revaluateDisabled = [self.form.rowObservers[[formRow.tag formKeyForPredicateType:XLPredicateTypeDisabled]] mutableCopy];
     for (id object in revaluateDisabled) {
         if ([object isKindOfClass:[NSString class]]) {
             XLFormRowDescriptor* row = [self.form formRowWithTag:object];
