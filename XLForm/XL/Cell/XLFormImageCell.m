@@ -100,7 +100,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.formViewController presentViewController:alertController animated: true completion: nil];
+        [self.formViewController presentViewController:self->alertController animated: true completion: nil];
     });
 }
 

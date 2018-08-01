@@ -155,7 +155,7 @@ CGFloat XLFormRowInitialHeight = -2;
 - (void)configureCellAtCreationTime
 {
     [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
-        [_cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+        [self->_cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
     }];
 }
 
