@@ -342,9 +342,9 @@
 
 -(void)setHidePredicateCache:(NSNumber *)hidePredicateCache
 {
-    NSParameterAssert(hidePredicateCache);
+    NSParameterAssert(hidePredicateCache != nil);
     self.isDirtyHidePredicateCache = NO;
-    if (!_hidePredicateCache || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
+    if (_hidePredicateCache == nil || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
         _hidePredicateCache = hidePredicateCache;
     }
 }

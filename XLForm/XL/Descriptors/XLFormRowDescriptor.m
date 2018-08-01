@@ -387,9 +387,9 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(void)setDisablePredicateCache:(NSNumber*)disablePredicateCache
 {
-    NSParameterAssert(disablePredicateCache);
+    NSParameterAssert(disablePredicateCache != nil);
     self.isDirtyDisablePredicateCache = NO;
-    if (!_disablePredicateCache || ![_disablePredicateCache isEqualToNumber:disablePredicateCache]){
+    if (_disablePredicateCache == nil || ![_disablePredicateCache isEqualToNumber:disablePredicateCache]){
         _disablePredicateCache = disablePredicateCache;
     }
 }
@@ -408,9 +408,9 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(void)setHidePredicateCache:(NSNumber *)hidePredicateCache
 {
-    NSParameterAssert(hidePredicateCache);
+    NSParameterAssert(hidePredicateCache != nil);
     self.isDirtyHidePredicateCache = NO;
-    if (!_hidePredicateCache || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
+    if (_hidePredicateCache == nil || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
         _hidePredicateCache = hidePredicateCache;
     }
 }

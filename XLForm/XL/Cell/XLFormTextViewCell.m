@@ -160,7 +160,7 @@ NSString *const XLFormTextViewMaxNumberOfCharacters = @"textViewMaxNumberOfChara
     }
     else{
         [_dynamicCustomConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textView]-|" options:0 metrics:0 views:views]];
-        if (self.textViewLengthPercentage) {
+        if (self.textViewLengthPercentage != nil) {
             [_dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textView
                                                                               attribute:NSLayoutAttributeWidth
                                                                               relatedBy:NSLayoutRelationEqual
@@ -207,7 +207,7 @@ NSString *const XLFormTextViewMaxNumberOfCharacters = @"textViewMaxNumberOfChara
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if (self.textViewMaxNumberOfCharacters) {
+    if (self.textViewMaxNumberOfCharacters != nil) {
         // Check maximum length requirement
         NSString *newText = [textView.text stringByReplacingCharactersInRange:range withString:text];
         if (newText.length > self.textViewMaxNumberOfCharacters.integerValue) {

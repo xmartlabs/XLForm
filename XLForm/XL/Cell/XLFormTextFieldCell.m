@@ -225,10 +225,10 @@ NSString *const XLFormTextFieldMaxNumberOfCharacters = @"textFieldMaxNumberOfCha
             self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-[label]-[textField]-|" options:0 metrics:nil views:views]];
             [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textField
                                                                                   attribute:NSLayoutAttributeWidth
-                                                                                  relatedBy:self.textFieldLengthPercentage ? NSLayoutRelationEqual : NSLayoutRelationGreaterThanOrEqual
+                                                                                  relatedBy:self.textFieldLengthPercentage != nil ? NSLayoutRelationEqual : NSLayoutRelationGreaterThanOrEqual
                                                                                      toItem:self.contentView
                                                                                   attribute:NSLayoutAttributeWidth
-                                                                                 multiplier:self.textFieldLengthPercentage ? [self.textFieldLengthPercentage floatValue] : 0.3
+                                                                                 multiplier:self.textFieldLengthPercentage != nil ? [self.textFieldLengthPercentage floatValue] : 0.3
                                                                                    constant:0.0]];
         }
         else{
@@ -240,10 +240,10 @@ NSString *const XLFormTextFieldMaxNumberOfCharacters = @"textFieldMaxNumberOfCha
             self.dynamicCustomConstraints = [NSMutableArray arrayWithArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[label]-[textField]-|" options:0 metrics:nil views:views]];
             [self.dynamicCustomConstraints addObject:[NSLayoutConstraint constraintWithItem:_textField
                                                                                   attribute:NSLayoutAttributeWidth
-                                                                                  relatedBy:self.textFieldLengthPercentage ? NSLayoutRelationEqual : NSLayoutRelationGreaterThanOrEqual
+                                                                                  relatedBy:self.textFieldLengthPercentage != nil ? NSLayoutRelationEqual : NSLayoutRelationGreaterThanOrEqual
                                                                                      toItem:self.contentView
                                                                                   attribute:NSLayoutAttributeWidth
-                                                                                 multiplier:self.textFieldLengthPercentage ? [self.textFieldLengthPercentage floatValue] : 0.3
+                                                                                 multiplier:self.textFieldLengthPercentage != nil ? [self.textFieldLengthPercentage floatValue] : 0.3
                                                                                    constant:0.0]];
         }
         else{
@@ -279,7 +279,7 @@ NSString *const XLFormTextFieldMaxNumberOfCharacters = @"textFieldMaxNumberOfCha
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (self.textFieldMaxNumberOfCharacters) {
+    if (self.textFieldMaxNumberOfCharacters != nil) {
         // Check maximum length requirement
         NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
         if (newString.length > self.textFieldMaxNumberOfCharacters.integerValue) {
