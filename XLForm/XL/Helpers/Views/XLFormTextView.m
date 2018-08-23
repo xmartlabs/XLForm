@@ -78,6 +78,7 @@
         }
         _placeHolderLabel.text = self.placeholder;
         _placeHolderLabel.font = self.font;
+        _placeHolderLabel.textColor = self.placeholderColor;
         [_placeHolderLabel sizeToFit];
         [self sendSubviewToBack:_placeHolderLabel];
     }
