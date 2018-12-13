@@ -33,7 +33,6 @@
 
 @interface XLFormRowDescriptor(_XLFormViewController)
 
-@property (readonly) NSArray * observers;
 -(BOOL)evaluateIsDisabled;
 -(BOOL)evaluateIsHidden;
 
@@ -47,7 +46,7 @@
 
 @interface XLFormDescriptor (_XLFormViewController)
 
-@property NSMutableDictionary* rowObservers;
+@property (atomic, strong) NSMutableDictionary* rowObservers;
 
 @end
 
@@ -57,8 +56,8 @@
     NSNumber *_oldBottomTableContentInset;
     CGRect _keyboardFrame;
 }
-@property UITableViewStyle tableViewStyle;
-@property (nonatomic) XLFormRowNavigationAccessoryView * navigationAccessoryView;
+@property (nonatomic, assign) UITableViewStyle tableViewStyle;
+@property (nonatomic, strong) XLFormRowNavigationAccessoryView * navigationAccessoryView;
 
 @end
 
@@ -113,16 +112,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if (!self.tableView){
-        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
+    
+    UITableView *tableView = self.tableView;
+    if (!tableView){
+        tableView = [[UITableView alloc] initWithFrame:self.view.bounds
                                                       style:self.tableViewStyle];
-        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        if([self.tableView respondsToSelector:@selector(cellLayoutMarginsFollowReadableWidth)]){
-            self.tableView.cellLayoutMarginsFollowReadableWidth = NO;
+        tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        if([tableView respondsToSelector:@selector(cellLayoutMarginsFollowReadableWidth)]){
+            tableView.cellLayoutMarginsFollowReadableWidth = NO;
         }
     }
-    if (!self.tableView.superview){
-        [self.view addSubview:self.tableView];
+    if (!tableView.superview){
+        [self.view addSubview:tableView];
+        self.tableView = tableView;
     }
     if (!self.tableView.delegate){
         self.tableView.delegate = self;
@@ -434,9 +436,10 @@
     XLFormSectionDescriptor * multivaluedFormSection = formRow.sectionDescriptor;
     XLFormRowDescriptor * formRowDescriptor = [self formRowFormMultivaluedFormSection:multivaluedFormSection];
     [multivaluedFormSection addFormRow:formRowDescriptor];
+    __weak typeof(self) weak = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.tableView.editing = !self.tableView.editing;
-        self.tableView.editing = !self.tableView.editing;
+        weak.tableView.editing = !weak.tableView.editing;
+        weak.tableView.editing = !weak.tableView.editing;
     });
     UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[formRowDescriptor cellForFormController:self];
     if ([cell formDescriptorCellCanBecomeFirstResponder]){
@@ -650,9 +653,10 @@
 #pragma GCC diagnostic pop
     // update the accessory view
     [self inputAccessoryViewForRowDescriptor:row];
+    __weak typeof(self) weak = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.tableView.editing = !self.tableView.editing;
-        self.tableView.editing = !self.tableView.editing;
+        weak.tableView.editing = !weak.tableView.editing;
+        weak.tableView.editing = !weak.tableView.editing;
     });
 
 }
@@ -667,9 +671,10 @@
                 [self.tableView endEditing:YES];
         }
         [multivaluedFormRow.sectionDescriptor removeFormRowAtIndex:indexPath.row];
+        __weak typeof(self) weak = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.tableView.editing = !self.tableView.editing;
-            self.tableView.editing = !self.tableView.editing;
+            weak.tableView.editing = !weak.tableView.editing;
+            weak.tableView.editing = !weak.tableView.editing;
         });
         if (firstResponder){
             UITableViewCell<XLFormDescriptorCell> * firstResponderCell = [firstResponder formDescriptorCell];
@@ -686,9 +691,10 @@
         else{
             XLFormRowDescriptor * formRowDescriptor = [self formRowFormMultivaluedFormSection:multivaluedFormSection];
             [multivaluedFormSection addFormRow:formRowDescriptor];
+            __weak typeof(self) weak = self;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.tableView.editing = !self.tableView.editing;
-                self.tableView.editing = !self.tableView.editing;
+                weak.tableView.editing = !weak.tableView.editing;
+                weak.tableView.editing = !weak.tableView.editing;
             });
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row + 1 inSection:indexPath.section] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
             UITableViewCell<XLFormDescriptorCell> * cell = (UITableViewCell<XLFormDescriptorCell> *)[formRowDescriptor cellForFormController:self];

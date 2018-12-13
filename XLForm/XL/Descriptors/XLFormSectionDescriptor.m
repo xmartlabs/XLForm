@@ -32,7 +32,7 @@
 
 @interface XLFormDescriptor (_XLFormSectionDescriptor)
 
-@property (readonly) NSDictionary* allRowsByTag;
+@property (nonatomic, readonly) NSDictionary* allRowsByTag;
 
 -(void)addRowToTagCollection:(XLFormRowDescriptor*)rowDescriptor;
 -(void)removeRowFromTagCollection:(XLFormRowDescriptor*) rowDescriptor;
@@ -46,10 +46,10 @@
 
 @interface XLFormSectionDescriptor()
 
-@property NSMutableArray * formRows;
-@property NSMutableArray * allRows;
-@property BOOL isDirtyHidePredicateCache;
-@property (nonatomic) NSNumber* hidePredicateCache;
+@property (nonatomic, strong) NSMutableArray * formRows;
+@property (nonatomic, strong) NSMutableArray * allRows;
+@property (nonatomic, assign) BOOL isDirtyHidePredicateCache;
+@property (nonatomic, copy) NSNumber* hidePredicateCache;
 
 @end
 

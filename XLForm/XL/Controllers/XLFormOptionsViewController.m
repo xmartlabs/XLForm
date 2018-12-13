@@ -34,8 +34,8 @@
 
 @interface XLFormOptionsViewController () <UITableViewDataSource>
 
-@property NSString * titleHeaderSection;
-@property NSString * titleFooterSection;
+@property (nonatomic, copy) NSString * titleHeaderSection;
+@property (nonatomic, copy) NSString * titleFooterSection;
 
 
 @end

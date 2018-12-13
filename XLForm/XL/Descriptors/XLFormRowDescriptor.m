@@ -33,7 +33,7 @@ CGFloat XLFormRowInitialHeight = -2;
 
 @interface XLFormDescriptor (_XLFormRowDescriptor)
 
-@property (readonly) NSDictionary* allRowsByTag;
+@property (nonatomic, readonly, strong) NSDictionary* allRowsByTag;
 
 -(void)addObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType;
 -(void)removeObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType;
@@ -51,13 +51,13 @@ CGFloat XLFormRowInitialHeight = -2;
 
 @interface XLFormRowDescriptor() <NSCopying>
 
-@property XLFormBaseCell * cell;
-@property (nonatomic) NSMutableArray *validators;
+@property (nonatomic, strong) XLFormBaseCell *cell;
+@property (nonatomic, strong) NSMutableArray *validators;
 
-@property BOOL isDirtyDisablePredicateCache;
-@property (nonatomic) NSNumber* disablePredicateCache;
-@property BOOL isDirtyHidePredicateCache;
-@property (nonatomic) NSNumber* hidePredicateCache;
+@property (nonatomic, assign) BOOL isDirtyDisablePredicateCache;
+@property (nonatomic, copy) NSNumber* disablePredicateCache;
+@property (nonatomic, assign) BOOL isDirtyHidePredicateCache;
+@property (nonatomic, copy) NSNumber* hidePredicateCache;
 
 @end
 

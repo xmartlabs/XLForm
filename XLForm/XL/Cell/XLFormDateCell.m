@@ -60,11 +60,11 @@
 
 -(BOOL)becomeFirstResponder
 {
+    BOOL result = [super becomeFirstResponder];
     if (self.isFirstResponder){
-        return [super becomeFirstResponder];
+        return result;
     }
     _beforeChangeColor = self.detailTextLabel.textColor;
-    BOOL result = [super becomeFirstResponder];
     if (result){
         if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTimeInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTimeInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimerInline])
         {

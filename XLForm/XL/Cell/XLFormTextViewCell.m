@@ -70,24 +70,9 @@ NSString *const XLFormTextViewMaxNumberOfCharacters = @"textViewMaxNumberOfChara
 
 #pragma mark - Properties
 
--(UILabel *)textLabel
-{
-    if (_textLabel) return _textLabel;
-    _textLabel = [UILabel autolayoutView];
-    [_textLabel setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
-    return _textLabel;
-}
-
 -(UILabel *)label
 {
     return self.textLabel;
-}
-
--(XLFormTextView *)textView
-{
-    if (_textView) return _textView;
-    _textView = [XLFormTextView autolayoutView];
-    return _textView;
 }
 
 #pragma mark - XLFormDescriptorCell
@@ -96,8 +81,15 @@ NSString *const XLFormTextViewMaxNumberOfCharacters = @"textViewMaxNumberOfChara
 {
     [super configure];
     [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [self.contentView addSubview:self.textLabel];
-    [self.contentView addSubview:self.textView];
+    UILabel *textLabel = [UILabel autolayoutView];
+    [textLabel setContentHuggingPriority:500 forAxis:UILayoutConstraintAxisHorizontal];
+    [self.contentView addSubview:textLabel];
+    _textLabel = textLabel;
+    
+    XLFormTextView *textView = [XLFormTextView autolayoutView];
+    [self.contentView addSubview:textView];
+    _textView = textView;
+    
     [self.textLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
     NSDictionary * views = @{@"label": self.textLabel, @"textView": self.textView};
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[label]" options:0 metrics:0 views:views]];

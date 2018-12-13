@@ -28,6 +28,6 @@
 
 @interface XLFormPickerCell : XLFormBaseCell<XLFormInlineRowDescriptorCell>
 
-@property (nonatomic) UIPickerView * pickerView;
+@property (nonatomic, weak) UIPickerView * pickerView;
 
 @end

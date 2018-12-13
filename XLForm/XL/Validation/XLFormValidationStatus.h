@@ -29,8 +29,8 @@
 
 @interface XLFormValidationStatus : NSObject
 
-@property NSString *msg;
-@property BOOL isValid;
+@property (nonatomic, copy) NSString *msg;
+@property (nonatomic, assign) BOOL isValid;
 @property (nonatomic, weak) XLFormRowDescriptor *rowDescriptor;
 
 //-(instancetype)initWithMsg:(NSString*)msg andStatus:(BOOL)isValid;

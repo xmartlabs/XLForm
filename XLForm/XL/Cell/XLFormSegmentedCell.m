@@ -30,7 +30,7 @@
 
 @interface XLFormSegmentedCell()
 
-@property NSMutableArray * dynamicCustomConstraints;
+@property (nonatomic, strong) NSMutableArray * dynamicCustomConstraints;
 
 @end
 

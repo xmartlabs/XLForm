@@ -35,7 +35,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @interface XLFormSectionDescriptor (_XLFormDescriptor)
 
-@property NSArray * allRows;
+@property (nonatomic, strong) NSArray * allRows;
 -(BOOL)evaluateIsHidden;
 
 @end
@@ -51,11 +51,11 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
 
 @interface XLFormDescriptor()
 
-@property NSMutableArray * formSections;
-@property (readonly) NSMutableArray * allSections;
-@property NSString * title;
-@property (readonly) NSMutableDictionary* allRowsByTag;
-@property NSMutableDictionary* rowObservers;
+@property (nonatomic, strong) NSMutableArray * formSections;
+@property (nonatomic, readonly, strong) NSMutableArray * allSections;
+@property (nonatomic, copy)NSString * title;
+@property (nonatomic, readonly) NSMutableDictionary* allRowsByTag;
+@property (atomic, strong) NSMutableDictionary* rowObservers;
 
 @end
 
@@ -291,7 +291,7 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         if (section.multivaluedTag.length > 0){
             NSMutableArray * multiValuedValuesArray = [NSMutableArray new];
             for (XLFormRowDescriptor * row in section.formRows) {
-                if (row.value){
+                if (row.value && row.value != [NSNull null]){
                     [multiValuedValuesArray addObject:row.value];
                 }
             }
@@ -299,8 +299,9 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         }
         else{
             for (XLFormRowDescriptor * row in section.formRows) {
-                if (row.tag.length > 0){
-                    [result setObject:(row.value ?: [NSNull null]) forKey:row.tag];
+                id value = [row.value valueData];
+                if (row.tag.length > 0 && value != nil){
+                    [result setObject:value forKey:row.tag];
                 }
             }
         }

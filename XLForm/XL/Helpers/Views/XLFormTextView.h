@@ -29,9 +29,9 @@
 @interface XLFormTextView : UITextView
 
 
-@property (nonatomic) NSString *placeholder;
-@property (nonatomic) UIColor *placeholderColor;
+@property (nonatomic, copy) NSString *placeholder;
+@property (nonatomic, copy) UIColor *placeholderColor;
 
-@property (readonly) UILabel *placeHolderLabel;
+@property (nonatomic, readonly, weak) UILabel *placeHolderLabel;
 
 @end

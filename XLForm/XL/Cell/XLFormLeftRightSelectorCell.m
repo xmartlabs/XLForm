@@ -196,14 +196,14 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil)
                                                         style:UIAlertActionStyleCancel
                                                       handler:nil]];
-    __weak __typeof(self)weakSelf = self;
+    __weak typeof(self) weak = self;
     for (XLFormLeftRightSelectorOption * leftOption in self.rowDescriptor.selectorOptions) {
         [alertController addAction:[UIAlertAction actionWithTitle:[leftOption.leftValue displayText]
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
-                                                              weakSelf.rowDescriptor.value = [self chooseNewRightValueFromOption:leftOption];
-                                                              weakSelf.rowDescriptor.leftRightSelectorLeftOptionSelected = [self leftOptionForDescription:[leftOption.leftValue displayText]].leftValue;
-                                                              [weakSelf.formViewController updateFormRow:weakSelf.rowDescriptor];
+                                                              weak.rowDescriptor.value = [weak chooseNewRightValueFromOption:leftOption];
+                                                              weak.rowDescriptor.leftRightSelectorLeftOptionSelected = [weak leftOptionForDescription:[leftOption.leftValue displayText]].leftValue;
+                                                              [weak.formViewController updateFormRow:weak.rowDescriptor];
                                                           }]];
     }
     

@@ -81,8 +81,8 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 
 @interface XLFormViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, XLFormDescriptorDelegate, UITextFieldDelegate, UITextViewDelegate, XLFormViewControllerDelegate>
 
-@property XLFormDescriptor * form;
-@property IBOutlet UITableView * tableView;
+@property (nonatomic, strong) XLFormDescriptor * form;
+@property (nonatomic, weak) IBOutlet UITableView * tableView;
 
 -(instancetype)initWithForm:(XLFormDescriptor *)form;
 -(instancetype)initWithForm:(XLFormDescriptor *)form style:(UITableViewStyle)style;

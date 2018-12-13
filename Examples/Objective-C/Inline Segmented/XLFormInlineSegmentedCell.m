@@ -26,10 +26,11 @@ NSString * const XLFormRowDescriptorTypeSegmentedControl = @"XLFormRowDescriptor
 
 -(BOOL)becomeFirstResponder
 {
-    if (self.isFirstResponder){
-        return [super becomeFirstResponder];
-    }
     BOOL result = [super becomeFirstResponder];
+    if (self.isFirstResponder){
+        return result;
+    }
+    
     if (result){
         XLFormRowDescriptor * inlineRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:[XLFormViewController inlineRowDescriptorTypesForRowDescriptorTypes][self.rowDescriptor.rowType]];
         UITableViewCell<XLFormDescriptorCell> * cell = [inlineRowDescriptor cellForFormController:self.formViewController];

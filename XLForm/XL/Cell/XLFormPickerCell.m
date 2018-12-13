@@ -56,23 +56,19 @@
     return [self formDescriptorCellCanBecomeFirstResponder];
 }
 
-#pragma mark - Properties
-
--(UIPickerView *)pickerView
-{
-    if (_pickerView) return _pickerView;
-    _pickerView = [UIPickerView autolayoutView];
-    _pickerView.delegate = self;
-    _pickerView.dataSource = self;
-    return _pickerView;
-}
-
 #pragma mark - XLFormDescriptorCell
 
 -(void)configure
 {
     [super configure];
-    [self.contentView addSubview:self.pickerView];
+    
+    UIPickerView *pickerView = [UIPickerView autolayoutView];
+    pickerView.delegate = self;
+    pickerView.dataSource = self;
+    
+    [self.contentView addSubview:pickerView];
+    _pickerView = pickerView;
+    
     [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:self.pickerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.contentView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[pickerView]-0-|" options:0 metrics:0 views:@{@"pickerView" : self.pickerView}]];
 }
