@@ -154,16 +154,16 @@ typedef NS_ENUM(NSUInteger, XLFormLeftRightSelectorOptionLeftValueChangePolicy)
 
 @interface XLFormAction : NSObject
 
-@property (nullable, nonatomic, strong) Class viewControllerClass;
+@property (nullable, nonatomic) Class viewControllerClass;
 @property (nullable, nonatomic, copy) NSString * viewControllerStoryboardId;
 @property (nullable, nonatomic, copy) NSString * viewControllerNibName;
 
-@property (nonatomic) XLFormPresentationMode viewControllerPresentationMode;
+@property (nonatomic, assign) XLFormPresentationMode viewControllerPresentationMode;
 
 @property (nullable, nonatomic, copy) void (^formBlock)(XLFormRowDescriptor * __nonnull sender);
 @property (nullable, nonatomic) SEL formSelector;
 @property (nullable, nonatomic, copy) NSString * formSegueIdenfifier DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use formSegueIdentifier instead");
 @property (nullable, nonatomic, copy) NSString * formSegueIdentifier;
-@property (nullable, nonatomic, strong) Class formSegueClass;
+@property (nullable, nonatomic) Class formSegueClass;
 
 @end

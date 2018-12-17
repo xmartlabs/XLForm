@@ -21,7 +21,10 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - AXRatingView (1.0.3)
+  - FBRetainCycleDetector (0.1.4)
   - JVFloatLabeledTextField (1.0.2)
+  - MLeaksFinder (1.0.0):
+    - FBRetainCycleDetector
   - SHSPhoneComponent (2.15)
   - XLData (2.0.0):
     - XLData/Core (= 2.0.0)
@@ -49,6 +52,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - AXRatingView (= 1.0.3)
   - JVFloatLabeledTextField (= 1.0.2)
+  - MLeaksFinder
   - SHSPhoneComponent
   - XLData (from `https://github.com/xmartlabs/XLData.git`, commit `1f9019b56242a2019c7f7e11ec4ef823c397ebcf`)
   - XLForm (from `../../`)
@@ -57,7 +61,9 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - AXRatingView
+    - FBRetainCycleDetector
     - JVFloatLabeledTextField
+    - MLeaksFinder
     - SHSPhoneComponent
 
 EXTERNAL SOURCES:
@@ -75,11 +81,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
   AXRatingView: ccaadc1bbda99a4b7e1d556059482d2b933a9f4e
+  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   JVFloatLabeledTextField: 58a3a32cfb800e5b224f676987e7c13abf50a14d
+  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   SHSPhoneComponent: 4cec0653a150ad63cbc52b0c8b29ce2d3c9c26f0
   XLData: df725c6179e2e0c80bf56a1ecad9afd169707a6d
   XLForm: c173e0476a302add7753520d4ab4f18f3eb47ea3
 
-PODFILE CHECKSUM: 64fbcd03a2c13762b2c18e3938cc8008807937c9
+PODFILE CHECKSUM: 0d959d120f072872333fd8e1a3081196be087a32
 
 COCOAPODS: 1.5.3

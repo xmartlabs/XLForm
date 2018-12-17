@@ -32,7 +32,7 @@
 
 @interface XLFormDescriptor (_XLFormSectionDescriptor)
 
-@property (nonatomic, readonly) NSDictionary* allRowsByTag;
+@property (nonatomic, readonly, strong) NSDictionary* allRowsByTag;
 
 -(void)addRowToTagCollection:(XLFormRowDescriptor*)rowDescriptor;
 -(void)removeRowFromTagCollection:(XLFormRowDescriptor*) rowDescriptor;

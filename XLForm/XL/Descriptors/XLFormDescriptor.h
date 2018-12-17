@@ -49,7 +49,7 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
 
 @interface XLFormDescriptor : NSObject
 
-@property (nonatomic, readonly, nonnull) NSMutableArray * formSections;
+@property (nonatomic, strong, readonly, nonnull) NSMutableArray * formSections;
 @property (nonatomic, readonly, nullable, copy) NSString * title;
 @property (nonatomic, assign) BOOL endEditingTableViewOnScroll;
 @property (nonatomic, assign) BOOL assignFirstResponderOnShow;
