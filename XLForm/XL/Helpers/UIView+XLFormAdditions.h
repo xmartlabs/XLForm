@@ -28,7 +28,7 @@
 
 @interface UIView (XLFormAdditions)
 
-+(id)autolayoutView;
++(instancetype)autolayoutView;
 -(NSLayoutConstraint *)layoutConstraintSameHeightOf:(UIView *)view;
 -(UIView *)findFirstResponder;
 -(UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell;

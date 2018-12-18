@@ -107,6 +107,10 @@
 {
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
+    
+    self.form.delegate = nil;
+    
+    self.navigationAccessoryView = nil;
 }
 
 - (void)viewDidLoad
