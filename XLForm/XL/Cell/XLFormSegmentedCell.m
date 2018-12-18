@@ -168,6 +168,9 @@
 -(void)dealloc
 {
     [self.textLabel removeObserver:self forKeyPath:@"text"];
+    
+    [self.dynamicCustomConstraints removeAllObjects];
+    self.dynamicCustomConstraints = nil;
 }
 
 @end

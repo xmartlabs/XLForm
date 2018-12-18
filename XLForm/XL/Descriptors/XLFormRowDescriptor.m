@@ -306,6 +306,9 @@ CGFloat XLFormRowInitialHeight = -2;
         [self removeObserver:self forKeyPath:@"hidePredicateCache"];
     }
     @catch (NSException * __unused exception) {}
+    
+    [self.validators removeAllObjects];
+    self.validators = nil;
 }
 
 #pragma mark - KVO

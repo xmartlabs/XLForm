@@ -406,6 +406,15 @@ NSString * const XLValidationStatusErrorKey = @"XLValidationStatusErrorKey";
         [self removeObserver:self forKeyPath:@"formSections"];
     }
     @catch (NSException * __unused exception) {}
+    
+    [_formSections removeAllObjects];
+    _formSections = nil;
+    [_allSections removeAllObjects];
+    _allSections = nil;
+    [_allRowsByTag removeAllObjects];
+    _allRowsByTag = nil;
+    [_rowObservers removeAllObjects];
+    _rowObservers = nil;
 }
 
 #pragma mark - KVC

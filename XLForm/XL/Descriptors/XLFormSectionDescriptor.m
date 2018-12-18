@@ -204,6 +204,12 @@
         [self removeObserver:self forKeyPath:@"formRows"];
     }
     @catch (NSException * __unused exception) {}
+    
+    [self.formRows removeAllObjects];
+    self.formRows = nil;
+    
+    [self.allRows removeAllObjects];
+    self.allRows = nil;
 }
 
 #pragma mark - Show/hide rows
