@@ -135,6 +135,12 @@ CGFloat XLFormRowInitialHeight = -2;
             } else {
                 bundle = [NSBundle bundleForClass:NSClassFromString(cellClass)];
                 cellResource = cellClassString;
+                if ([cellClassString rangeOfString:@"."].location != NSNotFound) {
+                    NSArray *components = [cellClassString componentsSeparatedByString:@"."];
+                    cellResource = [components lastObject];
+                } else {
+                    cellResource = cellClassString;
+                }
             }
             NSParameterAssert(bundle != nil);
             NSParameterAssert(cellResource != nil);

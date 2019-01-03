@@ -17,9 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Declare custom rows
-        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeRate] =  "XLFormRatingCell"
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeRate] =  NSStringFromClass(XLFormRatingCell.self)
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
-        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeWeekDays] = "XLFormWeekDaysCell"
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeWeekDays] = NSStringFromClass(XLFormWeekDaysCell.self)
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeSegmentedInline] = InlineSegmentedCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeSegmentedControl] = InlineSegmentedControl.self
         XLFormViewController.inlineRowDescriptorTypesForRowDescriptorTypes()[XLFormRowDescriptorTypeSegmentedInline] = XLFormRowDescriptorTypeSegmentedControl
