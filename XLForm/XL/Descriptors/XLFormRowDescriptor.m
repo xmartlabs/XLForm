@@ -124,7 +124,7 @@ CGFloat XLFormRowInitialHeight = -2;
         
         NSBundle *bundle = [NSBundle mainBundle];
         NSString *cellClassString = cellClass;
-        NSString *cellResource = cellClassString;
+        NSString *cellResource = nil;
         
         NSAssert(cellClass, @"Not defined XLFormRowDescriptorType: %@", self.rowType ?: @"");
         
@@ -135,13 +135,12 @@ CGFloat XLFormRowInitialHeight = -2;
                 NSString *folderName = [components firstObject];
                 NSString *bundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
                 bundle = [NSBundle bundleWithPath:bundlePath];
+            } else {
+                cellResource = [cellClassString componentsSeparatedByString:@"."].lastObject;
             }
         } else {
-             cellResource = [NSStringFromClass(cellClass) componentsSeparatedByString:@"."].lastObject;
+            cellResource = [NSStringFromClass(cellClass) componentsSeparatedByString:@"."].lastObject;
         }
-        
-        NSParameterAssert(bundle != nil);
-        NSParameterAssert(cellResource != nil);
         
         if ([bundle pathForResource:cellResource ofType:@"nib"]) {
             _cell = [[bundle loadNibNamed:cellResource owner:nil options:nil] firstObject];
