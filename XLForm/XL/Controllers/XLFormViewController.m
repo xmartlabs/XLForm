@@ -58,6 +58,7 @@
 }
 @property (nonatomic, assign) UITableViewStyle tableViewStyle;
 @property (nonatomic, strong) XLFormRowNavigationAccessoryView * navigationAccessoryView;
+@property (atomic   , assign) BOOL   isObserversAdded;
 
 @end
 
@@ -105,10 +106,7 @@
 
 - (void)dealloc
 {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
-    [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [nc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [self removeObserverFroController];
 
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
@@ -152,34 +150,22 @@
     self.tableView.allowsSelectionDuringEditing = YES;
     self.form.delegate = self;
     _oldBottomTableContentInset = nil;
-    
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self
-           selector:@selector(contentSizeCategoryChanged:)
-               name:UIContentSizeCategoryDidChangeNotification
-             object:nil];
-    [nc addObserver:self
-           selector:@selector(keyboardWillShow:)
-               name:UIKeyboardWillShowNotification
-             object:nil];
-    [nc addObserver:self
-           selector:@selector(keyboardWillHide:)
-               name:UIKeyboardWillHideNotification
-             object:nil];
-
+    _isObserversAdded = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     NSIndexPath *selected = [self.tableView indexPathForSelectedRow];
-    if (selected){
+    if (selected) {
         // Trigger a cell refresh
         XLFormRowDescriptor * rowDescriptor = [self.form formRowAtIndex:selected];
         [self updateFormRow:rowDescriptor];
         [self.tableView selectRowAtIndexPath:selected animated:NO scrollPosition:UITableViewScrollPositionNone];
         [self.tableView deselectRowAtIndexPath:selected animated:YES];
     }
+    
+    [self addObserverToController];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -191,11 +177,48 @@
     }
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self removeObserverFroController];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
 
+- (void)addObserverToController {
+    if (!self.isObserversAdded) {
+        _isObserversAdded = YES;
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc addObserver:self
+               selector:@selector(contentSizeCategoryChanged:)
+                   name:UIContentSizeCategoryDidChangeNotification
+                 object:nil];
+        [nc addObserver:self
+               selector:@selector(keyboardWillShow:)
+                   name:UIKeyboardWillShowNotification
+                 object:nil];
+        [nc addObserver:self
+               selector:@selector(keyboardWillHide:)
+                   name:UIKeyboardWillHideNotification
+                 object:nil];
+    }
+}
+
+- (void)removeObserverFroController {
+    if (self.isObserversAdded) {
+        _isObserversAdded = NO;
+        
+        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+        [nc removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
+        [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+        [nc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    }
+}
 #pragma mark - CellClasses
 
 +(NSMutableDictionary *)cellClassesForRowDescriptorTypes
