@@ -105,11 +105,6 @@
 
 - (void)dealloc
 {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
-    [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [nc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     
