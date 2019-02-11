@@ -70,13 +70,13 @@ NSString *const XLFormTextFieldMaxNumberOfCharacters = @"textFieldMaxNumberOfCha
 -(void)dealloc
 {
     [self.textField removeTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.textLabel removeObserver:self forKeyPath:@"text"];
+    [self.imageView removeObserver:self forKeyPath:@"image"];
+    
     self.textField.delegate = nil;
 
     [self.dynamicCustomConstraints removeAllObjects];
     self.dynamicCustomConstraints = nil;
-    
-    [self.textLabel removeObserver:self forKeyPath:@"text"];
-    [self.imageView removeObserver:self forKeyPath:@"image"];
 }
 
 #pragma mark - XLFormDescriptorCell
