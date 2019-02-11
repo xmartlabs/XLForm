@@ -105,6 +105,11 @@
 
 - (void)dealloc
 {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
+    [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [nc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     
@@ -575,18 +580,24 @@
 -(XLFormBaseCell *)updateFormRow:(XLFormRowDescriptor *)formRow
 {
     XLFormBaseCell * cell = [formRow cellForFormController:self];
-    [self configureCell:cell];
-    [cell setNeedsUpdateConstraints];
-    [cell setNeedsLayout];
+    if (cell != nil) {
+        [self configureCell:cell];
+        [cell setNeedsUpdateConstraints];
+        [cell setNeedsLayout];
+    }
     return cell;
 }
 
 -(void)configureCell:(XLFormBaseCell*) cell
 {
     [cell update];
-    [cell.rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-        [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-    }];
+
+    if(cell.rowDescriptor != nil && cell.rowDescriptor.cellConfig != nil) {
+        [cell.rowDescriptor.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+        }];
+    }
+
     if (cell.rowDescriptor.isDisabled){
         [cell.rowDescriptor.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
             [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
