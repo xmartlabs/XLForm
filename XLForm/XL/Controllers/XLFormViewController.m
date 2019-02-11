@@ -105,6 +105,11 @@
 
 - (void)dealloc
 {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:UIContentSizeCate  goryDidChangeNotification object:nil];
+    [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [nc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     
@@ -147,6 +152,21 @@
     self.tableView.allowsSelectionDuringEditing = YES;
     self.form.delegate = self;
     _oldBottomTableContentInset = nil;
+    
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(contentSizeCategoryChanged:)
+               name:UIContentSizeCategoryDidChangeNotification
+             object:nil];
+    [nc addObserver:self
+           selector:@selector(keyboardWillShow:)
+               name:UIKeyboardWillShowNotification
+             object:nil];
+    [nc addObserver:self
+           selector:@selector(keyboardWillHide:)
+               name:UIKeyboardWillHideNotification
+             object:nil];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -160,34 +180,6 @@
         [self.tableView selectRowAtIndexPath:selected animated:NO scrollPosition:UITableViewScrollPositionNone];
         [self.tableView deselectRowAtIndexPath:selected animated:YES];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(contentSizeCategoryChanged:)
-                                                 name:UIContentSizeCategoryDidChangeNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-
-}
-
--(void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIContentSizeCategoryDidChangeNotification
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
