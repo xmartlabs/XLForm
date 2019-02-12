@@ -58,7 +58,6 @@
 }
 @property (nonatomic, assign) UITableViewStyle tableViewStyle;
 @property (nonatomic, strong) XLFormRowNavigationAccessoryView * navigationAccessoryView;
-@property (atomic   , assign) BOOL   isObserversAdded;
 
 @end
 
@@ -104,10 +103,8 @@
     return self;
 }
 
-- (void)dealloc
+-(void)dealloc
 {
-    [self removeObserverFroController];
-
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     
@@ -116,7 +113,7 @@
     self.navigationAccessoryView = nil;
 }
 
-- (void)viewDidLoad
+-(void)viewDidLoad
 {
     [super viewDidLoad];
     
@@ -150,7 +147,6 @@
     self.tableView.allowsSelectionDuringEditing = YES;
     self.form.delegate = self;
     _oldBottomTableContentInset = nil;
-    _isObserversAdded = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -168,7 +164,7 @@
     [self addObserverToController];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+-(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     if (self.form.assignFirstResponderOnShow) {
@@ -189,35 +185,27 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)addObserverToController {
-    if (!self.isObserversAdded) {
-        _isObserversAdded = YES;
-        
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc addObserver:self
-               selector:@selector(contentSizeCategoryChanged:)
-                   name:UIContentSizeCategoryDidChangeNotification
-                 object:nil];
-        [nc addObserver:self
-               selector:@selector(keyboardWillShow:)
-                   name:UIKeyboardWillShowNotification
-                 object:nil];
-        [nc addObserver:self
-               selector:@selector(keyboardWillHide:)
-                   name:UIKeyboardWillHideNotification
-                 object:nil];
-    }
+-(void)addObserverToController {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(contentSizeCategoryChanged:)
+               name:UIContentSizeCategoryDidChangeNotification
+             object:nil];
+    [nc addObserver:self
+           selector:@selector(keyboardWillShow:)
+               name:UIKeyboardWillShowNotification
+             object:nil];
+    [nc addObserver:self
+           selector:@selector(keyboardWillHide:)
+               name:UIKeyboardWillHideNotification
+             object:nil];
 }
 
-- (void)removeObserverFroController {
-    if (self.isObserversAdded) {
-        _isObserversAdded = NO;
-        
-        NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-        [nc removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
-        [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-        [nc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    }
+-(void)removeObserverFroController {
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
+    [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [nc removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 #pragma mark - CellClasses
 
