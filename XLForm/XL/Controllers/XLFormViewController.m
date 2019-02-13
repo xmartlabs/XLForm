@@ -706,6 +706,21 @@
     return [[self.form.formSections objectAtIndex:section] title];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+  return [[self.form.formSections objectAtIndex:section] titleView];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+  UIView * view = [[self.form.formSections objectAtIndex:section] titleView];
+  if(view){
+    return view.frame.size.height;
+  } else{
+    return 0.0f;
+  }
+}
+
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
     return [[self.form.formSections objectAtIndex:section] footerTitle];
