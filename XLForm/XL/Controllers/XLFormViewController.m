@@ -346,6 +346,11 @@
     return [self.form formValues];
 }
 
+-(NSDictionary *)formValuesIncludingHidden
+{
+    return [self.form formValuesIncludingHidden];
+}
+
 -(NSDictionary *)httpParameters
 {
     return [self.form httpParameters:self];

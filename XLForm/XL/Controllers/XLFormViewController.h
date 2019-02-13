@@ -52,6 +52,7 @@ typedef NS_ENUM(NSUInteger, XLFormRowNavigationDirection) {
 -(XLFormBaseCell *)updateFormRow:(XLFormRowDescriptor *)formRow;
 
 -(NSDictionary *)formValues;
+-(NSDictionary *)formValuesIncludingHidden;
 -(NSDictionary *)httpParameters;
 
 -(XLFormRowDescriptor *)formRowFormMultivaluedFormSection:(XLFormSectionDescriptor *)formSection;
