@@ -58,7 +58,7 @@
         }
         NSMutableArray * descriptionArray = [NSMutableArray arrayWithCapacity:[self.rowDescriptor.value count]];
         //add by OE Ex: value taken form the lacal cache but selectorOptions in the networking
-        if (self.rowDescriptor.selectorOptions.count>0){
+        if (self.rowDescriptor.selectorOptions.count > 0) {
             
             for (id option in self.rowDescriptor.selectorOptions) {
                 NSArray * selectedValues = self.rowDescriptor.value;
@@ -76,7 +76,7 @@
                     }
                 }
             }
-        }else{
+        } else {
             for (id option in self.rowDescriptor.value) {
                 if ([option isKindOfClass:[XLFormOptionsObject class]]) {
                     XLFormOptionsObject *newOption = (XLFormOptionsObject*)option;

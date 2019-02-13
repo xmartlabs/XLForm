@@ -60,11 +60,11 @@
 
 -(BOOL)becomeFirstResponder
 {
-    BOOL result = [super becomeFirstResponder];
     if (self.isFirstResponder){
-        return result;
+        return [super becomeFirstResponder];
     }
     _beforeChangeColor = self.detailTextLabel.textColor;
+    BOOL result = [super becomeFirstResponder];
     if (result){
         if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeTimeInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDateTimeInline] || [self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimerInline])
         {
@@ -95,10 +95,11 @@
         NSIndexPath * selectedRowPath = [self.formViewController.form indexPathOfFormRow:self.rowDescriptor];
         NSIndexPath * nextRowPath = [NSIndexPath indexPathForRow:selectedRowPath.row + 1 inSection:selectedRowPath.section];
         XLFormRowDescriptor * nextFormRow = [self.formViewController.form formRowAtIndex:nextRowPath];
+        BOOL result = [super resignFirstResponder];
         if ([nextFormRow.rowType isEqualToString:XLFormRowDescriptorTypeDatePicker]){
             [self.rowDescriptor.sectionDescriptor removeFormRow:nextFormRow];
         }
-        return [super resignFirstResponder];
+        return result;
     }
     return [super resignFirstResponder];
 }

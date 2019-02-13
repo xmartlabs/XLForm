@@ -29,7 +29,7 @@
 
 +(XLFormOptionsObject *)formOptionsObjectWithValue:(id)value displayText:(NSString *)displayText
 {
-    return [[self alloc] initWithValue:value displayText:displayText];
+    return [[XLFormOptionsObject alloc] initWithValue:value displayText:displayText];
 }
 
 -(instancetype)initWithValue:(id)value displayText:(NSString *)displayText

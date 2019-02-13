@@ -177,7 +177,7 @@
 {
     [super viewDidDisappear:animated];
     
-    [self removeObserverFroController];
+    [self removeObserverFromController];
 }
 
 - (void)didReceiveMemoryWarning
@@ -201,7 +201,7 @@
              object:nil];
 }
 
--(void)removeObserverFroController {
+-(void)removeObserverFromController {
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:UIContentSizeCategoryDidChangeNotification object:nil];
     [nc removeObserver:self name:UIKeyboardWillShowNotification object:nil];
