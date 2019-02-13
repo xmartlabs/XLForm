@@ -105,6 +105,8 @@
 
 -(void)dealloc
 {
+    [self removeObserverFromController];
+
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     
