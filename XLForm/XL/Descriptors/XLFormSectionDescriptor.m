@@ -377,9 +377,9 @@
     }
     if ([self.hidePredicateCache boolValue]){
         if ([self.formDescriptor.delegate isKindOfClass:[XLFormViewController class]]){
-            XLFormBaseCell* firtResponder = (XLFormBaseCell*) [((XLFormViewController*)self.formDescriptor.delegate).tableView findFirstResponder];
-            if ([firtResponder isKindOfClass:[XLFormBaseCell class]] && firtResponder.rowDescriptor.sectionDescriptor == self){
-                [firtResponder resignFirstResponder];
+            XLFormBaseCell* firstResponder = (XLFormBaseCell*) [((XLFormViewController*)self.formDescriptor.delegate).tableView findFirstResponder];
+            if ([firstResponder isKindOfClass:[XLFormBaseCell class]] && firstResponder.rowDescriptor.sectionDescriptor == self){
+                [firstResponder resignFirstResponder];
             }
         }
         [self.formDescriptor hideFormSection:self];
