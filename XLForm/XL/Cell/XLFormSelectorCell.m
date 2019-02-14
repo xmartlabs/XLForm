@@ -57,33 +57,19 @@
             }
         }
         NSMutableArray * descriptionArray = [NSMutableArray arrayWithCapacity:[self.rowDescriptor.value count]];
-        //add by OE Ex: value taken form the lacal cache but selectorOptions in the networking
-        if (self.rowDescriptor.selectorOptions.count > 0) {
-            
-            for (id option in self.rowDescriptor.selectorOptions) {
-                NSArray * selectedValues = self.rowDescriptor.value;
-                if ([selectedValues formIndexForItem:option] != NSNotFound){
-                    if (self.rowDescriptor.valueTransformer){
-                        NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
-                        NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
-                        NSString * tranformedValue = [valueTransformer transformedValue:option];
-                        if (tranformedValue){
-                            [descriptionArray addObject:tranformedValue];
-                        }
-                    }
-                    else{
-                        [descriptionArray addObject:[option displayText]];
+        for (id option in self.rowDescriptor.selectorOptions) {
+            NSArray * selectedValues = self.rowDescriptor.value;
+            if ([selectedValues formIndexForItem:option] != NSNotFound){
+                if (self.rowDescriptor.valueTransformer){
+                    NSAssert([self.rowDescriptor.valueTransformer isSubclassOfClass:[NSValueTransformer class]], @"valueTransformer is not a subclass of NSValueTransformer");
+                    NSValueTransformer * valueTransformer = [self.rowDescriptor.valueTransformer new];
+                    NSString * tranformedValue = [valueTransformer transformedValue:option];
+                    if (tranformedValue){
+                        [descriptionArray addObject:tranformedValue];
                     }
                 }
-            }
-        } else {
-            for (id option in self.rowDescriptor.value) {
-                if ([option isKindOfClass:[XLFormOptionsObject class]]) {
-                    XLFormOptionsObject *newOption = (XLFormOptionsObject*)option;
-                    [descriptionArray addObject:newOption.formDisplayText];
-                }
-                else  {
-                    [descriptionArray addObject:[NSString stringWithFormat:@"%@",option]];
+                else{
+                    [descriptionArray addObject:[option displayText]];
                 }
             }
         }
