@@ -53,7 +53,7 @@
         return result;
     }
     if ([self conformsToProtocol:@protocol(XLFormOptionObject)]){
-        return (id<XLFormOptionObject>)self;
+        return [(id<XLFormOptionObject>)self formValue];
     }
     return nil;
 }
