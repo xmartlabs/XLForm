@@ -52,12 +52,14 @@
     if (self.isFirstResponder) {
         firstResponder = self;
     }
-    for (UIView *subView in self.subviews) {
-        UIView *fr = [subView findFirstResponder];
-        if (fr != nil) {
-            firstResponder = fr;
-            
-            break;
+    else {
+        for (UIView *subView in self.subviews) {
+            UIView *fr = [subView findFirstResponder];
+            if (fr != nil) {
+                firstResponder = fr;
+                
+                break;
+            }
         }
     }
     
