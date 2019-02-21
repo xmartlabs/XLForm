@@ -547,7 +547,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-XLForm/Pods-XLForm-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-XLForm/Pods-XLForm-resources.sh",
 				"${PODS_ROOT}/../../../XLForm/XLForm.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -556,7 +556,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XLForm/Pods-XLForm-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XLForm/Pods-XLForm-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EBE0335CCC7588D83B89A92A /* [CP] Check Pods Manifest.lock */ = {

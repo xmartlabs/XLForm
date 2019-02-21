@@ -19,7 +19,5 @@ DerivedData
 
 #CocoaPods
 Pods
-Tests/Pods
-Tests/Podfile.lock
-Examples/Objective-C/Podfile.lock
-Examples/Swift/Podfile.lock
+Podfile.lock
+*.xcworkspace

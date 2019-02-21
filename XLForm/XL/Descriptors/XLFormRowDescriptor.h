@@ -43,20 +43,20 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
     XLFormPresentationModePresent
 };
 
-typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLFormRowDescriptor* __nonnull rowDescriptor);
+typedef void(^XLOnChangeBlock)(id __nullable oldValue, id __nullable newValue, XLFormRowDescriptor * __nonnull rowDescriptor);
 
 @interface XLFormRowDescriptor : NSObject
 
 @property (nonatomic, nullable, strong) id cellClass;
-@property (nonatomic, readwrite, nullable, copy) NSString * tag;
-@property (nonatomic, readonly, nonnull, copy) NSString * rowType;
-@property (nonatomic, nullable, copy) NSString * title;
+@property (nonatomic, nullable, copy  , readwrite) NSString * tag;
+@property (nonatomic, nonnull , copy  , readonly) NSString * rowType;
+@property (nonatomic, nullable, copy  ) NSString * title;
 @property (nonatomic, nullable, strong) id value;
-@property (nonatomic, nullable) Class valueTransformer;
-@property (nonatomic, assign) UITableViewCellStyle cellStyle;
-@property (nonatomic, assign) CGFloat height;
+@property (nonatomic, nullable, strong) Class valueTransformer;
+@property (nonatomic, assign  ) UITableViewCellStyle cellStyle;
+@property (nonatomic, assign  ) CGFloat height;
 
-@property (nonatomic, copy, nullable) XLOnChangeBlock onChangeBlock;
+@property (nonatomic, copy  , nullable) XLOnChangeBlock onChangeBlock;
 @property (nonatomic, assign) BOOL useValueFormatterDuringInput;
 @property (nonatomic, strong, nullable) NSFormatter *valueFormatter;
 
@@ -73,8 +73,10 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 
 @property (nonatomic, nonnull, strong) id disabled;
 -(BOOL)isDisabled;
+
 @property (nonatomic, nonnull, strong) id hidden;
 -(BOOL)isHidden;
+
 @property (getter=isRequired, nonatomic, assign) BOOL required;
 
 @property (nonatomic, nonnull, strong) XLFormAction * action;
