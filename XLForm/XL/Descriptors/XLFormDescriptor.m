@@ -37,7 +37,7 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 @interface XLFormSectionDescriptor (_XLFormDescriptor)
 
-@property (nonatomic, strong) NSArray *allRows;
+@property (nonatomic, weak) NSArray *allRows;
 
 -(BOOL)evaluateIsHidden;
 

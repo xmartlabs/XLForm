@@ -331,6 +331,8 @@ NSString * const XLHidePredicateCacheKey = @"hidePredicateCache";
     [self.sectionDescriptor.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeDisabled];
     [self.sectionDescriptor.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeHidden];
     
+    _cell = nil;
+    
     [self.validators removeAllObjects];
     self.validators = nil;
 }

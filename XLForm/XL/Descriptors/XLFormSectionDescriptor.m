@@ -33,7 +33,7 @@ NSString * const XLFormRowsKey = @"formRows";
 
 @interface XLFormDescriptor (_XLFormSectionDescriptor)
 
-@property (nonatomic, strong, readonly) NSDictionary *allRowsByTag;
+@property (nonatomic, weak, readonly) NSDictionary *allRowsByTag;
 
 -(void)addRowToTagCollection:(XLFormRowDescriptor *)rowDescriptor;
 -(void)removeRowFromTagCollection:(XLFormRowDescriptor *) rowDescriptor;
