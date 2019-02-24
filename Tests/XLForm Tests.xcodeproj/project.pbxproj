@@ -150,7 +150,6 @@
 				28657A361990879200CE8180 /* Sources */,
 				28657A371990879200CE8180 /* Frameworks */,
 				28657A381990879200CE8180 /* Resources */,
-				51F3E228D166F2E8BF8C889E /* [CP] Embed Pods Frameworks */,
 				7E96395A3A94BDD9487AE471 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -217,37 +216,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		51F3E228D166F2E8BF8C889E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XLForm Tests/Pods-XLForm Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7E96395A3A94BDD9487AE471 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-XLForm Tests/Pods-XLForm Tests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-XLForm Tests/Pods-XLForm Tests-resources.sh",
 				"${PODS_ROOT}/../../XLForm/XLForm.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/XLForm.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-XLForm Tests/Pods-XLForm Tests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-XLForm Tests/Pods-XLForm Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
