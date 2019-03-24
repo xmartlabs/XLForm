@@ -32,5 +32,6 @@
 -(NSLayoutConstraint *)layoutConstraintSameHeightOf:(UIView *)view;
 -(UIView *)findFirstResponder;
 -(UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell;
+-(BOOL)isRTL;
 
 @end

@@ -24,7 +24,7 @@
 
 
 #import "XLFormRowNavigationAccessoryView.h"
-
+#import "UIView+XLFormAdditions.h"
 
 @interface XLFormRowNavigationAccessoryView ()
 
@@ -45,9 +45,10 @@
     self = [super initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44.0)];
     if (self) {
         self.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth);
-        NSArray * items = [NSArray arrayWithObjects:self.previousButton,
+        BOOL isRTL = [self isRTL];
+        NSArray * items = [NSArray arrayWithObjects:isRTL ? self.nextButton : self.previousButton,
                            self.fixedSpace,
-                           self.nextButton,
+                           isRTL ? self.previousButton : self.nextButton,
                            self.flexibleSpace,
                            self.doneButton, nil];
         [self setItems:items];

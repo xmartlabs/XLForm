@@ -70,4 +70,20 @@
     return nil;
 }
 
+- (BOOL)isRTL{
+    BOOL isRTL = NO;
+    if([self respondsToSelector:@selector(effectiveUserInterfaceLayoutDirection)] &&
+       [self effectiveUserInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft) {
+        isRTL = YES;
+    }
+    else if ([[UIView class] respondsToSelector:@selector(userInterfaceLayoutDirectionForSemanticContentAttribute:)] &&
+             [UIView userInterfaceLayoutDirectionForSemanticContentAttribute:self.semanticContentAttribute] == UIUserInterfaceLayoutDirectionRightToLeft) {
+        isRTL = YES;
+    }
+    else if ([[UIApplication sharedApplication] userInterfaceLayoutDirection] == UIUserInterfaceLayoutDirectionRightToLeft){
+        isRTL = YES;
+    }
+    return isRTL;
+}
+
 @end
