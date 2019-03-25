@@ -21,7 +21,7 @@
 //     http://stackoverflow.com/questions/12580162/nsstring-to-nsdate-conversion-issue
 @interface CurrencyFormatter : NSNumberFormatter
 
-@property (readonly) NSDecimalNumberHandler *roundingBehavior;
+@property (readonly, strong) NSDecimalNumberHandler *roundingBehavior;
 
 @end
 

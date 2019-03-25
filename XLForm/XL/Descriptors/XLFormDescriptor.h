@@ -49,15 +49,15 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
 
 @interface XLFormDescriptor : NSObject
 
-@property (readonly, nonatomic, nonnull) NSMutableArray * formSections;
-@property (readonly, nullable) NSString * title;
-@property (nonatomic) BOOL endEditingTableViewOnScroll;
-@property (nonatomic) BOOL assignFirstResponderOnShow;
-@property (nonatomic) BOOL addAsteriskToRequiredRowsTitle;
-@property (getter=isDisabled) BOOL disabled;
-@property (nonatomic) XLFormRowNavigationOptions rowNavigationOptions;
+@property (nonatomic, strong, readonly, nonnull) NSMutableArray * formSections;
+@property (nonatomic, readonly, nullable, copy) NSString * title;
+@property (nonatomic, assign) BOOL endEditingTableViewOnScroll;
+@property (nonatomic, assign) BOOL assignFirstResponderOnShow;
+@property (nonatomic, assign) BOOL addAsteriskToRequiredRowsTitle;
+@property (nonatomic, getter=isDisabled, assign) BOOL disabled;
+@property (nonatomic, assign) XLFormRowNavigationOptions rowNavigationOptions;
 
-@property (weak, nullable) id<XLFormDescriptorDelegate> delegate;
+@property (nonatomic, weak, nullable) id<XLFormDescriptorDelegate> delegate;
 
 +(nonnull instancetype)formDescriptor;
 +(nonnull instancetype)formDescriptorWithTitle:(nullable NSString *)title;

@@ -33,7 +33,7 @@ CGFloat XLFormRowInitialHeight = -2;
 
 @interface XLFormDescriptor (_XLFormRowDescriptor)
 
-@property (readonly) NSDictionary* allRowsByTag;
+@property (nonatomic, readonly, strong) NSDictionary *allRowsByTag;
 
 -(void)addObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType;
 -(void)removeObserversOfObject:(id)sectionOrRow predicateType:(XLPredicateType)predicateType;
@@ -42,22 +42,26 @@ CGFloat XLFormRowInitialHeight = -2;
 
 @interface XLFormSectionDescriptor (_XLFormRowDescriptor)
 
--(void)showFormRow:(XLFormRowDescriptor*)formRow;
--(void)hideFormRow:(XLFormRowDescriptor*)formRow;
+-(void)showFormRow:(XLFormRowDescriptor *)formRow;
+-(void)hideFormRow:(XLFormRowDescriptor *)formRow;
 
 @end
 
 #import "NSObject+XLFormAdditions.h"
 
+NSString * const XLValueKey = @"value";
+NSString * const XLDisablePredicateCacheKey = @"disablePredicateCache";
+NSString * const XLHidePredicateCacheKey = @"hidePredicateCache";
+
 @interface XLFormRowDescriptor() <NSCopying>
 
-@property XLFormBaseCell * cell;
-@property (nonatomic) NSMutableArray *validators;
+@property (nonatomic, strong) XLFormBaseCell *cell;
+@property (nonatomic, strong) NSMutableArray *validators;
 
-@property BOOL isDirtyDisablePredicateCache;
-@property (nonatomic) NSNumber* disablePredicateCache;
-@property BOOL isDirtyHidePredicateCache;
-@property (nonatomic) NSNumber* hidePredicateCache;
+@property (nonatomic, assign) BOOL isDirtyDisablePredicateCache;
+@property (nonatomic, copy  ) NSNumber *disablePredicateCache;
+@property (nonatomic, assign) BOOL isDirtyHidePredicateCache;
+@property (nonatomic, copy  ) NSNumber *hidePredicateCache;
 
 @end
 
@@ -81,8 +85,7 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(instancetype)initWithTag:(NSString *)tag rowType:(NSString *)rowType title:(NSString *)title;
 {
-    self = [super init];
-    if (self){
+    if (self = [super init]) {
         NSAssert(((![rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] && ![rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]) || (([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) && ([rowType isEqualToString:XLFormRowDescriptorTypeSelectorPopover] || [rowType isEqualToString:XLFormRowDescriptorTypeMultipleSelectorPopover]))), @"You must be running under UIUserInterfaceIdiomPad to use either XLFormRowDescriptorTypeSelectorPopover or XLFormRowDescriptorTypeMultipleSelectorPopover rows.");
         _tag = tag;
         _disabled = @NO;
@@ -99,11 +102,19 @@ CGFloat XLFormRowInitialHeight = -2;
         _isDirtyHidePredicateCache = YES;
         _hidePredicateCache = nil;
         _height = XLFormRowInitialHeight;
-        [self addObserver:self forKeyPath:@"value" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-        [self addObserver:self forKeyPath:@"disablePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-        [self addObserver:self forKeyPath:@"hidePredicateCache" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+        
+        [self addObserver:self
+               forKeyPath:XLValueKey
+                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+        [self addObserver:self
+               forKeyPath:XLDisablePredicateCacheKey
+                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+        [self addObserver:self
+               forKeyPath:XLHidePredicateCacheKey
+                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
         
     }
+    
     return self;
 }
 
@@ -161,72 +172,84 @@ CGFloat XLFormRowInitialHeight = -2;
 - (void)configureCellAtCreationTime
 {
     [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
-        [_cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+        [self.cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
     }];
 }
 
 -(NSMutableDictionary *)cellConfig
 {
-    if (_cellConfig) return _cellConfig;
-    _cellConfig = [NSMutableDictionary dictionary];
+    if (!_cellConfig) {
+        _cellConfig = [NSMutableDictionary dictionary];
+    }
+    
     return _cellConfig;
 }
 
 -(NSMutableDictionary *)cellConfigForSelector
 {
-    if (_cellConfigForSelector) return _cellConfigForSelector;
-    _cellConfigForSelector = [NSMutableDictionary dictionary];
+    if (!_cellConfigForSelector) {
+        _cellConfigForSelector = [NSMutableDictionary dictionary];
+    }
+    
     return _cellConfigForSelector;
 }
 
 
 -(NSMutableDictionary *)cellConfigIfDisabled
 {
-    if (_cellConfigIfDisabled) return _cellConfigIfDisabled;
-    _cellConfigIfDisabled = [NSMutableDictionary dictionary];
+    if (!_cellConfigIfDisabled) {
+        _cellConfigIfDisabled = [NSMutableDictionary dictionary];
+    }
+    
     return _cellConfigIfDisabled;
 }
 
 -(NSMutableDictionary *)cellConfigAtConfigure
 {
-    if (_cellConfigAtConfigure) return _cellConfigAtConfigure;
-    _cellConfigAtConfigure = [NSMutableDictionary dictionary];
+    if (!_cellConfigAtConfigure) {
+        _cellConfigAtConfigure = [NSMutableDictionary dictionary];
+    }
+    
     return _cellConfigAtConfigure;
 }
 
--(NSString*)editTextValue
+-(NSString *)editTextValue
 {
+    NSString *result = @"";
+    
     if (self.value) {
         if (self.valueFormatter) {
             if (self.useValueFormatterDuringInput) {
-                return [self displayTextValue];
-            }else{
-                // have formatter, but we don't want to use it during editing
-                return [self.value displayText];
+                result = [self displayTextValue];
             }
-        }else{
-            // have value, but no formatter, use the value's displayText
-            return [self.value displayText];
+            else {
+                // have formatter, but we don't want to use it during editing
+                result = [self.value displayText];
+            }
         }
-    }else{
-        // placeholder
-        return @"";
+        else {
+            // have value, but no formatter, use the value's displayText
+            result = [self.value displayText];
+        }
     }
+    
+    return result;
 }
 
--(NSString*)displayTextValue
+-(NSString *)displayTextValue
 {
+    NSString *result = self.noValueDisplayText;
+    
     if (self.value) {
         if (self.valueFormatter) {
-            return [self.valueFormatter stringForObjectValue:self.value];
+            result = [self.valueFormatter stringForObjectValue:self.value];
         }
-        else{
-            return [self.value displayText];
+        else {
+            result = [self.value displayText];
         }
     }
-    else {
-        return self.noValueDisplayText;
-    }
+    
+    return result;
 }
 
 -(NSString *)description
@@ -236,9 +259,10 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(XLFormAction *)action
 {
-    if (!_action){
+    if (!_action) {
         _action = [[XLFormAction alloc] init];
     }
+    
     return _action;
 }
 
@@ -249,13 +273,15 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(CGFloat)height
 {
-    if (_height == XLFormRowInitialHeight){
+    if (_height == XLFormRowInitialHeight) {
         if ([[self.cell class] respondsToSelector:@selector(formDescriptorCellHeightForRowDescriptor:)]){
             return [[self.cell class] formDescriptorCellHeightForRowDescriptor:self];
-        } else {
+        }
+        else {
             _height = XLFormUnspecifiedCellHeight;
         }
     }
+    
     return _height;
 }
 
@@ -266,71 +292,76 @@ CGFloat XLFormRowInitialHeight = -2;
 // In the implementation
 -(id)copyWithZone:(NSZone *)zone
 {
-    XLFormRowDescriptor * rowDescriptorCopy = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:[self.rowType copy] title:[self.title copy]];
+    XLFormRowDescriptor *rowDescriptorCopy = [XLFormRowDescriptor formRowDescriptorWithTag:nil
+                                                                                   rowType:[self.rowType copy]
+                                                                                     title:[self.title copy]];
     rowDescriptorCopy.cellClass = [self.cellClass copy];
     [rowDescriptorCopy.cellConfig addEntriesFromDictionary:self.cellConfig];
     [rowDescriptorCopy.cellConfigAtConfigure addEntriesFromDictionary:self.cellConfigAtConfigure];
     rowDescriptorCopy.valueTransformer = [self.valueTransformer copy];
-    rowDescriptorCopy->_hidden = _hidden;
-    rowDescriptorCopy->_disabled = _disabled;
+    rowDescriptorCopy.hidden = self.hidden;
+    rowDescriptorCopy.disabled = self.disabled;
     rowDescriptorCopy.required = self.isRequired;
     rowDescriptorCopy.isDirtyDisablePredicateCache = YES;
     rowDescriptorCopy.isDirtyHidePredicateCache = YES;
     rowDescriptorCopy.validators = [self.validators mutableCopy];
-
+    
     // =====================
     // properties for Button
     // =====================
     rowDescriptorCopy.action = [self.action copy];
-
-
+    
+    
     // ===========================
     // property used for Selectors
     // ===========================
-
+    
     rowDescriptorCopy.noValueDisplayText = [self.noValueDisplayText copy];
     rowDescriptorCopy.selectorTitle = [self.selectorTitle copy];
     rowDescriptorCopy.selectorOptions = [self.selectorOptions copy];
     rowDescriptorCopy.leftRightSelectorLeftOptionSelected = [self.leftRightSelectorLeftOptionSelected copy];
-
+    
     return rowDescriptorCopy;
 }
 
 -(void)dealloc
 {
+    [self removeObserver:self forKeyPath:XLValueKey];
+    [self removeObserver:self forKeyPath:XLDisablePredicateCacheKey];
+    [self removeObserver:self forKeyPath:XLHidePredicateCacheKey];
+    
     [self.sectionDescriptor.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeDisabled];
     [self.sectionDescriptor.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeHidden];
-    @try {
-        [self removeObserver:self forKeyPath:@"value"];
-    }
-    @catch (NSException * __unused exception) {}
-    @try {
-        [self removeObserver:self forKeyPath:@"disablePredicateCache"];
-    }
-    @catch (NSException * __unused exception) {}
-    @try {
-        [self removeObserver:self forKeyPath:@"hidePredicateCache"];
-    }
-    @catch (NSException * __unused exception) {}
+    
+    _cell = nil;
+    
+    [self.validators removeAllObjects];
+    self.validators = nil;
 }
 
 #pragma mark - KVO
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (!self.sectionDescriptor) return;
-    if (object == self && ([keyPath isEqualToString:@"value"] || [keyPath isEqualToString:@"hidePredicateCache"] || [keyPath isEqualToString:@"disablePredicateCache"])){
+    if (!self.sectionDescriptor) {
+        return;
+    }
+    else if (object == self && ([keyPath isEqualToString:XLValueKey] ||
+                                [keyPath isEqualToString:XLHidePredicateCacheKey] || [keyPath isEqualToString:XLDisablePredicateCacheKey])) {
         if ([[change objectForKey:NSKeyValueChangeKindKey] isEqualToNumber:@(NSKeyValueChangeSetting)]){
             id newValue = [change objectForKey:NSKeyValueChangeNewKey];
             id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
-            if ([keyPath isEqualToString:@"value"]){
+            if ([keyPath isEqualToString:XLValueKey]) {
                 [self.sectionDescriptor.formDescriptor.delegate formRowDescriptorValueHasChanged:object oldValue:oldValue newValue:newValue];
                 if (self.onChangeBlock) {
                     self.onChangeBlock(oldValue, newValue, self);
                 }
             }
-            else{
-                [self.sectionDescriptor.formDescriptor.delegate formRowDescriptorPredicateHasChanged:object oldValue:oldValue newValue:newValue predicateType:([keyPath isEqualToString:@"hidePredicateCache"] ? XLPredicateTypeHidden : XLPredicateTypeDisabled)];
+            else {
+                [self.sectionDescriptor.formDescriptor.delegate formRowDescriptorPredicateHasChanged:object
+                                                                                            oldValue:oldValue
+                                                                                            newValue:newValue
+                                                                                       predicateType:([keyPath isEqualToString:XLHidePredicateCacheKey] ? XLPredicateTypeHidden : XLPredicateTypeDisabled)];
             }
         }
     }
@@ -340,12 +371,14 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(BOOL)isDisabled
 {
-    if (self.sectionDescriptor.formDescriptor.isDisabled){
+    if (self.sectionDescriptor.formDescriptor.isDisabled) {
         return YES;
     }
+    
     if (self.isDirtyDisablePredicateCache) {
         [self evaluateIsDisabled];
     }
+    
     return [self.disablePredicateCache boolValue];
 }
 
@@ -354,11 +387,12 @@ CGFloat XLFormRowInitialHeight = -2;
     if ([_disabled isKindOfClass:[NSPredicate class]]){
         [self.sectionDescriptor.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeDisabled];
     }
+    
     _disabled = [disabled isKindOfClass:[NSString class]] ? [disabled formPredicate] : disabled;
     if ([_disabled isKindOfClass:[NSPredicate class]]){
         [self.sectionDescriptor.formDescriptor addObserversOfObject:self predicateType:XLPredicateTypeDisabled];
     }
-
+    
     [self evaluateIsDisabled];
 }
 
@@ -367,7 +401,8 @@ CGFloat XLFormRowInitialHeight = -2;
     if ([_disabled isKindOfClass:[NSPredicate class]]) {
         if (!self.sectionDescriptor.formDescriptor) {
             self.isDirtyDisablePredicateCache = YES;
-        } else {
+        }
+        else {
             @try {
                 self.disablePredicateCache = @([_disabled evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
             }
@@ -377,12 +412,14 @@ CGFloat XLFormRowInitialHeight = -2;
             };
         }
     }
-    else{
+    else {
         self.disablePredicateCache = _disabled;
     }
-    if ([self.disablePredicateCache boolValue]){
+    
+    if ([self.disablePredicateCache boolValue]) {
         [self.cell resignFirstResponder];
     }
+    
     return [self.disablePredicateCache boolValue];
 }
 
@@ -393,9 +430,9 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(void)setDisablePredicateCache:(NSNumber*)disablePredicateCache
 {
-    NSParameterAssert(disablePredicateCache);
+    NSParameterAssert(disablePredicateCache != nil);
     self.isDirtyDisablePredicateCache = NO;
-    if (!_disablePredicateCache || ![_disablePredicateCache isEqualToNumber:disablePredicateCache]){
+    if (_disablePredicateCache == nil || ![_disablePredicateCache isEqualToNumber:disablePredicateCache]){
         _disablePredicateCache = disablePredicateCache;
     }
 }
@@ -414,9 +451,9 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(void)setHidePredicateCache:(NSNumber *)hidePredicateCache
 {
-    NSParameterAssert(hidePredicateCache);
+    NSParameterAssert(hidePredicateCache != nil);
     self.isDirtyHidePredicateCache = NO;
-    if (!_hidePredicateCache || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
+    if (_hidePredicateCache == nil || ![_hidePredicateCache isEqualToNumber:hidePredicateCache]){
         _hidePredicateCache = hidePredicateCache;
     }
 }
@@ -426,6 +463,7 @@ CGFloat XLFormRowInitialHeight = -2;
     if (self.isDirtyHidePredicateCache) {
         return [self evaluateIsHidden];
     }
+    
     return [self.hidePredicateCache boolValue];
 }
 
@@ -434,7 +472,8 @@ CGFloat XLFormRowInitialHeight = -2;
     if ([_hidden isKindOfClass:[NSPredicate class]]) {
         if (!self.sectionDescriptor.formDescriptor) {
             self.isDirtyHidePredicateCache = YES;
-        } else {
+        }
+        else {
             @try {
                 self.hidePredicateCache = @([_hidden evaluateWithObject:self substitutionVariables:self.sectionDescriptor.formDescriptor.allRowsByTag ?: @{}]);
             }
@@ -444,16 +483,18 @@ CGFloat XLFormRowInitialHeight = -2;
             };
         }
     }
-    else{
+    else {
         self.hidePredicateCache = _hidden;
     }
+    
     if ([self.hidePredicateCache boolValue]){
         [self.cell resignFirstResponder];
         [self.sectionDescriptor hideFormRow:self];
     }
-    else{
+    else {
         [self.sectionDescriptor showFormRow:self];
     }
+    
     return [self.hidePredicateCache boolValue];
 }
 
@@ -463,10 +504,12 @@ CGFloat XLFormRowInitialHeight = -2;
     if ([_hidden isKindOfClass:[NSPredicate class]]){
         [self.sectionDescriptor.formDescriptor removeObserversOfObject:self predicateType:XLPredicateTypeHidden];
     }
+    
     _hidden = [hidden isKindOfClass:[NSString class]] ? [hidden formPredicate] : hidden;
     if ([_hidden isKindOfClass:[NSPredicate class]]){
         [self.sectionDescriptor.formDescriptor addObserversOfObject:self predicateType:XLPredicateTypeHidden];
     }
+    
     [self evaluateIsHidden]; // check and update if this row should be hidden.
 }
 
@@ -480,34 +523,35 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(void)addValidator:(id<XLFormValidatorProtocol>)validator
 {
-    if (validator == nil || ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)])
+    if (validator == nil || ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)]) {
         return;
-
-    if(![self.validators containsObject:validator]) {
+    }
+    else if (![self.validators containsObject:validator]) {
         [self.validators addObject:validator];
     }
 }
 
 -(void)removeValidator:(id<XLFormValidatorProtocol>)validator
 {
-    if (validator == nil|| ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)])
+    if (validator == nil || ![validator conformsToProtocol:@protocol(XLFormValidatorProtocol)]) {
         return;
-
-    if ([self.validators containsObject:validator]) {
+    }
+    else if ([self.validators containsObject:validator]) {
         [self.validators removeObject:validator];
     }
 }
 
 - (BOOL)valueIsEmpty
 {
-    return self.value == nil || [self.value isKindOfClass:[NSNull class]] || ([self.value respondsToSelector:@selector(length)] && [self.value length]==0) ||
-    ([self.value respondsToSelector:@selector(count)] && [self.value count]==0);
+    return self.value == nil || [self.value isKindOfClass:[NSNull class]] ||
+        ([self.value respondsToSelector:@selector(length)] && [self.value length] == 0) ||
+        ([self.value respondsToSelector:@selector(count)] && [self.value count] == 0);
 }
 
 -(XLFormValidationStatus *)doValidation
 {
     XLFormValidationStatus *valStatus = nil;
-
+    
     if (self.required) {
         // do required validation here
         if ([self valueIsEmpty]) {
@@ -515,22 +559,24 @@ CGFloat XLFormRowInitialHeight = -2;
             NSString *msg = nil;
             if (self.requireMsg != nil) {
                 msg = self.requireMsg;
-            } else {
+            }
+            else {
                 // default message for required msg
                 msg = NSLocalizedString(@"%@ can't be empty", nil);
             }
-
-            if (self.title != nil) {
+            
+            if (self.title.length) {
                 valStatus.msg = [NSString stringWithFormat:msg, self.title];
-            } else {
+            }
+            else {
                 valStatus.msg = [NSString stringWithFormat:msg, self.tag];
             }
-
+            
             return valStatus;
         }
     }
     // custom validator
-    for(id<XLFormValidatorProtocol> v in self.validators) {
+    for (id<XLFormValidatorProtocol> v in self.validators) {
         if ([v conformsToProtocol:@protocol(XLFormValidatorProtocol)]) {
             XLFormValidationStatus *vStatus = [v isValid:self];
             // fail validation
@@ -538,10 +584,12 @@ CGFloat XLFormRowInitialHeight = -2;
                 return vStatus;
             }
             valStatus = vStatus;
-        } else {
+        }
+        else {
             valStatus = nil;
         }
     }
+    
     return valStatus;
 }
 
@@ -597,13 +645,13 @@ CGFloat XLFormRowInitialHeight = -2;
 
 -(instancetype)initWithLeftValue:(NSString *)leftValue httpParameterKey:(NSString *)httpParameterKey rightOptions:(NSArray *)rightOptions
 {
-    self = [super init];
-    if (self){
+    if (self = [super init]) {
         _selectorTitle = nil;
         _leftValue = leftValue;
         _rightOptions = rightOptions;
         _httpParameterKey = httpParameterKey;
     }
+    
     return self;
 }
 
@@ -614,10 +662,10 @@ CGFloat XLFormRowInitialHeight = -2;
 
 - (instancetype)init
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         _viewControllerPresentationMode = XLFormPresentationModeDefault;
     }
+    
     return self;
 }
 
@@ -629,24 +677,25 @@ CGFloat XLFormRowInitialHeight = -2;
     if (self.viewControllerClass){
         actionCopy.viewControllerClass = [self.viewControllerClass copy];
     }
-    else if ([self.viewControllerStoryboardId length]  != 0){
+    else if ([self.viewControllerStoryboardId length]  != 0) {
         actionCopy.viewControllerStoryboardId = [self.viewControllerStoryboardId copy];
     }
-    else if ([self.viewControllerNibName length] != 0){
+    else if ([self.viewControllerNibName length] != 0) {
         actionCopy.viewControllerNibName = [self.viewControllerNibName copy];
     }
-    if (self.formBlock){
+    if (self.formBlock) {
         actionCopy.formBlock = [self.formBlock copy];
     }
-    else if (self.formSelector){
+    else if (self.formSelector) {
         actionCopy.formSelector = self.formSelector;
     }
-    else if (self.formSegueIdentifier){
+    else if (self.formSegueIdentifier) {
         actionCopy.formSegueIdentifier = [self.formSegueIdentifier copy];
     }
     else if (self.formSegueClass){
         actionCopy.formSegueClass = [self.formSegueClass copy];
     }
+    
     return actionCopy;
 }
 
@@ -671,7 +720,6 @@ CGFloat XLFormRowInitialHeight = -2;
     _viewControllerStoryboardId = viewControllerStoryboardId;
 }
 
-
 -(void)setFormSelector:(SEL)formSelector
 {
     _formBlock = nil;
@@ -679,7 +727,6 @@ CGFloat XLFormRowInitialHeight = -2;
     _formSegueIdentifier = nil;
     _formSelector = formSelector;
 }
-
 
 -(void)setFormBlock:(void (^)(XLFormRowDescriptor *))formBlock
 {

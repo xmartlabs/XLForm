@@ -43,7 +43,7 @@ PODS:
   - XLData/RemoteDataStore (2.0.0):
     - XLData/CoreRemote
     - XLData/DataStore
-  - XLForm (4.0.0)
+  - XLForm (4.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -53,12 +53,19 @@ DEPENDENCIES:
   - XLData (from `https://github.com/xmartlabs/XLData.git`, commit `1f9019b56242a2019c7f7e11ec4ef823c397ebcf`)
   - XLForm (from `../../`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - AXRatingView
+    - JVFloatLabeledTextField
+    - SHSPhoneComponent
+
 EXTERNAL SOURCES:
   XLData:
     :commit: 1f9019b56242a2019c7f7e11ec4ef823c397ebcf
     :git: https://github.com/xmartlabs/XLData.git
   XLForm:
-    :path: ../../
+    :path: "../../"
 
 CHECKOUT OPTIONS:
   XLData:
@@ -71,8 +78,8 @@ SPEC CHECKSUMS:
   JVFloatLabeledTextField: 58a3a32cfb800e5b224f676987e7c13abf50a14d
   SHSPhoneComponent: 4cec0653a150ad63cbc52b0c8b29ce2d3c9c26f0
   XLData: df725c6179e2e0c80bf56a1ecad9afd169707a6d
-  XLForm: 04110197c12187dd28a6c7295d3d8b95f4fdb4de
+  XLForm: b8d47a9a00fb6166981cb40de7169d70d611e9be
 
 PODFILE CHECKSUM: 64fbcd03a2c13762b2c18e3938cc8008807937c9
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.6.0

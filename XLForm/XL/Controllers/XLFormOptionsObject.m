@@ -107,4 +107,9 @@
     
 }
 
+-(NSUInteger)hash
+{
+    return [[self formValue ] hash];
+}
+
 @end

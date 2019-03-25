@@ -43,22 +43,22 @@ typedef NS_ENUM(NSUInteger, XLFormPresentationMode) {
     XLFormPresentationModePresent
 };
 
-typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLFormRowDescriptor* __nonnull rowDescriptor);
+typedef void(^XLOnChangeBlock)(id __nullable oldValue, id __nullable newValue, XLFormRowDescriptor * __nonnull rowDescriptor);
 
 @interface XLFormRowDescriptor : NSObject
 
-@property (nullable) id cellClass;
-@property (readwrite, nullable) NSString * tag;
-@property (readonly, nonnull) NSString * rowType;
-@property (nullable) NSString * title;
-@property (nonatomic, nullable) id value;
-@property (nullable) Class valueTransformer;
-@property UITableViewCellStyle cellStyle;
-@property (nonatomic) CGFloat height;
+@property (nonatomic, nullable, strong) id cellClass;
+@property (nonatomic, nullable, copy  , readwrite) NSString * tag;
+@property (nonatomic, nonnull , copy  , readonly) NSString * rowType;
+@property (nonatomic, nullable, copy  ) NSString * title;
+@property (nonatomic, nullable, strong) id value;
+@property (nonatomic, nullable, strong) Class valueTransformer;
+@property (nonatomic, assign  ) UITableViewCellStyle cellStyle;
+@property (nonatomic, assign  ) CGFloat height;
 
-@property (copy, nullable) XLOnChangeBlock onChangeBlock;
-@property BOOL useValueFormatterDuringInput;
-@property (nullable) NSFormatter *valueFormatter;
+@property (nonatomic, copy  , nullable) XLOnChangeBlock onChangeBlock;
+@property (nonatomic, assign) BOOL useValueFormatterDuringInput;
+@property (nonatomic, strong, nullable) NSFormatter *valueFormatter;
 
 // returns the display text for the row descriptor, taking into account NSFormatters and default placeholder values
 - (nonnull NSString *) displayTextValue;
@@ -66,20 +66,22 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 // returns the editing text value for the row descriptor, taking into account NSFormatters.
 - (nonnull NSString *) editTextValue;
 
-@property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfig;
-@property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigForSelector;
-@property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigIfDisabled;
-@property (nonatomic, readonly, nonnull) NSMutableDictionary * cellConfigAtConfigure;
+@property (nonatomic, readonly, nonnull, strong) NSMutableDictionary * cellConfig;
+@property (nonatomic, readonly, nonnull, strong) NSMutableDictionary * cellConfigForSelector;
+@property (nonatomic, readonly, nonnull, strong) NSMutableDictionary * cellConfigIfDisabled;
+@property (nonatomic, readonly, nonnull, strong) NSMutableDictionary * cellConfigAtConfigure;
 
-@property (nonnull) id disabled;
+@property (nonatomic, nonnull, strong) id disabled;
 -(BOOL)isDisabled;
-@property (nonnull) id hidden;
+
+@property (nonatomic, nonnull, strong) id hidden;
 -(BOOL)isHidden;
-@property (getter=isRequired) BOOL required;
 
-@property (nonnull) XLFormAction * action;
+@property (getter=isRequired, nonatomic, assign) BOOL required;
 
-@property (weak, null_unspecified) XLFormSectionDescriptor * sectionDescriptor;
+@property (nonatomic, nonnull, strong) XLFormAction * action;
+
+@property (nonatomic, weak, null_unspecified) XLFormSectionDescriptor * sectionDescriptor;
 
 +(nonnull instancetype)formRowDescriptorWithTag:(nullable NSString *)tag rowType:(nonnull NSString *)rowType;
 +(nonnull instancetype)formRowDescriptorWithTag:(nullable NSString *)tag rowType:(nonnull NSString *)rowType title:(nullable NSString *)title;
@@ -87,7 +89,7 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 
 -(nonnull XLFormBaseCell *)cellForFormController:(nonnull XLFormViewController *)formController;
 
-@property (nullable) NSString *requireMsg;
+@property (nonatomic, nullable, copy) NSString *requireMsg;
 -(void)addValidator:(nonnull id<XLFormValidatorProtocol>)validator;
 -(void)removeValidator:(nonnull id<XLFormValidatorProtocol>)validator;
 -(nullable XLFormValidationStatus *)doValidation;
@@ -95,9 +97,9 @@ typedef void(^XLOnChangeBlock)(id __nullable oldValue,id __nullable newValue,XLF
 // ===========================
 // property used for Selectors
 // ===========================
-@property (nullable) NSString * noValueDisplayText;
-@property (nullable) NSString * selectorTitle;
-@property (nullable) NSArray * selectorOptions;
+@property (nonatomic, nullable, copy) NSString * noValueDisplayText;
+@property (nonatomic, nullable, copy) NSString * selectorTitle;
+@property (nonatomic, nullable, strong) NSArray * selectorOptions;
 
 @property (null_unspecified) id leftRightSelectorLeftOptionSelected;
 
@@ -126,13 +128,13 @@ typedef NS_ENUM(NSUInteger, XLFormLeftRightSelectorOptionLeftValueChangePolicy)
 @interface XLFormLeftRightSelectorOption : NSObject
 
 @property (nonatomic, assign) XLFormLeftRightSelectorOptionLeftValueChangePolicy leftValueChangePolicy;
-@property (readonly, nonnull) id leftValue;
-@property (readonly, nonnull) NSArray *  rightOptions;
-@property (readonly, null_unspecified) NSString * httpParameterKey;
-@property (nullable) Class rightSelectorControllerClass;
+@property (nonatomic, readonly, nonnull) id leftValue;
+@property (nonatomic, readonly, nonnull) NSArray *  rightOptions;
+@property (nonatomic, readonly, null_unspecified, copy) NSString * httpParameterKey;
+@property (nonatomic, nullable) Class rightSelectorControllerClass;
 
-@property (nullable) NSString * noValueDisplayText;
-@property (nullable) NSString * selectorTitle;
+@property (nonatomic, nullable, copy) NSString * noValueDisplayText;
+@property (nonatomic, nullable, copy) NSString * selectorTitle;
 
 
 +(nonnull XLFormLeftRightSelectorOption *)formLeftRightSelectorOptionWithLeftValue:(nonnull id)leftValue
@@ -154,16 +156,16 @@ typedef NS_ENUM(NSUInteger, XLFormLeftRightSelectorOptionLeftValueChangePolicy)
 
 @interface XLFormAction : NSObject
 
-@property (nullable, nonatomic, strong) Class viewControllerClass;
-@property (nullable, nonatomic, strong) NSString * viewControllerStoryboardId;
-@property (nullable, nonatomic, strong) NSString * viewControllerNibName;
+@property (nullable, nonatomic) Class viewControllerClass;
+@property (nullable, nonatomic, copy) NSString * viewControllerStoryboardId;
+@property (nullable, nonatomic, copy) NSString * viewControllerNibName;
 
-@property (nonatomic) XLFormPresentationMode viewControllerPresentationMode;
+@property (nonatomic, assign) XLFormPresentationMode viewControllerPresentationMode;
 
-@property (nullable, nonatomic, strong) void (^formBlock)(XLFormRowDescriptor * __nonnull sender);
+@property (nullable, nonatomic, copy) void (^formBlock)(XLFormRowDescriptor * __nonnull sender);
 @property (nullable, nonatomic) SEL formSelector;
-@property (nullable, nonatomic, strong) NSString * formSegueIdenfifier DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use formSegueIdentifier instead");
-@property (nullable, nonatomic, strong) NSString * formSegueIdentifier;
-@property (nullable, nonatomic, strong) Class formSegueClass;
+@property (nullable, nonatomic, copy) NSString * formSegueIdenfifier DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use formSegueIdentifier instead");
+@property (nullable, nonatomic, copy) NSString * formSegueIdentifier;
+@property (nullable, nonatomic) Class formSegueClass;
 
 @end

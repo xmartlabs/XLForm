@@ -31,10 +31,10 @@ extern NSString *const XLFormTextFieldMaxNumberOfCharacters;
 
 @interface XLFormTextFieldCell : XLFormBaseCell <XLFormReturnKeyProtocol>
 
-@property (nonatomic, readonly) UILabel * textLabel;
-@property (nonatomic, readonly) UITextField * textField;
+@property (nonatomic, readonly, weak) UILabel * textLabel;
+@property (nonatomic, readonly, weak) UITextField * textField;
 
-@property (nonatomic) NSNumber *textFieldLengthPercentage;
-@property (nonatomic) NSNumber *textFieldMaxNumberOfCharacters;
+@property (nonatomic, copy) NSNumber *textFieldLengthPercentage;
+@property (nonatomic, copy) NSNumber *textFieldMaxNumberOfCharacters;
 
 @end

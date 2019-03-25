@@ -71,6 +71,7 @@
 
 - (void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller
 {
+    __weak typeof(self) weak = self;
     alertController = [UIAlertController alertControllerWithTitle: self.rowDescriptor.title
                                                           message: nil
                                                    preferredStyle: UIAlertControllerStyleActionSheet];
@@ -78,14 +79,14 @@
     [alertController addAction:[UIAlertAction actionWithTitle: NSLocalizedString(@"Choose From Library", nil)
                                                         style: UIAlertActionStyleDefault
                                                       handler: ^(UIAlertAction * _Nonnull action) {
-                                                          [self openImage:UIImagePickerControllerSourceTypePhotoLibrary];
+                                                          [weak openImage:UIImagePickerControllerSourceTypePhotoLibrary];
                                                       }]];
     
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [alertController addAction:[UIAlertAction actionWithTitle: NSLocalizedString(@"Take Photo", nil)
                                                             style: UIAlertActionStyleDefault
                                                           handler: ^(UIAlertAction * _Nonnull action) {
-                                                              [self openImage:UIImagePickerControllerSourceTypeCamera];
+                                                              [weak openImage:UIImagePickerControllerSourceTypeCamera];
                                                           }]];
     }
     
@@ -100,7 +101,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.formViewController presentViewController:alertController animated: true completion: nil];
+        [weak.formViewController presentViewController:self->alertController animated: true completion: nil];
     });
 }
 

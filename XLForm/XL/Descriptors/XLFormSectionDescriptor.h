@@ -42,19 +42,19 @@ typedef NS_ENUM(NSUInteger, XLFormSectionInsertMode) {
 
 @interface XLFormSectionDescriptor : NSObject
 
-@property (nonatomic, nullable) NSString * title;
-@property (nonatomic, nullable) NSString * footerTitle;
-@property (readonly, nonnull) NSMutableArray * formRows;
+@property (nonatomic, nullable, copy) NSString * title;
+@property (nonatomic, nullable, copy) NSString * footerTitle;
+@property (nonatomic, readonly, nonnull, strong) NSMutableArray * formRows;
 
-@property (readonly) XLFormSectionInsertMode sectionInsertMode;
-@property (readonly) XLFormSectionOptions sectionOptions;
-@property (nullable) XLFormRowDescriptor * multivaluedRowTemplate;
-@property (readonly, nullable) XLFormRowDescriptor * multivaluedAddButton;
-@property (nonatomic, nullable) NSString * multivaluedTag;
+@property (nonatomic, readonly, assign) XLFormSectionInsertMode sectionInsertMode;
+@property (nonatomic, readonly, assign) XLFormSectionOptions sectionOptions;
+@property (nonatomic, nullable, strong) XLFormRowDescriptor * multivaluedRowTemplate;
+@property (nonatomic, readonly, nullable, strong) XLFormRowDescriptor * multivaluedAddButton;
+@property (nonatomic, nullable, copy) NSString * multivaluedTag;
 
-@property (weak, null_unspecified) XLFormDescriptor * formDescriptor;
+@property (nonatomic, weak, null_unspecified) XLFormDescriptor * formDescriptor;
 
-@property (nonnull) id hidden;
+@property (nonatomic, nonnull, strong) id hidden;
 -(BOOL)isHidden;
 
 +(nonnull instancetype)formSection;

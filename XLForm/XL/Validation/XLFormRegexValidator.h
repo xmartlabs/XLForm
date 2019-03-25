@@ -29,8 +29,8 @@
 
 @interface XLFormRegexValidator : XLFormValidator
 
-@property NSString *msg;
-@property NSString *regex;
+@property (nonatomic, copy) NSString *msg;
+@property (nonatomic, copy) NSString *regex;
 
 - (instancetype)initWithMsg:(NSString*)msg andRegexString:(NSString*)regex;
 + (XLFormRegexValidator *)formRegexValidatorWithMsg:(NSString *)msg regex:(NSString *)regex;

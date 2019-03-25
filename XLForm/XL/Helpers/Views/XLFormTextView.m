@@ -30,7 +30,7 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:nil];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -67,14 +67,15 @@
 {
     if([[self placeholder] length] > 0){
         if (_placeHolderLabel == nil ){
-            _placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(4,8,self.bounds.size.width - 16,0)];
-            _placeHolderLabel.lineBreakMode = NSLineBreakByWordWrapping;
-            _placeHolderLabel.numberOfLines = 0;
-            _placeHolderLabel.backgroundColor = [UIColor clearColor];
-            _placeHolderLabel.textColor = self.placeholderColor;
-            _placeHolderLabel.alpha = 0;
-            _placeHolderLabel.tag = 999;
-            [self addSubview:_placeHolderLabel];
+            UILabel *placeHolderLabel = [[UILabel alloc] initWithFrame:CGRectMake(4,8,self.bounds.size.width - 16,0)];
+            placeHolderLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            placeHolderLabel.numberOfLines = 0;
+            placeHolderLabel.backgroundColor = [UIColor clearColor];
+            placeHolderLabel.textColor = self.placeholderColor;
+            placeHolderLabel.alpha = 0;
+            placeHolderLabel.tag = 999;
+            [self addSubview:placeHolderLabel];
+            _placeHolderLabel = placeHolderLabel;
         }
         _placeHolderLabel.text = self.placeholder;
         _placeHolderLabel.font = self.font;

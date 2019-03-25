@@ -27,8 +27,8 @@
 
 @interface XLFormRowNavigationAccessoryView : UIToolbar
 
-@property (nonatomic) UIBarButtonItem *previousButton;
-@property (nonatomic) UIBarButtonItem *nextButton;
-@property (nonatomic) UIBarButtonItem *doneButton;
+@property (nonatomic, weak) UIBarButtonItem *previousButton;
+@property (nonatomic, weak) UIBarButtonItem *nextButton;
+@property (nonatomic, weak) UIBarButtonItem *doneButton;
 
 @end

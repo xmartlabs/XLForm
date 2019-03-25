@@ -33,10 +33,10 @@ extern NSString *const XLFormTextViewMaxNumberOfCharacters;
 @interface XLFormTextViewCell : XLFormBaseCell
 
 @property (nonatomic, readonly) UILabel * label DEPRECATED_ATTRIBUTE DEPRECATED_MSG_ATTRIBUTE("Use textLabel instead");
-@property (nonatomic, readonly) UILabel * textLabel;
-@property (nonatomic, readonly) XLFormTextView * textView;
+@property (nonatomic, readonly, weak) UILabel * textLabel;
+@property (nonatomic, readonly, weak) XLFormTextView * textView;
 
-@property (nonatomic) NSNumber *textViewLengthPercentage;
-@property (nonatomic) NSNumber *textViewMaxNumberOfCharacters;
+@property (nonatomic, copy) NSNumber *textViewLengthPercentage;
+@property (nonatomic, copy) NSNumber *textViewMaxNumberOfCharacters;
 
 @end

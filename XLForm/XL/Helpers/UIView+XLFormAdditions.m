@@ -27,47 +27,62 @@
 
 @implementation UIView (XLFormAdditions)
 
-+ (id)autolayoutView
++ (instancetype)autolayoutView
 {
-    UIView *view = [self new];
+    __kindof UIView *view = [self new];
     view.translatesAutoresizingMaskIntoConstraints = NO;
+    
     return view;
 }
 
--(NSLayoutConstraint *)layoutConstraintSameHeightOf:(UIView *)view
+- (NSLayoutConstraint *)layoutConstraintSameHeightOf:(UIView *)view
 {
-    return [NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeHeight multiplier:1.0f constant:0.0f];
+    return [NSLayoutConstraint constraintWithItem:self
+                                        attribute:NSLayoutAttributeHeight
+                                        relatedBy:NSLayoutRelationEqual
+                                           toItem:view
+                                        attribute:NSLayoutAttributeHeight
+                                       multiplier:1.0
+                                         constant:0.0];
 }
 
 - (UIView *)findFirstResponder
 {
+    UIView *firstResponder = nil;
     if (self.isFirstResponder) {
-        return self;
+        firstResponder = self;
     }
-    for (UIView *subView in self.subviews) {
-        UIView *firstResponder = [subView findFirstResponder];
-        if (firstResponder != nil) {
-            return firstResponder;
+    else {
+        for (UIView *subView in self.subviews) {
+            UIView *fr = [subView findFirstResponder];
+            if (fr != nil) {
+                firstResponder = fr;
+                
+                break;
+            }
         }
     }
-    return nil;
+    
+    return firstResponder;
 }
 
 - (UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell
 {
+    UITableViewCell<XLFormDescriptorCell> * tableViewCell = nil;
+    
     if ([self isKindOfClass:[UITableViewCell class]]) {
         if ([self conformsToProtocol:@protocol(XLFormDescriptorCell)]){
-            return (UITableViewCell<XLFormDescriptorCell> *)self;
-        }
-        return nil;
-    }
-    if (self.superview) {
-        UITableViewCell<XLFormDescriptorCell> * tableViewCell = [self.superview formDescriptorCell];
-        if (tableViewCell != nil) {
-            return tableViewCell;
+            tableViewCell = (UITableViewCell<XLFormDescriptorCell> *)self;
         }
     }
-    return nil;
+    else if (self.superview) {
+        UITableViewCell<XLFormDescriptorCell> * cell = [self.superview formDescriptorCell];
+        if (cell != nil) {
+            tableViewCell = cell;
+        }
+    }
+    
+    return tableViewCell;
 }
 
 @end
