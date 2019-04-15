@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+### Version 4.0.1:
+* Memory improvements and fixes.
+* Other minor fixes
+
 ### Version 4.0.0:
 * Adds support for Xcode 9.
 * Deprecated UIAlertView, UIActionSheet, UIPopoverController.
