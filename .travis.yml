@@ -1,8 +1,8 @@
 language: objective-c
-osx_image: xcode9
+osx_image: xcode10.2
 before_install:
-    - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
-    - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+    - gem install cocoapods --quiet
+    - gem install xcpretty --quiet
     - cd Tests && pod install && cd $TRAVIS_BUILD_DIR
 script: rake test
 

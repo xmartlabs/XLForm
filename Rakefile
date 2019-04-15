@@ -3,7 +3,7 @@ include FileUtils::Verbose
 namespace :test do
   desc "Run the XLForm Tests"
   task :ios do
-    run_tests('XLForm Tests', 'iphonesimulator11.0')
+    run_tests('XLForm Tests', 'iphonesimulator12.2')
     tests_failed unless $?.success?
   end
 end
@@ -17,7 +17,7 @@ task :default => 'test'
 private
 
 def run_tests(scheme, sdk)
-  sh("xcodebuild -workspace 'Tests/XLForm Tests.xcworkspace' -scheme '#{scheme}' -sdk '#{sdk}' -destination 'OS=11.0,name=iPhone 8' -configuration Release clean test | xcpretty -c ; exit ${PIPESTATUS[0]}") rescue nil
+  sh("xcodebuild -workspace 'Tests/XLForm Tests.xcworkspace' -scheme '#{scheme}' -sdk '#{sdk}' -destination 'OS=12.2,name=iPhone 8' -configuration Release clean test | xcpretty -c ; exit ${PIPESTATUS[0]}") rescue nil
 end
 
 def tests_failed
