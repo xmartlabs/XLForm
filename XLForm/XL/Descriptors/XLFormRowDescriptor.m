@@ -156,9 +156,9 @@ NSString * const XLHidePredicateCacheKey = @"hidePredicateCache";
         
         if ([bundle pathForResource:cellResource ofType:@"nib"]) {
             _cell = [[bundle loadNibNamed:cellResource owner:nil options:nil] firstObject];
-        }else if([bundleForCaller pathForResource:cellResource ofType:@"nib"]){
+        } else if ([bundleForCaller pathForResource:cellResource ofType:@"nib"]) {
             _cell = [[bundleForCaller loadNibNamed:cellResource owner:nil options:nil] firstObject];
-        }else {
+        } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
         }
         
