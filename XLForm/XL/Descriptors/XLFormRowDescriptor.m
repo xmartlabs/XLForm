@@ -136,6 +136,7 @@ NSString * const XLHidePredicateCacheKey = @"hidePredicateCache";
         NSBundle *bundle = [NSBundle mainBundle];
         NSString *cellClassString = cellClass;
         NSString *cellResource = nil;
+        NSBundle *bundleForCaller = [NSBundle bundleForClass:self.class];
         
         NSAssert(cellClass, @"Not defined XLFormRowDescriptorType: %@", self.rowType ?: @"");
         
@@ -155,6 +156,8 @@ NSString * const XLHidePredicateCacheKey = @"hidePredicateCache";
         
         if ([bundle pathForResource:cellResource ofType:@"nib"]) {
             _cell = [[bundle loadNibNamed:cellResource owner:nil options:nil] firstObject];
+        } else if ([bundleForCaller pathForResource:cellResource ofType:@"nib"]) {
+            _cell = [[bundleForCaller loadNibNamed:cellResource owner:nil options:nil] firstObject];
         } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
         }
