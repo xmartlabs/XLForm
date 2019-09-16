@@ -26,13 +26,23 @@
 #import "XLFormRowDescriptor.h"
 #import "XLFormButtonCell.h"
 
+@interface XLFormButtonCell ()
+
+@property(nonatomic) BOOL useTintColor;
+
+@end
+
 @implementation XLFormButtonCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    return [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    
+    if (self) {
+        _useTintColor = YES;
+    }
+    return self;
 }
-
 
 #pragma mark - XLFormDescriptorCell
 
@@ -52,7 +62,7 @@
     self.editingAccessoryType = self.accessoryType;
     self.selectionStyle = isDisabled ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleDefault;
     
-    if (simpleAction){
+    if (simpleAction && _useTintColor){
         CGFloat red, green, blue, alpha;
         [self.tintColor getRed:&red green:&green blue:&blue alpha:&alpha];
         self.textLabel.textColor  = [UIColor colorWithRed:red green:green blue:blue alpha:(isDisabled ? 0.3 : 1.0)];
