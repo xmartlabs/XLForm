@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="p4n-1v-pzo">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="p4n-1v-pzo">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -11,9 +13,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="p4n-1v-pzo" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SNt-hk-N3V">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -22,7 +23,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jqF-cF-u4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117" y="56"/>
+            <point key="canvasLocation" x="-3" y="38"/>
         </scene>
         <!--Others Form View Controller-->
         <scene sceneID="dyJ-7m-RaD">
@@ -33,10 +34,9 @@
                         <viewControllerLayoutGuide type="bottom" id="HPb-Nx-E1G"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wpr-wE-9nj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Hf0-cB-ORN"/>
@@ -46,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7YZ-ZR-X81" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1533" y="-233"/>
+            <point key="canvasLocation" x="2221.739130434783" y="-156.02678571428569"/>
         </scene>
         <!--Native Event Form View Controller-->
         <scene sceneID="EjT-rm-U3h">
@@ -57,17 +57,15 @@
                         <viewControllerLayoutGuide type="bottom" id="QuR-kY-o5R"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tun-QW-CGC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="JY7-WL-SnH">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <animations/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="JY7-WL-SnH" firstAttribute="leading" secondItem="tun-QW-CGC" secondAttribute="leading" id="bSe-SV-rx6"/>
                             <constraint firstAttribute="trailing" secondItem="JY7-WL-SnH" secondAttribute="trailing" id="jLI-68-pSq"/>
@@ -82,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zV0-mq-irv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1120" y="-635"/>
+            <point key="canvasLocation" x="1623.1884057971015" y="-425.22321428571428"/>
         </scene>
         <!--Examples-->
         <scene sceneID="wf7-ha-lXx">
@@ -93,17 +91,15 @@
                         <viewControllerLayoutGuide type="bottom" id="0bE-2H-tqE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PO9-pF-A7O">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lxj-Sb-kC6">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <animations/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Lxj-Sb-kC6" firstAttribute="top" secondItem="kOR-67-djF" secondAttribute="bottom" id="PT1-Xo-3Ql"/>
                             <constraint firstAttribute="trailing" secondItem="Lxj-Sb-kC6" secondAttribute="trailing" id="brq-yF-WM8"/>
@@ -125,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1V5-DZ-WfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="527" y="56"/>
+            <point key="canvasLocation" x="763.768115942029" y="37.5"/>
         </scene>
         <!--Blog Example View Controller-->
         <scene sceneID="Vn0-9y-5bc">
@@ -136,17 +132,16 @@
                         <viewControllerLayoutGuide type="bottom" id="scM-da-Sg0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hrV-fb-58s">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="RJB-cz-SnF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fvo-wr-5Ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="167" y="1151"/>
+            <point key="canvasLocation" x="242.0289855072464" y="770.75892857142856"/>
         </scene>
         <!--Validation Examples-->
         <scene sceneID="z2I-Nk-y9W">
@@ -157,17 +152,15 @@
                         <viewControllerLayoutGuide type="bottom" id="xtJ-Wo-mhU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1Ol-Ra-Ysg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Fty-3j-BeF">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <animations/>
+                                <rect key="frame" x="0.0" y="24" width="414" height="838"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="xtJ-Wo-mhU" firstAttribute="top" secondItem="Fty-3j-BeF" secondAttribute="bottom" id="CbV-4f-RzP"/>
                             <constraint firstItem="Fty-3j-BeF" firstAttribute="top" secondItem="AG9-N9-2qp" secondAttribute="bottom" constant="-64" id="Pdw-VG-qcc"/>
@@ -184,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VFT-Og-STO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="566" y="938"/>
+            <point key="canvasLocation" x="820.28985507246387" y="628.125"/>
         </scene>
         <!--Predicate Form View Controller-->
         <scene sceneID="a9p-C8-g8y">
@@ -195,17 +188,16 @@
                         <viewControllerLayoutGuide type="bottom" id="Lsg-dH-McH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6EZ-O7-FjX">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Lsd-xH-7IN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rZL-10-YZn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="956" y="924"/>
+            <point key="canvasLocation" x="1385.5072463768117" y="618.75"/>
         </scene>
         <!--Selectors Form View Controller-->
         <scene sceneID="KYK-TX-8rm">
@@ -216,10 +208,9 @@
                         <viewControllerLayoutGuide type="bottom" id="CTu-Y5-7Qw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bNj-SD-83w">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Buo-Af-6Q1"/>
@@ -229,7 +220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8fu-YK-6qz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1346" y="533"/>
+            <point key="canvasLocation" x="1950.7246376811595" y="356.91964285714283"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="tAS-lK-35t">
@@ -240,17 +231,16 @@
                         <viewControllerLayoutGuide type="bottom" id="cgQ-Vs-ICN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="JjC-E5-SyY">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="BjG-Bq-0lD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LmS-YR-mFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1789" y="533"/>
+            <point key="canvasLocation" x="2592.753623188406" y="356.91964285714283"/>
         </scene>
         <!--Native Event Navigation View Controller-->
         <scene sceneID="mNb-be-ApA">
@@ -258,9 +248,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="K9D-4c-9eZ" customClass="NativeEventNavigationViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fO3-V7-XXu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -269,7 +258,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eqB-vl-BzH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="586" y="-654"/>
+            <point key="canvasLocation" x="849.27536231884062" y="-437.94642857142856"/>
         </scene>
         <!--Basic Predicate View Controller-->
         <scene sceneID="pD4-sm-x3a">
@@ -280,17 +269,16 @@
                         <viewControllerLayoutGuide type="bottom" id="2b4-gN-85p"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="NZg-t1-g19">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="1lh-jZ-lIV"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tlw-q2-pcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-159" y="1151"/>
+            <point key="canvasLocation" x="-230.43478260869566" y="770.75892857142856"/>
         </scene>
         <!--Users Table View Controller-->
         <scene sceneID="lGi-0L-kUk">
@@ -301,17 +289,15 @@
                         <viewControllerLayoutGuide type="bottom" id="uVG-bI-IMr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sMH-hT-NCg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView autoresizesSubviews="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="fLo-Gu-rqr">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                                <animations/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                         </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="uVG-bI-IMr" firstAttribute="top" secondItem="fLo-Gu-rqr" secondAttribute="bottom" id="25A-HG-wek"/>
                             <constraint firstItem="fLo-Gu-rqr" firstAttribute="top" secondItem="at2-Ds-EcY" secondAttribute="bottom" id="3N4-a2-LLf"/>
@@ -326,7 +312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="flB-2M-8zS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1346" y="1178"/>
+            <point key="canvasLocation" x="1950.7246376811595" y="788.83928571428567"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

@@ -150,7 +150,7 @@ class ValidationExamplesFormViewController : XLFormViewController {
         animation.values =  [0, 20, -20, 10, 0]
         animation.keyTimes = [0, NSNumber(value: 1 / 6.0), NSNumber(value: 3 / 6.0), NSNumber(value: 5 / 6.0), 1]
         animation.duration = 0.3
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         animation.isAdditive = true
         cell.layer.add(animation, forKey: "shake")
     }

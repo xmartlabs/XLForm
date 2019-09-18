@@ -122,7 +122,7 @@ class OthersFormViewController : XLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ButtonLeftAligned, rowType: XLFormRowDescriptorTypeButton, title: "Button with Block")
         row.cellConfig["textLabel.textColor"] = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
         row.cellConfig["textLabel.textAlignment"] = NSTextAlignment.left.rawValue
-        row.cellConfig["accessoryType"] = UITableViewCellAccessoryType.disclosureIndicator.rawValue
+        row.cellConfig["accessoryType"] = UITableViewCell.AccessoryType.disclosureIndicator.rawValue
         row.action.formBlock = { [weak self] (sender: XLFormRowDescriptor!) -> Void in
             let switchRow = sender.sectionDescriptor.formDescriptor!.formRow(withTag: Tags.SwitchBool)!
             if let value = switchRow.value , (value as AnyObject).boolValue == true {

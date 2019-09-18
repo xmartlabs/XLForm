@@ -110,7 +110,7 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     func configureButtons() {
         for subview in contentView.subviews {
             if let button = subview as? UIButton {
-                button.setImage(UIImage(named: "uncheckedDay"), for: UIControlState())
+                button.setImage(UIImage(named: "uncheckedDay"), for: UIControl.State())
                 button.setImage(UIImage(named: "checkedDay"), for: .selected)
                 button.adjustsImageWhenHighlighted = false
                 imageTopTitleBottom(button)
@@ -120,7 +120,7 @@ class XLFormWeekDaysCell : XLFormBaseCell {
     }
     
     func updateButtons() {
-		var value = rowDescriptor!.value as! Dictionary<String, Bool>
+		let value = rowDescriptor!.value as! Dictionary<String, Bool>
 
         sundayButton.isSelected = value[kWeekDay.sunday.description()]!
         mondayButton.isSelected = value[kWeekDay.monday.description()]!
@@ -150,8 +150,8 @@ class XLFormWeekDaysCell : XLFormBaseCell {
         
         // raise the image and push it right so it appears centered
         //  above the text
-        let titleSize : CGSize = (button.titleLabel!.text! as NSString).size(withAttributes: [NSAttributedStringKey.font: button.titleLabel!.font])
-        button.imageEdgeInsets = UIEdgeInsetsMake(-(titleSize.height + spacing), 0.0, 0.0, -titleSize.width)
+        let titleSize : CGSize = (button.titleLabel!.text! as NSString).size(withAttributes: [NSAttributedString.Key.font: button.titleLabel!.font as Any])
+        button.imageEdgeInsets = UIEdgeInsets.init(top: -(titleSize.height + spacing), left: 0.0, bottom: 0.0, right: -titleSize.width)
     }
     
     func getDayFormButton(_ button: UIButton) -> String {

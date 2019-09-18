@@ -42,7 +42,7 @@ class UserCell : UITableViewCell {
         return tempUserName
     }()
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Initialization code
     
@@ -67,7 +67,7 @@ class UserCell : UITableViewCell {
         let metrics = [ "imgSize": 50.0, "margin": 12.0]
         
         var result = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(margin)-[image(imgSize)]-[name]", options:.alignAllTop, metrics: metrics, views: views)
-        result += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(margin)-[image(imgSize)]", options:NSLayoutFormatOptions(), metrics:metrics, views: views)
+        result += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(margin)-[image(imgSize)]", options:NSLayoutConstraint.FormatOptions(), metrics:metrics, views: views)
         return result
     }
     
@@ -138,7 +138,7 @@ class UsersTableViewController : UITableViewController, XLFormRowDescriptorViewC
     fileprivate let kUserCellIdentifier = "UserCell"
     
     
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: style);
     }
     

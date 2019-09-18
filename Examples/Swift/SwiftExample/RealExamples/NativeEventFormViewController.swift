@@ -82,12 +82,12 @@ class NativeEventFormViewController : XLFormViewController {
         row = XLFormRowDescriptor(tag: "repeat", rowType:XLFormRowDescriptorTypeSelectorPush, title:"Repeat")
         row.value = XLFormOptionsObject(value: 0, displayText: "Never")
         row.selectorTitle = "Repeat"
-        row.selectorOptions = [XLFormOptionsObject(value: 0, displayText: "Never"),
-                               XLFormOptionsObject(value: 1, displayText: "Every Day"),
-                               XLFormOptionsObject(value: 2, displayText: "Every Week"),
-                               XLFormOptionsObject(value: 3, displayText: "Every 2 Weeks"),
-                               XLFormOptionsObject(value: 4, displayText: "Every Month"),
-                               XLFormOptionsObject(value: 5, displayText: "Every Year")]
+        row.selectorOptions = [XLFormOptionsObject(value: 0, displayText: "Never")!,
+                               XLFormOptionsObject(value: 1, displayText: "Every Day")!,
+                               XLFormOptionsObject(value: 2, displayText: "Every Week")!,
+                               XLFormOptionsObject(value: 3, displayText: "Every 2 Weeks")!,
+                               XLFormOptionsObject(value: 4, displayText: "Every Month")!,
+                               XLFormOptionsObject(value: 5, displayText: "Every Year")!]
         section.addFormRow(row)
 
         section = XLFormSectionDescriptor.formSection()
@@ -98,15 +98,15 @@ class NativeEventFormViewController : XLFormViewController {
         row.value = XLFormOptionsObject(value: 0, displayText: "None")
         row.selectorTitle = "Event Alert"
         row.selectorOptions = [
-            XLFormOptionsObject(value: 0, displayText: "None"),
-            XLFormOptionsObject(value: 1, displayText: "At time of event"),
-            XLFormOptionsObject(value: 2, displayText: "5 minutes before"),
-            XLFormOptionsObject(value: 3, displayText: "15 minutes before"),
-            XLFormOptionsObject(value: 4, displayText: "30 minutes before"),
-            XLFormOptionsObject(value: 5, displayText: "1 hour before"),
-            XLFormOptionsObject(value: 6, displayText: "2 hours before"),
-            XLFormOptionsObject(value: 7, displayText: "1 day before"),
-            XLFormOptionsObject(value: 8, displayText: "2 days before")]
+            XLFormOptionsObject(value: 0, displayText: "None")!,
+            XLFormOptionsObject(value: 1, displayText: "At time of event")!,
+            XLFormOptionsObject(value: 2, displayText: "5 minutes before")!,
+            XLFormOptionsObject(value: 3, displayText: "15 minutes before")!,
+            XLFormOptionsObject(value: 4, displayText: "30 minutes before")!,
+            XLFormOptionsObject(value: 5, displayText: "1 hour before")!,
+            XLFormOptionsObject(value: 6, displayText: "2 hours before")!,
+            XLFormOptionsObject(value: 7, displayText: "1 day before")!,
+            XLFormOptionsObject(value: 8, displayText: "2 days before")!]
         section.addFormRow(row)
 
 
@@ -117,8 +117,8 @@ class NativeEventFormViewController : XLFormViewController {
         row = XLFormRowDescriptor(tag: "showAs", rowType:XLFormRowDescriptorTypeSelectorPush, title:"Show As")
         row.value = XLFormOptionsObject(value: 0, displayText: "Busy")
         row.selectorTitle = "Show As"
-        row.selectorOptions = [XLFormOptionsObject(value: 0, displayText:"Busy"),
-                              XLFormOptionsObject(value: 1, displayText:"Free")]
+        row.selectorOptions = [XLFormOptionsObject(value: 0, displayText:"Busy")!,
+                              XLFormOptionsObject(value: 1, displayText:"Free")!]
         section.addFormRow(row)
 
         section = XLFormSectionDescriptor.formSection()
@@ -197,7 +197,7 @@ class NativeEventFormViewController : XLFormViewController {
                 // startDateDescriptor is later than endDateDescriptor
                 dateEndCell.update()
                 let newDetailText =  dateEndCell.detailTextLabel!.text!
-                let strikeThroughAttribute = [NSAttributedStringKey.strikethroughStyle : NSUnderlineStyle.styleSingle.rawValue]
+                let strikeThroughAttribute = [NSAttributedString.Key.strikethroughStyle : NSUnderlineStyle.single.rawValue]
                 let strikeThroughText = NSAttributedString(string: newDetailText, attributes: strikeThroughAttribute)
                 endDateDescriptor.cellConfig["detailTextLabel.attributedText"] = strikeThroughText
                 updateFormRow(endDateDescriptor)

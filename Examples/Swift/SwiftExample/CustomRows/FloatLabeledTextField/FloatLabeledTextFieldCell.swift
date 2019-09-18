@@ -54,7 +54,7 @@ class FloatLabeledTextFieldCell : XLFormBaseCell, UITextFieldDelegate {
     override func update() {
         super.update()
         if let rowDescriptor = rowDescriptor {
-            floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: rowDescriptor.title ?? "" , attributes: [NSAttributedStringKey.foregroundColor: UIColor.lightGray])
+            floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: rowDescriptor.title ?? "" , attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
             if let value = rowDescriptor.value {
                 floatLabeledTextField.text = (value as AnyObject).displayText()
             }

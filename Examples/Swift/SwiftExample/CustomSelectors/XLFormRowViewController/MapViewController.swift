@@ -42,7 +42,7 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
     var rowDescriptor: XLFormRowDescriptor?
     lazy var mapView : MKMapView = { [unowned self] in
         let mapView = MKMapView(frame: self.view.frame)
-        mapView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
+        mapView.autoresizingMask = [UIView.AutoresizingMask.flexibleHeight, UIView.AutoresizingMask.flexibleWidth]
         return mapView
     }()
     
@@ -73,14 +73,14 @@ class MapViewController : UIViewController, XLFormRowDescriptorViewController, M
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 
         let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "annotation")
-        pinAnnotationView.pinColor =  MKPinAnnotationColor.red
+        pinAnnotationView.pinTintColor = .red
         pinAnnotationView.isDraggable = true
         pinAnnotationView.animatesDrop = true
         return pinAnnotationView
     }
     
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
         if (newState == .ending){
             if let rowDescriptor = rowDescriptor, let annotation = view.annotation {
                 rowDescriptor.value = CLLocation(latitude:annotation.coordinate.latitude, longitude:annotation.coordinate.longitude)
