@@ -88,7 +88,7 @@ class InlineSegmentedControl : XLFormBaseCell, XLFormInlineRowDescriptorCell {
     
     var inlineRowDescriptor : XLFormRowDescriptor?
     lazy var segmentedControl : UISegmentedControl = {
-        return UISegmentedControl.autolayoutView() as! UISegmentedControl
+        return UISegmentedControl.autolayout()!
     }()
     
     override func configure() {
@@ -118,7 +118,7 @@ class InlineSegmentedControl : XLFormBaseCell, XLFormInlineRowDescriptorCell {
     func getItems() -> NSMutableArray {
         let result = NSMutableArray()
         for option in inlineRowDescriptor!.selectorOptions! {
-            result.add((option as AnyObject).displayText())
+            result.add((option as AnyObject).displayText() ?? "")
         }
         return result
     }
@@ -135,7 +135,7 @@ class InlineSegmentedControl : XLFormBaseCell, XLFormInlineRowDescriptorCell {
         if let value = formRow?.value as? NSObject {
             for option in (formRow?.selectorOptions)! {
                 if ((option as! NSObject).valueData() as AnyObject) === (value.valueData() as AnyObject) {
-                    return formRow?.selectorOptions?.index(where: { ($0 as! NSObject) == (option as! NSObject) } ) ?? -1
+                    return formRow?.selectorOptions?.firstIndex(where: { ($0 as! NSObject) == (option as! NSObject) } ) ?? -1
                 }
             }
         }

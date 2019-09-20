@@ -141,7 +141,7 @@ class DatesFormViewController: XLFormViewController {
 
         // DatePicker
         row = XLFormRowDescriptor(tag: Tags.DatePicker, rowType:XLFormRowDescriptorTypeDatePicker)
-        row.cellConfigAtConfigure["datePicker.datePickerMode"] = UIDatePickerMode.date.rawValue
+        row.cellConfigAtConfigure["datePicker.datePickerMode"] = UIDatePicker.Mode.date.rawValue
         row.value = Date()
         section.addFormRow(row)
         
