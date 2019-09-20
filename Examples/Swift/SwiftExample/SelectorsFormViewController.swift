@@ -129,11 +129,11 @@ class SelectorsFormViewController : XLFormViewController {
         
         // Selector Push
         row = XLFormRowDescriptor(tag: Tags.Push, rowType:XLFormRowDescriptorTypeSelectorPush, title:"Push")
-        row.selectorOptions = [XLFormOptionsObject(value: 0, displayText: "Option 1"),
-                                    XLFormOptionsObject(value: 1, displayText:"Option 2"),
-                                    XLFormOptionsObject(value: 2, displayText:"Option 3"),
-                                    XLFormOptionsObject(value: 3, displayText:"Option 4"),
-                                    XLFormOptionsObject(value: 4, displayText:"Option 5")
+        row.selectorOptions = [XLFormOptionsObject(value: 0, displayText: "Option 1")!,
+                                    XLFormOptionsObject(value: 1, displayText:"Option 2")!,
+                                    XLFormOptionsObject(value: 2, displayText:"Option 3")!,
+                                    XLFormOptionsObject(value: 3, displayText:"Option 4")!,
+                                    XLFormOptionsObject(value: 4, displayText:"Option 5")!
                                     ]
         row.value = XLFormOptionsObject(value: 1, displayText:"Option 2")
         section.addFormRow(row)

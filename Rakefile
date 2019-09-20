@@ -3,7 +3,7 @@ include FileUtils::Verbose
 namespace :test do
   desc "Run the XLForm Tests"
   task :ios do
-    run_tests('XLForm Tests', 'iphonesimulator13.0')
+    run_tests('XLForm Tests', 'iphonesimulator')
     tests_failed unless $?.success?
   end
 end
