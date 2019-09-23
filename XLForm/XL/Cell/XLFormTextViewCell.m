@@ -107,8 +107,34 @@ NSString *const XLFormTextViewMaxNumberOfCharacters = @"textViewMaxNumberOfChara
     self.textView.keyboardType = UIKeyboardTypeDefault;
     self.textView.text = self.rowDescriptor.value;
     [self.textView setEditable:!self.rowDescriptor.isDisabled];
-    self.textView.textColor  = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
     self.textLabel.text = ((self.rowDescriptor.required && self.rowDescriptor.title && self.rowDescriptor.sectionDescriptor.formDescriptor.addAsteriskToRequiredRowsTitle) ? [NSString stringWithFormat:@"%@*", self.rowDescriptor.title]: self.rowDescriptor.title);
+    self.textView.backgroundColor = self.textLabel.backgroundColor;
+    
+    UIColor * textColor = nil;
+    UIColor * disabledTextColor = nil;
+    
+    if (@available(iOS 13.0, *)) {
+        textColor = [self traitCollection].userInterfaceStyle == UIUserInterfaceStyleDark ? [UIColor systemGrayColor] : [UIColor blackColor];
+        disabledTextColor = [UIColor systemGray3Color];
+    }
+    
+    else if (@available(iOS 12.0, *)) {
+        textColor = [self traitCollection].userInterfaceStyle == UIUserInterfaceStyleDark ? [UIColor lightTextColor] : [UIColor darkTextColor];
+        disabledTextColor = [UIColor systemGrayColor];
+    }
+
+    else {
+        textColor = [UIColor blackColor];
+        disabledTextColor = [UIColor grayColor];
+    }
+    
+    
+    if (self.rowDescriptor.isDisabled) {
+        self.textView.textColor = disabledTextColor;
+    }
+    else {
+        self.textView.textColor = textColor;
+    }
 }
 
 +(CGFloat)formDescriptorCellHeightForRowDescriptor:(XLFormRowDescriptor *)rowDescriptor

@@ -50,7 +50,32 @@
 {
     self.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.textLabel.textColor  = self.rowDescriptor.isDisabled ? [UIColor grayColor] : [UIColor blackColor];
+
+    UIColor * textColor = nil;
+    UIColor * disabledTextColor = nil;
+    
+    if (@available(iOS 13.0, *)) {
+        textColor = [UIColor labelColor];
+        disabledTextColor = [UIColor systemGray3Color];
+    }
+    
+    else if (@available(iOS 12.0, *)) {
+        textColor = [self traitCollection].userInterfaceStyle == UIUserInterfaceStyleDark ? [UIColor lightTextColor] : [UIColor darkTextColor];
+        disabledTextColor = [UIColor systemGrayColor];
+    }
+
+    else {
+        textColor = [UIColor blackColor];
+        disabledTextColor = [UIColor grayColor];
+    }
+    
+    
+    if (self.rowDescriptor.isDisabled) {
+        self.textLabel.textColor = disabledTextColor;
+    }
+    else {
+        self.textLabel.textColor = textColor;
+    }
 }
 
 -(void)highlight
