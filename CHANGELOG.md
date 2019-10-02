@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+### Version 4.1.0:
+* Fix crash when .Nib is inside a framework bundle. (#1050)
+* iOS 13 dark mode support. (#1057)
+* Updates for Swift 5 in Examples
+
 ### Version 4.0.1:
 * Memory improvements and fixes.
 * Other minor fixes
