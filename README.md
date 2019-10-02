@@ -1128,7 +1128,7 @@ Installation
 ## CocoaPods
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 4.0'`.
+`pod 'XLForm', '~> 4.1'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
@@ -1158,7 +1158,7 @@ For further details on how to create and configure the bridging header file visi
 In your `Cartfile` add:
 
 ```
-github "xmartlabs/XLForm" ~> 4.0
+github "xmartlabs/XLForm" ~> 4.1
 ```
 
 ## Using git submodules
