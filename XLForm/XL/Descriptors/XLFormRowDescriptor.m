@@ -128,7 +128,7 @@ NSString * const XLHidePredicateCacheKey = @"hidePredicateCache";
     return [[[self class] alloc] initWithTag:tag rowType:rowType title:title];
 }
 
--(XLFormBaseCell *)cellForFormController:(XLFormViewController * __unused)formController
+-(XLFormBaseCell *)cellForFormController:(XLFormViewController *)formController
 {
     if (!_cell) {
         id cellClass = self.cellClass ?: [XLFormViewController cellClassesForRowDescriptorTypes][self.rowType];
@@ -160,6 +160,7 @@ NSString * const XLHidePredicateCacheKey = @"hidePredicateCache";
             _cell = [[bundleForCaller loadNibNamed:cellResource owner:nil options:nil] firstObject];
         } else {
             _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
+            _cell.tintColor = formController.view.tintColor;
         }
         
         _cell.rowDescriptor = self;
