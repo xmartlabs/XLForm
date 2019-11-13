@@ -43,6 +43,7 @@ typedef NS_OPTIONS(NSUInteger, XLFormRowNavigationOptions) {
     XLFormRowNavigationOptionStopDisableRow                     = 1 << 1,
     XLFormRowNavigationOptionSkipCanNotBecomeFirstResponderRow  = 1 << 2,
     XLFormRowNavigationOptionStopInlineRow                      = 1 << 3,
+    XLFormRowNavigationOption3rdParty                           = 1 << 4
 };
 
 @class XLFormSectionDescriptor;
