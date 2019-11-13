@@ -190,6 +190,9 @@
                 [controller.tableView deselectRowAtIndexPath:[controller.tableView indexPathForCell:self]
                                                     animated:YES];
             }
+            else if ([selectorViewController isKindOfClass:[UINavigationController class]]) {
+                [controller presentViewController:selectorViewController animated:YES completion:nil];
+            }
             else {
                 [controller.navigationController pushViewController:selectorViewController animated:YES];
             }
