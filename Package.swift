@@ -15,17 +15,23 @@ let package = Package(
         .target(
             name: "XLForm",
             dependencies: [],
+
+            // Required to build package
             path: "XLForm",
-//            publicHeadersPath: "XLForm/XL",
-            cSettings: [
-                .headerSearchPath("XL"),
-                .headerSearchPath("XL/Cell"),
-                .headerSearchPath("XL/Controllers"),
-                .headerSearchPath("XL/Descriptors"),
-                .headerSearchPath("XL/Helpers"),
-                .headerSearchPath("XL/Helpers/Views"),
-                .headerSearchPath("XL/Validation"),
-            ]
+
+            // Required for Xcode to find import header when building app
+            publicHeadersPath: "XL"//,
+
+            // Required to build package
+//            cSettings: [
+//                .headerSearchPath("XL"),
+//                .headerSearchPath("XL/Cell"),
+//                .headerSearchPath("XL/Controllers"),
+//                .headerSearchPath("XL/Descriptors"),
+//                .headerSearchPath("XL/Helpers"),
+//                .headerSearchPath("XL/Helpers/Views"),
+//                .headerSearchPath("XL/Validation"),
+//            ]
         )
     ]
 )

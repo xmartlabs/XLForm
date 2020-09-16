@@ -419,6 +419,7 @@
 				TargetAttributes = {
 					E267FD1F1BE8048900F86B42 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 1170;
 					};
 				};
 			};
@@ -427,6 +428,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = E267FD161BE8048900F86B42;
@@ -608,6 +610,7 @@
 		E267FD291BE8048900F86B42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -619,12 +622,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.XLForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		E267FD2A1BE8048900F86B42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -636,6 +642,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.XLForm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
