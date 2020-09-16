@@ -16,7 +16,7 @@ let package = Package(
             name: "XLForm",
             dependencies: [],
             path: "XLForm",
-            publicHeadersPath: "XLForm/XL",
+//            publicHeadersPath: "XLForm/XL",
             cSettings: [
                 .headerSearchPath("XL"),
                 .headerSearchPath("XL/Cell"),
