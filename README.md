@@ -1125,6 +1125,28 @@ You can make this happen using the `textFieldMaxNumberOfCharacters` and the `tex
 Installation
 --------------------------
 
+## Swift Package Manager
+
+Starting with Xcode 11, Swift Package Manager is the recommended and preferred way for installing dependencies in Xcode projects. Installing dependencies via SwiftPM does not require the application nor dependencies to be written in Swift.
+
+To add XLForm to your project using SwiftPM follow these steps:
+
+1. Open your project in Xcode
+1. In the main menu, select File -> Swift Packages -> Add Package Dependency...
+1. In the window, enter the package url https://github.com/xmartlabs/XLFom
+1. Configure the version to be used
+
+To use XLForm in your code, import the module or header files as needed:
+
+```objc
+#import "XLForm.h"  // Obj-c
+```
+
+```swift
+import XLForm       // Swift
+```
+
+
 ## CocoaPods
 
 1. Add the following line in the project's Podfile file:
@@ -1182,7 +1204,7 @@ Requirements
 
 * ARC
 * iOS 9.0 and above
-* XCode 9.0+
+* Xcode 9.0+ (11.0+ for installation via Swift Package Manager)
 
 
 Release Notes
