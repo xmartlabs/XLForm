@@ -1133,7 +1133,7 @@ To add XLForm to your project using SwiftPM follow these steps:
 
 1. Open your project in Xcode
 1. In the main menu, select File -> Swift Packages -> Add Package Dependency...
-1. In the window, enter the package url https://github.com/xmartlabs/XLFom
+1. In the window, enter the package url https://github.com/xmartlabs/XLForm
 1. Configure the version to be used
 
 To use XLForm in your code, import the module or header files as needed:
