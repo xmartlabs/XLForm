@@ -1,8 +1,7 @@
 language: objective-c
-osx_image: xcode11
+osx_image: xcode12
 before_install:
     - gem install cocoapods --quiet
     - gem install xcpretty --quiet
     - cd Tests && pod install && cd $TRAVIS_BUILD_DIR
 script: rake test
-

@@ -17,7 +17,7 @@ task :default => 'test'
 private
 
 def run_tests(scheme, sdk)
-  sh("xcodebuild -workspace 'Tests/XLForm Tests.xcworkspace' -scheme '#{scheme}' -sdk '#{sdk}' -destination 'OS=13.0,name=iPhone 8' -configuration Release clean test | xcpretty -c ; exit ${PIPESTATUS[0]}") rescue nil
+  sh("xcodebuild -workspace 'Tests/XLForm Tests.xcworkspace' -scheme '#{scheme}' -sdk '#{sdk}' -destination 'OS=14.0,name=iPhone 11' -configuration Release clean test | xcpretty -c ; exit ${PIPESTATUS[0]}") rescue nil
 end
 
 def tests_failed
