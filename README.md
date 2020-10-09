@@ -156,7 +156,7 @@ A form definition is a `XLFormDescriptor` instance that contains one or more sec
   row = [XLFormRowDescriptor formRowDescriptorWithTag:@"starts" rowType:XLFormRowDescriptorTypeDateTimeInline title:@"Starts"];
   row.value = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
   [section addFormRow:row];
-  
+
   self.form = form;
 }
 ```
@@ -494,7 +494,7 @@ Set `steps` to `@(0)` to disable the steps functionality.
 
 ##### Info
 
-Sometimes our apps needs to show data that are not editable. XLForm provides us with `XLFormRowDescriptorTypeInfo` row type to display not editable info. An example of usage would be showing the app version in the settings part of an app.  
+Sometimes our apps needs to show data that are not editable. XLForm provides us with `XLFormRowDescriptorTypeInfo` row type to display not editable info. An example of usage would be showing the app version in the settings part of an app.
 
 ##### Button
 
@@ -504,7 +504,7 @@ Apart from data entry rows, not editable rows and selectors, XLForm has a button
 Multivalued Sections (Insert, Delete, Reorder rows)
 ------------------------
 
-Any `XLFormSectionDescriptor` object can be set up to support row insertion, deletion or reodering. It is possible to enable only one of these modes, a combination or all together.  
+Any `XLFormSectionDescriptor` object can be set up to support row insertion, deletion or reodering. It is possible to enable only one of these modes, a combination or all together.
 A multivalued section is just a section that support either of these modes.
 
 The most interesting part of multivalued `XLFormSectionDescriptor` is that it supports all the types of rows that were shown on the [*Rows*](#rows "Rows") section as well as custom rows.
@@ -668,7 +668,7 @@ row.action.viewControllerClass = [MapViewController class];
 // or
 //row.action.viewControllerNibName = @"MapViewControllerNibName";
 
-// Set up a NSValueTransformer to convert CLLocation to NSString, it's used to show the select value description (text).  
+// Set up a NSValueTransformer to convert CLLocation to NSString, it's used to show the select value description (text).
 row.valueTransformer = [CLLocationValueTrasformer class];
 // Set up the default value
 row.value = [[CLLocation alloc] initWithLatitude:-33 longitude:-56];
@@ -692,7 +692,7 @@ XLForm sets up `rowDescriptor` property using the `XLFormRowDescriptor` instance
 
 The developer is responsible for update its views with the `rowDescriptor` value as well as set the selected value to `rowDescriptor` from within the custom selector view controller.
 
-> Note: the properties `viewControllerClass`, `viewControllerNibName` or `viewControllerStoryboardId` are mutually exclusive and are used by `XLFormButtonCell` and `XLFormSelectorCell`. If you create a custom cell then you are responsible for using them. 
+> Note: the properties `viewControllerClass`, `viewControllerNibName` or `viewControllerStoryboardId` are mutually exclusive and are used by `XLFormButtonCell` and `XLFormSelectorCell`. If you create a custom cell then you are responsible for using them.
 
 
 #### Another example
@@ -1100,10 +1100,10 @@ This is how you can set them:
 
 #### How to change the height of one cell
 
-If you want to change the height for all cells of one class you should subclass that cell and override the class method `formDescriptorCellHeightForRowDescriptor`. 
+If you want to change the height for all cells of one class you should subclass that cell and override the class method `formDescriptorCellHeightForRowDescriptor`.
 If you want to change the height of one individual cell then you can set that height to the `height` property of XLFormRowDescripto like this:
 ```
-XLFormRowDescriptor* row = ... 
+XLFormRowDescriptor* row = ...
 row.height = 55;
 ```
 
@@ -1150,7 +1150,7 @@ import XLForm       // Swift
 ## CocoaPods
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 4.1'`.
+`pod 'XLForm', '~> 4.2'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
@@ -1180,7 +1180,7 @@ For further details on how to create and configure the bridging header file visi
 In your `Cartfile` add:
 
 ```
-github "xmartlabs/XLForm" ~> 4.1
+github "xmartlabs/XLForm" ~> 4.2
 ```
 
 ## Using git submodules
