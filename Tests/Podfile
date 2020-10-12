@@ -1,4 +1,4 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 project 'XLForm Tests'
 inhibit_all_warnings!
 
