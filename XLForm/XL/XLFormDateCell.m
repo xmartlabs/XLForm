@@ -48,6 +48,7 @@
             [self.datePicker setDate:self.rowDescriptor.value animated:[self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimer]];
         }
         [self setModeToDatePicker:self.datePicker];
+        [self setStyleToDatePicker:self.datePicker];
         return self.datePicker;
     }
     return [super inputView];
@@ -74,6 +75,7 @@
             XLFormRowDescriptor * datePickerRowDescriptor = [XLFormRowDescriptor formRowDescriptorWithTag:nil rowType:XLFormRowDescriptorTypeDatePicker];
             XLFormDatePickerCell * datePickerCell = (XLFormDatePickerCell *)[datePickerRowDescriptor cellForFormController:self.formViewController];
             [self setModeToDatePicker:datePickerCell.datePicker];
+            [self setStyleToDatePicker:datePickerCell.datePicker];
             if (self.rowDescriptor.value){                
                 [datePickerCell.datePicker setDate:self.rowDescriptor.value animated:[self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeCountDownTimerInline]];
             }
@@ -225,6 +227,26 @@
     }
 }
 
+-(void)setStyleToDatePicker:(UIDatePicker *)datePicker
+{
+    if (@available(iOS 14.0, *)) {
+        switch (self.formDatePickerStyle) {
+            case XLFormDateDatePickerStyleInline:
+                datePicker.preferredDatePickerStyle = UIDatePickerStyleInline;
+                break;
+            case XLFormDateDatePickerStyleCompact:
+                datePicker.preferredDatePickerStyle = UIDatePickerStyleCompact;
+                break;
+            case XLFormDateDatePickerStyleWheels:
+                datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+                break;
+            default:
+                datePicker.preferredDatePickerStyle = UIDatePickerStyleAutomatic;
+                break;
+        }
+    }
+}
+
 #pragma mark - Properties
 
 -(UIDatePicker *)datePicker
@@ -232,6 +254,7 @@
     if (_datePicker) return _datePicker;
     _datePicker = [[UIDatePicker alloc] init];
     [self setModeToDatePicker:_datePicker];
+    [self setStyleToDatePicker:_datePicker];
     [_datePicker addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     return _datePicker;
 }
@@ -262,6 +285,7 @@
             if ([nextFormRow.rowType isEqualToString:XLFormRowDescriptorTypeDatePicker]){
                 XLFormDatePickerCell * datePickerCell = (XLFormDatePickerCell *)[nextFormRow cellForFormController:self.formViewController];
                 [self setModeToDatePicker:datePickerCell.datePicker];
+                [self setStyleToDatePicker:datePickerCell.datePicker];
             }
         }
     }
