@@ -1150,7 +1150,7 @@ import XLForm       // Swift
 ## CocoaPods
 
 1. Add the following line in the project's Podfile file:
-`pod 'XLForm', '~> 4.2'`.
+`pod 'XLForm', '~> 4.3'`.
 2. Run the command `pod install` from the Podfile folder directory.
 
 XLForm **has no** dependencies over other pods.
