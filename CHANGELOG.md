@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+### Version 4.3.0:
+* Add datePicker style property to XLFormDateCell (#1078)
+
 ### Version 4.2.0:
 * Support for Swift Package Manager (#1073)
 * Fix Carthage build (#1075)
