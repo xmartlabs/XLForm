@@ -28,7 +28,7 @@
 
 @implementation NSArray (XLFormAdditions)
 
--(NSInteger)formIndexForItem:(id)item
+-(NSInteger)formIndexForItem:(nonnull id)item
 {
     for (id selectedValueItem in self) {
         if ([[selectedValueItem valueData] isEqual:[item valueData]]){

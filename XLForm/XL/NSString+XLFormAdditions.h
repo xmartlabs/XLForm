@@ -28,8 +28,8 @@
 
 @interface NSString (XLFormAdditions)
 
--(NSPredicate *)formPredicate;
+-(nonnull NSPredicate *)formPredicate;
 
--(NSString *)formKeyForPredicateType:(XLPredicateType)predicateType;
+-(nonnull NSString *)formKeyForPredicateType:(XLPredicateType)predicateType;
 
 @end

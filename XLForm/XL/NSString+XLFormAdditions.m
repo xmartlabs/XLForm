@@ -27,7 +27,7 @@
 
 @implementation NSString (XLFormAdditions)
 
--(NSPredicate *)formPredicate
+-(nonnull NSPredicate *)formPredicate
 {
     // returns an array of strings where the first one is the new string with the correct replacements
     // and the rest are all the tags that appear in the string
@@ -57,7 +57,7 @@
 }
 
 
--(NSString *)formKeyForPredicateType:(XLPredicateType)predicateType
+-(nonnull NSString *)formKeyForPredicateType:(XLPredicateType)predicateType
 {
     return [NSString stringWithFormat:@"%@-%@", self, (predicateType == XLPredicateTypeHidden ? @"hidden" : @"disabled") ];
 }

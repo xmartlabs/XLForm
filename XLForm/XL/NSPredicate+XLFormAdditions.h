@@ -27,5 +27,5 @@
 
 @interface NSPredicate (XLFormAdditions)
 
--(NSMutableArray*) getPredicateVars;
+-(nonnull NSMutableArray*) getPredicateVars;
 @end

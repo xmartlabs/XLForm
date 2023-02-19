@@ -27,6 +27,6 @@
 
 @interface NSArray (XLFormAdditions)
 
--(NSInteger)formIndexForItem:(id)item;
+-(NSInteger)formIndexForItem:(nonnull id)item;
 
 @end

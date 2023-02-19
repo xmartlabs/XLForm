@@ -28,6 +28,6 @@
 
 @interface NSExpression (XLFormAdditions)
 
--(NSMutableArray*) getExpressionVars;
+-(nullable NSMutableArray*) getExpressionVars;
 
 @end

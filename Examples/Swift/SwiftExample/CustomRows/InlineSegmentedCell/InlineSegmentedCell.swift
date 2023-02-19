@@ -88,7 +88,7 @@ class InlineSegmentedControl : XLFormBaseCell, XLFormInlineRowDescriptorCell {
     
     var inlineRowDescriptor : XLFormRowDescriptor?
     lazy var segmentedControl : UISegmentedControl = {
-        return UISegmentedControl.autolayout()!
+        return UISegmentedControl.autolayout()
     }()
     
     override func configure() {
