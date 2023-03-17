@@ -1,7 +1,4 @@
-XLForm
----------------
-
-By [XMARTLABS](http://xmartlabs.com).
+![XLForm](https://raw.githubusercontent.com/xmartlabs/XLForm/master/XLForm.png)
 
 [![Build Status](https://travis-ci.org/xmartlabs/XLForm.svg?branch=master)](https://travis-ci.org/xmartlabs/XLForm)
 <a href="https://cocoapods.org/pods/XLForm"><img src="https://img.shields.io/cocoapods/v/XLForm.svg" alt="CocoaPods compatible" /></a>
