@@ -14,4 +14,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '9.0'
   s.ios.frameworks = 'UIKit', 'Foundation', 'CoreGraphics'
   s.resource = 'XLForm/XLForm.bundle'
+  s.watchos.deployment_target = '2.2'
 end
