@@ -110,10 +110,10 @@ NSString *const XLFormTextFieldLengthPercentage = @"textFieldLengthPercentage";
         self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeInteger]){
-        self.textField.keyboardType = UIKeyboardTypeNumberPad;
+        self.textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypeDecimal]){
-        self.textField.keyboardType = UIKeyboardTypeDecimalPad;
+        self.textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     }
     else if ([self.rowDescriptor.rowType isEqualToString:XLFormRowDescriptorTypePassword]){
         self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
