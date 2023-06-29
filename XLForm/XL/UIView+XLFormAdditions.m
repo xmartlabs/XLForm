@@ -27,7 +27,7 @@
 
 @implementation UIView (XLFormAdditions)
 
-+ (instancetype)autolayoutView
++ (nonnull instancetype)autolayoutView
 {
     __kindof UIView *view = [self new];
     view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -35,7 +35,7 @@
     return view;
 }
 
-- (NSLayoutConstraint *)layoutConstraintSameHeightOf:(UIView *)view
+- (nonnull NSLayoutConstraint *)layoutConstraintSameHeightOf:(nonnull UIView *)view
 {
     return [NSLayoutConstraint constraintWithItem:self
                                         attribute:NSLayoutAttributeHeight
@@ -46,7 +46,7 @@
                                          constant:0.0];
 }
 
-- (UIView *)findFirstResponder
+- (nullable UIView *)findFirstResponder
 {
     UIView *firstResponder = nil;
     if (self.isFirstResponder) {
@@ -66,7 +66,7 @@
     return firstResponder;
 }
 
-- (UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell
+- (nullable UITableViewCell<XLFormDescriptorCell> *)formDescriptorCell
 {
     UITableViewCell<XLFormDescriptorCell> * tableViewCell = nil;
     

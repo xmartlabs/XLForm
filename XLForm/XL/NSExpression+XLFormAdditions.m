@@ -29,7 +29,7 @@
 @implementation NSExpression (XLFormAdditions)
 
 
--(NSMutableArray*) getExpressionVars{
+-(nullable NSMutableArray*) getExpressionVars{
     switch (self.expressionType) {
         case NSFunctionExpressionType:{
             NSString* str = [NSString stringWithFormat:@"%@", self];
@@ -38,11 +38,9 @@
             else
                 str = [str substringFromIndex:1];
             return [[NSMutableArray alloc] initWithObjects: str, nil];
-            break;
         }
         default:
             return nil;
-            break;
     }
 }
 

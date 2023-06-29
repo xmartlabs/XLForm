@@ -27,7 +27,7 @@
 
 @interface NSObject (XLFormAdditions)
 
--(NSString *)displayText;
--(id)valueData;
+-(nullable NSString *)displayText;
+-(nullable id)valueData;
 
 @end

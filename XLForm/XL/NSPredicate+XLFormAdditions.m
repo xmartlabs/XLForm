@@ -28,7 +28,7 @@
 @implementation NSPredicate (XLFormAdditions)
 
 
--(NSMutableArray*) getPredicateVars{
+-(nonnull NSMutableArray*) getPredicateVars{
     NSMutableArray* ret = [[NSMutableArray alloc] init];
     if ([self isKindOfClass:([NSCompoundPredicate class])]) {
         for (id object in ((NSCompoundPredicate*) self).subpredicates ) {

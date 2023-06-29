@@ -43,7 +43,7 @@ PODS:
   - XLData/RemoteDataStore (2.0.0):
     - XLData/CoreRemote
     - XLData/DataStore
-  - XLForm (4.2.0)
+  - XLForm (4.3.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
@@ -78,8 +78,8 @@ SPEC CHECKSUMS:
   JVFloatLabeledTextField: 58a3a32cfb800e5b224f676987e7c13abf50a14d
   SHSPhoneComponent: 4cec0653a150ad63cbc52b0c8b29ce2d3c9c26f0
   XLData: df725c6179e2e0c80bf56a1ecad9afd169707a6d
-  XLForm: eb04ea4104f26250b70a72a7fa2eed3748dca5cd
+  XLForm: a439f9512078ed538e8335c8b06d3f3286bbfd37
 
 PODFILE CHECKSUM: 64fbcd03a2c13762b2c18e3938cc8008807937c9
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.11.3

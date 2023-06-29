@@ -29,7 +29,7 @@
 
 @implementation NSObject (XLFormAdditions)
 
--(NSString *)displayText
+-(nullable NSString *)displayText
 {
     if ([self conformsToProtocol:@protocol(XLFormOptionObject)]){
         return [(id<XLFormOptionObject>)self formDisplayText];
@@ -40,7 +40,7 @@
     return nil;
 }
 
--(id)valueData
+-(nullable id)valueData
 {
     if ([self isKindOfClass:[NSString class]] || [self isKindOfClass:[NSNumber class]] || [self isKindOfClass:[NSDate class]]){
         return self;
